@@ -1,14 +1,25 @@
+Nov    25, 2003 : Otto Bruggeman
+	* Fix nasty looping to the end of the file when hitting previous difference on the first difference in the first file
+
+Nov    25, 2003 : Laurent Montel
+	* Fix memleak, QStringList is implicitly shared so no need for a reference, it is already a pointer to data thing
+
 Nov    23, 2003 : Otto Bruggeman
+	* Fixed version string (bug 68872)
+	* Fix for 68871 (added slotNextDifference to slotApplyDifference())
+	* Fix for a crash: dont call blendOriginalIntoModelList with Kompare::ShowingDiff
+
+Nov    22, 2003 : Otto Bruggeman
 	* Fix to make the bugs.kde.org dialog pop up instead of sending a mail to John when pressing 
 	  Help->Report bug... Also added my homepage since it has always been kompare's home imo.
 
-Nov    23, 2003 : Otto Bruggeman
+Nov    22, 2003 : Otto Bruggeman
 	* Rework the blendFile method so it actually works and as a bonus is a bit faster
 	  This introduces a new form of show entire file when comparing, one that works
 	  And because of it, it saves files properly now because the entire file is now available even if 
 	  you have a single line change in a million line file with only 2 context lines in the diff.
 
-Nov    23, 2003 : Otto Bruggeman
+Nov    22, 2003 : Otto Bruggeman
 	* Remove the Show entire file option. It only causes problems at the moment
 	  Fixes bug 68729
 

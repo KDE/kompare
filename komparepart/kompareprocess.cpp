@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiffprocess.cpp  -  description
+                                kompareprocess.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -24,9 +24,9 @@
 #include <kio/netaccess.h>
 
 #include "diffsettings.h"
-#include "kdiffprocess.h"
+#include "kompareprocess.h"
 
-KDiffProcess::KDiffProcess( QString source, QString destination, QString dir, DiffSettings* diffSettings )
+KompareProcess::KompareProcess( QString source, QString destination, QString dir, DiffSettings* diffSettings )
 	: KShellProcess()
 {
 	// connect the stdout and stderr signals
@@ -56,12 +56,12 @@ KDiffProcess::KDiffProcess( QString source, QString destination, QString dir, Di
 	*this << constructRelativePath( dir, destination );
 }
 
-void KDiffProcess::writeDefaultCommandLine()
+void KompareProcess::writeDefaultCommandLine()
 {
 	*this << "diff" << "-U65535" << "-dr";
 }
 
-void KDiffProcess::writeCommandLine( DiffSettings* diffSettings )
+void KompareProcess::writeCommandLine( DiffSettings* diffSettings )
 {
 	// load the executable into the KProcess
 	*this << "diff";
@@ -144,22 +144,22 @@ void KDiffProcess::writeCommandLine( DiffSettings* diffSettings )
 	}
 }
 
-KDiffProcess::~KDiffProcess()
+KompareProcess::~KompareProcess()
 {}
 
-void KDiffProcess::receivedStdout( KProcess* /* process */, char* buffer, int length )
+void KompareProcess::receivedStdout( KProcess* /* process */, char* buffer, int length )
 {
 	// add all output to m_stdout
 	m_stdout += QString::fromLatin1( buffer, length );
 }
 
-void KDiffProcess::receivedStderr( KProcess* /* process */, char* buffer, int length )
+void KompareProcess::receivedStderr( KProcess* /* process */, char* buffer, int length )
 {
 	// add all output to m_stderr
 	m_stderr += QString::fromLatin1( buffer, length );
 }
 
-bool KDiffProcess::start()
+bool KompareProcess::start()
 {
 #ifndef NDEBUG
 	QString cmdLine;
@@ -172,7 +172,7 @@ bool KDiffProcess::start()
 	return( KShellProcess::start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
 }
 
-void KDiffProcess::processExited( KProcess* /* proc */ )
+void KompareProcess::processExited( KProcess* /* proc */ )
 {
 	// exit status of 0: no differences
 	//                1: some differences
@@ -180,9 +180,9 @@ void KDiffProcess::processExited( KProcess* /* proc */ )
 	emit diffHasFinished( normalExit() && exitStatus() == 1 );
 }
 
-const QStringList KDiffProcess::getDiffOutput()
+const QStringList KompareProcess::getDiffOutput()
 {
 	return QStringList::split( "\n", m_stdout );
 }
 
-#include "kdiffprocess.moc"
+#include "kompareprocess.moc"

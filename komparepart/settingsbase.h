@@ -26,9 +26,9 @@
 
 #include <kconfig.h>
 
-#include "kdiff.h"
+#include "kompare.h"
 
-class SettingsBase : public QObject, KDiff
+class SettingsBase : public QObject, Kompare
 {
 Q_OBJECT
 public:

@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiff_part.h  -  description
+                                kompare_part.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -17,15 +17,15 @@
 **
 ***************************************************************************/
 
-#ifndef KDIFFPART_H
-#define KDIFFPART_H
+#ifndef KOMPAREPART_H
+#define KOMPAREPART_H
 
 #include <kparts/factory.h>
 #include <kparts/part.h>
 
 #include "diffmodel.h"
-#include "kdiff.h"
-#include "kdiffmodellist.h"
+#include "kompare.h"
+#include "komparemodellist.h"
 
 class QWidget;
 
@@ -34,11 +34,11 @@ class KURL;
 
 class DiffSettings;
 class GeneralSettings;
-class KDiffView;
-class KDiffNavigationTree;
-class KDifferencesAction;
-class KDiffProcess;
-class KDiffStatsDlg;
+class KompareView;
+class KompareNavigationTree;
+class KompareerencesAction;
+class KompareProcess;
+class KompareStatsDlg;
 class MiscSettings;
 
 /**
@@ -49,20 +49,20 @@ class MiscSettings;
 * @author John Firebaugh <jfirebaugh@kde.org>
 * @version 0.1
 */
-class KDiffPart : public KParts::ReadWritePart, KDiff
+class KomparePart : public KParts::ReadWritePart, Kompare
 {
 	Q_OBJECT
 public:
 	/**
 	* Default constructor
 	*/
-	KDiffPart( QWidget *parentWidget, const char *widgetName,
+	KomparePart( QWidget *parentWidget, const char *widgetName,
 	           QObject *parent, const char *name);
 
 	/**
 	* Destructor
 	*/
-	virtual ~KDiffPart();
+	virtual ~KomparePart();
 
 	/**
 	 * Create the navigation widget. For example, this may be embedded in a dock
@@ -128,7 +128,7 @@ protected:
 	bool saveFile() { return true; };
 
 protected slots:
-	void slotSetStatus( KDiffModelList::Status status );
+	void slotSetStatus( KompareModelList::Status status );
 	void slotShowError( QString error );
 	void slotModelsChanged();
 	
@@ -158,12 +158,12 @@ private:
 	static DiffSettings*       m_diffSettings;
 	static MiscSettings*       m_miscSettings;
 
-	KDiffModelList*        m_models;
+	KompareModelList*        m_models;
 	int                    m_selectedModel;
 	int                    m_selectedDifference;
 
-	KDiffView*             m_diffView;
-	KDiffNavigationTree*   m_navigationTree;
+	KompareView*             m_diffView;
+	KompareNavigationTree*   m_navigationTree;
 	KAction*               m_save;
 	KAction*               m_saveAll;
 	KAction*               m_saveDiff;
@@ -176,7 +176,7 @@ private:
 	KAction*               m_nextFile;
 	KAction*               m_previousDifference;
 	KAction*               m_nextDifference;
-	KDifferencesAction*    m_differences;
+	KompareerencesAction*    m_differences;
 	
 	KTempFile*             m_tempDiff;
 };
@@ -184,12 +184,12 @@ private:
 class KInstance;
 class KAboutData;
 
-class KDiffPartFactory : public KParts::Factory
+class KomparePartFactory : public KParts::Factory
 {
 	Q_OBJECT
 public:
-	KDiffPartFactory();
-	virtual ~KDiffPartFactory();
+	KomparePartFactory();
+	virtual ~KomparePartFactory();
 	virtual KParts::Part* createPartObject( QWidget *parentWidget, const char *widgetName,
 											QObject *parent, const char *name,
 											const char *classname, const QStringList &args );
@@ -200,4 +200,4 @@ private:
 	static KAboutData* s_about;
 };
 
-#endif // KDIFFPART_H
+#endif // KOMPAREPART_H

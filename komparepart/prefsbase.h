@@ -26,9 +26,9 @@
 #include <kconfig.h>
 #include <ktabctl.h>
 
-#include "kdiff.h"
+#include "kompare.h"
 
-class PrefsBase : public KTabCtl, KDiff
+class PrefsBase : public KTabCtl, Kompare
 {
 Q_OBJECT
 public: 

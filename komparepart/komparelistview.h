@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdifflistview.h  -  description
+                                komparelistview.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -17,8 +17,8 @@
 **
 ***************************************************************************/
 
-#ifndef KDIFFLISTVIEW_H
-#define KDIFFLISTVIEW_H
+#ifndef KOMPARELISTVIEW_H
+#define KOMPARELISTVIEW_H
 
 #include <qptrlist.h>
 #include <qptrdict.h>
@@ -29,22 +29,22 @@ class DiffModel;
 class DiffHunk;
 class Difference;
 class GeneralSettings;
-class KDiffListViewItem;
-class KDiffListViewDiffItem;
-class KDiffModelList;
+class KompareListViewItem;
+class KompareListViewDiffItem;
+class KompareModelList;
 
-class KDiffListView : public KListView
+class KompareListView : public KListView
 {
 	Q_OBJECT
 
 public:
-	KDiffListView( KDiffModelList* models, bool isSource, GeneralSettings* settings, QWidget* parent, const char* name = 0 );
-	virtual ~KDiffListView();
+	KompareListView( KompareModelList* models, bool isSource, GeneralSettings* settings, QWidget* parent, const char* name = 0 );
+	virtual ~KompareListView();
 
 	void setSelectedModel( int model );
 	void setSelectedDifference( int diff, bool scroll = true );
 	
-	KDiffListViewItem* itemAtIndex( int i );
+	KompareListViewItem* itemAtIndex( int i );
 	int                firstVisibleDifference();
 	int                lastVisibleDifference();
 	QRect              itemRect( int i );
@@ -76,9 +76,9 @@ protected slots:
 	void updateMainColumnWidth();
 	
 private:
-	KDiffModelList*                  m_models;
-	QPtrList<KDiffListViewDiffItem>  m_items;
-	QPtrDict<KDiffListViewDiffItem>  m_itemDict;
+	KompareModelList*                  m_models;
+	QPtrList<KompareListViewDiffItem>  m_items;
+	QPtrDict<KompareListViewDiffItem>  m_itemDict;
 	bool                             m_isSource;
 	int                              m_selectedModel;
 	GeneralSettings*                 m_settings;
@@ -87,11 +87,11 @@ private:
 	int                              m_maxMainWidth;
 };
 
-class KDiffListViewItem : public QListViewItem
+class KompareListViewItem : public QListViewItem
 {
 public:
-	KDiffListViewItem( QListView* parent );
-	KDiffListViewItem( QListView* parent, KDiffListViewItem* after );
+	KompareListViewItem( QListView* parent );
+	KompareListViewItem( QListView* parent, KompareListViewItem* after );
 	
 	void paintFocus( QPainter* p, const QColorGroup& cg, const QRect& r );
 	int scrollId() { return m_scrollId; };
@@ -102,11 +102,11 @@ private:
 	int                  m_scrollId;
 };
 
-class KDiffListViewDiffItem : public KDiffListViewItem
+class KompareListViewDiffItem : public KompareListViewItem
 {
 public:
-	KDiffListViewDiffItem( KDiffListView* parent, Difference* difference );
-	KDiffListViewDiffItem( KDiffListView* parent, KDiffListViewItem* after, Difference* difference );
+	KompareListViewDiffItem( KompareListView* parent, Difference* difference );
+	KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Difference* difference );
 	
 	void setup();
 	void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );
@@ -122,15 +122,15 @@ private:
 	bool isSource() const { return m_listView->isSource(); };
 	int lineCount() const;
 	
-	KDiffListView*       m_listView;
+	KompareListView*       m_listView;
 	Difference*          m_difference;
 };
 
-class KDiffListViewHunkItem : public KDiffListViewItem
+class KompareListViewHunkItem : public KompareListViewItem
 {
 public:
-	KDiffListViewHunkItem( KDiffListView* parent, DiffHunk* hunk );
-	KDiffListViewHunkItem( KDiffListView* parent, KDiffListViewItem* after, DiffHunk* hunk );
+	KompareListViewHunkItem( KompareListView* parent, DiffHunk* hunk );
+	KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, DiffHunk* hunk );
 	
 	void setup();
 	void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );

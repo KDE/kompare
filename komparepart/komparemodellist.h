@@ -1,5 +1,5 @@
 /***************************************************************************
-                          kdiffmodellist.h  -  description
+                          komparemodellist.h  -  description
                              -------------------
     begin                : Tue Jun 26 2001
     copyright            : (C) 2001 by John Firebaugh
@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KDIFFMODELLIST_H
-#define KDIFFMODELLIST_H
+#ifndef KOMPAREMODELLIST_H
+#define KOMPAREMODELLIST_H
 
 #include <qptrlist.h>
 #include <qobject.h>
@@ -24,16 +24,16 @@
 #include <kurl.h>
 
 #include "diffmodel.h"
-#include "kdiff.h"
+#include "kompare.h"
 
 class QFile;
 
 class KTempFile;
 
 class DiffSettings;
-class KDiffProcess;
+class KompareProcess;
 
-class KDiffModelList : public QObject, KDiff
+class KompareModelList : public QObject, Kompare
 {
 	Q_OBJECT
 	
@@ -41,8 +41,8 @@ public:
 	enum Mode { Compare, Diff };
 	enum Status { RunningDiff, Parsing, FinishedParsing, FinishedWritingDiff };
 	
-	KDiffModelList();
-	~KDiffModelList();
+	KompareModelList();
+	~KompareModelList();
 	
 	bool compare( const KURL& source, const KURL& destination );
 	bool saveDestination( int index );
@@ -69,7 +69,7 @@ public:
 	bool                        isModified() const;
 	
 signals:
-	void status( KDiffModelList::Status );
+	void status( KompareModelList::Status );
 	void error( QString error );
 	void modelsChanged();
 
@@ -82,7 +82,7 @@ private:
 	void clear();
 	
 	Mode                m_mode;
-	KDiffProcess*       m_diffProcess;
+	KompareProcess*       m_diffProcess;
 	QPtrList<DiffModel> m_models;
 
 	KURL                m_sourceURL;

@@ -1,13 +1,10 @@
 # KDE Config File
 [Desktop Entry]
 Type=Application
-Name=KDiff
-Name[eo]=Diferenco
-Name[fr]=Comparateur de fichiers
-Name[pl]=Różnice
+Name=Kompare
 Comment=
 MimeType=text/x-diff;
-Exec=kdiff -caption "%c" %i %m %U
-Icon=kdiff
-DocPath=kdiff/index.html
+Exec=kompare -caption "%c" %i %m %U
+Icon=kompare
+DocPath=kompare/index.html
 Terminal=0

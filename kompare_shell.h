@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiff_shell.h  -  description
+                                kompare_shell.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -17,8 +17,8 @@
 **
 ***************************************************************************/
 
-#ifndef KDIFFSHELL_H
-#define KDIFFSHELL_H
+#ifndef KOMPARESHELL_H
+#define KOMPARESHELL_H
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -29,7 +29,7 @@
 
 class KToggleAction;
 
-class KDiffPart;
+class KomparePart;
 
 /**
 * This is the application "Shell".  It has a menubar, toolbar, and
@@ -39,19 +39,19 @@ class KDiffPart;
 * @author John Firebaugh <jfirebaugh@kde.org>
 * @version 0.1
 */
-class KDiffShell : public KParts::DockMainWindow
+class KompareShell : public KParts::DockMainWindow
 {
 	Q_OBJECT
 public:
 	/**
 	* Default Constructor
 	*/
-	KDiffShell();
+	KompareShell();
 
 	/**
 	* Default Destructor
 	*/
-	virtual ~KDiffShell();
+	virtual ~KompareShell();
 
 	/**
 	* Use this method to load whatever file/URL you have
@@ -102,7 +102,7 @@ private:
 private:
 	KURL             m_source;
 	KURL             m_destination;
-	KDiffPart*       m_part;
+	KomparePart*     m_part;
 	KDockWidget*     m_textViewWidget;
 	KParts::ReadOnlyPart* m_textViewPart;
 	
@@ -111,4 +111,4 @@ private:
 	KToggleAction*   m_showTextView;
 };
 
-#endif // KDIFF_H
+#endif // KOMPARE_H

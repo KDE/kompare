@@ -1,5 +1,5 @@
 /***************************************************************************
-                                KDiffNavigationTree.cpp  -  description
+                                KompareNavigationTree.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -23,16 +23,16 @@
 
 #include "difference.h"
 #include "diffmodel.h"
-#include "kdiff_part.h"
-#include "kdiffmodellist.h"
+#include "kompare_part.h"
+#include "komparemodellist.h"
 
-#include "kdiffnavigationtree.h"
+#include "komparenavigationtree.h"
 
 #define COL_SOURCE        0
 #define COL_DESTINATION   1
 #define COL_DIFFERENCE    2
 
-KDiffNavigationTree::KDiffNavigationTree( KDiffModelList* models, QWidget* parent, const char* name ) :
+KompareNavigationTree::KompareNavigationTree( KompareModelList* models, QWidget* parent, const char* name ) :
 	KListView( parent, name ),
 	m_models( models ),
 	m_rootItem( 0 )
@@ -50,11 +50,11 @@ KDiffNavigationTree::KDiffNavigationTree( KDiffModelList* models, QWidget* paren
 	                 SLOT(buildTree()) );
 }
 
-KDiffNavigationTree::~KDiffNavigationTree()
+KompareNavigationTree::~KompareNavigationTree()
 {
 }
 
-void KDiffNavigationTree::buildTree()
+void KompareNavigationTree::buildTree()
 {
 	clear();
 	
@@ -125,7 +125,7 @@ void KDiffNavigationTree::buildTree()
 	}
 }
 
-void KDiffNavigationTree::setItemText( QListViewItem* item, const Difference* d )
+void KompareNavigationTree::setItemText( QListViewItem* item, const Difference* d )
 {
 	item->setText( COL_SOURCE, i18n( "Line %1" ).arg( d->sourceLineNumber() ) );
 	item->setText( COL_DESTINATION, i18n( "Line %1" ).arg( d->destinationLineNumber() ) );
@@ -150,7 +150,7 @@ void KDiffNavigationTree::setItemText( QListViewItem* item, const Difference* d 
 	item->setText( COL_DIFFERENCE, text );
 }
 
-QListViewItem* KDiffNavigationTree::firstItem()
+QListViewItem* KompareNavigationTree::firstItem()
 {
 	if( m_rootItem )
 		return m_rootItem->firstChild();
@@ -158,7 +158,7 @@ QListViewItem* KDiffNavigationTree::firstItem()
 		return firstChild();
 }
 
-QListViewItem* KDiffNavigationTree::lastItem()
+QListViewItem* KompareNavigationTree::lastItem()
 {
 	QListViewItem* item = firstItem();
 	QListViewItem* lastItem = item;
@@ -169,7 +169,7 @@ QListViewItem* KDiffNavigationTree::lastItem()
 	return lastItem;
 }
 
-void KDiffNavigationTree::slotSetSelection( int model, int diff )
+void KompareNavigationTree::slotSetSelection( int model, int diff )
 {
 	if( model >= 0 && diff >= 0 ) {
 		QListViewItem* current = m_itemDict[ m_models->modelAt( model )->differenceAt( diff ) ];
@@ -179,7 +179,7 @@ void KDiffNavigationTree::slotSetSelection( int model, int diff )
 	}
 }
 
-void KDiffNavigationTree::slotSelectionChanged( QListViewItem* item )
+void KompareNavigationTree::slotSelectionChanged( QListViewItem* item )
 {
 	QListViewItem* parent = item->parent();
 
@@ -196,9 +196,9 @@ void KDiffNavigationTree::slotSelectionChanged( QListViewItem* item )
 	emit selectionChanged( model, diff );
 }
 
-void KDiffNavigationTree::slotAppliedChanged( const Difference* d )
+void KompareNavigationTree::slotAppliedChanged( const Difference* d )
 {
 	setItemText( m_itemDict[(void*)d], d );
 }
 
-#include "kdiffnavigationtree.moc"
+#include "komparenavigationtree.moc"

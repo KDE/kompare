@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiffnavigationtree.h  -  description
+                                komparenavigationtree.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -17,24 +17,24 @@
 **
 ***************************************************************************/
 
-#ifndef KDIFFNAVIGATIONTREE_H
-#define KDIFFNAVIGATIONTREE_H
+#ifndef KOMPARENAVIGATIONTREE_H
+#define KOMPARENAVIGATIONTREE_H
 
 #include <qptrlist.h>
 #include <qptrdict.h>
 
 #include <klistview.h>
 
-class KDiffModelList;
-class KDiffPart;
+class KompareModelList;
+class KomparePart;
 
-class KDiffNavigationTree : public KListView
+class KompareNavigationTree : public KListView
 {
 	Q_OBJECT
 
 public:
-	KDiffNavigationTree( KDiffModelList* models, QWidget* parent = 0L, const char* name = 0L );
-	virtual ~KDiffNavigationTree();
+	KompareNavigationTree( KompareModelList* models, QWidget* parent = 0L, const char* name = 0L );
+	virtual ~KompareNavigationTree();
 
 public slots:
 	void slotSetSelection( int model, int diff );
@@ -52,7 +52,7 @@ private:
 	QListViewItem* firstItem();
 	QListViewItem* lastItem();
 
-	KDiffModelList*          m_models;
+	KompareModelList*          m_models;
 	QListViewItem*           m_rootItem;
 	QPtrDict<QListViewItem>  m_itemDict;
 };

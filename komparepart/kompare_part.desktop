@@ -1,12 +1,7 @@
 [Desktop Entry]
-Name=KDiffPart
-Name[de]=KDiff-Objekt
-Name[eo]=Diferenc-komponento
-Name[fr]=Composant de comparaison de fichiers
-Name[pl]=Komponent Różnica
-Name[sv]=KDiffDel
+Name=KomparePart
 MimeType=text/x-diff
 ServiceTypes=KParts/ReadOnlyPart,KParts/ReadWritePart
-X-KDE-Library=libkdiffpart
+X-KDE-Library=libkomparepart
 Type=Service
-Icon=kdiff
+Icon=kompare

@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdifflistview.h  -  description
+                                komparelistview.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -27,14 +27,14 @@
 #include "diffhunk.h"
 #include "difference.h"
 #include "generalsettings.h"
-#include "kdiffmodellist.h"
+#include "komparemodellist.h"
 
-#include "kdifflistview.h"
+#include "komparelistview.h"
 
 #define COL_LINE_NO      0
 #define COL_MAIN         1
 
-KDiffListView::KDiffListView( KDiffModelList* models, bool isSource, 
+KompareListView::KompareListView( KompareModelList* models, bool isSource, 
                               GeneralSettings* settings, 
                               QWidget* parent, const char* name ) :
 	KListView( parent, name ),
@@ -57,16 +57,16 @@ KDiffListView::KDiffListView( KDiffModelList* models, bool isSource,
 	setTreeStepSize( 0 );
 }
 
-KDiffListView::~KDiffListView()
+KompareListView::~KompareListView()
 {
 }
 
-KDiffListViewItem* KDiffListView::itemAtIndex( int i )
+KompareListViewItem* KompareListView::itemAtIndex( int i )
 {
 	return m_items.at( i );
 }
 
-int KDiffListView::firstVisibleDifference()
+int KompareListView::firstVisibleDifference()
 {
 	QListViewItem* item = itemAt( QPoint( 0, 0 ) );
 	if( item == 0 ) {
@@ -74,20 +74,20 @@ int KDiffListView::firstVisibleDifference()
 	}
 	
 	while( item ) {
-		KDiffListViewDiffItem* dvlitem = dynamic_cast<KDiffListViewDiffItem*>(item);
+		KompareListViewDiffItem* dvlitem = dynamic_cast<KompareListViewDiffItem*>(item);
 		if( dvlitem && dvlitem->difference()->type() != Difference::Unchanged )
 			break;
 		item = item->itemBelow();
 	}
 	
 	if( item ) {
-		return m_items.findRef( (KDiffListViewDiffItem*)item );
+		return m_items.findRef( (KompareListViewDiffItem*)item );
 	}
 	
 	return -1;
 }
 
-int KDiffListView::lastVisibleDifference()
+int KompareListView::lastVisibleDifference()
 {
 	QListViewItem* item = itemAt( QPoint( 0, visibleHeight() - 1 ) );
 	if( item == 0 ) {
@@ -96,20 +96,20 @@ int KDiffListView::lastVisibleDifference()
 	}
 	
 	while( item ) {
-		KDiffListViewDiffItem* dvlitem = dynamic_cast<KDiffListViewDiffItem*>(item);
+		KompareListViewDiffItem* dvlitem = dynamic_cast<KompareListViewDiffItem*>(item);
 		if( dvlitem && dvlitem->difference()->type() != Difference::Unchanged )
 			break;
 		item = item->itemAbove();
 	}
 	
 	if( item ) {
-		return m_items.findRef( (KDiffListViewDiffItem*)item );
+		return m_items.findRef( (KompareListViewDiffItem*)item );
 	}
 	
 	return -1;
 }
 
-QRect KDiffListView::itemRect( int i )
+QRect KompareListView::itemRect( int i )
 {
 	QListViewItem* item = itemAtIndex( i );
 	int x = 0;
@@ -119,28 +119,28 @@ QRect KDiffListView::itemRect( int i )
 	return QRect( vx, vy, 0, item->height() );
 }
 
-int KDiffListView::minScrollId()
+int KompareListView::minScrollId()
 {
 	return visibleHeight() / 2;
 }
 
-int KDiffListView::maxScrollId()
+int KompareListView::maxScrollId()
 {
 	return m_maxScrollId;
 }
 
-void KDiffListView::setXOffset( int x )
+void KompareListView::setXOffset( int x )
 {
 	setContentsPos( x, contentsY() );
 }
 
-void KDiffListView::scrollToId( int id )
+void KompareListView::scrollToId( int id )
 {
-	KDiffListViewItem* item = (KDiffListViewItem*)firstChild();
+	KompareListViewItem* item = (KompareListViewItem*)firstChild();
 	while( item && item->nextSibling() ) {
-		if( ((KDiffListViewItem*)item->nextSibling())->scrollId() > id )
+		if( ((KompareListViewItem*)item->nextSibling())->scrollId() > id )
 			break;
-		item = (KDiffListViewItem*)item->nextSibling();
+		item = (KompareListViewItem*)item->nextSibling();
 	}
 	
 	if( item ) {
@@ -163,20 +163,20 @@ void KDiffListView::scrollToId( int id )
 	m_scrollId = id;
 }
 
-int KDiffListView::scrollId()
+int KompareListView::scrollId()
 {
 	if( m_scrollId < 0 )
 		m_scrollId = minScrollId();
 	return m_scrollId;
 }
 
-void KDiffListView::slotSetSelection( int model, int diff )
+void KompareListView::slotSetSelection( int model, int diff )
 {
 	setSelectedModel( model );
 	setSelectedDifference( diff );
 }
 
-void KDiffListView::setSelectedModel( int index )
+void KompareListView::setSelectedModel( int index )
 {
 	DiffModel* model = 0;
 	if( index >= 0 )
@@ -200,29 +200,29 @@ void KDiffListView::setSelectedModel( int index )
 	
 	QListIterator<DiffHunk> hunkIt(model->getHunks());
 	
-	KDiffListViewItem* item = 0;
+	KompareListViewItem* item = 0;
 	for( ; hunkIt.current(); ++hunkIt ) {
 		DiffHunk* hunk = hunkIt.current();
 		
 		if( item )
-			item = new KDiffListViewHunkItem( this, item, hunk );
+			item = new KompareListViewHunkItem( this, item, hunk );
 		else
-			item = new KDiffListViewHunkItem( this, hunk );
+			item = new KompareListViewHunkItem( this, hunk );
 		
 		QListIterator<Difference> diffIt(hunk->getDifferences());
 		
 		for( ; diffIt.current(); ++diffIt ) {
 			Difference* diff = diffIt.current();
 			
-			item = new KDiffListViewDiffItem( this, item, diff );
+			item = new KompareListViewDiffItem( this, item, diff );
 			
 			if( diff->type() != Difference::Unchanged ) {
-				m_items.append( (KDiffListViewDiffItem*)item );
-				m_itemDict.insert( diff, (KDiffListViewDiffItem*)item );
+				m_items.append( (KompareListViewDiffItem*)item );
+				m_itemDict.insert( diff, (KompareListViewDiffItem*)item );
 			}
 			
 			m_maxScrollId = item->scrollId() + item->height() - 1;
-			m_maxMainWidth = QMAX( m_maxMainWidth, ((KDiffListViewDiffItem*)item)->maxMainWidth() );
+			m_maxMainWidth = QMAX( m_maxMainWidth, ((KompareListViewDiffItem*)item)->maxMainWidth() );
 		}
 	}
 	
@@ -231,11 +231,11 @@ void KDiffListView::setSelectedModel( int index )
 	updateMainColumnWidth();
 }
 
-void KDiffListView::setSelectedDifference( int index, bool scroll )
+void KompareListView::setSelectedDifference( int index, bool scroll )
 {
-	KDiffListViewItem* item = itemAtIndex( index );
+	KompareListViewItem* item = itemAtIndex( index );
 	// Only scroll to item if it isn't selected. This is so that
-	// clicking an item doesn't scroll to to it. KDiffView sets the
+	// clicking an item doesn't scroll to to it. KompareView sets the
 	// selection manually in that case.
 	if( item != selectedItem() && scroll ) {
 		scrollToId( item->scrollId() );
@@ -243,7 +243,7 @@ void KDiffListView::setSelectedDifference( int index, bool scroll )
 	setSelected( item, true );
 }
 
-void KDiffListView::updateMainColumnWidth()
+void KompareListView::updateMainColumnWidth()
 {
 	int width = viewport()->width();
 	int x;
@@ -252,61 +252,61 @@ void KDiffListView::updateMainColumnWidth()
 	header()->resizeSection(x, QMAX( width, m_maxMainWidth ) );
 }
 
-void KDiffListView::resizeEvent( QResizeEvent* e )
+void KompareListView::resizeEvent( QResizeEvent* e )
 {
 	KListView::resizeEvent( e );
 	updateMainColumnWidth();
 }
 
-void KDiffListView::contentsMousePressEvent( QMouseEvent* e )
+void KompareListView::contentsMousePressEvent( QMouseEvent* e )
 {
 	QPoint vp = contentsToViewport( e->pos() );
-	KDiffListViewDiffItem* item = dynamic_cast<KDiffListViewDiffItem*>( itemAt( vp ) );
+	KompareListViewDiffItem* item = dynamic_cast<KompareListViewDiffItem*>( itemAt( vp ) );
 	if( item && item->difference()->type() != Difference::Unchanged ) {
 		setSelected( item, true );
 		emit selectionChanged( m_selectedModel, m_items.findRef( item ) );
 	}
 }
 
-void KDiffListView::slotAppliedChanged( const Difference* d )
+void KompareListView::slotAppliedChanged( const Difference* d )
 {
 	m_itemDict[(void*)d]->appliedChanged();
 }
 
-KDiffListViewItem::KDiffListViewItem( QListView* parent )
+KompareListViewItem::KompareListViewItem( QListView* parent )
 	: QListViewItem( parent ),
 	m_scrollId( 0 )
 {
 }
 
-KDiffListViewItem::KDiffListViewItem( QListView* parent, KDiffListViewItem* after )
+KompareListViewItem::KompareListViewItem( QListView* parent, KompareListViewItem* after )
 	: QListViewItem( parent, after ),
 	m_scrollId( after->scrollId() + after->maxHeight() )
 {
 }
 
-void KDiffListViewItem::paintFocus( QPainter* /* p */, const QColorGroup& /* cg */, const QRect& /* r */ )
+void KompareListViewItem::paintFocus( QPainter* /* p */, const QColorGroup& /* cg */, const QRect& /* r */ )
 {
 	// Don't paint anything
 }
 
-KDiffListViewDiffItem::KDiffListViewDiffItem( KDiffListView* parent, Difference* difference )
-	: KDiffListViewItem( parent ),
+KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, Difference* difference )
+	: KompareListViewItem( parent ),
 	m_listView( parent ),
 	m_difference( difference )
 {
 	setSelectable( m_difference->type() != Difference::Unchanged );
 }
 
-KDiffListViewDiffItem::KDiffListViewDiffItem( KDiffListView* parent, KDiffListViewItem* after, Difference* difference )
-	: KDiffListViewItem( parent, after ),
+KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Difference* difference )
+	: KompareListViewItem( parent, after ),
 	m_listView( parent ),
 	m_difference( difference )
 {
 	setSelectable( m_difference->type() != Difference::Unchanged );
 }
 
-int KDiffListViewDiffItem::maxHeight()
+int KompareListViewDiffItem::maxHeight()
 {
 	int lines = QMAX( m_difference->sourceLineCount(),
 	                  m_difference->destinationLineCount() );
@@ -321,7 +321,7 @@ int KDiffListViewDiffItem::maxHeight()
 	return height;
 }
 
-int KDiffListViewDiffItem::lineCount() const
+int KompareListViewDiffItem::lineCount() const
 {
 	if( isSource() || m_difference->applied() ) {
 		return m_difference->sourceLineCount();
@@ -330,7 +330,7 @@ int KDiffListViewDiffItem::lineCount() const
 	}
 }
 
-int KDiffListViewDiffItem::maxMainWidth() const
+int KompareListViewDiffItem::maxMainWidth() const
 {
 	int maxWidth = 0;
 	QFontMetrics fm = listView()->fontMetrics();
@@ -349,7 +349,7 @@ int KDiffListViewDiffItem::maxMainWidth() const
 	return maxWidth + listView()->itemMargin() * 2;
 }
 
-void KDiffListViewDiffItem::setup()
+void KompareListViewDiffItem::setup()
 {
 	QListViewItem::setup();
 	
@@ -365,7 +365,7 @@ void KDiffListViewDiffItem::setup()
 	setHeight( height );
 }
 
-void KDiffListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int  align )
+void KompareListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int  align )
 {
 	QColor bg = cg.base();
 	if( m_difference->type() != Difference::Unchanged ) {
@@ -418,26 +418,26 @@ void KDiffListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, int
 	}
 }
 
-void KDiffListViewDiffItem::appliedChanged()
+void KompareListViewDiffItem::appliedChanged()
 {
 	setup();
 }
 
-KDiffListViewHunkItem::KDiffListViewHunkItem( KDiffListView* parent, DiffHunk* hunk )
-	: KDiffListViewItem( parent ),
+KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, DiffHunk* hunk )
+	: KompareListViewItem( parent ),
 	m_hunk( hunk )
 {
 	setSelectable( false );
 }
 
-KDiffListViewHunkItem::KDiffListViewHunkItem( KDiffListView* parent, KDiffListViewItem* after, DiffHunk* hunk )
-	: KDiffListViewItem( parent, after ),
+KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, DiffHunk* hunk )
+	: KompareListViewItem( parent, after ),
 	m_hunk( hunk )
 {
 	setSelectable( false );
 }
 
-int KDiffListViewHunkItem::maxHeight()
+int KompareListViewHunkItem::maxHeight()
 {
 	if( m_hunk->getFunction().isEmpty() ) {
 		return 5;
@@ -446,14 +446,14 @@ int KDiffListViewHunkItem::maxHeight()
 	}
 }
 
-void KDiffListViewHunkItem::setup()
+void KompareListViewHunkItem::setup()
 {
 	QListViewItem::setup();
 	
 	setHeight( maxHeight() );
 }
 
-void KDiffListViewHunkItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align )
+void KompareListViewHunkItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align )
 {
 	p->fillRect( 0, 0, width, height(), cg.mid() );
 	if( column == COL_MAIN ) {
@@ -462,4 +462,4 @@ void KDiffListViewHunkItem::paintCell( QPainter * p, const QColorGroup & cg, int
 	}
 }
 
-#include "kdifflistview.moc"
+#include "komparelistview.moc"

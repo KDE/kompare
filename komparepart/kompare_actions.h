@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiff_action.h  -  description
+                                kompare_action.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -17,8 +17,8 @@
 **
 ***************************************************************************/
 
-#ifndef _KDIFFERENCESACTION_H_
-#define _KDIFFERENCESACTION_H_
+#ifndef _KOMPAREERENCESACTION_H_
+#define _KOMPAREERENCESACTION_H_
 
 #include <kaction.h>
 
@@ -27,13 +27,13 @@ class QWidget;
 
 class DiffModel;
 
-class KDifferencesAction : public KAction
+class KompareerencesAction : public KAction
 {
   Q_OBJECT
 public:
-    KDifferencesAction( const QString & text, QObject* parent = 0, const char* name = 0 );
+    KompareerencesAction( const QString & text, QObject* parent = 0, const char* name = 0 );
 
-    virtual ~KDifferencesAction() {};
+    virtual ~KompareerencesAction() {};
 
     virtual int plug( QWidget *widget, int index = -1 );
     //virtual void unplug( QWidget *widget );

@@ -1,5 +1,5 @@
 /***************************************************************************
-                          kdiffmodellist.cpp  -  description
+                          komparemodellist.cpp  -  description
                              -------------------
     begin                : Tue Jun 26 2001
     copyright            : (C) 2001 by John Firebaugh
@@ -26,11 +26,11 @@
 #include "difference.h"
 #include "diffhunk.h"
 #include "diffmodel.h"
-#include "kdiffprocess.h"
+#include "kompareprocess.h"
 
-#include "kdiffmodellist.h"
+#include "komparemodellist.h"
 
-KDiffModelList::KDiffModelList()
+KompareModelList::KompareModelList()
 	: QObject(),
 	m_mode( Compare ),
 	m_diffProcess( 0 ),
@@ -38,7 +38,7 @@ KDiffModelList::KDiffModelList()
 {
 }
 
-KDiffModelList::~KDiffModelList()
+KompareModelList::~KompareModelList()
 {
 	KIO::NetAccess::removeTempFile( m_sourceTemp );
 	KIO::NetAccess::removeTempFile( m_destinationTemp );
@@ -46,7 +46,7 @@ KDiffModelList::~KDiffModelList()
 	delete m_diffProcess;
 }
 
-bool KDiffModelList::compare( const KURL& source, const KURL& destination )
+bool KompareModelList::compare( const KURL& source, const KURL& destination )
 {
 	m_mode = Compare;
 	
@@ -65,7 +65,7 @@ bool KDiffModelList::compare( const KURL& source, const KURL& destination )
 		return false;
 	}
 	
-	m_diffProcess = new KDiffProcess( m_sourceTemp, m_destinationTemp );
+	m_diffProcess = new KompareProcess( m_sourceTemp, m_destinationTemp );
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );
 	
@@ -75,7 +75,7 @@ bool KDiffModelList::compare( const KURL& source, const KURL& destination )
 	return true;
 }
 
-bool KDiffModelList::saveDestination( int index )
+bool KompareModelList::saveDestination( int index )
 {
 	DiffModel* model = modelAt( index );
 	
@@ -130,7 +130,7 @@ bool KDiffModelList::saveDestination( int index )
 	return true;
 }
 
-bool KDiffModelList::saveAll()
+bool KompareModelList::saveAll()
 {
 	for( uint i = 0; i < m_models.count(); ++i ) {
 		if( !saveDestination( i ) ) return false;
@@ -138,7 +138,7 @@ bool KDiffModelList::saveAll()
 	return true;
 }
 
-void KDiffModelList::slotDiffProcessFinished( bool success )
+void KompareModelList::slotDiffProcessFinished( bool success )
 {
 	if( success ) {
 		emit status( Parsing );
@@ -156,7 +156,7 @@ void KDiffModelList::slotDiffProcessFinished( bool success )
 	m_diffProcess = 0;
 }
 
-bool KDiffModelList::openDiff( const KURL& url )
+bool KompareModelList::openDiff( const KURL& url )
 {
 	m_mode = Diff;
 	m_diffURL = url;
@@ -194,7 +194,7 @@ bool KDiffModelList::openDiff( const KURL& url )
 	return true;
 }
 
-bool KDiffModelList::saveDiff( const KURL& url, QString directory, DiffSettings* settings )
+bool KompareModelList::saveDiff( const KURL& url, QString directory, DiffSettings* settings )
 {
 	m_diffURL = url;
 	
@@ -208,7 +208,7 @@ bool KDiffModelList::saveDiff( const KURL& url, QString directory, DiffSettings*
 		return false;
 	}
 	
-	m_diffProcess = new KDiffProcess( m_sourceTemp, m_destinationTemp, directory, settings );
+	m_diffProcess = new KompareProcess( m_sourceTemp, m_destinationTemp, directory, settings );
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotWriteDiffOutput( bool )) );
 	
@@ -217,7 +217,7 @@ bool KDiffModelList::saveDiff( const KURL& url, QString directory, DiffSettings*
 	
 }
 
-void KDiffModelList::slotWriteDiffOutput( bool success )
+void KompareModelList::slotWriteDiffOutput( bool success )
 {
 	if( success ) {
 		
@@ -245,7 +245,7 @@ void KDiffModelList::slotWriteDiffOutput( bool success )
 	m_diffProcess = 0;
 }
 
-int KDiffModelList::parseDiffs( const QStringList& lines )
+int KompareModelList::parseDiffs( const QStringList& lines )
 {
 	if( lines.count() == 0 ) return 1;
 
@@ -270,18 +270,18 @@ int KDiffModelList::parseDiffs( const QStringList& lines )
 	return 0; // FIXME better error handling
 };
 
-void KDiffModelList::clear()
+void KompareModelList::clear()
 {
 	m_models.clear();
 	emit modelsChanged();
 }
 
-void KDiffModelList::swap()
+void KompareModelList::swap()
 {
 	compare( KURL( m_destinationURL ), KURL( m_sourceURL ) );
 }
 
-bool KDiffModelList::isModified() const
+bool KompareModelList::isModified() const
 {
 	QPtrListIterator<DiffModel> it( m_models );
 	for( ; it.current(); ++it ) {
@@ -290,7 +290,7 @@ bool KDiffModelList::isModified() const
 	return false;
 }
 
-KURL KDiffModelList::sourceBaseURL() const
+KURL KompareModelList::sourceBaseURL() const
 {
 //	if( m_sourceURL.isDirectory() ) {
 //		return m_sourceURL;
@@ -299,7 +299,7 @@ KURL KDiffModelList::sourceBaseURL() const
 //	}
 }
 
-KURL KDiffModelList::destinationBaseURL() const
+KURL KompareModelList::destinationBaseURL() const
 {
 //	if( m_destinationURL.isDirectory() ) {
 //		return m_destinationURL;
@@ -308,4 +308,4 @@ KURL KDiffModelList::destinationBaseURL() const
 //	}
 }
 
-#include "kdiffmodellist.moc"
+#include "komparemodellist.moc"

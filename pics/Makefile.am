@@ -1,4 +1,4 @@
 KDE_ICON = AUTO
 
-kdiffdir = $(kde_datadir)/kdiff/icons
-kdiff_ICON = AUTO
+komparedir = $(kde_datadir)/kompare/icons
+kompare_ICON = AUTO

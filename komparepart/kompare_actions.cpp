@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiff_actions.cpp  -  description
+                                kompare_actions.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -17,7 +17,7 @@
 **
 ***************************************************************************/
 
-#include "kdiff_actions.h"
+#include "kompare_actions.h"
 
 #include <qpopupmenu.h>
 #include <qwidget.h>
@@ -27,17 +27,17 @@
 #include "difference.h"
 #include "diffmodel.h"
 
-KDifferencesAction::KDifferencesAction ( const QString & text, QObject* parent, const char* name ) :
+KompareerencesAction::KompareerencesAction ( const QString & text, QObject* parent, const char* name ) :
 	KAction( text, 0, parent, name )
 {
-	kdDebug() << "KDifferencesAction::KDifferencesAction" << endl;
+	kdDebug() << "KompareerencesAction::KompareerencesAction" << endl;
 	m_firstIndex = 0;
 	m_differenceMenu = 0L;
 }
 
-int KDifferencesAction::plug( QWidget *widget, int index )
+int KompareerencesAction::plug( QWidget *widget, int index )
 {
-	kdDebug() << "KDifferencesAction::plug" << endl;
+	kdDebug() << "KompareerencesAction::plug" << endl;
 	// Go menu
 	if ( widget->inherits("QPopupMenu") ) {
 		m_differenceMenu = (QPopupMenu*)widget;
@@ -48,16 +48,16 @@ int KDifferencesAction::plug( QWidget *widget, int index )
 		         this, SLOT( slotActivated( int ) ) );
 
 		// Store how many items the menu already contains.
-		// This means, the KDifferencesAction has to be plugged LAST in a menu !
+		// This means, the KompareerencesAction has to be plugged LAST in a menu !
 		m_firstIndex = m_differenceMenu->count();
 		return m_differenceMenu->count(); // hmmm, what should this be ?
 	}
 	return KAction::plug( widget, index );
 }
 
-void KDifferencesAction::fillDifferenceMenu( const DiffModel* diffModel, int current )
+void KompareerencesAction::fillDifferenceMenu( const DiffModel* diffModel, int current )
 {
-	kdDebug() << "KDifferencesAction::fillDifferenceMenu" << endl;
+	kdDebug() << "KompareerencesAction::fillDifferenceMenu" << endl;
 
 	if ( m_firstIndex == 0 ) // should never happen since done in plug
 		m_firstIndex = m_differenceMenu->count();
@@ -76,10 +76,10 @@ void KDifferencesAction::fillDifferenceMenu( const DiffModel* diffModel, int cur
 	}
 }
 
-void KDifferencesAction::slotActivated( int id )
+void KompareerencesAction::slotActivated( int id )
 {
 	int index = m_differenceMenu->indexOf(id) - m_firstIndex;
 	emit activated( index );
 }
 
-#include "kdiff_actions.moc"
+#include "kompare_actions.moc"

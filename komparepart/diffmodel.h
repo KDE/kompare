@@ -24,13 +24,13 @@
 #include <qptrlist.h>
 #include <qstringlist.h>
 
-#include "kdiff.h"
+#include "kompare.h"
 
 class DiffHunk;
 class Difference;
-class KDiffModelList;
+class KompareModelList;
 
-class DiffModel : public QObject, KDiff
+class DiffModel : public QObject, Kompare
 {
 Q_OBJECT
 public:

@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiffsaveoptionswidget.h  -  description
+                                komparesaveoptionswidget.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -17,22 +17,22 @@
 **
 ***************************************************************************/
 
-#ifndef KDIFFSAVEOPTIONSWIDGET_H
-#define KDIFFSAVEOPTIONSWIDGET_H
+#ifndef KOMPARESAVEOPTIONSWIDGET_H
+#define KOMPARESAVEOPTIONSWIDGET_H
 
 #include <kurl.h>
 
-#include "kdiffsaveoptionsbase.h"
-#include "kdiff.h"
+#include "komparesaveoptionsbase.h"
+#include "kompare.h"
 
 class DiffSettings;
 
-class KDiffSaveOptionsWidget : public KDiffSaveOptionsBase, KDiff
+class KompareSaveOptionsWidget : public KompareSaveOptionsBase, Kompare
 {
 Q_OBJECT
 public:
-	KDiffSaveOptionsWidget( QString source, QString destination, DiffSettings* settings, QWidget* parent );
-	~KDiffSaveOptionsWidget();
+	KompareSaveOptionsWidget( QString source, QString destination, DiffSettings* settings, QWidget* parent );
+	~KompareSaveOptionsWidget();
 	
 	void      saveOptions();
 	QString   directory() const;

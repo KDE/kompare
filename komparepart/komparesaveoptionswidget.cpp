@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiffsaveoptionswidget.cpp  -  description
+                                komparesaveoptionswidget.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -29,11 +29,11 @@
 #include <kurlrequester.h>
 
 #include "diffsettings.h"
-#include "kdiffsaveoptionswidget.h"
+#include "komparesaveoptionswidget.h"
 
-KDiffSaveOptionsWidget::KDiffSaveOptionsWidget( QString source, QString destination,
+KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString destination,
            DiffSettings * settings, QWidget * parent )
-	: KDiffSaveOptionsBase( parent, "save options" )
+	: KompareSaveOptionsBase( parent, "save options" )
 	, m_source( source )
 	, m_destination( destination )
 {
@@ -81,17 +81,17 @@ KDiffSaveOptionsWidget::KDiffSaveOptionsWidget( QString source, QString destinat
 	loadOptions();
 }
 
-KDiffSaveOptionsWidget::~KDiffSaveOptionsWidget()
+KompareSaveOptionsWidget::~KompareSaveOptionsWidget()
 {
 	
 }
 
-QString KDiffSaveOptionsWidget::directory() const
+QString KompareSaveOptionsWidget::directory() const
 {
 	return KURL( m_directoryRequester->url() ).path();
 }
 
-void KDiffSaveOptionsWidget::updateCommandLine()
+void KompareSaveOptionsWidget::updateCommandLine()
 {
 	QString cmdLine = "diff";
 	
@@ -175,7 +175,7 @@ void KDiffSaveOptionsWidget::updateCommandLine()
 	m_CommandLineLabel->setText( cmdLine );
 }
 
-void KDiffSaveOptionsWidget::loadOptions()
+void KompareSaveOptionsWidget::loadOptions()
 {
 	m_SmallerChangesCB->setChecked  ( m_settings->m_createSmallerDiff );
 	m_LargeFilesCB->setChecked      ( m_settings->m_largeFiles );
@@ -195,7 +195,7 @@ void KDiffSaveOptionsWidget::loadOptions()
 	updateCommandLine();
 }
 
-void KDiffSaveOptionsWidget::saveOptions()
+void KompareSaveOptionsWidget::saveOptions()
 {
 	m_settings->m_createSmallerDiff   = m_SmallerChangesCB->isChecked();
 	m_settings->m_largeFiles          = m_LargeFilesCB->isChecked();
@@ -214,4 +214,4 @@ void KDiffSaveOptionsWidget::saveOptions()
 
 }
 
-#include "kdiffsaveoptionswidget.moc"
+#include "komparesaveoptionswidget.moc"

@@ -1,10 +1,10 @@
 <!DOCTYPE UI><UI>
-<class>KDiffSaveOptionsBase</class>
+<class>KompareSaveOptionsBase</class>
 <widget>
     <class>QWidget</class>
     <property stdset="1">
         <name>name</name>
-        <cstring>KDiffSaveOptionsBase</cstring>
+        <cstring>KompareSaveOptionsBase</cstring>
     </property>
     <property stdset="1">
         <name>geometry</name>

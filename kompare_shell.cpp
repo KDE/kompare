@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiff_shell.cpp  -  description
+                                kompare_shell.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -18,12 +18,12 @@
 ***************************************************************************/
 
 /*
-* kdiffshell.cpp
+* kompareshell.cpp
 *
 * Copyright (C) 2001  <kurt@granroth.org>
 */
 
-#include "kdiff_shell.h"
+#include "kompare_shell.h"
 
 #include <kkeydialog.h>
 #include <kconfig.h>
@@ -38,15 +38,15 @@
 #include <ktrader.h>
 #include <kdebug.h>
 
-#include "kdiff_part.h"
+#include "kompare_part.h"
 #include "kcomparedialog.h"
 
 #define ID_N_OF_N_DIFFERENCES      1
 #define ID_N_OF_N_FILES            2
 #define ID_GENERAL                 3
 
-KDiffShell::KDiffShell()
-	: KParts::DockMainWindow( 0L, "KDiffShell" )
+KompareShell::KompareShell()
+	: KParts::DockMainWindow( 0L, "KompareShell" )
 	, m_textViewWidget( 0 )
 	, m_textViewPart( 0 )
 {
@@ -54,7 +54,7 @@ KDiffShell::KDiffShell()
 	resize( 800, 480 );
 
 	// set the shell's ui resource file
-	setXMLFile("kdiffui.rc");
+	setXMLFile("kompareui.rc");
 
 	// then, setup our actions
 	setupActions();
@@ -66,15 +66,15 @@ KDiffShell::KDiffShell()
 	// this routine will find and load our Part.  it finds the Part by
 	// name which is a bad idea usually.. but it's alright in this
 	// case since our Part is made for this Shell
-	KLibFactory *factory = KLibLoader::self()->factory("libkdiffpart");
+	KLibFactory *factory = KLibLoader::self()->factory("libkomparepart");
 	if (factory)
 	{
-		KDockWidget* mainDock = createDockWidget( "KDiff", kapp->icon() );
+		KDockWidget* mainDock = createDockWidget( "Kompare", kapp->icon() );
 
 		// now that the Part is loaded, we cast it to a Part to get
 		// our hands on it
-		m_part = static_cast<KDiffPart *>(factory->create(mainDock,
-		              "kdiff_part", "KParts::ReadWritePart" ));
+		m_part = static_cast<KomparePart *>(factory->create(mainDock,
+		              "kompare_part", "KParts::ReadWritePart" ));
 
 		if (m_part)
 		{
@@ -111,28 +111,28 @@ KDiffShell::KDiffShell()
 
 }
 
-KDiffShell::~KDiffShell()
+KompareShell::~KompareShell()
 {
 }
 
-bool KDiffShell::queryClose()
+bool KompareShell::queryClose()
 {
 	return m_part->askSaveChanges();
 }
 
-void KDiffShell::load(const KURL& url)
+void KompareShell::load(const KURL& url)
 {
 	m_part->openURL( url );
 }
 
-void KDiffShell::compare(const KURL& source,const KURL& destination )
+void KompareShell::compare(const KURL& source,const KURL& destination )
 {
 	m_source = source;
 	m_destination = destination;
 	m_part->compare( source, destination );
 }
 
-void KDiffShell::setupActions()
+void KompareShell::setupActions()
 {
 	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_O,
 	              this, SLOT(slotFileCompareFiles()),
@@ -149,7 +149,7 @@ void KDiffShell::setupActions()
 	KStdAction::configureToolbars(this, SLOT(optionsConfigureToolbars()), actionCollection());
 }
 
-void KDiffShell::setupStatusBar()
+void KompareShell::setupStatusBar()
 {
 	// Made these entries permanent so they will appear on the right side
 	statusBar()->insertItem( i18n(" 0 of 0 differences "), ID_N_OF_N_DIFFERENCES, 0, true );
@@ -158,7 +158,7 @@ void KDiffShell::setupStatusBar()
 	statusBar()->setItemAlignment( ID_GENERAL, AlignLeft );
 }
 
-void KDiffShell::updateStatusBar()
+void KompareShell::updateStatusBar()
 {
 	QString fileStr;
 	QString diffStr;
@@ -182,24 +182,24 @@ void KDiffShell::updateStatusBar()
 	statusBar()->changeItem( diffStr, ID_N_OF_N_DIFFERENCES );
 }
 
-void KDiffShell::slotSetStatusBarText( const QString& text )
+void KompareShell::slotSetStatusBarText( const QString& text )
 {
 	statusBar()->changeItem( text, ID_GENERAL );
 }
 
-void KDiffShell::setCaption( const QString& caption )
+void KompareShell::setCaption( const QString& caption )
 {
 	KParts::DockMainWindow::setCaption( caption, m_part->isModified() );
 }
 
-void KDiffShell::saveProperties(KConfig* /*config*/)
+void KompareShell::saveProperties(KConfig* /*config*/)
 {
 	// the 'config' object points to the session managed
 	// config file.  anything you write here will be available
 	// later when this app is restored
 }
 
-void KDiffShell::readProperties(KConfig* /*config*/)
+void KompareShell::readProperties(KConfig* /*config*/)
 {
 	// the 'config' object points to the session managed
 	// config file.  this function is automatically called whenever
@@ -207,30 +207,30 @@ void KDiffShell::readProperties(KConfig* /*config*/)
 	// in 'saveProperties'
 }
 
-void KDiffShell::slotFileOpen()
+void KompareShell::slotFileOpen()
 {
 	KURL url = KFileDialog::getOpenURL( QString::null, "text/x-diff", this );
 	if( !url.isEmpty() ) {
-		KDiffShell* shell = new KDiffShell();
+		KompareShell* shell = new KompareShell();
 		shell->show();
 		shell->load( url );
 	}
 }
 
-void KDiffShell::slotFileCompareFiles()
+void KompareShell::slotFileCompareFiles()
 {
 	KCompareDialog* dialog = new KCompareDialog( &m_source, &m_destination, this );
 	if( dialog->exec() == QDialog::Accepted ) {
 		KURL source = dialog->getSourceURL();
 		KURL destination = dialog->getDestinationURL();
-		KDiffShell* shell = new KDiffShell();
+		KompareShell* shell = new KompareShell();
 		shell->show();
 		shell->compare( source, destination );
 	}
 	delete dialog;
 }
 
-void KDiffShell::optionsShowToolbar()
+void KompareShell::optionsShowToolbar()
 {
 	// this is all very cut and paste code for showing/hiding the
 	// toolbar
@@ -240,7 +240,7 @@ void KDiffShell::optionsShowToolbar()
 		toolBar()->hide();
 }
 
-void KDiffShell::optionsShowStatusbar()
+void KompareShell::optionsShowStatusbar()
 {
 	// this is all very cut and paste code for showing/hiding the
 	// statusbar
@@ -250,20 +250,20 @@ void KDiffShell::optionsShowStatusbar()
 		statusBar()->hide();
 }
 
-void KDiffShell::slotShowTextView()
+void KompareShell::slotShowTextView()
 {
 	if( !m_textViewWidget ) {
 		
 		KTrader::OfferList offers = KTrader::self()->query( "text/plain",
 		    "KParts/ReadOnlyPart", QString::null, QString::null );
 		KService::Ptr ptr = offers.first();
-		KLibFactory* factory = KLibLoader::self()->factory( ptr->library() );
+		KLibFactory* factory = KLibLoader::self()->factory( ptr->library().ascii() );
 		
 		m_textViewWidget = createDockWidget( i18n("Text View"), ptr->pixmap( KIcon::Small ) );
 		
 		if( factory )
 			m_textViewPart = static_cast<KParts::ReadOnlyPart *>(
-			    factory->create(m_textViewWidget, ptr->name(), "KParts::ReadOnlyPart"));
+			    factory->create(m_textViewWidget, ptr->name().ascii(), "KParts::ReadOnlyPart"));
 		
 		if( m_textViewPart ) {
 			m_textViewWidget->setWidget( m_textViewPart->widget() );
@@ -275,19 +275,19 @@ void KDiffShell::slotShowTextView()
 	m_textViewWidget->manualDock( getMainDockWidget(), KDockWidget:: DockCenter );
 }
 
-void KDiffShell::slotDiffURLChanged()
+void KompareShell::slotDiffURLChanged()
 {
 	if( m_textViewPart ) {
 		m_textViewPart->openURL( m_part->diffURL() );
 	}
 }
 
-void KDiffShell::optionsConfigureKeys()
+void KompareShell::optionsConfigureKeys()
 {
-	KKeyDialog::configureKeys(actionCollection(), "kdiff_shell.rc");
+	KKeyDialog::configureKeys(actionCollection(), "kompare_shell.rc");
 }
 
-void KDiffShell::optionsConfigureToolbars()
+void KompareShell::optionsConfigureToolbars()
 {
 	// use the standard toolbar editor
 	KEditToolbar dlg(actionCollection());
@@ -298,4 +298,4 @@ void KDiffShell::optionsConfigureToolbars()
 	}
 }
 
-#include "kdiff_shell.moc"
+#include "kompare_shell.moc"

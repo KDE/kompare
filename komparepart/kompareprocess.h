@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiffprocess.h  -  description
+                                kompareprocess.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -17,23 +17,23 @@
 **
 ***************************************************************************/
 
-#ifndef KDIFFPROCESS_H
-#define KDIFFPROCESS_H
+#ifndef KOMPAREPROCESS_H
+#define KOMPAREPROCESS_H
 
 #include <kprocess.h>
 #include <kurl.h>
 
-#include "kdiff.h"
+#include "kompare.h"
 
 class DiffSettings;
 
-class KDiffProcess : public KShellProcess, KDiff
+class KompareProcess : public KShellProcess, Kompare
 {
 	Q_OBJECT
 	
 public:
-	KDiffProcess( QString source, QString destination, QString directory = QString::null, DiffSettings* settings = 0 );
-	~KDiffProcess();
+	KompareProcess( QString source, QString destination, QString directory = QString::null, DiffSettings* settings = 0 );
+	~KompareProcess();
 	
 	bool start();
 	

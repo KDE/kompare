@@ -1,5 +1,5 @@
 /***************************************************************************
-                          kdiffconnectwidget.h  -  description
+                          kompareconnectwidget.h  -  description
                              -------------------
     begin                : Tue Jun 26 2001
     copyright            : (C) 2001 by John Firebaugh
@@ -15,24 +15,24 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KDIFFCONNECTWIDGET_H
-#define KDIFFCONNECTWIDGET_H
+#ifndef KOMPARECONNECTWIDGET_H
+#define KOMPARECONNECTWIDGET_H
 
 #include <qwidget.h>
 
 class DiffModel;
 class GeneralSettings;
-class KDiffListView;
-class KDiffView;
+class KompareListView;
+class KompareView;
 
-class KDiffConnectWidget : public QWidget
+class KompareConnectWidget : public QWidget
 {
 	Q_OBJECT
 
 public:
-	KDiffConnectWidget( KDiffModelList* models, KDiffListView* left, KDiffListView* right,
-	      GeneralSettings* settings, KDiffView* parent, const char* name=0);
-	~KDiffConnectWidget();
+	KompareConnectWidget( KompareModelList* models, KompareListView* left, KompareListView* right,
+	      GeneralSettings* settings, KompareView* parent, const char* name=0);
+	~KompareConnectWidget();
 
 	QSize sizeHint() const;
 
@@ -46,11 +46,11 @@ protected:
 	QPointArray makeConnectPoly( const QPointArray& topBezier, const QPointArray& bottomBezier );
 
 private:
-	KDiffModelList*      m_models;
+	KompareModelList*      m_models;
 	GeneralSettings*     m_settings;
-	KDiffView*           m_diffView;
-	KDiffListView*       m_leftView;
-	KDiffListView*       m_rightView;
+	KompareView*           m_diffView;
+	KompareListView*       m_leftView;
+	KompareListView*       m_rightView;
 	int                  m_selectedModel;
 	int                  m_selectedDiff;
 

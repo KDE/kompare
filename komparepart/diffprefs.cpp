@@ -139,7 +139,7 @@ void DiffPrefs::apply()
 
 	setts->m_linesOfContext                 = m_locSpinButton->value();
 
-	setts->m_format = static_cast<KDiff::Format>( m_modeButtonGroup->id( m_modeButtonGroup->selected() ) );
+	setts->m_format = static_cast<Kompare::Format>( m_modeButtonGroup->id( m_modeButtonGroup->selected() ) );
 };
 
 void DiffPrefs::setDefaults()

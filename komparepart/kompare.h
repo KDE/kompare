@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiff.h  -  description
+                                kompare.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -17,12 +17,12 @@
 **
 ***************************************************************************/
 
-#ifndef KDIFF_H
-#define KDIFF_H
+#ifndef KOMPARE_H
+#define KOMPARE_H
 
 #include <kurl.h>
 
-class KDiff
+class Kompare
 {
 public:
 	enum Format {

@@ -22,7 +22,7 @@
 
 #include <qwidget.h>
 
-#include "kdiff.h"
+#include "kompare.h"
 #include "settingsbase.h"
 
 class DiffSettings : public SettingsBase
@@ -38,7 +38,7 @@ public:
 
 public:
 	int m_linesOfContext;
-	KDiff::Format m_format;
+	Kompare::Format m_format;
 	bool m_largeFiles;
 	bool m_ignoreWhiteSpace;
 	bool m_ignoreEmptyLines;

@@ -1,5 +1,5 @@
 /***************************************************************************
-                          kdiffconnectwidget.cpp  -  description
+                          kompareconnectwidget.cpp  -  description
                              -------------------
     begin                : Tue Jun 26 2001
     copyright            : (C) 2001 by John Firebaugh
@@ -22,13 +22,13 @@
 #include <kdebug.h>
 
 #include "generalsettings.h"
-#include "kdifflistview.h"
-#include "kdiffview.h"
+#include "komparelistview.h"
+#include "kompareview.h"
 
-#include "kdiffconnectwidget.h"
+#include "kompareconnectwidget.h"
 
-KDiffConnectWidget::KDiffConnectWidget( KDiffModelList* models, KDiffListView* left, KDiffListView* right,
-      GeneralSettings* settings, KDiffView* parent, const char* name )
+KompareConnectWidget::KompareConnectWidget( KompareModelList* models, KompareListView* left, KompareListView* right,
+      GeneralSettings* settings, KompareView* parent, const char* name )
 	: QWidget(parent, name),
 	m_models( models ),
 	m_settings( settings ),
@@ -43,11 +43,11 @@ KDiffConnectWidget::KDiffConnectWidget( KDiffModelList* models, KDiffListView* l
 	setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum ) );
 }
 
-KDiffConnectWidget::~KDiffConnectWidget()
+KompareConnectWidget::~KompareConnectWidget()
 {
 }
 
-void KDiffConnectWidget::slotSetSelection( int model, int diff ) {
+void KompareConnectWidget::slotSetSelection( int model, int diff ) {
 	if( m_selectedModel == model && m_selectedDiff == diff )
 		return;
 	
@@ -67,14 +67,14 @@ void KDiffConnectWidget::slotSetSelection( int model, int diff ) {
 	repaint();
 }
 
-QSize KDiffConnectWidget::sizeHint() const
+QSize KompareConnectWidget::sizeHint() const
 {
 	return QSize(50, style().scrollBarExtent().height());
 }
 
-void KDiffConnectWidget::paintEvent( QPaintEvent* /* e */ )
+void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 {
-	kdDebug() << "KDiffConnectWidget::paintEvent()" << endl;
+	kdDebug() << "KompareConnectWidget::paintEvent()" << endl;
 	
 	QPixmap pixbuf(size());
 	QPainter paint(&pixbuf, this);
@@ -142,7 +142,7 @@ void KDiffConnectWidget::paintEvent( QPaintEvent* /* e */ )
 	bitBlt(this, 0, 0, &pixbuf);
 }
 
-QPointArray KDiffConnectWidget::makeTopBezier( int tl, int tr )
+QPointArray KompareConnectWidget::makeTopBezier( int tl, int tr )
 {
 	int l = 0;
 	int r = width();
@@ -151,7 +151,7 @@ QPointArray KDiffConnectWidget::makeTopBezier( int tl, int tr )
 	return controlPoints.cubicBezier();
 }
 
-QPointArray KDiffConnectWidget::makeBottomBezier( int bl, int br )
+QPointArray KompareConnectWidget::makeBottomBezier( int bl, int br )
 {
 	int l = 0;
 	int r = width();
@@ -160,7 +160,7 @@ QPointArray KDiffConnectWidget::makeBottomBezier( int bl, int br )
 	return controlPoints.cubicBezier();
 }
 
-QPointArray KDiffConnectWidget::makeConnectPoly( const QPointArray& topBezier, const QPointArray& bottomBezier )
+QPointArray KompareConnectWidget::makeConnectPoly( const QPointArray& topBezier, const QPointArray& bottomBezier )
 {
 	QPointArray poly( topBezier.size() + bottomBezier.size() );
 	for( uint i = 0; i < topBezier.size(); i++ )
@@ -171,4 +171,4 @@ QPointArray KDiffConnectWidget::makeConnectPoly( const QPointArray& topBezier, c
 	return poly;
 }
 
-#include "kdiffconnectwidget.moc"
+#include "kompareconnectwidget.moc"

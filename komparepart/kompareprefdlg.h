@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiffprefdlg.h  -  description
+                                kompareprefdlg.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -17,8 +17,8 @@
 **
 ***************************************************************************/
 
-#ifndef KDIFFPREFDLG_H
-#define KDIFFPREFDLG_H
+#ifndef KOMPAREPREFDLG_H
+#define KOMPAREPREFDLG_H
 
 #include <kdialogbase.h>
 
@@ -26,12 +26,12 @@
 #include "generalprefs.h"
 #include "miscprefs.h"
 
-class KDiffPrefDlg : public KDialogBase
+class KomparePrefDlg : public KDialogBase
 {
 Q_OBJECT
 public:
-	KDiffPrefDlg( GeneralSettings*, DiffSettings*, MiscSettings* );
-	~KDiffPrefDlg();
+	KomparePrefDlg( GeneralSettings*, DiffSettings*, MiscSettings* );
+	~KomparePrefDlg();
 
 public:
 	GeneralPrefs*	m_generalPage;

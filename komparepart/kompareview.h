@@ -12,12 +12,12 @@
  */
 
 
-#ifndef _KDIFFVIEW_H_
-#define _KDIFFVIEW_H_
+#ifndef _KOMPAREVIEW_H_
+#define _KOMPAREVIEW_H_
 
 #include <qframe.h>
 
-#include "kdiffmodellist.h"
+#include "komparemodellist.h"
 
 class QComboBox;
 class QFont;
@@ -27,16 +27,16 @@ class QScrollBar;
 
 class DiffModel;
 class GeneralSettings;
-class KDiffConnectWidget;
-class KDiffListView;
+class KompareConnectWidget;
+class KompareListView;
 
-class KDiffView : public QFrame
+class KompareView : public QFrame
 {
 	Q_OBJECT
 	
 public:
-	KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget *parent=0, const char *name=0 );
-	~KDiffView();
+	KompareView( KompareModelList* models, GeneralSettings* settings, QWidget *parent=0, const char *name=0 );
+	~KompareView();
 	
 public slots:
 	void slotSetSelection( int model, int diff );
@@ -53,15 +53,15 @@ protected slots:
 	void slotSelectionChanged( int model, int diff );
 
 private:
-	KDiffModelList*           m_models;
+	KompareModelList*         m_models;
 	int                       m_selectedModel;
 	int                       m_selectedDifference;
 	GeneralSettings*          m_settings;
 	QLabel*                   revlabel1;
 	QLabel*                   revlabel2;
-	KDiffListView*            diff1;
-	KDiffListView*            diff2;
-	KDiffConnectWidget*       zoom;
+	KompareListView*          diff1;
+	KompareListView*          diff2;
+	KompareConnectWidget*     zoom;
 	QScrollBar*               vScroll;
 	QScrollBar*               hScroll;
 };

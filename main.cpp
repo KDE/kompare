@@ -25,7 +25,7 @@
 #include <kdebug.h>
 #include <kmessagebox.h>
 
-#include "kdiff_shell.h"
+#include "kompare_shell.h"
 #include "kcomparedialog.h"
 
 static const char *description =
@@ -35,13 +35,13 @@ static const char *version = "v2.0";
 
 static KCmdLineOptions options[] =
 {
-	{ "+[URL [URL2]]", I18N_NOOP( "Document to open. If only one url is given\nit is considered a .diff file. If 2 files are given\nkdiff will compare them." ), 0 },
+	{ "+[URL [URL2]]", I18N_NOOP( "Document to open. If only one url is given\nit is considered a .diff file. If 2 files are given\nkompare will compare them." ), 0 },
 	{ 0, 0, 0 }
 };
 
 int main(int argc, char *argv[])
 {
-	KAboutData aboutData( "kdiff", I18N_NOOP("KDiff"), version, description,
+	KAboutData aboutData( "kompare", I18N_NOOP("Kompare"), version, description,
 	                      KAboutData::License_GPL,
 	                      "(c) 2001, John Firebaugh and Otto Bruggeman", 0, 0, "jfirebaugh@kde.org");
 	aboutData.addAuthor( "John Firebaugh", "Author", "jfirebaugh@kde.org" );
@@ -55,13 +55,13 @@ int main(int argc, char *argv[])
 	// see if we are starting with session management
 	if (app.isRestored())
 	{
-		RESTORE(KDiffShell)
+		RESTORE(KompareShell)
 	}
 	else
 	{
 		KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-		KDiffShell* widget;
+		KompareShell* widget;
 
 		switch ( args->count() )
 		{
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 				if( dialog->exec() == QDialog::Accepted ) {
 					KURL source = dialog->getSourceURL();
 					KURL destination = dialog->getDestinationURL();
-					widget = new KDiffShell();
+					widget = new KompareShell();
 					widget->show();
 					widget->compare( source, destination );
 				} else {
@@ -81,12 +81,12 @@ int main(int argc, char *argv[])
 			}
 			break;
 		case 1:  // 1 file -> it is a diff, use load()
-			widget = new KDiffShell();
+			widget = new KompareShell();
 			widget->show();
 			widget->load( args->url( 0 ) );
 			break;
 		case 2:  // 2 files -> diff them with compare
-			widget = new KDiffShell();
+			widget = new KompareShell();
 			widget->show();
 			widget->compare( args->url( 0 ), args->url( 1 ) );
 			break;

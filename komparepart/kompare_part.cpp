@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiff_part.cpp  -  description
+                                kompare_part.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -32,21 +32,21 @@
 #include "diffmodel.h"
 #include "diffsettings.h"
 #include "generalsettings.h"
-#include "kdiff_actions.h"
-#include "kdiff_part.h"
-#include "kdiffnavigationtree.h"
-#include "kdiffprefdlg.h"
-#include "kdiffprocess.h"
-#include "kdiffsaveoptionswidget.h"
-#include "kdiffview.h"
+#include "kompare_actions.h"
+#include "kompare_part.h"
+#include "komparenavigationtree.h"
+#include "kompareprefdlg.h"
+#include "kompareprocess.h"
+#include "komparesaveoptionswidget.h"
+#include "kompareview.h"
 #include "miscsettings.h"
 
 
-GeneralSettings* KDiffPart::m_generalSettings = 0L;
-DiffSettings*    KDiffPart::m_diffSettings    = 0L;
-MiscSettings*    KDiffPart::m_miscSettings    = 0L;
+GeneralSettings* KomparePart::m_generalSettings = 0L;
+DiffSettings*    KomparePart::m_diffSettings    = 0L;
+MiscSettings*    KomparePart::m_miscSettings    = 0L;
 
-KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
+KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
                       QObject *parent, const char *name ) :
 	KParts::ReadWritePart(parent, name),
 	m_selectedModel( -1 ),
@@ -55,7 +55,7 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 	m_tempDiff( 0 )
 {
 	// we need an instance
-	setInstance( KDiffPartFactory::instance() );
+	setInstance( KomparePartFactory::instance() );
 	
 	if( !m_generalSettings ) {
 		m_generalSettings = new GeneralSettings( 0 );
@@ -63,16 +63,16 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 		m_miscSettings    = new MiscSettings   ( 0 );
 	}
 	
-	m_models = new KDiffModelList();
-	connect( m_models, SIGNAL(status( KDiffModelList::Status )),
-	         this, SLOT(slotSetStatus( KDiffModelList::Status )) );
+	m_models = new KompareModelList();
+	connect( m_models, SIGNAL(status( KompareModelList::Status )),
+	         this, SLOT(slotSetStatus( KompareModelList::Status )) );
 	connect( m_models, SIGNAL(error( QString )),
 	         this, SLOT(slotShowError( QString )) );
 	connect( m_models, SIGNAL(modelsChanged()),
 	         this, SLOT(slotModelsChanged()) );
 	
 	// this should be your custom internal widget
-	m_diffView = new KDiffView( m_models, m_generalSettings, parentWidget, widgetName );
+	m_diffView = new KompareView( m_models, m_generalSettings, parentWidget, widgetName );
 	connect( this, SIGNAL(selectionChanged(int,int)),
 	         m_diffView, SLOT(slotSetSelection(int,int)) );
 	connect( m_diffView, SIGNAL(selectionChanged(int,int)),
@@ -86,7 +86,7 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 	loadSettings( instance()->config() );
 	
 	// set our XML-UI resource file
-	setXMLFile("kdiffpartui.rc");
+	setXMLFile("komparepartui.rc");
 	
 	// we are read-write by default
 	setReadWrite(true);
@@ -98,14 +98,14 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 	         this, SLOT(slotSelectionChanged(int,int)) );
 }
 
-KDiffPart::~KDiffPart()
+KomparePart::~KomparePart()
 {
 }
 
-QWidget* KDiffPart::createNavigationWidget( QWidget* parent, const char* name )
+QWidget* KomparePart::createNavigationWidget( QWidget* parent, const char* name )
 {
 	if( !m_navigationTree ) {
-		m_navigationTree = new KDiffNavigationTree( m_models, parent, name );
+		m_navigationTree = new KompareNavigationTree( m_models, parent, name );
 		connect( this, SIGNAL(selectionChanged(int,int)),
 		         m_navigationTree, SLOT(slotSetSelection(int,int)) );
 		connect( m_navigationTree, SIGNAL(selectionChanged(int,int)),
@@ -117,7 +117,7 @@ QWidget* KDiffPart::createNavigationWidget( QWidget* parent, const char* name )
 	return m_navigationTree;
 }
 
-void KDiffPart::setupActions()
+void KomparePart::setupActions()
 {
 	// create our actions
 
@@ -157,18 +157,18 @@ void KDiffPart::setupActions()
 	                                 this, SLOT(slotNextDifference()),
 	                                 actionCollection(), "difference_next" );
 	m_nextDifference->setEnabled( false );
-	m_differences     = new KDifferencesAction( i18n("Differences"), actionCollection(), "difference_differences" );
+	m_differences     = new KompareerencesAction( i18n("Differences"), actionCollection(), "difference_differences" );
 	connect( m_differences, SIGNAL( menuAboutToShow() ), this, SLOT( slotDifferenceMenuAboutToShow() ) );
 	connect( m_differences, SIGNAL( activated( int ) ), this, SLOT( slotGoDifferenceActivated( int ) ) );
 
 	KStdAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
 }
 
-void KDiffPart::updateActions()
+void KomparePart::updateActions()
 {
 	m_saveAll->setEnabled  ( m_models->isModified() );
-	m_saveDiff->setEnabled ( m_models->mode() == KDiffModelList::Compare );
-	m_swap->setEnabled     ( m_models->mode() == KDiffModelList::Compare );
+	m_saveDiff->setEnabled ( m_models->mode() == KompareModelList::Compare );
+	m_swap->setEnabled     ( m_models->mode() == KompareModelList::Compare );
 	m_diffStats->setEnabled( m_models->modelCount() > 0 );
 	
 	int model = getSelectedModelIndex();
@@ -196,17 +196,17 @@ void KDiffPart::updateActions()
 	    ( diff < getSelectedModel()->differenceCount() - 1 || model < m_models->modelCount() - 1 ) );
 }
 
-bool KDiffPart::openURL( const KURL& url )
+bool KomparePart::openURL( const KURL& url )
 {
   return openDiff( url );
 }
 
-void KDiffPart::compare( const KURL& source, const KURL& destination )
+void KomparePart::compare( const KURL& source, const KURL& destination )
 {
 	m_models->compare( source, destination );
 }
 
-bool KDiffPart::saveDestination()
+bool KomparePart::saveDestination()
 {
 	bool result = m_models->saveDestination( m_selectedModel );
 	updateActions();
@@ -214,7 +214,7 @@ bool KDiffPart::saveDestination()
 	return result;
 }
 
-bool KDiffPart::saveAll()
+bool KomparePart::saveAll()
 {
 	bool result = m_models->saveAll();
 	updateActions();
@@ -222,17 +222,17 @@ bool KDiffPart::saveAll()
 	return result;
 }
 
-bool KDiffPart::openDiff( const KURL& url )
+bool KomparePart::openDiff( const KURL& url )
 {
 	return m_models->openDiff( url );
 }
 
-void KDiffPart::saveDiff()
+void KomparePart::saveDiff()
 {
 	KDialogBase* dlg          = new KDialogBase( widget(), "save options",
 	                                             true /* modal */, i18n("Diff Options"), 
 	                                             KDialogBase::Ok|KDialogBase::Cancel );
-	KDiffSaveOptionsWidget* w = new KDiffSaveOptionsWidget(
+	KompareSaveOptionsWidget* w = new KompareSaveOptionsWidget(
 	                                             m_models->sourceTemp(), 
 	                                             m_models->destinationTemp(), 
 	                                             m_diffSettings, dlg );
@@ -251,7 +251,7 @@ void KDiffPart::saveDiff()
 	delete dlg;
 }
 
-KURL KDiffPart::diffURL()
+KURL KomparePart::diffURL()
 {
 	if( m_models->diffURL().isEmpty() ) {
 		saveDiff();
@@ -259,22 +259,22 @@ KURL KDiffPart::diffURL()
 	return m_models->diffURL();
 }
 
-void KDiffPart::slotSetStatus( KDiffModelList::Status status )
+void KomparePart::slotSetStatus( KompareModelList::Status status )
 {
 	updateActions();
 	switch( status ) {
-	case KDiffModelList::RunningDiff:
+	case KompareModelList::RunningDiff:
 		emit setStatusBarText( i18n( "Running diff..." ) );
 		break;
-	case KDiffModelList::Parsing:
+	case KompareModelList::Parsing:
 		emit setStatusBarText( i18n( "Parsing diff..." ) );
 		break;
-	case KDiffModelList::FinishedParsing:
+	case KompareModelList::FinishedParsing:
 		updateStatus();
 		if( m_models->modelCount() > 0 && m_models->modelAt( 0 )->differenceCount() > 0 )
 			slotSetSelection( 0, 0 );
 		break;
-	case KDiffModelList::FinishedWritingDiff:
+	case KompareModelList::FinishedWritingDiff:
 		updateStatus();
 		emit diffURLChanged();
 		break;
@@ -283,9 +283,9 @@ void KDiffPart::slotSetStatus( KDiffModelList::Status status )
 	}
 }
 
-void KDiffPart::updateStatus()
+void KomparePart::updateStatus()
 {
-	if( m_models->mode() == KDiffModelList::Compare ) {
+	if( m_models->mode() == KompareModelList::Compare ) {
 		if( modelCount() > 1 ) {
 			emit setStatusBarText( i18n( "Comparing files in %1 with files in %2" )
 			   .arg( m_models->sourceBaseURL().prettyURL() )
@@ -307,25 +307,25 @@ void KDiffPart::updateStatus()
 	}
 }
 
-void KDiffPart::slotShowError( QString error )
+void KomparePart::slotShowError( QString error )
 {
 	KMessageBox::error( widget(), error );
 }
 
-void KDiffPart::slotModelsChanged()
+void KomparePart::slotModelsChanged()
 {
 	if( m_selectedModel > modelCount() - 1 )
 		slotSetSelection( -1, -1 );
 }
 
-void KDiffPart::slotSwap()
+void KomparePart::slotSwap()
 {
 	m_models->swap();
 }
 
-void KDiffPart::slotShowDiffstats( void )
+void KomparePart::slotShowDiffstats( void )
 {
-	// Fetch all the args needed for kdiffstatsmessagebox
+	// Fetch all the args needed for komparestatsmessagebox
 	// oldfile, newfile, diffformat, noofhunks, noofdiffs
 
 	QString oldFile;
@@ -408,7 +408,7 @@ void KDiffPart::slotShowDiffstats( void )
 	}
 }
 
-bool KDiffPart::askSaveChanges()
+bool KomparePart::askSaveChanges()
 {
 	if( !isModified() ) return true;
 	
@@ -424,7 +424,7 @@ bool KDiffPart::askSaveChanges()
 	return true;
 }
 
-void KDiffPart::loadSettings(KConfig *config)
+void KomparePart::loadSettings(KConfig *config)
 {
 	config->setGroup( "General" );
 	m_generalSettings->loadSettings( config );
@@ -434,7 +434,7 @@ void KDiffPart::loadSettings(KConfig *config)
 	m_miscSettings->loadSettings   ( config );
 }
 
-void KDiffPart::saveSettings(KConfig *config)
+void KomparePart::saveSettings(KConfig *config)
 {
 	config->setGroup( "General" );
 	m_generalSettings->saveSettings( config );
@@ -444,7 +444,7 @@ void KDiffPart::saveSettings(KConfig *config)
 	m_miscSettings->saveSettings   ( config );
 }
 
-void KDiffPart::slotSetSelection( int model, int diff )
+void KomparePart::slotSetSelection( int model, int diff )
 {
 	if( model == m_selectedModel && diff == m_selectedDifference )
 		return;
@@ -465,35 +465,35 @@ void KDiffPart::slotSetSelection( int model, int diff )
 	emit selectionChanged( model, diff );
 }
 
-void KDiffPart::slotSelectionChanged( int /* model */, int /* diff */ )
+void KomparePart::slotSelectionChanged( int /* model */, int /* diff */ )
 {
 	updateActions();
 }
 
-void KDiffPart::slotAppliedChanged( const Difference* /* d */ )
+void KomparePart::slotAppliedChanged( const Difference* /* d */ )
 {
 	updateActions();
 	updateStatus();
 }
 
-void KDiffPart::slotDifferenceMenuAboutToShow()
+void KomparePart::slotDifferenceMenuAboutToShow()
 {
 	m_differences->fillDifferenceMenu( getSelectedModel(), getSelectedDifferenceIndex() );
 }
 
-void KDiffPart::slotGoDifferenceActivated( int item )
+void KomparePart::slotGoDifferenceActivated( int item )
 {
 	slotSetSelection( getSelectedModelIndex(), item );
 }
 
-void KDiffPart::slotApplyDifference()
+void KomparePart::slotApplyDifference()
 {
 	getSelectedModel()->toggleApplied( getSelectedDifferenceIndex() );
 	if( m_nextDifference->isEnabled() )
 		slotNextDifference();
 }
 
-void KDiffPart::slotApplyAllDifferences()
+void KomparePart::slotApplyAllDifferences()
 {
 	DiffModel* model = getSelectedModel();
 	QListIterator<Difference> it = QListIterator<Difference>(model->getDifferences());
@@ -505,7 +505,7 @@ void KDiffPart::slotApplyAllDifferences()
 	}
 }
 
-void KDiffPart::slotUnapplyAllDifferences()
+void KomparePart::slotUnapplyAllDifferences()
 {
 	DiffModel* model = getSelectedModel();
 	QListIterator<Difference> it = QListIterator<Difference>(model->getDifferences());
@@ -517,19 +517,19 @@ void KDiffPart::slotUnapplyAllDifferences()
 	}
 }
 
-void KDiffPart::slotPreviousFile()
+void KomparePart::slotPreviousFile()
 {
 	int modelIndex = getSelectedModelIndex();
 	slotSetSelection( modelIndex - 1, 0 );
 }
 
-void KDiffPart::slotNextFile()
+void KomparePart::slotNextFile()
 {
 	int modelIndex = getSelectedModelIndex();
 	slotSetSelection( modelIndex + 1, 0 );
 }
 
-void KDiffPart::slotPreviousDifference()
+void KomparePart::slotPreviousDifference()
 {
 	int modelIndex = getSelectedModelIndex();
 	int diffIndex = getSelectedDifferenceIndex();
@@ -539,7 +539,7 @@ void KDiffPart::slotPreviousDifference()
 		slotSetSelection( modelIndex - 1, m_models->modelAt( modelIndex - 1 )->differenceCount() - 1 );
 }
 
-void KDiffPart::slotNextDifference()
+void KomparePart::slotNextDifference()
 {
 	int modelIndex = getSelectedModelIndex();
 	int diffIndex = getSelectedDifferenceIndex();
@@ -549,10 +549,10 @@ void KDiffPart::slotNextDifference()
 		slotSetSelection( modelIndex + 1, 0 );
 }
 
-void KDiffPart::optionsPreferences()
+void KomparePart::optionsPreferences()
 {
 	// show preferences
-	KDiffPrefDlg* pref = new KDiffPrefDlg( m_generalSettings, m_diffSettings, m_miscSettings );
+	KomparePrefDlg* pref = new KomparePrefDlg( m_generalSettings, m_diffSettings, m_miscSettings );
 	
 	if ( pref->exec() ) {
 		KConfig* config = instance()->config();
@@ -566,15 +566,15 @@ void KDiffPart::optionsPreferences()
 #include <kaboutdata.h>
 #include <klocale.h>
 
-KInstance*  KDiffPartFactory::s_instance = 0L;
-KAboutData* KDiffPartFactory::s_about = 0L;
+KInstance*  KomparePartFactory::s_instance = 0L;
+KAboutData* KomparePartFactory::s_about = 0L;
 
-KDiffPartFactory::KDiffPartFactory()
+KomparePartFactory::KomparePartFactory()
     : KParts::Factory()
 {
 }
 
-KDiffPartFactory::~KDiffPartFactory()
+KomparePartFactory::~KomparePartFactory()
 {
 	delete s_instance;
 	delete s_about;
@@ -582,12 +582,12 @@ KDiffPartFactory::~KDiffPartFactory()
 	s_instance = 0L;
 }
 
-KParts::Part* KDiffPartFactory::createPartObject( QWidget *parentWidget, const char *widgetName,
+KParts::Part* KomparePartFactory::createPartObject( QWidget *parentWidget, const char *widgetName,
                                                   QObject *parent, const char *name,
                                                   const char *classname, const QStringList & /*args*/ )
 {
 	// Create an instance of our Part
-	KDiffPart* obj = new KDiffPart( parentWidget, widgetName, parent, name );
+	KomparePart* obj = new KomparePart( parentWidget, widgetName, parent, name );
 
 	// See if we are to be read-write or not
 	if (QCString(classname) == "KParts::ReadOnlyPart")
@@ -596,11 +596,11 @@ KParts::Part* KDiffPartFactory::createPartObject( QWidget *parentWidget, const c
 	return obj;
 }
 
-KInstance* KDiffPartFactory::instance()
+KInstance* KomparePartFactory::instance()
 {
 	if( !s_instance )
 	{
-		s_about = new KAboutData("kdiffpart", I18N_NOOP("KDiffPart"), "2.0");
+		s_about = new KAboutData("komparepart", I18N_NOOP("KomparePart"), "2.0");
 		s_about->addAuthor("John Firebaugh", "Author", "jfirebaugh@kde.org");
 		s_about->addAuthor("Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
 		s_instance = new KInstance(s_about);
@@ -610,10 +610,10 @@ KInstance* KDiffPartFactory::instance()
 
 extern "C"
 {
-	void* init_libkdiffpart()
+	void* init_libkomparepart()
 	{
-		return new KDiffPartFactory;
+		return new KomparePartFactory;
 	}
 };
 
-#include "kdiff_part.moc"
+#include "kompare_part.moc"

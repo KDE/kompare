@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiffprefdlg.cpp  -  description
+                                kompareprefdlg.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -23,17 +23,17 @@
 #include <kiconloader.h>
 #include <klocale.h>
 
-#include "kdiffprefdlg.h"
+#include "kompareprefdlg.h"
 
 // implementation
 
-KDiffPrefDlg::KDiffPrefDlg( GeneralSettings* genSets, DiffSettings* diffSets, MiscSettings* miscSets ) : KDialogBase( IconList, i18n( "Preferences" ), Help|Default|Ok|Apply|Cancel, Ok, 0, 0, true, true )
+KomparePrefDlg::KomparePrefDlg( GeneralSettings* genSets, DiffSettings* diffSets, MiscSettings* miscSets ) : KDialogBase( IconList, i18n( "Preferences" ), Help|Default|Ok|Apply|Cancel, Ok, 0, 0, true, true )
 {
 	// ok i need some stuff in that pref dlg...
 	setIconListAllVisible(true);
 
 	QVBox* frame;
-	frame = addVBoxPage( i18n( "General" ), i18n( "General settings of the kdiff program" ), UserIcon( "diff_general" ) );
+	frame = addVBoxPage( i18n( "General" ), i18n( "General settings of the kompare program" ), UserIcon( "diff_general" ) );
 	m_generalPage = new GeneralPrefs( frame );
 	m_generalPage->setSettings( genSets );
 
@@ -50,13 +50,13 @@ KDiffPrefDlg::KDiffPrefDlg( GeneralSettings* genSets, DiffSettings* diffSets, Mi
 	adjustSize();
 }
 
-KDiffPrefDlg::~KDiffPrefDlg()
+KomparePrefDlg::~KomparePrefDlg()
 {
 
 }
 
 /** No descriptions */
-void KDiffPrefDlg::slotDefault()
+void KomparePrefDlg::slotDefault()
 {
 	kdDebug() << "SlotDefault called -> Settings should be restored to defaults..." << endl;
 	// restore all defaults in the options...
@@ -66,7 +66,7 @@ void KDiffPrefDlg::slotDefault()
 }
 
 /** No descriptions */
-void KDiffPrefDlg::slotHelp()
+void KomparePrefDlg::slotHelp()
 {
 	// show some help...
 	// figure out the current active page
@@ -74,7 +74,7 @@ void KDiffPrefDlg::slotHelp()
 }
 
 /** No descriptions */
-void KDiffPrefDlg::slotApply()
+void KomparePrefDlg::slotApply()
 {
 	kdDebug() << "SlotApply called -> Settings should be applied..." << endl;
 	// well apply the settings that are currently selected
@@ -84,7 +84,7 @@ void KDiffPrefDlg::slotApply()
 }
 
 /** No descriptions */
-void KDiffPrefDlg::slotOk()
+void KomparePrefDlg::slotOk()
 {
 	kdDebug() << "SlotOk called -> Settings should be applied..." << endl;
 	// Apply the settings that are currently selected
@@ -96,7 +96,7 @@ void KDiffPrefDlg::slotOk()
 }
 
 /** No descriptions */
-void KDiffPrefDlg::slotCancel()
+void KomparePrefDlg::slotCancel()
 {
 	// discard the current settings and use the present ones
 	m_generalPage->restore();
@@ -106,4 +106,4 @@ void KDiffPrefDlg::slotCancel()
 	KDialogBase::slotCancel();
 }
 
-#include "kdiffprefdlg.moc"
+#include "kompareprefdlg.moc"

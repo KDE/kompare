@@ -1,5 +1,5 @@
 /***************************************************************************
-                                kdiffview.cpp  -  description
+                                kompareview.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -31,12 +31,12 @@
 #include "diffhunk.h"
 #include "diffmodel.h"
 #include "generalsettings.h"
-#include "kdiffconnectwidget.h"
-#include "kdifflistview.h"
+#include "kompareconnectwidget.h"
+#include "komparelistview.h"
 
-#include "kdiffview.h"
+#include "kompareview.h"
 
-KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget *parent, const char *name )
+KompareView::KompareView( KompareModelList* models, GeneralSettings* settings, QWidget *parent, const char *name )
 	: QFrame(parent, name),
 	m_models( models ),
 	m_selectedModel( -1 ),
@@ -83,8 +83,8 @@ KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget
 	Frame2Layout->addWidget( revlabel2 );
 	pairlayout->addMultiCellWidget( Frame2, 0,0, 2,3 );
 
-	diff1 = new KDiffListView( models, true, m_settings, this );
-	diff2 = new KDiffListView( models, false, m_settings, this );
+	diff1 = new KompareListView( models, true, m_settings, this );
+	diff2 = new KompareListView( models, false, m_settings, this );
 	diff1->setFrameStyle( QFrame::NoFrame );
 	diff2->setFrameStyle( QFrame::NoFrame );
 	diff1->setVScrollBarMode( QScrollView::AlwaysOff );
@@ -96,7 +96,7 @@ KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget
 	pairlayout->addWidget(diff1, 1, 0);
 	pairlayout->addWidget(diff2, 1, 2);
 
-	zoom = new KDiffConnectWidget( models, diff1, diff2, m_settings, this );
+	zoom = new KompareConnectWidget( models, diff1, diff2, m_settings, this );
 	pairlayout->addWidget( zoom,  1, 1);
 
 	vScroll = new QScrollBar( QScrollBar::Vertical, this );
@@ -118,18 +118,18 @@ KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget
 	updateScrollBars();
 }
 
-KDiffView::~KDiffView()
+KompareView::~KompareView()
 {
 }
 
-void KDiffView::slotSelectionChanged( int model, int diff )
+void KompareView::slotSelectionChanged( int model, int diff )
 {
 	diff1->setSelectedDifference( diff, false /* don't scroll */ );
 	diff2->setSelectedDifference( diff, false /* don't scroll */ );
 	emit selectionChanged( model, diff );
 }
 
-void KDiffView::slotSetSelection( int model, int diff )
+void KompareView::slotSetSelection( int model, int diff )
 {
 	if( model >= 0 ) {
 		DiffModel* m = m_models->modelAt( model );
@@ -149,14 +149,14 @@ void KDiffView::slotSetSelection( int model, int diff )
 	updateScrollBars();
 }
 
-void KDiffView::scrollToId( int id )
+void KompareView::scrollToId( int id )
 {
 	diff1->scrollToId( id );
 	diff2->scrollToId( id );
 	zoom->repaint();
 }
 
-void KDiffView::updateScrollBars()
+void KompareView::updateScrollBars()
 {
 	if( diff1->contentsHeight() <= diff1->visibleHeight() &&
 	    diff2->contentsHeight() <= diff2->visibleHeight() ) {
@@ -193,10 +193,10 @@ void KDiffView::updateScrollBars()
 	}
 }
 
-void KDiffView::resizeEvent( QResizeEvent* e )
+void KompareView::resizeEvent( QResizeEvent* e )
 {
 	QWidget::resizeEvent( e );
 	updateScrollBars();
 }
 
-#include "kdiffview.moc"
+#include "kompareview.moc"

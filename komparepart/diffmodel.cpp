@@ -27,7 +27,7 @@
 #include "difference.h"
 #include "diffhunk.h"
 #include "diffmodel.h"
-#include "kdiffmodellist.h"
+#include "komparemodellist.h"
 
 /**  */
 DiffModel::DiffModel() :
@@ -43,7 +43,7 @@ DiffModel::~DiffModel()
 {
 };
 
-KDiff::Format DiffModel::determineDiffFormat( QString line )
+Kompare::Format DiffModel::determineDiffFormat( QString line )
 {
 	if( line.find( QRegExp( "^[0-9]+[0-9,]*[acd][0-9]+[0-9,]*$" ), 0 ) == 0 )
 		return Normal;
@@ -598,3 +598,5 @@ void DiffModel::setModified( bool modified )
 }
 
 #include "diffmodel.moc"
+
+/* vim: set ts=4 sw=4 noet: */

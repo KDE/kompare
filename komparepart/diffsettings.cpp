@@ -42,7 +42,7 @@ void DiffSettings::loadSettings( KConfig* config )
 	m_newFiles                       = config->readBoolEntry( "NewFiles", true );
 	m_allText                        = config->readBoolEntry( "TreatAllFilesAsText", true );
 
-	m_format = static_cast<KDiff::Format>( config->readNumEntry( "Format", Unified ) );
+	m_format = static_cast<Kompare::Format>( config->readNumEntry( "Format", Unified ) );
 };
 
 void DiffSettings::saveSettings( KConfig* config )

@@ -25,13 +25,13 @@ using namespace Diff2;
 
 PerforceParser::PerforceParser( const KompareModelList* list, const QStringList& diff ) : ParserBase( list, diff )
 {
-	m_contextDiffHeader1.setPattern( "==== (.*) - (.*) ====" );
+	m_contextDiffHeader1.setPattern( "==== (.*) - (.*) ====\\n" );
 	m_contextDiffHeader1.setMinimal( true );
-	m_normalDiffHeader.setPattern  ( "==== (.*) - (.*) ====" );
+	m_normalDiffHeader.setPattern  ( "==== (.*) - (.*) ====\\n" );
 	m_normalDiffHeader.setMinimal  ( true );
-	m_rcsDiffHeader.setPattern     ( "==== (.*) - (.*) ====" );
+	m_rcsDiffHeader.setPattern     ( "==== (.*) - (.*) ====\\n" );
 	m_rcsDiffHeader.setMinimal     ( true );
-	m_unifiedDiffHeader1.setPattern( "==== (.*) - (.*) ====" );
+	m_unifiedDiffHeader1.setPattern( "==== (.*) - (.*) ====\\n" );
 	m_unifiedDiffHeader1.setMinimal( true );
 }
 
@@ -86,6 +86,9 @@ bool PerforceParser::parseContextDiffHeader()
 
 	QStringList::ConstIterator itEnd = m_diffLines.end();
 
+	QRegExp sourceFileRE     ( "([^\\#]+)#(\\d+)" );
+	QRegExp destinationFileRE( "([^\\#]+)#(|\\d+)" );
+
 	while ( m_diffIterator != itEnd )
 	{
 		if ( m_contextDiffHeader1.exactMatch( *(m_diffIterator)++ ) )
@@ -96,8 +99,6 @@ bool PerforceParser::parseContextDiffHeader()
 //			kdDebug(8101) << "Second capture Header1 = " << m_contextDiffHeader1.cap( 2 ) << endl;
 
 			m_currentModel = new DiffModel();
-			QRegExp sourceFileRE     ( "^([^#]+)#(.*)$" );
-			QRegExp destinationFileRE( "^([^#]+)#?(.*)$" );
 			sourceFileRE.exactMatch( m_contextDiffHeader1.cap( 1 ) );
 			destinationFileRE.exactMatch( m_contextDiffHeader1.cap( 2 ) );
 			kdDebug(8101) << "Matched length   = " << sourceFileRE.matchedLength() << endl;
@@ -129,6 +130,9 @@ bool PerforceParser::parseNormalDiffHeader()
 
 	QStringList::ConstIterator itEnd = m_diffLines.end();
 
+	QRegExp sourceFileRE     ( "([^\\#]+)#(\\d+)" );
+	QRegExp destinationFileRE( "([^\\#]+)#(|\\d+)" );
+
 	while ( m_diffIterator != itEnd )
 	{
 		kdDebug(8101) << "Line = " << *m_diffIterator << endl;
@@ -141,8 +145,6 @@ bool PerforceParser::parseNormalDiffHeader()
 			kdDebug(8101) << "Second capture Header1 = \"" << m_normalDiffHeader.cap( 2 ) << "\"" << endl;
 			
 			m_currentModel = new DiffModel();
-			QRegExp sourceFileRE     ( "(\\/\\/[^\\#]+)#(\\d+)" );
-			QRegExp destinationFileRE( "([^\\#]+)#?(.*)" );
 			sourceFileRE.exactMatch( m_normalDiffHeader.cap( 1 ) );
 			destinationFileRE.exactMatch( m_normalDiffHeader.cap( 2 ) );
 			kdDebug(8101) << "Matched length   = " << sourceFileRE.matchedLength() << endl;
@@ -179,6 +181,9 @@ bool PerforceParser::parseUnifiedDiffHeader()
 
 	QStringList::ConstIterator itEnd = m_diffLines.end();
 
+	QRegExp sourceFileRE     ( "([^\\#]+)#(\\d+)" );
+	QRegExp destinationFileRE( "([^\\#]+)#(|\\d+)" );
+
 	while ( m_diffIterator != itEnd )
 	{
 //		kdDebug(8101) << "Line = " << *m_diffIterator << endl;
@@ -191,8 +196,6 @@ bool PerforceParser::parseUnifiedDiffHeader()
 //			kdDebug(8101) << "Second capture Header1 = \"" << m_unifiedDiffHeader1.cap( 2 ) << "\"" << endl;
 			
 			m_currentModel = new DiffModel();
-			QRegExp sourceFileRE     ( "(\\/\\/[^\\#]+)#(\\d+)" );
-			QRegExp destinationFileRE( "([^\\#]+)#?(.*)" );
 			sourceFileRE.exactMatch( m_unifiedDiffHeader1.cap( 1 ) );
 			destinationFileRE.exactMatch( m_unifiedDiffHeader1.cap( 2 ) );
 //			kdDebug(8101) << "Matched length   = " << sourceFileRE.matchedLength() << endl;

@@ -29,10 +29,10 @@ CVSDiffParser::CVSDiffParser( const KompareModelList* list, const QStringList& d
 {
 	// The regexps needed for context cvs diff parsing, the rest is the same as in parserbase.cpp
 	// third capture in header1 is non optional for cvs diff, it is the revision
-	m_contextDiffHeader1.setPattern( "^\\*\\*\\* ([^\\t]+)\\t([^\\t]+)\\t(.*)$" );
-	m_contextDiffHeader2.setPattern( "^--- ([^\\t]+)\\t([^\\t]+)(|\\t(.*))$" );
+	m_contextDiffHeader1.setPattern( "\\*\\*\\* ([^\\t]+)\\t([^\\t]+)\\t(.*)\\n" );
+	m_contextDiffHeader2.setPattern( "--- ([^\\t]+)\\t([^\\t]+)(|\\t(.*))\\n" );
 
-	m_normalDiffHeader.setPattern( "Index: (.*)" );
+	m_normalDiffHeader.setPattern( "Index: (.*)\\n" );
 }
 
 CVSDiffParser::~CVSDiffParser()
@@ -43,7 +43,7 @@ enum Kompare::Format CVSDiffParser::determineFormat()
 {
 //	kdDebug(8101) << "Determining the format of the CVSDiff" << endl;
 
-	QRegExp normalRE ( "^[0-9]+[0-9,]*[acd][0-9]+[0-9,]*$" );
+	QRegExp normalRE ( "[0-9]+[0-9,]*[acd][0-9]+[0-9,]*" );
 	QRegExp unifiedRE( "^--- [^\\t]+\\t" );
 	QRegExp contextRE( "^\\*\\*\\* [^\\t]+\\t" );
 	QRegExp rcsRE    ( "^[acd][0-9]+ [0-9]+" );

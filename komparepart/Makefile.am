@@ -52,7 +52,7 @@ libkomparepart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE) \
 
 # this is where the desktop file will go
 partdesktopdir   = $(kde_servicesdir)
-partdesktop_DATA = kompare_part.desktop
+partdesktop_DATA = komparepart.desktop
 
 # this is where the part's XML-GUI resource file goes
 partrcdir   = $(kde_datadir)/komparepart

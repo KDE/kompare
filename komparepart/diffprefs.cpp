@@ -152,7 +152,7 @@ void DiffPrefs::setDefaults()
 	
 	m_locSpinButton->setValue( 3 );
 	
-	m_modeButtonGroup->setButton( Unified );
+	m_modeButtonGroup->setButton( Kompare::Unified );
 };
 
 #include "diffprefs.moc"

@@ -18,7 +18,30 @@
 #include <kconfig.h>
 #include "diffsettings.h"
 
-DiffSettings::DiffSettings( QWidget* parent ) : SettingsBase( parent )
+DiffSettings::DiffSettings( QWidget* parent )
+	: SettingsBase( parent ),
+	m_diffProgram( "" ),
+	m_linesOfContext( 0 ),
+	m_format( Kompare::Unified ),
+	m_largeFiles( false ),
+	m_ignoreWhiteSpace( false ),
+	m_ignoreAllWhiteSpace( false ),
+	m_ignoreEmptyLines( false ),
+	m_ignoreChangesDueToTabExpansion( false ),
+	m_createSmallerDiff( false ),
+	m_ignoreChangesInCase( false ),
+	m_showCFunctionChange( false ),
+	m_convertTabsToSpaces( false ),
+	m_ignoreRegExp( false ),
+	m_ignoreRegExpText( "" ),
+	m_ignoreRegExpTextHistory( "" ),
+	m_recursive( false ),
+	m_newFiles( false ),
+	m_excludeFilePattern( false ),
+	m_excludeFilePatternList( "" ),
+	m_excludeFilesFile( false ),
+	m_excludeFilesFileURL( "" ),
+	m_excludeFilesFileHistoryList( "" )
 {
 }
 

@@ -6,13 +6,14 @@
 
 #include <qstring.h>
 #include <qstringlist.h>
+#include <kdemacros.h>
 
 class KConfig;
 class KURL;
 
 class KompareInterfacePrivate;
 
-class KompareInterface
+class KDE_EXPORT KompareInterface
 {
 public:
 	KompareInterface();

@@ -361,8 +361,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 		KIO::UDSEntry entry;
 		if ( !KIO::NetAccess::stat( KURL( destination ).path(), entry, (QWidget*)parent() ) )
 		{
-			result = KIO::NetAccess::mkdir( KURL( destination ).path(), (QWidget*)parent() );
-			if ( !result )
+			if ( !KIO::NetAccess::mkdir( KURL( destination ).path(), (QWidget*)parent() ) )
 			{
 				emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved.</qt>" ) );
 				return false;

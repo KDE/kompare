@@ -67,11 +67,11 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, ViewSettings* vi
 	m_nextFile        = new KAction( i18n("N&ext File"), "2downarrow", Qt::CTRL + Qt::Key_PageDown,
 	                                 this, SLOT(slotNextModel()),
 	                                 (( KomparePart* )parent)->actionCollection(), "difference_nextfile" );
-	m_previousDifference = new KAction( i18n("&Previous Difference"), "1uparrow", Qt::CTRL + Qt::Key_K,
+	m_previousDifference = new KAction( i18n("&Previous Difference"), "1uparrow", Qt::CTRL + Qt::Key_Up,
 	                                 this, SLOT(slotPreviousDifference()),
 	                                 (( KomparePart* )parent)->actionCollection(), "difference_previous" );
 	m_previousDifference->setEnabled( false );
-	m_nextDifference  = new KAction( i18n("&Next Difference"), "1downarrow", Qt::CTRL + Qt::Key_J,
+	m_nextDifference  = new KAction( i18n("&Next Difference"), "1downarrow", Qt::CTRL + Qt::Key_Down,
 	                                 this, SLOT(slotNextDifference()),
 	                                 (( KomparePart* )parent)->actionCollection(), "difference_next" );
 	m_nextDifference->setEnabled( false );

@@ -125,6 +125,7 @@ KompareListView::KompareListView( bool isSource,
 	setFocusPolicy( QWidget::NoFocus );
 	setFont( m_settings->m_font );
 	setSpaces( m_settings->m_tabToNumberOfSpaces );
+	setFocusProxy( parent->parentWidget() );
 }
 
 KompareListView::~KompareListView()

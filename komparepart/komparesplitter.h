@@ -73,6 +73,7 @@ public slots:
 protected:
 	void childEvent( QChildEvent * );
 	void wheelEvent( QWheelEvent* e );
+	void keyPressEvent( QKeyEvent* e );
 
 	void moveSplitter( QCOORD pos, int id );
 

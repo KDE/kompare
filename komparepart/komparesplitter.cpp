@@ -64,6 +64,7 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget * parent,
 	setFrameStyle( QFrame::NoFrame );
 	setSizePolicy( QSizePolicy (QSizePolicy::Ignored, QSizePolicy::Ignored ));
 	setOpaqueResize( true );
+	setFocusPolicy( QWidget::WheelFocus );
 
 	connect( this, SIGNAL(configChanged()), SLOT(slotConfigChanged()) );
 	connect( this, SIGNAL(configChanged()), SLOT(slotDelayedRepaintHandles()) );
@@ -432,6 +433,37 @@ void KompareSplitter::wheelEvent( QWheelEvent* e )
 				m_hScroll->addLine();
 			else // scroll to the left
 				m_hScroll->subtractLine();
+	}
+	e->accept();
+	repaintHandles();
+}
+
+void KompareSplitter::keyPressEvent( QKeyEvent* e )
+{
+	//keyboard scrolling
+	switch ( e->key() ) {
+	case Key_Right:
+	case Key_L:
+		m_hScroll->addLine();
+		break;
+	case Key_Left:
+	case Key_H:
+		m_hScroll->subtractLine();
+		break;
+	case Key_Up:
+	case Key_K:
+		m_vScroll->subtractLine();
+		break;
+	case Key_Down:
+	case Key_J:
+		m_vScroll->addLine();
+		break;
+	case Key_PageDown:
+		m_vScroll->addPage();
+		break;
+	case Key_PageUp:
+		m_vScroll->subtractPage();
+		break;
 	}
 	e->accept();
 	repaintHandles();

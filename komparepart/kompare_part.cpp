@@ -153,6 +153,8 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 
 KomparePart::~KomparePart()
 {
+	// This is the only place allowed to call cleanUpTemporaryFiles
+	// because before there might still be a use for them (when swapping)
 	cleanUpTemporaryFiles();
 }
 
@@ -308,8 +310,6 @@ void KomparePart::compare( const KURL& source, const KURL& destination )
 		updateCaption();
 		updateStatus();
 	}
-
-//	cleanUpTemporaryFiles();
 }
 
 void KomparePart::compareFiles( const KURL& sourceFile, const KURL& destinationFile )
@@ -331,8 +331,6 @@ void KomparePart::compareFiles( const KURL& sourceFile, const KURL& destinationF
 		updateCaption();
 		updateStatus();
 	}
-
-	cleanUpTemporaryFiles();
 }
 
 void KomparePart::compareDirs( const KURL& sourceDirectory, const KURL& destinationDirectory )
@@ -354,8 +352,6 @@ void KomparePart::compareDirs( const KURL& sourceDirectory, const KURL& destinat
 		updateCaption();
 		updateStatus();
 	}
-
-	cleanUpTemporaryFiles();
 }
 
 void KomparePart::compare3Files( const KURL& /*originalFile*/, const KURL& /*changedFile1*/, const KURL& /*changedFile2*/ )
@@ -384,9 +380,6 @@ void KomparePart::openFileAndDiff( const KURL& file, const KURL& diffFile )
 		updateCaption();
 		updateStatus();
 	}
-
-	// Clean up after ourselves
-	cleanUpTemporaryFiles();
 }
 
 void KomparePart::openDirAndDiff ( const KURL& dir,  const KURL& diffFile )
@@ -407,9 +400,6 @@ void KomparePart::openDirAndDiff ( const KURL& dir,  const KURL& diffFile )
 		updateCaption();
 		updateStatus();
 	}
-
-	// Clean up after ourselves
-	cleanUpTemporaryFiles();
 }
 
 bool KomparePart::openFile()

@@ -447,6 +447,12 @@ KompareListViewLineItem::KompareListViewLineItem( KompareListViewLineContainerIt
 	setText( COL_MAIN, text );
 }
 
+void KompareListViewLineItem::setup()
+{
+	KompareListViewItem::setup();
+	setHeight( listView()->fontMetrics().lineSpacing() );
+}
+
 void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align )
 {
 	QColor bg = cg.base();

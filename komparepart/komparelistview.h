@@ -149,10 +149,11 @@ class KompareListViewLineItem : public KompareListViewItem
 public:
 	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, const QString& text );
 	
-	void paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align );
-	virtual void paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align );
-	
+	virtual void setup();
 	int maxHeight() { return 0; }
+	
+	virtual void paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align );
+	virtual void paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align );
 	
 	KompareListViewDiffItem* diffItemParent() const;
 };
@@ -162,8 +163,9 @@ class KompareListViewBlankLineItem : public KompareListViewLineItem
 public:
 	KompareListViewBlankLineItem( KompareListViewLineContainerItem* parent );
 	
-	void paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align );
 	void setup();
+	
+	void paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align );
 };
 
 class KompareListViewHunkItem : public KompareListViewItem

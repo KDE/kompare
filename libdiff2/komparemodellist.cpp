@@ -566,7 +566,7 @@ void KompareModelList::slotPreviousModel()
 	}
 	else
 	{
-		m_selectedModel = 0;
+		m_selectedModel = firstModel();
 		m_selectedDifference = m_selectedModel->firstDifference();
 	}
 

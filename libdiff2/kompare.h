@@ -82,8 +82,8 @@ namespace Kompare
 			enum DiffMode _diffMode = UnknownDiffMode,
 			enum Format _format = UnknownFormat,
 			enum Generator _generator = UnknownGenerator,
-			KURL _source = "",
-			KURL _destination = "",
+			KURL _source = KURL(),
+			KURL _destination = KURL(),
 			QString _localSource = "",
 			QString _localDestination = ""
 		)

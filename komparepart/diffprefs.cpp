@@ -84,7 +84,7 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 	m_excludeFileCheckBox->setChecked( m_settings->m_excludeFilesFile );
 	slotExcludeFileToggled           ( m_settings->m_excludeFilesFile );
 	m_excludeFileURLComboBox->setURLs( m_settings->m_excludeFilesFileHistoryList );
-	m_excludeFileURLComboBox->setURL ( m_settings->m_excludeFilesFileURL );
+	m_excludeFileURLComboBox->setURL ( KURL( m_settings->m_excludeFilesFileURL ) );
 }
 
 DiffSettings* DiffPrefs::settings( void )

@@ -333,13 +333,13 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 		QString destination = model->destinationPath() + model->destinationFile();
 		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
 		kdDebug(8101) << "DestinationURL : " << destination << endl;
-		result = KIO::NetAccess::upload( temp->name(), destination, (QWidget*)parent() );
+		result = KIO::NetAccess::upload( temp->name(), KURL( destination ), (QWidget*)parent() );
 	}
 	else
 	{
 		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
 		kdDebug(8101) << "DestinationURL : " << m_destination << endl;
-		result = KIO::NetAccess::upload( temp->name(), m_destination, (QWidget*)parent() );
+		result = KIO::NetAccess::upload( temp->name(), KURL( m_destination ), (QWidget*)parent() );
 	}
 
 	if ( !result )
@@ -509,7 +509,7 @@ void KompareModelList::slotWriteDiffOutput( bool success )
 			emit error( i18n( "Could not write to the temporary file." ) );
 		}
 
-		KIO::NetAccess::upload( m_diffTemp->name(), m_diffURL, (QWidget*)parent() );
+		KIO::NetAccess::upload( m_diffTemp->name(), KURL( m_diffURL ), (QWidget*)parent() );
 
 		emit status( Kompare::FinishedWritingDiff );
 	}

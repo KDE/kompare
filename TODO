@@ -1,13 +1,8 @@
 In descending order of importance:
-* crash when clicking apply from the menu
-* clicking on difference in komparelistview does not update the listviews yet
-* selecting from the menu does not update the listviews either
-* use version numbers when available
-* use function names when available
 * fix some drawing bugs in the connection widget
 * patch functionality (including blending)
+* intra-line diffing
 * add support for handediting conflicts or is this what you meant with blending?
-* optimize the list view widgets
 * session management
 * implement ed and rcs format
 * merge text view GUI

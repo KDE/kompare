@@ -6,7 +6,7 @@ INCLUDES = -I$(top_srcdir)/kompare/libdiff2 -I$(top_srcdir)/kompare/interfaces $
 
 noinst_HEADERS = \
 	kompare_part.h \
-	kompareview.h \
+	komparesplitter.h \
 	prefsbase.h \
 	diffprefs.h \
 	diffsettings.h \
@@ -17,7 +17,8 @@ noinst_HEADERS = \
 	komparelistview.h \
 	kompareconnectwidget.h \
 	komparesaveoptionsbase.h \
-	komparesaveoptionswidget.h
+	komparesaveoptionswidget.h \
+	kompare_qsplitter.h
 
 # let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
@@ -28,7 +29,7 @@ kde_module_LTLIBRARIES = libkomparepart.la
 libkomparepart_la_SOURCES = \
 	kompare_part.cpp \
 	kompareconnectwidget.cpp \
-	kompareview.cpp \
+	komparesplitter.cpp \
 	komparelistview.cpp \
 	settingsbase.cpp \
 	diffsettings.cpp \

@@ -4,8 +4,10 @@
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001-2004 Otto Bruggeman
                                   (C) 2001-2003 John Firebaugh
+                                  (C) 2004      Jeff Snyder
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
+                                  jeff@caffeinated.me.uk
 ****************************************************************************/
 
 /***************************************************************************
@@ -42,7 +44,7 @@ class KompareModelList;
 class DiffSettings;
 class ViewSettings;
 class KFileTreeView;
-class KompareView;
+class KompareSplitter;
 class KompareProcess;
 
 /**
@@ -211,7 +213,7 @@ private:
 
 	Diff2::KompareModelList* m_modelList;
 
-	KompareView*             m_diffView;
+	KompareSplitter*         m_splitter;
 
 	KAction*                 m_saveAll;
 	KAction*                 m_saveDiff;

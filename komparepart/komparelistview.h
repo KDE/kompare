@@ -2,10 +2,12 @@
                                 komparelistview.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
+                                  (C) 2004      Jeff Snyder
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
+                                  jeff@caffeinated.me.uk
 ****************************************************************************/
 
 /***************************************************************************
@@ -22,6 +24,8 @@
 
 #include <qptrlist.h>
 #include <qptrdict.h>
+#include <qlabel.h>
+#include <qlayout.h>
 
 #include <klistview.h>
 
@@ -33,6 +37,8 @@ class DifferenceString;
 class KompareModelList;
 }
 class ViewSettings;
+class KompareSplitter;
+class KompareListView;
 class KompareListViewItem;
 class KompareListViewDiffItem;
 class KompareListViewLineContainerItem;
@@ -51,6 +57,7 @@ public:
 	QRect                itemRect( int i );
 	int                  minScrollId();
 	int                  maxScrollId();
+	int                  contentsWidth();
 
 	bool                 isSource() const { return m_isSource; };
 	ViewSettings*        settings() const { return m_settings; };
@@ -76,9 +83,11 @@ protected slots:
 signals:
 	void differenceClicked( const Diff2::Difference* diff );
 	void applyDifference( bool apply );
+	void resized();
 
 protected:
 	void wheelEvent( QWheelEvent* e );
+	void resizeEvent( QResizeEvent* e );
 	void contentsMousePressEvent ( QMouseEvent * e );
 	void contentsMouseDoubleClickEvent ( QMouseEvent* );
 	void contentsMouseReleaseEvent ( QMouseEvent * ) {};
@@ -95,6 +104,24 @@ private:
 	const Diff2::Difference*          m_selectedDifference;
 	QString                           m_spaces;
 	int                               m_idToScrollTo;
+};
+
+class KompareListViewFrame : public QFrame
+{
+	Q_OBJECT
+	
+public:
+	KompareListViewFrame( bool isSource, ViewSettings* settings, KompareSplitter* parent, const char* name = 0 );
+	virtual ~KompareListViewFrame() {};
+	KompareListView*     view() { return &m_view; };
+
+public slots:
+	void slotSetModel( const Diff2::DiffModel* model );
+
+private:
+	KompareListView      m_view;
+	QLabel               m_label;
+	QVBoxLayout          m_layout;
 };
 
 class KompareListViewItem : public QListViewItem

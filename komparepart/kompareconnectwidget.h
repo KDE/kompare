@@ -2,10 +2,12 @@
                           kompareconnectwidget.h  -  description
                              -------------------
     begin                : Tue Jun 26 2001
-    copyright            : (C) 2001-2003 by John Firebaugh
-                           and Otto Bruggeman
+    copyright            : (C) 2001-2003 John Firebaugh
+                           (C) 2001-2004 Otto Bruggeman
+                           (C) 2004      Jeff Snyder
     email                : jfirebaugh@kde.org
                            otto.bruggeman@home.nl
+                           jeff@caffeinated.me.uk
  ***************************************************************************/
 
 /***************************************************************************
@@ -20,6 +22,7 @@
 #ifndef KOMPARECONNECTWIDGET_H
 #define KOMPARECONNECTWIDGET_H
 
+#include "kompare_qsplitter.h"
 #include <qwidget.h>
 
 namespace Diff2 {
@@ -27,7 +30,7 @@ class DiffModel;
 }
 class ViewSettings;
 class KompareListView;
-class KompareView;
+class KompareSplitter;
 
 class KompareConnectWidget : public QWidget
 {
@@ -35,10 +38,8 @@ class KompareConnectWidget : public QWidget
 
 public:
 	KompareConnectWidget( KompareListView* left, KompareListView* right,
-	      ViewSettings* settings, KompareView* parent, const char* name=0);
+	      ViewSettings* settings, QWidget* parent, const char* name=0);
 	~KompareConnectWidget();
-
-	QSize sizeHint() const;
 
 public slots:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
@@ -58,12 +59,33 @@ protected:
 private:
 	ViewSettings*             m_settings;
 
-	KompareView*              m_diffView;
 	KompareListView*          m_leftView;
 	KompareListView*          m_rightView;
 
 	const Diff2::DiffModel*   m_selectedModel;
 	const Diff2::Difference*  m_selectedDifference;
+};
+
+class KompareConnectWidgetFrame : public QSplitterHandle
+{
+	Q_OBJECT
+public:
+	KompareConnectWidgetFrame( KompareListView* left, KompareListView* right,
+	      ViewSettings* settings, KompareSplitter* parent, const char* name=0);
+	~KompareConnectWidgetFrame();
+	
+	QSize sizeHint() const;
+
+	KompareConnectWidget*     wid() { return &m_wid; }
+
+protected:
+	// stop the parent QSplitterHandle painting
+	void paintEvent( QPaintEvent* e ) { }
+
+private:
+	KompareConnectWidget      m_wid;
+	QLabel                    m_label;
+	QVBoxLayout               m_layout;
 };
 
 #endif

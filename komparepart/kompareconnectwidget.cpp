@@ -2,10 +2,12 @@
                           kompareconnectwidget.cpp  -  description
                              -------------------
     begin                : Tue Jun 26 2001
-    copyright            : (C) 2001-2003 by John Firebaugh
-                           and Otto Bruggeman
+    copyright            : (C) 2001-2003 John Firebaugh
+                           (C) 2001-2004 Otto Bruggeman
+                           (C) 2004      Jeff Snyder
     email                : jfirebaugh@kde.org
                            otto.bruggeman@home.nl
+                           jeff@caffeinated.me.uk
  ***************************************************************************/
 
 /***************************************************************************
@@ -28,17 +30,46 @@
 #include "viewsettings.h"
 #include "komparemodellist.h"
 #include "komparelistview.h"
-#include "kompareview.h"
 
 #include "kompareconnectwidget.h"
 
 using namespace Diff2;
 
+KompareConnectWidgetFrame::KompareConnectWidgetFrame( KompareListView* left,
+                                                      KompareListView* right,
+                                                      ViewSettings* settings,
+                                                      KompareSplitter* parent,
+                                                      const char* name ) :
+	QSplitterHandle(Horizontal, (QSplitter *)parent, name),
+	m_wid ( left, right, settings, this, name ),
+	m_label ( "", this ),
+	m_layout ( this )
+{
+	setSizePolicy ( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Ignored) );
+	m_wid.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored) );
+	m_label.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
+	m_label.setFrameShape( QFrame::StyledPanel );
+	m_label.setFrameShadow ( QFrame::Plain );
+	m_label.setMargin(3);
+	m_layout.setSpacing(0);
+	m_layout.setMargin(0);
+	m_layout.addWidget(&m_label);
+	m_layout.addWidget(&m_wid);
+}
+
+KompareConnectWidgetFrame::~KompareConnectWidgetFrame()
+{
+}
+
+QSize KompareConnectWidgetFrame::sizeHint() const
+{
+	return QSize(50, style().pixelMetric( QStyle::PM_ScrollBarExtent ) );
+}
+
 KompareConnectWidget::KompareConnectWidget( KompareListView* left, KompareListView* right,
-      ViewSettings* settings, KompareView* parent, const char* name )
+      ViewSettings* settings, QWidget* parent, const char* name )
 	: QWidget(parent, name),
 	m_settings( settings ),
-	m_diffView( parent ),
 	m_leftView( left ),
 	m_rightView( right ),
 	m_selectedModel( 0 ),
@@ -84,11 +115,6 @@ void KompareConnectWidget::slotSetSelection( const Difference* diff )
 	m_selectedDifference = diff;
 
 	slotDelayedRepaint();
-}
-
-QSize KompareConnectWidget::sizeHint() const
-{
-	return QSize(50, style().pixelMetric( QStyle::PM_ScrollBarExtent ) );
 }
 
 void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )

@@ -4,8 +4,10 @@
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001-2004 Otto Bruggeman
                                   (C) 2001-2003 John Firebaugh
+                                  (C) 2004      Jeff Snyder
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
+                                  jeff@caffeinated.me.uk
 ****************************************************************************/
 
 /***************************************************************************
@@ -16,6 +18,8 @@
 **   (at your option) any later version.
 **
 ***************************************************************************/
+
+#include "kompare_qsplitter.h" // make sure we get there first
 
 #include <qlayout.h>
 #include <qwidget.h>
@@ -41,7 +45,7 @@
 #include "viewsettings.h"
 #include "kompareprefdlg.h"
 #include "komparesaveoptionswidget.h"
-#include "kompareview.h"
+#include "komparesplitter.h"
 
 #include "kompare_part.h"
 
@@ -108,26 +112,28 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	connect( m_modelList, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
 	         this, SIGNAL(applyDifference(const Diff2::Difference*, bool)) );
 
-	// This creates the viewwidget and connects the signals and slots
-	m_diffView = new KompareView( m_viewSettings, parentWidget, widgetName );
+	// This creates the splitterwidget and connects the signals and slots
+	m_splitter = new KompareSplitter ( m_viewSettings, parentWidget, widgetName );
 
 	connect( m_modelList, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)),
-	         m_diffView,  SLOT(slotSetSelection(const Diff2::DiffModel*, const Diff2::Difference*)) );
+	         m_splitter,  SLOT(slotSetSelection(const Diff2::DiffModel*, const Diff2::Difference*)) );
+//	connect( m_splitter,  SIGNAL(selectionChanged(const Diff2::Difference*, const Diff2::Difference*)),
+//	         m_modelList, SLOT(slotSelectionChanged(const Diff2::Difference*, const Diff2::Difference*)) );
 	connect( m_modelList, SIGNAL(setSelection(const Diff2::Difference*)),
-	         m_diffView,  SLOT(slotSetSelection(const Diff2::Difference*)) );
-	connect( m_diffView,  SIGNAL(selectionChanged(const Diff2::Difference*)),
+	         m_splitter,  SLOT(slotSetSelection(const Diff2::Difference*)) );
+	connect( m_splitter,  SIGNAL(selectionChanged(const Diff2::Difference*)),
 	         m_modelList, SLOT(slotSelectionChanged(const Diff2::Difference*)) );
 
 	connect( m_modelList, SIGNAL(applyDifference(bool)),
-	         m_diffView, SLOT(slotApplyDifference(bool)) );
+	         m_splitter, SLOT(slotApplyDifference(bool)) );
 	connect( m_modelList, SIGNAL(applyAllDifferences(bool)),
-	         m_diffView, SLOT(slotApplyAllDifferences(bool)) );
+	         m_splitter, SLOT(slotApplyAllDifferences(bool)) );
 	connect( m_modelList, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
-	         m_diffView, SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
-	connect( this, SIGNAL(configChanged()), m_diffView, SLOT(slotConfigChanged()) );
+	         m_splitter, SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
+	connect( this, SIGNAL(configChanged()), m_splitter, SIGNAL(configChanged()) );
 
 	// notify the part that this is our internal widget
-	setWidget( m_diffView );
+	setWidget( m_splitter->parentWidget() );
 
 	setupActions();
 

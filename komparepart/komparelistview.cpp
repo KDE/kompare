@@ -2,10 +2,12 @@
                                 komparelistview.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
+                                  (C) 2004      Jeff Snyder
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
+                                  jeff@caffeinated.me.uk
 ****************************************************************************/
 
 /***************************************************************************
@@ -24,12 +26,14 @@
 
 #include <kdebug.h>
 #include <kglobal.h>
+#include <kglobalsettings.h>
 
 #include "diffmodel.h"
 #include "diffhunk.h"
 #include "difference.h"
 #include "viewsettings.h"
 #include "komparemodellist.h"
+#include "komparesplitter.h"
 
 #include "komparelistview.h"
 
@@ -40,6 +44,63 @@
 #define HUNK_LINE_HEIGHT  5
 
 using namespace Diff2;
+
+KompareListViewFrame::KompareListViewFrame( bool isSource,
+                                            ViewSettings* settings,
+                                            KompareSplitter* parent,
+                                            const char* name ):
+	QFrame ( parent, name ),
+	m_view ( isSource, settings, this, name ),
+	m_label ( isSource?"Source":"Dest", this ),
+	m_layout ( this )
+{
+	setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored) );
+	m_label.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
+	QFrame *frame1 = new QFrame(this), *frame2 = new QFrame(this);
+	frame1->setFrameShape(QFrame::HLine);
+	frame1->setFrameShadow ( QFrame::Plain );
+	frame1->setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
+	frame1->setFixedHeight(1);
+	frame2->setFrameShape(QFrame::HLine);
+	frame2->setFrameShadow ( QFrame::Plain );
+	frame2->setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
+	frame2->setFixedHeight(1);
+	m_label.setMargin(3);
+	m_layout.setSpacing(0);
+	m_layout.setMargin(0);
+	m_layout.addWidget(frame1);
+	m_layout.addWidget(&m_label);
+	m_layout.addWidget(frame2);
+	m_layout.addWidget(&m_view);
+
+	connect( parent, SIGNAL(configChanged()), &m_view, SLOT(slotConfigChanged()) );
+	connect( &m_view, SIGNAL(differenceClicked(const Diff2::Difference*)),
+	         parent, SLOT(slotDifferenceClicked(const Diff2::Difference*)) );
+
+	connect( parent, SIGNAL(scrollViewsToId(int)), &m_view, SLOT(scrollToId(int)) );
+	connect( parent, SIGNAL(setXOffset(int)), &m_view, SLOT(setXOffset(int)) );
+	connect( &m_view, SIGNAL(resized()), parent, SLOT(slotUpdateScrollBars()) );
+}
+
+void KompareListViewFrame::slotSetModel( const DiffModel* model )
+{
+	if( model )
+	{
+		if( view()->isSource() ) {
+			if( !model->sourceRevision().isEmpty() )
+				m_label.setText( model->sourceFile() + " (" + model->sourceRevision() + ")" );
+			else
+				m_label.setText( model->sourceFile() );
+		} else {
+			if( !model->destinationRevision().isEmpty() )
+				m_label.setText( model->destinationFile() + " (" + model->destinationRevision() + ")" );
+			else
+				m_label.setText( model->destinationFile() );
+		}
+	} else {
+		m_label.setText( QString::null );
+	}
+}
 
 KompareListView::KompareListView( bool isSource,
                                   ViewSettings* settings,
@@ -64,6 +125,11 @@ KompareListView::KompareListView( bool isSource,
 	setColumnWidthMode( COL_LINE_NO, Maximum );
 	setColumnWidthMode( COL_MAIN, Maximum );
 	setResizeMode( LastColumn );
+	setFrameStyle( QFrame::NoFrame );
+	setVScrollBarMode( QScrollView::AlwaysOff );
+	setHScrollBarMode( QScrollView::AlwaysOff );
+	setFocusPolicy( QWidget::NoFocus );
+	setFont( KGlobalSettings::fixedFont() );
 }
 
 KompareListView::~KompareListView()
@@ -138,12 +204,18 @@ int KompareListView::minScrollId()
 int KompareListView::maxScrollId()
 {
 	KompareListViewItem* item = (KompareListViewItem*)firstChild();
+	if(!item) return 0;
 	while( item && item->nextSibling() ) {
 		item = (KompareListViewItem*)item->nextSibling();
 	}
 	int maxId = item->scrollId() + item->maxHeight() - minScrollId();
 	kdDebug(8104) << "Max ID = " << maxId << endl;
 	return maxId;
+}
+
+int KompareListView::contentsWidth()
+{
+	return ( columnWidth(COL_LINE_NO) + columnWidth(COL_MAIN) );
 }
 
 void KompareListView::setXOffset( int x )
@@ -217,6 +289,7 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 	}
 	setSelected( item, true );
 }
+
 void KompareListView::slotDelayedScrollToId()
 {
 	scrollToId( m_idToScrollTo );
@@ -338,6 +411,13 @@ void KompareListView::slotConfigChanged()
 void KompareListView::wheelEvent( QWheelEvent* e )
 {
 	e->ignore(); // we want the parent to catch wheel events
+}
+
+void KompareListView::resizeEvent( QResizeEvent* e )
+{
+	KListView::resizeEvent(e);
+	emit resized();
+	kdDebug() << "resizeEvent " << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent )

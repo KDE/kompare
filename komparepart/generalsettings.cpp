@@ -38,6 +38,7 @@ void GeneralSettings::loadSettings( KConfig* config )
 	m_removeColor = config->readColorEntry( "RemoveColor", &default_removeColor );
 	m_changeColor = config->readColorEntry( "ChangeColor", &default_changeColor );
 	m_addColor = config->readColorEntry( "AddColor", &default_addColor );
+	SettingsBase::loadSettings( config );
 };
 
 void GeneralSettings::saveSettings( KConfig* config )
@@ -45,4 +46,5 @@ void GeneralSettings::saveSettings( KConfig* config )
 	config->writeEntry( "RemoveColor", m_removeColor );
 	config->writeEntry( "ChangeColor", m_changeColor );
 	config->writeEntry( "AddColor", m_addColor );
+	SettingsBase::saveSettings( config );
 };

@@ -96,6 +96,8 @@ void GeneralPrefs::apply()
 	setts->m_addColor = m_addedColorButton->color();
 	setts->m_changeColor = m_changedColorButton->color();
 	setts->m_removeColor = m_removedColorButton->color();
+
+	setts->emitSettingsChanged();
 };
 
 void GeneralPrefs::setDefaults()

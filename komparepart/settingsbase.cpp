@@ -29,14 +29,15 @@ SettingsBase::~SettingsBase()
 
 };
 
-void SettingsBase::loadSettings( KConfig* config )
+void SettingsBase::loadSettings( KConfig* /* config */ )
 {
-	// nonsens statement to get rid of a compiler warning...
-	config = config;
+	emitSettingsChanged();
 };
 
-void SettingsBase::saveSettings( KConfig* config )
+void SettingsBase::saveSettings( KConfig* /* config */ )
 {
-	// nonsens statement to get rid of a compiler warning...
-	config = config;
 };
+
+void SettingsBase::emitSettingsChanged() {
+	emit settingsChanged();
+}

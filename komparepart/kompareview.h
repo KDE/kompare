@@ -25,13 +25,14 @@ class QFile;
 class DiffModel;
 class DiffView;
 class DiffZoomWidget;
+class GeneralSettings;
 
 class KDiffView : public QWidget
 {
 	Q_OBJECT
 
 public:
-	KDiffView( QWidget *parent=0, const char *name=0 );
+	KDiffView( GeneralSettings* settings, QWidget *parent=0, const char *name=0 );
 	~KDiffView();
 
 	DiffModel* getModel();
@@ -48,6 +49,8 @@ signals:
 	void itemsChanged();
 
 private:
+	GeneralSettings*		m_settings;
+
 	QLabel *revlabel1, *revlabel2;
 	DiffView *diff1, *diff2;
 	DiffZoomWidget* zoom;

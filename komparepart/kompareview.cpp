@@ -14,10 +14,13 @@
 #include "diffmodel.h"
 #include "diffhunk.h"
 #include "difference.h"
+#include "generalsettings.h"
 
-KDiffView::KDiffView( QWidget *parent, const char *name )
+KDiffView::KDiffView( GeneralSettings* settings, QWidget *parent, const char *name )
     : QWidget(parent, name)
 {
+	m_settings = settings;
+
 	QGridLayout *pairlayout = new QGridLayout(this, 2, 3, 10);
 	pairlayout->setSpacing( 0 );
 	pairlayout->setMargin( 0 );
@@ -55,8 +58,8 @@ KDiffView::KDiffView( QWidget *parent, const char *name )
 	Frame2Layout->addWidget( revlabel2 );
 	pairlayout->addWidget( Frame2, 0, 2 );
 
-	diff1 = new DiffView(true, false, this);
-	diff2 = new DiffView(true, true, this);
+	diff1 = new DiffView( m_settings, true, false, this);
+	diff2 = new DiffView( m_settings, true, true, this);
 	pairlayout->addWidget(diff1, 1, 0);
 	pairlayout->addWidget(diff2, 1, 2);
 	diff1->setPartner(diff2);
@@ -68,7 +71,7 @@ KDiffView::KDiffView( QWidget *parent, const char *name )
 	QVBoxLayout* Frame6Layout = new QVBoxLayout( Frame6 );
 	Frame6Layout->setSpacing( 0 );
 	Frame6Layout->setMargin( 1 );
-	zoom = new DiffZoomWidget( Frame6 );
+	zoom = new DiffZoomWidget( m_settings, Frame6 );
 	zoom->setDiffView(diff2);
 	Frame6Layout->addWidget( zoom );
 	pairlayout->addWidget(Frame6,  1, 1);

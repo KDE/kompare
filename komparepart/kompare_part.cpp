@@ -21,15 +21,15 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
                                   QObject *parent, const char *name )
     : KParts::ReadWritePart(parent, name)
 {
+	// we need an instance
+	setInstance( KDiffPartFactory::instance() );
+
 	m_generalSettings = new GeneralSettings( 0 );
 	m_diffSettings = new DiffSettings( 0 );
 	m_miscSettings = new MiscSettings( 0 );
 
-	// we need an instance
-	setInstance( KDiffPartFactory::instance() );
-
 	// this should be your custom internal widget
-	m_diffView = new KDiffView( parentWidget, widgetName );
+	m_diffView = new KDiffView( m_generalSettings, parentWidget, widgetName );
 
 	// notify the part that this is our internal widget
 	setWidget(m_diffView);
@@ -77,7 +77,7 @@ void KDiffPart::setupActions()
 	// create our actions
 
 	m_saveDiff = KStdAction::save( this, SLOT(slotSaveDiff()), actionCollection() );
-	m_saveDiff->setText( i18n("&Save diff") );
+	m_saveDiff->setText( i18n("&Save .diff") );
 	m_previousDifference = new KAction( i18n("&Previous Difference"), "previous", Qt::CTRL + Qt::Key_Up,
 	              this, SLOT(slotPreviousDifference()),
 	              actionCollection(), "difference_previous" );

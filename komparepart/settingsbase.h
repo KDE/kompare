@@ -34,6 +34,10 @@ public:
 public:
 	virtual void loadSettings( KConfig* config );
 	virtual void saveSettings( KConfig* config );
+	void emitSettingsChanged();
+
+signals:
+	void settingsChanged();
 };
 
 #endif

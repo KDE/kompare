@@ -47,7 +47,7 @@ FilesPage::FilesPage( QWidget* parent ) : PageBase( parent )
 	m_secondURLComboBox = new KURLComboBox( KURLComboBox::Both, true, m_secondGB, "DestURLComboBox" );
 	m_secondURLRequester = new KURLRequester( m_secondURLComboBox, m_secondGB );
 
-	m_thirdGB = new QGroupBox( 1, Qt::Vertical, "Encoding", page );
+	m_thirdGB = new QGroupBox( 1, Qt::Vertical, i18n( "Encoding" ), page );
 	m_encodingComboBox = new QComboBox( false, m_thirdGB, "encoding_combobox" );
 	m_encodingComboBox->insertStringList( KGlobal::charsets()->availableEncodingNames() );
 

@@ -452,8 +452,8 @@ KChangeLVI::KChangeLVI( KListView* parent, Diff2::Difference* diff ) : KListView
 {
 	m_difference = diff;
 
-	setText( 0, i18n( "%1" ).arg( diff->sourceLineNumber() ) );
-	setText( 1, i18n( "%1" ).arg( diff->destinationLineNumber() ) );
+	setText( 0, QString::number( diff->sourceLineNumber() ) );
+	setText( 1, QString::number( diff->destinationLineNumber() ) );
 
 	setDifferenceText();
 }

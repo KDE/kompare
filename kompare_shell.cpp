@@ -26,6 +26,9 @@
 KDiffShell::KDiffShell()
 	: KParts::MainWindow( 0L, "KDiffShell" )
 {
+	if ( !initialGeometrySet() )
+      resize( 800, 480 );
+
 	// set the shell's ui resource file
 	setXMLFile("kdiffui.rc");
 

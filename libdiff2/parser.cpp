@@ -99,12 +99,12 @@ enum Kompare::Generator Parser::determineGenerator( const QStringList& diffLines
 
 	while (  it != linesEnd )
 	{
-		if ( ( *it ).startsWith( cvsDiff ) == 0 )
+		if ( ( *it ).startsWith( cvsDiff ) )
 		{
 			kdDebug(8101) << "Diff is a CVSDiff" << endl;
 			return Kompare::CVSDiff;
 		}
-		else if ( ( *it ).startsWith( perforceDiff ) == 0 )
+		else if ( ( *it ).startsWith( perforceDiff ) )
 		{
 			kdDebug(8101) << "Diff is a Perforce Diff" << endl;
 			return Kompare::Perforce;

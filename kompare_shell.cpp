@@ -236,13 +236,22 @@ void KompareShell::saveProperties(KConfig* config)
 	if ( m_mode == Kompare::Compare )
 	{
 		config->writeEntry( "Mode", "Compare" );
+#if KDE_IS_VERSION(3,1,3)
+		config->writePathEntry( "SourceUrl", m_sourceURL.url() );
+		config->writePathEntry( "DestinationUrl", m_destinationURL.url() );
+#else
 		config->writeEntry( "SourceUrl", m_sourceURL.url() );
 		config->writeEntry( "DestinationUrl", m_destinationURL.url() );
+#endif
 	}
 	else if ( m_mode == Kompare::Diff )
 	{
 		config->writeEntry( "Mode", "Diff" );
+#if KDE_IS_VERSION(3,1,3)
+		config->writePathEntry( "DiffUrl", m_diffURL.url() );
+#else
 		config->writeEntry( "DiffUrl", m_diffURL.url() );
+#endif
 	}
 
 	m_viewPart->saveSettings( config );
@@ -259,8 +268,8 @@ void KompareShell::readProperties(KConfig* config)
 	if ( mode == "Compare" )
 	{
 		m_mode  = Kompare::Compare;
-		m_sourceURL  = config->readEntry( "SourceUrl", "" );
-		m_destinationURL = config->readEntry( "DestinationFile", "" );
+		m_sourceURL  = config->readPathEntry( "SourceUrl" );
+		m_destinationURL = config->readPathEntry( "DestinationFile" );
 
 		m_viewPart->loadSettings( config );
 
@@ -269,7 +278,7 @@ void KompareShell::readProperties(KConfig* config)
 	else if ( mode == "Diff" )
 	{
 		m_mode = Kompare::Diff;
-		m_diffURL = config->readEntry( "DiffUrl", "" );
+		m_diffURL = config->readPathEntry( "DiffUrl" );
 
 		m_viewPart->loadSettings( config );
 

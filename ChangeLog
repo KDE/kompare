@@ -1,3 +1,10 @@
+Jul    15, 2002 : Otto Bruggeman
+	* Fixed normal diff a bit more, filenames dont work yet
+	* Removed some code duplication
+	* Fixed diff output parsing with Common subdirectories in it
+	* Fixed Copyright years (thanks Carsten Niehaus)
+	* Removed the KShellProcess and replaced it with a KProcess
+
 Feb    18, 2002 : Otto Bruggeman
 	* Fixed scrolling with a wheel mouse in the kompare(list)view and 
 	  connectwidget and added a config option for the number of lines

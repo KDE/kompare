@@ -179,7 +179,7 @@ protected:
 	virtual bool openFile();
 	virtual bool saveFile() { return true; };
 	// This will read the m_file file and return the lines
-	QStringList& readFile();
+	QStringList readFile();
 
 	// patchFile
 	bool patchFile(KURL&);

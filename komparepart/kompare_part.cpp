@@ -417,9 +417,9 @@ void KomparePart::openDirAndDiff ( const KURL& dir,  const KURL& diffFile )
 	KIO::NetAccess::removeTempFile( m_info.localDestination );
 }
 
-QStringList& KomparePart::readFile()
+QStringList KomparePart::readFile()
 {
-	QStringList*  lines = new QStringList();
+	QStringList  lines;
 	QFile file( m_file );
 	file.open(  IO_ReadOnly );
 	QTextStream stream( &file );
@@ -427,12 +427,12 @@ QStringList& KomparePart::readFile()
 	kdDebug() << "Reading from m_file = " << m_file << endl;
 	while ( !stream.eof() )
 	{
-		lines->append( stream.readLine() );
+		lines.append( stream.readLine() );
 	}
 
 	file.close();
 
-	return *lines;
+	return lines;
 }
 
 bool KomparePart::openFile()

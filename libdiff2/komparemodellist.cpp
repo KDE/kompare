@@ -409,19 +409,19 @@ void KompareModelList::slotFileChanged( const QString& /*file*/ )
 	}
 }
 
-QStringList& KompareModelList::readFile( const QString& fileName )
+QStringList KompareModelList::readFile( const QString& fileName )
 {
 	QFile file( fileName );
 	file.open( IO_ReadOnly );
 
 	QTextStream stream( &file );
-	QStringList* contents = new QStringList();
+	QStringList contents;
 
 	while (!stream.eof()) {
-		contents->append( stream.readLine() );
+		contents.append( stream.readLine() );
 	}
-	
-	return *contents;
+
+	return contents;
 }
 
 bool KompareModelList::openDiff( const QString& diffFile )
@@ -431,7 +431,7 @@ bool KompareModelList::openDiff( const QString& diffFile )
 	if ( diffFile.isEmpty() )
 		return false;
 
-	QStringList& diff = readFile( diffFile );
+	QStringList diff = readFile( diffFile );
 
 	clear(); // Clear the current models
 
@@ -1211,7 +1211,7 @@ bool KompareModelList::hasNextDiff()
 //		kdDebug(8101) << "has next difference but in next model" << endl;
 		return true;
 	}
-	
+
 //	kdDebug(8101) << "doesn't have a next difference, not even in next model because there is no next model" << endl;
 
 	return false;

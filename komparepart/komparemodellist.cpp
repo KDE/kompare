@@ -155,8 +155,7 @@ void KDiffModelList::saveDestination( int index )
 			else
 				list = diff->sourceLines();
 			
-			QString lines = list.join( "\n" );
-			if( !lines.isEmpty() )
+			if( list.count() > 0 )
 				*stream << list.join( "\n" ) << "\n";
 		}
 	}

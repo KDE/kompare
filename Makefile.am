@@ -1,4 +1,4 @@
-SUBDIRS = kdiffpart pics qt3back
+SUBDIRS = qt3back kdiffpart pics
 
 INCLUDES= -I$(top_srcdir)/kdiff/kdiff/kdiffpart $(all_includes)
 

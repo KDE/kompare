@@ -58,6 +58,8 @@ DiffModel::DiffFormat DiffModel::determineDiffFormat( QString line )
 
 int DiffModel::parseDiff( enum DiffFormat format, const QStringList& lines, QStringList::ConstIterator& it )
 {
+	m_format = format;
+
 	switch( format )
 	{
 		case Context: return parseContextDiff( lines, it );

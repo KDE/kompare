@@ -61,6 +61,8 @@ public:
 	QString sourceTimestamp() { return m_sourceTimestamp; };
 	QString destinationTimestamp() { return m_destinationTimestamp; };
 
+	enum DiffFormat getFormat() { return m_format; };
+
 	void toggleApplied( int diffIndex );
 
 signals:
@@ -80,6 +82,7 @@ private:
 	QList<DiffHunk>     m_hunks;
 	QList<Difference>   m_differences;
 	int                 m_appliedCount;
+	enum DiffFormat     m_format;
 };
 
 #endif

@@ -39,7 +39,6 @@
 #include "generalsettings.h"
 #include "diffsettings.h"
 #include "miscsettings.h"
-#include "kdiffstatsdlg.h"
 
 GeneralSettings* KDiffPart::m_generalSettings = 0L;
 DiffSettings*    KDiffPart::m_diffSettings = 0L;
@@ -300,29 +299,77 @@ void KDiffPart::slotSaveDestination()
 
 void KDiffPart::slotShowDiffstats( void )
 {
-	// Fetch all the args needed for kdiffstatsdlg
+	// Fetch all the args needed for kdiffstatsmessagebox
 	// oldfile, newfile, diffformat, noofhunks, noofdiffs
 
 	QString oldFile;
 	QString newFile;
 	QString diffFormat;
+	int filesInDiff;
 	int noOfHunks;
 	int noOfDiffs;
 
-	oldFile = "";
-	newFile = "";
-	diffFormat = "";
-	noOfHunks = 0;
-	noOfDiffs = 0;
+	oldFile = getSelectedModel() ? getSelectedModel()->sourceFile() : QString::null;
+	newFile = getSelectedModel() ? getSelectedModel()->destinationFile() : QString::null;
+	if ( getSelectedModel() )
+	{
+		switch( getSelectedModel()->getFormat() )
+		{
+		case DiffModel::Unified :
+			diffFormat = i18n( "Unified" );
+			break;
+		case DiffModel::Context :
+			diffFormat = i18n( "Context" );
+			break;
+		case DiffModel::RCS :
+			diffFormat = i18n( "RCS" );
+			break;
+		case DiffModel::Ed :
+			diffFormat = i18n( "Ed" );
+			break;
+		case DiffModel::Normal :
+			diffFormat = i18n( "Normal" );
+			break;
+		case DiffModel::Unknown :
+			diffFormat = i18n( "Unknown" );
+			break;
+		}
+	}
+	else
+	{
+		diffFormat = "";
+	}
 
-kdDebug() << "Create dialog" << endl;
-	KDiffStatsDlg* diffStatsDlg = new KDiffStatsDlg( oldFile, newFile, diffFormat, noOfHunks, noOfDiffs );
+	filesInDiff = modelCount();
 
-kdDebug() << "Execute dialog" << endl;
-	diffStatsDlg->exec();
+	noOfHunks = getSelectedModel() ? getSelectedModel()->hunkCount() : 0;
+	noOfDiffs = getSelectedModel() ? getSelectedModel()->differenceCount() : 0;
 
-kdDebug() << "Delete dialog" << endl;
-	delete diffStatsDlg;
+	if ( modelCount() == 0 ){ // no diff loaded yet
+		KMessageBox::information( 0L, i18n("Sorry, no diff file or no 2 files have been diffed, so there are no stats available."), i18n("Diff statistics"), QString::null, false );
+	}
+	else if ( modelCount() == 1 ){ // 1 file in diff, or 2 files compared
+		KMessageBox::information( 0L, i18n("Statistics:\n
+\n
+Old file : %1\n
+New file : %2\n
+\n
+Format : %3\n
+Number of hunks : %4\n
+Number of differences : %5").arg(oldFile).arg(newFile).arg(diffFormat).arg(noOfHunks).arg(noOfDiffs), i18n("Diff statistics"), QString::null, false );
+	}
+	else { // more than 1 file in diff, or 1 or more directories compared (not yet possible afaik))
+		KMessageBox::information( 0L, i18n("Statistics:\n
+\n
+Number of files in diff file: %1\n
+Format           : %2\n
+\n
+Current old file : %3\n
+Current new file : %4\n
+\n
+Number of hunks : %5\n
+Number of differences : %6").arg(filesInDiff).arg(diffFormat).arg(oldFile).arg(newFile).arg(noOfHunks).arg(noOfDiffs), i18n("Diff statistics"), QString::null, false );
+	}
 }
 
 void KDiffPart::loadSettings(KConfig *config)

@@ -1,12 +1,11 @@
-# KDE Config File  
+# KDE Config File
 [Desktop Entry]
 Type=Application
 Exec=kdiff -caption "%c" %i %m  
-Icon=kdiff.png
-MiniIcon=kdiff.png
+Icon=kdiff
 DocPath=kdiff/index.html
 Comment=
-Comment[de]=
+Comment[ro]= Sfaturi utile despre KDE
 Terminal=0
 Name=KDiff
-Name[de]=KDiff
+Name[ro]=Diferenţe

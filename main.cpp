@@ -37,7 +37,7 @@ static KCmdLineOptions options[] =
 {
 	{ "c", I18N_NOOP( "This will compare URL1 with URL2." ), 0 },
 	{ "o", I18N_NOOP( "This will open URL1 and expect it to be diff output. URL1 can also be a '-' and then it will read from standard input. Can be used for instance for cvs diff | kompare -o -. Kompare will do a check to see if it can find the original file(s) and then blend the original file(s) into the diffoutput and show that in the viewer. -n disables the check." ), 0 },
-	{ "b", I18N_NOOP( "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 the file or directory that the diffoutput needs to be blended into. " ), 0 },
+	{ "b", I18N_NOOP( "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 the file or folder that the diffoutput needs to be blended into. " ), 0 },
 	{ "n", I18N_NOOP( "Disables the check for automatically finding the original file(s) when using '-' as URL with the -o option." ), 0 },
 	{ "+[URL1 [URL2]]",0 , 0 },
 	{ "+-", 0, 0 },
@@ -173,11 +173,11 @@ int main(int argc, char *argv[])
 		{
 			KompareURLDialog* dialog = new KompareURLDialog();
 
-			dialog->setCaption( i18n("Compare Files or Directories") );
+			dialog->setCaption( i18n("Compare Files or Folders") );
 			dialog->setFirstGroupBoxTitle( i18n( "Source" ) );
 			dialog->setSecondGroupBoxTitle( i18n( "Destination" ) );
 
-			dialog->setButtonOKText( i18n( "Compare" ), i18n( "Compare these files or directories" ), i18n( "If you have entered 2 filenames or 2 directories in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or directories. " ) );
+			dialog->setButtonOKText( i18n( "Compare" ), i18n( "Compare these files or folder" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
 
 			dialog->setGroup( "Recent Compare Files" );
 

@@ -556,7 +556,7 @@ void KomparePart::updateStatus()
 		emit setWindowCaption( source + ":" + destination );
 		break;
 	case Kompare::BlendingDir :
-		text = i18n( "Blending diff output from %1 into directory %2" )
+		text = i18n( "Blending diff output from %1 into folder %2" )
 		    .arg( m_info.source.prettyURL() )
 		    .arg( m_info.destination.prettyURL() );
 		emit setStatusBarText( text );

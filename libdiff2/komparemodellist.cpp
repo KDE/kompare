@@ -238,7 +238,7 @@ bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 	{
 		// Trouble blending the original into the model
 		kdDebug(8101) << "Oops cant blend original dir into modellist : " << dir << endl;
-		emit error( i18n( "There were problems applying the diff (%1) to the directory (%2)." ).arg( diff ).arg( dir ) );
+		emit error( i18n( "There were problems applying the diff (%1) to the folder (%2)." ).arg( diff ).arg( dir ) );
 		return false;
 	}
 

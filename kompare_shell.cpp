@@ -357,11 +357,11 @@ void KompareShell::slotFileBlendURLAndDiff()
 {
 	KompareURLDialog* dialog = new KompareURLDialog( &m_sourceURL, &m_destinationURL, this );
 
-	dialog->setCaption( i18n( "Blend File/Directory With diff Output" ) );
-	dialog->setFirstGroupBoxTitle( i18n( "File/Directory" ) );
+	dialog->setCaption( i18n( "Blend File/Folder With diff Output" ) );
+	dialog->setFirstGroupBoxTitle( i18n( "File/Folder" ) );
 	dialog->setSecondGroupBoxTitle( i18n( "Diff Output" ) );
 
-	dialog->setButtonOKText( i18n( "Blend" ), i18n( "Blend this file or directory with the diff output" ), i18n( "If you have entered a file or directoryname and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the directory are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );
+	dialog->setButtonOKText( i18n( "Blend" ), i18n( "Blend this file or folder with the diff output" ), i18n( "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );
 
 	dialog->setGroup( "Recent Blend Files" );
 
@@ -383,11 +383,11 @@ void KompareShell::slotFileCompareFiles()
 {
 	KompareURLDialog* dialog = new KompareURLDialog( &m_sourceURL, &m_destinationURL, this );
 
-	dialog->setCaption( i18n( "Compare Files or Directories" ) );
+	dialog->setCaption( i18n( "Compare Files or Folders" ) );
 	dialog->setFirstGroupBoxTitle( i18n( "Source" ) );
 	dialog->setSecondGroupBoxTitle( i18n( "Destination" ) );
 
-	dialog->setButtonOKText( i18n( "Compare" ), i18n( "Compare these files or directories" ), i18n( "If you have entered 2 filenames or 2 directories in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or directories. " ) );
+	dialog->setButtonOKText( i18n( "Compare" ), i18n( "Compare these files or folders" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
 
 	dialog->setGroup( "Recent Compare Files" );
 

@@ -197,7 +197,7 @@
                         <cstring>m_RecursiveCB</cstring>
                     </property>
                     <property name="text">
-                        <string>Compare directories recursively</string>
+                        <string>Compare folders recursively</string>
                     </property>
                     <property name="checked">
                         <bool>true</bool>

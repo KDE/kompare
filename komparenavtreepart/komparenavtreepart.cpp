@@ -53,12 +53,12 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 	setWidget( m_splitter );
 
 	m_srcDirTree = new KListView( m_splitter );
-	m_srcDirTree->addColumn( i18n("Source Directory") );
+	m_srcDirTree->addColumn( i18n("Source Folder") );
 	m_srcDirTree->setRootIsDecorated( false );
 	m_srcDirTree->setSorting( 0, true );
 
 	m_destDirTree = new KListView( m_splitter );
-	m_destDirTree->addColumn( i18n("Destination Directory") );
+	m_destDirTree->addColumn( i18n("Destination Folder") );
 	m_destDirTree->setRootIsDecorated( false );
 	m_destDirTree->setSorting( 0, true );
 

@@ -9,11 +9,17 @@
 class KConfig;
 class KURL;
 
+class KompareInterfacePrivate;
+
 class KompareInterface
 {
 public:
-	KompareInterface() {}
-	virtual ~KompareInterface() {}
+	KompareInterface();
+	virtual ~KompareInterface();
+
+protected:
+	KompareInterface( const KompareInterface& );
+	KompareInterface& operator=(const KompareInterface& );
 
 public:
 	/**
@@ -49,7 +55,7 @@ public:
 	/**
 	 * Compare, with diff3, originalFile with changedFile1 and changedFile2
 	 */
-	// virtual void compare3( const KURL& originalFile, const KURL& changedFile1, const KURL& changedFile2 ) = 0;
+	virtual void compare3Files( const KURL& originalFile, const KURL& changedFile1, const KURL& changedFile2 ) = 0;
 
 	/**
 	 * This will show the file and the file with the diff applied
@@ -76,7 +82,8 @@ public:
 	virtual bool queryClose() = 0;
 
 private:
-// Maybe some private variables ???
+	// Add all variables to the KompareInterfacePrivate class and access them through the d pointer
+	KompareInterfacePrivate* d;
 };
 
 #endif /* _KOMPARE_INTERFACE_H */

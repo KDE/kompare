@@ -46,8 +46,9 @@
 #define ID_GENERAL                 3
 
 KDiffShell::KDiffShell()
-	: KParts::DockMainWindow( 0L, "KDiffShell" ),
-	m_textView( 0 )
+	: KParts::DockMainWindow( 0L, "KDiffShell" )
+	, m_textViewWidget( 0 )
+	, m_textViewPart( 0 )
 {
 	if ( !initialGeometrySet() )
 	resize( 800, 480 );
@@ -241,25 +242,34 @@ void KDiffShell::optionsShowStatusbar()
 
 void KDiffShell::slotShowTextView()
 {
-	if( !m_textView ) {
+	if( !m_textViewWidget ) {
 		
-		KTrader::OfferList offers = KTrader::self()->query( "text/plain", "KParts/ReadOnlyPart", QString::null, QString::null );
+		KTrader::OfferList offers = KTrader::self()->query( "text/plain",
+		    "KParts/ReadOnlyPart", QString::null, QString::null );
 		KService::Ptr ptr = offers.first();
 		KLibFactory* factory = KLibLoader::self()->factory( ptr->library() );
 		
-		m_textView = createDockWidget( i18n("Text View"), ptr->pixmap( KIcon::Small ) );
+		m_textViewWidget = createDockWidget( i18n("Text View"), ptr->pixmap( KIcon::Small ) );
 		
-		KParts::ReadOnlyPart* part = 0;
 		if( factory )
-			part = static_cast<KParts::ReadOnlyPart *>(factory->create(m_textView, ptr->name(), "KParts::ReadOnlyPart"));
+			m_textViewPart = static_cast<KParts::ReadOnlyPart *>(
+			    factory->create(m_textViewWidget, ptr->name(), "KParts::ReadOnlyPart"));
 		
-		if( part ) {
-			m_textView->setWidget( part->widget() );
-			part->openURL( m_part->url() );
+		if( m_textViewPart ) {
+			m_textViewWidget->setWidget( m_textViewPart->widget() );
+			m_textViewPart->openURL( m_part->diffURL() );
+			connect( m_part, SIGNAL( diffURLChanged() ), SLOT( slotDiffURLChanged() ) );
 		}
 	}
 	
-	m_textView->manualDock( getMainDockWidget(), KDockWidget:: DockCenter );
+	m_textViewWidget->manualDock( getMainDockWidget(), KDockWidget:: DockCenter );
+}
+
+void KDiffShell::slotDiffURLChanged()
+{
+	if( m_textViewPart ) {
+		m_textViewPart->openURL( m_part->diffURL() );
+	}
 }
 
 void KDiffShell::optionsConfigureKeys()

@@ -41,7 +41,7 @@ public:
 	virtual ~KDiffListView();
 
 	void setSelectedModel( int model );
-	void setSelectedDifference( int diff );
+	void setSelectedDifference( int diff, bool scroll = true );
 	
 	KDiffListViewItem* itemAtIndex( int i );
 	int firstVisibleDifference();

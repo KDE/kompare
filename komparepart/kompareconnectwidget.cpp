@@ -70,6 +70,8 @@ QSize KDiffConnectWidget::sizeHint() const
 
 void KDiffConnectWidget::paintEvent( QPaintEvent* /* e */ )
 {
+	kdDebug() << "KDiffConnectWidget::paintEvent()" << endl;
+	
 	QPixmap pixbuf(size());
 	QPainter paint(&pixbuf, this);
 	QPainter* p = &paint;
@@ -81,19 +83,17 @@ void KDiffConnectWidget::paintEvent( QPaintEvent* /* e */ )
 		DiffModel* selectedModel = m_models->modelAt( m_selectedModel );
 		const Difference* selectedDiff = selectedModel->differenceAt( m_selectedDiff );
 		
-		int first = m_leftView->firstVisibleDifference();
-		if( first < 0 )
-			first = m_rightView->firstVisibleDifference();
-		else
-			first = QMIN( first, m_rightView->firstVisibleDifference() );
+		int firstL = m_leftView->firstVisibleDifference();
+		int firstR = m_rightView->firstVisibleDifference();
+		int lastL = m_leftView->lastVisibleDifference();
+		int lastR = m_rightView->lastVisibleDifference();
 		
-		int last =  m_leftView->lastVisibleDifference();
-		if( last < 0 )
-			last = m_rightView->lastVisibleDifference();
-		else
-			last = QMAX( last, m_rightView->lastVisibleDifference() );
+		int first = firstL < 0 ? firstR : QMIN( firstL, firstR );
+		int last = lastL < 0 ? lastR : QMAX( lastL, lastR );
 		
-//		kdDebug() << "connect: " << first << " " << last << endl;
+		kdDebug() << "    left: " << firstL << " - " << lastL << endl;
+		kdDebug() << "   right: " << firstR << " - " << lastR << endl;
+		kdDebug() << " drawing: " << first << " - " << last << endl;
 		if( first >= 0 && last >= 0 && first <= last ) {
 			
 			QListIterator<Difference> diffIt =

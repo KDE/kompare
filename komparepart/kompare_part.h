@@ -31,6 +31,7 @@ class QWidget;
 
 class KToggleAction;
 class KURL;
+class KTempFile;
 
 class KDiffView;
 class KDiffNavigationTree;
@@ -100,6 +101,8 @@ public:
 	int appliedCount() const
 		{ return m_models->modelAt( m_selectedModel )->appliedCount(); };
 
+	KURL diffURL();
+	
 public slots:
 	/**
 	 * Reimplemented from ReadWritePart.
@@ -111,6 +114,7 @@ public slots:
 signals:
 	void selectionChanged( int model, int diff );
 	void appliedChanged();
+	void diffURLChanged();
 
 protected:
 	/**
@@ -147,6 +151,7 @@ private:
 	void setupActions();
 	void setupStatusbar();
 	void updateActions();
+	void showDefaultStatus();
 
 	static GeneralSettings*    m_generalSettings;
 	static DiffSettings*       m_diffSettings;
@@ -169,6 +174,8 @@ private:
 	KAction*               m_previousDifference;
 	KAction*               m_nextDifference;
 	KDifferencesAction*    m_differences;
+	
+	KTempFile*             m_tempDiff;
 };
 
 class KInstance;

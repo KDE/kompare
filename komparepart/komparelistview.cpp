@@ -67,6 +67,9 @@ KDiffListViewItem* KDiffListView::itemAtIndex( int i )
 int KDiffListView::firstVisibleDifference()
 {
 	QListViewItem* item = itemAt( QPoint( 0, 0 ) );
+	if( item == 0 ) {
+		kdDebug() << "no item at (0,0)" << endl;
+	}
 	
 	while( item ) {
 		KDiffListViewDiffItem* dvlitem = dynamic_cast<KDiffListViewDiffItem*>(item);
@@ -84,9 +87,11 @@ int KDiffListView::firstVisibleDifference()
 
 int KDiffListView::lastVisibleDifference()
 {
-	QListViewItem* item = itemAt( QPoint( 0, height() ) );
-	if( item == 0 )
+	QListViewItem* item = itemAt( QPoint( 0, visibleHeight() - 1 ) );
+	if( item == 0 ) {
+		kdDebug() << "no item at (0," << visibleHeight() - 1 << ")" << endl;
 		item = m_items.last();
+	}
 	
 	while( item ) {
 		KDiffListViewDiffItem* dvlitem = dynamic_cast<KDiffListViewDiffItem*>(item);
@@ -106,7 +111,7 @@ QRect KDiffListView::itemRect( int i )
 {
 	QListViewItem* item = itemAtIndex( i );
 	int x = 0;
-	int y = itemPos( itemAtIndex( i ) );
+	int y = itemPos( item );
 	int vx, vy;
 	contentsToViewport( x, y, vx, vy );
 	return QRect( vx, vy, 0, item->height() );
@@ -224,11 +229,16 @@ void KDiffListView::setSelectedModel( int index )
 	updateMainColumnWidth();
 }
 
-void KDiffListView::setSelectedDifference( int index )
+void KDiffListView::setSelectedDifference( int index, bool scroll )
 {
 	KDiffListViewItem* item = itemAtIndex( index );
+	// Only scroll to item if it isn't selected. This is so that
+	// clicking an item doesn't scroll to to it. KDiffView sets the
+	// selection manually in that case.
+	if( item != selectedItem() && scroll ) {
+		scrollToId( item->scrollId() );
+	}
 	setSelected( item, true );
-	scrollToId( item->scrollId() );
 }
 
 void KDiffListView::updateMainColumnWidth()
@@ -248,7 +258,8 @@ void KDiffListView::resizeEvent( QResizeEvent* e )
 
 void KDiffListView::contentsMousePressEvent( QMouseEvent* e )
 {
-	KDiffListViewDiffItem* item = dynamic_cast<KDiffListViewDiffItem*>( itemAt( e->pos() ) );
+	QPoint vp = contentsToViewport( e->pos() );
+	KDiffListViewDiffItem* item = dynamic_cast<KDiffListViewDiffItem*>( itemAt( vp ) );
 	if( item && item->difference()->type() != Difference::Unchanged ) {
 		setSelected( item, true );
 		emit selectionChanged( m_selectedModel, m_items.findRef( item ) );

@@ -27,6 +27,7 @@
 #include <kdebug.h>
 #include <kmessagebox.h>
 #include <klistview.h>
+#include <ktempfile.h>
 
 #include <qfile.h>
 
@@ -49,7 +50,8 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 	: KParts::ReadWritePart(parent, name),
 	m_selectedModel( -1 ),
 	m_selectedDifference( -1 ),
-	m_navigationTree( 0 )
+	m_navigationTree( 0 ),
+	m_tempDiff( 0 )
 {
 	// we need an instance
 	setInstance( KDiffPartFactory::instance() );
@@ -95,6 +97,11 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 
 KDiffPart::~KDiffPart()
 {
+	if( m_tempDiff ) {
+		m_tempDiff->unlink();
+		delete m_tempDiff;
+		m_tempDiff = 0;
+	}
 }
 
 QWidget* KDiffPart::createNavigationWidget( QWidget* parent, const char* name )
@@ -235,6 +242,13 @@ bool KDiffPart::saveFile()
 	if (isReadWrite() == false)
 		return false;
 
+	// Remove the temporary diff, if we have created one.
+	if( m_tempDiff ) {
+		m_tempDiff->unlink();
+		delete m_tempDiff;
+		m_tempDiff = 0;
+	}
+
 	if ( m_file.isEmpty() ) {
 		KURL url = KFileDialog::getSaveURL( QString::null, "*.diff", widget(), "FileSaveDialog" );
 		if ( !url.isEmpty() ) {
@@ -248,6 +262,25 @@ bool KDiffPart::saveFile()
 	return true;
 }
 
+KURL KDiffPart::diffURL()
+{
+	// If m_file is set, we either have loaded a .diff file, or we have
+	// saved the results of a comparison. In either case, we can just
+	// return url(). If we haven't loaded a .diff file or saved, we will
+	// create a temporary file and save the diff there.
+	if ( m_file ) {
+		return url();
+	} else {
+		if( !m_tempDiff ) {
+			m_tempDiff = new KTempFile();
+			m_models->writeDiffFile( m_tempDiff->name(), m_diffSettings );
+		}
+		KURL url;
+		url.setPath( m_tempDiff->name() );
+		return url;
+	}
+}
+
 void KDiffPart::slotSetStatus( KDiffModelList::Status status )
 {
 	switch( status ) {
@@ -259,32 +292,45 @@ void KDiffPart::slotSetStatus( KDiffModelList::Status status )
 		break;
 	case KDiffModelList::FinishedParsing:
 		if( m_models->mode() == KDiffModelList::Compare ) {
-			if( modelCount() > 1 ) {
-				emit setStatusBarText( i18n( "Comparing files in %1 with files in %2" )
-				   .arg( m_models->sourceBaseURL().prettyURL() )
-				   .arg( m_models->destinationBaseURL().prettyURL() ) );
-				emit setWindowCaption( m_models->sourceBaseURL().prettyURL()
-				   + " : " + m_models->destinationBaseURL().prettyURL() );
-			} else if ( modelCount() == 1 ) {
-				emit setStatusBarText( i18n( "Comparing %1 with %2" )
-				   .arg( m_models->sourceBaseURL().prettyURL( 1 )
-				   + m_models->modelAt( 0 )->sourceFile() )
-				   .arg( m_models->destinationBaseURL().prettyURL( 1 )
-				   + m_models->modelAt( 0 )->destinationFile() ) );
-				emit setWindowCaption(  m_models->modelAt( 0 )->sourceFile()
-				   + " : " + m_models->modelAt( 0 )->destinationFile() );
-			}
 			m_saveDiff->setEnabled(true);
-		} else {
-			emit setStatusBarText( i18n( "Viewing %1" ).arg( url().prettyURL() ) );
 		}
+		showDefaultStatus();
 		slotSetSelection( 0, 0 );
 		break;
 	case KDiffModelList::FinishedWritingDiff:
-		saveToURL();
+		// If m_tempDiff is non-null, we are in the process of saving
+		// a .diff file. Otherwise, we are just saving a temporary.
+		if( !m_tempDiff )
+			saveToURL();
+		showDefaultStatus();
+		emit diffURLChanged();
 		break;
 	default:
 		break;
+	}
+}
+
+void KDiffPart::showDefaultStatus()
+{
+	if( m_models->mode() == KDiffModelList::Compare ) {
+		if( modelCount() > 1 ) {
+			emit setStatusBarText( i18n( "Comparing files in %1 with files in %2" )
+			   .arg( m_models->sourceBaseURL().prettyURL() )
+			   .arg( m_models->destinationBaseURL().prettyURL() ) );
+			emit setWindowCaption( m_models->sourceBaseURL().prettyURL()
+			   + " : " + m_models->destinationBaseURL().prettyURL() );
+		} else if ( modelCount() == 1 ) {
+			emit setStatusBarText( i18n( "Comparing %1 with %2" )
+			   .arg( m_models->sourceBaseURL().prettyURL( 1 )
+			   + m_models->modelAt( 0 )->sourceFile() )
+			   .arg( m_models->destinationBaseURL().prettyURL( 1 )
+			   + m_models->modelAt( 0 )->destinationFile() ) );
+			emit setWindowCaption(  m_models->modelAt( 0 )->sourceFile()
+			   + " : " + m_models->modelAt( 0 )->destinationFile() );
+		}
+	} else {
+		emit setStatusBarText( i18n( "Viewing %1" ).arg( url().prettyURL() ) );
+		emit setWindowCaption( url().filename() );
 	}
 }
 

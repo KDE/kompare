@@ -15,7 +15,7 @@
 #ifndef _KDIFFVIEW_H_
 #define _KDIFFVIEW_H_
 
-#include <qwidget.h>
+#include <qframe.h>
 
 class QLabel;
 class QComboBox;
@@ -29,7 +29,7 @@ class KDiffListView;
 class KDiffConnectWidget;
 class GeneralSettings;
 
-class KDiffView : public QWidget
+class KDiffView : public QFrame
 {
 	Q_OBJECT
 	
@@ -46,7 +46,11 @@ signals:
 protected:
 	void resizeEvent( QResizeEvent* e );
 	void updateScrollBars();
-	
+
+protected slots:
+	void scrollToId( int id );
+	void slotSelectionChanged( int model, int diff );
+
 private:
 	KDiffModelList*           m_models;
 	int                       m_selectedModel;

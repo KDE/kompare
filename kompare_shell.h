@@ -87,6 +87,7 @@ private slots:
 	void optionsConfigureKeys();
 	void optionsConfigureToolbars();
 	void updateStatusBar();
+	void slotDiffURLChanged();
 
 private:
 	void setupAccel();
@@ -97,7 +98,8 @@ private:
 	KURL             m_source;
 	KURL             m_destination;
 	KDiffPart*       m_part;
-	KDockWidget*     m_textView;
+	KDockWidget*     m_textViewWidget;
+	KParts::ReadOnlyPart* m_textViewPart;
 	
 	KToggleAction*   m_toolbarAction;
 	KToggleAction*   m_statusbarAction;

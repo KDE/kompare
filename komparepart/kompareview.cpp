@@ -37,15 +37,18 @@
 #include "kdiffview.moc"
 
 KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget *parent, const char *name )
-	: QWidget(parent, name),
+	: QFrame(parent, name),
 	m_models( models ),
 	m_selectedModel( -1 ),
 	m_selectedDifference( -1 ),
 	m_settings( settings )
 {
+	setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
+	setLineWidth( style().defaultFrameWidth() );
+	
 	QGridLayout *pairlayout = new QGridLayout(this, 4, 3, 10);
 	pairlayout->setSpacing( 0 );
-	pairlayout->setMargin( 0 );
+	pairlayout->setMargin( style().defaultFrameWidth() );
 	pairlayout->setRowStretch(0, 0);
 	pairlayout->setRowStretch(1, 1);
 	pairlayout->setColStretch(1, 0);
@@ -102,15 +105,11 @@ KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget
 	hScroll = new QScrollBar( QScrollBar::Horizontal, this );
 	pairlayout->addMultiCellWidget( hScroll, 2,2, 0,2 );
 
-	connect( diff1, SIGNAL(selectionChanged(int,int)), SIGNAL(selectionChanged(int,int)) );
-	connect( diff2, SIGNAL(selectionChanged(int,int)), SIGNAL(selectionChanged(int,int)) );
+	connect( diff1, SIGNAL(selectionChanged(int,int)), SLOT(slotSelectionChanged(int,int)) );
+	connect( diff2, SIGNAL(selectionChanged(int,int)), SLOT(slotSelectionChanged(int,int)) );
 	
-	connect( vScroll, SIGNAL(valueChanged(int)), diff1, SLOT(scrollToId(int)) );
-	connect( vScroll, SIGNAL(valueChanged(int)), diff2, SLOT(scrollToId(int)) );
-	connect( vScroll, SIGNAL(valueChanged(int)), zoom, SLOT(repaint()) );
-	connect( vScroll, SIGNAL(sliderMoved(int)), diff1, SLOT(scrollToId(int)) );
-	connect( vScroll, SIGNAL(sliderMoved(int)), diff2, SLOT(scrollToId(int)) );
-	connect( vScroll, SIGNAL(sliderMoved(int)), zoom, SLOT(repaint()) );
+	connect( vScroll, SIGNAL(valueChanged(int)), SLOT(scrollToId(int)) );
+	connect( vScroll, SIGNAL(sliderMoved(int)), SLOT(scrollToId(int)) );
 	connect( hScroll, SIGNAL(valueChanged(int)), diff1, SLOT(setXOffset(int)) );
 	connect( hScroll, SIGNAL(valueChanged(int)), diff2, SLOT(setXOffset(int)) );
 	connect( hScroll, SIGNAL(sliderMoved(int)), diff1, SLOT(setXOffset(int)) );
@@ -123,6 +122,13 @@ KDiffView::~KDiffView()
 {
 }
 
+void KDiffView::slotSelectionChanged( int model, int diff )
+{
+	diff1->setSelectedDifference( diff, false /* don't scroll */ );
+	diff2->setSelectedDifference( diff, false /* don't scroll */ );
+	emit selectionChanged( model, diff );
+}
+
 void KDiffView::slotSetSelection( int model, int diff )
 {
 	revlabel1->setText( m_models->modelAt( model )->sourceFile() );
@@ -131,6 +137,13 @@ void KDiffView::slotSetSelection( int model, int diff )
 	diff2->slotSetSelection( model, diff );
 	zoom->slotSetSelection( model, diff );
 	updateScrollBars();
+}
+
+void KDiffView::scrollToId( int id )
+{
+	diff1->scrollToId( id );
+	diff2->scrollToId( id );
+	zoom->repaint();
 }
 
 void KDiffView::updateScrollBars()

@@ -95,8 +95,8 @@ KompareURLDialog::~KompareURLDialog()
 		m_config = kapp->config();
 
 	m_config->setGroup( m_configGroupName );
-	kdDebug(8100) << "Recent Sources     : " << m_firstURLComboBox->urls().join( " " ) << endl;
-	kdDebug(8100) << "Recent Destinations: " << m_secondURLComboBox->urls().join( " " ) << endl;
+//	kdDebug(8100) << "Recent Sources     : " << m_firstURLComboBox->urls().join( " " ) << endl;
+//	kdDebug(8100) << "Recent Destinations: " << m_secondURLComboBox->urls().join( " " ) << endl;
 	// Keeping these names so i wont have to write more kconfupdate scripts
 	m_config->writeEntry( "Recent Sources", m_firstURLComboBox->urls() );
 	m_config->writeEntry( "Recent Destinations", m_secondURLComboBox->urls() );

@@ -361,7 +361,8 @@ void KompareShell::slotFileBlendURLAndDiff()
 	dialog->setFirstGroupBoxTitle( i18n( "File/Folder" ) );
 	dialog->setSecondGroupBoxTitle( i18n( "Diff Output" ) );
 
-	dialog->setButtonOKText( i18n( "Blend" ), i18n( "Blend this file or folder with the diff output" ), i18n( "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );
+	KGuiItem blendGuiItem( i18n( "Blend" ), QString::null, i18n( "Blend this file or folder with the diff output" ), i18n( "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );
+	dialog->setButtonOK( blendGuiItem );
 
 	dialog->setGroup( "Recent Blend Files" );
 
@@ -387,7 +388,8 @@ void KompareShell::slotFileCompareFiles()
 	dialog->setFirstGroupBoxTitle( i18n( "Source" ) );
 	dialog->setSecondGroupBoxTitle( i18n( "Destination" ) );
 
-	dialog->setButtonOKText( i18n( "Compare" ), i18n( "Compare these files or folders" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
+	KGuiItem compareGuiItem( i18n( "Compare" ), QString::null, i18n( "Compare these files or folders" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
+	dialog->setButtonOK( compareGuiItem );
 
 	dialog->setGroup( "Recent Compare Files" );
 

@@ -214,7 +214,7 @@ bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff
 	if ( !blendOriginalIntoModelList( file ) )
 	{
 		kdDebug(8101) << "Oops cant blend original file into modellist : " << file << endl;
-		emit( i18n( "There were problems applying the diff (%2) to the file (%1)." ).arg( diff ).arg( file ) );
+		emit( i18n( "There were problems applying the diff (%1) to the file (%2)." ).arg( diff ).arg( file ) );
 		return false;
 	}
 
@@ -225,8 +225,6 @@ bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff
 
 bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 {
-	bool result = false;
-
 	clear();
 
 	if ( parseDiffOutput( readFile( diff ) ) != 0 )
@@ -240,10 +238,11 @@ bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 	{
 		// Trouble blending the original into the model
 		kdDebug(8101) << "Oops cant blend original dir into modellist : " << dir << endl;
-		emit error( i18n( "There were problems applying the diff (%2) to the directory (%1)." ).arg( diff ).arg( dir ) );
+		emit error( i18n( "There were problems applying the diff (%1) to the directory (%2)." ).arg( diff ).arg( dir ) );
+		return false;
 	}
 
-	return result;
+	return true;
 }
 
 bool KompareModelList::saveDestination( const DiffModel* model_ )
@@ -773,7 +772,7 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 			lines.append( stream.readLine() );
 		}
 
-		result = blendFile( modelAt( 0 ), lines );
+		result = blendFile( models->at( 0 ), lines );
 	}
 
 	delete models; // Hope it does not delete the models, just the container
@@ -785,7 +784,10 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 {
 	if ( !model )
+	{
+		kdDebug() << "Crap model is empty :(" << endl;
 		return false;
+	}
 
 	Difference* newDiff;
 	DiffModel* newModel = new DiffModel();

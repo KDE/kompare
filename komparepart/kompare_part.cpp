@@ -406,6 +406,8 @@ void KomparePart::openDirAndDiff ( const KURL& dir,  const KURL& diffFile )
 
 	// Still need to show the models even if something went wrong,
 	// kompare will then act as if openDiff was called
+	m_modelList->openDirAndDiff( m_info.localSource, m_info.localDestination );
+
 	m_modelList->show();
 
 	// Clean up after ourselves

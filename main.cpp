@@ -71,10 +71,10 @@ int main(int argc, char *argv[])
 
 		KompareShell* ks;
 
-		kdDebug(8100) << "Arg Count = " << args->count() << endl;
+		kdDebug( 8100 ) << "Arg Count = " << args->count() << endl;
 		for ( int i=0; i < args->count(); i++ )
 		{
-			kdDebug(8100) << "Argument " << (i+1) << ": " << args->arg( i ) << endl;
+			kdDebug( 8100 ) << "Argument " << (i+1) << ": " << args->arg( i ) << endl;
 		}
 
 		if ( args->isSet( "o" ) )
@@ -82,13 +82,13 @@ int main(int argc, char *argv[])
 			kdDebug( 8100 ) << "Option -o is set" << endl;
 			if ( args->count() != 1 )
 			{
-				kdDebug(8100) << "Crap i should not add -o to the Exec entry in the desktopfile. Now kompare wont even start from the menu" << endl;
 				difault = true;
 			}
 			else
 			{
 				ks = new KompareShell();
 				ks->show();
+				kdDebug( 8100 ) << "OpenDiff..." << endl;
 				if ( ( strlen( args->arg(0) ) == 1 ) && (  *(args->arg(0)) == '-' ) )
 					ks->openStdin();
 				else
@@ -108,7 +108,11 @@ int main(int argc, char *argv[])
 			{
 				ks = new KompareShell();
 				ks->show();
-				ks->compare( args->url( 0 ), args->url( 1 ) );
+				KURL url0 = args->url( 0 );
+				kdDebug( 8100 ) << "URL0 = " << url0.url() << endl;
+				KURL url1 = args->url( 1 );
+				kdDebug( 8100 ) << "URL1 = " << url1.url() << endl;
+				ks->compare( url0, url1 );
 				difault = false;
 			}
 		}
@@ -124,7 +128,12 @@ int main(int argc, char *argv[])
 			{
 				ks = new KompareShell();
 				ks->show();
-				ks->blend( args->url( 0 ), args->url( 1 ) );
+				kdDebug( 8100 ) << "blend..." << endl;
+				KURL url0 = args->url( 0 );
+				kdDebug( 8100 ) << "URL0 = " << url0.url() << endl;
+				KURL url1 = args->url( 1 );
+				kdDebug( 8100 ) << "URL1 = " << url1.url() << endl;
+				ks->blend( url0, url1 );
 				difault = false;
 			}
 		}
@@ -133,6 +142,7 @@ int main(int argc, char *argv[])
 			ks = new KompareShell();
 			ks->show();
 
+			kdDebug( 8100 ) << "Single file. so openDiff/openStdin is only possible..." << endl;
 			if ( ( strlen( args->arg(0) ) == 1 && *(args->arg(0)) == '-' ) )
 				ks->openStdin();
 			else
@@ -146,7 +156,12 @@ int main(int argc, char *argv[])
 			// and not blending because that is almost impossible to detect
 			ks = new KompareShell();
 			ks->show();
-			ks->compare( args->url( 0 ), args->url( 1 ) );
+			kdDebug( 8100 ) << "Dunno, we'll have to figure it out later, trying compare for now..." << endl;
+			KURL url0 = args->url( 0 );
+			kdDebug( 8100 ) << "URL0 = " << url0.url() << endl;
+			KURL url1 = args->url( 1 );
+			kdDebug( 8100 ) << "URL1 = " << url1.url() << endl;
+			ks->compare( url0, url1 );
 			difault = false;
 		}
 		else if ( args->count() == 0 ) // no options and no args

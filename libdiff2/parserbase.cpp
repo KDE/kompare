@@ -428,9 +428,7 @@ bool ParserBase::parseContextHunkBody()
 		}
 		else
 			return false;
-#if INLINE_DIFFERENCES
 		diff->determineInlineDifferences();
-#endif
 	}
 
 	return true;
@@ -562,9 +560,7 @@ bool ParserBase::parseUnifiedHunkBody()
 				diff->setType( Difference::Change );
 //				kdDebug(8101) << "Change difference" << endl;
 			}
-#if INLINE_DIFFERENCES
 			diff->determineInlineDifferences();
-#endif
 			m_currentModel->addDiff( diff );
 		}
 	}
@@ -686,3 +682,4 @@ QPtrList<DiffModel>* ParserBase::parseUnified()
 		return 0L;
 	}
 }
+

@@ -281,29 +281,21 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 		{
 			if( !diff->applied() )
 			{
-#if INLINE_DIFFERENCES
 				DifferenceStringConstIterator it = diff->destinationLines().begin();
 				DifferenceStringConstIterator end = diff->destinationLines().end();
 				for ( ; it != end; ++it )
 				{
 					list.append( ( *it ).string() );
 				}
-#else
-				list += diff->destinationLines();
-#endif
 			}
 			else
 			{
-#if INLINE_DIFFERENCES
 				QValueListConstIterator<DifferenceString> it = diff->sourceLines().begin();
 				QValueListConstIterator<DifferenceString> end = diff->sourceLines().end();
 				for ( ; it != end; ++it )
 				{
 					list.append( ( *it ).string() );
 				}
-#else
-				list += diff->sourceLines();
-#endif
 			}
 		}
 	}
@@ -885,27 +877,15 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			kdDebug() << "Unchanged" << endl;
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
-#if INLINE_DIFFERENCES
 				if ( it != end && *it != diff->sourceLineAt( i )->string() )
-#else
-				if ( it != end && *it != diff->sourceLineAt( i ) )
-#endif
 				{
 					kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *it << endl;
-#if INLINE_DIFFERENCES
 					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
-#else
-					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i ) << endl;
-#endif
 					conflict = true;
 					break;
 				}
-				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
-#if INLINE_DIFFERENCES
-				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
-#else
-				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i ) << endl;
-#endif
+//				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
+//				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 				srcLineNo++;
 				destLineNo++;
 				++it;
@@ -929,11 +909,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			kdDebug() << "Change" << endl;
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
-#if INLINE_DIFFERENCES
-				if ( it != lines.end() && *it != diff->sourceLineAt( i )->string() )
-#else
-				if ( it != lines.end() && *it != diff->sourceLineAt( i ) )
-#endif
+				if ( it != end && *it != diff->sourceLineAt( i )->string() )
 				{
 					conflict = true;
 					break;
@@ -971,11 +947,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			kdDebug() << "Delete" << endl;
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
-#if INLINE_DIFFERENCES
 				if ( it != end && *it != diff->sourceLineAt( i )->string() )
-#else
-				if ( it != end && *it != diff->sourceLineAt( i ) )
-#endif
 				{
 					conflict = true;
 					break;

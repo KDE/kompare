@@ -67,6 +67,8 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	m_modelList = new Diff2::KompareModelList( m_diffSettings, &m_info, this, "komparemodellist" );
 	connect( m_modelList, SIGNAL(status( Kompare::Status )),
 	         this, SLOT(slotSetStatus( Kompare::Status )) );
+	connect( m_modelList, SIGNAL(setStatusBarModelInfo( int, int, int, int, int )),
+	         this, SIGNAL(setStatusBarModelInfo( int, int, int, int, int )) );
 	connect( m_modelList, SIGNAL(error( QString )),
 	         this, SLOT(slotShowError( QString )) );
 	connect( m_modelList, SIGNAL(applyAllDifferences( bool )),

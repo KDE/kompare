@@ -430,11 +430,7 @@ void KompareListViewDiffItem::setSelected( bool b )
 	QListViewItem* item = m_sourceItem->isVisible() ?
 	                      m_sourceItem->firstChild() :
 	                      m_destItem->firstChild();
-#if INLINE_DIFFERENCES
 	while( item && item->isVisible() ) {
-#else
-	while( item ) {
-#endif
 		item->repaint();
 		item = item->nextSibling();
 	}
@@ -484,30 +480,18 @@ int KompareListViewLineContainerItem::lineNumber() const
 	                    diffItemParent()->difference()->destinationLineNumber();
 }
 
-#if INLINE_DIFFERENCES
 DifferenceString* KompareListViewLineContainerItem::lineAt( int i ) const
-#else
-QString KompareListViewLineContainerItem::lineAt( int i ) const
-#endif
 {
 	return m_isSource ? diffItemParent()->difference()->sourceLineAt( i ) :
 	                    diffItemParent()->difference()->destinationLineAt( i );
 }
 
-#if INLINE_DIFFERENCES
 KompareListViewLineItem::KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, DifferenceString* text )
-#else
-KompareListViewLineItem::KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, const QString& text )
-#endif
 	: KompareListViewItem( parent )
 {
 	setText( COL_LINE_NO, QString::number( line ) );
-#if INLINE_DIFFERENCES
 	setText( COL_MAIN, text->string() );
 	m_text = text;
-#else
-	setText( COL_MAIN, text );
-#endif
 }
 
 void KompareListViewLineItem::setup()
@@ -519,7 +503,6 @@ void KompareListViewLineItem::setup()
 void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align )
 {
 	QColor bg = cg.base();
-#if INLINE_DIFFERENCES
 	p->fillRect( 0, 0, width, height(), bg );
 	if ( diffItemParent()->difference()->type() == Difference::Unchanged )
 	{
@@ -549,40 +532,12 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, i
 		if( nextSibling() == 0 )
 			p->drawLine( 0, height() - 1, width, height() - 1 );
 	}
-#else
-	if( diffItemParent()->difference()->type() != Difference::Unchanged ) {
-		bg = kompareListView()->settings()->colorForDifferenceType(
-		          diffItemParent()->difference()->type(),
-		          diffItemParent()->isSelected(),
-		          diffItemParent()->difference()->applied() );
-	} else if( column == COL_LINE_NO ) {
-		bg = cg.background();
-	}
-
-	p->fillRect( 0, 0, width, height(), bg );
-
-	p->setPen( cg.foreground() );
-
-	if( diffItemParent()->isSelected() ) {
-		if( this == parent()->firstChild() )
-			p->drawLine( 0, 0, width, 0 );
-		if( nextSibling() == 0 )
-			p->drawLine( 0, height() - 1, width, height() - 1 );
-	}
-
-	paintText( p, cg, column, width, align );
-#endif
 }
 
-#if INLINE_DIFFERENCES
 void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int column, int width, int align )
-#else
-void KompareListViewLineItem::paintText( QPainter * p, const QColorGroup& /*cg*/, int column, int width, int align )
-#endif
 {
 	if ( column == COL_MAIN )
 	{
-#if INLINE_DIFFERENCES
 		Command* c = m_text->commandsList()->first();
 		QString textChunk;
 		int offset = listView()->itemMargin();
@@ -647,19 +602,10 @@ void KompareListViewLineItem::paintText( QPainter * p, const QColorGroup& /*cg*/
 			offset += chunkWidth;
 		}
 		p->fillRect( offset, 0, width - offset, height(), normalBrush );
-#else
-		QString adjustedText = text( column );
-		adjustedText.replace( QRegExp( "\\t" ), kompareListView()->spaces() );
-		p->drawText( listView()->itemMargin(), 0,
-		             width - listView()->itemMargin(), height(),
-		             align, adjustedText );
-#endif
 	}
 	else
 	{
-#if INLINE_DIFFERENCES
 		p->fillRect( 0, 0, width, height(), bg );
-#endif
 		p->drawText( listView()->itemMargin(), 0,
 		             width - listView()->itemMargin(), height(),
 		             align, text( column ) );
@@ -673,11 +619,7 @@ KompareListViewDiffItem* KompareListViewLineItem::diffItemParent() const
 }
 
 KompareListViewBlankLineItem::KompareListViewBlankLineItem( KompareListViewLineContainerItem* parent )
-#if INLINE_DIFFERENCES
 	: KompareListViewLineItem( parent, 0, new DifferenceString() )
-#else
-	: KompareListViewLineItem( parent, 0, QString::null )
-#endif
 {
 }
 
@@ -687,19 +629,13 @@ void KompareListViewBlankLineItem::setup()
 	setHeight( BLANK_LINE_HEIGHT );
 }
 
-#if INLINE_DIFFERENCES
 void KompareListViewBlankLineItem::paintText( QPainter* p, const QColor& bg, int column, int width, int )
-#else
-void KompareListViewBlankLineItem::paintText( QPainter*, const QColorGroup&, int, int, int )
-#endif
 {
-#if INLINE_DIFFERENCES
 	if ( column == COL_MAIN )
 	{
 		QBrush normalBrush( bg, SolidPattern );
 		p->fillRect( 0, 0, width, height(), normalBrush );
 	}
-#endif
 }
 
 KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, DiffHunk* hunk )

@@ -1,4 +1,4 @@
-INCLUDES = -D INLINE_DIFFERENCES=0 -D EXCLUDE_DIFF_OPTION=0 -I$(top_srcdir)/kompare/komparepart -I$(top_srcdir)/kompare/interfaces $(all_includes)
+INCLUDES = -I$(top_srcdir)/kompare/komparepart -I$(top_srcdir)/kompare/interfaces $(all_includes)
 
 noinst_HEADERS = \
 	levenshteintable.h \

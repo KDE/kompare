@@ -16,8 +16,6 @@
 **
 *******************************************************************************/
 
-#if INLINE_DIFFERENCES
-
 #include <iostream>
 
 #include <qstring.h>
@@ -312,4 +310,3 @@ void LevenshteinTable::createListsOfCommands()
 //	kdDebug(8101) << "Destination Resulting string : " << list.join("\n") << endl;
 }
 
-#endif // INLINE_DIFFERENCES

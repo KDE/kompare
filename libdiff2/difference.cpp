@@ -17,11 +17,8 @@
 **
 ***************************************************************************/
 
-#if INLINE_DIFFERENCES
-#include "levenshteintable.h"
-
-#endif
 #include "difference.h"
+#include "levenshteintable.h"
 
 using namespace Diff2;
 
@@ -29,12 +26,8 @@ Difference::Difference( int sourceLineNo, int destinationLineNo, enum Difference
 	m_type( type ),
 	m_sourceLineNo( sourceLineNo ),
 	m_destinationLineNo( destinationLineNo ),
-#if INLINE_DIFFERENCES
 	m_applied( false ),
 	m_table( new LevenshteinTable() )
-#else
-	m_applied( false )
-#endif
 {
 }
 
@@ -44,20 +37,12 @@ Difference::~Difference()
 
 void Difference::addSourceLine( QString line )
 {
-#if INLINE_DIFFERENCES
 	m_sourceLines.append( *( new DifferenceString( line ) ) );
-#else
-	m_sourceLines.append( line );
-#endif
 }
 
 void Difference::addDestinationLine( QString line )
 {
-#if INLINE_DIFFERENCES
 	m_destinationLines.append( *( new DifferenceString( line ) ) );
-#else
-	m_destinationLines.append( line );
-#endif
 }
 
 int Difference::sourceLineCount() const
@@ -74,8 +59,6 @@ void Difference::apply( bool apply )
 {
 	m_applied = apply;
 }
-
-#if INLINE_DIFFERENCES
 
 void Difference::determineInlineDifferences()
 {
@@ -106,4 +89,3 @@ void Difference::determineInlineDifferences()
 	delete m_table;
 }
 
-#endif // INLINE_DIFFERENCES

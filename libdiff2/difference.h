@@ -20,21 +20,16 @@
 #ifndef DIFFERENCE_H
 #define DIFFERENCE_H
 
-#if INLINE_DIFFERENCES
 #include <qptrlist.h>
-#endif
 #include <qstringlist.h>
 
-#if INLINE_DIFFERENCES
 #include <kdebug.h>
 
-#endif
 class QString;
 
 namespace Diff2
 {
 
-#if INLINE_DIFFERENCES
 class Command
 {
 public:
@@ -108,7 +103,6 @@ typedef QValueList<DifferenceString> DifferenceStringList;
 typedef QValueListConstIterator<DifferenceString> DifferenceStringConstIterator;
 typedef QValueListIterator<DifferenceString> DifferenceStringIterator;
 
-#endif
 class Difference
 {
 public:
@@ -127,21 +121,11 @@ public:
 	int sourceLineCount() const;
 	int destinationLineCount() const;
 
-#if INLINE_DIFFERENCES
 	DifferenceString* sourceLineAt( int i ) { return &m_sourceLines[ i ]; };
 	DifferenceString* destinationLineAt( int i ) { return &m_destinationLines[ i ]; };
-#else
-	const QString& sourceLineAt( int i ) const { return m_sourceLines[ i ]; };
-	const QString& destinationLineAt( int i ) const { return m_destinationLines[ i ]; };
-#endif
 
-#if INLINE_DIFFERENCES
 	const DifferenceStringList sourceLines() const { return m_sourceLines; };
 	const DifferenceStringList destinationLines() const { return m_destinationLines; };
-#else
-	const QStringList sourceLines() const { return m_sourceLines; };
-	const QStringList destinationLines() const { return m_destinationLines; };
-#endif
 
 	void apply( bool apply );
 	bool applied() const { return m_applied; };
@@ -151,30 +135,21 @@ public:
 	void addSourceLine( QString line );
 	void addDestinationLine( QString line );
 
-#if INLINE_DIFFERENCES
 	/** This method will calculate the differences between the individual strings and store them as Commands */
 	void determineInlineDifferences();
 
-#endif
 private:
 	enum Difference::Type m_type;
 
 	int                   m_sourceLineNo;
 	int                   m_destinationLineNo;
 
-#if INLINE_DIFFERENCES
 	DifferenceStringList  m_sourceLines;
 	DifferenceStringList  m_destinationLines;
-#else
-	QStringList           m_sourceLines;
-	QStringList           m_destinationLines;
-#endif
 
 	bool                  m_applied;
-#if INLINE_DIFFERENCES
 
 	LevenshteinTable*     m_table;
-#endif
 };
 
 } // End of namespace Diff2

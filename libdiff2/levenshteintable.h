@@ -19,8 +19,6 @@
 #ifndef _LEVENSHTEIN_H
 #define _LEVENSHTEIN_H
 
-#if INLINE_DIFFERENCES
-
 #include <qptrlist.h>
 
 #include "difference.h"
@@ -69,7 +67,5 @@ private:
 };
 
 }; // namespace Diff2
-
-#endif // INLINE_DIFFERENCES
 
 #endif // _LEVENSHTEIN_H

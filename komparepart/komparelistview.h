@@ -29,9 +29,7 @@ namespace Diff2 {
 class DiffModel;
 class DiffHunk;
 class Difference;
-#if INLINE_DIFFERENCES
 class DifferenceString;
-#endif
 class KompareModelList;
 }
 class ViewSettings;
@@ -153,11 +151,7 @@ public:
 private:
 	int lineCount() const;
 	int lineNumber() const;
-#if INLINE_DIFFERENCES
 	Diff2::DifferenceString* lineAt( int i ) const;
-#else
-	QString lineAt( int i ) const;
-#endif
 
 	bool m_isSource;
 };
@@ -165,29 +159,18 @@ private:
 class KompareListViewLineItem : public KompareListViewItem
 {
 public:
-#if INLINE_DIFFERENCES
 	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, Diff2::DifferenceString* text );
-#else
-	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, const QString& text );
-#endif
 
 	virtual void setup();
 	int maxHeight() { return 0; }
 
-#if INLINE_DIFFERENCES
 	virtual void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );
 	virtual void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
-#else
-	virtual void paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align );
-	virtual void paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align );
-#endif
 
 	KompareListViewDiffItem* diffItemParent() const;
-#if INLINE_DIFFERENCES
 
 private:
 	Diff2::DifferenceString* m_text;
-#endif
 };
 
 class KompareListViewBlankLineItem : public KompareListViewLineItem
@@ -197,11 +180,7 @@ public:
 
 	void setup();
 
-#if INLINE_DIFFERENCES
 	void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
-#else
-	void paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align );
-#endif
 };
 
 class KompareListViewHunkItem : public KompareListViewItem

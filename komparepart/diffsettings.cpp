@@ -32,7 +32,7 @@ DiffSettings::~DiffSettings()
 void DiffSettings::loadSettings( KConfig* config )
 {
 	m_linesOfContext = config->readNumEntry( "LinesOfContext", 3 );
-	m_format = static_cast<Format>( config->readNumEntry( "Format", Unified ) );
+	m_format = static_cast<KDiff::Format>( config->readNumEntry( "Format", Unified ) );
 	m_largeFiles = config->readBoolEntry( "LargeFiles", true );
 	m_ignoreWhiteSpace = config->readBoolEntry( "IgnoreWhiteSpace", false );
 	m_ignoreEmptyLines = config->readBoolEntry( "IgnoreEmptyLines", false );

@@ -38,7 +38,7 @@ public:
 
 public:
 	int m_linesOfContext;
-	Format m_format;
+	KDiff::Format m_format;
 	bool m_largeFiles;
 	bool m_ignoreWhiteSpace;
 	bool m_ignoreEmptyLines;

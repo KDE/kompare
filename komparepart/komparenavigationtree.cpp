@@ -70,10 +70,10 @@ void KompareNavigationTree::buildTree()
 		
 		m_rootItem->setText( COL_SOURCE, sourceBaseURL.url() );
 		m_rootItem->setPixmap( COL_SOURCE,
-		     KMimeType::pixmapForURL( sourceBaseURL, 0, 0, KIcon::SizeSmall ) );
+		     KMimeType::pixmapForURL( sourceBaseURL, 0, KIcon::Desktop, KIcon::SizeSmall ) );
 		m_rootItem->setText( COL_DESTINATION, destinationBaseURL.url() );
 		m_rootItem->setPixmap( COL_DESTINATION,
-		     KMimeType::pixmapForURL( destinationBaseURL, 0, 0, KIcon::SizeSmall ) );
+		     KMimeType::pixmapForURL( destinationBaseURL, 0, KIcon::Desktop, KIcon::SizeSmall ) );
 	}
 	
 	QListViewItem* modelItem;
@@ -96,11 +96,11 @@ void KompareNavigationTree::buildTree()
 		modelItem->setSelectable( false );
 		if( !sourceBaseURL.isEmpty() ) {
 			modelItem->setPixmap( COL_SOURCE, KMimeType::pixmapForURL(
-			     KURL( sourceBaseURL, model->sourceFile() ), 0, 0, KIcon::SizeSmall ) );
+			     KURL( sourceBaseURL, model->sourceFile() ), 0, KIcon::Desktop, KIcon::SizeSmall ) );
 		}
 		if( !destinationBaseURL.isEmpty() ) {
 			modelItem->setPixmap( COL_DESTINATION, KMimeType::pixmapForURL(
-			     KURL( destinationBaseURL, model->destinationFile() ), 0, 0, KIcon::SizeSmall ) );
+			     KURL( destinationBaseURL, model->destinationFile() ), 0, KIcon::Desktop, KIcon::SizeSmall ) );
 		}
 		
 		QPtrListIterator<Difference> diffIt(model->getDifferences());

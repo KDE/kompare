@@ -683,6 +683,11 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 				// skip...
 				kdDebug() << "Skipping : " << (*it) << endl;
 			}
+			else if ( (*it).startsWith( "Binary files" ) )
+			{
+				// skip...
+				kdDebug() << "Skipping : " << (*it) << endl;
+			}
 			else
 			{
 				file->append( *it );

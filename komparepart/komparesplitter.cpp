@@ -83,7 +83,7 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget * parent,
 	slotUpdateScrollBars();
 }
 
-KompareSplitter::~KompareSplitter(){};
+KompareSplitter::~KompareSplitter(){}
 
 /*
     Inserts the widget \a w at the end (or at the beginning if \a

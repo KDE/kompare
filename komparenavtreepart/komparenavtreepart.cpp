@@ -701,7 +701,7 @@ KInstance* KompareNavTreePartFactory::instance()
 
 extern "C"
 {
-	void* init_libkomparenavtreepart()
+	KDE_EXPORT void* init_libkomparenavtreepart()
 	{
 		return new KompareNavTreePartFactory;
 	}

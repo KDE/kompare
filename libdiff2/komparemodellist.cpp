@@ -508,7 +508,8 @@ void KompareModelList::slotNextDifference()
 
 		emit setSelection( m_selectedDifference );
 	}
-	else if ( ( m_selectedDifference->index() == ( m_selectedModel->differenceCount() - 1 ) ) && ( m_selectedModel->index() < ( m_models->count() - 1 ) ) )
+	else if ( ( m_selectedDifference->index() == ( m_selectedModel->differenceCount() - 1 ) ) &&
+			  ( m_selectedModel->index() < ( int( m_models->count() ) - 1 ) ) )
 	{
 		m_selectedModel = ++(*m_modelIt);
 

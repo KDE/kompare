@@ -1,6 +1,4 @@
 * use better icons
-* get the preferences to work
-* implement more diff commandline options
 * reorganize code a bit
 * cvs support
 * perhaps a wizard for newbie/non-coders...

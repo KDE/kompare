@@ -31,7 +31,7 @@
 #include "filessettings.h"
 #include "filespage.h"
 
-FilesPage::FilesPage( QWidget* parent ) : PageBase( parent )
+FilesPage::FilesPage( QWidget* parent ) : PageBase( parent ), m_URLChanged( false )
 {
 	QWidget* page = new QWidget( this );
 	QVBoxLayout* layout = new QVBoxLayout( page );
@@ -46,6 +46,9 @@ FilesPage::FilesPage( QWidget* parent ) : PageBase( parent )
 	m_secondGB = new QGroupBox( 1, Qt::Vertical, "This too moron !", page );
 	m_secondURLComboBox = new KURLComboBox( KURLComboBox::Both, true, m_secondGB, "DestURLComboBox" );
 	m_secondURLRequester = new KURLRequester( m_secondURLComboBox, m_secondGB );
+
+	connect( m_firstURLRequester, SIGNAL( urlSelected( const QString & ) ), SLOT( setSecondURL( const QString & ) ) );
+	connect( m_secondURLRequester, SIGNAL( urlSelected( const QString & ) ), SLOT( setFirstURL( const QString & ) ) );
 
 	m_thirdGB = new QGroupBox( 1, Qt::Vertical, "Encoding", page );
 	m_encodingComboBox = new QComboBox( false, m_thirdGB, "encoding_combobox" );
@@ -144,4 +147,22 @@ void FilesPage::setDefaults()
 	m_encodingComboBox->setCurrentText( "Default" );
 }
 
+void FilesPage::setFirstURL( const QString &url )
+{
+	if ( !m_URLChanged )
+	{
+		m_firstURLRequester->setURL( url );
+		m_URLChanged = true;
+	}
+}
 
+void FilesPage::setSecondURL( const QString &url )
+{
+	if ( !m_URLChanged )
+	{
+		m_secondURLRequester->setURL( url );
+		m_URLChanged = true;
+	}
+}
+
+#include "filespage.moc"

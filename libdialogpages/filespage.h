@@ -35,6 +35,7 @@ class FilesSettings;
 
 class FilesPage : PageBase
 {
+Q_OBJECT
 public:
 	FilesPage( QWidget* parent );
 	virtual ~FilesPage();
@@ -59,6 +60,10 @@ public:
 	virtual void apply();
 	virtual void setDefaults();
 
+protected slots:
+	void setFirstURL( const QString & );
+	void setSecondURL( const QString & );
+
 private:
 	QGroupBox*     m_firstGB;
 	QGroupBox*     m_secondGB;
@@ -67,6 +72,9 @@ private:
 	KURLComboBox*  m_secondURLComboBox;
 	KURLRequester* m_firstURLRequester;
 	KURLRequester* m_secondURLRequester;
+	// Use this bool to lock the connection between both KURLRequesters.
+	// This prevents annoying behaviour
+	bool           m_URLChanged;
 	QComboBox*     m_encodingComboBox;
 
 	FilesSettings* m_settings;

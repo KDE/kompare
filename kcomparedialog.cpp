@@ -30,8 +30,8 @@
 #include "kcomparedialog.h"
 
 KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationURL,
-	                        QWidget *parent, const char *name )
-	: KDialogBase( Plain, i18n("Compare Files or Directories"), Ok|Cancel, Ok, parent, name )
+                                QWidget *parent, const char *name )
+        : KDialogBase( Plain, i18n("Compare Files or Directories"), Ok|Cancel, Ok, parent, name )
 {
 	QVBoxLayout* topLayout = new QVBoxLayout( plainPage(), 0,
 	          spacingHint() );
@@ -89,8 +89,7 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 	m_destinationURLRequester->setMinimumWidth( 400 );
 	m_destinationURLRequester->setMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
 
-	// FIXME: qwhatsthis is screwed... still mentions OK there...
-	setButtonOKText( i18n( "Compare" ), i18n( "Compare these files or directories" ) );
+	setButtonOKText( i18n( "Compare" ), i18n( "Compare these files or directories" ), i18n( "If you have entered 2 filenames or 2 directories in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or directories. " ) );
 
 	connect( m_sourceURLRequester, SIGNAL( textChanged( const QString& ) ),
 	         this, SLOT( slotEnableCompare() ) );

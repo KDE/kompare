@@ -286,7 +286,7 @@ void KompareShell::slotSetStatusBarText( const QString& text )
 
 void KompareShell::setCaption( const QString& caption )
 {
-	kdDebug() << kdBacktrace();
+//	kdDebug() << kdBacktrace();
 	KParts::DockMainWindow::setCaption( caption, m_viewPart->isModified() );
 }
 

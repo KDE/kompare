@@ -25,14 +25,16 @@
 
 #include <klistview.h>
 
-class Diff2::DiffModel;
-class Diff2::DiffHunk;
-class Diff2::Difference;
+namespace Diff2 {
+class DiffModel;
+class DiffHunk;
+class Difference;
+class KompareModelList;
+}
 class ViewSettings;
 class KompareListViewItem;
 class KompareListViewDiffItem;
 class KompareListViewLineContainerItem;
-class Diff2::KompareModelList;
 
 class KompareListView : public KListView
 {

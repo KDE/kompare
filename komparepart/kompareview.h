@@ -29,7 +29,9 @@ class QFile;
 class QLabel;
 class QScrollBar;
 
-class Diff2::DiffModel;
+namespace Diff2 {
+class DiffModel;
+}
 class ViewSettings;
 class KompareConnectWidget;
 class KompareListView;

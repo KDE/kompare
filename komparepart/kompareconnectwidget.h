@@ -22,7 +22,9 @@
 
 #include <qwidget.h>
 
-class Diff2::DiffModel;
+namespace Diff2 {
+class DiffModel;
+}
 class ViewSettings;
 class KompareListView;
 class KompareView;

@@ -33,8 +33,10 @@
 class KompareModelList;
 class KomparePart;
 class KListView;
-class Diff2::DiffModel;
-class Diff2::Difference;
+namespace Diff2 {
+class DiffModel;
+class Difference;
+}
 
 class KDirLVI;
 class KFileLVI;

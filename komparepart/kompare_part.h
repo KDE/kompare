@@ -34,14 +34,16 @@ class QWidget;
 class KToggleAction;
 class KURL;
 
-class Diff2::Difference;
+namespace Diff2 {
+class Difference;
+class KompareModelList;
+}
 class DiffSettings;
 class ViewSettings;
 class KFileTreeView;
 class KompareView;
 class KompareNavigationTree;
 class DifferencesAction;
-class Diff2::KompareModelList;
 class KompareProcess;
 class KompareStatsDlg;
 class KompareActions;

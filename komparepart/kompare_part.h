@@ -90,6 +90,8 @@ public:
 	const KURL& getSourceURL() const { return m_sourceURL; };
 	const KURL& getDestinationURL() const { return m_destinationURL; };
 
+	int modelCount() const
+		{ return m_models.count(); };
 	const DiffModel* modelAt( int i )
 		{ return m_models.at( i ); };
 	int getSelectedModelIndex() const

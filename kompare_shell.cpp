@@ -39,8 +39,9 @@
 #include "kdiff_part.h"
 #include "kcomparedialog.h"
 
-#define ID_N_OF_N      1
-#define ID_GENERAL     2
+#define ID_N_OF_N_DIFFERENCES      1
+#define ID_N_OF_N_FILES            2
+#define ID_GENERAL                 3
 
 KDiffShell::KDiffShell()
 	: KParts::DockMainWindow( 0L, "KDiffShell" )
@@ -143,20 +144,30 @@ void KDiffShell::setupActions()
 
 void KDiffShell::setupStatusBar()
 {
-	statusBar()->insertItem( i18n(" 0 of 0 differences "), ID_N_OF_N );
+	statusBar()->insertItem( i18n(" 0 of 0 differences "), ID_N_OF_N_DIFFERENCES );
+	statusBar()->insertItem( i18n(" 0 of 0 files "), ID_N_OF_N_FILES );
 	statusBar()->insertItem( "", ID_GENERAL, 1 );
 }
 
 void KDiffShell::updateStatusBar()
 {
 	QString str;
-	int markedItem = m_part->getSelectedDifferenceIndex();
-	int count = m_part->getSelectedModel()->differenceCount();
-	if (markedItem >= 0)
-		str = i18n(" %1 of %2 differences ").arg(markedItem+1).arg(count);
+	int modelIndex = m_part->getSelectedModelIndex();
+	int modelCount = m_part->modelCount();
+	int diffIndex = m_part->getSelectedDifferenceIndex();
+	int diffCount = m_part->getSelectedModel()->differenceCount();
+	if (modelIndex >= 0)
+		str = i18n(" %1 of %2 %3 ").arg(modelIndex+1).arg(modelCount);
 	else
-		str = i18n(" %1 differences ").arg(count);
-	statusBar()->changeItem( str, ID_N_OF_N );
+		str = i18n(" %1 %3 ").arg(modelCount);
+	str = str.arg( modelCount == 1 ? i18n("file") : i18n("files") );
+	statusBar()->changeItem( str, ID_N_OF_N_FILES );
+	if (diffIndex >= 0)
+		str = i18n(" %1 of %2 %3 ").arg(diffIndex+1).arg(diffCount);
+	else
+		str = i18n(" %1 %3 ").arg(diffCount);
+	str = str.arg( diffCount == 1 ? i18n("difference") : i18n("differences") );
+	statusBar()->changeItem( str, ID_N_OF_N_DIFFERENCES );
 }
 
 void KDiffShell::saveProperties(KConfig* /*config*/)

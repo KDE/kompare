@@ -1,3 +1,8 @@
+Dec    27, 2004 : Jeff Snyder
+	* Fix for bug 95640 (nothing displayed when kompare is embedded in Ark
+	  fixed by forcing the delivery of childEvents to komparesplitter at
+	  the end of its constructor
+
 Nov    25, 2003 : Otto Bruggeman
 	* Fix nasty looping to the end of the file when hitting previous difference on the first difference in the first file
 

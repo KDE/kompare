@@ -125,8 +125,6 @@ unsigned int LevenshteinTable::createTable( DifferenceString* source, Difference
 	if (  !setSize(  m, n ) )
 		return 0;
 
-	setSize( m, n );
-
 	unsigned int i;
 	unsigned int j;
 

@@ -1,5 +1,5 @@
 /***************************************************************************
-                                difference.h  -  description
+                                kdiffnavigationtree.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -7,7 +7,7 @@
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -17,39 +17,35 @@
 **
 ***************************************************************************/
 
-#ifndef DIFFERENCE_H
-#define DIFFERENCE_H
+#ifndef KDIFFNAVIGATIONTREE_H
+#define KDIFFNAVIGATIONTREE_H
 
-#include <qobject.h>
-#include <qstring.h>
+#include <qlist.h>
 
-class Difference : QObject
+#include <klistview.h>
+
+class KDiffPart;
+
+class KDiffNavigationTree : public KListView
 {
-Q_OBJECT
+	Q_OBJECT
 public:
-	enum Type { Change, Insert, Delete, Unchanged, Separator };
+	KDiffNavigationTree( KDiffPart* part, QWidget* parent = 0L, const char* name = 0L );
+	virtual ~KDiffNavigationTree();
 
-	Difference( int linenoA, int linenoB );
-	~Difference();
+	void setModels( const QList<DiffModel>* models );
 
-	QString asString() const;
-	int sourceLineCount() const;
-	int destinationLineCount() const;
-	const QStringList getSourceLines() const { return sourceLines; };
-	const QStringList getDestinationLines() const { return destinationLines; };
-	void addSourceLine( QString line );
-	void addDestinationLine( QString line );
+public slots:
+	void slotSetSelection( int model, int diff );
 
-public:
-	Type type;
-	int linenoA;       // the startline of the hunk in the A file
-	int linenoB;       // the startline fo the hunk in the B file
+signals:
+	void selectionChanged( int model, int diff );
+
+private slots:
+	void slotSelectionChanged( QListViewItem* item );
 
 private:
-	QStringList sourceLines;
-	QStringList destinationLines;
-
+	KDiffPart*      m_diffPart;
 };
 
 #endif
-

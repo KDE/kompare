@@ -17,7 +17,6 @@
   </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
     <Action name="options_configure"/>
-    <Action name="settings_synchronize_scroll_bars"/>
   </Menu>
 </MenuBar>
 <ToolBar name="mainToolBar">

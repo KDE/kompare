@@ -24,7 +24,9 @@
 
 #include "kdiffprocess.moc"
 
-KDiffProcess::KDiffProcess( DiffSettings* diffSettings )
+KDiffProcess::KDiffProcess( DiffSettings* diffSettings, const KURL& source, const KURL& destination )
+	: m_leftURL( source ),
+	m_rightURL( destination )
 {
 	// create the process to run diff with
 	m_diffProcess = new KProcess();
@@ -142,50 +144,30 @@ KDiffProcess::~KDiffProcess()
 	delete m_diffProcess;
 }
 
-void KDiffProcess::receivedStdout( KProcess* process, char* buffer, int length )
+void KDiffProcess::receivedStdout( KProcess* /* process */, char* buffer, int length )
 {
-	// just to get rid of that stupid warning...
-	process = process;
-
-	kdDebug() << "Output received through stdout..." << endl;
-
 	// add all output to m_stdout
 	m_stdout += QString::fromLatin1( buffer, length );
 }
 
-void KDiffProcess::receivedStderr( KProcess* process, char* buffer, int length )
+void KDiffProcess::receivedStderr( KProcess* /* process */, char* buffer, int length )
 {
-	// just to get rid of that stupid warning...
-	process = process;
-
-	kdDebug() << "Errors received through stderr..." << endl;
-
 	// add all output to m_stderr
 	m_stderr += QString::fromLatin1( buffer, length );
 }
 
-/** No descriptions */
 bool KDiffProcess::start()
 {
-	// start the diff process
-	if ( m_leftURL && m_rightURL )
-	{
-		*m_diffProcess << "--" << m_leftURL->path() << m_rightURL->path();
-		QString cmdLine;
-		for( QStrListIterator i( *m_diffProcess->args() ); i.current(); ++i ) {
-			cmdLine += i.current();
-			cmdLine += " ";
-		}
-		kdDebug() << cmdLine << endl;
-		return( m_diffProcess->start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
+	*m_diffProcess << "--" << m_leftURL.path() << m_rightURL.path();
+	QString cmdLine;
+	for( QStrListIterator i( *m_diffProcess->args() ); i.current(); ++i ) {
+		cmdLine += i.current();
+		cmdLine += " ";
 	}
-	else
-	{
-		return( false );
-	}
+	kdDebug() << cmdLine << endl;
+	return( m_diffProcess->start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
 }
 
-/** No descriptions */
 void KDiffProcess::processExited( KProcess* /* proc */ )
 {
 	// exit status of 0: no differences
@@ -195,21 +177,7 @@ void KDiffProcess::processExited( KProcess* /* proc */ )
 	                      && m_diffProcess->exitStatus() == 1 );
 }
 
-/** No descriptions */
-void KDiffProcess::setLeftURL( KURL* url )
-{
-	m_leftURL = url;
-}
-
-/** No descriptions */
-void KDiffProcess::setRightURL( KURL* url )
-{
-	m_rightURL = url;
-}
-
-/** No descriptions */
 const QStringList KDiffProcess::getDiffOutput()
 {
 	return QStringList::split( "\n", m_stdout );
 }
-

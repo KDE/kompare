@@ -40,8 +40,18 @@ public:
 	~DiffModel();
 
 public:
-	const QList<DiffHunk>& getHunks() const { return hunks; };
-	const QList<Difference>& getDifferences() const { return differences; };
+	int hunkCount() const
+		{ return hunks.count(); };
+	int differenceCount() const
+		{ return differences.count(); };
+	const DiffHunk* hunkAt( int i ) const
+		{ return const_cast<DiffModel*>(this)->hunks.at( i ); };
+	const Difference* differenceAt( int i ) const
+		{ return const_cast<DiffModel*>(this)->differences.at( i ); };
+	const QList<DiffHunk>& getHunks() const
+		{ return hunks; };
+	const QList<Difference>& getDifferences() const
+		{ return differences; };
 
 	QString getSourceFilename() { return sourceFilename; };
 	QString getDestinationFilename() { return destinationFilename; };
@@ -58,7 +68,6 @@ private:
 	int parseRCSDiff( const QStringList& list );
 	int parseUnifiedDiff( const QStringList& list );
 
-private:
 	QString sourceFilename;
 	QString sourceTimestamp;
 	QString destinationFilename;

@@ -55,7 +55,7 @@ int KDifferencesAction::plug( QWidget *widget, int index )
 	return KAction::plug( widget, index );
 }
 
-void KDifferencesAction::fillDifferenceMenu( DiffModel* diffModel, int current )
+void KDifferencesAction::fillDifferenceMenu( const DiffModel* diffModel, int current )
 {
 	kdDebug() << "KDifferencesAction::fillDifferenceMenu" << endl;
 

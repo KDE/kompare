@@ -25,7 +25,7 @@
 #endif 
 
 #include <kapp.h>
-#include <kparts/mainwindow.h>
+#include <kparts/dockmainwindow.h>
 
 class KToggleAction;
 
@@ -39,7 +39,7 @@ class KDiffPart;
 * @author John Firebaugh <jfirebaugh@mac.com>
 * @version 0.1
 */
-class KDiffShell : public KParts::MainWindow
+class KDiffShell : public KParts::DockMainWindow
 {
 	Q_OBJECT
 public:

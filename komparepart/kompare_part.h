@@ -31,6 +31,7 @@ class KToggleAction;
 class KURL;
 
 class KDiffView;
+class KDiffNavigationTree;
 class KDifferencesAction;
 class KDiffProcess;
 class KDiffStatsDlg;
@@ -74,12 +75,37 @@ public:
 	*/
 	virtual void setModified(bool modified);
 
+	/**
+	 * Create the navigation widget. For example, this may be embedded in a dock
+	 * widget by the shell.
+	 */
+	QWidget* createNavigationWidget( QWidget* parent = 0L, const char* name = 0L );
+
 	void compare( const KURL& source, const KURL& destination, DiffSettings* settings = 0 );
 	void setFormat( QCString format );
 
-	KDiffView* diffView();
 	void loadSettings(KConfig *config);
 	void saveSettings(KConfig *config);
+
+	const KURL& getSourceURL() const { return m_sourceURL; };
+	const KURL& getDestinationURL() const { return m_destinationURL; };
+
+	const DiffModel* modelAt( int i )
+		{ return m_models.at( i ); };
+	int getSelectedModelIndex() const
+		{ return m_selectedModel; };
+	int getSelectedDifferenceIndex() const
+		{ return m_selectedDifference; };
+	const DiffModel* getSelectedModel()
+		{ return m_models.at( m_selectedModel ); };
+	const Difference* getSelectedDifference()
+		{ return m_models.at( m_selectedModel )->differenceAt( m_selectedDifference ); };
+
+public slots:
+	void slotSetSelection( int model, int diff );
+
+signals:
+	void selectionChanged( int model, int diff );
 
 protected:
 	/**
@@ -96,18 +122,17 @@ protected:
 	void updateActions();
 
 protected slots:
+	void slotSelectionChanged( int model, int diff );
 	void slotDifferenceMenuAboutToShow();
 	void slotGoDifferenceActivated( int item );
 	void slotDiffProcessFinished( bool success );
-	void toggleSynchronize();
-	void slotItemsChanged();
-	void slotSelectionChanged();
 	void slotPreviousDifference();
 	void slotNextDifference();
 	void optionsPreferences();
 	void slotShowDiffstats();
 
 private:
+	bool parseDiff( QStringList diff );
 	void setupActions();
 	void setupStatusbar();
 
@@ -115,20 +140,23 @@ private:
 	static DiffSettings*       m_diffSettings;
 	static MiscSettings*       m_miscSettings;
 
-	QList<DiffModel>       m_diffmodels;
+	QList<DiffModel>       m_models;
+
+	int                    m_selectedModel;
+	int                    m_selectedDifference;
 
 	DiffModel::DiffFormat  m_format;
 	KDiffView*             m_diffView;
+	KDiffNavigationTree*   m_navigationTree;
 	KAction*               m_diffStats;
 	KAction*               m_saveDiff;
 	KAction*               m_previousDifference;
 	KAction*               m_nextDifference;
 	KDifferencesAction*    m_differences;
-	KToggleAction*         m_synchronizeScrollBars;
 	KDiffProcess*          m_diffProcess;
 	QStringList            m_diffOutput;
-	KURL*                  m_leftURL;
-	KURL*                  m_rightURL;
+	KURL                   m_sourceURL;
+	KURL                   m_destinationURL;
 };
 
 class KInstance;

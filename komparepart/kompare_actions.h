@@ -38,7 +38,7 @@ public:
     virtual int plug( QWidget *widget, int index = -1 );
     //virtual void unplug( QWidget *widget );
 
-    void fillDifferenceMenu( DiffModel* model, int current );
+    void fillDifferenceMenu( const DiffModel* model, int current );
 
 protected slots:
     void slotActivated( int );

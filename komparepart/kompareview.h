@@ -16,6 +16,7 @@
 #define _KDIFFVIEW_H_
 
 #include <qwidget.h>
+#include <qlist.h>
 
 class QLabel;
 class QComboBox;
@@ -35,23 +36,29 @@ public:
 	KDiffView( GeneralSettings* settings, QWidget *parent=0, const char *name=0 );
 	~KDiffView();
 
-	DiffModel* getModel();
-	void setModel( DiffModel* model, bool ownsModel=false );
+	void setModels( const QList<DiffModel>* models );
+
 	void setFont( const QFont& font );
 	void setTabWidth( uint tabWidth );
 
-	int getSelectedItem();
-	void setSelectedItem( int item );
+	int getSelectedDifferenceIndex() { return m_selectedDifference; };
 
-signals:
-	void selectionChanged();
-	void itemsChanged();
+public slots:
+	void slotSetSelection( int model, int diff );
 
 protected:
+	void updateViews();
 	void resizeEvent( QResizeEvent* e );
 	void updateScrollBars();
 
 private:
+
+	DiffModel* modelAt( int i )
+		{ return const_cast<QList<DiffModel>*>(m_models)->at( i ); };
+
+	const QList<DiffModel>*   m_models;
+	int                       m_selectedModel;
+	int                       m_selectedDifference;
 	GeneralSettings*          m_settings;
 	QLabel*                   revlabel1;
 	QLabel*                   revlabel2;
@@ -60,9 +67,6 @@ private:
 	DiffConnectWidget*        zoom;
 	QScrollBar*               vScroll;
 	QScrollBar*               hScroll;
-	DiffModel*                model;
-	int                       markeditem;
-	bool                      ownsModel;
 };
 
 #endif

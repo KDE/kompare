@@ -37,14 +37,10 @@ class KDiffProcess : public QObject
 Q_OBJECT
 
 public:	// methods
-	KDiffProcess( DiffSettings* );
+	KDiffProcess( DiffSettings*, const KURL& sourceURL, const KURL& destinationURL );
 	~KDiffProcess();
 	/** No descriptions */
 	bool start();
-	/** No descriptions */
-	void setRightURL( KURL* url );
-	/** No descriptions */
-	void setLeftURL( KURL* url );
 	/** No descriptions */
 	const QStringList getDiffOutput();
 	QString getStdout() { return m_stdout; };
@@ -57,8 +53,8 @@ private:
 public: // variables
 	KProcess* m_diffProcess;
 
-	KURL* m_leftURL;
-	KURL* m_rightURL;
+	KURL m_leftURL;
+	KURL m_rightURL;
 
 public slots:	// slots
 	void receivedStdout( KProcess*, char*, int );

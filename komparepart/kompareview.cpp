@@ -31,14 +31,12 @@
 #include "generalsettings.h"
 
 KDiffView::KDiffView( GeneralSettings* settings, QWidget *parent, const char *name )
-    : QWidget(parent, name)
+	: QWidget(parent, name),
+	m_models( 0 ),
+	m_selectedModel( 0 ),
+	m_selectedDifference( 0 ),
+	m_settings( settings )
 {
-	m_settings = settings;
-
-	markeditem = -1;
-	model = new DiffModel();
-	ownsModel = true;
-
 	QGridLayout *pairlayout = new QGridLayout(this, 4, 3, 10);
 	pairlayout->setSpacing( 0 );
 	pairlayout->setMargin( 0 );
@@ -81,7 +79,7 @@ KDiffView::KDiffView( GeneralSettings* settings, QWidget *parent, const char *na
 	pairlayout->addWidget(diff1, 1, 0);
 	pairlayout->addWidget(diff2, 1, 2);
 
-	zoom = new DiffConnectWidget( model, m_settings, this );
+	zoom = new DiffConnectWidget( m_settings, this );
 	zoom->setDiffViews( diff1, diff2 );
 	pairlayout->addWidget( zoom,  1, 1);
 
@@ -106,18 +104,53 @@ KDiffView::KDiffView( GeneralSettings* settings, QWidget *parent, const char *na
 
 KDiffView::~KDiffView()
 {
-	if( ownsModel ) delete model;
 }
 
-DiffModel* KDiffView::getModel()
+void KDiffView::setModels( const QList<DiffModel>* models )
 {
-	return model;
+	m_models = models;
+	updateViews();
 }
 
-void KDiffView::setModel( DiffModel* model, bool ownsModel )
+void KDiffView::slotSetSelection( int model, int diff )
 {
-	this->model = model;
-	this->ownsModel = ownsModel;
+	bool modelChanged = model != m_selectedModel;
+
+	if( modelChanged ) {
+		m_selectedModel = model;
+		updateViews();
+	}
+
+	if( !modelChanged ) {
+		const Difference* d = modelAt( m_selectedModel )->differenceAt( m_selectedDifference );
+		for (int i = d->linenoA; i < d->linenoA+d->sourceLineCount(); ++i)
+			diff1->setInverted(i, false);
+		for (int i = d->linenoB; i < d->linenoB+d->destinationLineCount(); ++i)
+			diff2->setInverted(i, false);
+	}
+
+	m_selectedDifference = diff;
+
+	const Difference* d = modelAt( m_selectedModel )->differenceAt( m_selectedDifference );
+	for (int i = d->linenoA; i < d->linenoA+d->sourceLineCount(); ++i)
+		diff1->setInverted(i, true);
+	for (int i = d->linenoB; i < d->linenoB+d->destinationLineCount(); ++i)
+		diff2->setInverted(i, true);
+	diff1->setCenterLine(d->linenoA);
+	diff2->setCenterLine(d->linenoB);
+	diff1->repaint();
+	diff2->repaint();
+	zoom->repaint();
+	updateScrollBars();
+
+}
+
+void KDiffView::updateViews() {
+
+	DiffModel* model = modelAt( m_selectedModel );
+
+	// FIXME diff1->clear();
+	// FIXME diff2->clear();
 	QListIterator<DiffHunk> it = QListIterator<DiffHunk>( model->getHunks() );
 	int linenoA = 1;
 	int linenoB = 1;
@@ -168,10 +201,8 @@ void KDiffView::setModel( DiffModel* model, bool ownsModel )
 	diff2->addLine( "", Difference::Unchanged, linenoB, id );
 	revlabel1->setText( model->getSourceFilename() );
 	revlabel2->setText( model->getDestinationFilename() );
-	setSelectedItem( 0 );
 	zoom->setModel( model );
 	updateScrollBars();
-	emit itemsChanged();
 }
 
 void KDiffView::updateScrollBars()
@@ -221,40 +252,6 @@ void KDiffView::setTabWidth( uint tabWidth )
 {
 	diff1->setTabWidth(tabWidth);
 	diff2->setTabWidth(tabWidth);
-}
-
-int KDiffView::getSelectedItem()
-{
-	return markeditem;
-}
-
-void KDiffView::setSelectedItem( int newitem )
-{
-	if (markeditem >= 0) {
-		const Difference* d = const_cast<QList<Difference>&>(model->getDifferences()).at((uint)markeditem);
-		for (int i = d->linenoA; i < d->linenoA+d->sourceLineCount(); ++i)
-			diff1->setInverted(i, false);
-		for (int i = d->linenoB; i < d->linenoB+d->destinationLineCount(); ++i)
-			diff2->setInverted(i, false);
-	}
-
-	markeditem = newitem;
-
-	if (markeditem >= 0) {
-		const Difference* d = const_cast<QList<Difference>&>(model->getDifferences()).at((uint)markeditem);
-		for (int i = d->linenoA; i < d->linenoA+d->sourceLineCount(); ++i)
-			diff1->setInverted(i, true);
-		for (int i = d->linenoB; i < d->linenoB+d->destinationLineCount(); ++i)
-			diff2->setInverted(i, true);
-		diff1->setCenterLine(d->linenoA);
-		diff2->setCenterLine(d->linenoB);
-	}
-	diff1->repaint();
-	diff2->repaint();
-	zoom->repaint();
-	updateScrollBars();
-
-	emit selectionChanged();
 }
 
 void KDiffView::resizeEvent( QResizeEvent* e )

@@ -45,7 +45,7 @@
 #define ID_GENERAL     2
 
 KDiffShell::KDiffShell()
-	: KParts::MainWindow( 0L, "KDiffShell" )
+	: KParts::DockMainWindow( 0L, "KDiffShell" )
 {
 	if ( !initialGeometrySet() )
 	resize( 800, 480 );
@@ -66,18 +66,26 @@ KDiffShell::KDiffShell()
 	KLibFactory *factory = KLibLoader::self()->factory("libkdiffpart");
 	if (factory)
 	{
+		KDockWidget* mainDock = createDockWidget( "KDiff", kapp->icon() );
+
 		// now that the Part is loaded, we cast it to a Part to get
 		// our hands on it
-		m_part = static_cast<KDiffPart *>(factory->create(this,
+		m_part = static_cast<KDiffPart *>(factory->create(mainDock,
 		              "kdiff_part", "KParts::ReadWritePart" ));
 
 		if (m_part)
 		{
-			// tell the KParts::MainWindow that this is indeed the main widget
-			setCentralWidget(m_part->widget());
 
-			connect( m_part->diffView(), SIGNAL(itemsChanged()), this, SLOT(updateStatusBar()) );
-			connect( m_part->diffView(), SIGNAL(selectionChanged()), this, SLOT(updateStatusBar()));
+			mainDock->setWidget( m_part->widget() );
+			setView( mainDock );
+			setMainDockWidget( mainDock );
+
+			KDockWidget* navDock = createDockWidget( "Differences", kapp->icon() );
+			QWidget* navWidget = m_part->createNavigationWidget( navDock );
+			navDock->setWidget( navWidget );
+			navDock->manualDock( mainDock, KDockWidget::DockTop, 20 );
+
+			connect( m_part, SIGNAL(selectionChanged(int,int)), this, SLOT(updateStatusBar()));
 
 			// and integrate the part's GUI with the shell's
 			createGUI(m_part);
@@ -144,8 +152,8 @@ void KDiffShell::setupStatusBar()
 void KDiffShell::updateStatusBar()
 {
 	QString str;
-	int markedItem = m_part->diffView()->getSelectedItem();
-	int count = m_part->diffView()->getModel()->getDifferences().count();
+	int markedItem = m_part->getSelectedDifferenceIndex();
+	int count = m_part->getSelectedModel()->differenceCount();
 	if (markedItem >= 0)
 		str = i18n(" %1 of %2 differences ").arg(markedItem+1).arg(count);
 	else

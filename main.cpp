@@ -29,10 +29,10 @@
 
 #define kdDebug() kdDebug(8100)
 
-static const char *description =
+static const char description[] =
 	I18N_NOOP("A program to view the differences between files and optionally generate a diff." );
 
-static const char *version = "v2.0";
+static const char version[] = "v2.0";
 
 static KCmdLineOptions options[] =
 {

@@ -39,6 +39,11 @@ public:
 	*/
 	void load(const KURL& url);
 
+	/**
+	 *
+	 */
+	void compare(const KURL& source,const KURL& destination );
+
 protected:
 	/**
 	* This method is called when it is time for the app to save its

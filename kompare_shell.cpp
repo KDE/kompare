@@ -76,6 +76,11 @@ void KDiffShell::load(const KURL& url)
 	m_part->openURL( url );
 }
 
+void KDiffShell::compare(const KURL& source,const KURL& destination )
+{
+	m_part->compare( source, destination );
+}
+
 void KDiffShell::setupActions()
 {
 	KStdAction::openNew(this, SLOT(fileNew()), actionCollection());

@@ -23,7 +23,7 @@ bin_PROGRAMS = kompare
 # the application source, library search path, and link libraries
 kompare_SOURCES = main.cpp kompare_shell.cpp kompareurldialog.cpp
 kompare_LDFLAGS = $(all_libraries)
-kompare_LDADD   = $(LIB_KPARTS) komparepart/libkomparepart.la
+kompare_LDADD   = $(LIB_KPARTS) interfaces/libkompareinterface.la
 
 # this is where the desktop file will go
 shelldesktopdir = $(kde_appsdir)/Development

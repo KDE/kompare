@@ -58,6 +58,7 @@ int main(int argc, char *argv[])
 	KCmdLineArgs::init(argc, argv, &aboutData);
 	KCmdLineArgs::addCmdLineOptions( options );
 	KApplication app;
+	bool difault;
 
 	// see if we are starting with session management
 	if (app.isRestored())
@@ -80,50 +81,61 @@ int main(int argc, char *argv[])
 		{
 			if ( args->count() != 1 )
 			{
-				KCmdLineArgs::usage( "kompare" );
-				return -1;
-			}
-			widget = new KompareShell();
-			widget->show();
-			if ( *(args->arg( 0 )) == '-' )
-			{
-				kdDebug(8100) << "Url = -" << endl;
-				widget->open( args->arg( 0 ) );
+				kdDebug(8100) << "Crap i should not add -o to the Exec entry in the desktopfile. Now kompare wont even start from the menu" << endl;
+				difault = true;
 			}
 			else
-				widget->open( args->url( 0 ) );
+			{
+				widget = new KompareShell();
+				widget->show();
+				if ( *(args->arg( 0 )) == '-' )
+				{
+					kdDebug(8100) << "Url = -" << endl;
+					widget->open( args->arg( 0 ) );
+				}
+				else
+					widget->open( args->url( 0 ) );
+				difault = false;
+			}
 		}
 		else if ( args->isSet( "c" ) )
 		{
 			if ( args->count() != 2 )
 			{
 				KCmdLineArgs::usage( "kompare" );
-				return -1;
+				difault = true;
 			}
-
-			widget = new KompareShell();
-			widget->show();
-			widget->compare( args->url( 0 ), args->url( 1 ) );
+			else
+			{
+				widget = new KompareShell();
+				widget->show();
+				widget->compare( args->url( 0 ), args->url( 1 ) );
+				difault = false;
+			}
 		}
 		else if ( args->isSet( "b" ) )
 		{
 			if ( args->count() != 2 )
 			{
 				KCmdLineArgs::usage( "kompare" );
-				return -1;
+				difault = true;
 			}
-
-			widget = new KompareShell();
-			widget->show();
-			widget->blend( args->url( 0 ), args->url( 1 ) );
+			else
+			{
+				widget = new KompareShell();
+				widget->show();
+				widget->blend( args->url( 0 ), args->url( 1 ) );
+				difault = false;
+			}
 		}
 		else if ( args->count() == 1 && *(args->arg( 0 )) == '-' )
 		{
 			widget = new KompareShell();
 			widget->show();
 			widget->open( args->arg( 0 ) );
+			difault = false;
 		}
-		else
+		if ( difault )
 		{
 			KompareURLDialog* dialog = new KompareURLDialog();
 

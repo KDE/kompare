@@ -1,3 +1,7 @@
+Aug    27, 2003 : Otto Bruggeman
+	* After shitloads of trouble here finally some fixes for the stupid desktopifile stuff
+	* Fixes for when there are not enough args for a certain commandline option.
+
 Aug    22, 2003 : Otto Bruggeman
 	* Fixed converting tabs to spaces in the view, i totally screwed up
 	* View settings now get applied to the view after pressing ok.

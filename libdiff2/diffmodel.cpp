@@ -32,17 +32,17 @@ using namespace Diff2;
 DiffModel::DiffModel( const QString& source, const QString& destination ) :
 	m_source( source ),
 	m_destination( destination ),
-	m_sourceFile( "" ),
-	m_destinationPath( "" ),
-	m_sourceTimestamp( "" ),
-	m_destinationFile( "" ),
 	m_sourcePath( "" ),
+	m_destinationPath( "" ),
+	m_sourceFile( "" ),
+	m_destinationFile( "" ),
+	m_sourceTimestamp( "" ),
 	m_destinationTimestamp( "" ),
 	m_sourceRevision( "" ),
 	m_destinationRevision( "" ),
 	m_appliedCount( 0 ),
 	m_modified( false ),
-	m_index( 0 ),
+	m_diffIndex( 0 ),
 	m_selectedDifference( 0 )
 {
 	splitSourceInPathAndFileName();
@@ -101,7 +101,7 @@ DiffModel& DiffModel::operator=( const DiffModel& model )
 		m_appliedCount = model.m_appliedCount;
 		m_modified = model.m_modified;
 
-		m_index = model.m_index;
+		m_diffIndex = model.m_diffIndex;
 		m_selectedDifference = model.m_selectedDifference;
 	}
 
@@ -130,6 +130,64 @@ const QPtrList<Difference>& DiffModel::allDifferences()
 		return *diffList;
 	}
 }
+
+Difference* DiffModel::firstDifference()
+{
+	kdDebug( 8101 ) << "DiffModel::firstDifference()" << endl;
+	m_diffIndex = 0;
+	kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+
+	m_selectedDifference = m_differences.at( m_diffIndex );
+
+	return m_selectedDifference;
+};
+
+Difference* DiffModel::lastDifference()
+{
+	kdDebug( 8101 ) << "DiffModel::lastDifference()" << endl;
+	m_diffIndex = m_differences.count() - 1;
+	kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+
+	m_selectedDifference = m_differences.at( m_diffIndex );
+
+	return m_selectedDifference;
+};
+
+Difference* DiffModel::prevDifference()
+{
+	kdDebug( 8101 ) << "DiffModel::prevDifference()" << endl;
+	if ( --m_diffIndex >= 0 )
+	{
+		kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+		m_selectedDifference = m_differences.at( m_diffIndex );
+	}
+	else
+	{
+		m_selectedDifference = 0;
+		m_diffIndex = 0;
+		kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+	}
+
+	return m_selectedDifference;
+};
+
+Difference* DiffModel::nextDifference()
+{
+	kdDebug( 8101 ) << "DiffModel::nextDifference()" << endl;
+	if (  ++m_diffIndex < m_differences.count() )
+	{
+		kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+		m_selectedDifference = m_differences.at( m_diffIndex );
+	}
+	else
+	{
+		m_selectedDifference = 0;
+		m_diffIndex = 0; // just for safety...
+		kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+	}
+
+	return m_selectedDifference;
+};
 
 const QString DiffModel::sourceFile() const
 {
@@ -201,15 +259,11 @@ void DiffModel::applyDifference( bool apply )
 		m_appliedCount--;
 
 	if ( m_appliedCount == 0 )
-	{
 		m_modified = false;
-		emit setModified( false );
-	}
 	else
-	{
 		m_modified = true;
-		emit setModified( true );
-	}
+
+	emit setModified( m_modified );
 
 	m_selectedDifference->apply( apply );
 }
@@ -220,14 +274,14 @@ void DiffModel::applyAllDifferences( bool apply )
 	{
 		m_appliedCount = m_differences.count();
 		m_modified = true;
-		emit setModified( true );
 	}
 	else
 	{
 		m_appliedCount = 0;
 		m_modified = false;
-		emit setModified( false );
 	}
+
+	emit setModified( m_modified );
 
 	QPtrListIterator<Difference> it( m_differences );
 	for ( ;it.current(); ++it )
@@ -243,10 +297,21 @@ void DiffModel::slotSetModified( bool modified )
 		emit setModified( false );
 }
 
-void DiffModel::setSelectedDifference( Difference* diff )
+bool DiffModel::setSelectedDifference( Difference* diff )
 {
+	kdDebug(8101) << "diff = " << diff << endl;
+	kdDebug(8101) << "m_selectedDifference = " << m_selectedDifference << endl;
+
 	if ( diff != m_selectedDifference )
+	{
+		if ( ( m_differences.findRef( diff ) ) == -1 )
+			return false;
+		m_diffIndex = m_differences.findRef( diff );
+		kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
 		m_selectedDifference = diff;
+	}
+
+	return true;
 }
 
 #include "diffmodel.moc"

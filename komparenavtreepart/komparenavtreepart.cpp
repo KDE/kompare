@@ -268,7 +268,9 @@ void KompareNavTreePart::setSelectedDir( const Diff2::DiffModel* model )
 	m_destDirTree->ensureItemVisible( currentDir );
 	m_destDirTree->blockSignals( false );
 
+	m_fileList->blockSignals( true );
 	currentDir->fillFileList( m_fileList, &m_modelToFileItemDict );
+	m_fileList->blockSignals( false );
 }
 
 void KompareNavTreePart::setSelectedFile( const Diff2::DiffModel* model )
@@ -290,7 +292,7 @@ void KompareNavTreePart::setSelectedDifference( const Diff2::Difference* diff )
 {
 	KChangeLVI* currentDiff;
 	currentDiff = m_diffToChangeItemDict[ (void*)diff ];
-	kdDebug(8105) << "Manually setting selection in changeslist" << endl;
+	kdDebug(8105) << "Manually setting selection in changeslist to " << currentDiff << endl;
 	m_changesList->blockSignals( true );
 	m_changesList->setSelected( currentDiff, true );
 	m_changesList->ensureItemVisible( currentDiff );
@@ -299,10 +301,10 @@ void KompareNavTreePart::setSelectedDifference( const Diff2::Difference* diff )
 
 void KompareNavTreePart::slotSetSelection( const Diff2::Difference* diff )
 {
-	kdDebug(8105) << "Scotty i need more power !!" << endl;
+//	kdDebug(8105) << "Scotty i need more power !!" << endl;
 	if ( m_selectedDifference != diff )
 	{
-		kdDebug(8105) << "But sir, i am giving you all she's got" << endl;
+//		kdDebug(8105) << "But sir, i am giving you all she's got" << endl;
 		m_selectedDifference = diff;
 		setSelectedDifference( diff );
 	}

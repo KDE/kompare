@@ -95,9 +95,7 @@ bool PerforceParser::parseContextDiffHeader()
 			m_currentModel->setDestinationFile     ( destinationFileRE.cap( 1 ) );
 			m_currentModel->setDestinationTimestamp( m_contextDiffHeader2.cap( 2 ) );
 			m_currentModel->setDestinationRevision ( m_contextDiffHeader2.cap( 4 ) );
-			m_currentModel->setIndex( m_modelIndex++ );
 
-			m_diffIndex = 0;
 			result = true;
 
 			break;

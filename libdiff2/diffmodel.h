@@ -54,10 +54,13 @@ public:
 
 	const QPtrList<Difference>& allDifferences();
 
-	int findDifference( const Difference* diff ) const { return const_cast<DiffModel*>(this)->m_differences.find( diff ); };
+	int findDifference( const Difference* diff ) const { return const_cast<DiffModel*>(this)->m_differences.findRef( diff ); };
 
-//	const KURL&    sourceBaseURL()             { return m_sourceBaseURL; };
-//	const KURL&    destinationBaseURL()        { return m_destinationBaseURL; };
+	Difference* firstDifference();
+	Difference* lastDifference();
+	Difference* prevDifference();
+	Difference* nextDifference();
+
 	const QString  source() const              { return m_source; };
 	const QString  destination() const         { return m_destination; };
 	const QString  sourceFile() const;
@@ -80,13 +83,13 @@ public:
 	void addDiff( Difference* diff );
 	bool isModified() const { return m_modified; };
 
-	const int index( void ) const   { return m_index; };
-	void      setIndex( int index ) { m_index = index; };
+	const int diffIndex( void ) const       { return m_diffIndex; };
+	void      setDiffIndex( int diffIndex ) { m_diffIndex = diffIndex; };
 
 	void applyDifference( bool apply );
 	void applyAllDifferences( bool apply );
 
-	void setSelectedDifference( Difference* diff );
+	bool setSelectedDifference( Difference* diff );
 
 	DiffModel& operator=( const DiffModel& model );
 
@@ -122,7 +125,7 @@ private:
 	int                  m_appliedCount;
 	bool                 m_modified;
 
-	int                  m_index;
+	int                  m_diffIndex;
 	Difference*          m_selectedDifference;
 };
 

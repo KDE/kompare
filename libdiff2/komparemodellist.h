@@ -23,13 +23,12 @@
 #include <qptrlist.h>
 #include <qobject.h>
 
-#include <kurl.h>
-
 #include "diffmodel.h"
 #include "kompare.h"
 
 class QFile;
 
+class KAction;
 class KDirWatch;
 class KTempFile;
 
@@ -88,16 +87,27 @@ public:
 	int                         appliedCount() const;
 
 	DiffModel*                  modelAt( int i ) const { return const_cast<KompareModelList*>(this)->m_models->at( i ); };
-	int                         findModel( DiffModel* model ) const { return const_cast<KompareModelList*>(this)->m_models->find( model ); };
+	int                         findModel( DiffModel* model ) const { return const_cast<KompareModelList*>(this)->m_models->findRef( model ); };
 
 	bool                        isModified() const;
 
-	int currentModel() const      { return const_cast<KompareModelList*>(this)->m_models->find( m_selectedModel ); };
+	int currentModel() const      { return const_cast<KompareModelList*>(this)->m_models->findRef( m_selectedModel ); };
 	int currentDifference() const { return m_selectedModel ? m_selectedModel->findDifference( m_selectedDifference ) : -1; };
 
 	const DiffModel* selectedModel() const       { return m_selectedModel; };
 	const Difference* selectedDifference() const { return m_selectedDifference; };
 
+private:
+	Diff2::DiffModel* firstModel();
+	Diff2::DiffModel* lastModel();
+	Diff2::DiffModel* prevModel();
+	Diff2::DiffModel* nextModel();
+
+	bool setSelectedModel( Diff2::DiffModel* model );
+
+	void updateModelListActions();
+
+public:
 	// clear the models (needs to be public if the part is reused)
 	void clear();
 
@@ -135,6 +145,10 @@ protected slots:
 	void slotDiffProcessFinished( bool success );
 	void slotWriteDiffOutput( bool success );
 
+	void slotActionApplyDifference();
+	void slotActionApplyAllDifferences();
+	void slotActionUnapplyAllDifferences();
+
 private slots:
 	void slotDirectoryChanged( const QString& );
 	void slotFileChanged( const QString& );
@@ -143,6 +157,11 @@ private: // Helper methods
 	bool isDirectory( const QString& url );
 	bool isDiff( const QString& mimetype );
 	QStringList& readFile( const QString& fileName );
+
+	bool hasPrevModel();
+	bool hasNextModel();
+	bool hasPrevDiff();
+	bool hasNextDiff();
 
 private:
 	KompareProcess*       m_diffProcess;
@@ -158,15 +177,24 @@ private:
 	DiffModel*            m_selectedModel;
 	Difference*           m_selectedDifference;
 
-	QPtrListIterator<DiffModel>*  m_modelIt;
-	QPtrListIterator<Difference>* m_diffIt;
+//	QPtrListIterator<DiffModel>*  m_modelIt;
+//	QPtrListIterator<Difference>* m_diffIt;
 
 	KDirWatch*            m_dirWatch;
 	KDirWatch*            m_fileWatch;
 
 	int                   m_noOfModified;
+	int                   m_modelIndex;
 
 	struct Kompare::Info* m_info;
+
+	KAction*              m_applyDifference;
+	KAction*              m_applyAll;
+	KAction*              m_unapplyAll;
+	KAction*              m_previousFile;
+	KAction*              m_nextFile;
+	KAction*              m_previousDifference;
+	KAction*              m_nextDifference;
 };
 
 } // End of namespace Diff2

@@ -129,31 +129,6 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	         m_diffView->destLV(), SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
 	connect( this, SIGNAL(configChanged()), m_diffView->destLV(), SLOT(slotConfigChanged()) );
 
-	// kompareactions
-	m_kompareActions = new KompareActions( this, "KompareActions" );
-	connect( m_modelList, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)),
-	         m_kompareActions, SLOT(slotSetSelection(const Diff2::DiffModel*, const Diff2::Difference*)) );
-	connect( m_modelList, SIGNAL(setSelection(const Diff2::Difference*)),
-	         m_kompareActions, SLOT(slotSetSelection(const Diff2::Difference*)) );
-	connect( m_kompareActions, SIGNAL(selectionChanged(const Diff2::DiffModel*, const Diff2::Difference*)),
-	         m_modelList, SLOT(slotSelectionChanged(const Diff2::DiffModel*, const Diff2::Difference*)) );
-	connect( m_kompareActions, SIGNAL(selectionChanged(const Diff2::Difference*)),
-	         m_modelList, SLOT(slotSelectionChanged(const Diff2::Difference*)) );
-	connect( m_modelList, SIGNAL(modelsChanged(const QPtrList<Diff2::DiffModel>*)),
-	         m_kompareActions, SLOT(slotModelsChanged(const QPtrList<Diff2::DiffModel>*)) );
-	connect( m_kompareActions, SIGNAL(applyDifference(bool)),
-	         m_modelList, SLOT(slotApplyDifference(bool)) );
-	connect( m_kompareActions, SIGNAL(applyAllDifferences(bool)),
-	         m_modelList, SLOT(slotApplyAllDifferences(bool)) );
-	connect( m_kompareActions, SIGNAL(previousModel()),
-	         m_modelList, SLOT(slotPreviousModel()) );
-	connect( m_kompareActions, SIGNAL(nextModel()),
-	         m_modelList, SLOT(slotNextModel()) );
-	connect( m_kompareActions, SIGNAL(previousDifference()),
-	         m_modelList, SLOT(slotPreviousDifference()) );
-	connect( m_kompareActions, SIGNAL(nextDifference()),
-	         m_modelList, SLOT(slotNextDifference()) );
-
 	// notify the part that this is our internal widget
 	setWidget( m_diffView );
 
@@ -555,31 +530,47 @@ void KomparePart::slotSetStatus( enum Kompare::Status status )
 
 void KomparePart::updateStatus()
 {
-	if( m_modelList->mode() == Kompare::ComparingFiles )
+	QString source = m_info.source.prettyURL();
+	QString destination = m_info.destination.prettyURL();
+
+	QString text;
+
+	switch ( m_info.mode )
 	{
-		if( m_modelList->modelCount() > 1 )
-		{
-			emit setStatusBarText( i18n( "Comparing files in %1 with files in %2" )
-			   .arg( m_info.source.prettyURL() )
-			   .arg( m_info.destination.prettyURL() ) );
-			emit setWindowCaption( m_info.source.prettyURL()
-			   + " : " + m_info.destination.prettyURL() );
-		}
-		else if ( m_modelList->modelCount() == 1 )
-		{
-			emit setStatusBarText( i18n( "Comparing %1 with %2" )
-			   .arg( m_info.source.prettyURL( 1 )
-			   + m_modelList->modelAt( 0 )->sourceFile() )
-			   .arg( m_info.destination.prettyURL( 1 )
-			   + m_modelList->modelAt( 0 )->destinationFile() ) );
-			emit setWindowCaption(  m_modelList->modelAt( 0 )->sourceFile()
-			   + " : " + m_modelList->modelAt( 0 )->destinationFile() );
-		}
-	}
-	else
-	{
-		emit setStatusBarText( i18n( "Viewing %1" ).arg( m_info.source.prettyURL() ) );
-		emit setWindowCaption( m_info.source.filename() );
+	case Kompare::ComparingFiles :
+		text = i18n( "Comparing file %1 with file %2" )
+		   .arg( source )
+		   .arg( destination );
+		emit setStatusBarText( text );
+		emit setWindowCaption( source + ":" + destination );
+		break;
+	case Kompare::ComparingDirs :
+		text = i18n( "Comparing files in %1 with files in %2" )
+		   .arg( source )
+		   .arg( destination );
+		emit setStatusBarText( text );
+		emit setWindowCaption( source + ":" + destination );
+		break;
+	case Kompare::ShowingDiff :
+		emit setStatusBarText( i18n( "Viewing diff output from %1" ) .arg( source ) );
+		emit setWindowCaption( source );
+		break;
+	case Kompare::BlendingFile :
+		text = i18n( "Blending diff output from %1 into file %2" )
+		    .arg( source )
+		    .arg( destination );
+		emit setStatusBarText( text );
+		emit setWindowCaption( source + ":" + destination );
+		break;
+	case Kompare::BlendingDir :
+		text = i18n( "Blending diff output from %1 into directory %2" )
+		    .arg( m_info.source.prettyURL() )
+		    .arg( m_info.destination.prettyURL() );
+		emit setStatusBarText( text );
+		emit setWindowCaption( source + ":" + destination );
+		break;
+	default:
+		break;
 	}
 }
 
@@ -605,8 +596,9 @@ void KomparePart::slotShowDiffstats( void )
 	int noOfHunks;
 	int noOfDiffs;
 
-	oldFile = m_modelList->selectedModel() ? m_modelList->selectedModel()->sourceFile()  : QString::null;
-	newFile = m_modelList->selectedModel() ? m_modelList->selectedModel()->destinationFile() : QString::null;
+	oldFile = m_modelList->selectedModel() ? m_modelList->selectedModel()->sourceFile()  : QString( "" );
+	newFile = m_modelList->selectedModel() ? m_modelList->selectedModel()->destinationFile() : QString( "" );
+
 	if ( m_modelList->selectedModel() )
 	{
 		switch( m_info.format ) {

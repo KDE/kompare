@@ -117,9 +117,6 @@ protected:
 	DiffModel*                 m_currentModel;
 	QPtrList<DiffModel>*       m_models;
 	QStringList::ConstIterator m_diffIterator;
-
-	int                        m_modelIndex;
-	int                        m_diffIndex;
 };
 
 } // End of namespace Diff2

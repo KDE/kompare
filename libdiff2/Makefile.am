@@ -1,4 +1,4 @@
-INCLUDES = -I$(top_srcdir)/kompare/komparepart $(all_includes)
+INCLUDES = -I$(top_srcdir)/kompare/komparepart -I$(top_srcdir)/kompare/interfaces $(all_includes)
 
 noinst_HEADERS = \
 	kompare.h \

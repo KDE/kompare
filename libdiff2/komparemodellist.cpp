@@ -21,6 +21,7 @@
 #include <qdir.h>
 #include <qregexp.h>
 
+#include <kaction.h>
 #include <kdebug.h>
 #include <kdirwatch.h>
 #include <kio/netaccess.h>
@@ -32,9 +33,10 @@
 #include "diffhunk.h"
 #include "diffmodel.h"
 #include "kompareprocess.h"
-
 #include "komparemodellist.h"
 #include "parser.h"
+
+#include "kompare_part.h"
 
 using namespace Diff2;
 
@@ -46,11 +48,35 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, ViewSettings* vi
 	m_models( 0 ),
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 ),
-	m_modelIt( 0 ),
-	m_diffIt( 0 ),
 	m_noOfModified( 0 ),
+	m_modelIndex( 0 ),
 	m_info( info )
 {
+	m_applyDifference = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
+	                                 this, SLOT(slotActionApplyDifference()),
+	                                 (( KomparePart* )parent)->actionCollection(), "difference_apply" );
+	m_applyAll        = new KAction( i18n("App&ly All"), "2rightarrow", Qt::CTRL + Qt::Key_A,
+	                                 this, SLOT(slotActionApplyAllDifferences()),
+	                                 (( KomparePart* )parent)->actionCollection(), "difference_applyall" );
+	m_unapplyAll      = new KAction( i18n("&Unapply All"), "2leftarrow", Qt::CTRL + Qt::Key_U,
+	                                 this, SLOT(slotActionUnapplyAllDifferences()),
+	                                 (( KomparePart* )parent)->actionCollection(), "difference_unapplyall" );
+	m_previousFile    = new KAction( i18n("P&revious File"), "2uparrow", Qt::CTRL + Qt::Key_PageUp,
+	                                 this, SLOT(slotPreviousModel()),
+	                                 (( KomparePart* )parent)->actionCollection(), "difference_previousfile" );
+	m_nextFile        = new KAction( i18n("N&ext File"), "2downarrow", Qt::CTRL + Qt::Key_PageDown,
+	                                 this, SLOT(slotNextModel()),
+	                                 (( KomparePart* )parent)->actionCollection(), "difference_nextfile" );
+	m_previousDifference = new KAction( i18n("&Previous Difference"), "1uparrow", Qt::CTRL + Qt::Key_K,
+	                                 this, SLOT(slotPreviousDifference()),
+	                                 (( KomparePart* )parent)->actionCollection(), "difference_previous" );
+	m_previousDifference->setEnabled( false );
+	m_nextDifference  = new KAction( i18n("&Next Difference"), "1downarrow", Qt::CTRL + Qt::Key_J,
+	                                 this, SLOT(slotNextDifference()),
+	                                 (( KomparePart* )parent)->actionCollection(), "difference_next" );
+	m_nextDifference->setEnabled( false );
+
+	updateModelListActions();
 }
 
 KompareModelList::~KompareModelList()
@@ -176,8 +202,6 @@ bool KompareModelList::compareDirs( const QString& source, const QString& destin
 
 bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff )
 {
-	bool result = false;
-
 	clear();
 
 	if ( parseDiffOutput( readFile( diff ) ) != 0 )
@@ -189,7 +213,7 @@ bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff
 	// Do our thing :)
 	if ( !blendOriginalIntoModelList( file ) )
 	{
-		kdDebug(8103) << "Oops cant blend original file into modellist : " << file << endl;
+		kdDebug(8101) << "Oops cant blend original file into modellist : " << file << endl;
 		emit( i18n( "There were problems applying the diff (%2) to the file (%1)." ).arg( diff ).arg( file ) );
 		return false;
 	}
@@ -215,7 +239,7 @@ bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 	if ( !blendOriginalIntoModelList( dir ) )
 	{
 		// Trouble blending the original into the model
-		kdDebug(8103) << "Oops cant blend original dir into modellist : " << dir << endl;
+		kdDebug(8101) << "Oops cant blend original dir into modellist : " << dir << endl;
 		emit error( i18n( "There were problems applying the diff (%2) to the directory (%1)." ).arg( diff ).arg( dir ) );
 	}
 
@@ -396,7 +420,7 @@ bool KompareModelList::openDiff( const QString& diffFile )
 	return true;
 }
 
-bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSettings* diffSettings, ViewSettings* viewSettings )
+bool KompareModelList::saveDiff( const QString& /*url*/, QString directory, DiffSettings* diffSettings, ViewSettings* viewSettings )
 {
 	kdDebug() << "KompareModelList::saveDiff: " << endl;
 
@@ -419,7 +443,7 @@ bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSett
 
 }
 
-void KompareModelList::slotWriteDiffOutput( bool success )
+void KompareModelList::slotWriteDiffOutput( bool /*success*/ )
 {
 /*	if( success )
 	{
@@ -455,145 +479,212 @@ void KompareModelList::slotSelectionChanged( const Diff2::DiffModel* model, cons
 {
 // This method will signal all the other objects about a change in selection,
 // it will emit setSelection( const DiffModel*, const Difference* ) to all who are connected
-	kdDebug(8101) << "Caught me a model and a diff signal " << endl;
+	kdDebug(8101) << "KompareModelList::slotSelectionChanged( " << model << ", " << diff << " )" << endl;
+	kdDebug(8101) << "Sender is : " << sender()->className() << endl;
 //	kdDebug(8101) << kdBacktrace() << endl;
 
 	m_selectedModel = const_cast<DiffModel*>(model);
+	m_modelIndex = m_models->findRef( model );
+	kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
 	m_selectedDifference = const_cast<Difference*>(diff);
 
 	m_selectedModel->setSelectedDifference( m_selectedDifference );
 
-	for( m_modelIt->toFirst(); !m_modelIt->atLast(); ++(*m_modelIt) )
+	// setSelected* search for the argument in the lists and return false if not found
+	// if found they return true and set the m_selected*
+	if ( !setSelectedModel( m_selectedModel ) )
 	{
-		if ( model == *(*m_modelIt) )
-			break;
+		// Backup plan
+		m_selectedModel = firstModel();
+		m_selectedDifference = m_selectedModel->firstDifference();
 	}
-
-	if ( m_modelIt->atLast() && model != *(*m_modelIt) )
-		kdDebug(8101) << "Big fat trouble, no model found" << endl;
-
-	delete m_diffIt;
-	m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
-
-	for( m_diffIt->toFirst(); !m_diffIt->atLast(); ++(*m_diffIt) )
+	else if ( !m_selectedModel->setSelectedDifference( m_selectedDifference ) )
 	{
-		if ( diff == *(*m_diffIt) )
-			break;
+		// Another backup plan
+		m_selectedDifference = m_selectedModel->firstDifference();
 	}
-
-	if ( m_diffIt->atLast() && diff != *(*m_diffIt) )
-		kdDebug(8101) << "Big fat trouble, no diff found" << endl;
 
 	emit setSelection( model, diff );
+	updateModelListActions();
 }
 
 void KompareModelList::slotSelectionChanged( const Diff2::Difference* diff )
 {
 // This method will emit setSelection( const Difference* ) to whomever is listening
 // when for instance in kompareview the selection has changed
-	kdDebug(8101) << "Caught me a signal, yihaa" << endl;
+	kdDebug(8101) << "KompareModelList::slotSelectionChanged( " << diff << " )" << endl;
+	kdDebug(8101) << "Sender is : " << sender()->className() << endl;
 
 	m_selectedDifference = const_cast<Difference*>(diff);
-	m_selectedModel->setSelectedDifference( m_selectedDifference );
 
-	for( m_diffIt->toFirst(); !m_diffIt->atLast(); ++(*m_diffIt) )
+	if ( !m_selectedModel->setSelectedDifference( m_selectedDifference ) )
 	{
-		if ( diff == *(*m_diffIt) )
-			break;
+		// Backup plan
+		m_selectedDifference = m_selectedModel->firstDifference();
 	}
 
-	if ( m_diffIt->atLast() && diff != *(*m_diffIt) )
-		kdDebug(8101) << "Big fat trouble, no diff found" << endl;
-
 	emit setSelection( diff );
+	updateModelListActions();
 }
 
 void KompareModelList::slotPreviousModel()
 {
-	// cannot get below 1
-	if ( !m_modelIt->atFirst() )
+	if ( ( m_selectedModel = prevModel() ) != 0 )
 	{
-		m_selectedModel = --(*m_modelIt);
-
-		delete m_diffIt;
-		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
-
-		m_selectedDifference = m_diffIt->toFirst();
-		m_selectedModel->setSelectedDifference( m_selectedDifference );
-
-		emit setSelection( m_selectedModel, m_selectedDifference );
+		m_selectedDifference = m_selectedModel->firstDifference();
 	}
+	else
+	{
+		m_selectedModel = firstModel();
+		m_selectedDifference = m_selectedModel->firstDifference();
+	}
+
+	emit setSelection( m_selectedModel, m_selectedDifference );
+	updateModelListActions();
 }
 
 void KompareModelList::slotNextModel()
 {
-	if ( !m_modelIt->atLast() )
+	if ( ( m_selectedModel = nextModel() ) != 0 )
 	{
-		m_selectedModel = ++(*m_modelIt);
-
-		delete m_diffIt;
-		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
-
-		m_selectedDifference = m_diffIt->toFirst();
-		m_selectedModel->setSelectedDifference( m_selectedDifference );
-
-		emit setSelection( m_selectedModel, m_selectedDifference );
+		m_selectedDifference = m_selectedModel->firstDifference();
 	}
+	else
+	{
+		m_selectedModel = lastModel();
+		m_selectedDifference = m_selectedModel->firstDifference();
+	}
+
+	emit setSelection( m_selectedModel, m_selectedDifference );
+	updateModelListActions();
+}
+
+DiffModel* KompareModelList::firstModel()
+{
+	kdDebug( 8101 ) << "KompareModelList::firstModel()" << endl;
+	m_modelIndex = 0;
+	kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+
+	m_selectedModel = m_models->at( m_modelIndex );
+
+	return m_selectedModel;
+}
+
+DiffModel* KompareModelList::lastModel()
+{
+	kdDebug( 8101 ) << "KompareModelList::lastModel()" << endl;
+	m_modelIndex = m_models->count() - 1;
+	kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+
+	m_selectedModel = m_models->at( m_modelIndex );
+
+	return m_selectedModel;
+}
+
+DiffModel* KompareModelList::prevModel()
+{
+	kdDebug( 8101 ) << "KompareModelList::prevModel()" << endl;
+	if ( --m_modelIndex >= 0 )
+	{
+		kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+		m_selectedModel = m_models->at( m_modelIndex );
+	}
+	else
+	{
+		m_selectedModel = firstModel();
+		m_modelIndex = 0;
+		kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+	}
+
+	return m_selectedModel;
+}
+
+DiffModel* KompareModelList::nextModel()
+{
+	kdDebug( 8101 ) << "KompareModelList::nextModel()" << endl;
+	if ( ++m_modelIndex < m_models->count() )
+	{
+		kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+		m_selectedModel = m_models->at( m_modelIndex );
+	}
+	else
+	{
+		m_selectedModel = 0;
+		m_modelIndex = 0;
+		kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+	}
+
+	return m_selectedModel;
 }
 
 void KompareModelList::slotPreviousDifference()
 {
-	if ( m_selectedDifference->index() > 0 )
+	kdDebug(8101) << "slotPreviousDifference called" << endl;
+	if ( ( m_selectedDifference = m_selectedModel->prevDifference() ) != 0 )
 	{
-		m_selectedDifference = --(*m_diffIt);
-		m_selectedModel->setSelectedDifference( m_selectedDifference );
-
 		emit setSelection( m_selectedDifference );
+		updateModelListActions();
+		return;
 	}
-	else if ( m_selectedDifference->index() == 0 && m_selectedModel->index() > 0 )
+
+	kdDebug(8101) << "Fuck no previous difference... ok lets find the next model..." << endl;
+
+	if ( ( m_selectedModel = prevModel() ) != 0 )
 	{
-		m_selectedModel = --(*m_modelIt);
-
-		delete m_diffIt;
-		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
-
-		m_selectedDifference = m_diffIt->toLast();
-		m_selectedModel->setSelectedDifference( m_selectedDifference );
+		m_selectedDifference = m_selectedModel->lastDifference();
 
 		emit setSelection( m_selectedModel, m_selectedDifference );
+		updateModelListActions();
+		return;
 	}
-	// no previous difference (should not happen)
+
+
+	kdDebug(8101) << "Crap !!! No previous model, ok backup plan activated..." << endl;
+
+	// Backup plan
+	m_selectedModel = firstModel();
+	m_selectedDifference = m_selectedModel->firstDifference();
+
+	emit setSelection( m_selectedModel, m_selectedDifference );
+	updateModelListActions();
 }
 
 void KompareModelList::slotNextDifference()
 {
-	if ( m_selectedDifference->index() < ( m_selectedModel->differenceCount() - 1 ) )
+	kdDebug(8101) << "slotNextDifference called" << endl;
+	if ( ( m_selectedDifference = m_selectedModel->nextDifference() ) != 0 )
 	{
-		m_selectedDifference = ++(*m_diffIt);
-		m_selectedModel->setSelectedDifference( m_selectedDifference );
-
 		emit setSelection( m_selectedDifference );
+		updateModelListActions();
+		return;
 	}
-	else if ( ( m_selectedDifference->index() == ( m_selectedModel->differenceCount() - 1 ) ) &&
-			  ( m_selectedModel->index() < ( int( m_models->count() ) - 1 ) ) )
+
+	kdDebug(8101) << "Fuck no next difference... ok lets find the next model..." << endl;
+
+	if ( ( m_selectedModel = nextModel() ) != 0 )
 	{
-		m_selectedModel = ++(*m_modelIt);
-
-		delete m_diffIt;
-		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
-
-		m_selectedDifference = m_diffIt->toFirst();
-		m_selectedModel->setSelectedDifference( m_selectedDifference );
+		m_selectedDifference = m_selectedModel->firstDifference();
 
 		emit setSelection( m_selectedModel, m_selectedDifference );
+		updateModelListActions();
+		return;
 	}
-	// no next difference (should not happen)
+
+	kdDebug(8101) << "Crap !!! No next model, ok backup plan activated..." << endl;
+
+	// Backup plan
+	m_selectedModel = lastModel();
+	m_selectedDifference = m_selectedModel->lastDifference();
+
+	emit setSelection( m_selectedModel, m_selectedDifference );
+	updateModelListActions();
 }
 
 void KompareModelList::slotApplyDifference( bool apply )
 {
 	m_selectedModel->applyDifference( apply );
 	emit applyDifference( apply );
+	emit setModified( m_selectedModel->isModified() );
 }
 
 void KompareModelList::slotApplyAllDifferences( bool apply )
@@ -601,6 +692,7 @@ void KompareModelList::slotApplyAllDifferences( bool apply )
 	// FIXME: we need to use hunks here as well
 	m_selectedModel->applyAllDifferences( apply );
 	emit applyAllDifferences( apply );
+	emit setModified( apply );
 }
 
 int KompareModelList::parseDiffOutput( const QStringList& lines )
@@ -614,13 +706,9 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 
 	if ( m_models )
 	{
-		delete m_modelIt;
-		m_modelIt = new QPtrListIterator<DiffModel>( *m_models );
-		m_selectedModel = m_modelIt->toFirst();
+		m_selectedModel = firstModel();
 		kdDebug(8101) << "Ok there are differences..." << endl;
-		delete m_diffIt;
-		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
-		m_selectedDifference = m_diffIt->toFirst();
+		m_selectedDifference = m_selectedModel->firstDifference();
 	}
 	else
 	{
@@ -629,6 +717,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 		return -1;
 	}
 
+	updateModelListActions();
 	show();
 
 	return 0;
@@ -838,23 +927,9 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 */
 	m_models->append( newModel );
 
-	delete m_modelIt;
-	m_modelIt = new QPtrListIterator<DiffModel>( *m_models );
-	m_selectedModel = m_modelIt->toFirst();
+	m_selectedModel = firstModel();
 
-	if ( m_selectedModel->differences().count() != 0 )
-	{
-		kdDebug(8101) << "Ok there are differences : " << m_selectedModel->differences().count() << endl;
-		delete m_diffIt;
-		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
-		m_selectedDifference = m_diffIt->toFirst();
-	}
-	else
-	{
-		// Wow trouble, no differences in the model, abort
-		kdDebug(8101) << "Damn there are no differences but there are models... WTF ???" << endl;
-		return -1;
-	}
+	m_selectedDifference = m_selectedModel->firstDifference();
 
 	return true;
 }
@@ -924,6 +999,171 @@ void KompareModelList::slotSetModified( bool modified )
 	{
 		emit setModified( true );
 	}
+}
+
+bool KompareModelList::setSelectedModel( DiffModel* model )
+{
+	kdDebug(8101) << "KompareModelList::setSelectedModel( " << model << " )" << endl;
+
+	if ( model != m_selectedModel )
+	{
+		if ( m_models->findRef( model ) == -1 )
+			return false;
+		kdDebug(8101) << "m_selectedModel (was) = " << m_selectedModel << endl;
+		m_modelIndex = m_models->findRef( model );
+		kdDebug(8101) << "m_selectedModel (is)  = " << m_selectedModel << endl;
+		m_selectedModel = model;
+	}
+
+	updateModelListActions();
+
+	return true;
+}
+
+void KompareModelList::updateModelListActions()
+{
+	if( m_models && m_selectedModel && m_selectedDifference )
+	{
+		if ( ( ( KomparePart* )parent() )->isReadWrite() )
+		{
+			if ( m_selectedModel->appliedCount() != m_selectedModel->differenceCount() )
+				m_applyAll->setEnabled( true );
+			else
+				m_applyAll->setEnabled( false );
+
+			if ( m_selectedModel->appliedCount() != 0 )
+				m_unapplyAll->setEnabled( true );
+			else
+				m_unapplyAll->setEnabled( false );
+
+			m_applyDifference->setEnabled( true );
+
+			if( m_selectedDifference->applied() )
+			{
+				m_applyDifference->setText( i18n( "Un&apply Difference" ) );
+				m_applyDifference->setIcon( "1leftarrow" );
+			}
+			else
+			{
+				m_applyDifference->setText( i18n( "&Apply Difference" ) );
+				m_applyDifference->setIcon( "1rightarrow" );
+			}
+		}
+		else
+		{
+			m_applyDifference->setEnabled( false );
+			m_applyAll->setEnabled( false );
+			m_unapplyAll->setEnabled( false );
+		}
+
+		m_previousFile->setEnabled      ( hasPrevModel() );
+		m_nextFile->setEnabled          ( hasNextModel() );
+		m_previousDifference->setEnabled( hasPrevDiff() );
+		m_nextDifference->setEnabled    ( hasNextDiff() );
+	}
+	else
+	{
+		m_applyDifference->setEnabled( false );
+		m_applyAll->setEnabled( false );
+		m_unapplyAll->setEnabled( false );
+
+		m_previousFile->setEnabled      ( false );
+		m_nextFile->setEnabled          ( false );
+		m_previousDifference->setEnabled( false );
+		m_nextDifference->setEnabled    ( false );
+	}
+
+}
+
+bool KompareModelList::hasPrevModel()
+{
+	kdDebug(8101) << "KompareModelList::hasPrevModel()" << endl;
+
+	if (  m_modelIndex > 0 )
+	{
+//		kdDebug(8101) << "has prev model" << endl;
+		return true;
+	}
+
+//	kdDebug(8101) << "doesn't have a prev model, this is the first one..." << endl;
+
+	return false;
+}
+
+bool KompareModelList::hasNextModel()
+{
+	kdDebug(8101) << "KompareModelList::hasNextModel()" << endl;
+
+	if ( (  unsigned int )m_modelIndex < (  m_models->count() - 1 ) )
+	{
+//		kdDebug(8101) << "has next model" << endl;
+		return true;
+	}
+
+//	kdDebug(8101) << "doesn't have a next model, this is the last one..." << endl;
+	return false;
+}
+
+bool KompareModelList::hasPrevDiff()
+{
+//	kdDebug(8101) << "KompareModelList::hasPrevDiff()" << endl;
+	int index = m_selectedModel->diffIndex();
+
+	if ( index > 0 )
+	{
+//		kdDebug(8101) << "has prev difference in same model" << endl;
+		return true;
+	}
+
+	if ( hasPrevModel() )
+	{
+//		kdDebug(8101) << "has prev difference but in prev model" << endl;
+		return true;
+	}
+
+//	kdDebug(8101) << "doesn't have a prev difference, not even in the previous model because there is no previous model" << endl;
+
+	return false;
+}
+
+bool KompareModelList::hasNextDiff()
+{
+//	kdDebug(8101) << "KompareModelList::hasNextDiff()" << endl;
+	int index = m_selectedModel->diffIndex();
+
+	if ( index < ( m_selectedModel->differenceCount() - 1 ) )
+	{
+//		kdDebug(8101) << "has next difference in same model" << endl;
+		return true;
+	}
+
+	if ( hasNextModel() )
+	{
+//		kdDebug(8101) << "has next difference but in next model" << endl;
+		return true;
+	}
+	
+//	kdDebug(8101) << "doesn't have a next difference, not even in next model because there is no next model" << endl;
+
+	return false;
+}
+
+void KompareModelList::slotActionApplyDifference()
+{
+	slotApplyDifference( !m_selectedDifference->applied() );
+	updateModelListActions();
+}
+
+void KompareModelList::slotActionApplyAllDifferences()
+{
+	slotApplyDifference( true );
+	updateModelListActions();
+}
+
+void KompareModelList::slotActionUnapplyAllDifferences()
+{
+	slotApplyDifference( false );
+	updateModelListActions();
 }
 
 #include "komparemodellist.moc"

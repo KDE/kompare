@@ -6,7 +6,6 @@ INCLUDES = -I$(top_srcdir)/kompare/libdiff2 -I$(top_srcdir)/kompare/interfaces $
 
 noinst_HEADERS = \
 	kompare_part.h \
-	kompare_actions.h \
 	kompareview.h \
 	prefsbase.h \
 	diffprefs.h \
@@ -28,7 +27,6 @@ kde_module_LTLIBRARIES = libkomparepart.la
 # the Part's source, library search path, and link libraries
 libkomparepart_la_SOURCES = \
 	kompare_part.cpp \
-	kompare_actions.cpp \
 	kompareconnectwidget.cpp \
 	kompareview.cpp \
 	komparelistview.cpp \

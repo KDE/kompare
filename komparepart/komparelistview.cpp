@@ -410,13 +410,13 @@ KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListV
 	: KompareListViewItem( parent )
 	, m_isSource( isSource )
 {
-	kdDebug(8104) << "isSource ? " << (isSource ? " Yes!" : " No!") << endl;
+//	kdDebug(8104) << "isSource ? " << (isSource ? " Yes!" : " No!") << endl;
 	setExpandable( true );
 	setOpen( true );
 
 	int lines = lineCount();
 	int line = lineNumber() + lines - 1;
-	kdDebug(8104) << "LineNumber : " << lineNumber() << endl;
+//	kdDebug(8104) << "LineNumber : " << lineNumber() << endl;
 	if( lines == 0 ) {
 		new KompareListViewBlankLineItem( this );
 		return;

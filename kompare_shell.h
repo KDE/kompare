@@ -73,10 +73,10 @@ private:
 	void setupStatusBar();
 
 private:
-	KDiffPart* m_part;
+	KDiffPart*       m_part;
 
-	KToggleAction *m_toolbarAction;
-	KToggleAction *m_statusbarAction;
+	KToggleAction*   m_toolbarAction;
+	KToggleAction*   m_statusbarAction;
 };
 
 #endif // KDIFF_H

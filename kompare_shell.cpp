@@ -248,6 +248,7 @@ void KompareShell::setupActions()
 	setStandardToolBarMenuEnabled(true);
 	m_showTextView = new KToggleAction( i18n("Show T&ext View"), 0, this, SLOT(slotShowTextView()),
 	                                  actionCollection(), "options_show_text_view" );
+        m_showTextView->setCheckedState(i18n("Hide T&ext View"));
 
 	KStdAction::keyBindings(this, SLOT(optionsConfigureKeys()), actionCollection());
 	KStdAction::configureToolbars(this, SLOT(optionsConfigureToolbars()), actionCollection());

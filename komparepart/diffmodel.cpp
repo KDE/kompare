@@ -527,7 +527,7 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 
 	QRegExp source   ( "^--- ([^\\t ]+)[\\t ]+([^\\t ]+)(\\t?)(.*)$" );
 	QRegExp dest     ( "^\\+\\+\\+ ([^\\t ]+)[\\t ]+([^\\t ]+)(\\t?)(.*)$" );
-	QRegExp line     ( "^([ \\-+])(.*)$" );
+	QRegExp line     ( "^([ \\-\\+\\\\])(.*)$" );
 	QRegExp unchanged( "^ (.*)$" );
 	QRegExp removed  ( "^-(.*)$" );
 	QRegExp added    ( "^\\+(.*)$" );
@@ -594,6 +594,13 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 					linenoA++;
 					linenoB++;
 				}
+			} else if (  line.cap( 1 ) == "\\" ) {
+				// Beginning of a message such as 
+				// \ No newline at end of file, 
+				// just let it disappear
+				// FIXME: Nasty side effect: A changed line now becomes an added and a removed line :(
+				// Best way is to remove a line starting with \ before doing anything else
+				++it;
 			} else {
 				for( ; it != list.end() && removed.exactMatch( *it ); ++it ) {
 					diff->addSourceLine( removed.cap( 1 ) );

@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 	KCmdLineArgs::init(argc, argv, &aboutData);
 	KCmdLineArgs::addCmdLineOptions( options );
 	KApplication app;
-	bool difault;
+	bool difault = false;
 
 	// see if we are starting with session management
 	if (app.isRestored())

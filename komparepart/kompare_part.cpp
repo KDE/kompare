@@ -16,6 +16,13 @@
 #include "diffmodel.h"
 #include "kdiffprocess.h"
 #include "kdiffprefdlg.h"
+#include "generalsettings.h"
+#include "diffsettings.h"
+#include "miscsettings.h"
+
+GeneralSettings* KDiffPart::m_generalSettings = 0L;
+DiffSettings*    KDiffPart::m_diffSettings = 0L;
+MiscSettings*    KDiffPart::m_miscSettings = 0L;
 
 KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
                                   QObject *parent, const char *name )
@@ -24,9 +31,11 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 	// we need an instance
 	setInstance( KDiffPartFactory::instance() );
 
-	m_generalSettings = new GeneralSettings( 0 );
-	m_diffSettings = new DiffSettings( 0 );
-	m_miscSettings = new MiscSettings( 0 );
+	if( !m_generalSettings ) {
+		m_generalSettings = new GeneralSettings( 0 );
+		m_diffSettings = new DiffSettings( 0 );
+		m_miscSettings = new MiscSettings( 0 );
+	}
 
 	// this should be your custom internal widget
 	m_diffView = new KDiffView( m_generalSettings, parentWidget, widgetName );
@@ -62,9 +71,6 @@ KDiffPart::~KDiffPart()
 	delete m_diffProcess;
 	delete m_leftURL;
 	delete m_rightURL;
-	delete m_generalSettings;
-	delete m_diffSettings;
-	delete m_miscSettings;
 }
 
 KDiffView* KDiffPart::diffView()
@@ -147,7 +153,7 @@ void KDiffPart::slotDiffProcessFinished( bool success )
 		else if ( m_diffSettings->m_useRCSDiff )     type = DiffModel::RCS;
 		else if ( m_diffSettings->m_useUnifiedDiff ) type = DiffModel::Unified;
 		else                                         type = DiffModel::Unknown;
-	
+
 		m_diffOutput = m_diffProcess->getDiffOutput();	
 		model->parseDiff( m_diffOutput, type ); // XXX Fixme, is it fixed now ? :)
 		m_diffView->setModel( model, true );

@@ -4,10 +4,6 @@
 #include <kparts/part.h>
 #include <kparts/factory.h>
 
-#include "generalsettings.h"
-#include "diffsettings.h"
-#include "miscsettings.h"
-
 class QWidget;
 
 class KToggleAction;
@@ -16,6 +12,9 @@ class KURL;
 class KDiffView;
 class KDifferencesAction;
 class KDiffProcess;
+class GeneralSettings;
+class DiffSettings;
+class MiscSettings;
 
 class DiffModel;
 
@@ -89,9 +88,9 @@ private:
 	void setupActions();
 	void setupStatusbar();
 
-	GeneralSettings*    m_generalSettings;
-	DiffSettings*       m_diffSettings;
-	MiscSettings*       m_miscSettings;
+	static GeneralSettings*    m_generalSettings;
+	static DiffSettings*       m_diffSettings;
+	static MiscSettings*       m_miscSettings;
 
 	QList<DiffModel>    m_diffmodels;
 

@@ -22,7 +22,7 @@
 
 using namespace Diff2;
 
-Difference::Difference( int sourceLineNo, int destinationLineNo, enum Difference::Type type ) :
+Difference::Difference( int sourceLineNo, int destinationLineNo, int type ) :
 	m_type( type ),
 	m_sourceLineNo( sourceLineNo ),
 	m_destinationLineNo( destinationLineNo ),
@@ -101,9 +101,43 @@ QString Difference::recreateDifference() const
 
 	for ( ; stringIt != sEnd; ++stringIt )
 	{
-		difference += "nothing here yet...\n";
+		switch ( m_type )
+		{
+		case Change:
+		case Delete:
+			difference += "-";
+			break;
+		default:
+		// Insert but this is not possible in source
+		// Unchanged will be handled in destination
+		// since they are the same
+//			kdDebug( 8101 ) << "Go away, nothing to do for you in source..." << endl;
+			continue;
+		}
+		difference += (*stringIt)->string();
 	}
+
 	//destination
+	stringIt = m_destinationLines.begin();
+	sEnd     = m_destinationLines.end();
+
+	for ( ; stringIt != sEnd; ++stringIt )
+	{
+		switch ( m_type )
+		{
+		case Change:
+		case Insert:
+			difference += "+";
+			break;
+		case Unchanged:
+			difference += " ";
+			break;
+		default: // Delete but this is not possible in destination
+//			kdDebug( 8101 ) << "Go away, nothing to do for you in destination..." << endl;
+			continue;
+		}
+		difference += (*stringIt)->string();
+	}
 
 	return difference;
 }

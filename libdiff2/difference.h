@@ -155,14 +155,14 @@ typedef QValueVector<DifferenceString*>::const_iterator DifferenceStringListCons
 class Difference
 {
 public:
-	enum Type { Change, Insert, Delete, Unchanged };
+	enum Type { Change = 0x00, Insert = 0x01, Delete = 0x02, Unchanged = 0x03, AddedByBlend = 0x10 };
 
 public:
-	Difference( int sourceLineNo, int destinationLineNo, enum Difference::Type type = Difference::Unchanged );
+	Difference( int sourceLineNo, int destinationLineNo, int type = Difference::Unchanged );
 	~Difference();
 
 public:
-	enum Difference::Type type() const { return m_type; };
+	int type() const { return m_type; };
 
 	int sourceLineNumber() const { return m_sourceLineNo; }
 	int destinationLineNumber() const { return m_destinationLineNo; }
@@ -188,7 +188,7 @@ public:
 	void apply( bool apply );
 	bool applied() const { return m_applied; }
 
-	void setType( enum Difference::Type type ) { m_type = type; }
+	void setType( int type ) { m_type = type; }
 
 	void addSourceLine( QString line );
 	void addDestinationLine( QString line );
@@ -199,7 +199,7 @@ public:
 	QString recreateDifference() const;
 
 private:
-	enum Difference::Type m_type;
+	int                   m_type;
 
 	int                   m_sourceLineNo;
 	int                   m_destinationLineNo;

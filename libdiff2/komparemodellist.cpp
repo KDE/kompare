@@ -877,12 +877,20 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 #endif
 				{
 					kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *it << endl;
+#if INLINE_DIFFERENCES
 					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+#else
+					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i ) << endl;
+#endif
 					conflict = true;
 					break;
 				}
 				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
+#if INLINE_DIFFERENCES
 				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+#else
+				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i ) << endl;
+#endif
 				srcLineNo++;
 				destLineNo++;
 				++it;

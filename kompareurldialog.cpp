@@ -23,7 +23,6 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kdebug.h>
-#include <kdeversion.h>
 
 #include <qlayout.h>
 #include <qgroupbox.h>
@@ -157,15 +156,11 @@ void KompareURLDialog::setGroup( const QString& groupName )
 	m_config->setGroup( groupName );
 
 	urlList = m_config->readListEntry( "Recent Sources" );
-#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
-	kdDebug() << "Recent Sources: " << urlList << endl;
-#endif
+	kdDebug() << "Recent Sources: " << urlList.join("\n") << endl;
 	m_firstURLComboBox->setURLs( urlList );
 
 	urlList = m_config->readListEntry( "Recent Destinations" );
-#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
-	kdDebug() << "Recent Destinations: " << urlList << endl;
-#endif
+	kdDebug() << "Recent Destinations: " << urlList.join("\n") << endl;
 	m_secondURLComboBox->setURLs( urlList );
 }
 

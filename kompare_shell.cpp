@@ -183,9 +183,7 @@ bool KompareShell::queryClose()
 
 void KompareShell::open(const KURL& url)
 {
-#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
-	kdDebug(8102) << "Url = " << url << endl;
-#endif
+	kdDebug(8102) << "Url = " << url.url() << endl;
 	m_diffURL = url;
 	m_viewPart->openDiff( url );
 }

@@ -28,7 +28,6 @@
 #include <kstdaction.h>
 #include <kinstance.h>
 #include <ktempfile.h>
-#include <kdeversion.h>
 //#include <ktempdir.h>
 
 #include <kio/netaccess.h>
@@ -215,9 +214,7 @@ void KomparePart::updateActions()
 
 bool KomparePart::openDiff( const KURL& url )
 {
-#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
-	kdDebug(8103) << "Url = " << url << endl;
-#endif
+	kdDebug(8103) << "Url = " << url.url() << endl;
 	bool result = m_modelList->openDiff( url );
 	updateActions();
 	return result;
@@ -237,10 +234,8 @@ bool KomparePart::openDiff( const QString& diffOutput )
 
 bool KomparePart::openDiff3( const KURL& diff3Url )
 {
-#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 	// FIXME: Implement this !!!
-	kdDebug() << "Not implemented yet. Filename is: " << diff3Url << endl;
-#endif
+	kdDebug() << "Not implemented yet. Filename is: " << diff3Url.url() << endl;
 	return false;
 }
 

@@ -1,3 +1,6 @@
+Sep    28, 2003 : Otto Bruggeman
+	* Fixed two problems in komparenavtreepart that made it emit a signal twice
+
 June   29, 2003 : Otto Bruggeman
 	* Fixed remaining part of bug 57774 (the context format parsing one)
 	* Fixed bug 58144 by adding a check for comparing dirs, in that case

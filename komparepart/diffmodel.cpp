@@ -55,32 +55,6 @@ DiffModel::DiffFormat DiffModel::determineDiffFormat( QString line )
 	return DiffModel::Unknown;
 }
 
-/**  */
-int DiffModel::parseDiff( const QStringList& lines, KDiffModelList* models )
-{
-	if( lines.count() == 0 ) return 1;
-
-	QStringList::ConstIterator it = lines.begin();
-	while( it != lines.end() ) {
-
-		// Discard leading garbage
-		while( it != lines.end() && determineDiffFormat( (*it) ) == Unknown ) {
-			kdDebug() << "discarding: " << (*it) << endl;
-			++it;
-		}
-
-		DiffModel* model = new DiffModel();
-		int result = model->parseDiff( determineDiffFormat( (*it) ), lines, it );
-
-		kdDebug() << "parsed one file, result: " << result << endl;
-
-		models->addModel( model );
-
-	}
-
-	return 0; // FIXME better error handling
-};
-
 int DiffModel::parseDiff( enum DiffFormat format, const QStringList& lines, QStringList::ConstIterator& it )
 {
 	switch( format )
@@ -127,8 +101,8 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 	kdDebug() << line << endl;
 	// read name of old file until \t
 	if ( ( pos = QRegExp( "\\t" ).match( line, 0, &len ) ) < 0 ) return 1; // invalid context format
-	filenameA = line.mid( 0, pos );
-	kdDebug() << "filenameA: " << filenameA << endl;
+	m_sourceFile = line.mid( 0, pos );
+	kdDebug() << m_sourceFile << endl;
 	// get date if necessary
 
 	++it;
@@ -140,8 +114,8 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 	line.replace( QRegExp( "^--- " ), "" ); // remove leading '--- '
 	// read name of new file until \t
 	if ( ( pos = QRegExp( "\\t" ).match( line, 0, &len ) ) < 0 ) return 1; // invalid context format
-	filenameB = line.mid( 0, pos );
-	kdDebug() << "filenameB: " << filenameB << endl;
+	m_destinationFile = line.mid( 0, pos );
+	kdDebug() << m_destinationFile << endl;
 	// get date if necessary
 
 	kdDebug() << "Start parsing the file..." << endl;

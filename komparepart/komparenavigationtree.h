@@ -46,9 +46,11 @@ private slots:
 	void slotAddModel( DiffModel * );
 
 private:
-  QListViewItem* lastItem();
+	QListViewItem* firstItem();
+	QListViewItem* lastItem();
 
-  KDiffModelList*   m_models;
+	KDiffModelList*   m_models;
+	QListViewItem*    m_rootItem;
 };
 
 #endif

@@ -29,7 +29,6 @@
 #include <klistview.h>
 
 #include <qfile.h>
-#include <qtextstream.h>
 
 #include "kdiffview.h"
 #include "kdiffnavigationtree.h"
@@ -51,9 +50,7 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 	: KParts::ReadWritePart(parent, name),
 	m_selectedModel( -1 ),
 	m_selectedDifference( -1 ),
-	m_format( DiffModel::Unified ),
-	m_navigationTree( 0 ),
-	m_diffProcess( 0 )
+	m_navigationTree( 0 )
 {
 	// we need an instance
 	setInstance( KDiffPartFactory::instance() );
@@ -65,6 +62,10 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 	}
 	
 	m_models = new KDiffModelList();
+	connect( m_models, SIGNAL(status( KDiffModelList::Status )),
+	         this, SLOT(slotSetStatus( KDiffModelList::Status )) );
+	connect( m_models, SIGNAL(error( QString )),
+	         this, SLOT(slotShowError( QString )) );
 	
 	// this should be your custom internal widget
 	m_diffView = new KDiffView( m_models, m_generalSettings, parentWidget, widgetName );
@@ -95,7 +96,6 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 
 KDiffPart::~KDiffPart()
 {
-	delete m_diffProcess;
 }
 
 QWidget* KDiffPart::createNavigationWidget( QWidget* parent, const char* name )
@@ -161,103 +161,71 @@ void KDiffPart::setModified(bool modified)
 	ReadWritePart::setModified(modified);
 }
 
-void KDiffPart::setFormat( QCString format )
+void KDiffPart::compare( const KURL& source, const KURL& destination )
 {
-	// This format should also be set in the m_diffSettings
-	if ( format == "CONTEXT" )
-	{
-		kdDebug() << "Context format" << endl;
-		m_format = DiffModel::Context;
-		m_diffSettings->m_useContextDiff = true;
-		m_diffSettings->m_useEdDiff = false;
-		m_diffSettings->m_useNormalDiff = false;
-		m_diffSettings->m_useRCSDiff = false;
-		m_diffSettings->m_useUnifiedDiff = false;
-	}
-	else if ( format == "ED" )
-	{
-		kdDebug() << "Ed format" << endl;
-		m_format = DiffModel::Ed;
-		m_diffSettings->m_useContextDiff = false;
-		m_diffSettings->m_useEdDiff = true;
-		m_diffSettings->m_useNormalDiff = false;
-		m_diffSettings->m_useRCSDiff = false;
-		m_diffSettings->m_useUnifiedDiff = false;
-	}
-	else if ( format == "NORMAL" )
-	{
-		kdDebug() << "Normal format" << endl;
-		m_format = DiffModel::Normal;
-		m_diffSettings->m_useContextDiff = false;
-		m_diffSettings->m_useEdDiff = false;
-		m_diffSettings->m_useNormalDiff = true;
-		m_diffSettings->m_useRCSDiff = false;
-		m_diffSettings->m_useUnifiedDiff = false;
-	}
-	else if ( format == "RCS" )
-	{
-		kdDebug() << "RCS format" << endl;
-		m_format = DiffModel::RCS;
-		m_diffSettings->m_useContextDiff = false;
-		m_diffSettings->m_useEdDiff = false;
-		m_diffSettings->m_useNormalDiff = false;
-		m_diffSettings->m_useRCSDiff = true;
-		m_diffSettings->m_useUnifiedDiff = false;
-	}
-	else if ( format == "UNIFIED" )
-	{
-		kdDebug() << "Unified format" << endl;
-		m_format = DiffModel::Unified;
-		m_diffSettings->m_useContextDiff = false;
-		m_diffSettings->m_useEdDiff = false;
-		m_diffSettings->m_useNormalDiff = false;
-		m_diffSettings->m_useRCSDiff = false;
-		m_diffSettings->m_useUnifiedDiff = true;
-	}
+	m_models->compare( source, destination );
 }
 
-void KDiffPart::compare( const KURL& source, const KURL& destination, DiffSettings* settings )
+bool KDiffPart::openFile()
 {
-	if( settings )
-		m_diffProcess = new KDiffProcess( settings, source, destination );
-	else
-		m_diffProcess = new KDiffProcess( m_diffSettings, source, destination );
-	m_models->setSourceBaseURL( source.upURL() );
-	m_models->setDestinationBaseURL( destination.upURL() );
-	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )), this, SLOT(slotDiffProcessFinished( bool )) );
-	kdDebug() << "starting diff process" << endl;
-	m_diffProcess->start();
+	QFile file(m_file);
+
+	if( !file.open(IO_ReadOnly) )
+		return false;
+	
+	m_models->readDiffFile( file );
+	
+	return true;
 }
 
-bool KDiffPart::parseDiff( QStringList diff )
+bool KDiffPart::save()
 {
-	if ( DiffModel::parseDiff( diff, m_models ) != 0 ) {
-		// error, do something
-		KMessageBox::error( widget(), i18n( "Could not parse diff." ) );
+	// Don't write to url yet, we must wait until the diff is finished
+	return saveFile();
+}
+
+bool KDiffPart::saveFile()
+{
+	// if we aren't read-write, return immediately
+	if (isReadWrite() == false)
+		return false;
+
+	if ( m_file.isEmpty() ) {
+		KURL url = KFileDialog::getSaveURL( QString::null, "*.diff", widget(), "FileSaveDialog" );
+		if ( !url.isEmpty() ) {
+			return saveAs( url );
+		}
 		return false;
 	}
 
-	slotSetSelection( 0, 0 );
+	m_models->writeDiffFile( m_file, m_diffSettings );
 
 	return true;
 }
 
-void KDiffPart::slotDiffProcessFinished( bool success )
+void KDiffPart::slotSetStatus( KDiffModelList::Status status )
 {
-	if( success ) {
-
-		if( parseDiff( m_diffProcess->getDiffOutput() ) ) {
+	switch( status ) {
+	case KDiffModelList::RunningDiff:
+		break;
+	case KDiffModelList::Parsing:
+		break;
+	case KDiffModelList::FinishedParsing:
+		if( m_models->mode() == KDiffModelList::Compare )
 			setModified( true );
-		}
-
-	} else if( m_diffProcess->m_diffProcess->exitStatus() == 0 ) {
-		KMessageBox::information( widget(), i18n( "The files are identical." ) );
-	} else {
-		KMessageBox::error( widget(), m_diffProcess->getStderr() );
+		slotSetSelection( 0, 0 );
+		break;
+	case KDiffModelList::FinishedWritingDiff:
+		saveToURL();
+		break;
+	default:
+		break;
 	}
+}
 
-	delete m_diffProcess;
-	m_diffProcess = 0;
+void KDiffPart::slotShowError( QString error )
+{
+	KMessageBox::error( widget(), error );
 }
 
 void KDiffPart::slotShowDiffstats( void )
@@ -287,62 +255,9 @@ kdDebug() << "Delete dialog" << endl;
 	delete diffStatsDlg;
 }
 
-bool KDiffPart::openFile()
-{
-	// m_file is always local so we can use QFile on it
-	QFile file(m_file);
-
-	if (file.open(IO_ReadOnly) == false)
-		return 1;
-
-	QTextStream stream(&file);
-	QStringList list;
-	while (!stream.eof())
-		list.append(stream.readLine());
-
-	return parseDiff( list );
-}
-
-bool KDiffPart::saveFile()
-{
-	// if we aren't read-write, return immediately
-	if (isReadWrite() == false)
-		return false;
-
-	if ( m_file.isEmpty() )
-	{
-		m_file = KFileDialog::getSaveFileName( "", "*.diff", 0, "FileSaveDialog" );
-		if ( m_file.isEmpty() )
-		{
-			return false;
-		}
-	}
-
-	// m_file is always local, so we use QFile
-	QFile file(m_file);
-	if (file.open(IO_WriteOnly) == false)
-		return false;
-
-	// use QTextStream to dump the text to the file
-	QTextStream stream(&file);
-
-	for ( QStringList::ConstIterator it = m_diffOutput.begin(); it != m_diffOutput.end(); ++it )
-	{
-		// Is this enough ?
-		stream << (*it) << "\n";
-	}
-
-	file.close();
-
-	return true;
-}
-
 void KDiffPart::loadSettings(KConfig *config)
 {
 	config->setGroup( "General" );
-//	m_diffView->setFont(config->readFontEntry("Font"));
-//	m_diffView->setTabWidth(config->readUnsignedNumEntry("Tab Width",8));
-
 	m_generalSettings->loadSettings( config );
 	config->setGroup( "DiffSettings" );
 	m_diffSettings->loadSettings( config );
@@ -353,9 +268,6 @@ void KDiffPart::loadSettings(KConfig *config)
 void KDiffPart::saveSettings(KConfig *config)
 {
 	config->setGroup( "General" );
-//	config->writeEntry("Font", m_diffView->getFont());
-//	config->writeEntry("Tab Width", m_diffView->getTabWidth());
-
 	m_generalSettings->saveSettings( config );
 	config->setGroup( "DiffSettings" );
 	m_diffSettings->saveSettings( config );
@@ -461,7 +373,7 @@ KInstance* KDiffPartFactory::instance()
 {
 	if( !s_instance )
 	{
-		s_about = new KAboutData("kdiffpart", I18N_NOOP("KDiffPart"), "0.1");
+		s_about = new KAboutData("kdiffpart", I18N_NOOP("KDiffPart"), "2.0");
 		s_about->addAuthor("John Firebaugh", "Author", "jfirebaugh@kde.org");
 		s_about->addAuthor("Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
 		s_instance = new KInstance(s_about);

@@ -20,52 +20,45 @@
 #ifndef KDIFFPROCESS_H
 #define KDIFFPROCESS_H
 
-#include <qobject.h>
-#include <qstringlist.h>
-
-#include <kprocess.h>
 #include <kurl.h>
 
-#include "diffsettings.h"
+#include <kprocess.h>
 
-/**
-  *@author Otto Bruggeman
-  */
+class DiffSettings;
 
-class KDiffProcess : public QObject
+class KDiffProcess : public KShellProcess
 {
-Q_OBJECT
-
-public:	// methods
-	KDiffProcess( DiffSettings*, const KURL& sourceURL, const KURL& destinationURL );
+	Q_OBJECT
+	
+public:
+	KDiffProcess( const KURL& sourceURL, const KURL& destinationURL, DiffSettings* settings = 0 );
 	~KDiffProcess();
-	/** No descriptions */
+	
 	bool start();
-	/** No descriptions */
+	
 	const QStringList getDiffOutput();
 	QString getStdout() { return m_stdout; };
 	QString getStderr() { return m_stderr; };
-
-private:
-	QString m_stdout;
-	QString m_stderr;
-
-public: // variables
-	KProcess* m_diffProcess;
-
-	KURL m_leftURL;
-	KURL m_rightURL;
-	QString m_leftTemp;
-	QString m_rightTemp;
 	
-public slots:	// slots
+signals:
+	void diffHasFinished( bool finishedNormally );
+	
+protected:
+	void writeDefaultCommandLine();
+	void writeCommandLine( DiffSettings* settings );
+	
+protected slots:
 	void receivedStdout( KProcess*, char*, int );
 	void receivedStderr( KProcess*, char*, int );
-	/** No descriptions */
 	void processExited( KProcess* proc );
-signals: // Signals
-	/** No descriptions */
-	void diffHasFinished( bool finishedNormally );
+	
+private:
+	QString      m_stdout;
+	QString      m_stderr;
+	KURL         m_leftURL;
+	KURL         m_rightURL;
+	QString      m_leftTemp;
+	QString      m_rightTemp;
 };
 
 #endif

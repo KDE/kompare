@@ -43,6 +43,7 @@ public:
 	QColor getColorForDifferenceType( Difference::Type type, bool selected = false );
 
 public:
+	bool m_showEntireFile;
 	QColor m_removeColor;
 	QColor m_changeColor;
 	QColor m_addColor;

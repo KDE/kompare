@@ -122,11 +122,6 @@ void KDiffShell::compare(const KURL& source,const KURL& destination )
 	m_part->compare( source, destination );
 }
 
-void KDiffShell::setFormat( QCString format )
-{
-	m_part->setFormat( format );
-}
-
 void KDiffShell::setupActions()
 {
 	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_O,
@@ -151,23 +146,25 @@ void KDiffShell::setupStatusBar()
 
 void KDiffShell::updateStatusBar()
 {
-	QString str;
+	QString fileStr;
+	QString diffStr;
 	int modelIndex = m_part->getSelectedModelIndex();
 	int modelCount = m_part->modelCount();
-	int diffIndex = m_part->getSelectedDifferenceIndex();
-	int diffCount = m_part->getSelectedModel()->differenceCount();
-	if (modelIndex >= 0)
-		str = i18n(" %1 of %2 %3 ").arg(modelIndex+1).arg(modelCount);
-	else
-		str = i18n(" %1 %3 ").arg(modelCount);
-	str = str.arg( modelCount == 1 ? i18n("file") : i18n("files") );
-	statusBar()->changeItem( str, ID_N_OF_N_FILES );
-	if (diffIndex >= 0)
-		str = i18n(" %1 of %2 %3 ").arg(diffIndex+1).arg(diffCount);
-	else
-		str = i18n(" %1 %3 ").arg(diffCount);
-	str = str.arg( diffCount == 1 ? i18n("difference") : i18n("differences") );
-	statusBar()->changeItem( str, ID_N_OF_N_DIFFERENCES );
+	if (modelIndex >= 0) {
+		fileStr = i18n(" %1 of %2 %3 ").arg(modelIndex+1).arg(modelCount);
+		int diffIndex = m_part->getSelectedDifferenceIndex();
+		int diffCount = m_part->getSelectedModel()->differenceCount();
+		if (diffIndex >= 0)
+			diffStr = i18n(" %1 of %2 %3 ").arg(diffIndex+1).arg(diffCount);
+		else
+			diffStr = i18n(" %1 %3 ").arg(diffCount);
+		diffStr = diffStr.arg( diffCount == 1 ? i18n("difference") : i18n("differences") );
+	} else {
+		fileStr = i18n(" %1 %3 ").arg(modelCount);
+	}
+	fileStr = fileStr.arg( modelCount == 1 ? i18n("file") : i18n("files") );
+	statusBar()->changeItem( fileStr, ID_N_OF_N_FILES );
+	statusBar()->changeItem( diffStr, ID_N_OF_N_DIFFERENCES );
 }
 
 void KDiffShell::saveProperties(KConfig* /*config*/)

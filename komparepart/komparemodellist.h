@@ -25,27 +25,49 @@
 
 #include "diffmodel.h"
 
+class KDiffProcess;
+class DiffSettings;
+
 class KDiffModelList : public QObject {
 	Q_OBJECT
 	
 public:
+	enum Mode { Compare, Diff };
+	enum Status { RunningDiff, Parsing, FinishedParsing, FinishedWritingDiff };
+	
 	KDiffModelList();
 	~KDiffModelList();
+	
+	void compare( const KURL& source, const KURL& destination );
+	void readDiffFile( QFile& file );
+	void writeDiffFile( QString file, DiffSettings* settings );
+	
+	int parseDiffs( const QStringList& list );
+	
+	Mode mode() { return m_mode; };
+	
 	void addModel( DiffModel* model );
 	int modelCount() { return m_models.count(); };
 	DiffModel* modelAt( int i ) { return m_models.at( i ); };
-	const KURL& sourceBaseURL() const { return m_sourceBaseURL; };
-	const KURL& destinationBaseURL() const { return m_destinationBaseURL; };
-	void setSourceBaseURL( const KURL& sourceBaseURL );
-	void setDestinationBaseURL( const KURL& destiationBaseURL );
+	KURL sourceBaseURL() const { return m_sourceURL.upURL(); };
+	KURL destinationBaseURL() const { return m_destinationURL.upURL(); };
 	
 signals:
+	void status( KDiffModelList::Status );
+	void error( QString error );
 	void modelAdded( DiffModel* );
-	
+
+protected slots:
+	void slotDiffProcessFinished( bool success );
+	void slotWriteDiffOutput( bool success );
+
 private:
+	Mode              m_mode;
+	KDiffProcess*     m_diffProcess;
 	QList<DiffModel>  m_models;
-	KURL              m_sourceBaseURL;
-	KURL              m_destinationBaseURL;
+	KURL              m_sourceURL;
+	KURL              m_destinationURL;
+	QString           m_diffFile;
 	
 };
 

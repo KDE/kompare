@@ -22,57 +22,53 @@
 #include <kio/netaccess.h>
 #include <kdebug.h>
 
+#include "diffsettings.h"
+
 #include "kdiffprocess.h"
 #include "kdiffprocess.moc"
 
-KDiffProcess::KDiffProcess( DiffSettings* diffSettings, const KURL& source, const KURL& destination )
-	: m_leftURL( source ),
+KDiffProcess::KDiffProcess( const KURL& source, const KURL& destination, DiffSettings* diffSettings )
+	: KShellProcess(),
+	m_leftURL( source ),
 	m_rightURL( destination )
 {
-	// create the process to run diff with
-	m_diffProcess = new KProcess();
-
 	// connect the stdout and stderr signals
-	connect( m_diffProcess, SIGNAL( receivedStdout( KProcess*, char*, int ) ), this, SLOT( receivedStdout( KProcess*, char*, int ) ) );
-	connect( m_diffProcess, SIGNAL( receivedStderr( KProcess*, char*, int ) ), this, SLOT( receivedStderr( KProcess*, char*, int ) ) );
+	connect( this, SIGNAL( receivedStdout( KProcess*, char*, int ) ),
+	         this, SLOT( receivedStdout( KProcess*, char*, int ) ) );
+	connect( this, SIGNAL( receivedStderr( KProcess*, char*, int ) ),
+	         this, SLOT( receivedStderr( KProcess*, char*, int ) ) );
 
 	// connect the signal that indicates that the proces has exited
-	connect( m_diffProcess, SIGNAL( processExited( KProcess* ) ), this, SLOT( processExited( KProcess* ) ) );
+	connect( this, SIGNAL( processExited( KProcess* ) ),
+	         this, SLOT( processExited( KProcess* ) ) );
+	
+	if( diffSettings ) {
+		writeCommandLine( diffSettings );
+	} else {
+		writeDefaultCommandLine();
+	}
+}
 
+void KDiffProcess::writeDefaultCommandLine()
+{
+	*this << "diff" << "-U65535" << "-d";
+}
+
+void KDiffProcess::writeCommandLine( DiffSettings* diffSettings )
+{
 	// load the executable into the KProcess
-	*m_diffProcess << "diff";
-
-	// load all parameters into the diff for as far as we know them
-/*
-	-H // for faster handling of large files
-//	-(integer) // aantal regels
-	-B // ignore lege regels die verwijdert of toegevoegd worden
-	-b // ignore changes in number of whitespace
-	-d // search for smaller diff
-	-i // ignore changes in case
-	-n // use RCS format for diff
-	-p // show which c function the change is in..
-	-N // include files that are only in one directory
-	-r // search recursively through directories
-	-s // report when two files are identical
-	-t // expands tab to spaces in output
-	-u/-c // for respectively unified or context format diff
-	-U/-C [number] // for respectively showing [number] of lines of context for unified or context format diff
-	-w // ignore whitespace when comparing lines
-*/
-//	diffSettings->m_useUnifiedDiff = true;
-//	diffSettings->m_linesOfContext = 3;
-
+	*this << "diff";
+	
 	if ( diffSettings->m_linesOfContext != 3 ) // standard value
 	{
 		// if it differs then we need these:
 		if ( diffSettings->m_useUnifiedDiff )
 		{
-			*m_diffProcess << "-U" << QString( "%1" ).arg( diffSettings->m_linesOfContext );
+			*this << "-U" << QString::number( diffSettings->m_linesOfContext );
 		}
 		else if ( diffSettings->m_useContextDiff )
 		{
-			*m_diffProcess << "-C" << QString( "%1" ).arg( diffSettings->m_linesOfContext );
+			*this << "-C" << QString::number( diffSettings->m_linesOfContext );
 		}
 		else if ( diffSettings->m_useNormalDiff )
 		{
@@ -83,15 +79,15 @@ KDiffProcess::KDiffProcess( DiffSettings* diffSettings, const KURL& source, cons
 	{
 		if ( diffSettings->m_useUnifiedDiff )
 		{
-			*m_diffProcess << "-u";
+			*this << "-u";
 		}
 		else if ( diffSettings->m_useContextDiff )
 		{
-			*m_diffProcess << "-c";
+			*this << "-c";
 		}
 		else if ( diffSettings->m_useRCSDiff )
 		{
-			*m_diffProcess << "-n";
+			*this << "-n";
 		}
 		else if ( diffSettings->m_useNormalDiff )
 		{
@@ -101,49 +97,47 @@ KDiffProcess::KDiffProcess( DiffSettings* diffSettings, const KURL& source, cons
 
 	if ( diffSettings->m_largeFiles )
 	{
-		*m_diffProcess << "-H";
+		*this << "-H";
 	}
 
 	if ( diffSettings->m_ignoreWhiteSpace )
 	{
-		*m_diffProcess << "-b";
+		*this << "-b";
 	}
 
 	if ( diffSettings->m_ignoreEmptyLines )
 	{
-		*m_diffProcess << "-B";
+		*this << "-B";
 	}
 
 	if ( diffSettings->m_createSmallerDiff )
 	{
-		*m_diffProcess << "-d";
+		*this << "-d";
 	}
 
 	if ( diffSettings->m_ignoreChangesInCase )
 	{
-		*m_diffProcess << "-i";
+		*this << "-i";
 	}
 
 	if ( diffSettings->m_showCFunctionChange )
 	{
-		*m_diffProcess << "-p";
+		*this << "-p";
 	}
 
 	if ( diffSettings->m_convertTabsToSpaces )
 	{
-		*m_diffProcess << "-t";
+		*this << "-t";
 	}
 
 	if ( diffSettings->m_ignoreWhitespaceComparingLines )
 	{
-		*m_diffProcess << "-w";
+		*this << "-w";
 	}
 }
 
 KDiffProcess::~KDiffProcess()
-{
-	delete m_diffProcess;
-}
+{}
 
 void KDiffProcess::receivedStdout( KProcess* /* process */, char* buffer, int length )
 {
@@ -161,14 +155,14 @@ bool KDiffProcess::start()
 {
 	if( KIO::NetAccess::download( m_leftURL, m_leftTemp ) &&
 	    KIO::NetAccess::download( m_rightURL, m_rightTemp ) ) {
-		*m_diffProcess << "--" << m_leftTemp << m_rightTemp;
+		*this << "--" << m_leftTemp << m_rightTemp;
 		QString cmdLine;
-		for( QStrListIterator i( *m_diffProcess->args() ); i.current(); ++i ) {
+		for( QStrListIterator i( *this->args() ); i.current(); ++i ) {
 			cmdLine += i.current();
 			cmdLine += " ";
 		}
 		kdDebug() << cmdLine << endl;
-		return( m_diffProcess->start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
+		return( KShellProcess::start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
 	}
 	return false;
 }
@@ -180,8 +174,7 @@ void KDiffProcess::processExited( KProcess* /* proc */ )
 	// exit status of 0: no differences
 	//                1: some differences
 	//                2: error
-	emit diffHasFinished( m_diffProcess->normalExit()
-	                      && m_diffProcess->exitStatus() == 1 );
+	emit diffHasFinished( normalExit() && exitStatus() == 1 );
 }
 
 const QStringList KDiffProcess::getDiffOutput()

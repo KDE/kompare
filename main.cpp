@@ -35,7 +35,6 @@ static const char *version = "v2.0";
 
 static KCmdLineOptions options[] =
 {
-	{ "f format", I18N_NOOP( "The format of the generated diff. It can be one of\nthese: Context, Ed, Normal, RCS, Unified." ), 0 },
 	{ "+[URL [URL2]]", I18N_NOOP( "Document to open. If only one url is given\nit is considered a .diff file. If 2 files are given\nkdiff will compare them." ), 0 },
 	{ 0, 0, 0 }
 };
@@ -63,29 +62,6 @@ int main(int argc, char *argv[])
 		KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
 		KDiffShell* widget;
-		QCString format;
-
-		// I would suggest something like this:
-		// DiffSettings* settings = new DiffSettings();
-		// settings->parseCmdLineArgs( args );
-
-		// ...instead of this:
-		if ( args->isSet( "f" ) )
-		{
-			// a diffformat has been set
-			// check if it is valid...
-			format = args->getOption( "f" );
-			// kdDebug() << format << endl;
-			format = format.upper(); // make uppercase to ease comparing
-			// kdDebug() << format << endl;
-			// Some checking for the format... we could abort here if necessary
-			if ( format != "CONTEXT" && format != "ED" && format != "NORMAL" \
-			     && format != "RCS" && format != "UNIFIED" )
-			{
-				kdDebug() << "Unknown diff format" << endl;
-				return 0;
-			}
-		}
 
 		switch ( args->count() )
 		{
@@ -97,8 +73,6 @@ int main(int argc, char *argv[])
 					KURL destination = dialog->getDestinationURL();
 					widget = new KDiffShell();
 					widget->show();
-					if ( !format.isEmpty() )
-						widget->setFormat( format );
 					widget->compare( source, destination );
 				} else {
 					return 0;
@@ -109,15 +83,11 @@ int main(int argc, char *argv[])
 		case 1:  // 1 file -> it is a diff, use load()
 			widget = new KDiffShell();
 			widget->show();
-			if ( !format.isEmpty() )
-				widget->setFormat( format );
 			widget->load( args->url( 0 ) );
 			break;
 		case 2:  // 2 files -> diff them with compare
 			widget = new KDiffShell();
 			widget->show();
-			if ( !format.isEmpty() )
-				widget->setFormat( format );
 			widget->compare( args->url( 0 ), args->url( 1 ) );
 			break;
 		default: // error

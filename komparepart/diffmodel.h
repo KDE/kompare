@@ -42,7 +42,6 @@ public:
 
 public:
 
-	static int parseDiff( const QStringList& list, KDiffModelList* models );
 	static DiffFormat determineDiffFormat( QString line );
 
 	int parseDiff( enum DiffFormat format, const QStringList& list, QStringList::ConstIterator& it);

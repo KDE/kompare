@@ -20,13 +20,12 @@
 #ifndef GENERALPREFS_H
 #define GENERALPREFS_H
 
-#include <qwidget.h>
-
-#include <kcolorbutton.h>
-
 #include "prefsbase.h"
-#include "settingsbase.h"
-#include "generalsettings.h"
+
+class QCheckBox;
+class KColorButton;
+
+class GeneralSettings;
 
 class GeneralPrefs : public PrefsBase
 {
@@ -48,6 +47,7 @@ public:
 	virtual void setDefaults();
 
 public:
+	QCheckBox* m_showEntireFile;
 	KColorButton* m_removedColorButton;
 	KColorButton* m_changedColorButton;
 	KColorButton* m_addedColorButton;

@@ -82,8 +82,7 @@ public:
 	 */
 	QWidget* createNavigationWidget( QWidget* parent = 0L, const char* name = 0L );
 
-	void compare( const KURL& source, const KURL& destination, DiffSettings* settings = 0 );
-	void setFormat( QCString format );
+	void compare( const KURL& source, const KURL& destination );
 
 	void loadSettings(KConfig *config);
 	void saveSettings(KConfig *config);
@@ -100,6 +99,11 @@ public:
 		{ return m_models->modelAt( m_selectedModel )->differenceAt( m_selectedDifference ); };
 
 public slots:
+	/**
+	 * Reimplemented from ReadWritePart.
+	 */
+	bool save();
+	
 	void slotSetSelection( int model, int diff );
 
 signals:
@@ -116,23 +120,22 @@ protected:
 	*/
 	virtual bool saveFile();
 
-protected:
-	void updateActions();
-
 protected slots:
+	void slotSetStatus( KDiffModelList::Status status );
+	void slotShowError( QString error );
+	
 	void slotSelectionChanged( int model, int diff );
 	void slotDifferenceMenuAboutToShow();
 	void slotGoDifferenceActivated( int item );
-	void slotDiffProcessFinished( bool success );
 	void slotPreviousDifference();
 	void slotNextDifference();
 	void optionsPreferences();
 	void slotShowDiffstats();
 
 private:
-	bool parseDiff( QStringList diff );
 	void setupActions();
 	void setupStatusbar();
+	void updateActions();
 
 	static GeneralSettings*    m_generalSettings;
 	static DiffSettings*       m_diffSettings;
@@ -142,7 +145,6 @@ private:
 	int                    m_selectedModel;
 	int                    m_selectedDifference;
 
-	DiffModel::DiffFormat  m_format;
 	KDiffView*             m_diffView;
 	KDiffNavigationTree*   m_navigationTree;
 	KAction*               m_diffStats;
@@ -150,8 +152,6 @@ private:
 	KAction*               m_previousDifference;
 	KAction*               m_nextDifference;
 	KDifferencesAction*    m_differences;
-	KDiffProcess*          m_diffProcess;
-	QStringList            m_diffOutput;
 	KURL                   m_sourceURL;
 	KURL                   m_destinationURL;
 };

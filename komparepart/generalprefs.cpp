@@ -21,12 +21,15 @@
 #include <qgroupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
+#include <qcheckbox.h>
 
 #include <kdialog.h>
 #include <klocale.h>
+#include <kcolorbutton.h>
+
+#include "generalsettings.h"
 
 #include "generalprefs.h"
-
 #include "generalprefs.moc"
 
 GeneralPrefs::GeneralPrefs( QWidget* parent ) : PrefsBase( parent )
@@ -61,6 +64,9 @@ GeneralPrefs::GeneralPrefs( QWidget* parent ) : PrefsBase( parent )
 	m_addedColorButton = new KColorButton( colorGroupBox );
 	label->setBuddy( m_addedColorButton );
 
+	m_showEntireFile = new QCheckBox( i18n( "Show entire file when comparing" ), page );
+	layout->addWidget( m_showEntireFile );
+	
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
@@ -76,6 +82,7 @@ void GeneralPrefs::setSettings( GeneralSettings* setts )
 {
 	m_settings = setts;
 
+	m_showEntireFile->setChecked( m_settings->m_showEntireFile );
 	m_addedColorButton->setColor( m_settings->m_addColor );
 	m_changedColorButton->setColor( m_settings->m_changeColor );
 	m_removedColorButton->setColor( m_settings->m_removeColor );
@@ -95,6 +102,7 @@ void GeneralPrefs::apply()
 	GeneralSettings* setts;
 	setts = getSettings();
 
+	setts->m_showEntireFile = m_showEntireFile->isChecked();
 	setts->m_addColor = m_addedColorButton->color();
 	setts->m_changeColor = m_changedColorButton->color();
 	setts->m_removeColor = m_removedColorButton->color();
@@ -104,6 +112,7 @@ void GeneralPrefs::apply()
 
 void GeneralPrefs::setDefaults()
 {
+	m_showEntireFile->setChecked( true );
 	m_addedColorButton->setColor( GeneralSettings::default_addColor );
 	m_changedColorButton->setColor( GeneralSettings::default_changeColor );
 	m_removedColorButton->setColor( GeneralSettings::default_removeColor );

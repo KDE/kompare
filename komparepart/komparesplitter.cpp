@@ -79,6 +79,10 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget * parent,
 	restartTimer = false;
 	connect (m_scrollTimer, SIGNAL(timeout()), SLOT(timerTimeout()) );
 
+	// we need to receive childEvents now so that d->list is ready for when
+	// slotSetSelection(...) arrives
+	kapp->sendPostedEvents(this, QEvent::ChildInserted);
+
 	// init stuff
 	slotUpdateScrollBars();
 }

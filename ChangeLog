@@ -1,3 +1,8 @@
+Dec    27, 2004 : Jeff Snyder
+	* Fix for bug 95640 (nothing displayed when kompare is embedded in Ark
+	  fixed by forcing the delivery of childEvents to komparesplitter at 
+	  the end of its constructor
+
 Dec    20, 2004 : Jeff Snyder
 	* Things that have happened since 3.3:
 	  (this list is not complete)

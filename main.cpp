@@ -27,8 +27,6 @@
 #include "kompare_shell.h"
 #include "kcomparedialog.h"
 
-#define kdDebug() kdDebug(8100)
-
 static const char description[] =
 	I18N_NOOP("A program to view the differences between files and optionally generate a diff." );
 
@@ -82,7 +80,7 @@ int main(int argc, char *argv[])
 			}
 			break;
 		case 1:  // 1 file -> it is a diff, use load()
-			kdDebug() << "Url is : " << args->arg(0) << endl;
+			kdDebug(8100) << "Url is : " << args->arg(0) << endl;
 			widget = new KompareShell();
 			widget->show();
 			widget->load( args->url( 0 ) );

@@ -747,7 +747,6 @@ void KompareModelList::slotApplyDifference( bool apply )
 
 void KompareModelList::slotApplyAllDifferences( bool apply )
 {
-	// FIXME: we need to use hunks here as well
 	m_selectedModel->applyAllDifferences( apply );
 	emit applyAllDifferences( apply );
 }

@@ -2,8 +2,8 @@
                                 diffprefs.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
@@ -31,6 +31,7 @@ class QWidget;
 
 class KLineEdit;
 class KComboBox;
+class KEditListBox;
 class KURLComboBox;
 class KURLRequester;
 
@@ -74,6 +75,8 @@ public:
 	QCheckBox*     m_caseCheckBox;
 	QCheckBox*     m_linesCheckBox;
 	QCheckBox*     m_whitespaceCheckBox;
+	QCheckBox*     m_allWhitespaceCheckBox;
+	QCheckBox*     m_ignoreTabExpansionCheckBox;
 
 	QCheckBox*     m_ignoreRegExpCheckBox;
 	KLineEdit*     m_ignoreRegExpEdit;
@@ -81,7 +84,7 @@ public:
 	QDialog*       m_ignoreRegExpDialog;
 
 	QCheckBox*     m_excludeFilePatternCheckBox;
-	KComboBox*     m_excludeFilePatternComboBox;
+	KEditListBox*  m_excludeFilePatternEditListBox;
 	
 	QCheckBox*     m_excludeFileCheckBox;
 	KURLComboBox*  m_excludeFileURLComboBox;

@@ -2,7 +2,7 @@
 				diffprefs.cpp  -  description
 				-------------------
 	begin			: Sun Mar 4 2001
-	copyright		: (C) 2001-2003 by Otto Bruggeman
+	copyright		: (C) 2001-2004 Otto Bruggeman
 	email			: otto.bruggeman@home.nl
 ****************************************************************************/
 
@@ -21,10 +21,13 @@
 #include <qlayout.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
+#include <qtooltip.h>
 #include <qvbuttongroup.h>
+#include <qwhatsthis.h>
 
 #include <kcombobox.h>
 #include <kdialog.h>
+#include <keditlistbox.h>
 #include <klineedit.h>
 #include <klocale.h>
 #include <ktrader.h>
@@ -67,6 +70,8 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 	m_caseCheckBox->setChecked              ( m_settings->m_ignoreChangesInCase );
 	m_linesCheckBox->setChecked             ( m_settings->m_ignoreEmptyLines );
 	m_whitespaceCheckBox->setChecked        ( m_settings->m_ignoreWhiteSpace );
+	m_allWhitespaceCheckBox->setChecked     ( m_settings->m_ignoreAllWhiteSpace );
+	m_ignoreTabExpansionCheckBox->setChecked( m_settings->m_ignoreChangesDueToTabExpansion );
 
 	m_ignoreRegExpCheckBox->setChecked   ( m_settings->m_ignoreRegExp );
 	m_ignoreRegExpEdit->setCompletedItems( m_settings->m_ignoreRegExpTextHistory );
@@ -76,10 +81,9 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 
 	m_modeButtonGroup->setButton( m_settings->m_format );
 
-	m_excludeFilePatternCheckBox->setChecked       ( m_settings->m_excludeFilePattern );
-	slotExcludeFilePatternToggled                  ( m_settings->m_excludeFilePattern );
-	m_excludeFilePatternComboBox->setCompletedItems( m_settings->m_excludeFilePatternHistoryList );
-	m_excludeFilePatternComboBox->setCurrentText   ( m_settings->m_excludeFilePatternText );
+	m_excludeFilePatternCheckBox->setChecked         ( m_settings->m_excludeFilePattern );
+	slotExcludeFilePatternToggled                    ( m_settings->m_excludeFilePattern );
+	m_excludeFilePatternEditListBox->insertStringList( m_settings->m_excludeFilePatternList );
 
 	m_excludeFileCheckBox->setChecked( m_settings->m_excludeFilesFile );
 	slotExcludeFileToggled           ( m_settings->m_excludeFilesFile );
@@ -110,6 +114,8 @@ void DiffPrefs::apply()
 	setts->m_ignoreChangesInCase            = m_caseCheckBox->isChecked();
 	setts->m_ignoreEmptyLines               = m_linesCheckBox->isChecked();
 	setts->m_ignoreWhiteSpace               = m_whitespaceCheckBox->isChecked();
+	setts->m_ignoreAllWhiteSpace            = m_allWhitespaceCheckBox->isChecked();
+	setts->m_ignoreChangesDueToTabExpansion = m_ignoreTabExpansionCheckBox->isChecked();
 
 	setts->m_ignoreRegExp                   = m_ignoreRegExpCheckBox->isChecked();
 	setts->m_ignoreRegExpText               = m_ignoreRegExpEdit->text();
@@ -119,22 +125,12 @@ void DiffPrefs::apply()
 
 	setts->m_format = static_cast<Kompare::Format>( m_modeButtonGroup->selectedId() );
 
-	setts->m_excludeFilePattern            = m_excludeFilePatternCheckBox->isChecked();
-	setts->m_excludeFilePatternText        = m_excludeFilePatternComboBox->currentText();
-	setts->m_excludeFilePatternHistoryList.clear();
-	QString entry;
-	for ( int i = 0; i < m_excludeFilePatternComboBox->count(); i++ )
-	{
-		entry = m_excludeFilePatternComboBox->text( i );
-		if ( !entry.isEmpty() )
-		{
-			setts->m_excludeFilePatternHistoryList.append( entry );
-		}
-	}
+	setts->m_excludeFilePattern             = m_excludeFilePatternCheckBox->isChecked();
+	setts->m_excludeFilePatternList         = m_excludeFilePatternEditListBox->items();
 
-	setts->m_excludeFilesFile            = m_excludeFileCheckBox->isChecked();
-	setts->m_excludeFilesFileURL         = m_excludeFileURLComboBox->currentText();
-	setts->m_excludeFilesFileHistoryList = m_excludeFileURLComboBox->urls();
+	setts->m_excludeFilesFile               = m_excludeFileCheckBox->isChecked();
+	setts->m_excludeFilesFileURL            = m_excludeFileURLComboBox->currentText();
+	setts->m_excludeFilesFileHistoryList    = m_excludeFileURLComboBox->urls();
 }
 
 void DiffPrefs::setDefaults()
@@ -146,6 +142,8 @@ void DiffPrefs::setDefaults()
 	m_caseCheckBox->setChecked( false );
 	m_linesCheckBox->setChecked( false );
 	m_whitespaceCheckBox->setChecked( false );
+	m_allWhitespaceCheckBox->setChecked( false );
+	m_ignoreTabExpansionCheckBox->setChecked( false );
 	m_ignoreRegExpCheckBox->setChecked( false );
 
 	m_ignoreRegExpEdit->setText( QString::null );
@@ -180,11 +178,11 @@ void DiffPrefs::slotExcludeFilePatternToggled( bool on )
 {
 	if ( !on )
 	{
-		m_excludeFilePatternComboBox->setEnabled( false );
+		m_excludeFilePatternEditListBox->setEnabled( false );
 	}
 	else
 	{
-		m_excludeFilePatternComboBox->setEnabled( true );
+		m_excludeFilePatternEditListBox->setEnabled( true );
 	}
 }
 
@@ -215,6 +213,7 @@ void DiffPrefs::addDiffTab()
 	m_diffProgramGroup->setMargin( KDialog::marginHint() );
 
 	m_diffURLRequester = new KURLRequester( m_diffProgramGroup, "diffURLRequester" );
+	QWhatsThis::add( m_diffURLRequester, i18n( "You can select a different diff program here. On Solaris the standard diff program does not know all the options but the GNU version of diff does. This way you can select that version." ) );
 
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
@@ -231,6 +230,7 @@ void DiffPrefs::addFormatTab()
 
 	// add diff modes
 	m_modeButtonGroup = new QVButtonGroup( i18n( "Output Format" ), page );
+	QWhatsThis::add( m_modeButtonGroup, i18n( "Select the format of the output generated by diff. Unified is the one that is used most frequently because it is very readable. The KDE developers like this format the best so use it for sending patches." ) );
 	layout->addWidget( m_modeButtonGroup );
 	m_modeButtonGroup->setMargin( KDialog::marginHint() );
 
@@ -250,6 +250,7 @@ void DiffPrefs::addFormatTab()
 
 	QLabel* label = new QLabel( i18n( "Number of context lines:" ), groupBox );
 	m_locSpinBox = new QSpinBox( 0, 100, 1, groupBox );
+	QWhatsThis::add( m_locSpinBox, i18n( "The number of context lines is normally 2 or 3. This make the diff readable and appliable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
 	label->setBuddy( m_locSpinBox );
 
 	layout->addStretch( 1 );
@@ -271,21 +272,27 @@ void DiffPrefs::addOptionsTab()
 	optionButtonGroup->setMargin( KDialog::marginHint() );
 
 	m_smallerCheckBox     = new QCheckBox( i18n( "&Look for smaller changes" ), optionButtonGroup );
+	QToolTip::add( m_smallerCheckBox, i18n( "This corresponds to the -d diff option." ) );
 	m_largerCheckBox      = new QCheckBox( i18n( "O&ptimize for large files" ), optionButtonGroup );
+	QToolTip::add( m_largerCheckBox, i18n( "This corresponds to the -H diff option." ) );
 	m_caseCheckBox        = new QCheckBox( i18n( "&Ignore changes in case" ), optionButtonGroup );
+	QToolTip::add( m_caseCheckBox, i18n( "This corresponds to the -i diff option." ) );
 
 	QHBoxLayout* groupLayout = new QHBoxLayout( layout, -1, "regexp_horizontal_layout" );
 	groupLayout->setMargin( KDialog::marginHint() );
 
 	m_ignoreRegExpCheckBox = new QCheckBox( i18n( "Ignore regexp:" ), page );
+	QToolTip::add( m_ignoreRegExpCheckBox, i18n( "This option corresponds to the -I diff option." ) );
 	groupLayout->addWidget( m_ignoreRegExpCheckBox );
 	m_ignoreRegExpEdit = new KLineEdit( QString::null, page, "regexplineedit" );
+	QToolTip::add( m_ignoreRegExpEdit, i18n( "Add the regular expression here that you want to use \nto ignore lines that match this regular expression." ) );
 	groupLayout->addWidget( m_ignoreRegExpEdit );
 
 	if ( !KTrader::self()->query("KRegExpEditor/KRegExpEditor").isEmpty() )
 	{
 		// Ok editor is available, use it
 		QButton* ignoreRegExpEditButton = new QPushButton( i18n( "&Edit..." ), page, "regexp_editor_button" );
+		QToolTip::add( ignoreRegExpEditButton, i18n( "Clicking this will open a regular expression dialog where \nyou can graphically create regular expressions." ) );
 		groupLayout->addWidget( ignoreRegExpEditButton );
 		connect( ignoreRegExpEditButton, SIGNAL( clicked() ), this, SLOT( slotShowRegExpEditor() ) );
 	}
@@ -294,9 +301,16 @@ void DiffPrefs::addOptionsTab()
 	layout->addWidget( moreOptionButtonGroup );
 	moreOptionButtonGroup->setMargin( KDialog::marginHint() );
 
-	m_tabsCheckBox        = new QCheckBox( i18n( "&Expand tabs to spaces in output" ), moreOptionButtonGroup );
+	m_tabsCheckBox        = new QCheckBox( i18n( "E&xpand tabs to spaces in output" ), moreOptionButtonGroup );
+	QToolTip::add( m_tabsCheckBox, i18n( "This option corresponds to the -t diff option." ) );
 	m_linesCheckBox       = new QCheckBox( i18n( "I&gnore added or removed empty lines" ), moreOptionButtonGroup );
+	QToolTip::add( m_linesCheckBox, i18n( "This option corresponds to the -B diff option." ) );
 	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes in the amount of whitespace" ), moreOptionButtonGroup );
+	QToolTip::add( m_whitespaceCheckBox, i18n( "This option corresponds to the -w diff option." ) );
+	m_allWhitespaceCheckBox = new QCheckBox( i18n( "Ign&ore all whitespace" ), moreOptionButtonGroup );
+	QToolTip::add( m_allWhitespaceCheckBox, i18n( "This option corresponds to the -b diff option." ) );
+	m_ignoreTabExpansionCheckBox = new QCheckBox( i18n( "Igno&re changes due to tab expansion" ), moreOptionButtonGroup );
+	QToolTip::add( m_ignoreTabExpansionCheckBox, i18n( "This option corresponds to the -E diff option." ) );
 
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
@@ -313,15 +327,21 @@ void DiffPrefs::addExcludeTab()
 
 	QHGroupBox* excludeFilePatternGroupBox = new QHGroupBox( i18n( "File pattern to exclude" ), page );
 	m_excludeFilePatternCheckBox = new QCheckBox( "", excludeFilePatternGroupBox );
-	m_excludeFilePatternComboBox = new KComboBox( true, excludeFilePatternGroupBox, "exclude_file_pattern_combobox" );
+	QToolTip::add( m_excludeFilePatternCheckBox, i18n( "If this is checked you enter a shell pattern in the lineedit on the right or select entries from the list." ) );
+	m_excludeFilePatternEditListBox = new KEditListBox( excludeFilePatternGroupBox, "exclude_file_pattern_editlistbox", false, KEditListBox::Add|KEditListBox::Remove );
+	QToolTip::add( m_excludeFilePatternEditListBox, i18n( "Here you can enter or remove a shell pattern or select one or more entries from the list." ) );
 	layout->addWidget( excludeFilePatternGroupBox );
+
 
 	connect( m_excludeFilePatternCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFilePatternToggled(bool)));
 
 	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( i18n( "File with filenames to exclude" ), page );
 	m_excludeFileCheckBox     = new QCheckBox( "", excludeFileNameGroupBox );
+	QToolTip::add( m_excludeFileCheckBox, i18n( "If this is checked you enter a filename in the combobox on the right." ) );
 	m_excludeFileURLComboBox  = new KURLComboBox( KURLComboBox::Files, true, excludeFileNameGroupBox, "exclude_file_urlcombo" );
+	QToolTip::add( m_excludeFileURLComboBox, i18n( "Here you can enter an url of a file with shell patterns to ignore during the comparision of the folders." ) );
 	m_excludeFileURLRequester = new KURLRequester( m_excludeFileURLComboBox, excludeFileNameGroupBox, "exclude_file_name_urlrequester" );
+	QToolTip::add( m_excludeFileURLRequester, i18n( "Any file you select in the dialog that pops up when you click it will be put in the dialog on the left of this button." ) );
 	layout->addWidget( excludeFileNameGroupBox );
 
 	connect( m_excludeFileCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFileToggled(bool)));

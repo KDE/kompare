@@ -2,8 +2,8 @@
                                 comparedialog.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
@@ -17,15 +17,17 @@
 **
 ***************************************************************************/
 
-#include <kurlrequester.h>
-#include <kurlcombobox.h>
-#include <klocale.h>
+#include <qgroupbox.h>
+#include <qlabel.h>
+#include <qlayout.h>
+
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kdebug.h>
-
-#include <qlayout.h>
-#include <qgroupbox.h>
+#include <kcharsets.h>
+#include <klocale.h>
+#include <kurlcombobox.h>
+#include <kurlrequester.h>
 
 #include "kompareurldialog.h"
 
@@ -86,6 +88,8 @@ KompareURLDialog::KompareURLDialog( const KURL* firstURL, const KURL* secondURL,
 	connect( m_secondURLRequester, SIGNAL( textChanged( const QString& ) ),
 	         this, SLOT( slotEnableOk() ) );
 
+	enableButtonSeparator( true );
+
 	slotEnableOk();
 }
 
@@ -121,7 +125,7 @@ void KompareURLDialog::slotEnableOk()
 
 KURL KompareURLDialog::getFirstURL() const
 {
-	if( result() == QDialog::Accepted )
+	if ( result() == QDialog::Accepted )
 		return KURL( m_firstURLRequester->url() );
 	else
 		return KURL();
@@ -129,7 +133,7 @@ KURL KompareURLDialog::getFirstURL() const
 
 KURL KompareURLDialog::getSecondURL() const
 {
-	if( result() == QDialog::Accepted )
+	if ( result() == QDialog::Accepted )
 		return KURL( m_secondURLRequester->url() );
 	else
 		return KURL();

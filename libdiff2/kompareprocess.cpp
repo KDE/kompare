@@ -18,6 +18,7 @@
 ***************************************************************************/
 
 #include <qdir.h>
+#include <qstringlist.h>
 
 #include <kdebug.h>
 
@@ -123,9 +124,19 @@ void KompareProcess::writeCommandLine()
 		*this << "-b";
 	}
 
+	if ( m_diffSettings->m_ignoreAllWhiteSpace )
+	{
+		*this << "-w";
+	}
+
 	if ( m_diffSettings->m_ignoreEmptyLines )
 	{
 		*this << "-B";
+	}
+
+	if ( m_diffSettings->m_ignoreChangesDueToTabExpansion )
+	{
+		*this << "-E";
 	}
 
 	if ( m_diffSettings->m_createSmallerDiff )
@@ -153,11 +164,6 @@ void KompareProcess::writeCommandLine()
 		*this << "-t";
 	}
 
-	if ( m_diffSettings->m_ignoreWhitespaceComparingLines )
-	{
-		*this << "-w";
-	}
-
 	if ( m_diffSettings->m_recursive )
 	{
 		*this << "-r";
@@ -174,9 +180,14 @@ void KompareProcess::writeCommandLine()
 //		*this << "-a";
 //	}
 
-	if ( m_diffSettings->m_excludeFilePattern && !m_diffSettings->m_excludeFilePatternText.isEmpty() )
+	if ( m_diffSettings->m_excludeFilePattern )
 	{
-		*this << "-x" << KProcess::quote( m_diffSettings->m_excludeFilePatternText );
+		QStringList::ConstIterator it = m_diffSettings->m_excludeFilePatternList.begin();
+		QStringList::ConstIterator end = m_diffSettings->m_excludeFilePatternList.end();
+		for ( ; it != end; ++it )
+		{
+			*this << "-x" << KProcess::quote( *it );
+		}
 	}
 
 	if ( m_diffSettings->m_excludeFilesFile && !m_diffSettings->m_excludeFilesFileURL.isEmpty() )

@@ -77,6 +77,10 @@ void KompareURLDialog::slotOk()
 
 	KConfig* cfg = kapp->config();
 
+	m_filesPage->apply();
+	m_diffPage->apply();
+	m_viewPage->apply();
+
 	m_filesSettings->saveSettings( cfg );
 	m_diffSettings->saveSettings( cfg );
 	m_viewSettings->saveSettings( cfg );

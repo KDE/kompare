@@ -1,4 +1,5 @@
 Nov    17, 2003 : Otto Bruggeman
+	* Fix for empty -x and -X arguments.
 	* Fix bugs 58858 and 58531 by using Kompare::Custom instead of Kompare::Default
 	* Fix last selected url in the kurlcomboboxes
 	* Fix for inline differences when there is only 1 char left that still needs to be drawn

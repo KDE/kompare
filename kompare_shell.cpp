@@ -218,9 +218,9 @@ void KompareShell::updateStatusBar( const DiffModel* model, const Difference* di
 	int modelCount = m_viewPart->modelCount();
 	if (modelIndex >= 0) {
 		fileStr = i18n( " %1 of %n file ", " %1 of %n files ", modelCount ).arg(modelIndex+1);
-		int diffIndex = m_part->selectedDifferenceIndex();
-		int diffCount = m_part->selectedModel()->differenceCount();
-		int appliedCount = m_part->appliedCount();
+		int diffIndex = m_viewPart->selectedDifferenceIndex();
+		int diffCount = m_viewPart->differenceCount();
+		int appliedCount = m_viewPart->appliedCount();
 		if (diffIndex >= 0)
 			diffStr = i18n(" %1 of %n difference, %2 applied ", " %1 of %n differences, %2 applied ", diffCount )
 			          .arg(diffIndex+1).arg(appliedCount);

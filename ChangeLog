@@ -1,10 +1,13 @@
+june   22, 2001 : Otto Bruggeman
+	Tried implementing rcs and ed but they dont work atm, same for show
+	diffstats, will fix that asap.
 may    22, 2001 : John Firebaugh
 	Reworking of most of the view code. Looks pretty.
 may    18, 2001 : Otto Bruggeman
-	Context ssems to work, implemented saving... might have some problems
+	Context seems to work, implemented saving... might have some problems
 	left (saving that is)
 may    15, 2001 : John Firebaugh
-	Make the settings work for all windows. Proably some more changes :)
+	Make the settings work for all windows. Probably some more changes :)
 may    14, 2001 : Otto Bruggeman
 	context diff does not work atm, there is some problem with the separa-
 	tion of old and new. Maybe the old and new needs to be reintegrated.

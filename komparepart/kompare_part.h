@@ -33,6 +33,7 @@ class KURL;
 class KDiffView;
 class KDifferencesAction;
 class KDiffProcess;
+class KDiffStatsDlg;
 
 class GeneralSettings;
 class DiffSettings;
@@ -104,6 +105,7 @@ protected slots:
 	void slotPreviousDifference();
 	void slotNextDifference();
 	void optionsPreferences();
+	void slotShowDiffstats();
 
 private:
 	void setupActions();
@@ -117,6 +119,7 @@ private:
 
 	DiffModel::DiffFormat  m_format;
 	KDiffView*             m_diffView;
+	KAction*               m_diffStats;
 	KAction*               m_saveDiff;
 	KAction*               m_previousDifference;
 	KAction*               m_nextDifference;

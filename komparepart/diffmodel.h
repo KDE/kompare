@@ -66,6 +66,8 @@ private:
 
 	QList<DiffHunk>   hunks;
 	QList<Difference> differences;
+
+	int m_noOfHunks;
 };
 
 #endif

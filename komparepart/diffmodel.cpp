@@ -53,7 +53,16 @@ int DiffModel::parseDiff( const QStringList& list )
 		format = Unified;
 	else if( line.find( QRegExp( "^\\*\\*\\* " ), 0 ) == 0 )
 		format = Context;
-	else format = Unknown;
+	else if( line.find( QRegExp( "^[acd][0-9]+ [0-9]+" ), 0 ) == 0 )
+		format = RCS;
+	else if( line.find( QRegExp( "^[0-9]+[0-9,]*[acd]" ), 0 ) == 0 )
+		format = Ed;
+	else
+	{
+		format = Unknown;
+		kdDebug() << "Unknown format found, aborting..." << endl;
+		return 1; // Error i guess...
+	}
 
 	return parseDiff( list, format );
 };
@@ -134,6 +143,7 @@ int DiffModel::parseContextDiff( const QStringList& list )
 		if ( ( pos = QRegExp( "^\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*" ).match( line, 0, &len ) ) < 0 ) return 1; // weirdness has happened
 		// ok we found a hunk...
 		kdDebug() << "We found the start of a hunk" << endl;
+		m_noOfHunks++;
 
 		++it;
 
@@ -357,12 +367,81 @@ int DiffModel::parseContextDiff( const QStringList& list )
 };
 
 /**  */
-int DiffModel::parseEdDiff( const QStringList& /*list*/ )
+int DiffModel::parseEdDiff( const QStringList& list )
 {
 	kdDebug() << "Ed diff parsing:" << endl;
 
-	KMessageBox::information( 0, i18n( "Sorry not yet implemented" ) );
-	return 1;
+	QString line;
+
+	QStringList::ConstIterator it = list.begin();
+
+	if ( it == list.end() )
+		return 0; // Nothing to parse, should not happen though
+
+	while ( it != list.end() )
+	{
+		line = (*it);
+		kdDebug() << "Line is:" << line << endl;
+		if ( line.find( QRegExp( "^[0-9]+[acd]" ), 0 ) == 0 )
+		{
+			kdDebug() << "Found a added/removed/changed part" << endl;
+			// Only startline with operator, nothing else
+			// Number of lines is the same as number of lines changed
+			while( line.find( QRegExp( "^." ), 0 ) != 0 )
+			{
+				kdDebug() << "A/C/D: Line is: " << line << endl;
+				++it;
+				line = (*it);
+			}
+		}
+		else if ( line.find( QRegExp( "^[0-9]+,[0-9]a" ), 0 ) == 0 )
+		{
+			kdDebug() << "Found a added line with number of lines to add." << endl;
+			// Hmmm... i wonder if this ever occurs...
+			while( line.find( QRegExp( "^." ), 0 ) != 0 )
+			{
+				kdDebug() << "Added: Line is: " << line << endl;
+				// Add lines until we reach a line that starts with a '.'
+				++it;
+				line = (*it);
+			}
+		}
+		else if ( line.find( QRegExp( "^[0-9]+,[0-9]c" ), 0 ) == 0 )
+		{
+			kdDebug() << "Found a changed line with number of lines changed." << endl;
+			// Startline, endline, operator change
+			// Number of lines in the change has changed
+			// so could be added or deleted in disguise (sp?)
+			while( line.find( QRegExp( "^." ), 0 ) != 0 )
+			{
+				kdDebug() << "Change: Line is: " << line << endl;
+				++it;
+				line = (*it);
+			}
+		}
+		else if ( line.find( QRegExp( "^[0-9]+,[0-9]d" ), 0 ) == 0 )
+		{
+			kdDebug() << "Found a delete line with number of lines to delete." << endl;
+			// Startline, endline, operator delete
+			while( line.find( QRegExp( "^." ), 0 ) != 0 )
+			{
+				kdDebug() << "Delete: Line is: " << line << endl;
+				++it;
+				line = (*it);
+			}
+		}
+		else
+		{
+			kdDebug() << "Oops something is screwed here..." << endl;
+			kdDebug() << line << endl;
+			return 1;
+		}
+		++it;
+	}
+
+//	KMessageBox::information( 0, i18n( "Sorry not yet implemented" ) );
+//	return 1;
+	return 0;
 };
 
 /**  */
@@ -396,6 +475,7 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 		kdDebug() << line << endl;
 
 		if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
+		m_noOfHunks++;
 		linenoA = line.mid( pos, len ).toInt();
 		kdDebug() << "LinenoA: " << linenoA << endl;
 		line.replace( QRegExp( "^[0-9]+" ), "" );
@@ -497,12 +577,109 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 };
 
 /**  */
-int DiffModel::parseRCSDiff( const QStringList& /*list*/ )
+int DiffModel::parseRCSDiff( const QStringList& list )
 {
 	kdDebug() << "RCS  diff parsing:" << endl;
 
-	KMessageBox::information( 0, i18n( "Sorry not yet implemented" ) );
-	return 1;
+	/* A rcs diff has one or 2 lines describing the changes */
+	/* Unfortunately there is no char that indicates the textlines */
+	/* from the difftype + linenos lines */
+	/* Another problem is the fact that the deleted lines are not itself */
+	/* in the difffile/diffoutput */
+	/* But i guess that was not needed for rcs, since the RCS- */
+	/* server/program knows the original */
+	/* Anyway a line looks like this: */
+	/* aLINENUMBER NUMBEROFLINES -> added NUMBEROFLINES lines in newfile at LINENUMBER, the added lines will follow this statement*/
+	/* dLINENUMBER NUMBEROFLINES -> deleted in NUMBEROFLINES in oldfile at LINENUMBER */
+
+	QString line;
+	QStringList::ConstIterator it = list.begin();
+	int linenoA, linenoB, nolinesA, nolinesB;
+
+	if ( it == list.end() )
+		return 0; // No lines to parse
+
+	kdDebug() << "There are lines..." << endl;
+
+	DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
+	hunks.append( hunk );
+
+	while( it != list.end() )
+	{
+		line = (*it);
+		kdDebug() << "Line is: " << line << endl;
+
+		if ( line.find( QRegExp( "^a[0-9]+ [0-9]+" ), 0 ) == 0 ) 
+		{
+			kdDebug() << "Added line found." << endl;
+			int len, pos;
+			line.replace( 0, 1, "" ); // Strip the 'a'
+			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
+			linenoB = line.mid(pos, len).toInt();
+			line.replace( pos, len+1, "" ); // Also strip the extra ' '
+			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
+			nolinesB = line.mid(pos, len).toInt();
+
+			DiffHunk* hunk = new DiffHunk( 0, linenoB );
+			hunks.append( hunk );
+
+			Difference* diff = new Difference( 0, linenoB ); // A is unknown
+			diff->type = Difference::Insert;
+
+			++it;
+			line = (*it);
+
+			while ( ( it != list.end() ) && ( line.find( QRegExp( "^[ad][0-9]+ [0-9]+" ), 0 ) != 0 ) )
+			{
+				// Add it to the difference
+				kdDebug() << "AddDestinationLine( " << line << " )" << endl;
+				diff->addDestinationLine( line );
+
+				++it;
+				line = (*it);
+			}
+			--it; // We went too far, correcting it here...
+			hunk->add( diff );
+		}
+		else if ( line.find( QRegExp( "^d[0-9]+ [0-9]+" ), 0 ) == 0 )
+		{
+			kdDebug() << "Delete line found." << endl;
+			// We dont have the actual deleted lines in the diffoutput/difffile
+			// This will be a big problem in the viewerclass...
+			int len, pos;
+			line.replace( 0, 1, "" ); // Strip the 'd'
+			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
+			linenoA = line.mid(pos, len).toInt();
+			line.replace( pos, len+1, "" ); // Also strip the extra ' '
+			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
+			nolinesA = line.mid(pos, len).toInt();
+
+// Next lines are commented out because in delete the lines are not here
+// so there is nothing to add but an empty diff and an empty hunk so for
+// now this is omitted. Maybe we could ask the user for the original file
+// so we can indicate the deleted lines.
+
+//			DiffHunk* hunk = new DiffHunk( 0, linenoB );
+//			hunks.append( hunk );
+
+//			Difference diff = new Difference( linenoA, 0 );
+//			diff->type = Difference::Delete;
+
+			// We should now add the source lines, unfortunately there are none...
+
+//			hunk->add( diff );
+		}
+		else
+		{
+			kdDebug() << "Oops, something is wrong here..." << endl;
+			return 1; // faulty output or something went wrong during parsing
+		}
+		++it;
+	}
+
+//	KMessageBox::information( 0, i18n( "Sorry not yet implemented" ) );
+//	return 1;
+	return 0;
 };
 
 /**  */
@@ -545,6 +722,7 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 		line = (*it);
 
 		if ( line.find( QRegExp( "^@@ -" ), 0 ) < 0 ) return 1;
+		m_noOfHunks++;
 
 		// strip off the begin of the hunk header
 		line.replace( QRegExp( "^@@ -" ), "" );

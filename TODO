@@ -1,9 +1,10 @@
 In descending order of importance:
-* add support to save a diff
-* implement context, ed and rcs format
+* implement blending the original file in (this helps in implementing the rcs and ed)
+* implement ed and rcs format
 * add support to load a diff and apply it and save the modified file
-* implement multiple file support
+* implement diff with multiple files support
 * add support for incremental patch saving (i'll explain if anyone wants to know)
-* cvs support
-* add icons for most menu options
-* perhaps a wizard for newbie/non-coders
+* cvs support (is this necessary ? cervisia can do this as well)
+* add icons for most menu options (almost done, using standard icons now for most)
+* perhaps a wizard for newbie/non-coders (not really necessary)
+* Add support for diff3 (that is comparing 3 files at once)

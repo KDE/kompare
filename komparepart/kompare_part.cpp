@@ -38,6 +38,7 @@
 #include "generalsettings.h"
 #include "diffsettings.h"
 #include "miscsettings.h"
+#include "kdiffstatsdlg.h"
 
 GeneralSettings* KDiffPart::m_generalSettings = 0L;
 DiffSettings*    KDiffPart::m_diffSettings = 0L;
@@ -103,6 +104,9 @@ void KDiffPart::setupActions()
 
 	m_saveDiff = KStdAction::save( this, SLOT(save()), actionCollection() );
 	m_saveDiff->setText( i18n("&Save .diff") );
+	m_diffStats = new KAction( i18n( "Show diff stats" ), "", 0,
+	              this, SLOT(slotShowDiffstats()),
+	              actionCollection(), "file_diffstats" );
 	m_previousDifference = new KAction( i18n("&Previous Difference"), "previous", Qt::CTRL + Qt::Key_Up,
 	              this, SLOT(slotPreviousDifference()),
 	              actionCollection(), "difference_previous" );
@@ -254,6 +258,30 @@ void KDiffPart::slotDiffProcessFinished( bool success )
 	m_diffProcess = 0;
 }
 
+void KDiffPart::slotShowDiffstats( void )
+{
+	// Fetch all the args needed for kdiffstatsdlg
+	// oldfile, newfile, diffformat, noofhunks, noofdiffs
+
+	QString oldFile;
+	QString newFile;
+	QString diffFormat;
+	int noOfHunks;
+	int noOfDiffs;
+
+	oldFile = "";
+	newFile = "";
+	diffFormat = "";
+	noOfHunks = 0;
+	noOfDiffs = 0;
+
+	KDiffStatsDlg* diffStatsDlg = new KDiffStatsDlg( oldFile, newFile, diffFormat, noOfHunks, noOfDiffs );
+
+	diffStatsDlg->exec();
+
+	delete diffStatsDlg;
+}
+
 bool KDiffPart::openFile()
 {
 	// m_file is always local so we can use QFile on it
@@ -285,7 +313,6 @@ bool KDiffPart::openFile()
 
 bool KDiffPart::saveFile()
 {
-kdDebug() << "What the fuck ?" << endl;
 	// if we aren't read-write, return immediately
 	if (isReadWrite() == false)
 		return false;

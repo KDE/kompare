@@ -72,8 +72,8 @@ QString DiffHunk::recreateHunk() const
 	QString differences;
 
 	// recreate body
-	QValueListConstIterator<Difference*> diffIt = m_differences.begin();
-	QValueListConstIterator<Difference*> dEnd   = m_differences.end();
+	DifferenceListConstIterator diffIt = m_differences.begin();
+	DifferenceListConstIterator dEnd   = m_differences.end();
 
 	int slc = 0; // source line count
 	int dlc = 0; // destination line count

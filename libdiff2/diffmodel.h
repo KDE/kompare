@@ -21,9 +21,9 @@
 #define DIFFMODEL_H
 
 #include <qobject.h>
-#include <qptrlist.h>
 #include <qstringlist.h>
 
+#include "diffhunk.h"
 #include "kompare.h"
 
 namespace Diff2

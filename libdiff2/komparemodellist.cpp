@@ -303,14 +303,14 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	QTextStream* stream = temp->textStream();
 	QStringList list;
 
-	QValueListConstIterator<DiffHunk*> hunkIt = model->hunks().begin();
-	QValueListConstIterator<DiffHunk*> hEnd   = model->hunks().end();
+	DiffHunkListConstIterator hunkIt = model->hunks().begin();
+	DiffHunkListConstIterator hEnd   = model->hunks().end();
 	for( ; hunkIt != hEnd; ++hunkIt )
 	{
 		DiffHunk* hunk = *hunkIt;
 
-		QValueListConstIterator<Difference*> diffIt = hunk->differences().begin();
-		QValueListConstIterator<Difference*> dEnd    = hunk->differences().end();
+		DifferenceListConstIterator diffIt = hunk->differences().begin();
+		DifferenceListConstIterator dEnd   = hunk->differences().end();
 
 		Difference* diff;
 		for( ; diffIt != dEnd; ++diffIt )
@@ -948,14 +948,14 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 	QStringList::ConstIterator linesIt  = lines.begin();
 	QStringList::ConstIterator lEnd     = lines.end();
 
-	QValueList<Difference*> diffList = model->allDifferences();
+	DifferenceList diffList = model->allDifferences();
 	kdDebug() << "Number of differences in diffList = " << diffList.count() << endl;
 	Difference* diff;
 
-	QValueListIterator<Difference*> diffIt = diffList.begin();
-	QValueListIterator<Difference*> dEnd   = diffList.end();
+	DifferenceListIterator diffIt = diffList.begin();
+	DifferenceListIterator dEnd   = diffList.end();
 
-	QValueListIterator<Difference*> tempIt;
+	DifferenceListIterator tempIt;
 
 	for ( ; diffIt != dEnd ; ++diffIt )
 	{

@@ -179,8 +179,8 @@ void KompareNavTreePart::buildTreeInMemory()
 	QString destPath;
 
 	// Create the tree from the models
-	QValueListConstIterator<Diff2::DiffModel*> modelIt = m_modelList->begin();
-	QValueListConstIterator<Diff2::DiffModel*> mEnd    = m_modelList->end();
+	Diff2::DiffModelListConstIterator modelIt = m_modelList->begin();
+	Diff2::DiffModelListConstIterator mEnd    = m_modelList->end();
 
 	for ( ; modelIt != mEnd; ++modelIt )
 	{
@@ -497,8 +497,8 @@ void KFileLVI::fillChangesList( KListView* changesList, QPtrDict<KChangeLVI>* di
 {
 	changesList->clear();
 
-	QValueListConstIterator<Diff2::Difference*> diffIt = m_model->differences().begin();
-	QValueListConstIterator<Diff2::Difference*> dEnd   = m_model->differences().end();
+	Diff2::DifferenceListConstIterator diffIt = m_model->differences().begin();
+	Diff2::DifferenceListConstIterator dEnd   = m_model->differences().end();
 
 	for ( ; diffIt != dEnd; ++diffIt )
 	{

@@ -1,3 +1,8 @@
+Nov    02, 2003 : Otto Bruggeman
+	* Fixed some more scrolling problems
+	  lastItem->scrollId(), add lastItem->maxHeight() and substract the minScrollId()
+	  That is the maxScrollId i need in the QScrollBar, took me long enough...
+
 Oct    05, 2003 : Otto Bruggeman
 	* Fixed the scrolling problems, a stupid regression i introduced, i cant simplify mathematic expressions apparently
 	* Added an implementation for double clicking a difference in the view, but it is not properly connected yet

@@ -44,11 +44,11 @@ int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "kompare", I18N_NOOP("Kompare"), version, description,
 	                      KAboutData::License_GPL,
-	                      "(c) 2001-2002, John Firebaugh and Otto Bruggeman", 0, 0, "jfirebaugh@kde.org");
-	aboutData.addAuthor( "John Firebaugh", "Author", "jfirebaugh@kde.org" );
-	aboutData.addAuthor( "Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
-	aboutData.addCredit( "Malte Starostik", "Big help :)", "malte@kde.org" );
-	aboutData.addCredit( "Bernd Gehrmann", "Cervisia diff viewer", "bernd@physik.hu-berlin.de" );
+	                      I18N_NOOP("(c) 2001-2002, John Firebaugh and Otto Bruggeman"), 0, 0, "jfirebaugh@kde.org");
+	aboutData.addAuthor( "John Firebaugh", I18N_NOOP("Author"), "jfirebaugh@kde.org" );
+	aboutData.addAuthor( "Otto Bruggeman", I18N_NOOP("Author"), "otto.bruggeman@home.nl" );
+	aboutData.addCredit( "Malte Starostik", I18N_NOOP("Big help :)"), "malte@kde.org" );
+	aboutData.addCredit( "Bernd Gehrmann", I18N_NOOP("Cervisia diff viewer"), "bernd@physik.hu-berlin.de" );
 	KCmdLineArgs::init(argc, argv, &aboutData);
 	KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
 	KApplication app;

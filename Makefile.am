@@ -3,7 +3,7 @@ SUBDIRS = pics
 INCLUDES= $(all_includes)
 
 noinst_HEADERS =  kdiff_shell.h kdiff_part.h kdiff_actions.h \
-	kdiffview.h diffview.h misc.h kdiffapp.h prefsbase.h \
+	kdiffview.h diffview.h misc.h prefsbase.h \
 	kdiffprocess.h diffprefs.h diffsettings.h generalprefs.h \
 	generalsettings.h kdiffprefdlg.h miscprefs.h miscsettings.h \
 	settingsbase.h diffmodel.h difference.h diffhunk.h \
@@ -26,7 +26,7 @@ KDE_ICON = AUTO
 bin_PROGRAMS = kdiff
 
 # the application source, library search path, and link libraries
-kdiff_SOURCES = main.cpp kdiffapp.cpp kdiff_shell.cpp kcomparedialog.cpp
+kdiff_SOURCES = main.cpp kdiff_shell.cpp kcomparedialog.cpp
 kdiff_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 kdiff_LDADD   = $(LIB_KPARTS) libkdiffpart.la
 

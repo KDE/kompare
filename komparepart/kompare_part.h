@@ -23,31 +23,26 @@
 #include <kparts/factory.h>
 #include <kparts/part.h>
 
-#include "diffmodel.h"
 #include "kompare.h"
-#include "komparemodellist.h"
 
 #include "kompareinterface.h"
 
 class QWidget;
 
+class KTempFile;
 class KToggleAction;
 class KURL;
 
 namespace Diff2 {
 class Difference;
+class DiffModel;
 class KompareModelList;
 }
 class DiffSettings;
 class ViewSettings;
 class KFileTreeView;
 class KompareView;
-class KompareNavigationTree;
-class DifferencesAction;
 class KompareProcess;
-class KompareStatsDlg;
-class KompareActions;
-class MiscSettings;
 
 /**
  * This is a "Part".  It does all the real work in a KPart
@@ -212,28 +207,19 @@ private:
 	// same settings after one of them changes them
 	static ViewSettings* m_viewSettings;
 	static DiffSettings* m_diffSettings;
-	static MiscSettings* m_miscSettings;
 
 	Diff2::KompareModelList* m_modelList;
 
 	KompareView*             m_diffView;
-
-//	KompareNavigationTree*   m_navigationTree;
 
 	KAction*                 m_save;
 	KAction*                 m_saveAll;
 	KAction*                 m_saveDiff;
 	KAction*                 m_swap;
 	KAction*                 m_diffStats;
-	KompareActions*          m_kompareActions;
 
 	KTempFile*               m_tempDiff;
 
-/*	KURL                     m_sourceURL;
-	KURL                     m_destinationURL;
-	QString                  m_localSource;
-	QString                  m_localDestination;
-*/
 	struct Kompare::Info     m_info;
 };
 

@@ -34,11 +34,11 @@
 #include <kio/netaccess.h>
 
 #include "diffmodel.h"
-#include "diffsettings.h"
-#include "viewsettings.h"
 #include "kompare_part.h"
 #include "komparelistview.h"
 #include "kompareconnectwidget.h"
+#include "diffsettings.h"
+#include "viewsettings.h"
 #include "kompareprefdlg.h"
 #include "komparesaveoptionswidget.h"
 #include "kompareview.h"
@@ -474,7 +474,8 @@ void KomparePart::saveDiff()
 	                                             m_info.localDestination,
 	                                             m_diffSettings, dlg );
 	dlg->setMainWidget( w );
-	dlg->setButtonOKText( i18n("Save") );
+	KGuiItem saveGuiItem( i18n("Save") );
+	dlg->setButtonOK( saveGuiItem );
 
 	if( dlg->exec() ) {
 		w->saveOptions();

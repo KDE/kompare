@@ -270,7 +270,7 @@ const QString KomparePart::fetchURL( const KURL& url )
 		if ( ! KIO::NetAccess::download( url, tempFileName, widget() ) )
 		{
 			// FIXME: %1 should be bold
-			slotShowError( i18n( "The url <b>%1</b> can not be downloaded." ).arg( url.prettyURL() ) );
+			slotShowError( i18n( "The URL <b>%1</b> cannot be downloaded." ).arg( url.prettyURL() ) );
 			tempFileName = "";
 			return tempFileName;
 		}
@@ -287,7 +287,7 @@ const QString KomparePart::fetchURL( const KURL& url )
 		else
 		{
 			// FIXME: %1 should be bold
-			slotShowError( i18n( "The url <b>%1</b> does not exist on your system." ).arg( url.prettyURL() ) );
+			slotShowError( i18n( "The URL <b>%1</b> does not exist on your system." ).arg( url.prettyURL() ) );
 			return tempFileName;
 		}
 	}
@@ -492,7 +492,7 @@ void KomparePart::saveDiff()
 			              i18n("*.diff *.dif *.patch|Patch files"), widget(), i18n( "Save .diff" ) );
 			if ( KIO::NetAccess::exists( url, false, widget() ) )
 			{
-				int result = KMessageBox::warningYesNoCancel( widget(), i18n("The file exists or is write protected, do you want to overwrite it ?"), i18n("File Exists") );
+				int result = KMessageBox::warningYesNoCancel( widget(), i18n("The file exists or is write-protected; do you want to overwrite it?"), i18n("File Exists") );
 				if ( result == KMessageBox::Cancel )
 				{
 					break;

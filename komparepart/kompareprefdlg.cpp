@@ -23,6 +23,9 @@
 #include <kiconloader.h>
 #include <klocale.h>
 
+#include "diffprefs.h"
+#include "viewprefs.h"
+
 #include "kompareprefdlg.h"
 
 // implementation

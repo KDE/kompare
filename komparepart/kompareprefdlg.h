@@ -22,8 +22,10 @@
 
 #include <kdialogbase.h>
 
-#include "diffprefs.h"
-#include "viewprefs.h"
+class DiffPrefs;
+class DiffSettings;
+class ViewPrefs;
+class ViewSettings;
 
 class KomparePrefDlg : public KDialogBase
 {
@@ -33,8 +35,8 @@ public:
 	~KomparePrefDlg();
 
 public:
-	ViewPrefs*	m_viewPage;
-	DiffPrefs*	m_diffPage;
+	ViewPrefs* m_viewPage;
+	DiffPrefs* m_diffPage;
 
 protected slots:
 	/** No descriptions */

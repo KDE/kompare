@@ -181,6 +181,18 @@ void KompareProcess::writeCommandLine()
 	{
 		*this << "-a";
 	}
+#if EXCLUDE_DIFF_OPTION
+
+	if ( m_diffSettings->m_excludeFilePattern )
+	{
+		*this << "-x" << KProcess::quote( m_diffSettings->m_excludeFilePatternText );
+	}
+
+	if ( m_diffSettings->m_excludeFilesFile )
+	{
+		*this << "-X" << KProcess::quote( m_diffSettings->m_excludeFilesFileURL );
+	}
+#endif
 }
 
 KompareProcess::~KompareProcess()

@@ -41,20 +41,28 @@ public:
 	QString m_diffProgram;
 	int m_linesOfContext;
 	Kompare::Format m_format;
-	bool m_largeFiles;                         // -H
-	bool m_ignoreWhiteSpace;                   // -b
-	bool m_ignoreEmptyLines;                   // -B
-	bool m_createSmallerDiff;                  // -d
-	bool m_ignoreChangesInCase;                // -i
-	bool m_showCFunctionChange;                // -p
-	bool m_convertTabsToSpaces;                // -t
-	bool m_ignoreWhitespaceComparingLines;     // -w
-	bool m_ignoreRegExp;                       // -I
-	QString m_ignoreRegExpText;                // the RE for -I
+	bool m_largeFiles;                           // -H
+	bool m_ignoreWhiteSpace;                     // -b
+	bool m_ignoreEmptyLines;                     // -B
+	bool m_createSmallerDiff;                    // -d
+	bool m_ignoreChangesInCase;                  // -i
+	bool m_showCFunctionChange;                  // -p
+	bool m_convertTabsToSpaces;                  // -t
+	bool m_ignoreWhitespaceComparingLines;       // -w
+	bool m_ignoreRegExp;                         // -I
+	QString m_ignoreRegExpText;                  // the RE for -I
 	QStringList m_ignoreRegExpTextHistory;
-	bool m_recursive;                          // -r
-	bool m_newFiles;                           // -N
-	bool m_allText;                            // -a
+	bool m_recursive;                            // -r
+	bool m_newFiles;                             // -N
+	bool m_allText;                              // -a
+#if EXCLUDE_DIFF_OPTION
+	bool m_excludeFilePattern;                   // -x
+	QString m_excludeFilePatternText;            // The pattern to -x
+	QStringList m_excludeFilePatternHistoryList; // The history list of patterns
+	bool m_excludeFilesFile;                     // -X
+	QString m_excludeFilesFileURL;               // The filename to -X
+	QStringList m_excludeFilesFileHistoryList;   // The history list of filenames
+#endif
 };
 
 #endif

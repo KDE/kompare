@@ -274,9 +274,31 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 		{
 			QStringList list;
 			if( !diff->applied() )
+#if INLINE_DIFFERENCES
+			{
+				DifferenceStringConstIterator it = diff->destinationLines().begin();
+				DifferenceStringConstIterator end = diff->destinationLines().end();
+				for ( ; it != end; ++it )
+				{
+					list.append( ( *it ).string() );
+				}
+			}
+#else
 				list = diff->destinationLines();
+#endif
 			else
+#if INLINE_DIFFERENCES
+			{
+				QValueListConstIterator<DifferenceString> it = diff->sourceLines().begin();
+				QValueListConstIterator<DifferenceString> end = diff->sourceLines().end();
+				for ( ; it != end; ++it )
+				{
+					list.append( ( *it ).string() );
+				}
+			}
+#else
 				list = diff->sourceLines();
+#endif
 
 			if( list.count() > 0 )
 				*stream << list.join( "\n" ) << "\n";
@@ -626,7 +648,7 @@ void KompareModelList::slotPreviousDifference()
 		return;
 	}
 
-	kdDebug(8101) << "Fuck no previous difference... ok lets find the next model..." << endl;
+	kdDebug(8101) << "Fuck no previous difference... ok lets find the previous model..." << endl;
 
 	if ( ( m_selectedModel = prevModel() ) != 0 )
 	{
@@ -831,8 +853,13 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			{
 				kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
 				kdDebug(8101) << "Contxt: Fileline:     " << *it << endl;
+#if INLINE_DIFFERENCES
+				kdDebug(8101) << "Contxt: ContextLine : " << diff->sourceLineAt( i )->string() << endl;
+				if ( it != lines.end() && *it == diff->sourceLineAt( i )->string() )
+#else
 				kdDebug(8101) << "Contxt: ContextLine : " << diff->sourceLineAt( i ) << endl;
 				if ( it != lines.end() && *it == diff->sourceLineAt( i ) )
+#endif
 				{
 					// Context matches, so we are on the right track
 					newDiff->addSourceLine( *it );
@@ -851,8 +878,13 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
 				kdDebug(8101) << "Change: Fileline   : " << *it << endl;
+#if INLINE_DIFFERENCES
+				kdDebug(8101) << "Change: SourceLine : " << diff->sourceLineAt( i )->string() << endl;
+				if ( it != lines.end() && *it == diff->sourceLineAt( i )->string() )
+#else
 				kdDebug(8101) << "Change: SourceLine : " << diff->sourceLineAt( i ) << endl;
 				if ( it != lines.end() && *it == diff->sourceLineAt( i ) )
+#endif
 				{
 					newDiff->addSourceLine( *it );
 //					kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
@@ -866,8 +898,13 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			}
 			for ( int i = 0; i < diff->destinationLineCount(); i++ )
 			{
+#if INLINE_DIFFERENCES
+				newDiff->addDestinationLine( diff->destinationLineAt( i )->string() );
+				kdDebug(8101) << "DestLine " << destLineNo << " : " << diff->destinationLineAt( i )->string() << endl;
+#else
 				newDiff->addDestinationLine( diff->destinationLineAt( i ) );
 				kdDebug(8101) << "DestLine " << destLineNo << " : " << diff->destinationLineAt( i ) << endl;
+#endif
 				destLineNo++;
 			}
 			break;
@@ -878,8 +915,13 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			newModel->addDiff( newDiff );
 			for ( int i = 0; it != lines.end() && i < diff->destinationLineCount(); i++ )
 			{
+#if INLINE_DIFFERENCES
+				newDiff->addDestinationLine( diff->destinationLineAt( i )->string() );
+				kdDebug(8101) << "DestLine " << destLineNo << " : " << diff->destinationLineAt( i )->string() << endl;
+#else
 				newDiff->addDestinationLine( diff->destinationLineAt( i ) );
 				kdDebug(8101) << "DestLine " << destLineNo << " : " << diff->destinationLineAt( i ) << endl;
+#endif
 				destLineNo++;
 			}
 			break;
@@ -890,8 +932,13 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			for ( int i = 0; it != lines.end() && i < diff->sourceLineCount(); i++ )
 			{
 				kdDebug(8101) << "Delete: Fileline:    " << *it << endl;
+#if INLINE_DIFFERENCES
+				kdDebug(8101) << "Delete: SourceLine : " << diff->sourceLineAt( i )->string() << endl;
+				if ( *it == diff->sourceLineAt( i )->string() )
+#else
 				kdDebug(8101) << "Delete: SourceLine : " << diff->sourceLineAt( i ) << endl;
 				if ( *it == diff->sourceLineAt( i ) )
+#endif
 				{
 					newDiff->addSourceLine( *it );
 					kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;

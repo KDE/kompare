@@ -17,6 +17,8 @@
 **
 ***************************************************************************/
 
+#include <kconfig.h>
+
 #include "viewsettings.h"
 
 using namespace Diff2;

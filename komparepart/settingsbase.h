@@ -21,12 +21,11 @@
 #define SETTINGSBASE_H
 
 #include <qobject.h>
-#include <qcolor.h>
-#include <qwidget.h>
-
-#include <kconfig.h>
 
 #include "kompare.h"
+
+class QWidget;
+class KConfig;
 
 class SettingsBase : public QObject
 {

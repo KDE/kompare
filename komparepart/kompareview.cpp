@@ -133,7 +133,7 @@ void KompareView::slotDifferenceClicked( const Difference* diff )
 
 void KompareView::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
-	kdDebug(8104) << "KompareView::slotSetSelection( model, diff )" << endl;
+//	kdDebug(8104) << "KompareView::slotSetSelection( model, diff )" << endl;
 	if( model )
 	{
 		m_selectedModel = model;
@@ -161,7 +161,7 @@ void KompareView::slotDelayedUpdateScrollBars()
 
 void KompareView::slotSetSelection( const Difference* diff )
 {
-	kdDebug(8104) << "KompareView::slotSetSelection( diff )" << endl;
+//	kdDebug(8104) << "KompareView::slotSetSelection( diff )" << endl;
 	m_diff1->slotSetSelection( diff );
 	m_diff2->slotSetSelection( diff );
 	m_zoom->slotSetSelection( diff );
@@ -207,8 +207,7 @@ void KompareView::scrollToId( int id )
 
 void KompareView::updateScrollBars()
 {
-	// FIXME: The + 3 was determined by trial and error, it might be different for other font sizes. Will have to check.
-	m_scrollDistance = m_settings->m_scrollNoOfLines * ( QFontMetrics( KGlobalSettings::fixedFont() ).height() + 3 );
+	m_scrollDistance = m_settings->m_scrollNoOfLines * m_diff1->fontMetrics().lineSpacing();
 	m_pageSize = m_diff1->visibleHeight() - 14;
 
 	if( m_diff1->contentsHeight() <= m_diff1->visibleHeight() &&

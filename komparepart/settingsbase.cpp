@@ -16,6 +16,9 @@
 **   (at your option) any later version.
 **
 ***************************************************************************/
+
+#include <qwidget.h>
+
 #include "settingsbase.h"
 
 SettingsBase::SettingsBase( QWidget* parent ) : QObject( parent )

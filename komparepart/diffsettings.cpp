@@ -15,6 +15,7 @@
 **
 ****************************************************************************/
 
+#include <kconfig.h>
 #include "diffsettings.h"
 
 DiffSettings::DiffSettings( QWidget* parent ) : SettingsBase( parent )
@@ -46,6 +47,16 @@ void DiffSettings::loadSettings( KConfig* config )
 	m_allText                        = config->readBoolEntry( "TreatAllFilesAsText", true );
 
 	m_format = static_cast<Kompare::Format>( config->readNumEntry( "Format", Kompare::Unified ) );
+
+#if EXCLUDE_DIFF_OPTION
+	config->setGroup( "Exclude File Options" );
+	m_excludeFilePattern             = config->readBoolEntry( "Pattern", false );
+	m_excludeFilePatternText         = config->readEntry( "PatternText", "" );
+	m_excludeFilePatternHistoryList  = config->readListEntry( "PatternHistoryList" );
+	m_excludeFilesFile               = config->readBoolEntry( "File", false );
+	m_excludeFilesFileURL            = config->readEntry( "FileURL", "" );
+	m_excludeFilesFileHistoryList    = config->readListEntry( "FileHistoryList" );
+#endif
 }
 
 void DiffSettings::saveSettings( KConfig* config )
@@ -68,6 +79,16 @@ void DiffSettings::saveSettings( KConfig* config )
 	config->writeEntry( "CompareRecursively",             m_recursive );
 	config->writeEntry( "NewFiles",                       m_newFiles );
 	config->writeEntry( "TreatAllFilesAsText",            m_allText );
+
+#if EXCLUDE_DIFF_OPTION
+	config->setGroup( "Exclude File Options" );
+	config->writeEntry( "Pattern",            m_excludeFilePattern );
+	config->writeEntry( "PatternText",        m_excludeFilePatternText );
+	config->writeEntry( "PatternHistoryList", m_excludeFilePatternHistoryList );
+	config->writeEntry( "File",               m_excludeFilesFile );
+	config->writeEntry( "FileURL",            m_excludeFilesFileURL );
+	config->writeEntry( "FileHistoryList",    m_excludeFilesFileHistoryList );
+#endif
 }
 
 #include "diffsettings.moc"

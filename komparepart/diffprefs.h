@@ -20,16 +20,21 @@
 #ifndef DIFFPREFS_H
 #define DIFFPREFS_H
 
-#include <qcheckbox.h>
-#include <qspinbox.h>
-#include <qvbuttongroup.h>
-#include <qwidget.h>
-
-#include <kurlrequester.h>
-
-#include "diffsettings.h"
 #include "prefsbase.h"
-#include "settingsbase.h"
+
+class QCheckBox;
+class QDialog;
+class QSpinBox;
+class QStringList;
+class QVButtonGroup;
+class QWidget;
+
+class KLineEdit;
+class KComboBox;
+class KURLComboBox;
+class KURLRequester;
+
+class DiffSettings;
 
 class DiffPrefs : public PrefsBase
 {
@@ -51,24 +56,33 @@ protected slots:
 	void slotShowRegExpEditor();
 
 public:
-	DiffSettings* m_settings;
+	DiffSettings*  m_settings;
 
-	KURLRequester* m_urlRequester;
+	KURLRequester* m_diffURLRequester;
 
-	QCheckBox*   m_smallerCheckBox;
-	QCheckBox*   m_largerCheckBox;
-	QCheckBox*   m_tabsCheckBox;
-	QCheckBox*   m_caseCheckBox;
-	QCheckBox*   m_linesCheckBox;
-	QCheckBox*   m_whitespaceCheckBox;
+	QCheckBox*     m_smallerCheckBox;
+	QCheckBox*     m_largerCheckBox;
+	QCheckBox*     m_tabsCheckBox;
+	QCheckBox*     m_caseCheckBox;
+	QCheckBox*     m_linesCheckBox;
+	QCheckBox*     m_whitespaceCheckBox;
 
-	QCheckBox*   m_ignoreRegExpCheckBox;
-	KLineEdit*   m_ignoreRegExpEdit;
-	QStringList* m_ignoreRegExpEditHistory;
-	QDialog*     m_ignoreRegExpDialog;
+	QCheckBox*     m_ignoreRegExpCheckBox;
+	KLineEdit*     m_ignoreRegExpEdit;
+	QStringList*   m_ignoreRegExpEditHistory;
+	QDialog*       m_ignoreRegExpDialog;
+
+#if EXCLUDE_DIFF_OPTION
+	QCheckBox*     m_excludeFilePatternCheckBox;
+	KComboBox*     m_excludeFilePatternComboBox;
+	
+	QCheckBox*     m_excludeFileCheckBox;
+	KURLComboBox*  m_excludeFileURLComboBox;
+	KURLRequester* m_excludeFileURLRequester;
+#endif
 
 	// loc == lines of context
-	QSpinBox*  m_locSpinBox;
+	QSpinBox*      m_locSpinBox;
 
 	QVButtonGroup* m_modeButtonGroup;
 	QVButtonGroup* m_diffProgramGroup;

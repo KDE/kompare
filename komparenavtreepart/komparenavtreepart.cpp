@@ -469,6 +469,7 @@ KFileLVI::KFileLVI( KListView* parent, Diff2::DiffModel* model ) : KListViewItem
 void KFileLVI::fillChangesList( KListView* changesList, QPtrDict<KChangeLVI>* diffToChangeItemDict )
 {
 	changesList->clear();
+	diffToChangeItemDict->clear();
 
 	QPtrListIterator<Diff2::Difference> it( m_model->differences() );
 	Diff2::Difference* diff;

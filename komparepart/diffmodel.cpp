@@ -345,7 +345,8 @@ int DiffModel::parseEdDiff( const QStringList& /*list*/ )
 {
 	kdDebug() << "Ed diff parsing:" << endl;
 
-	return 0;
+	KMessageBox::info( this, i18n( "Sorry not yet implemented" ) );
+	return 1;
 };
 
 /**  */
@@ -484,7 +485,8 @@ int DiffModel::parseRCSDiff( const QStringList& /*list*/ )
 {
 	kdDebug() << "RCS  diff parsing:" << endl;
 
-	return 0;
+	KMessageBox::info( this, i18n( "Sorry not yet implemented" ) );
+	return 1;
 };
 
 /**  */

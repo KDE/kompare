@@ -1,0 +1,4 @@
+march 19th, 2001 : Otto Bruggeman
+	Added most of the preferences dialog
+	Some speed improvements
+	Some fixes to use the last used directory in KFileDialog

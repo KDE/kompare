@@ -3,5 +3,5 @@
 * clean up the menu a bit
 * implement more diff commandline options
 * reorganize code a bit
-* improve speed of parsing the diff output
 * implement an update signal when the contents of the combobox change
+

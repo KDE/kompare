@@ -4,7 +4,7 @@ bin_PROGRAMS = kdiff
 kdiff_SOURCES = miscsettings.cpp miscprefs.cpp kdiffprefdlg.cpp \
 	generalsettings.cpp generalprefs.cpp diffsettings.cpp \
 	diffprefs.cpp kdiffprocess.cpp kmaindiffview.cpp \
-	kdiffview.cpp main.cpp kdiffapp.cpp prefsbase.cpp
+	kdiffview.cpp main.cpp kdiffapp.cpp prefsbase.cpp settingsbase.cpp
 	
 INCLUDES= $(all_includes)
 kdiff_LDFLAGS = $(all_libraries) $(KDE_RPATH)
@@ -12,7 +12,8 @@ kdiff_LDADD = $(LIB_KDEUI) $(LIB_KHTML) $(LIB_KFILE)
 
 noinst_HEADERS = kdiffapp.h kdiffview.h kmaindiffview.h prefsbase.h \
 	kdiffprocess.h diffprefs.h diffsettings.h generalprefs.h \
-	generalsettings.h kdiffprefdlg.h miscprefs.h miscsettings.h
+	generalsettings.h kdiffprefdlg.h miscprefs.h miscsettings.h \
+	settingsbase.h
 	
 METASOURCES = AUTO
 
@@ -25,7 +26,7 @@ rc_DATA = kdiffui.rc
 KDE_ICON = AUTO
 
 messages: rc.cpp
-	$(XGETTEXT) *.cpp *.h -o $(podir)/kdiff.pot
+	$(XGETTEXT) -C *.cpp *.h -o $(podir)/kdiff.pot
 
 rc.cpp:
 	$(EXTRACTRC) *.rc > rc.cpp

@@ -9,7 +9,7 @@
   </Menu>
   <Menu name="diff"><text>&amp;Diff</text>
     <Action name="diff_use_unified_diff"/>
-		<Separator/>
+    <Separator/>
     <Action name="diff_apply_diff" />
     <Action name="diff_create_diff"/>
   </Menu>
@@ -21,9 +21,11 @@
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
   <Action name="file_open_left"  group="file_operations" />
   <Action name="file_open_right" group="file_operations" />
+  <Action name="file_close_left" group="file_operations" />
+  <Action name="file_close_right" group="file_operations" />
   <Separator/>
-	<Action name="diff_apply_diff"  group="diff_operations" />
-	<Action name="diff_create_diff" group="diff_operations" />
+  <Action name="diff_apply_diff"  group="diff_operations" />
+  <Action name="diff_create_diff" group="diff_operations" />
 </ToolBar>
 
 </kpartgui>

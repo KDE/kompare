@@ -12,7 +12,6 @@ Very important:
 
 In descending order of importance:
 * Add a kompare manual/document
-* in-line diffing
 * add support for handediting conflicts
 * session management (should almost work)
 * implement normal, ed and rcs format (normal got busted)

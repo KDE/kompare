@@ -1,3 +1,15 @@
+Nov    17, 2003 : Otto Bruggeman
+	* Fix bugs 58858 and 58531 by using Kompare::Custom instead of Kompare::Default
+	* Fix last selected url in the kurlcomboboxes
+	* Fix for inline differences when there is only 1 char left that still needs to be drawn
+	* Remove support for the -a Treat all files as text diff option. This caused all sorts of weird crashes
+	  when parsing the diff output now with the custom options.
+	* Move the per preference page code in the diffprefs constructor into seperate methods per page
+
+Nov    14, 2003 : Otto Bruggeman
+	* Fix to make Kompare listen to the kdisplayFontChanged signal and set the font properly and redraw with the new font.
+	  Found by David Faure.
+
 Nov    09, 2003 : Otto Bruggeman
 	* Implemented inline differences (deactivated until KDE3.2 has been branched)
 	* added support for the -x and -X options to diff (deactivated until KDE3.2 has been branched)

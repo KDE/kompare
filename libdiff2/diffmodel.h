@@ -53,10 +53,12 @@ public:
 	DiffHunk* hunkAt( int i )               { return *( m_hunks.at( i ) ); }
 	const Difference* differenceAt( int i ) { return *( m_differences.at( i ) ); }
 
-	const DiffHunkList   hunks() const       { return m_hunks; }
-	const DifferenceList differences() const { return m_differences; }
+	DiffHunkList*         hunks()             { return &m_hunks; }
+	const DiffHunkList*   hunks() const       { return &m_hunks; }
+	DifferenceList*       differences()       { return &m_differences; }
+	const DifferenceList* differences() const { return &m_differences; }
 
-	const DifferenceList allDifferences();
+	DifferenceList*       allDifferences();
 
 	int findDifference( Difference* diff ) const { return m_differences.findIndex( diff ); }
 

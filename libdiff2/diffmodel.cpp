@@ -180,7 +180,7 @@ QString DiffModel::recreateDiff() const
 	return diff;
 }
 
-const DifferenceList DiffModel::allDifferences()
+DifferenceList* DiffModel::allDifferences()
 {
 	if ( m_hunks.count() != 0 )
 	{
@@ -199,12 +199,12 @@ const DifferenceList DiffModel::allDifferences()
 				m_allDifferences.append( *diffIt );
 			}
 		}
-		return m_allDifferences;
+		return &m_allDifferences;
 	}
 	else
 	{
 		DifferenceList *diffList = new DifferenceList;
-		return *diffList;
+		return diffList;
 	}
 }
 

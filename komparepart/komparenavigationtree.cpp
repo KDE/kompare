@@ -115,14 +115,14 @@ void KDiffNavigationTree::slotAddModel( DiffModel * model )
 		QString text = "";
 		switch( diff->type() ) {
 		case Difference::Change:
-			text = i18n( "Nonmatching lines" );
+			text = i18n( "Changed line(s)" );
 			break;
 		case Difference::Insert:
-			text = i18n( "Lines inserted in destination" );
+			text = i18n( "Inserted line(s)" );
 			break;
 		case Difference::Delete:
 		default:
-			text = i18n( "Lines deleted from destination" );
+			text = i18n( "Deleted line(s)" );
 			break;
 		}
 		diffItem->setText( COL_DIFFERENCE, text );

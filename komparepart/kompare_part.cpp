@@ -298,15 +298,14 @@ const QString& KomparePart::fetchURL( const KURL& url )
 	else
 	{
 		// is Local already, check if exists
-		if ( exists( url.url() ) )
+		if ( exists( url.path() ) )
 		{
-			delete tempFile;
 			*tempFile = url.path();
 			return *tempFile;
 		}
 		else
 		{
-			slotShowError( i18n( "The url %1 does not exist on your system." ).arg( m_localSource ) );
+			slotShowError( i18n( "The url %1 does not exist on your system." ).arg( url.prettyURL() ) );
 			return *tempFile;
 		}
 	}
@@ -330,6 +329,7 @@ void KomparePart::compare( const KURL& source, const KURL& destination )
 		return;
 	}
 
+	emit basePathsChanged( m_localSource, m_localDestination );
 	m_modelList->compare( m_localSource, m_localDestination );
 }
 

@@ -37,7 +37,7 @@ class DiffModel : public QObject
 Q_OBJECT
 public:
 
-	DiffModel( KURL srcBaseURL = "", KURL destBaseURL = "" );
+	DiffModel( const QString& srcBaseURL = "", const QString& destBaseURL = "" );
 	~DiffModel();
 
 	int parseDiff( enum Kompare::Format format, const QStringList& list );
@@ -56,8 +56,10 @@ public:
 
 	int findDifference( const Difference* diff ) const { return const_cast<DiffModel*>(this)->m_differences.find( diff ); };
 
-	const KURL&    sourceBaseURL()             { return m_sourceBaseURL; };
-	const KURL&    destinationBaseURL()        { return m_destinationBaseURL; };
+//	const KURL&    sourceBaseURL()             { return m_sourceBaseURL; };
+//	const KURL&    destinationBaseURL()        { return m_destinationBaseURL; };
+	const QString  source() const              { return m_source; };
+	const QString  destination() const         { return m_destination; };
 	const QString  sourceFile() const;
 	const QString  destinationFile() const;
 	const QString  sourcePath() const;
@@ -67,8 +69,8 @@ public:
 	const QString& sourceRevision() const      { return m_sourceRevision; };
 	const QString& destinationRevision() const { return m_destinationRevision; };
 
-	void setSourceFile( QString file );
-	void setDestinationFile( QString file );
+	void setSourceFile( QString path );
+	void setDestinationFile( QString path );
 	void setSourceTimestamp( QString timestamp );
 	void setDestinationTimestamp( QString timestamp );
 	void setSourceRevision( QString revision );
@@ -95,14 +97,27 @@ public slots:
 	void slotSetModified( bool modified );
 
 private:
-	KURL                 m_sourceBaseURL;
-	KURL                 m_destinationBaseURL;
+	void splitSourceInPathAndFileName();
+	void splitDestinationInPathAndFileName();
+
+private:
+//	KURL                 m_source;
+//	KURL                 m_destination;
+	QString              m_source;
+	QString              m_destination;
+
+	QString              m_sourcePath;
+	QString              m_destinationPath;
+
 	QString              m_sourceFile;
-	QString              m_sourceTimestamp;
-	QString              m_sourceRevision;
 	QString              m_destinationFile;
+
+	QString              m_sourceTimestamp;
 	QString              m_destinationTimestamp;
+
+	QString              m_sourceRevision;
 	QString              m_destinationRevision;
+
 	QPtrList<DiffHunk>   m_hunks;
 	QPtrList<Difference> m_differences;
 	QPtrList<Difference> m_allDifferences;

@@ -118,11 +118,9 @@ bool ParserBase::parseContextDiffHeader()
 			kdDebug(8101) << "Matched length Header2 = " << m_contextDiffHeader2.matchedLength() << endl;
 			kdDebug(8101) << "Matched string Header2 = " << m_contextDiffHeader2.cap( 0 ) << endl;
 
-			m_currentModel = new DiffModel();
-			m_currentModel->setSourceFile          ( m_contextDiffHeader1.cap( 1 ) );
+			m_currentModel = new DiffModel( m_contextDiffHeader1.cap( 1 ), m_contextDiffHeader2.cap( 1 ) );
 			m_currentModel->setSourceTimestamp     ( m_contextDiffHeader1.cap( 2 ) );
 			m_currentModel->setSourceRevision      ( m_contextDiffHeader1.cap( 4 ) );
-			m_currentModel->setDestinationFile     ( m_contextDiffHeader2.cap( 1 ) );
 			m_currentModel->setDestinationTimestamp( m_contextDiffHeader2.cap( 2 ) );
 			m_currentModel->setDestinationRevision ( m_contextDiffHeader2.cap( 4 ) );
 			m_currentModel->setIndex( m_modelIndex++ );
@@ -198,11 +196,9 @@ bool ParserBase::parseUnifiedDiffHeader()
 		kdDebug(8101) << "Matched string Header1 = " << m_unifiedDiffHeader1.cap( 0 ) << endl;
 		if ( m_diffIterator != m_diffLines.end() && m_unifiedDiffHeader2.exactMatch( *m_diffIterator ) )
 		{
-			m_currentModel = new DiffModel();
-			m_currentModel->setSourceFile( m_unifiedDiffHeader1.cap( 1 ) );
+			m_currentModel = new DiffModel( m_unifiedDiffHeader1.cap( 1 ), m_unifiedDiffHeader2.cap( 1 ) );
 			m_currentModel->setSourceTimestamp( m_unifiedDiffHeader1.cap( 2 ) );
 			m_currentModel->setSourceRevision( m_unifiedDiffHeader1.cap( 4 ) );
-			m_currentModel->setDestinationFile( m_unifiedDiffHeader2.cap( 1 ) );
 			m_currentModel->setDestinationTimestamp( m_unifiedDiffHeader2.cap( 2 ) );
 			m_currentModel->setDestinationRevision( m_unifiedDiffHeader2.cap( 4 ) );
 			m_currentModel->setIndex( m_modelIndex++ );

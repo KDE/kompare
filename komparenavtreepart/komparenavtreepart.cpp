@@ -45,7 +45,9 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 	m_fileList( 0 ),
 	m_changesList( 0 ),
 	m_srcRootItem( 0 ),
-	m_destRootItem( 0 )
+	m_destRootItem( 0 ),
+	m_source( "" ),
+	m_destination( "" )
 {
 	m_splitter = new QSplitter( Qt::Horizontal );
 
@@ -90,6 +92,16 @@ KompareNavTreePart::~KompareNavTreePart()
 {
 }
 
+void KompareNavTreePart::slotBasePathsChanged( const QString& source, const QString& destination )
+{
+	m_source = source;
+	if ( !m_source.endsWith( "/" ) )
+		m_source += "/";
+	m_destination = destination;
+	if ( !m_destination.endsWith( "/" ) )
+		m_destination += "/";
+}
+
 void KompareNavTreePart::slotModelsChanged( const QPtrList<Diff2::DiffModel>* modelList )
 {
 	kdDebug(8105) << "Models have changed... scanning the models... " << endl;
@@ -120,27 +132,31 @@ void KompareNavTreePart::buildTreeInMemory()
 	if ( m_modelList->count() == 0 )
 		return; // avoids a crash on clear()
 
-	Diff2::DiffModel* model;
-	model = m_modelList->getFirst();
-	m_selectedModel = 0L;
-
-	QString srcPath  = model->sourcePath();
-	QString destPath = model->destinationPath();
+	QString srcPath  = m_source;
+	QString destPath = m_destination;
 	kdDebug(8105) << "srcPath  = " << srcPath << endl;
 	kdDebug(8105) << "destPath = " << destPath << endl;
 
+/*
+	QString result;
 	// result is the same piece minus a leading / -> we need all dirs to end with a /
-	QString result = compareFromEndAndReturnSame( srcPath, destPath );
+	if ( srcPath == destPath )
+		result = srcPath;
+	else
+		result = compareFromEndAndReturnSame( srcPath, destPath );
 	kdDebug(8105) << "compareFromEndAndReturnSame = " << result << endl;
 
-	QString srcBaseURL = model->sourceBaseURL().path() + srcPath.replace( srcPath.length() - result.length(), result.length(), "" );
-	QString destBaseURL = model->destinationBaseURL().path() + destPath.replace( destPath.length() - result.length(), result.length(), "" );
+	QString srcBase = m_source + srcPath.replace( srcPath.length() - result.length(), result.length(), "" );
+	QString destBase = m_destination + destPath.replace( destPath.length() - result.length(), result.length(), "" );
 
-	kdDebug(8105) << "srcBaseURL  = " << srcBaseURL << endl;
-	kdDebug(8105) << "destBaseURL = " << destBaseURL <<endl;
+	kdDebug(8105) << "srcBase  = " << srcBase << endl;
+	kdDebug(8105) << "destBase = " << destBase <<endl;
+*/
+	m_srcRootItem  = new KDirLVI( m_srcDirTree, m_source );
+	m_destRootItem = new KDirLVI( m_destDirTree, m_destination );
 
-	m_srcRootItem  = new KDirLVI( m_srcDirTree,  srcBaseURL  );
-	m_destRootItem = new KDirLVI( m_destDirTree, destBaseURL );
+	Diff2::DiffModel* model;
+	m_selectedModel = 0L;
 
 	// Create the tree from the models
 	QPtrListIterator<Diff2::DiffModel> it( *m_modelList );

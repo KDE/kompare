@@ -53,6 +53,7 @@ public slots:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void slotSetSelection( const Diff2::Difference* diff );
 	void slotModelsChanged( const QPtrList<Diff2::DiffModel>* modelList );
+	void slotBasePathsChanged( const QString& source, const QString& destination );
 
 signals:
 	void selectionChanged( const Diff2::DiffModel* model, const Diff2::Difference* diff );
@@ -104,6 +105,9 @@ private:
 
 	const Diff2::DiffModel*            m_selectedModel;
 	const Diff2::Difference*           m_selectedDifference;
+
+	QString                            m_source;
+	QString                            m_destination;
 };
 
 // These 3 classes are need to store the models into a tree so it is easier

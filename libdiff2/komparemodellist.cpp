@@ -47,6 +47,8 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, ViewSettings* vi
 	m_mode( Kompare::ShowingDiff ),
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 ),
+	m_modelIt( 0 ),
+	m_diffIt( 0 ),
 	m_noOfModified( 0 )
 {
 }
@@ -175,12 +177,48 @@ bool KompareModelList::compareDirs( const QString& source, const QString& destin
 bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff )
 {
 	bool result = false;
-	return result;
+
+	clear();
+
+	if ( parseDiffOutput( readFile( diff ) ) != 0 )
+	{
+		emit error( i18n( "No models or no differences, this file: %1, is not a valid diff file" ).arg(  diff ) );
+		return false;
+	}
+
+	// Do our thing :)
+	if ( !blendOriginalIntoModelList( file ) )
+	{
+		kdDebug(8103) << "Oops cant blend original file into modellist : " << file << endl;
+		emit( i18n( "There were problems applying the diff (%2) to the file (%1)." ).arg( diff ).arg( file ) );
+		return false;
+	}
+
+	show();
+
+	return true;
 }
 
 bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 {
 	bool result = false;
+
+	clear();
+
+	if ( parseDiffOutput( readFile( diff ) ) != 0 )
+	{
+		emit error( i18n( "No models or no differences, this file: %1, is not a valid diff file" ).arg( diff ) );
+		return false;
+	}
+
+	// Do our thing :)
+	if ( !blendOriginalIntoModelList( dir ) )
+	{
+		// Trouble blending the original into the model
+		kdDebug(8103) << "Oops cant blend original dir into modellist : " << dir << endl;
+		emit error( i18n( "There were problems applying the diff (%2) to the directory (%1)." ).arg( diff ).arg( dir ) );
+	}
+
 	return result;
 }
 
@@ -598,11 +636,6 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 {
 	QFileInfo fi( localURL );
-	if ( !fi.exists() )
-	{
-		kdDebug(8101) << "KML::blendOriginalIntoModelList : localURL \"" << localURL << "\" does not exist !" << endl;
-		return false;
-	}
 
 	bool result = false;
 	DiffModel* model;

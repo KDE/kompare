@@ -169,6 +169,7 @@ public slots:
 signals:
 	void appliedChanged();
 	void diffURLChanged();
+	void basePathsChanged( const QString& source, const QString& destination );
 	void setStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
 //	void setStatusBarText( const QString& text );
 

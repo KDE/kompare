@@ -29,20 +29,20 @@
 using namespace Diff2;
 
 /**  */
-DiffModel::DiffModel( KURL srcBaseURL, KURL destBaseURL ) :
-	m_sourceBaseURL( srcBaseURL ),
-	m_destinationBaseURL( destBaseURL ),
-	m_sourceFile( "" ),
+DiffModel::DiffModel( const QString& source, const QString& destination ) :
+	m_source( source ),
+	m_destination( destination ),
 	m_sourceTimestamp( "" ),
-	m_sourceRevision( "" ),
-	m_destinationFile( "" ),
 	m_destinationTimestamp( "" ),
+	m_sourceRevision( "" ),
 	m_destinationRevision( "" ),
 	m_appliedCount( 0 ),
 	m_modified( false ),
 	m_index( 0 ),
 	m_selectedDifference( 0 )
 {
+	splitSourceInPathAndFileName();
+	splitDestinationInPathAndFileName();
 }
 
 /**  */
@@ -50,15 +50,39 @@ DiffModel::~DiffModel()
 {
 }
 
+void DiffModel::splitSourceInPathAndFileName()
+{
+	int pos;
+
+	if( ( pos = m_source.findRev( "/" ) ) >= 0 )
+		m_sourcePath = m_source.mid( 0, pos+1 );
+
+	if( ( pos = m_source.findRev( "/" ) ) >= 0 )
+		m_sourceFile = m_source.replace( 0, pos+1, "" );
+}
+
+void DiffModel::splitDestinationInPathAndFileName()
+{
+	int pos;
+
+	if( ( pos = m_destination.findRev( "/" ) )>= 0 )
+		m_destinationPath = m_destination.mid( 0, pos+1 );
+
+	if( ( pos = m_destination.findRev( "/" ) ) >= 0 )
+		m_destinationFile = m_destination.replace( 0, pos+1, "" );
+}
+
 DiffModel& DiffModel::operator=( const DiffModel& model )
 {
 	if ( &model != this ) // Guard from self-assignment
 	{
-		m_sourceBaseURL = model.m_sourceBaseURL;
-		m_destinationBaseURL = model.m_destinationBaseURL;
+		m_source = model.m_source;
+		m_destination = model.m_destination;
+		m_sourcePath = model.m_sourcePath;
 		m_sourceFile = model.m_sourceFile;
 		m_sourceTimestamp = model.m_sourceTimestamp;
 		m_sourceRevision = model.m_sourceRevision;
+		m_destinationPath = model.m_destinationPath;
 		m_destinationFile = model.m_destinationFile;
 		m_destinationTimestamp = model.m_destinationTimestamp;
 		m_destinationRevision = model.m_destinationRevision;
@@ -97,64 +121,34 @@ const QPtrList<Difference>& DiffModel::allDifferences()
 
 const QString DiffModel::sourceFile() const
 {
-	QString sourceFile = m_sourceFile;
-	int pos;
-
-	if( ( pos = sourceFile.findRev( "/" ) ) >= 0 )
-		sourceFile = sourceFile.replace( 0, pos+1, "" );
-
-	kdDebug() << "SF : " << sourceFile << endl;
-
-	return sourceFile;
+	return m_sourceFile;
 }
 
 const QString DiffModel::destinationFile() const
 {
-	QString destinationFile = m_destinationFile;
-	int pos;
-
-	if( ( pos = destinationFile.findRev( "/" ) ) >= 0 )
-		destinationFile = destinationFile.replace( 0, pos+1, "" );
-
-	kdDebug() << "DF : " << destinationFile << endl;
-
-	return destinationFile;
+	return m_destinationFile;
 }
 
 const QString DiffModel::sourcePath() const
 {
-	QString sourcePath( "" );
-	int pos;
-
-	if( ( pos = m_sourceFile.findRev( "/" ) ) >= 0 )
-		sourcePath = m_sourceFile.mid( 0, pos+1 );
-
-	kdDebug() << "SP : " << sourcePath << endl;
-
-	return sourcePath;
+	return m_sourcePath;
 }
 
 const QString DiffModel::destinationPath() const
 {
-	QString destinationPath( "" );
-	int pos;
-
-	if( ( pos = m_destinationFile.findRev( "/" ) )>= 0 )
-		destinationPath = m_destinationFile.mid( 0, pos+1 );
-
-	kdDebug() << "DP : " << destinationPath << endl;
-
-	return destinationPath;
+	return m_destinationPath;
 }
 
-void DiffModel::setSourceFile( QString file )
+void DiffModel::setSourceFile( QString path )
 {
-	m_sourceFile = file;
+	m_source = path;
+	splitSourceInPathAndFileName();
 }
 
-void DiffModel::setDestinationFile( QString file )
+void DiffModel::setDestinationFile( QString path )
 {
-	m_destinationFile = file;
+	m_destination = path;
+	splitDestinationInPathAndFileName();
 }
 
 void DiffModel::setSourceTimestamp( QString timestamp )

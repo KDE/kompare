@@ -100,6 +100,8 @@ KompareURLDialog::~KompareURLDialog()
 	// Keeping these names so i wont have to write more kconfupdate scripts
 	m_config->writeEntry( "Recent Sources", m_firstURLComboBox->urls() );
 	m_config->writeEntry( "Recent Destinations", m_secondURLComboBox->urls() );
+	m_config->writeEntry( "LastChosenSourceListEntry", m_firstURLComboBox->currentText() );
+	m_config->writeEntry( "LastChosenDestinationListEntry", m_secondURLComboBox->currentText() );
 	m_config->sync();
 }
 
@@ -146,6 +148,7 @@ void KompareURLDialog::setSecondGroupBoxTitle( const QString& title )
 void KompareURLDialog::setGroup( const QString& groupName )
 {
 	QStringList urlList;
+	QString lastChosenEntry;
 
 	if ( !m_config )
 		m_config = kapp->config();
@@ -156,12 +159,18 @@ void KompareURLDialog::setGroup( const QString& groupName )
 	m_config->setGroup( groupName );
 
 	urlList = m_config->readListEntry( "Recent Sources" );
+	lastChosenEntry = m_config->readEntry( "LastChosenSourceListEntry", "" );
 	kdDebug() << "Recent Sources: " << urlList.join("\n") << endl;
+	kdDebug() << "LastChosenSourceListEntry: " << lastChosenEntry << endl;
 	m_firstURLComboBox->setURLs( urlList );
+	m_firstURLComboBox->setURL( lastChosenEntry );
 
 	urlList = m_config->readListEntry( "Recent Destinations" );
+	lastChosenEntry = m_config->readEntry( "LastChosenDestinationListEntry", "" );
 	kdDebug() << "Recent Destinations: " << urlList.join("\n") << endl;
+	kdDebug() << "LastChosenDestinationListEntry: " << lastChosenEntry << endl;
 	m_secondURLComboBox->setURLs( urlList );
+	m_secondURLComboBox->setURL( lastChosenEntry );
 }
 
 void KompareURLDialog::setFirstURLRequesterMode( unsigned int mode )

@@ -108,6 +108,7 @@ private slots:
 	void slotFileCompareFiles();
 	void slotFileBlendURLAndDiff();
 	void slotShowTextView();
+	void slotFileClose();
 	void optionsConfigureKeys();
 	void optionsConfigureToolbars();
 	void slotDiffURLChanged();

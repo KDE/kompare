@@ -232,7 +232,8 @@ void KompareShell::setupActions()
 	new KAction( i18n("&Blend URL with Diff..."), "fileblend", Qt::CTRL + Qt::Key_B,
 	              this, SLOT(slotFileBlendURLAndDiff()),
 	              actionCollection(), "file_blend_url" );
-	KStdAction::quit(kapp, SLOT(quit()), actionCollection());
+	KStdAction::close( this, SLOT( slotFileClose() ), actionCollection() );
+	KStdAction::quit( kapp, SLOT( quit() ), actionCollection() );
 
 #if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 	createStandardStatusBarAction();
@@ -405,6 +406,12 @@ void KompareShell::slotFileCompareFiles()
 		shell->compare( m_sourceURL, m_destinationURL );
 	}
 	delete dialog;
+}
+
+void KompareShell::slotFileClose()
+{
+	if ( m_viewPart->queryClose() )
+		delete this;
 }
 
 void KompareShell::slotShowTextView()

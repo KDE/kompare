@@ -32,7 +32,7 @@
 static const char description[] =
 	I18N_NOOP("A program to view the differences between files and optionally generate a diff" );
 
-static const char version[] = "3.2.90";
+static const char version[] = "3.3";
 
 static KCmdLineOptions options[] =
 {

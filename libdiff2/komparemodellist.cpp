@@ -499,8 +499,11 @@ QString KompareModelList::readFile( const QString& fileName ) const
 
 	QTextStream stream( &file );
 	kdDebug() << "Codec = " << m_textCodec << endl;
-	if ( m_textCodec )
-		stream.setCodec( m_textCodec );
+
+	if (  !m_textCodec )
+		m_textCodec = QTextCodec::codecForLocale();
+
+	stream.setCodec(  m_textCodec );
 
 	QString contents = stream.read();
 

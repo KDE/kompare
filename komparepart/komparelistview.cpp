@@ -202,20 +202,18 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 
 void KompareListView::slotSetSelection( const Difference* diff )
 {
+	kdDebug() << "KompareListView::slotSetSelection( const Difference* diff )" << endl;
+	
 	setSelectedDifference( diff, true );
 }
 
 void KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
+	kdDebug() << "KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )" << endl;
+	
 	if( m_selectedModel && m_selectedModel == model ) {
 		slotSetSelection( diff );
 		return;
-	}
-
-	// new model, so disconnect from old one...
-	if ( m_selectedModel ) {
-		disconnect( m_selectedModel, SIGNAL(appliedChanged( const Difference* )),
-		            this, SLOT(slotAppliedChanged( const Difference* )) );
 	}
 
 	clear();
@@ -254,9 +252,6 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 	}
 	
 	slotSetSelection( diff );
-	
-	connect( model, SIGNAL(appliedChanged( const Difference* )),
-	         this, SLOT(slotAppliedChanged( const Difference* )) );
 }
 
 void KompareListView::contentsMousePressEvent( QMouseEvent* e )

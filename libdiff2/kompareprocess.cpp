@@ -184,12 +184,12 @@ void KompareProcess::writeCommandLine()
 //	}
 #if EXCLUDE_DIFF_OPTION
 
-	if ( m_diffSettings->m_excludeFilePattern )
+	if ( m_diffSettings->m_excludeFilePattern && !m_diffSettings->m_excludeFilePatternText.isEmpty() )
 	{
 		*this << "-x" << KProcess::quote( m_diffSettings->m_excludeFilePatternText );
 	}
 
-	if ( m_diffSettings->m_excludeFilesFile )
+	if ( m_diffSettings->m_excludeFilesFile && !m_diffSettings->m_excludeFilesFileURL.isEmpty() )
 	{
 		*this << "-X" << KProcess::quote( m_diffSettings->m_excludeFilesFileURL );
 	}

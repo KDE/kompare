@@ -358,7 +358,10 @@ bool KompareModelList::saveDestination( DiffModel* model )
 		QString destination = model->destinationPath() + model->destinationFile();
 		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
 		kdDebug(8101) << "DestinationURL : " << destination << endl;
-		result = KIO::NetAccess::upload( temp->name(), KURL( destination ), (QWidget*)parent() );
+		// Cant add a proper error message for this situation due to string freeze in the branch
+		result = KIO::NetAccess::mkdir( KURL( destination ).path(), (QWidget*)parent() );
+		if ( result )
+			result = KIO::NetAccess::upload( temp->name(), KURL( destination ), (QWidget*)parent() );
 	}
 	else
 	{

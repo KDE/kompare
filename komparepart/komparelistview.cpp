@@ -643,22 +643,22 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 
 		p->fillRect( 0, 0, offset, height(), normalBrush );
 
-		if ( !m_text->commandsList().isEmpty() )
+		if ( !m_text->markerList().isEmpty() )
 		{
-			QValueListIterator<Command*> commandIt = m_text->commandsList().begin();
-			QValueListIterator<Command*> cEnd      = m_text->commandsList().end();
-			Command* c = *commandIt;
+			MarkerListConstIterator markerIt = m_text->markerList().begin();
+			MarkerListConstIterator mEnd     = m_text->markerList().end();
+			Marker* m = *markerIt;
 
-			for ( ; commandIt != cEnd; ++commandIt )
+			for ( ; markerIt != mEnd; ++markerIt )
 			{
-				c  = *commandIt;
-				textChunk = m_text->string().mid( prevValue, c->offset() - prevValue );
+				m  = *markerIt;
+				textChunk = m_text->string().mid( prevValue, m->offset() - prevValue );
 //				kdDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
 //				kdDebug(8104) << "c->offset() = " << c->offset() << endl;
 //				kdDebug(8104) << "prevValue   = " << prevValue << endl;
-				textChunk.replace( QRegExp( "\\t" ), kompareListView()->spaces() );
-				prevValue = c->offset();
-				if ( c->type() == Command::End )
+				textChunk.replace( QChar('\t'), kompareListView()->spaces() );
+				prevValue = m->offset();
+				if ( m->type() == Marker::End )
 				{
 					QFont font( p->font() );
 					font.setBold( true );
@@ -686,7 +686,7 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 		{
 			// Still have to draw some string without changes
 			textChunk = m_text->string().mid( prevValue, kMax( ( unsigned int )1, m_text->string().length() - prevValue ) );
-			textChunk.replace( QRegExp( "\\t" ), kompareListView()->spaces() );
+			textChunk.replace( QChar('\t'), kompareListView()->spaces() );
 //			kdDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
 			QFont font( p->font() );
 			font.setBold( false );

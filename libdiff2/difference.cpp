@@ -33,6 +33,7 @@ Difference::Difference( int sourceLineNo, int destinationLineNo, enum Difference
 
 Difference::~Difference()
 {
+	delete m_table;
 }
 
 void Difference::addSourceLine( QString line )
@@ -81,7 +82,7 @@ void Difference::determineInlineDifferences()
 		// FIXME: If the table cant be created dont do the rest
 		m_table->createTable( sl, dl );
 
-		m_table->createListsOfCommands();
+		m_table->createListsOfMarkers();
 	}
 
 	// No longer needed, if we ever need to recalculate the inline differences we should

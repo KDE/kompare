@@ -512,9 +512,9 @@ bool ParserBase::parseRCSHunkBody()
 
 bool ParserBase::matchesUnifiedHunkLine( QString line ) const
 {
-	static QChar context( ' ' );
-	static QChar added  ( '+' );
-	static QChar removed( '-' );
+	static const QChar context( ' ' );
+	static const QChar added  ( '+' );
+	static const QChar removed( '-' );
 
 	QChar first = line[0];
 
@@ -539,11 +539,11 @@ bool ParserBase::parseUnifiedHunkBody()
 	DiffHunk* hunk = new DiffHunk( linenoA, linenoB, function );
 	m_currentModel->addHunk( hunk );
 
-	QStringList::ConstIterator m_diffLinesEnd = m_diffLines.end();
+	const QStringList::ConstIterator m_diffLinesEnd = m_diffLines.end();
 
-	QString context = QString( " " );
-	QString added   = QString( "+" );
-	QString removed = QString( "-" );
+	const QString context = QString( " " );
+	const QString added   = QString( "+" );
+	const QString removed = QString( "-" );
 
 	while( m_diffIterator != m_diffLinesEnd && matchesUnifiedHunkLine( *m_diffIterator ) )
 	{
@@ -552,7 +552,7 @@ bool ParserBase::parseUnifiedHunkBody()
 
 		if( (*m_diffIterator).startsWith( context ) )
 		{	// context
-			for( ; m_diffIterator != m_diffLines.end() && (*m_diffIterator).startsWith( context ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( context ); ++m_diffIterator )
 			{
 				diff->addSourceLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				diff->addDestinationLine( QString( *m_diffIterator ).remove( 0, 1 ) );
@@ -562,12 +562,12 @@ bool ParserBase::parseUnifiedHunkBody()
 		}
 		else
 		{	// This is a real difference, not context
-			for( ; m_diffIterator != m_diffLines.end() && (*m_diffIterator).startsWith( removed ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( removed ); ++m_diffIterator )
 			{
 				diff->addSourceLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				linenoA++;
 			}
-			for( ; m_diffIterator != m_diffLines.end() && (*m_diffIterator).startsWith( added ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( added ); ++m_diffIterator )
 			{
 				diff->addDestinationLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				linenoB++;

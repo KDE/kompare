@@ -19,15 +19,13 @@
 #ifndef _LEVENSHTEIN_H
 #define _LEVENSHTEIN_H
 
-#include <qptrlist.h>
-
 #include "difference.h"
 
 class QString;
 
 namespace Diff2 {
 
-class Command;
+class Marker;
 
 class LevenshteinTable
 {
@@ -50,7 +48,7 @@ public:
 	/** This will calculate the levenshtein distance of 2 strings */
 	unsigned int createTable( DifferenceString* s, DifferenceString* d );
 
-	void createListsOfCommands( void );
+	void createListsOfMarkers( void );
 	int chooseRoute( int c1, int c2, int c3 );
 
 protected:

@@ -68,7 +68,7 @@ public:
 	QString recreateDiff() const;
 
 	// This parses the difflines and creates new models
-	int parseDiffOutput( const QStringList& lines );
+	int parseDiffOutput( const QString& diff );
 
 	// Call this to emit the signals to the rest of the "world" to show the diff
 	void show();
@@ -108,7 +108,7 @@ private:
 	void updateModelListActions();
 
 protected:
-	bool blendFile( DiffModel* model, const QStringList& lines );
+	bool blendFile( DiffModel* model, const QString& lines );
 
 signals:
 	void status( Kompare::Status status );
@@ -156,14 +156,16 @@ private slots:
 	void slotFileChanged( const QString& );
 
 private: // Helper methods
-	bool isDirectory( const QString& url );
-	bool isDiff( const QString& mimetype );
-	QStringList readFile( const QString& fileName );
+	bool isDirectory( const QString& url ) const;
+	bool isDiff( const QString& mimetype ) const;
+	QString readFile( const QString& fileName ) const;
 
-	bool hasPrevModel();
-	bool hasNextModel();
-	bool hasPrevDiff();
-	bool hasNextDiff();
+	bool hasPrevModel() const;
+	bool hasNextModel() const;
+	bool hasPrevDiff() const;
+	bool hasNextDiff() const;
+
+	QStringList split( const QString& diff );
 
 private:
 	KTempFile*            m_diffTemp;

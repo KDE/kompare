@@ -237,12 +237,5 @@ void KompareProcess::slotProcessExited( KProcess* /* proc */ )
 	emit diffHasFinished( normalExit() && exitStatus() != 0 );
 }
 
-const QStringList KompareProcess::diffOutput()
-{
-//	kdDebug(8101) << "StdOut: " << m_stdout << endl;
-//	kdDebug(8101).flush();
-	return QStringList::split( "\n", m_stdout );
-}
-
 #include "kompareprocess.moc"
 

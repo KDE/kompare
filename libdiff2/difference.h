@@ -20,8 +20,7 @@
 #ifndef DIFFERENCE_H
 #define DIFFERENCE_H
 
-#include <qptrlist.h>
-#include <qstringlist.h>
+#include <qvaluelist.h>
 #include <qvaluevector.h>
 
 #include <kdebug.h>
@@ -31,29 +30,41 @@ class QString;
 namespace Diff2
 {
 
-class Command
+class LevenshteinTable;
+
+class Marker
 {
 public:
 	enum Type { Start = 0, End = 1 };
 
 public:
-	Command()
-	{ m_type = Command::Start; m_offset = 0; }
-	Command( enum Command::Type type, unsigned int offset )
-	{ m_type = type; m_offset = offset; }
-	~Command() {}
+	Marker()
+	{
+		m_type = Marker::Start;
+		m_offset = 0;
+	}
+	Marker( enum Marker::Type type, unsigned int offset )
+	{
+		m_type = type;
+		m_offset = offset;
+	}
+	~Marker() {}
 
 public:
-	enum Command::Type type()   const { return m_type;   }
-	unsigned int       offset() const { return m_offset; }
+	enum Marker::Type type()   const { return m_type;   }
+	unsigned int      offset() const { return m_offset; }
 
-	void setType  ( enum Command::Type type ) { m_type   = type;   }
-	void setOffset( unsigned int offset )     { m_offset = offset; }
+	void setType  ( enum Marker::Type type ) { m_type   = type;   }
+	void setOffset( unsigned int offset )    { m_offset = offset; }
 
-public:
-	enum Command::Type m_type;
-	unsigned int       m_offset;
+private:
+	enum Marker::Type m_type;
+	unsigned int      m_offset;
 };
+
+typedef QValueList<Marker*> MarkerList;
+typedef QValueList<Marker*>::iterator MarkerListIterator;
+typedef QValueList<Marker*>::const_iterator MarkerListConstIterator;
 
 class DifferenceString
 {
@@ -61,14 +72,21 @@ public:
 	DifferenceString()
 	{
 //		kdDebug(8101) << "DifferenceString::DifferenceString()" << endl;
-		m_string = QString::null;
-		m_commandsList = QValueList<Command*>();
 	}
-	DifferenceString( const QString& string, const QValueList<Command*>& commandsList = QValueList<Command*>() )
+	DifferenceString( const QString& string, const MarkerList& markerList = MarkerList() ) :
+		m_string( string ), 
+		m_markerList( markerList )
 	{
-//		kdDebug(8101) << "DifferenceString::DifferenceString( " << string << ", " << commandsList << " )" << endl;
-		m_string = string;
-		m_commandsList = commandsList;
+//		kdDebug(8101) << "DifferenceString::DifferenceString( " << string << ", " << markerList << " )" << endl;
+		calculateHash();
+	}
+	DifferenceString( const DifferenceString& ds ) :
+		m_string( ds.m_string ),
+		m_conflict( ds.m_conflict ),
+		m_hash( ds.m_hash ),
+		m_markerList( ds.m_markerList )
+	{
+//		kdDebug(8101) << "DifferenceString::DifferenceString( const DifferenceString& " << ds << " )" << endl;
 	}
 	~DifferenceString() {}
 
@@ -77,26 +95,58 @@ public:
 	{
 		return m_string;
 	}
-	// Cant be const unfortunately
-	QValueList<Command*> commandsList()
+	const QString& conflictString() const
 	{
-		return m_commandsList;
+		return m_conflict;
+	}
+	const MarkerList& markerList()
+	{
+		return m_markerList;
 	}
 	void setString( const QString& string )
 	{
 		m_string = string;
-	};
-	void setCommandsList( const QValueList<Command*>& commandsList )
+		calculateHash();
+	}
+	void setConflictString( const QString& conflict )
 	{
-		m_commandsList = commandsList;
+		m_conflict = conflict;
+	}
+	void setMarkerList( const MarkerList& markerList )
+	{
+		m_markerList = markerList;
+	}
+	void prepend( Marker* marker )
+	{
+		m_markerList.prepend( marker );
+	}
+	bool operator==( const DifferenceString& ks )
+	{
+		if ( m_hash != ks.m_hash )
+			return false;
+		return m_string == ks.m_string;
+	}
+
+protected:
+	void calculateHash()
+	{
+		unsigned short const* str = reinterpret_cast<unsigned short const*>( m_string.unicode() );
+		const unsigned int len = m_string.length();
+
+		m_hash = 1315423911;
+
+		for ( unsigned int i = 0; i < len; i++ )
+		{
+			m_hash ^= ( m_hash << 5 ) + str[i] + ( m_hash >> 2 );
+		}
 	}
 
 private:
-	QValueList<Command*> m_commandsList;
-	QString m_string;
+	QString      m_string;
+	QString      m_conflict;
+	unsigned int m_hash;
+	MarkerList   m_markerList;
 };
-
-class LevenshteinTable;
 
 typedef QValueVector<DifferenceString*> DifferenceStringList;
 typedef QValueVector<DifferenceString*>::iterator DifferenceStringListIterator;
@@ -126,6 +176,15 @@ public:
 	const DifferenceStringList sourceLines() const { return m_sourceLines; }
 	const DifferenceStringList destinationLines() const { return m_destinationLines; }
 
+	bool hasConflict() const
+	{
+		return m_conflicts;
+	}
+	void setConflict( bool conflicts )
+	{
+		m_conflicts = conflicts;
+	}
+
 	void apply( bool apply );
 	bool applied() const { return m_applied; }
 
@@ -134,7 +193,7 @@ public:
 	void addSourceLine( QString line );
 	void addDestinationLine( QString line );
 
-	/** This method will calculate the differences between the individual strings and store them as Commands */
+	/** This method will calculate the differences between the individual strings and store them as Markers */
 	void determineInlineDifferences();
 
 	QString recreateDifference() const;
@@ -149,6 +208,7 @@ private:
 	DifferenceStringList  m_destinationLines;
 
 	bool                  m_applied;
+	bool                  m_conflicts;
 
 	LevenshteinTable*     m_table;
 };

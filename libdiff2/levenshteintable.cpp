@@ -174,7 +174,7 @@ int LevenshteinTable::chooseRoute( int c1, int c2, int c3 )
 	return 0;
 }
 
-void LevenshteinTable::createListsOfCommands()
+void LevenshteinTable::createListsOfMarkers()
 {
 //	std::cout << source.latin1() << std::endl;
 //	std::cout << destination.latin1() << std::endl;
@@ -183,7 +183,7 @@ void LevenshteinTable::createListsOfCommands()
 	unsigned int x = m_width-1;
 	unsigned int y = m_height-1;
 
-	Diff2::Command* c = 0;
+	Marker* c = 0;
 
 	int n, nw, w, direction, currentValue;
 	while ( x > 0 && y > 0 )
@@ -202,23 +202,23 @@ void LevenshteinTable::createListsOfCommands()
 //			kdDebug(8101) << "Picking north" << endl;
 //			kdDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
 
-			if ( !m_destination->commandsList().isEmpty() )
-				c = m_destination->commandsList().first();
+			if ( !m_destination->markerList().isEmpty() )
+				c = m_destination->markerList().first();
 			else
 				c = 0;
 
-			if ( c && c->m_type == Command::End )
+			if ( c && c->type() == Marker::End )
 			{
 //				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( n == currentValue )
-					m_destination->commandsList().prepend( new Command( Command::Start, y ) );
+					m_destination->prepend( new Marker( Marker::Start, y ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
 //				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( n < currentValue )
-					m_destination->commandsList().prepend( new Command( Command::End, y ) );
+					m_destination->prepend( new Marker( Marker::End, y ) );
 			}
 
 			--y;
@@ -227,42 +227,42 @@ void LevenshteinTable::createListsOfCommands()
 //			kdDebug(8101) << "Picking northwest" << endl;
 //			kdDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
 
-			if ( !m_destination->commandsList().isEmpty() )
-				c = m_destination->commandsList().first();
+			if ( !m_destination->markerList().isEmpty() )
+				c = m_destination->markerList().first();
 			else
 				c = 0;
 
-			if ( c && c->m_type == Command::End )
+			if ( c && c->type() == Marker::End )
 			{
 //				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( nw == currentValue )
-					m_destination->commandsList().prepend( new Command( Command::Start, y ) );
+					m_destination->prepend( new Marker( Marker::Start, y ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
 //				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( nw < currentValue )
-					m_destination->commandsList().prepend( new Command( Command::End, y ) );
+					m_destination->prepend( new Marker( Marker::End, y ) );
 			}
 
-			if ( !m_destination->commandsList().isEmpty() )
-				c = m_source->commandsList().first();
+			if ( !m_source->markerList().isEmpty() )
+				c = m_source->markerList().first();
 			else
 				c = 0;
 
-			if ( c && c->m_type == Command::End )
+			if ( c && c->type() == Marker::End )
 			{
 //				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( nw == currentValue )
-					m_source->commandsList().prepend( new Command( Command::Start, x ) );
+					m_source->prepend( new Marker( Marker::Start, x ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
 //				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( nw < currentValue )
-					m_source->commandsList().prepend( new Command( Command::End, x ) );
+					m_source->prepend( new Marker( Marker::End, x ) );
 			}
 
 			--y;
@@ -272,23 +272,23 @@ void LevenshteinTable::createListsOfCommands()
 //			kdDebug(8101) << "Picking west" << endl;
 //			kdDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
 
-			if ( !m_destination->commandsList().isEmpty() )
-				c = m_source->commandsList().first();
+			if ( !m_source->markerList().isEmpty() )
+				c = m_source->markerList().first();
 			else
 				c = 0;
 
-			if ( c && c->m_type == Command::End )
+			if ( c && c->type() == Marker::End )
 			{
 //				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( w == currentValue )
-					m_source->commandsList().prepend( new Command( Command::Start, x ) );
+					m_source->prepend( new Marker( Marker::Start, x ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
 //				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( w < currentValue )
-					m_source->commandsList().prepend( new Command( Command::End, x ) );
+					m_source->prepend( new Marker( Marker::End, x ) );
 			}
 
 			--x;
@@ -297,12 +297,12 @@ void LevenshteinTable::createListsOfCommands()
 	}
 
 //	kdDebug(8101) << "Source string: " << m_source->string() << endl;
-//	c = m_source->commandsList()->first();
+//	c = m_source->markerList()->first();
 //	QStringList list;
 //	unsigned int prevValue = 0;
-//	for ( ; c; c = m_source->commandsList()->next() )
+//	for ( ; c; c = m_source->markerList()->next() )
 //	{
-//		kdDebug(8101) << "Source Command Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
+//		kdDebug(8101) << "Source Marker Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
 //		list.append( m_source->string().mid( prevValue, c->offset() - prevValue ) );
 //		prevValue = c->offset();
 //	}
@@ -316,9 +316,9 @@ void LevenshteinTable::createListsOfCommands()
 //	prevValue = 0;
 
 //	kdDebug(8101) << "Destination string: " << m_destination->string() << endl;
-//	for ( ; c; c = m_destination->commandsList()->next() )
+//	for ( ; c; c = m_destination->markerList()->next() )
 //	{
-//		kdDebug(8101) << "Destination Command Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
+//		kdDebug(8101) << "Destination Marker Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
 //		list.append( m_destination->string().mid( prevValue, c->offset() - prevValue ) );
 //		prevValue = c->offset();
 //	}

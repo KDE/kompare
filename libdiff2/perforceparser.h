@@ -31,8 +31,8 @@ public:
 
 protected:
 	virtual bool parseContextDiffHeader();
-	virtual bool parseRCSDiffHeader();
 	virtual bool parseNormalDiffHeader();
+	virtual bool parseRCSDiffHeader();
 	virtual bool parseUnifiedDiffHeader();
 
 protected:

@@ -62,7 +62,7 @@ public:
 	* Default constructor
 	*/
 	KomparePart( QWidget *parentWidget, const char *widgetName,
-	             QObject *parent, const char *name);
+	             QObject *parent, const char *name, const QStringList & /*args*/);
 
 	/**
 	* Destructor
@@ -85,6 +85,8 @@ public:
 	/** Returns the url to the open diff file, or a url to a temporary
 	    diff file if we are comparing files. */
 	KURL diffURL(); // why ? url() from the ReadOnlyPart does the same...
+
+	static KAboutData *createAboutData();
 
 public:
 	// Reimplemented from the KompareInterface
@@ -221,25 +223,6 @@ private:
 	KTempFile*               m_tempDiff;
 
 	struct Kompare::Info     m_info;
-};
-
-class KInstance;
-class KAboutData;
-
-class KomparePartFactory : public KParts::Factory
-{
-	Q_OBJECT
-public:
-	KomparePartFactory();
-	virtual ~KomparePartFactory();
-	virtual KParts::Part* createPartObject( QWidget *parentWidget, const char *widgetName,
-	                                        QObject *parent, const char *name,
-	                                        const char *classname, const QStringList &args );
-	static KInstance* instance();
-
-private:
-	static KInstance* s_instance;
-	static KAboutData* s_about;
 };
 
 #endif // KOMPAREPART_H

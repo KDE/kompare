@@ -50,6 +50,6 @@ partdesktopdir   = $(kde_servicesdir)
 partdesktop_DATA = komparepart.desktop
 
 # this is where the part's XML-GUI resource file goes
-partrcdir   = $(kde_datadir)/komparepart
+partrcdir   = $(kde_datadir)/kompare
 partrc_DATA = komparepartui.rc
 

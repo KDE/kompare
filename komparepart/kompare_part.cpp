@@ -29,6 +29,7 @@
 #include <kstdaction.h>
 #include <kinstance.h>
 #include <ktempfile.h>
+#include <kparts/genericfactory.h>
 //#include <ktempdir.h>
 
 #include <kio/netaccess.h>
@@ -43,12 +44,14 @@
 #include "komparesaveoptionswidget.h"
 #include "kompareview.h"
 
+typedef KParts::GenericFactory<KomparePart> KomparePartFactory;
+K_EXPORT_COMPONENT_FACTORY( libkomparepart, KomparePartFactory );
 
 ViewSettings* KomparePart::m_viewSettings = 0L;
 DiffSettings* KomparePart::m_diffSettings = 0L;
 
 KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
-                      QObject *parent, const char *name ) :
+                      QObject *parent, const char *name, const QStringList & /*args*/ ) :
 	KParts::ReadWritePart(parent, name),
 	m_tempDiff( 0 ),
 	m_info()
@@ -511,6 +514,14 @@ KURL KomparePart::diffURL()
 	return m_info.source;
 }
 
+KAboutData *KomparePart::createAboutData()
+{
+    KAboutData *about = new KAboutData("kompare", I18N_NOOP("KomparePart"), "3.2");
+    about->addAuthor("John Firebaugh", "Author", "jfirebaugh@kde.org");
+    about->addAuthor("Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
+    return about;
+}
+
 void KomparePart::slotSetStatus( enum Kompare::Status status )
 {
 	updateActions();
@@ -763,62 +774,6 @@ void KomparePart::slotSetModified( bool modified )
 {
 	setModified( modified );
 	updateActions();
-}
-
-// It's usually safe to leave the factory code alone.. with the
-// notable exception of the KAboutData data
-#include <kaboutdata.h>
-
-KInstance*  KomparePartFactory::s_instance = 0L;
-KAboutData* KomparePartFactory::s_about = 0L;
-
-KomparePartFactory::KomparePartFactory()
-    : KParts::Factory()
-{
-}
-
-KomparePartFactory::~KomparePartFactory()
-{
-	delete s_instance;
-	delete s_about;
-
-	s_instance = 0L;
-}
-
-KParts::Part* KomparePartFactory::createPartObject( QWidget *parentWidget, const char *widgetName,
-                                                  QObject *parent, const char *name,
-                                                  const char *classname, const QStringList & /*args*/ )
-{
-	// Create an instance of our Part
-	KomparePart* obj = new KomparePart( parentWidget, widgetName, parent, name );
-
-	// See if we are to be read-write or not
-	if (QCString(classname) == "KParts::ReadOnlyPart")
-		obj->setReadWrite(false);
-
-	KGlobal::locale()->insertCatalogue("kompare");
-
-	return obj;
-}
-
-KInstance* KomparePartFactory::instance()
-{
-	if( !s_instance )
-	{
-		s_about = new KAboutData("komparepart", I18N_NOOP("KomparePart"), "3.2");
-		s_about->addAuthor("John Firebaugh", "Author", "jfirebaugh@kde.org");
-		s_about->addAuthor("Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
-		s_instance = new KInstance(s_about);
-	}
-	return s_instance;
-}
-
-extern "C"
-{
-	void* init_libkomparepart()
-	{
-		return new KomparePartFactory;
-	}
 }
 
 #include "kompare_part.moc"

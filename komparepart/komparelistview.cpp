@@ -84,7 +84,7 @@ int KompareListView::firstVisibleDifference()
 		kdDebug(8104) << "no item at viewport coordinates (0,0)" << endl;
 	}
 
-	while( item && item->isVisible() ) {
+	while( item ) {
 		KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>(item);
 		if( lineItem && lineItem->diffItemParent()->difference()->type() != Difference::Unchanged )
 			break;
@@ -107,7 +107,7 @@ int KompareListView::lastVisibleDifference()
 		item = lastItem();
 	}
 
-	while( item && item->isVisible() ) {
+	while( item ) {
 		KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>(item);
 		if( lineItem && lineItem->diffItemParent()->difference()->type() != Difference::Unchanged )
 			break;

@@ -232,7 +232,7 @@ void KompareShell::setupActions()
 	new KAction( i18n("&Blend URL with Diff..."), "fileblend", Qt::CTRL + Qt::Key_B,
 	              this, SLOT(slotFileBlendURLAndDiff()),
 	              actionCollection(), "file_blend_url" );
-	KStdAction::close( this, SLOT( slotFileClose() ), actionCollection() );
+	KStdAction::quit( this, SLOT( slotFileClose() ), actionCollection() );
 
 #if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 	createStandardStatusBarAction();

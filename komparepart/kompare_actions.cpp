@@ -125,10 +125,10 @@ void KompareActions::updateActions()
 		int diffIndex  = m_selectedModel->findDifference( const_cast<Diff2::Difference*>(m_selectedDifference) );
 
 		m_previousFile->setEnabled      ( modelIndex > 0 );
-		m_nextFile->setEnabled          ( modelIndex < m_modelList->count() - 1 );
+		m_nextFile->setEnabled          ( modelIndex < int( m_modelList->count() ) - 1 );
 		m_previousDifference->setEnabled( diffIndex  > 0 || modelIndex > 0 );
 		m_nextDifference->setEnabled    ( modelIndex >= 0 &&
-		    ( diffIndex < m_selectedModel->differenceCount() - 1 || modelIndex < m_modelList->count() - 1 ) );
+		    ( diffIndex < m_selectedModel->differenceCount() - 1 || modelIndex < int( m_modelList->count() ) - 1 ) );
 	}
 	else
 	{

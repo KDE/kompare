@@ -25,11 +25,11 @@ Difference::Difference( int sourceLineNo, int destinationLineNo ) :
 	m_destinationLineNo( destinationLineNo ),
 	m_applied( false )
 {
-};
+}
 
 Difference::~Difference()
 {
-};
+}
 
 void Difference::addSourceLine( QString line )
 {

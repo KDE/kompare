@@ -81,24 +81,24 @@ QSize PrefsBase::sizeHintForWidget( QWidget* widget )
 	}
 
 	return( size );
-};
+}
 
 /** No descriptions */
 void PrefsBase::apply()
 {
 
-};
+}
 
 /** No descriptions */
 void PrefsBase::restore()
 {
 
-};
+}
 
 /** No descriptions */
 void PrefsBase::setDefaults()
 {
 
-};
+}
 
 #include "prefsbase.moc"

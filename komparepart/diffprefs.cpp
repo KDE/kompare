@@ -91,12 +91,12 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
 	addTab( page, i18n( "O&ptions" ) );
-};
+}
 
 DiffPrefs::~DiffPrefs()
 {
 	m_settings = NULL;
-};
+}
 
 void DiffPrefs::setSettings( DiffSettings* setts )
 {
@@ -112,7 +112,7 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 	m_locSpinBox->setValue          ( m_settings->m_linesOfContext );
 
 	m_modeButtonGroup->setButton    ( m_settings->m_format );
-};
+}
 
 DiffSettings* DiffPrefs::settings( void )
 {
@@ -122,7 +122,7 @@ DiffSettings* DiffPrefs::settings( void )
 void DiffPrefs::restore()
 {
 	// this shouldn't do a thing...
-};
+}
 
 void DiffPrefs::apply()
 {
@@ -139,7 +139,7 @@ void DiffPrefs::apply()
 	setts->m_linesOfContext                 = m_locSpinBox->value();
 
 	setts->m_format = static_cast<Kompare::Format>( m_modeButtonGroup->id( m_modeButtonGroup->selected() ) );
-};
+}
 
 void DiffPrefs::setDefaults()
 {
@@ -153,6 +153,6 @@ void DiffPrefs::setDefaults()
 	m_locSpinBox->setValue( 3 );
 
 	m_modeButtonGroup->setButton( Kompare::Unified );
-};
+}
 
 #include "diffprefs.moc"

@@ -626,6 +626,6 @@ extern "C"
 	{
 		return new KompareNavTreePartFactory;
 	}
-};
+}
 
 #include "komparenavtreepart.moc"

@@ -525,7 +525,7 @@ void KomparePart::optionsPreferences()
 		saveSettings( config );
 		config->sync();
 	}
-};
+}
 
 // It's usually safe to leave the factory code alone.. with the
 // notable exception of the KAboutData data
@@ -581,6 +581,6 @@ extern "C"
 	{
 		return new KomparePartFactory;
 	}
-};
+}
 
 #include "kompare_part.moc"

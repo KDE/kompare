@@ -40,33 +40,33 @@ MiscPrefs::MiscPrefs( QWidget* parent ) : PrefsBase( parent )
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
 	addTab( page, i18n( "&Misc" ) );
-};
+}
 
 MiscPrefs::~MiscPrefs()
 {
 
-};
+}
 
 void MiscPrefs::setSettings( MiscSettings* setts )
 {
 	m_settings = setts;
-};
+}
 
 MiscSettings* MiscPrefs::settings( void )
 {
 	return m_settings;
-};
+}
 
 void MiscPrefs::restore()
 {
-};
+}
 
 void MiscPrefs::apply()
 {
-};
+}
 
 void MiscPrefs::setDefaults()
 {
-};
+}
 
 #include "miscprefs.moc"

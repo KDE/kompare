@@ -90,7 +90,7 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	addTab( page, i18n( "&Options" ) );
+	addTab( page, i18n( "O&ptions" ) );
 };
 
 DiffPrefs::~DiffPrefs()

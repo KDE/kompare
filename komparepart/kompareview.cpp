@@ -34,6 +34,8 @@
 
 #include "kompareview.h"
 
+#define kdDebug() kdDebug(8103)
+
 KompareView::KompareView( GeneralSettings* settings, QWidget *parent, const char *name )
 	: QFrame(parent, name),
 	m_selectedModel( 0 ),

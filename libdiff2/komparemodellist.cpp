@@ -454,11 +454,12 @@ bool KompareModelList::openDiff( const QString& diffFile )
 	return true;
 }
 
-bool KompareModelList::saveDiff( const QString& /*url*/, QString directory, DiffSettings* diffSettings )
+bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSettings* diffSettings )
 {
 	kdDebug() << "KompareModelList::saveDiff: " << endl;
 
-/*	m_diffTemp = new KTempFile();
+	m_diffTemp = new KTempFile();
+	m_diffURL = url;
 
 	if( m_diffTemp->status() != 0 ) {
 		emit error( i18n( "Could not open a temporary file." ) );
@@ -467,7 +468,7 @@ bool KompareModelList::saveDiff( const QString& /*url*/, QString directory, Diff
 		m_diffTemp = 0;
 		return false;
 	}
-*/
+
 	m_diffProcess = new KompareProcess( diffSettings, Kompare::Custom, m_source, m_destination, directory );
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotWriteDiffOutput( bool )) );
@@ -477,9 +478,11 @@ bool KompareModelList::saveDiff( const QString& /*url*/, QString directory, Diff
 
 }
 
-void KompareModelList::slotWriteDiffOutput( bool /*success*/ )
+void KompareModelList::slotWriteDiffOutput( bool success )
 {
-/*	if( success )
+	kdDebug(8101) << "Success = " << success << endl;
+
+	if( success )
 	{
 		QTextStream* stream = m_diffTemp->textStream();
 
@@ -492,7 +495,7 @@ void KompareModelList::slotWriteDiffOutput( bool /*success*/ )
 		m_diffTemp->close();
 		if( m_diffTemp->status() != 0 )
 		{
-			emit error( i18n( "Could not write to file." ) );
+			emit error( i18n( "Could not write to the temporary file." ) );
 		}
 
 		KIO::NetAccess::upload( m_diffTemp->name(), m_diffURL, (QWidget*)parent() );
@@ -500,6 +503,7 @@ void KompareModelList::slotWriteDiffOutput( bool /*success*/ )
 		emit status( Kompare::FinishedWritingDiff );
 	}
 
+	m_diffURL.truncate( 0 );
 	m_diffTemp->unlink();
 
 	delete m_diffTemp;
@@ -507,7 +511,7 @@ void KompareModelList::slotWriteDiffOutput( bool /*success*/ )
 
 	delete m_diffProcess;
 	m_diffProcess = 0;
-*/}
+}
 
 void KompareModelList::slotSelectionChanged( const Diff2::DiffModel* model, const Diff2::Difference* diff )
 {

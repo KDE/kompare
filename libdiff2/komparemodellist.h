@@ -164,6 +164,9 @@ private: // Helper methods
 	bool hasNextDiff();
 
 private:
+	KTempFile*            m_diffTemp;
+	QString               m_diffURL;
+
 	KompareProcess*       m_diffProcess;
 
 	DiffSettings*         m_diffSettings;
@@ -175,9 +178,6 @@ private:
 
 	DiffModel*            m_selectedModel;
 	Difference*           m_selectedDifference;
-
-//	QPtrListIterator<DiffModel>*  m_modelIt;
-//	QPtrListIterator<Difference>* m_diffIt;
 
 	KDirWatch*            m_dirWatch;
 	KDirWatch*            m_fileWatch;

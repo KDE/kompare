@@ -82,7 +82,7 @@ void KompareProcess::writeCommandLine()
 	// load the executable into the KProcess
 	if ( m_diffSettings->m_diffProgram.isEmpty() )
 	{
-		kdDebug(8101) << "Using he first diff in the path..." << endl;
+		kdDebug(8101) << "Using the first diff in the path..." << endl;
 		*this << "diff";
 	}
 	else

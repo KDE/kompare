@@ -24,6 +24,7 @@
 #include <qlayout.h>
 #include <qspinbox.h>
 
+#include <kapplication.h>
 #include <kcolorbutton.h>
 #include <kdialog.h>
 #include <kfontcombo.h>
@@ -158,6 +159,8 @@ void ViewPage::apply()
 
 	m_settings->m_font                = QFont( m_fontCombo->currentFont() );
 	m_settings->m_font.setPointSize( m_fontSizeSpinBox->value() );
+
+	m_settings->saveSettings( kapp->config() );
 }
 
 void ViewPage::setDefaults()

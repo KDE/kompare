@@ -25,6 +25,7 @@
 #include <qvbuttongroup.h>
 #include <qwhatsthis.h>
 
+#include <kapplication.h>
 #include <kcombobox.h>
 #include <kdialog.h>
 #include <keditlistbox.h>
@@ -128,6 +129,8 @@ void DiffPage::apply()
 	m_settings->m_excludeFilesFile               = m_excludeFileCheckBox->isChecked();
 	m_settings->m_excludeFilesFileURL            = m_excludeFileURLComboBox->currentText();
 	m_settings->m_excludeFilesFileHistoryList    = m_excludeFileURLComboBox->urls();
+
+	m_settings->saveSettings( kapp->config() );
 }
 
 void DiffPage::setDefaults()

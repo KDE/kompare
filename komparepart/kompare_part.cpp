@@ -25,6 +25,7 @@
 #include <qwidget.h>
 
 #include <kaction.h>
+#include <kapplication.h>
 #include <kdebug.h>
 #include <kfiletreeview.h>
 #include <kfiledialog.h>
@@ -56,7 +57,7 @@ ViewSettings* KomparePart::m_viewSettings = 0L;
 DiffSettings* KomparePart::m_diffSettings = 0L;
 
 KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
-                      QObject *parent, const char *name, const QStringList & /*args*/ ) :
+                          QObject *parent, const char *name, const QStringList & /*args*/ ) :
 	KParts::ReadWritePart(parent, name),
 	m_tempDiff( 0 ),
 	m_info()
@@ -71,7 +72,7 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 		m_diffSettings = new DiffSettings( 0 );
 	}
 
-	readProperties( instance()->config() );
+	readProperties( kapp->config() );
 
 	// This creates the "Model creator" and connects the signals and slots
 	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_info, this, "komparemodellist" );

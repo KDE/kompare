@@ -202,6 +202,7 @@ bool ParserBase::parseUnifiedDiffHeader()
 		}
 //		kdDebug(8101) << "Matched length Header1 = " << m_unifiedDiffHeader1.matchedLength() << endl;
 //		kdDebug(8101) << "Matched string Header1 = " << m_unifiedDiffHeader1.cap( 0 ) << endl;
+		++m_diffIterator;
 		if ( m_diffIterator != m_diffLines.end() && m_unifiedDiffHeader2.exactMatch( *m_diffIterator ) )
 		{
 			m_currentModel = new DiffModel( m_unifiedDiffHeader1.cap( 1 ), m_unifiedDiffHeader2.cap( 1 ) );
@@ -669,6 +670,8 @@ QPtrList<DiffModel>* ParserBase::parseUnified()
 	{
 		while ( parseUnifiedHunkHeader() )
 			parseUnifiedHunkBody();
+//		kdDebug(8101) << "New model ready to be analyzed..." << endl;
+//		kdDebug(8101) << " differenceCount() == " << m_currentModel->differenceCount() << endl;
 		if ( m_currentModel->differenceCount() > 0 )
 			m_models->append( m_currentModel );
 	}

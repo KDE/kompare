@@ -167,8 +167,8 @@ void KomparePart::setupActions()
 void KomparePart::updateActions()
 {
 	m_saveAll->setEnabled  ( m_modelList->isModified() );
-	m_saveDiff->setEnabled ( m_modelList->mode() == Kompare::ComparingFiles );
-	m_swap->setEnabled     ( m_modelList->mode() == Kompare::ComparingFiles );
+	m_saveDiff->setEnabled ( m_modelList->mode() == ( Kompare::ComparingFiles || Kompare::ComparingDirs ) );
+	m_swap->setEnabled     ( m_modelList->mode() == ( Kompare::ComparingFiles || Kompare::ComparingDirs ) );
 	m_diffStats->setEnabled( m_modelList->modelCount() > 0 );
 
 	const Diff2::DiffModel* model = m_modelList->selectedModel();

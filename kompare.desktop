@@ -1,18 +1,28 @@
 # KDE Config File
 [Desktop Entry]
+Encoding=UTF-8
 Type=Application
 Name=Kompare
 Name[ar]=المقارن
-Name[fr]=Outil de comparaison de fichiers
 Name[lv]=Salīdzināt
 Name[xx]=xx
 Comment=Diff/Patch Frontend
 Comment[da]=Diff/Patch-forende
+Comment[de]=Oberfläche für Diff und Patch
 Comment[es]=Interfaz Diff/Patch
+Comment[fi]=Diff/Patch käyttöliittymä
+Comment[fr]=Une interface graphique pour Diff et Patch
 Comment[he]=ממשק ל-Diff/Patch
 Comment[hu]=Grafikus előtétprogram a Diff/Patch programokhoz
-Comment[sl]=Vmesnik za diff/patch
+Comment[it]=Interfaccia per diff/patch
+Comment[lt]=Diff/Patch vartotojo sąsaja
+Comment[lv]=Diff/Patch Frontends
+Comment[pt]=Interface do Diff/Patch
+Comment[pt_BR]=Interface do Diff/Patch
+Comment[sk]=Rozhranie Diff/Patch
 Comment[sv]=Gränssnitt för Diff/Patch
+Comment[uk]=Інтерфейс до diff/patch
+Comment[xx]=xx
 MimeType=text/x-diff;
 Exec=kompare -caption "%c" %i %m %U
 Icon=kompare

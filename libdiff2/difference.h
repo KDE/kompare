@@ -38,34 +38,37 @@ public:
 
 public:
 	enum Difference::Type type() const { return m_type; };
+
 	int sourceLineNumber() const { return m_sourceLineNo; };
 	int destinationLineNumber() const { return m_destinationLineNo; };
+
 	int sourceLineCount() const;
 	int destinationLineCount() const;
+
 	const QString& sourceLineAt( int i ) const { return m_sourceLines[ i ]; };
 	const QString& destinationLineAt( int i ) const { return m_destinationLines[ i ]; };
+
 	const QStringList sourceLines() const { return m_sourceLines; };
 	const QStringList destinationLines() const { return m_destinationLines; };
+
+	void apply( bool apply );
 	bool applied() const { return m_applied; };
 
 	void setType( enum Difference::Type type ) { m_type = type; };
+
 	void addSourceLine( QString line );
 	void addDestinationLine( QString line );
 
-	void apply( bool apply );
-
-	const int index() const    { return m_index; };
-	void setIndex( int index ) { m_index = index; };
-
 private:
 	enum Difference::Type m_type;
-	int                  m_sourceLineNo;
-	int                  m_destinationLineNo;
-	QStringList          m_sourceLines;
-	QStringList          m_destinationLines;
-	bool                 m_applied;
 
-	int              m_index;
+	int                   m_sourceLineNo;
+	int                   m_destinationLineNo;
+
+	QStringList           m_sourceLines;
+	QStringList           m_destinationLines;
+
+	bool                  m_applied;
 };
 
 } // End of namespace Diff2

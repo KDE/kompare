@@ -577,7 +577,7 @@ void KomparePart::slotShowError( QString error )
 
 void KomparePart::slotSwap()
 {
-	if ( m_modelList->isModified() )
+	if ( isModified() )
 	{
 		int query = KMessageBox::warningYesNoCancel
 		            (
@@ -698,7 +698,7 @@ void KomparePart::slotShowDiffstats( void )
 
 bool KomparePart::queryClose()
 {
-	if( !m_modelList->isModified() ) return true;
+	if( !isModified() ) return true;
 
 	int query = KMessageBox::warningYesNoCancel
 	            (

@@ -34,8 +34,8 @@
 #define COL_LINE_NO      0
 #define COL_MAIN         1
 
-KompareListView::KompareListView( KompareModelList* models, bool isSource, 
-                              GeneralSettings* settings, 
+KompareListView::KompareListView( KompareModelList* models, bool isSource,
+                              GeneralSettings* settings,
                               QWidget* parent, const char* name ) :
 	KListView( parent, name ),
 	m_models( models ),
@@ -72,18 +72,18 @@ int KompareListView::firstVisibleDifference()
 	if( item == 0 ) {
 		kdDebug() << "no item at (0,0)" << endl;
 	}
-	
+
 	while( item ) {
 		KompareListViewDiffItem* dvlitem = dynamic_cast<KompareListViewDiffItem*>(item);
 		if( dvlitem && dvlitem->difference()->type() != Difference::Unchanged )
 			break;
 		item = item->itemBelow();
 	}
-	
+
 	if( item ) {
 		return m_items.findRef( (KompareListViewDiffItem*)item );
 	}
-	
+
 	return -1;
 }
 
@@ -94,18 +94,18 @@ int KompareListView::lastVisibleDifference()
 		kdDebug() << "no item at (0," << visibleHeight() - 1 << ")" << endl;
 		item = m_items.last();
 	}
-	
+
 	while( item ) {
 		KompareListViewDiffItem* dvlitem = dynamic_cast<KompareListViewDiffItem*>(item);
 		if( dvlitem && dvlitem->difference()->type() != Difference::Unchanged )
 			break;
 		item = item->itemAbove();
 	}
-	
+
 	if( item ) {
 		return m_items.findRef( (KompareListViewDiffItem*)item );
 	}
-	
+
 	return -1;
 }
 
@@ -142,7 +142,7 @@ void KompareListView::scrollToId( int id )
 			break;
 		item = (KompareListViewItem*)item->nextSibling();
 	}
-	
+
 	if( item ) {
 		int pos = item->itemPos();
 		int itemId = item->scrollId();
@@ -159,7 +159,7 @@ void KompareListView::scrollToId( int id )
 //		kdDebug() << "      y = " << y << endl;
 		setContentsPos( contentsX(), y );
 	}
-	
+
 	m_scrollId = id;
 }
 
@@ -181,9 +181,9 @@ void KompareListView::setSelectedModel( int index )
 	DiffModel* model = 0;
 	if( index >= 0 )
 		model = m_models->modelAt( index );
-	
+
 	if( index == m_selectedModel ) return;
-	
+
 	clear();
 	m_items.clear();
 	m_itemDict.clear();
@@ -191,41 +191,41 @@ void KompareListView::setSelectedModel( int index )
 	m_maxMainWidth = 0;
 	disconnect( m_models->modelAt( index ), SIGNAL(appliedChanged( const Difference* )),
 	            this, SLOT(slotAppliedChanged( const Difference* )) );
-	
+
 	m_selectedModel = index;
-	
+
 	if( model == 0 ) return;
-	
+
 	m_itemDict.resize(model->differenceCount());
-	
-	QListIterator<DiffHunk> hunkIt(model->getHunks());
-	
+
+	QPtrListIterator<DiffHunk> hunkIt(model->getHunks());
+
 	KompareListViewItem* item = 0;
 	for( ; hunkIt.current(); ++hunkIt ) {
 		DiffHunk* hunk = hunkIt.current();
-		
+
 		if( item )
 			item = new KompareListViewHunkItem( this, item, hunk );
 		else
 			item = new KompareListViewHunkItem( this, hunk );
-		
-		QListIterator<Difference> diffIt(hunk->getDifferences());
-		
+
+		QPtrListIterator<Difference> diffIt(hunk->getDifferences());
+
 		for( ; diffIt.current(); ++diffIt ) {
 			Difference* diff = diffIt.current();
-			
+
 			item = new KompareListViewDiffItem( this, item, diff );
-			
+
 			if( diff->type() != Difference::Unchanged ) {
 				m_items.append( (KompareListViewDiffItem*)item );
 				m_itemDict.insert( diff, (KompareListViewDiffItem*)item );
 			}
-			
+
 			m_maxScrollId = item->scrollId() + item->height() - 1;
 			m_maxMainWidth = QMAX( m_maxMainWidth, ((KompareListViewDiffItem*)item)->maxMainWidth() );
 		}
 	}
-	
+
 	connect( model, SIGNAL(appliedChanged( const Difference* )),
 	         this, SLOT(slotAppliedChanged( const Difference* )) );
 	updateMainColumnWidth();
@@ -310,7 +310,7 @@ int KompareListViewDiffItem::maxHeight()
 {
 	int lines = QMAX( m_difference->sourceLineCount(),
 	                  m_difference->destinationLineCount() );
-	
+
 	int height = 0;
 	if( lines == 0 ) {
 		height = 3;
@@ -334,34 +334,34 @@ int KompareListViewDiffItem::maxMainWidth() const
 {
 	int maxWidth = 0;
 	QFontMetrics fm = listView()->fontMetrics();
-	
+
 	QStringList list;
 	if( isSource() || m_difference->applied() )
 		list = m_difference->sourceLines();
 	else
 		list = m_difference->destinationLines();
-	
+
 	QStringList::Iterator it = list.begin();
 	for( ; it != list.end(); ++it ) {
 		maxWidth = QMAX( maxWidth, fm.width( (*it) ) );
 	}
-	
+
 	return maxWidth + listView()->itemMargin() * 2;
 }
 
 void KompareListViewDiffItem::setup()
 {
 	QListViewItem::setup();
-	
+
 	int lines = lineCount();
-	
+
 	int height = 0;
 	if( lines == 0 ) {
 		height = 3;
 	} else {
 		height = m_listView->fontMetrics().lineSpacing() * lines;
 	}
-	
+
 	setHeight( height );
 }
 
@@ -376,16 +376,16 @@ void KompareListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, i
 	}
 
 	p->fillRect( 0, 0, width, height(), bg );
-	
+
 	p->setPen( cg.foreground() );
-	
+
 	if( isSelected() ) {
 		p->drawLine( 0, 0, width, 0 );
 		p->drawLine( 0, height() - 1, width, height() - 1 );
 	}
-	
+
 	int lines = lineCount();
-	
+
 	int line = 0;
 	if( isSource() || m_difference->applied() ) {
 		line = m_difference->sourceLineNumber();
@@ -395,9 +395,9 @@ void KompareListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, i
 
 	int y = 0;
 	for( int i = 0; i < lines; i++, line++ ) {
-		
+
 		QString text;
-		
+
 		switch( column ) {
 		case COL_LINE_NO:
 			text = QString::number( line );
@@ -410,11 +410,11 @@ void KompareListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, i
 				text = m_difference->destinationLineAt( i );
 			break;
 		}
-		
+
 		p->drawText( m_listView->itemMargin(), y, width - m_listView->itemMargin(), height(),
 		             align, text );
 		y += m_listView->fontMetrics().lineSpacing();
-		
+
 	}
 }
 
@@ -449,7 +449,7 @@ int KompareListViewHunkItem::maxHeight()
 void KompareListViewHunkItem::setup()
 {
 	QListViewItem::setup();
-	
+
 	setHeight( maxHeight() );
 }
 

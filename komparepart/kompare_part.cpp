@@ -7,7 +7,7 @@
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -56,13 +56,13 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 {
 	// we need an instance
 	setInstance( KomparePartFactory::instance() );
-	
+
 	if( !m_generalSettings ) {
 		m_generalSettings = new GeneralSettings( 0 );
 		m_diffSettings    = new DiffSettings   ( 0 );
 		m_miscSettings    = new MiscSettings   ( 0 );
 	}
-	
+
 	m_models = new KompareModelList();
 	connect( m_models, SIGNAL(status( KompareModelList::Status )),
 	         this, SLOT(slotSetStatus( KompareModelList::Status )) );
@@ -70,7 +70,7 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	         this, SLOT(slotShowError( QString )) );
 	connect( m_models, SIGNAL(modelsChanged()),
 	         this, SLOT(slotModelsChanged()) );
-	
+
 	// this should be your custom internal widget
 	m_diffView = new KompareView( m_models, m_generalSettings, parentWidget, widgetName );
 	connect( this, SIGNAL(selectionChanged(int,int)),
@@ -80,20 +80,20 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 
 	// notify the part that this is our internal widget
 	setWidget(m_diffView);
-	
+
 	setupActions();
-	
+
 	loadSettings( instance()->config() );
-	
+
 	// set our XML-UI resource file
 	setXMLFile("komparepartui.rc");
-	
+
 	// we are read-write by default
 	setReadWrite(true);
-	
+
 	// we are not modified since we haven't done anything yet
 	setModified(false);
-	
+
 	connect( this, SIGNAL(selectionChanged(int,int)),
 	         this, SLOT(slotSelectionChanged(int,int)) );
 }
@@ -170,7 +170,7 @@ void KomparePart::updateActions()
 	m_saveDiff->setEnabled ( m_models->mode() == KompareModelList::Compare );
 	m_swap->setEnabled     ( m_models->mode() == KompareModelList::Compare );
 	m_diffStats->setEnabled( m_models->modelCount() > 0 );
-	
+
 	int model = getSelectedModelIndex();
 	int diff  = getSelectedDifferenceIndex();
 	if( model >= 0 ) {
@@ -230,15 +230,15 @@ bool KomparePart::openDiff( const KURL& url )
 void KomparePart::saveDiff()
 {
 	KDialogBase* dlg          = new KDialogBase( widget(), "save options",
-	                                             true /* modal */, i18n("Diff Options"), 
+	                                             true /* modal */, i18n("Diff Options"),
 	                                             KDialogBase::Ok|KDialogBase::Cancel );
 	KompareSaveOptionsWidget* w = new KompareSaveOptionsWidget(
-	                                             m_models->sourceTemp(), 
-	                                             m_models->destinationTemp(), 
+	                                             m_models->sourceTemp(),
+	                                             m_models->destinationTemp(),
 	                                             m_diffSettings, dlg );
 	dlg->setMainWidget( w );
 	dlg->setButtonOKText( i18n("Save") );
-	
+
 	if( dlg->exec() ) {
 		w->saveOptions();
 		KConfig* config = instance()->config();
@@ -411,14 +411,14 @@ void KomparePart::slotShowDiffstats( void )
 bool KomparePart::askSaveChanges()
 {
 	if( !isModified() ) return true;
-	
+
 	int query = KMessageBox::warningYesNoCancel( widget(),
 	    i18n("You have made changes to the destination.\n"
-	         "Would you like to save them?" ), 
+	         "Would you like to save them?" ),
 	         i18n( "Save Changes?" ),
-	         i18n( "Save" ), 
+	         i18n( "Save" ),
 	         i18n( "Discard" ) );
-	
+
 	if( query == KMessageBox::Cancel ) return false;
 	if( query == KMessageBox::Yes ) return m_models->saveAll();
 	return true;
@@ -453,7 +453,7 @@ void KomparePart::slotSetSelection( int model, int diff )
 		disconnect( getSelectedModel(), SIGNAL(appliedChanged( const Difference* )),
 		            this, SLOT(slotAppliedChanged( const Difference* )) );
 	}
-	
+
 	m_selectedModel = model;
 	m_selectedDifference = diff;
 
@@ -461,7 +461,7 @@ void KomparePart::slotSetSelection( int model, int diff )
 		connect( getSelectedModel(), SIGNAL(appliedChanged( const Difference* )),
 		            this, SLOT(slotAppliedChanged( const Difference* )) );
 	}
-	
+
 	emit selectionChanged( model, diff );
 }
 
@@ -496,7 +496,7 @@ void KomparePart::slotApplyDifference()
 void KomparePart::slotApplyAllDifferences()
 {
 	DiffModel* model = getSelectedModel();
-	QListIterator<Difference> it = QListIterator<Difference>(model->getDifferences());
+	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(model->getDifferences());
 	int i = 0;
 	while ( it.current() ) {
 		if( !(*it)->applied() )
@@ -508,7 +508,7 @@ void KomparePart::slotApplyAllDifferences()
 void KomparePart::slotUnapplyAllDifferences()
 {
 	DiffModel* model = getSelectedModel();
-	QListIterator<Difference> it = QListIterator<Difference>(model->getDifferences());
+	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(model->getDifferences());
 	int i = 0;
 	while ( it.current() ) {
 		if( (*it)->applied() )
@@ -553,7 +553,7 @@ void KomparePart::optionsPreferences()
 {
 	// show preferences
 	KomparePrefDlg* pref = new KomparePrefDlg( m_generalSettings, m_diffSettings, m_miscSettings );
-	
+
 	if ( pref->exec() ) {
 		KConfig* config = instance()->config();
 		saveSettings( config );

@@ -177,10 +177,11 @@ void KompareProcess::writeCommandLine()
 		*this << "-N";
 	}
 
-	if ( m_diffSettings->m_allText )
-	{
-		*this << "-a";
-	}
+// This option is more trouble than it is worth... please do not ever enable it unless you want really weird crashes
+//	if ( m_diffSettings->m_allText )
+//	{
+//		*this << "-a";
+//	}
 #if EXCLUDE_DIFF_OPTION
 
 	if ( m_diffSettings->m_excludeFilePattern )
@@ -202,6 +203,7 @@ KompareProcess::~KompareProcess()
 void KompareProcess::slotReceivedStdout( KProcess* /* process */, char* buffer, int length )
 {
 	// add all output to m_stdout
+//	kdDebug(8101) << buffer << endl;
 	m_stdout += QString::fromLocal8Bit( buffer, length );
 //	kdDebug(8101) << "StdOut from within slotReceivedStdOut: " << endl;
 //	kdDebug(8101) << m_stdout << endl;

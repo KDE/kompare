@@ -54,7 +54,7 @@ public:
 	QStringList m_ignoreRegExpTextHistory;
 	bool m_recursive;                            // -r
 	bool m_newFiles;                             // -N
-	bool m_allText;                              // -a
+//	bool m_allText;                              // -a
 #if EXCLUDE_DIFF_OPTION
 	bool m_excludeFilePattern;                   // -x
 	QString m_excludeFilePatternText;            // The pattern to -x

@@ -67,7 +67,6 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 	connect( m_FunctionNamesCB,    SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
 	connect( m_RecursiveCB,        SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
 	connect( m_NewFilesCB,         SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_AllTextCB,          SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
 	connect( m_ContextRB,          SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
 	connect( m_EdRB,               SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
 	connect( m_NormalRB,           SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
@@ -158,9 +157,9 @@ void KompareSaveOptionsWidget::updateCommandLine()
 		options += "N";
 	}
 
-	if( m_AllTextCB->isChecked() ) {
-		options += "a";
-	}
+//	if( m_AllTextCB->isChecked() ) {
+//		options += "a";
+//	}
 
 	if( options.length() > 0 ) {
 		cmdLine += " -" + options;
@@ -185,7 +184,7 @@ void KompareSaveOptionsWidget::loadOptions()
 	m_FunctionNamesCB->setChecked   ( m_settings->m_showCFunctionChange );
 	m_RecursiveCB->setChecked       ( m_settings->m_recursive );
 	m_NewFilesCB->setChecked        ( m_settings->m_newFiles );
-	m_AllTextCB->setChecked         ( m_settings->m_allText );
+//	m_AllTextCB->setChecked         ( m_settings->m_allText );
 
 	m_ContextLinesSB->setValue      ( m_settings->m_linesOfContext );
 
@@ -205,7 +204,7 @@ void KompareSaveOptionsWidget::saveOptions()
 	m_settings->m_showCFunctionChange = m_FunctionNamesCB->isChecked();
 	m_settings->m_recursive           = m_RecursiveCB->isChecked();
 	m_settings->m_newFiles            = m_NewFilesCB->isChecked();
-	m_settings->m_allText             = m_AllTextCB->isChecked();
+//	m_settings->m_allText             = m_AllTextCB->isChecked();
 
 	m_settings->m_linesOfContext      = m_ContextLinesSB->value();
 

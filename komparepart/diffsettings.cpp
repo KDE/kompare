@@ -44,7 +44,7 @@ void DiffSettings::loadSettings( KConfig* config )
 	m_showCFunctionChange            = config->readBoolEntry( "ShowCFunctionChange", false );
 	m_recursive                      = config->readBoolEntry( "CompareRecursively", true );
 	m_newFiles                       = config->readBoolEntry( "NewFiles", true );
-	m_allText                        = config->readBoolEntry( "TreatAllFilesAsText", true );
+//	m_allText                        = config->readBoolEntry( "TreatAllFilesAsText", false );
 
 	m_format = static_cast<Kompare::Format>( config->readNumEntry( "Format", Kompare::Unified ) );
 
@@ -78,7 +78,7 @@ void DiffSettings::saveSettings( KConfig* config )
 	config->writeEntry( "ShowCFunctionChange",            m_showCFunctionChange );
 	config->writeEntry( "CompareRecursively",             m_recursive );
 	config->writeEntry( "NewFiles",                       m_newFiles );
-	config->writeEntry( "TreatAllFilesAsText",            m_allText );
+//	config->writeEntry( "TreatAllFilesAsText",            m_allText );
 
 #if EXCLUDE_DIFF_OPTION
 	config->setGroup( "Exclude File Options" );

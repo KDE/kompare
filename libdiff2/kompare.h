@@ -76,7 +76,7 @@ namespace Kompare
 		SingleFileDiff,
 		MultiFileDiff
 	};
-}; // End of namespace Kompare
+} // End of namespace Kompare
 
 /*
 ** This should be removed and put somewhere else

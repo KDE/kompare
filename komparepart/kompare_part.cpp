@@ -275,10 +275,13 @@ void KDiffPart::slotShowDiffstats( void )
 	noOfHunks = 0;
 	noOfDiffs = 0;
 
+kdDebug() << "Create dialog" << endl;
 	KDiffStatsDlg* diffStatsDlg = new KDiffStatsDlg( oldFile, newFile, diffFormat, noOfHunks, noOfDiffs );
 
+kdDebug() << "Execute dialog" << endl;
 	diffStatsDlg->exec();
 
+kdDebug() << "Delete dialog" << endl;
 	delete diffStatsDlg;
 }
 

@@ -999,10 +999,12 @@ void KompareModelList::clear()
 
 void KompareModelList::swap()
 {
+	QString source = m_source;
+	QString destination = m_destination;
 	if ( m_info->mode == Kompare::ComparingFiles )
-		compareFiles( m_destination, m_source );
+		compareFiles( destination, source );
 	else if ( m_info->mode == Kompare::ComparingDirs )
-		compareDirs( m_destination,  m_source );
+		compareDirs( destination, source );
 }
 
 bool KompareModelList::isModified() const

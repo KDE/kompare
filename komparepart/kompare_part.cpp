@@ -223,7 +223,7 @@ bool KomparePart::openDiff( const QString& diffOutput )
 {
 	bool value;
 
-	if ( (value = m_modelList->parseDiffOutput( diffOutput.split( "\n" ) ) ) == true )
+	if ( (value = m_modelList->parseDiffOutput( QStringList::split( "\n", diffOutput ) ) ) == true )
 	{
 		updateActions();
 		updateStatus();

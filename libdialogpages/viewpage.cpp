@@ -175,7 +175,7 @@ void ViewPage::setDefaults()
 	m_snolSpinBox->setValue       ( 3 );
         m_tabSpinBox->setValue        ( 4 );
 
-	m_fontCombo->setCurrentFont   ( QFont( KGlobalSettings::fixedFont() ) );
+	m_fontCombo->setCurrentFont   ( QFont( KGlobalSettings::fixedFont() ).family() );
         m_fontSizeSpinBox->setValue   ( 10 );
 }
 

@@ -26,7 +26,7 @@
 #include <kdirwatch.h>
 #include <kio/netaccess.h>
 #include <klocale.h>
-#include <kmimemagic.h>
+#include <kmimetype.h>
 #include <ktempfile.h>
 
 #include "difference.h"
@@ -109,34 +109,49 @@ bool KompareModelList::compare( const QString& source, const QString& destinatio
 {
 	bool result = false;
 
-	if ( isDirectory( source ) && isDirectory( destination ) )
+	bool sourceIsDirectory = isDirectory( source );
+	bool destinationIsDirectory = isDirectory( source );
+
+	if ( sourceIsDirectory && destinationIsDirectory )
 	{
 		m_info->mode = Kompare::ComparingDirs;
 		result = compareDirs( source, destination );
 	}
-	else if ( !isDirectory( source ) && !isDirectory( destination ) )
+	else if ( !sourceIsDirectory && !destinationIsDirectory )
 	{
-		QString sourceMimeType = ( KMimeMagic::self()->findFileType( source ) )->mimeType();
-		QString destinationMimeType = ( KMimeMagic::self()->findFileType( destination ) )->mimeType();
+		QFile sourceFile( source );
+		sourceFile.open( IO_ReadOnly );
+		QString sourceMimeType = ( KMimeType::findByContent( sourceFile.readAll() ) )->name();
+		sourceFile.close();
+		kdDebug(8101) << "Mimetype source     : " << sourceMimeType << endl;
+
+		QFile destinationFile( destination );
+		destinationFile.open( IO_ReadOnly );
+		QString destinationMimeType = ( KMimeType::findByContent( destinationFile.readAll() ) )->name();
+		destinationFile.close();
+		kdDebug(8101) << "Mimetype destination: " << destinationMimeType << endl;
 
 		// Not checking if it is a text file/something diff can even compare, we'll let diff handle that
 		if ( !isDiff( sourceMimeType ) && isDiff( destinationMimeType ) )
 		{
+			kdDebug(8101) << "Blending destination into source..." << endl;
 			m_info->mode = Kompare::BlendingFile;
 			result = openFileAndDiff( source, destination );
 		}
 		else if ( isDiff( sourceMimeType ) && !isDiff( destinationMimeType ) )
 		{
+			kdDebug(8101) << "Blending source into destination..." << endl;
 			m_info->mode = Kompare::BlendingFile;
 			result = openFileAndDiff( destination, source );
 		}
 		else
 		{
+			kdDebug(8101) << "Comparing source with destination" << endl;
 			m_info->mode = Kompare::ComparingFiles;
 			result = compareFiles( source, destination );
 		}
 	}
-	else if ( isDirectory( source ) && !isDirectory( destination ) )
+	else if ( sourceIsDirectory && !destinationIsDirectory )
 	{
 		m_info->mode = Kompare::BlendingDir;
 		result = openDirAndDiff( source, destination );
@@ -348,7 +363,7 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 	}
 	else
 	{
-		model->slotSetModified( false );
+		//model->slotSetModified( false );
 		temp->unlink();
 		delete temp;
 	}
@@ -846,7 +861,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 {
 	if ( !model )
 	{
-		kdDebug() << "Crap model is empty :(" << endl;
+		kdDebug() << "Crap model is null :(" << endl;
 		return false;
 	}
 
@@ -880,7 +895,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			newHunk->add( newDiff );
 			while ( srcLineNo < diff->sourceLineNumber() && it != end )
 			{
-				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
+//				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
 				newDiff->addSourceLine( *it );
 				newDiff->addDestinationLine( *it );
 				srcLineNo++;
@@ -893,7 +908,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 		switch ( diff->type() )
 		{
 		case Difference::Unchanged:
-			kdDebug() << "Unchanged" << endl;
+			kdDebug(8101) << "Unchanged" << endl;
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
 				if ( it != end && *it != diff->sourceLineAt( i )->string() )
@@ -925,11 +940,13 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			}
 			break;
 		case Difference::Change:
-			kdDebug() << "Change" << endl;
+			kdDebug(8101) << "Change" << endl;
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
 				if ( it != end && *it != diff->sourceLineAt( i )->string() )
 				{
+					kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *it << endl;
+					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 					conflict = true;
 					break;
 				}
@@ -956,21 +973,27 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			}
 			break;
 		case Difference::Insert:
-			kdDebug() << "Insert" << endl;
+			kdDebug(8101) << "Insert" << endl;
 			destLineNo += diff->destinationLineCount();
 			diffList.take();
 			newHunk->add( diff );
 			newModel->addDiff( diff );
 			break;
 		case Difference::Delete:
-			kdDebug() << "Delete" << endl;
+			kdDebug(8101) << "Delete" << endl;
+			kdDebug(8101) << "Number of lines in Delete: " << diff->sourceLineCount() << endl;
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
 				if ( it != end && *it != diff->sourceLineAt( i )->string() )
 				{
+					kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *it << endl;
+					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 					conflict = true;
 					break;
 				}
+
+//				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
+//				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 				srcLineNo++;
 				++it;
 			}

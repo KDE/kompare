@@ -1,4 +1,8 @@
 Nov    23, 2003 : Otto Bruggeman
+	* Fix to make the bugs.kde.org dialog pop up instead of sending a mail to John when pressing 
+	  Help->Report bug... Also added my homepage since it has always been kompare's home imo.
+
+Nov    23, 2003 : Otto Bruggeman
 	* Rework the blendFile method so it actually works and as a bonus is a bit faster
 	  This introduces a new form of show entire file when comparing, one that works
 	  And because of it, it saves files properly now because the entire file is now available even if 

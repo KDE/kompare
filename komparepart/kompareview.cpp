@@ -23,6 +23,7 @@
 #include <qtimer.h>
 
 #include <kdebug.h>
+#include <kglobal.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
 
@@ -150,7 +151,6 @@ void KompareView::slotSetSelection( const DiffModel* model, const Difference* di
 	m_diff2->slotSetSelection( model, diff );
 	m_zoom->slotSetSelection( model, diff );
 
-	// FIXME: This happens too soon, this should also be delayed...
 	QTimer::singleShot( 0, this, SLOT( slotDelayedUpdateScrollBars() ) );
 }
 
@@ -221,7 +221,7 @@ void KompareView::updateScrollBars()
 		}
 
 		m_vScroll->blockSignals( true );
-		m_vScroll->setRange( 0, QMAX( m_diff1->maxScrollId(), m_diff2->maxScrollId() ) );
+		m_vScroll->setRange( kMin( m_diff1->minScrollId(), m_diff2->minScrollId() ), kMax( m_diff1->maxScrollId(), m_diff2->maxScrollId() ) );
 		m_vScroll->setValue( m_diff1->scrollId() );
 		m_vScroll->setSteps( m_scrollDistance, m_pageSize );
 		m_vScroll->blockSignals( false );

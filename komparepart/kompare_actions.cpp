@@ -26,17 +26,17 @@
 #include "difference.h"
 #include "diffmodel.h"
 
-KompareerencesAction::KompareerencesAction ( const QString & text, QObject* parent, const char* name ) :
+DifferencesAction::DifferencesAction ( const QString & text, QObject* parent, const char* name ) :
 	KAction( text, 0, parent, name )
 {
-	kdDebug() << "KompareerencesAction::KompareerencesAction" << endl;
+	kdDebug() << "DifferencesAction::DifferencesAction" << endl;
 	m_firstIndex = 0;
 	m_differenceMenu = 0L;
 }
 
-int KompareerencesAction::plug( QWidget *widget, int index )
+int DifferencesAction::plug( QWidget *widget, int index )
 {
-	kdDebug() << "KompareerencesAction::plug" << endl;
+	kdDebug() << "DifferencesAction::plug" << endl;
 	// Go menu
 	if ( widget->inherits("QPopupMenu") ) {
 		m_differenceMenu = (QPopupMenu*)widget;
@@ -47,16 +47,16 @@ int KompareerencesAction::plug( QWidget *widget, int index )
 		         this, SLOT( slotActivated( int ) ) );
 
 		// Store how many items the menu already contains.
-		// This means, the KompareerencesAction has to be plugged LAST in a menu !
+		// This means, the DifferencesAction has to be plugged LAST in a menu !
 		m_firstIndex = m_differenceMenu->count();
 		return m_differenceMenu->count(); // hmmm, what should this be ?
 	}
 	return KAction::plug( widget, index );
 }
 
-void KompareerencesAction::fillDifferenceMenu( const DiffModel* diffModel, int current )
+void DifferencesAction::fillDifferenceMenu( const DiffModel* diffModel, int current )
 {
-	kdDebug() << "KompareerencesAction::fillDifferenceMenu" << endl;
+	kdDebug() << "DifferencesAction::fillDifferenceMenu" << endl;
 
 	if ( m_firstIndex == 0 ) // should never happen since done in plug
 		m_firstIndex = m_differenceMenu->count();
@@ -75,7 +75,7 @@ void KompareerencesAction::fillDifferenceMenu( const DiffModel* diffModel, int c
 	}
 }
 
-void KompareerencesAction::slotActivated( int id )
+void DifferencesAction::slotActivated( int id )
 {
 	int index = m_differenceMenu->indexOf(id) - m_firstIndex;
 	emit activated( index );

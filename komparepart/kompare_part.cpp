@@ -152,7 +152,7 @@ void KomparePart::setupActions()
 	                                 this, SLOT(slotNextDifference()),
 	                                 actionCollection(), "difference_next" );
 	m_nextDifference->setEnabled( false );
-	m_differences     = new KompareerencesAction( i18n("Differences"), actionCollection(), "difference_differences" );
+	m_differences     = new DifferencesAction( i18n("Differences"), actionCollection(), "difference_differences" );
 	connect( m_differences, SIGNAL( menuAboutToShow() ), this, SLOT( slotDifferenceMenuAboutToShow() ) );
 	connect( m_differences, SIGNAL( activated( int ) ), this, SLOT( slotGoDifferenceActivated( int ) ) );
 
@@ -168,21 +168,24 @@ void KomparePart::updateActions()
 
 	int model = getSelectedModelIndex();
 	int diff  = getSelectedDifferenceIndex();
-	if( model >= 0 ) {
-		if( diff >= 0 ) {
-			m_applyDifference->setEnabled( true );
-			const Difference* d = getSelectedDifference();
-			if( d->applied() ) {
-				m_applyDifference->setText( i18n( "Un&apply Difference" ) );
-				m_applyDifference->setIcon( "1leftarrow" );
-			} else {
-				m_applyDifference->setText( i18n( "&Apply Difference" ) );
-				m_applyDifference->setIcon( "1rightarrow" );
-			}
-		}
+	if( model >= 0 && diff >= 0 ) {
 		m_save->setEnabled( getSelectedModel()->isModified() );
+		m_applyDifference->setEnabled( true );
+		m_applyAll->setEnabled( true );
+		m_unapplyAll->setEnabled( true );
+		const Difference* d = getSelectedDifference();
+		if( d->applied() ) {
+			m_applyDifference->setText( i18n( "Un&apply Difference" ) );
+			m_applyDifference->setIcon( "1leftarrow" );
+		} else {
+			m_applyDifference->setText( i18n( "&Apply Difference" ) );
+			m_applyDifference->setIcon( "1rightarrow" );
+		}
 	} else {
 		m_save->setEnabled( false );
+		m_applyDifference->setEnabled( false );
+		m_applyAll->setEnabled( false );
+		m_unapplyAll->setEnabled( false );
 	}
 	m_previousFile->setEnabled      ( model > 0 );
 	m_nextFile->setEnabled          ( model < m_models->modelCount() - 1 );
@@ -193,7 +196,7 @@ void KomparePart::updateActions()
 
 bool KomparePart::openURL( const KURL& url )
 {
-  return openDiff( url );
+	return openDiff( url );
 }
 
 void KomparePart::compare( const KURL& source, const KURL& destination )

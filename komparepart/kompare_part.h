@@ -36,7 +36,7 @@ class DiffSettings;
 class GeneralSettings;
 class KompareView;
 class KompareNavigationTree;
-class KompareerencesAction;
+class DifferencesAction;
 class KompareProcess;
 class KompareStatsDlg;
 class MiscSettings;
@@ -176,7 +176,7 @@ private:
 	KAction*               m_nextFile;
 	KAction*               m_previousDifference;
 	KAction*               m_nextDifference;
-	KompareerencesAction*    m_differences;
+	DifferencesAction*     m_differences;
 	
 	KTempFile*             m_tempDiff;
 };

@@ -17,8 +17,8 @@
 **
 ***************************************************************************/
 
-#ifndef _KOMPAREERENCESACTION_H_
-#define _KOMPAREERENCESACTION_H_
+#ifndef _KOMPARE_ACTIONS_H
+#define _KOMPARE_ACTIONS_H
 
 #include <kaction.h>
 
@@ -27,13 +27,13 @@ class QWidget;
 
 class DiffModel;
 
-class KompareerencesAction : public KAction
+class DifferencesAction : public KAction
 {
   Q_OBJECT
 public:
-    KompareerencesAction( const QString & text, QObject* parent = 0, const char* name = 0 );
+    DifferencesAction( const QString & text, QObject* parent = 0, const char* name = 0 );
 
-    virtual ~KompareerencesAction() {};
+    virtual ~DifferencesAction() {};
 
     virtual int plug( QWidget *widget, int index = -1 );
     //virtual void unplug( QWidget *widget );

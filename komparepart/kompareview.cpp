@@ -174,7 +174,7 @@ void KDiffView::setSelectedItem( int newitem )
 	markeditem = newitem;
 
 	if (markeditem >= 0) {
-		const Difference* d = const_cast<QList<Difference>&>(model->getDifferences()).at(markeditem);
+		const Difference* d = const_cast<QList<Difference>&>(model->getDifferences()).at((uint)markeditem);
 		for (int i = d->linenoA; i < d->linenoA+d->sourceLineCount(); ++i)
 			diff1->setInverted(i, true);
 		for (int i = d->linenoB; i < d->linenoB+d->destinationLineCount(); ++i)

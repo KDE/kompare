@@ -22,7 +22,7 @@ public:
 	int lineStartA;
 	int lineStartB;
 
-private:
+//private:
 	QList<Difference> differences;
 };
 

@@ -4,6 +4,8 @@
 #include <kparts/part.h>
 #include <kparts/factory.h>
 
+#include "diffmodel.h"
+
 class QWidget;
 
 class KToggleAction;
@@ -12,11 +14,10 @@ class KURL;
 class KDiffView;
 class KDifferencesAction;
 class KDiffProcess;
+
 class GeneralSettings;
 class DiffSettings;
 class MiscSettings;
-
-class DiffModel;
 
 /**
 * This is a "Part".  It that does all the real work in a KPart
@@ -54,6 +55,7 @@ public:
 	virtual void setModified(bool modified);
 
 	void compare( const KURL& source, const KURL& destination, DiffSettings* settings = 0 );
+	void setFormat( QCString format );
 
 	KDiffView* diffView();
 	void loadSettings(KConfig *config);
@@ -92,18 +94,19 @@ private:
 	static DiffSettings*       m_diffSettings;
 	static MiscSettings*       m_miscSettings;
 
-	QList<DiffModel>    m_diffmodels;
+	QList<DiffModel>       m_diffmodels;
 
-	KDiffView*          m_diffView;
-	KAction*            m_saveDiff;
-	KAction*            m_previousDifference;
-	KAction*            m_nextDifference;
-	KDifferencesAction* m_differences;
-	KToggleAction*      m_synchronizeScrollBars;
-	KDiffProcess*       m_diffProcess;
-	QStringList         m_diffOutput;
-	KURL*               m_leftURL;
-	KURL*               m_rightURL;
+	DiffModel::DiffFormat  m_format;
+	KDiffView*             m_diffView;
+	KAction*               m_saveDiff;
+	KAction*               m_previousDifference;
+	KAction*               m_nextDifference;
+	KDifferencesAction*    m_differences;
+	KToggleAction*         m_synchronizeScrollBars;
+	KDiffProcess*          m_diffProcess;
+	QStringList            m_diffOutput;
+	KURL*                  m_leftURL;
+	KURL*                  m_rightURL;
 };
 
 class KInstance;

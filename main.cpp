@@ -73,52 +73,15 @@ int main(int argc, char *argv[])
 			// a diffformat has been set
 			// check if it is valid...
 			format = args->getOption( "f" );
-kdDebug() << format << endl;
+			// kdDebug() << format << endl;
 			format = format.upper(); // make uppercase to ease comparing
-kdDebug() << format << endl;
-			if ( format == "CONTEXT" )
+			// kdDebug() << format << endl;
+			// Some checking for the format... we could abort here if necessary
+			if ( format != "CONTEXT" && format != "ED" && format != "NORMAL" \
+			     && format != "RCS" && format != "UNIFIED" )
 			{
-				// set settings->useContextDiff = true;
-			}
-			else
-			{
-				// set settings->useContextDiff = false;
-			}
-
-			if ( format == "ED" )
-			{
-				// set settings->useEdDiff = true;
-			}
-			else
-			{
-				// set settings->useEdDiff = false;
-			}
-
-			if ( format == "NORMAL" )
-			{
-				// set settings->useNormalDiff = true;
-			}
-			else
-			{
-				// set settings->useNormalDiff = false;
-			}
-
-			if ( format == "RCS" )
-			{
-				// set settings->useRCSDiff = true;
-			}
-			else
-			{
-				// set settings->useRCSDiff = false;
-			}
-
-			if ( format == "UNIFIED" )
-			{
-				// set settings->useUnifiedDiff = true;
-			}
-			else
-			{
-				// set settings->useUnifiedDiff = false;
+				kdDebug() << "Unknown diff format" << endl;
+				return 0;
 			}
 		}
 
@@ -132,6 +95,8 @@ kdDebug() << format << endl;
 					KURL destination = dialog->getDestinationURL();
 					widget = new KDiffShell();
 					widget->show();
+					if ( !format.isEmpty() )
+						widget->setFormat( format );
 					widget->compare( source, destination );
 				} else {
 					return 0;
@@ -142,11 +107,15 @@ kdDebug() << format << endl;
 		case 1:  // 1 file -> it is a diff, use load()
 			widget = new KDiffShell();
 			widget->show();
+			if ( !format.isEmpty() )
+				widget->setFormat( format );
 			widget->load( args->url( 0 ) );
 			break;
 		case 2:  // 2 files -> diff them with compare
 			widget = new KDiffShell();
 			widget->show();
+			if ( !format.isEmpty() )
+				widget->setFormat( format );
 			widget->compare( args->url( 0 ), args->url( 1 ) );
 			break;
 		default: // error

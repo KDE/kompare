@@ -95,6 +95,11 @@ void KDiffShell::compare(const KURL& source,const KURL& destination )
 	m_part->compare( source, destination );
 }
 
+void KDiffShell::setFormat( QCString format )
+{
+	m_part->setFormat( format );
+}
+
 void KDiffShell::setupActions()
 {
 	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_O,

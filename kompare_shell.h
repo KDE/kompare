@@ -43,6 +43,7 @@ public:
 	 *
 	 */
 	void compare(const KURL& source,const KURL& destination );
+	void setFormat( QCString format );
 
 protected:
 	/**

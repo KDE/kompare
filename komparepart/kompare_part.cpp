@@ -82,8 +82,10 @@ void KDiffPart::setupActions()
 {
 	// create our actions
 
-	m_saveDiff = KStdAction::save( this, SLOT(slotSaveDiff()), actionCollection() );
-	m_saveDiff->setText( i18n("&Save .diff") );
+	m_saveDiff = new KAction( i18n( "&Save .diff" ), "save", Qt::CTRL + Qt::Key_S,
+	              this, SLOT(save()),
+	              actionCollection(), "file_save" );
+//	m_saveDiff->setText( i18n("&Save .diff") );
 	m_previousDifference = new KAction( i18n("&Previous Difference"), "previous", Qt::CTRL + Qt::Key_Up,
 	              this, SLOT(slotPreviousDifference()),
 	              actionCollection(), "difference_previous" );
@@ -110,19 +112,74 @@ void KDiffPart::setReadWrite(bool rw)
 void KDiffPart::setModified(bool modified)
 {
 	// get a handle on our Save action and make sure it is valid
-	KAction *save = actionCollection()->action(KStdAction::stdName(KStdAction::Save));
-	if (!save)
+	// KAction *save = actionCollection()->action(KStdAction::stdName(KStdAction::Save));
+	if (!m_saveDiff)
 		return;
 
 	// if so, we either enable or disable it based on the current
 	// state
 	if (modified)
-		save->setEnabled(true);
+		m_saveDiff->setEnabled(true);
 	else
-		save->setEnabled(false);
+		m_saveDiff->setEnabled(false);
 
 	// in any event, we want our parent to do it's thing
 	ReadWritePart::setModified(modified);
+}
+
+void KDiffPart::setFormat( QCString format )
+{
+	// This format should also be set in the m_diffSettings
+	if ( format == "CONTEXT" )
+	{
+		kdDebug() << "Context format" << endl;
+		m_format = DiffModel::Context;
+		m_diffSettings->m_useContextDiff = true;
+		m_diffSettings->m_useEdDiff = false;
+		m_diffSettings->m_useNormalDiff = false;
+		m_diffSettings->m_useRCSDiff = false;
+		m_diffSettings->m_useUnifiedDiff = false;
+	}
+	else if ( format == "ED" )
+	{
+		kdDebug() << "Ed format" << endl;
+		m_format = DiffModel::Ed;
+		m_diffSettings->m_useContextDiff = false;
+		m_diffSettings->m_useEdDiff = true;
+		m_diffSettings->m_useNormalDiff = false;
+		m_diffSettings->m_useRCSDiff = false;
+		m_diffSettings->m_useUnifiedDiff = false;
+	}
+	else if ( format == "NORMAL" )
+	{
+		kdDebug() << "Normal format" << endl;
+		m_format = DiffModel::Normal;
+		m_diffSettings->m_useContextDiff = false;
+		m_diffSettings->m_useEdDiff = false;
+		m_diffSettings->m_useNormalDiff = true;
+		m_diffSettings->m_useRCSDiff = false;
+		m_diffSettings->m_useUnifiedDiff = false;
+	}
+	else if ( format == "RCS" )
+	{
+		kdDebug() << "RCS format" << endl;
+		m_format = DiffModel::RCS;
+		m_diffSettings->m_useContextDiff = false;
+		m_diffSettings->m_useEdDiff = false;
+		m_diffSettings->m_useNormalDiff = false;
+		m_diffSettings->m_useRCSDiff = true;
+		m_diffSettings->m_useUnifiedDiff = false;
+	}
+	else if ( format == "UNIFIED" )
+	{
+		kdDebug() << "Unified format" << endl;
+		m_format = DiffModel::Unified;
+		m_diffSettings->m_useContextDiff = false;
+		m_diffSettings->m_useEdDiff = false;
+		m_diffSettings->m_useNormalDiff = false;
+		m_diffSettings->m_useRCSDiff = false;
+		m_diffSettings->m_useUnifiedDiff = true;
+	}
 }
 
 void KDiffPart::compare( const KURL& source, const KURL& destination, DiffSettings* settings )
@@ -143,6 +200,7 @@ void KDiffPart::compare( const KURL& source, const KURL& destination, DiffSettin
 void KDiffPart::slotDiffProcessFinished( bool success )
 {
 	DiffModel::DiffFormat type;
+
 	if( success ) {
 		kdDebug() << "diff process finished" << endl;
 		DiffModel* model = new DiffModel();
@@ -155,9 +213,20 @@ void KDiffPart::slotDiffProcessFinished( bool success )
 		else                                         type = DiffModel::Unknown;
 
 		m_diffOutput = m_diffProcess->getDiffOutput();	
-		model->parseDiff( m_diffOutput, type ); // XXX Fixme, is it fixed now ? :)
-		m_diffView->setModel( model, true );
+		if ( model->parseDiff( m_diffOutput, type ) ) // XXX Fixme, is it fixed now ? :)
+		{
+			// error, do something
+			KMessageBox::error( widget(), i18n( "Error during parsing... gotta abort" ) );
+			delete model;
+			delete m_diffProcess;
+			m_diffProcess = 0;
+			return;
+		}
+		m_diffmodels.append( model );
+		m_diffView->setModel( model, false );
 		setModified( true );
+	// Hmmm m_diffProcess->m_diffProcess->exitStatus ? Isn't that one
+	// m_diffProcess too much ???
 	} else if( m_diffProcess->m_diffProcess->exitStatus() == 0 ) {
 		KMessageBox::information( widget(), i18n( "The files are identical." ) );
 	} else {
@@ -183,24 +252,47 @@ bool KDiffPart::openFile()
 
 	DiffModel* model = new DiffModel();
 
-	if ( model->parseDiff( list ) != 0 )
+	if ( m_format != DiffModel::Unknown ) // The format is given on the command line or otherwise indicated
 	{
-		KMessageBox::error( widget(), i18n( "Could not parse diff file." ) );
-		return false;
+		if ( model->parseDiff( list, m_format ) != 0 )
+		{
+			KMessageBox::error( widget(), i18n( "Could not parse diff file." ) );
+			delete model;
+			return false;
+		}
+	}
+	else
+	{
+		if ( model->parseDiff( list ) != 0 )
+		{
+			KMessageBox::error( widget(), i18n( "Could not parse diff file." ) );
+			delete model;
+			return false;
+		}
 	}
 
 	m_diffmodels.append( model );
 
-	m_diffView->setModel( model, true ); // XXX TODO handle multi files
+	m_diffView->setModel( model, false ); // XXX TODO handle multi files
 
 	return true;
 }
 
 bool KDiffPart::saveFile()
 {
+kdDebug() << "What the fuck ?" << endl;
 	// if we aren't read-write, return immediately
 	if (isReadWrite() == false)
 		return false;
+
+	if ( m_file.isEmpty() )
+	{
+		m_file = KFileDialog::getSaveFileName( "", "*.diff", 0, "FileSaveDialog" );
+		if ( m_file.isEmpty() )
+		{
+			return false;
+		}
+	}
 
 	// m_file is always local, so we use QFile
 	QFile file(m_file);
@@ -209,6 +301,12 @@ bool KDiffPart::saveFile()
 
 	// use QTextStream to dump the text to the file
 	QTextStream stream(&file);
+
+	for ( QStringList::ConstIterator it = m_diffOutput.begin(); it != m_diffOutput.end(); ++it )
+	{
+		// Is this enough ?
+		stream << (*it) << "\n";
+	}
 
 	file.close();
 

@@ -1,3 +1,8 @@
+may    18, 2001 : Otto Bruggeman
+	Context ssems to work, implemented saving... might have some problems
+	left (saving that is)
+may    15, 2001 : John Firebaugh
+	Make the settings work for all windows. Proably some more changes :)
 may    14, 2001 : Otto Bruggeman
 	context diff does not work atm, there is some problem with the separa-
 	tion of old and new. Maybe the old and new needs to be reintegrated.

@@ -1,23 +1,28 @@
+Jan    10, 2002 : Otto Bruggeman
+	Comparing directories works now :) You can select them from the begin
+	dialog, and select a directory and then press ok. It will enter the
+	directory but dont select a file so it keeps the directory.
+	Known bug here is that directories need a trailing slash :(
 Oct    07, 2001 : Otto Bruggeman
 	Fix crash when part is not found, basically dont use kapp->quit() 
 	but use exit(int). Would be interested to know why it crashes though,
 	the bt gave nothing meaningful here. I should have compiled kompare with
 	debug code.
-Sept   17/18, 2001 : Otto Bruggeman
+Sep    17/18, 2001 : Otto Bruggeman
 	Fixed some stuff dont know what anymore (writing this on oct 7)
 	Probably some more fixes for the klibloader.
-Sept   17, 2001 : Otto Bruggeman
+Sep    17, 2001 : Otto Bruggeman
 	Moved to kdesdk and renamed to kompare with preservation of history.
 	Changed almost every occurence of kdiff to kompare (not in this file).
-Sept   08, 2001 : Otto Bruggeman
+Sep    08, 2001 : Otto Bruggeman
 	Removed the qt3back dir, changed everything over to qt3,
 	qlist->qptrlist, qlistconstiterator->qptrlistconstiterator
-july   29, 2001 : John Firebaugh
+Jul    29, 2001 : John Firebaugh
 	Add some tests.
 	Add the qregexp3 backport.
 	Use qregexp3 for diff parsing -- soooo much cleaner.
 	All the diff options work.
-july   28, 2001 : John Firebaugh
+Jul    28, 2001 : John Firebaugh
 	Directories can be selected in the compare dialog
 	New base clase KDiff, holds some common stuff
 	Use an enum for format in preferences
@@ -25,74 +30,74 @@ july   28, 2001 : John Firebaugh
 	The diff can be run in any directory, the paths to source
 	and destination will be automatically determined from this.
 	Save all.
-july   25, 2001 : John Firebaugh
+Jul    25, 2001 : John Firebaugh
 	Promt to save changes on close
 	Show [modified] caption
 	Clean up internal save mechanism
-july   14, 2001 : John Firebaugh
+Jul    14, 2001 : John Firebaugh
 	New menu item "Swap source and destination".
 	Make empty selection work.
-july   13, 2001 : John Firebaugh
+Jul    13, 2001 : John Firebaugh
 	Text view now works in compare mode.
 	Fix clicking difference to select it.
 	Don't scroll to difference when clicking to select it.
 	Give the diff view a nice frame.
-july   12, 2001 : Otto Bruggeman
+Jul    12, 2001 : Otto Bruggeman
 	Stats work now, maybe they need more info but i dont know what yet.
 	Will think some more about it.
-july   12, 2001 : John Firebaugh
+Jul    12, 2001 : John Firebaugh
 	When comparing files, you can apply or unapply changes and save
 	the result.
 	New menu item "Show Text View" (loads the diff in embedded text viewer).
 	Better status notification.
 	Set the window caption when comparing.
-june   27, 2001 : John Firebaugh
+Jun    27, 2001 : John Firebaugh
 	Ported main view to QListView
 	Remove obsolete files
 	Clicking a difference in the main view selects it
 	Better scrolling
-june   24, 2001 : John Firebaugh
+Jun    24, 2001 : John Firebaugh
 	Coverted to dock window and added navigation tree in a dock.
 	Multiple file diffs are now supported. Each file will show up
 	as an item in the tree, with differences as children.
-june   22, 2001 : Otto Bruggeman
+Jun    22, 2001 : Otto Bruggeman
 	Tried implementing rcs and ed but they dont work atm, same for show
 	diffstats, will fix that asap.
-may    22, 2001 : John Firebaugh
+May    22, 2001 : John Firebaugh
 	Reworking of most of the view code. Looks pretty.
-may    18, 2001 : Otto Bruggeman
+May    18, 2001 : Otto Bruggeman
 	Context seems to work, implemented saving... might have some problems
 	left (saving that is)
-may    15, 2001 : John Firebaugh
+May    15, 2001 : John Firebaugh
 	Make the settings work for all windows. Probably some more changes :)
-may    14, 2001 : Otto Bruggeman
+May    14, 2001 : Otto Bruggeman
 	context diff does not work atm, there is some problem with the separa-
 	tion of old and new. Maybe the old and new needs to be reintegrated.
 	I fixed some functions and now diffmodel does no longer need static
 	functions. All loading is done from the kdiffpart and that is where
 	save should go as well. Removed determineDiffFormat because it is not
 	needed anymore.
-may    13, 2001 : Otto Bruggeman
+May    13, 2001 : Otto Bruggeman
 	contextdiff is better implemented it finds all stuff in the diff atm
 	but it does not work.
-may     4, 2001 : Otto Bruggeman
+May    04, 2001 : Otto Bruggeman
 	cleaned up the code by moving the part to a subdir
 	halfassed implementation of contextdiff, will update later today
-april  10, 2001 : John Firebaugh
+Apr    10, 2001 : John Firebaugh
 	use new model/view architecture (not completely implemented yet)
 	NOTE: it will (should) compile, but you won't see any differences... a
 	work in progress
-april  5th, 2001 : Otto Bruggeman
+Apr    05, 2001 : Otto Bruggeman
 	Implemented the ability to move from chuck to chunk in the htmlview
 	Cleaned up the preferences, squashed a few bugs
-april  4th, 2001 : Otto Bruggeman
+Apr    04, 2001 : Otto Bruggeman
 	Normal format works as well
-april  4th, 2001 : Otto Bruggeman
+Apr    04, 2001 : Otto Bruggeman
 	Finally implemented the preferences menu... i still lack some nice 
 	icons for it but that will be solved in the near future...
-march 25th, 2001 : Otto Bruggeman
+Mar    25, 2001 : Otto Bruggeman
 	Moved the application icons to the pics dir
-march 20th, 2001 : Otto Bruggeman
+Mar    20, 2001 : Otto Bruggeman
 	Fixed a stupid bug that caused the last line in the rightview not
 	to be colored.
 	Implemented slots for using the KHistoryCombo in the views to select
@@ -101,7 +106,7 @@ march 20th, 2001 : Otto Bruggeman
 	KFileDialog, needs to be fixed asap but i dont know the cause.
 	Still an error in the historylist and completionlist items. They are
 	not shown correctly.
-march 19th, 2001 : Otto Bruggeman
+Mar    19, 2001 : Otto Bruggeman
 	Added most of the preferences dialog
 	Some speed improvements
 	Some fixes to use the last used directory in KFileDialog

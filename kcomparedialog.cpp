@@ -79,7 +79,9 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 	topLayout->addWidget( destinationGB );
 	
 	m_sourceURLRequester->setMinimumWidth( 400 );
+	m_sourceURLRequester->setMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
 	m_destinationURLRequester->setMinimumWidth( 400 );
+	m_destinationURLRequester->setMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
 	setButtonOKText( i18n( "Compare" ), i18n( "Compare these files or directories" ) );
 
 	connect( m_sourceURLRequester, SIGNAL( textChanged( const QString& ) ),

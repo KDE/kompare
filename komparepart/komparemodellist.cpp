@@ -51,19 +51,59 @@ bool KompareModelList::compare( const KURL& source, const KURL& destination )
 	m_sourceURL = source;
 	m_destinationURL = destination;
 	
+	bool sourceIsDirectory = false;
+	bool destinationIsDirectory = false;
+	bool usingFiles = false;
+
 	clear();
+
+	// determine if files are dirs... dunno if this is the right way (tm)
+	if ( m_sourceURL.directory(false,false) == m_sourceURL.url() )
+		sourceIsDirectory = true;
+	if ( m_destinationURL.directory(false,false) == m_destinationURL.url() )
+		destinationIsDirectory = true;
 	
-	if( !KIO::NetAccess::download( m_sourceURL, m_sourceTemp ) ) {
+	if ( sourceIsDirectory && destinationIsDirectory )
+	{
+		// dealing with dirs... if dirs are local proceed else abort
+		if ( m_sourceURL.protocol() == "file" && m_destinationURL.protocol() == "file" )
+		{
+			// proceed
+		}
+		else
+		{
+			// abort, we cant handle remote dirs (yet)
+			emit error( i18n("Sorry, kompare can't handle remote directories (yet)") );
+			return false;
+		}
+	}
+	else if ( !sourceIsDirectory && !destinationIsDirectory )
+	{
+		// dealing with files... proceed even if both are remote
+		usingFiles = true;
+	}
+	else
+	{
+		// one of them is a directory and the other a file... cant
+		// compare such a monster
+		emit error( i18n("Sorry, you can't compare a directory with a file") );
+		return false;
+	}
+	
+	if( !usingFiles && !KIO::NetAccess::download( m_sourceURL, m_sourceTemp ) ) {
 		emit error( KIO::NetAccess::lastErrorString() );
 		return false;
 	}
 	
-	if( !KIO::NetAccess::download( m_destinationURL, m_destinationTemp ) ) {
+	if( !usingFiles && !KIO::NetAccess::download( m_destinationURL, m_destinationTemp ) ) {
 		emit error( KIO::NetAccess::lastErrorString() );
 		return false;
 	}
 	
-	m_diffProcess = new KompareProcess( m_sourceTemp, m_destinationTemp );
+	if( usingFiles )
+		m_diffProcess = new KompareProcess( m_sourceURL.path(), m_destinationURL.path() );
+	else
+		m_diffProcess = new KompareProcess( m_sourceTemp, m_destinationTemp );
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );
 	

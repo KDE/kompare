@@ -17,29 +17,27 @@
 **
 ***************************************************************************/
 
-#include <qstringlist.h>
 #include <qdir.h>
+#include <qstringlist.h>
 
-#include <kio/netaccess.h>
 #include <kdebug.h>
+#include <kio/netaccess.h>
 
 #include "diffsettings.h"
-
 #include "kdiffprocess.h"
-#include "kdiffprocess.moc"
 
 KDiffProcess::KDiffProcess( QString source, QString destination, QString dir, DiffSettings* diffSettings )
 	: KShellProcess()
 {
 	// connect the stdout and stderr signals
 	connect( this, SIGNAL( receivedStdout( KProcess*, char*, int ) ),
-	         this, SLOT( receivedStdout( KProcess*, char*, int ) ) );
+	         this, SLOT  ( receivedStdout( KProcess*, char*, int ) ) );
 	connect( this, SIGNAL( receivedStderr( KProcess*, char*, int ) ),
-	         this, SLOT( receivedStderr( KProcess*, char*, int ) ) );
+	         this, SLOT  ( receivedStderr( KProcess*, char*, int ) ) );
 
 	// connect the signal that indicates that the proces has exited
 	connect( this, SIGNAL( processExited( KProcess* ) ),
-	         this, SLOT( processExited( KProcess* ) ) );
+	         this, SLOT  ( processExited( KProcess* ) ) );
 	
 	// Write command and options
 	if( diffSettings ) {
@@ -186,3 +184,5 @@ const QStringList KDiffProcess::getDiffOutput()
 {
 	return QStringList::split( "\n", m_stdout );
 }
+
+#include "kdiffprocess.moc"

@@ -22,8 +22,8 @@
 
 #include <kaction.h>
 
-class QWidget;
 class QPopupMenu;
+class QWidget;
 
 class DiffModel;
 

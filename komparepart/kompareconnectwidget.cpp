@@ -15,17 +15,17 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qpixmap.h>
 #include <qpainter.h>
+#include <qpixmap.h>
+#include <qstyle.h>
 
 #include <kdebug.h>
 
-#include "kdiffview.h"
-#include "kdifflistview.h"
 #include "generalsettings.h"
+#include "kdifflistview.h"
+#include "kdiffview.h"
 
 #include "kdiffconnectwidget.h"
-#include "kdiffconnectwidget.moc"
 
 KDiffConnectWidget::KDiffConnectWidget( KDiffModelList* models, KDiffListView* left, KDiffListView* right,
       GeneralSettings* settings, KDiffView* parent, const char* name )
@@ -100,8 +100,8 @@ void KDiffConnectWidget::paintEvent( QPaintEvent* /* e */ )
 		kdDebug() << " drawing: " << first << " - " << last << endl;
 		if( first >= 0 && last >= 0 && first <= last ) {
 			
-			QListIterator<Difference> diffIt =
-			     QListIterator<Difference>( selectedModel->getDifferences() );
+			QPtrListIterator<Difference> diffIt =
+			     QPtrListIterator<Difference>( selectedModel->getDifferences() );
 			diffIt += first;
 			for( int i = first; diffIt.current() && i <= last; ++diffIt, ++i ) {
 
@@ -148,7 +148,7 @@ QPointArray KDiffConnectWidget::makeTopBezier( int tl, int tr )
 	int r = width();
 	QPointArray controlPoints;
 	controlPoints.setPoints( 4, l,tl, 20,tl, r-20,tr, r,tr );
-	return controlPoints.quadBezier();
+	return controlPoints.cubicBezier();
 }
 
 QPointArray KDiffConnectWidget::makeBottomBezier( int bl, int br )
@@ -157,7 +157,7 @@ QPointArray KDiffConnectWidget::makeBottomBezier( int bl, int br )
 	int r = width();
 	QPointArray controlPoints;
 	controlPoints.setPoints( 4, r,br, r-20,br, 20,bl, l,bl );
-	return controlPoints.quadBezier();
+	return controlPoints.cubicBezier();
 }
 
 QPointArray KDiffConnectWidget::makeConnectPoly( const QPointArray& topBezier, const QPointArray& bottomBezier )
@@ -170,3 +170,5 @@ QPointArray KDiffConnectWidget::makeConnectPoly( const QPointArray& topBezier, c
 
 	return poly;
 }
+
+#include "kdiffconnectwidget.moc"

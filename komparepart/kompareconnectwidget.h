@@ -22,8 +22,8 @@
 
 class DiffModel;
 class GeneralSettings;
-class KDiffView;
 class KDiffListView;
+class KDiffView;
 
 class KDiffConnectWidget : public QWidget
 {

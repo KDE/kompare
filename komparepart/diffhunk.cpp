@@ -19,13 +19,13 @@
 
 #include <klocale.h>
 
-#include "diffhunk.h"
 #include "difference.h"
+#include "diffhunk.h"
 
-DiffHunk::DiffHunk( int sourceLine, int destinationLine, QString function )
-	: m_sourceLine( sourceLine )
-	, m_destinationLine( destinationLine )
-	, m_function( function )
+DiffHunk::DiffHunk( int sourceLine, int destinationLine, QString function ) :
+	m_sourceLine( sourceLine ),
+	m_destinationLine( destinationLine ),
+	m_function( function )
 {
 }
 

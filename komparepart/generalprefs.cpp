@@ -17,29 +17,27 @@
 **
 ***************************************************************************/
 
-#include <qwidget.h>
+#include <qcheckbox.h>
 #include <qgroupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
-#include <qcheckbox.h>
+#include <qwidget.h>
 
+#include <kcolorbutton.h>
 #include <kdialog.h>
 #include <klocale.h>
-#include <kcolorbutton.h>
-
-#include "generalsettings.h"
 
 #include "generalprefs.h"
-#include "generalprefs.moc"
+#include "generalsettings.h"
 
 GeneralPrefs::GeneralPrefs( QWidget* parent ) : PrefsBase( parent )
 {
-	QWidget* page;
+	QWidget*     page;
 	QVBoxLayout* layout;
-	QGroupBox* colorGroupBox;
-	QLabel* label;
+	QGroupBox*   colorGroupBox;
+	QLabel*      label;
 
-	page = new QWidget( this );
+	page   = new QWidget( this );
 	layout = new QVBoxLayout( page );
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
@@ -87,8 +85,8 @@ void GeneralPrefs::setSettings( GeneralSettings* setts )
 {
 	m_settings = setts;
 
-	m_showEntireFile->setChecked( m_settings->m_showEntireFile );
-	m_addedColorButton->setColor( m_settings->m_addColor );
+	m_showEntireFile->setChecked  ( m_settings->m_showEntireFile );
+	m_addedColorButton->setColor  ( m_settings->m_addColor );
 	m_changedColorButton->setColor( m_settings->m_changeColor );
 	m_removedColorButton->setColor( m_settings->m_removeColor );
 	m_appliedColorButton->setColor( m_settings->m_appliedColor );
@@ -109,19 +107,21 @@ void GeneralPrefs::apply()
 	setts = getSettings();
 
 	setts->m_showEntireFile = m_showEntireFile->isChecked();
-	setts->m_addColor = m_addedColorButton->color();
-	setts->m_changeColor = m_changedColorButton->color();
-	setts->m_removeColor = m_removedColorButton->color();
-	setts->m_appliedColor = m_appliedColorButton->color();
+	setts->m_addColor       = m_addedColorButton->color();
+	setts->m_changeColor    = m_changedColorButton->color();
+	setts->m_removeColor    = m_removedColorButton->color();
+	setts->m_appliedColor   = m_appliedColorButton->color();
 	
 	setts->emitSettingsChanged();
 };
 
 void GeneralPrefs::setDefaults()
 {
-	m_showEntireFile->setChecked( true );
-	m_addedColorButton->setColor( GeneralSettings::default_addColor );
+	m_showEntireFile->setChecked  ( true );
+	m_addedColorButton->setColor  ( GeneralSettings::default_addColor );
 	m_changedColorButton->setColor( GeneralSettings::default_changeColor );
 	m_removedColorButton->setColor( GeneralSettings::default_removeColor );
 	m_appliedColorButton->setColor( GeneralSettings::default_appliedColor );
 };
+
+#include "generalprefs.moc"

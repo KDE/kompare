@@ -17,38 +17,38 @@
 **
 ***************************************************************************/
 
-#include "kdiff_part.h"
-
-#include <kinstance.h>
-#include <kaction.h>
-#include <kstdaction.h>
-#include <kfiledialog.h>
-#include <klocale.h>
-#include <kdebug.h>
-#include <kmessagebox.h>
-#include <klistview.h>
-#include <kdialogbase.h>
-
 #include <qfile.h>
 
-#include "kdiffview.h"
-#include "kdiffnavigationtree.h"
-#include "kdiff_actions.h"
+#include <kaction.h>
+#include <kdebug.h>
+#include <kdialogbase.h>
+#include <kfiledialog.h>
+#include <kinstance.h>
+#include <klistview.h>
+#include <klocale.h>
+#include <kmessagebox.h>
+#include <kstdaction.h>
+
 #include "diffmodel.h"
-#include "kdiffprocess.h"
-#include "kdiffprefdlg.h"
-#include "generalsettings.h"
 #include "diffsettings.h"
-#include "miscsettings.h"
+#include "generalsettings.h"
+#include "kdiff_actions.h"
+#include "kdiff_part.h"
+#include "kdiffnavigationtree.h"
+#include "kdiffprefdlg.h"
+#include "kdiffprocess.h"
 #include "kdiffsaveoptionswidget.h"
+#include "kdiffview.h"
+#include "miscsettings.h"
+
 
 GeneralSettings* KDiffPart::m_generalSettings = 0L;
-DiffSettings*    KDiffPart::m_diffSettings = 0L;
-MiscSettings*    KDiffPart::m_miscSettings = 0L;
+DiffSettings*    KDiffPart::m_diffSettings    = 0L;
+MiscSettings*    KDiffPart::m_miscSettings    = 0L;
 
 KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
-                                  QObject *parent, const char *name )
-	: KParts::ReadWritePart(parent, name),
+                      QObject *parent, const char *name ) :
+	KParts::ReadWritePart(parent, name),
 	m_selectedModel( -1 ),
 	m_selectedDifference( -1 ),
 	m_navigationTree( 0 ),
@@ -59,8 +59,8 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 	
 	if( !m_generalSettings ) {
 		m_generalSettings = new GeneralSettings( 0 );
-		m_diffSettings = new DiffSettings( 0 );
-		m_miscSettings = new MiscSettings( 0 );
+		m_diffSettings    = new DiffSettings   ( 0 );
+		m_miscSettings    = new MiscSettings   ( 0 );
 	}
 	
 	m_models = new KDiffModelList();
@@ -121,43 +121,43 @@ void KDiffPart::setupActions()
 {
 	// create our actions
 
-	m_save = KStdAction::save( this, SLOT(saveDestination()), actionCollection() );
-	m_saveAll = new KAction( i18n("Save &All"), "save_all", 0,
-	              this, SLOT(saveAll()),
-	              actionCollection(), "file_save_all" );
-	m_saveDiff = new KAction( i18n("Save .&diff"), 0,
-	              this, SLOT(saveDiff()),
-	              actionCollection(), "file_save_diff" );
-	m_swap = new KAction( i18n( "Swap Source and Destination" ), 0,
-	              this, SLOT(slotSwap()),
-	              actionCollection(), "file_swap" );
-	m_diffStats = new KAction( i18n( "Show Statistics" ), 0,
-	              this, SLOT(slotShowDiffstats()),
-	              actionCollection(), "file_diffstats" );
+	m_save            = KStdAction::save( this, SLOT(saveDestination()), actionCollection() );
+	m_saveAll         = new KAction( i18n("Save &All"), "save_all", 0,
+	                                 this, SLOT(saveAll()),
+	                                 actionCollection(), "file_save_all" );
+	m_saveDiff        = new KAction( i18n("Save .&diff"), 0,
+	                                 this, SLOT(saveDiff()),
+	                                 actionCollection(), "file_save_diff" );
+	m_swap            = new KAction( i18n( "Swap Source and Destination" ), 0,
+	                                 this, SLOT(slotSwap()),
+	                                 actionCollection(), "file_swap" );
+	m_diffStats       = new KAction( i18n( "Show Statistics" ), 0,
+	                                 this, SLOT(slotShowDiffstats()),
+	                                 actionCollection(), "file_diffstats" );
 	m_applyDifference = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
-	              this, SLOT(slotApplyDifference()),
-	              actionCollection(), "difference_apply" );
-	m_applyAll = new KAction( i18n("App&ly All"), "2rightarrow", Qt::CTRL + Qt::Key_A,
-	              this, SLOT(slotApplyAllDifferences()),
-	              actionCollection(), "difference_applyall" );
-	m_unapplyAll = new KAction( i18n("U&napply All"), "2leftarrow", Qt::CTRL + Qt::Key_U,
-	              this, SLOT(slotUnapplyAllDifferences()),
-	              actionCollection(), "difference_unapplyall" );
-	m_previousFile = new KAction( i18n("P&revious File"), "2uparrow", Qt::CTRL + Qt::Key_PageUp,
-	              this, SLOT(slotPreviousFile()),
-	              actionCollection(), "difference_previousfile" );
-	m_nextFile = new KAction( i18n("N&ext File"), "2downarrow", Qt::CTRL + Qt::Key_PageDown,
-	              this, SLOT(slotNextFile()),
-	              actionCollection(), "difference_nextfile" );
+	                                 this, SLOT(slotApplyDifference()),
+	                                 actionCollection(), "difference_apply" );
+	m_applyAll        = new KAction( i18n("App&ly All"), "2rightarrow", Qt::CTRL + Qt::Key_A,
+	                                 this, SLOT(slotApplyAllDifferences()),
+	                                 actionCollection(), "difference_applyall" );
+	m_unapplyAll      = new KAction( i18n("U&napply All"), "2leftarrow", Qt::CTRL + Qt::Key_U,
+	                                 this, SLOT(slotUnapplyAllDifferences()),
+	                                 actionCollection(), "difference_unapplyall" );
+	m_previousFile    = new KAction( i18n("P&revious File"), "2uparrow", Qt::CTRL + Qt::Key_PageUp,
+	                                 this, SLOT(slotPreviousFile()),
+	                                 actionCollection(), "difference_previousfile" );
+	m_nextFile        = new KAction( i18n("N&ext File"), "2downarrow", Qt::CTRL + Qt::Key_PageDown,
+	                                 this, SLOT(slotNextFile()),
+	                                 actionCollection(), "difference_nextfile" );
 	m_previousDifference = new KAction( i18n("&Previous Difference"), "1uparrow", Qt::CTRL + Qt::Key_Up,
-	              this, SLOT(slotPreviousDifference()),
-	              actionCollection(), "difference_previous" );
+	                                 this, SLOT(slotPreviousDifference()),
+	                                 actionCollection(), "difference_previous" );
 	m_previousDifference->setEnabled( false );
-	m_nextDifference = new KAction( i18n("&Next Difference"), "1downarrow", Qt::CTRL + Qt::Key_Down,
-	              this, SLOT(slotNextDifference()),
-	              actionCollection(), "difference_next" );
+	m_nextDifference  = new KAction( i18n("&Next Difference"), "1downarrow", Qt::CTRL + Qt::Key_Down,
+	                                 this, SLOT(slotNextDifference()),
+	                                 actionCollection(), "difference_next" );
 	m_nextDifference->setEnabled( false );
-	m_differences = new KDifferencesAction( i18n("Differences"), actionCollection(), "difference_differences" );
+	m_differences     = new KDifferencesAction( i18n("Differences"), actionCollection(), "difference_differences" );
 	connect( m_differences, SIGNAL( menuAboutToShow() ), this, SLOT( slotDifferenceMenuAboutToShow() ) );
 	connect( m_differences, SIGNAL( activated( int ) ), this, SLOT( slotGoDifferenceActivated( int ) ) );
 
@@ -166,13 +166,13 @@ void KDiffPart::setupActions()
 
 void KDiffPart::updateActions()
 {
-	m_saveAll->setEnabled( m_models->isModified() );
-	m_saveDiff->setEnabled( m_models->mode() == KDiffModelList::Compare );
-	m_swap->setEnabled( m_models->mode() == KDiffModelList::Compare );
+	m_saveAll->setEnabled  ( m_models->isModified() );
+	m_saveDiff->setEnabled ( m_models->mode() == KDiffModelList::Compare );
+	m_swap->setEnabled     ( m_models->mode() == KDiffModelList::Compare );
 	m_diffStats->setEnabled( m_models->modelCount() > 0 );
 	
 	int model = getSelectedModelIndex();
-	int diff = getSelectedDifferenceIndex();
+	int diff  = getSelectedDifferenceIndex();
 	if( model >= 0 ) {
 		if( diff >= 0 ) {
 			m_applyDifference->setEnabled( true );
@@ -189,10 +189,10 @@ void KDiffPart::updateActions()
 	} else {
 		m_save->setEnabled( false );
 	}
-	m_previousFile->setEnabled( model > 0 );
-	m_nextFile->setEnabled( model < m_models->modelCount() - 1 );
+	m_previousFile->setEnabled      ( model > 0 );
+	m_nextFile->setEnabled          ( model < m_models->modelCount() - 1 );
 	m_previousDifference->setEnabled( diff > 0 || model > 0 );
-	m_nextDifference->setEnabled( model >= 0 &&
+	m_nextDifference->setEnabled    ( model >= 0 &&
 	    ( diff < getSelectedModel()->differenceCount() - 1 || model < m_models->modelCount() - 1 ) );
 }
 
@@ -229,10 +229,13 @@ bool KDiffPart::openDiff( const KURL& url )
 
 void KDiffPart::saveDiff()
 {
-	KDialogBase* dlg = new KDialogBase( widget(), "save options",
-	    true /* modal */, i18n("Diff Options"), KDialogBase::Ok|KDialogBase::Cancel );
+	KDialogBase* dlg          = new KDialogBase( widget(), "save options",
+	                                             true /* modal */, i18n("Diff Options"), 
+	                                             KDialogBase::Ok|KDialogBase::Cancel );
 	KDiffSaveOptionsWidget* w = new KDiffSaveOptionsWidget(
-	    m_models->sourceTemp(), m_models->destinationTemp(), m_diffSettings, dlg );
+	                                             m_models->sourceTemp(), 
+	                                             m_models->destinationTemp(), 
+	                                             m_diffSettings, dlg );
 	dlg->setMainWidget( w );
 	dlg->setButtonOKText( i18n("Save") );
 	
@@ -332,7 +335,7 @@ void KDiffPart::slotShowDiffstats( void )
 	int noOfHunks;
 	int noOfDiffs;
 
-	oldFile = getSelectedModel() ? getSelectedModel()->sourceFile() : QString::null;
+	oldFile = getSelectedModel() ? getSelectedModel()->sourceFile()      : QString::null;
 	newFile = getSelectedModel() ? getSelectedModel()->destinationFile() : QString::null;
 	if ( getSelectedModel() )
 	{
@@ -411,8 +414,10 @@ bool KDiffPart::askSaveChanges()
 	
 	int query = KMessageBox::warningYesNoCancel( widget(),
 	    i18n("You have made changes to the destination.\n"
-	         "Would you like to save them?" ), i18n( "Save Changes?" ),
-	         i18n( "Save" ), i18n( "Discard" ) );
+	         "Would you like to save them?" ), 
+	         i18n( "Save Changes?" ),
+	         i18n( "Save" ), 
+	         i18n( "Discard" ) );
 	
 	if( query == KMessageBox::Cancel ) return false;
 	if( query == KMessageBox::Yes ) return m_models->saveAll();
@@ -424,9 +429,9 @@ void KDiffPart::loadSettings(KConfig *config)
 	config->setGroup( "General" );
 	m_generalSettings->loadSettings( config );
 	config->setGroup( "DiffSettings" );
-	m_diffSettings->loadSettings( config );
+	m_diffSettings->loadSettings   ( config );
 	config->setGroup( "MiscSettings" );
-	m_miscSettings->loadSettings( config );
+	m_miscSettings->loadSettings   ( config );
 }
 
 void KDiffPart::saveSettings(KConfig *config)
@@ -434,9 +439,9 @@ void KDiffPart::saveSettings(KConfig *config)
 	config->setGroup( "General" );
 	m_generalSettings->saveSettings( config );
 	config->setGroup( "DiffSettings" );
-	m_diffSettings->saveSettings( config );
+	m_diffSettings->saveSettings   ( config );
 	config->setGroup( "MiscSettings" );
-	m_miscSettings->saveSettings( config );
+	m_miscSettings->saveSettings   ( config );
 }
 
 void KDiffPart::slotSetSelection( int model, int diff )
@@ -578,8 +583,8 @@ KDiffPartFactory::~KDiffPartFactory()
 }
 
 KParts::Part* KDiffPartFactory::createPartObject( QWidget *parentWidget, const char *widgetName,
-                                                        QObject *parent, const char *name,
-                                                        const char *classname, const QStringList & /*args*/ )
+                                                  QObject *parent, const char *name,
+                                                  const char *classname, const QStringList & /*args*/ )
 {
 	// Create an instance of our Part
 	KDiffPart* obj = new KDiffPart( parentWidget, widgetName, parent, name );

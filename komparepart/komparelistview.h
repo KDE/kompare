@@ -20,17 +20,18 @@
 #ifndef KDIFFLISTVIEW_H
 #define KDIFFLISTVIEW_H
 
-#include <klistview.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qptrdict.h>
 
-class KDiffModelList;
+#include <klistview.h>
+
 class DiffModel;
 class DiffHunk;
 class Difference;
 class GeneralSettings;
 class KDiffListViewItem;
 class KDiffListViewDiffItem;
+class KDiffModelList;
 
 class KDiffListView : public KListView
 {
@@ -44,20 +45,20 @@ public:
 	void setSelectedDifference( int diff, bool scroll = true );
 	
 	KDiffListViewItem* itemAtIndex( int i );
-	int firstVisibleDifference();
-	int lastVisibleDifference();
-	QRect itemRect( int i );
-	int minScrollId();
-	int maxScrollId();
+	int                firstVisibleDifference();
+	int                lastVisibleDifference();
+	QRect              itemRect( int i );
+	int                minScrollId();
+	int                maxScrollId();
 	
-	bool isSource() const { return m_isSource; };
-	GeneralSettings* settings() const { return m_settings; };
+	bool               isSource() const { return m_isSource; };
+	GeneralSettings*   settings() const { return m_settings; };
 	
 public slots:
 	void slotSetSelection( int model, int diff );
 	void setXOffset( int x );
 	void scrollToId( int id );
-	int scrollId();
+	int  scrollId();
 	
 signals:
 	void selectionChanged( int model, int diff );
@@ -76,7 +77,7 @@ protected slots:
 	
 private:
 	KDiffModelList*                  m_models;
-	QList<KDiffListViewDiffItem>     m_items;
+	QPtrList<KDiffListViewDiffItem>  m_items;
 	QPtrDict<KDiffListViewDiffItem>  m_itemDict;
 	bool                             m_isSource;
 	int                              m_selectedModel;

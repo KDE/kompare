@@ -17,24 +17,24 @@
 **
 ***************************************************************************/
 
-#include <qlayout.h>
 #include <qlabel.h>
+#include <qlayout.h>
 #include <qscrollbar.h>
+#include <qstyle.h>
 
-#include <klocale.h>
-#include <kmimetype.h>
 #include <kdebug.h>
 #include <kglobalsettings.h>
+#include <klocale.h>
+#include <kmimetype.h>
 
-#include "kdifflistview.h"
-#include "kdiffconnectwidget.h"
-#include "diffmodel.h"
-#include "diffhunk.h"
 #include "difference.h"
+#include "diffhunk.h"
+#include "diffmodel.h"
 #include "generalsettings.h"
+#include "kdiffconnectwidget.h"
+#include "kdifflistview.h"
 
 #include "kdiffview.h"
-#include "kdiffview.moc"
 
 KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget *parent, const char *name )
 	: QFrame(parent, name),
@@ -198,3 +198,5 @@ void KDiffView::resizeEvent( QResizeEvent* e )
 	QWidget::resizeEvent( e );
 	updateScrollBars();
 }
+
+#include "kdiffview.moc"

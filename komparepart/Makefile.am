@@ -2,7 +2,7 @@
 # KPART SECTION
 #########################################################################
 
-INCLUDES = -I$(top_srcdir)/kdiff/kdiff/qt3back $(all_includes)
+INCLUDES = $(all_includes)
 
 noinst_HEADERS =  kdiff_part.h kdiff_actions.h kdiffnavigationtree.h \
         kdiffmodellist.h kdiffview.h prefsbase.h \
@@ -27,7 +27,7 @@ libkdiffpart_la_SOURCES = kdiff_part.cpp kdiff_actions.cpp \
 	kdiffsaveoptionswidget.cpp
 
 libkdiffpart_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
-libkdiffpart_la_LIBADD  = $(top_builddir)/kdiff/kdiff/qt3back/libqregexp3.la $(LIB_KPARTS) $(LIB_KFILE)
+libkdiffpart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE)
 
 # this is where the desktop file will go
 partdesktopdir   = $(kde_servicesdir)

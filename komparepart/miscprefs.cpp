@@ -16,17 +16,16 @@
 **   (at your option) any later version.
 **
 ***************************************************************************/
-#include <qwidget.h>
+
 #include <qgroupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
+#include <qwidget.h>
 
 #include <kdialog.h>
 #include <klocale.h>
 
 #include "miscprefs.h"
-
-#include "miscprefs.moc"
 
 MiscPrefs::MiscPrefs( QWidget* parent ) : PrefsBase( parent )
 {
@@ -72,3 +71,5 @@ void MiscPrefs::apply()
 void MiscPrefs::setDefaults()
 {
 };
+
+#include "miscprefs.moc"

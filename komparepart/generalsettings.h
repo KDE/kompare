@@ -23,8 +23,8 @@
 #include <qcolor.h>
 #include <qwidget.h>
 
-#include "settingsbase.h"
 #include "difference.h"
+#include "settingsbase.h"
 
 class GeneralSettings : public SettingsBase
 {

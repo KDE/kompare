@@ -19,13 +19,11 @@
 
 #include <qvbox.h>
 
-#include <klocale.h>
-#include <kiconloader.h>
 #include <kdebug.h>
+#include <kiconloader.h>
+#include <klocale.h>
 
 #include "kdiffprefdlg.h"
-
-#include "kdiffprefdlg.moc"
 
 // implementation
 
@@ -107,3 +105,5 @@ void KDiffPrefDlg::slotCancel()
 
 	KDialogBase::slotCancel();
 }
+
+#include "kdiffprefdlg.moc"

@@ -20,9 +20,8 @@
 #ifndef KDIFFPROCESS_H
 #define KDIFFPROCESS_H
 
-#include <kurl.h>
-
 #include <kprocess.h>
+#include <kurl.h>
 
 #include "kdiff.h"
 
@@ -38,9 +37,9 @@ public:
 	
 	bool start();
 	
-	const QStringList getDiffOutput();
-	QString getStdout() { return m_stdout; };
-	QString getStderr() { return m_stderr; };
+	const QStringList  getDiffOutput();
+	QString            getStdout()       { return m_stdout; };
+	QString            getStderr()       { return m_stderr; };
 	
 signals:
 	void diffHasFinished( bool finishedNormally );

@@ -19,8 +19,6 @@
 
 #include "miscsettings.h"
 
-#include "miscsettings.moc"
-
 MiscSettings::MiscSettings( QWidget* parent ) : SettingsBase( parent )
 {
 
@@ -31,12 +29,12 @@ MiscSettings::~MiscSettings()
 
 };
 
-void MiscSettings::loadSettings( KConfig* config )
+void MiscSettings::loadSettings( KConfig* /*config*/ )
 {
-config = config;
 };
 
-void MiscSettings::saveSettings( KConfig* config )
+void MiscSettings::saveSettings( KConfig* /*config*/ )
 {
-config = config;
 };
+
+#include "miscsettings.moc"

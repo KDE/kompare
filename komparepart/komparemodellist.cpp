@@ -18,19 +18,17 @@
 #include <qfile.h>
 #include <qtextstream.h>
 
-#include <ktempfile.h>
+#include <kdebug.h>
 #include <kio/netaccess.h>
 #include <klocale.h>
 #include <ktempfile.h>
-#include <kdebug.h>
 
-#include "diffmodel.h"
-#include "diffhunk.h"
 #include "difference.h"
+#include "diffhunk.h"
+#include "diffmodel.h"
 #include "kdiffprocess.h"
 
 #include "kdiffmodellist.h"
-#include "kdiffmodellist.moc"
 
 KDiffModelList::KDiffModelList()
 	: QObject(),
@@ -94,11 +92,11 @@ bool KDiffModelList::saveDestination( int index )
 	
 	QTextStream* stream = temp->textStream();
 	
-	QListIterator<DiffHunk> hunkIt( model->getHunks() );
+	QPtrListIterator<DiffHunk> hunkIt( model->getHunks() );
 	for( ; hunkIt.current(); ++hunkIt ) {
 		DiffHunk* hunk = hunkIt.current();
 		
-		QListIterator<Difference> diffIt(hunk->getDifferences());
+		QPtrListIterator<Difference> diffIt(hunk->getDifferences());
 		
 		for( ; diffIt.current(); ++diffIt ) {
 			Difference* diff = diffIt.current();
@@ -285,7 +283,7 @@ void KDiffModelList::swap()
 
 bool KDiffModelList::isModified() const
 {
-	QListIterator<DiffModel> it( m_models );
+	QPtrListIterator<DiffModel> it( m_models );
 	for( ; it.current(); ++it ) {
 		if( (*it)->isModified() ) return true;
 	}
@@ -309,3 +307,5 @@ KURL KDiffModelList::destinationBaseURL() const
 		return m_destinationURL.upURL();
 //	}
 }
+
+#include "kdiffmodellist.moc"

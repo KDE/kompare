@@ -15,30 +15,28 @@
 **
 ***************************************************************************/
 
-#include <qwidget.h>
 #include <qhgroupbox.h>
 #include <qlabel.h>
-#include <qradiobutton.h>
 #include <qlayout.h>
+#include <qradiobutton.h>
+#include <qwidget.h>
 
 #include <kdialog.h>
 #include <klocale.h>
 
 #include "diffprefs.h"
 
-#include "diffprefs.moc"
-
 DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 {
-	QWidget* page;
-	QVBoxLayout* layout;
+	QWidget*       page;
+	QVBoxLayout*   layout;
 	QVButtonGroup* optionButtonGroup;
 	QVButtonGroup* moreOptionButtonGroup;
-	QHGroupBox* locGroupBox;
-	QLabel* label;
-	QRadioButton* radioButton;
+	QHGroupBox*    locGroupBox;
+	QLabel*        label;
+	QRadioButton*  radioButton;
 
-	page = new QWidget( this );
+	page   = new QWidget( this );
 	layout = new QVBoxLayout( page );
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
@@ -55,11 +53,11 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 	radioButton = new QRadioButton( i18n( "Unified" ), m_modeButtonGroup );
 
 	// #lines of context (loc)
-	locGroupBox = new QHGroupBox( i18n( "Lines of context" ), page );
+	locGroupBox     = new QHGroupBox( i18n( "Lines of context" ), page );
 	layout->addWidget( locGroupBox );
 	locGroupBox->setMargin( KDialog::marginHint() );
 
-	label = new QLabel( i18n( "Number of contextlines:" ), locGroupBox );
+	label           = new QLabel( i18n( "Number of contextlines:" ), locGroupBox );
 	m_locSpinButton = new QSpinBox( 0, 100, 1, locGroupBox );
 	label->setBuddy( m_locSpinButton );
 
@@ -68,27 +66,27 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 
 	addTab( page, i18n( "&Format" ) );
 
-	page = new QWidget( this );
+	page   = new QWidget( this );
 	layout = new QVBoxLayout( page );
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
 
 	// add diff options
-	optionButtonGroup = new QVButtonGroup( i18n( "General" ), page );
+	optionButtonGroup     = new QVButtonGroup( i18n( "General" ), page );
 	layout->addWidget( optionButtonGroup );
 	optionButtonGroup->setMargin( KDialog::marginHint() );
 
-	m_smallerCheckBox = new QCheckBox( i18n( "&Look for smaller changes" ), optionButtonGroup );
-	m_largerCheckBox = new QCheckBox( i18n( "O&ptimize for large files" ), optionButtonGroup );
-	m_caseCheckBox = new QCheckBox( i18n( "&Ignore changes in case" ), optionButtonGroup );
+	m_smallerCheckBox     = new QCheckBox( i18n( "&Look for smaller changes" ), optionButtonGroup );
+	m_largerCheckBox      = new QCheckBox( i18n( "O&ptimize for large files" ), optionButtonGroup );
+	m_caseCheckBox        = new QCheckBox( i18n( "&Ignore changes in case" ), optionButtonGroup );
 
 	moreOptionButtonGroup = new QVButtonGroup( i18n( "Whitespace" ), page );
 	layout->addWidget( moreOptionButtonGroup );
 	moreOptionButtonGroup->setMargin( KDialog::marginHint() );
 
-	m_tabsCheckBox = new QCheckBox( i18n( "&Expand tabs to spaces in output" ), moreOptionButtonGroup );
-	m_linesCheckBox = new QCheckBox( i18n( "I&gnore added or removed empty lines" ), moreOptionButtonGroup );
-	m_whitespaceCheckBox = new QCheckBox( i18n( "Ig&nore changes in number of whitespace on a line" ), moreOptionButtonGroup );
+	m_tabsCheckBox        = new QCheckBox( i18n( "&Expand tabs to spaces in output" ), moreOptionButtonGroup );
+	m_linesCheckBox       = new QCheckBox( i18n( "I&gnore added or removed empty lines" ), moreOptionButtonGroup );
+	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes in number of whitespace on a line" ), moreOptionButtonGroup );
 
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
@@ -105,16 +103,16 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 {
 	m_settings = setts;
 
-	m_smallerCheckBox->setChecked( m_settings->m_createSmallerDiff );
-	m_largerCheckBox->setChecked( m_settings->m_largeFiles );
-	m_tabsCheckBox->setChecked( m_settings->m_convertTabsToSpaces );
-	m_caseCheckBox->setChecked( m_settings->m_ignoreChangesInCase );
-	m_linesCheckBox->setChecked( m_settings->m_ignoreWhitespaceComparingLines );
+	m_smallerCheckBox->setChecked   ( m_settings->m_createSmallerDiff );
+	m_largerCheckBox->setChecked    ( m_settings->m_largeFiles );
+	m_tabsCheckBox->setChecked      ( m_settings->m_convertTabsToSpaces );
+	m_caseCheckBox->setChecked      ( m_settings->m_ignoreChangesInCase );
+	m_linesCheckBox->setChecked     ( m_settings->m_ignoreWhitespaceComparingLines );
 	m_whitespaceCheckBox->setChecked( m_settings->m_ignoreWhiteSpace );
 
-	m_locSpinButton->setValue( m_settings->m_linesOfContext );
+	m_locSpinButton->setValue       ( m_settings->m_linesOfContext );
 
-	m_modeButtonGroup->setButton( m_settings->m_format );
+	m_modeButtonGroup->setButton    ( m_settings->m_format );
 };
 
 DiffSettings* DiffPrefs::getSettings( void )
@@ -132,14 +130,14 @@ void DiffPrefs::apply()
 	DiffSettings* setts;
 	setts = (DiffSettings*)getSettings();
 	
-	setts->m_largeFiles = m_largerCheckBox->isChecked();
-	setts->m_createSmallerDiff = m_smallerCheckBox->isChecked();
-	setts->m_convertTabsToSpaces = m_tabsCheckBox->isChecked();
-	setts->m_ignoreChangesInCase = m_caseCheckBox->isChecked();
+	setts->m_largeFiles                     = m_largerCheckBox->isChecked();
+	setts->m_createSmallerDiff              = m_smallerCheckBox->isChecked();
+	setts->m_convertTabsToSpaces            = m_tabsCheckBox->isChecked();
+	setts->m_ignoreChangesInCase            = m_caseCheckBox->isChecked();
 	setts->m_ignoreWhitespaceComparingLines = m_linesCheckBox->isChecked();
-	setts->m_ignoreWhiteSpace = m_whitespaceCheckBox->isChecked();
+	setts->m_ignoreWhiteSpace               = m_whitespaceCheckBox->isChecked();
 
-	setts->m_linesOfContext = m_locSpinButton->value();
+	setts->m_linesOfContext                 = m_locSpinButton->value();
 
 	setts->m_format = static_cast<KDiff::Format>( m_modeButtonGroup->id( m_modeButtonGroup->selected() ) );
 };
@@ -158,3 +156,4 @@ void DiffPrefs::setDefaults()
 	m_modeButtonGroup->setButton( Unified );
 };
 
+#include "diffprefs.moc"

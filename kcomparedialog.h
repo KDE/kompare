@@ -23,9 +23,9 @@
 #include <kdialogbase.h>
 #include <kurl.h>
 
+class KFileDialog;
 class KURLComboBox;
 class KURLRequester;
-class KFileDialog;
 
 class KCompareDialog : public KDialogBase
 {

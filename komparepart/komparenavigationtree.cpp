@@ -17,13 +17,13 @@
 **
 ***************************************************************************/
 
+#include <kdebug.h>
 #include <klocale.h>
 #include <kmimetype.h>
-#include <kdebug.h>
 
-#include "kdiff_part.h"
-#include "diffmodel.h"
 #include "difference.h"
+#include "diffmodel.h"
+#include "kdiff_part.h"
 #include "kdiffmodellist.h"
 
 #include "kdiffnavigationtree.h"
@@ -32,8 +32,8 @@
 #define COL_DESTINATION   1
 #define COL_DIFFERENCE    2
 
-KDiffNavigationTree::KDiffNavigationTree( KDiffModelList* models, QWidget* parent, const char* name )
-	: KListView( parent, name ),
+KDiffNavigationTree::KDiffNavigationTree( KDiffModelList* models, QWidget* parent, const char* name ) :
+	KListView( parent, name ),
 	m_models( models ),
 	m_rootItem( 0 )
 {
@@ -78,7 +78,7 @@ void KDiffNavigationTree::buildTree()
 	
 	QListViewItem* modelItem;
 	
-	QListIterator<DiffModel> modelIt( m_models->getModels() );
+	QPtrListIterator<DiffModel> modelIt( m_models->getModels() );
 	
 	// Go backwards so the items appear in the correct order when
 	// added to their parent.
@@ -103,7 +103,7 @@ void KDiffNavigationTree::buildTree()
 			     KURL( destinationBaseURL, model->destinationFile() ), 0, 0, KIcon::SizeSmall ) );
 		}
 		
-		QListIterator<Difference> diffIt(model->getDifferences());
+		QPtrListIterator<Difference> diffIt(model->getDifferences());
 		
 		m_itemDict.resize( m_itemDict.size() + model->differenceCount() );
 		

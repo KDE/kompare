@@ -23,8 +23,8 @@
 #include <qsize.h>
 #include <qwidget.h>
 
-#include <ktabctl.h>
 #include <kconfig.h>
+#include <ktabctl.h>
 
 #include "kdiff.h"
 
@@ -37,7 +37,7 @@ public:
 
 public:
 	/** No descriptions */
-	QSize sizeHintForWidget( QWidget* widget );
+	QSize        sizeHintForWidget( QWidget* widget );
 	/** No descriptions */
 	virtual void restore();
 	/** No descriptions */

@@ -20,26 +20,25 @@
 #ifndef KDIFFPART_H
 #define KDIFFPART_H
 
-#include <kparts/part.h>
 #include <kparts/factory.h>
+#include <kparts/part.h>
 
-#include "kdiff.h"
 #include "diffmodel.h"
-
-#include <kdiffmodellist.h>
+#include "kdiff.h"
+#include "kdiffmodellist.h"
 
 class QWidget;
 
 class KToggleAction;
 class KURL;
 
+class DiffSettings;
+class GeneralSettings;
 class KDiffView;
 class KDiffNavigationTree;
 class KDifferencesAction;
 class KDiffProcess;
 class KDiffStatsDlg;
-class GeneralSettings;
-class DiffSettings;
 class MiscSettings;
 
 /**

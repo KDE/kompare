@@ -19,16 +19,16 @@
 
 #include "kdiff_actions.h"
 
-#include <qwidget.h>
 #include <qpopupmenu.h>
+#include <qwidget.h>
 
 #include <kdebug.h>
 
-#include "diffmodel.h"
 #include "difference.h"
+#include "diffmodel.h"
 
-KDifferencesAction::KDifferencesAction ( const QString & text, QObject* parent, const char* name )
-  : KAction( text, 0, parent, name )
+KDifferencesAction::KDifferencesAction ( const QString & text, QObject* parent, const char* name ) :
+	KAction( text, 0, parent, name )
 {
 	kdDebug() << "KDifferencesAction::KDifferencesAction" << endl;
 	m_firstIndex = 0;
@@ -60,13 +60,13 @@ void KDifferencesAction::fillDifferenceMenu( const DiffModel* diffModel, int cur
 	kdDebug() << "KDifferencesAction::fillDifferenceMenu" << endl;
 
 	if ( m_firstIndex == 0 ) // should never happen since done in plug
-			m_firstIndex = m_differenceMenu->count();
+		m_firstIndex = m_differenceMenu->count();
 	else { // Clean up old differences (from the end, to avoid shifts)
 		for ( uint i = m_differenceMenu->count()-1 ; i >= m_firstIndex; i-- )
 			m_differenceMenu->removeItemAt( i );
 	}
 
-	QListIterator<Difference> it = QListIterator<Difference>(diffModel->getDifferences());
+	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(diffModel->getDifferences());
 	int i = 0;
 	while ( it.current() ) {
 		int id = m_differenceMenu->insertItem( it.current()->asString() );

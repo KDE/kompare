@@ -22,9 +22,9 @@
 
 #include <qwidget.h>
 
+#include "miscsettings.h"
 #include "prefsbase.h"
 #include "settingsbase.h"
-#include "miscsettings.h"
 
 class MiscPrefs : public PrefsBase
 {
@@ -37,7 +37,7 @@ public:
 	MiscSettings* m_settings;
 
 public:
-	void setSettings( MiscSettings* );
+	void          setSettings( MiscSettings* );
 	MiscSettings* getSettings( void );
 
 public:

@@ -21,8 +21,8 @@
 #define SETTINGSBASE_H
 
 #include <qobject.h>
-#include <qwidget.h>
 #include <qcolor.h>
+#include <qwidget.h>
 
 #include <kconfig.h>
 
@@ -38,7 +38,7 @@ public:
 public:
 	virtual void loadSettings( KConfig* config );
 	virtual void saveSettings( KConfig* config );
-	void emitSettingsChanged();
+	void         emitSettingsChanged();
 
 signals:
 	void settingsChanged();

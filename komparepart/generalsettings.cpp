@@ -19,11 +19,9 @@
 
 #include "generalsettings.h"
 
-#include "generalsettings.moc"
-
-const QColor GeneralSettings::default_removeColor(190, 237, 190);
-const QColor GeneralSettings::default_changeColor(237, 190, 190);
-const QColor GeneralSettings::default_addColor(190, 190, 237);
+const QColor GeneralSettings::default_removeColor (190, 237, 190);
+const QColor GeneralSettings::default_changeColor (237, 190, 190);
+const QColor GeneralSettings::default_addColor    (190, 190, 237);
 const QColor GeneralSettings::default_appliedColor(237, 237, 190);
 
 GeneralSettings::GeneralSettings( QWidget* parent ) : SettingsBase( parent )
@@ -38,21 +36,23 @@ GeneralSettings::~GeneralSettings()
 
 void GeneralSettings::loadSettings( KConfig* config )
 {
-	m_showEntireFile = config->readBoolEntry( "ShowEntireFile", true );
-	m_removeColor = config->readColorEntry( "RemoveColor", &default_removeColor );
-	m_changeColor = config->readColorEntry( "ChangeColor", &default_changeColor );
-	m_addColor = config->readColorEntry( "AddColor", &default_addColor );
-	m_appliedColor = config->readColorEntry( "AppliedColor", &default_appliedColor );
+	m_showEntireFile = config->readBoolEntry ( "ShowEntireFile", true );
+	m_removeColor    = config->readColorEntry( "RemoveColor",    &default_removeColor );
+	m_changeColor    = config->readColorEntry( "ChangeColor",    &default_changeColor );
+	m_addColor       = config->readColorEntry( "AddColor",       &default_addColor );
+	m_appliedColor   = config->readColorEntry( "AppliedColor",   &default_appliedColor );
+
 	SettingsBase::loadSettings( config );
 };
 
 void GeneralSettings::saveSettings( KConfig* config )
 {
 	config->writeEntry( "ShowEntireFile", m_showEntireFile );
-	config->writeEntry( "RemoveColor", m_removeColor );
-	config->writeEntry( "ChangeColor", m_changeColor );
-	config->writeEntry( "AddColor", m_addColor );
-	config->writeEntry( "AppliedColor", m_appliedColor );
+	config->writeEntry( "RemoveColor",    m_removeColor );
+	config->writeEntry( "ChangeColor",    m_changeColor );
+	config->writeEntry( "AddColor",       m_addColor );
+	config->writeEntry( "AppliedColor",   m_appliedColor );
+
 	SettingsBase::saveSettings( config );
 };
 
@@ -76,4 +76,6 @@ QColor GeneralSettings::getColorForDifferenceType( Difference::Type type, bool s
 	}
 
 	return color;
-}
+};
+
+#include "generalsettings.moc"

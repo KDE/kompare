@@ -17,17 +17,18 @@
 
 #include <qframe.h>
 
-class QLabel;
+#include "kdiffmodellist.h"
+
 class QComboBox;
 class QFont;
 class QFile;
-
-#include "kdiffmodellist.h"
+class QLabel;
+class QScrollBar;
 
 class DiffModel;
-class KDiffListView;
-class KDiffConnectWidget;
 class GeneralSettings;
+class KDiffConnectWidget;
+class KDiffListView;
 
 class KDiffView : public QFrame
 {

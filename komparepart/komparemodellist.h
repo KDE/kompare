@@ -18,20 +18,20 @@
 #ifndef KDIFFMODELLIST_H
 #define KDIFFMODELLIST_H
 
+#include <qptrlist.h>
 #include <qobject.h>
-#include <qlist.h>
 
 #include <kurl.h>
 
-#include "kdiff.h"
 #include "diffmodel.h"
+#include "kdiff.h"
 
 class QFile;
 
 class KTempFile;
 
-class KDiffProcess;
 class DiffSettings;
+class KDiffProcess;
 
 class KDiffModelList : public QObject, KDiff
 {
@@ -53,17 +53,20 @@ public:
 	
 	void swap();
 	
-	Mode mode() { return m_mode; };
-	
-	const QList<DiffModel>& getModels() { return m_models; };
-	int modelCount() { return m_models.count(); };
-	DiffModel* modelAt( int i ) { return m_models.at( i ); };
-	KURL sourceBaseURL() const;
-	KURL destinationBaseURL() const;
-	QString sourceTemp() const { return m_sourceTemp; };
-	QString destinationTemp() const { return m_destinationTemp; };
-	KURL diffURL() const { return m_diffURL; };
-	bool isModified() const;
+	Mode                        mode()                  { return m_mode; };
+
+	const QPtrList<DiffModel>&  getModels()             { return m_models; };
+	int                         modelCount()            { return m_models.count(); };
+	DiffModel*                  modelAt( int i )        { return m_models.at( i ); };
+
+	QString                     sourceTemp() const      { return m_sourceTemp; };
+	QString                     destinationTemp() const { return m_destinationTemp; };
+
+	KURL                        diffURL() const         { return m_diffURL; };
+	KURL                        sourceBaseURL() const;
+	KURL                        destinationBaseURL() const;
+
+	bool                        isModified() const;
 	
 signals:
 	void status( KDiffModelList::Status );
@@ -75,20 +78,20 @@ protected slots:
 	void slotWriteDiffOutput( bool success );
 
 private:
-	int parseDiffs( const QStringList& list );
+	int  parseDiffs( const QStringList& list );
 	void clear();
 	
-	Mode              m_mode;
-	KDiffProcess*     m_diffProcess;
-	QList<DiffModel>  m_models;
+	Mode                m_mode;
+	KDiffProcess*       m_diffProcess;
+	QPtrList<DiffModel> m_models;
 
-	KURL              m_sourceURL;
-	KURL              m_destinationURL;
-	QString           m_sourceTemp;
-	QString           m_destinationTemp;
+	KURL                m_sourceURL;
+	KURL                m_destinationURL;
+	QString             m_sourceTemp;
+	QString             m_destinationTemp;
 
-	KURL              m_diffURL;
-	KTempFile*        m_diffTemp;
+	KURL                m_diffURL;
+	KTempFile*          m_diffTemp;
 	
 };
 

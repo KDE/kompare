@@ -1,4 +1,4 @@
-SUBDIRS = qt3back kdiffpart pics
+SUBDIRS = kdiffpart pics
 
 INCLUDES= -I$(top_srcdir)/kdiff/kdiff/kdiffpart $(all_includes)
 
@@ -25,7 +25,7 @@ kdiff_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 kdiff_LDADD   = $(LIB_KPARTS) $(top_builddir)/kdiff/kdiff/kdiffpart/libkdiffpart.la
 
 # this is where the desktop file will go
-shelldesktopdir   = $(kde_appsdir)/Utilities
+shelldesktopdir   = $(kde_appsdir)/Development
 shelldesktop_DATA = kdiff.desktop
 
 # this is where the shell's XML-GUI resource file goes

@@ -17,20 +17,21 @@
 **
 ***************************************************************************/
 
+#include <qregexp.h>
 #include <qtextstream.h>
+
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 
 #include "difference.h"
-#include "diffmodel.h"
 #include "diffhunk.h"
+#include "diffmodel.h"
 #include "kdiffmodellist.h"
-#include "qregexp3.h"
 
 /**  */
-DiffModel::DiffModel()
-	: m_sourceFile( i18n( "Source" ) ),
+DiffModel::DiffModel() :
+	m_sourceFile( i18n( "Source" ) ),
 	m_destinationFile( i18n( "Destination" ) ),
 	m_appliedCount( 0 ),
 	m_modified( false )
@@ -90,7 +91,7 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 
 	if ( it == list.end() ) return 0; // no differences
 
-	QRegExp3 source( "^\\*\\*\\* ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
+	QRegExp source( "^\\*\\*\\* ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
 	if( !source.exactMatch( *it ) ) return 1;
 	
 	m_sourceFile = source.cap( 1 );
@@ -103,7 +104,7 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 	
 	if( ++it == list.end() ) return 1;
 	
-	QRegExp3 dest( "^--- ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
+	QRegExp dest( "^--- ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
 	if( !dest.exactMatch( *it ) ) return 1;
 	
 	m_destinationFile = dest.cap( 1 );
@@ -116,14 +117,14 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 	
 	++it;
 	
-	QRegExp3 head1( "^\\*{15}( ?)(.*)$" );
-	QRegExp3 headS( "^\\*{3} ([0-9]+),([0-9]+) \\*{4}$" );
-	QRegExp3 headD( "^-{3} ([0-9]+),([0-9]+) -{4}$" );
-	QRegExp3 line( "^([-!+ ]) (.*)$" );
-	QRegExp3 unchanged( "^  (.*)$" );
-	QRegExp3 changed(    "^! (.*)$" );
-	QRegExp3 removed(   "^- (.*)$" );
-	QRegExp3 added(     "^\\+ (.*)$" );
+	QRegExp head1    ( "^\\*{15}( ?)(.*)$" );
+	QRegExp headS    ( "^\\*{3} ([0-9]+),([0-9]+) \\*{4}$" );
+	QRegExp headD    ( "^-{3} ([0-9]+),([0-9]+) -{4}$" );
+	QRegExp line     ( "^([-!+ ]) (.*)$" );
+	QRegExp unchanged( "^  (.*)$" );
+	QRegExp changed  ( "^! (.*)$" );
+	QRegExp removed  ( "^- (.*)$" );
+	QRegExp added    ( "^\\+ (.*)$" );
 	
 	while ( it != list.end() ) {
 		
@@ -328,7 +329,7 @@ int DiffModel::parseNormalDiff( const QStringList& list, QStringList::ConstItera
 	
 	while ( it != list.end() ) {
 		
-		QRegExp3 head( "^([0-9]+)([acd]?)([0-9]*),([0-9]+)([acd]?)([0-9]*)$" );
+		QRegExp head( "^([0-9]+)([acd]?)([0-9]*),([0-9]+)([acd]?)([0-9]*)$" );
 		if( !head.exactMatch( *it ) ) return 1;
 		
 		linenoA = head.cap( 1 ).toInt();
@@ -349,9 +350,9 @@ int DiffModel::parseNormalDiff( const QStringList& list, QStringList::ConstItera
 			diff->setType( Difference::Delete );
 		} else return 1;
 		
-		QRegExp3 source( "< (.*)$" );
-		QRegExp3 dest( "> (.*)$" );
-		QRegExp3 div( "^---$" );
+		QRegExp source( "< (.*)$" );
+		QRegExp dest  ( "> (.*)$" );
+		QRegExp div   ( "^---$" );
 		
 		it++;
 		
@@ -483,12 +484,19 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 	
 	if( it == list.end() ) return 0; // no differences
 	
-	QRegExp3 source( "^--- ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
+	QRegExp source   ( "^--- ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
+	QRegExp dest     ( "^\\+\\+\\+ ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
+	QRegExp line     ( "^([ \\-+])(.*)$" );
+	QRegExp unchanged( "^ (.*)$" );
+	QRegExp removed  ( "^-(.*)$" );
+	QRegExp added    ( "^\\+(.*)$" );
+	QRegExp head     ( "^@@ -([0-9]+),([0-9]+) \\+([0-9]+),([0-9]+) @@( ?)(.*)$" );
+
 	if( !source.exactMatch( *it ) ) return 1;
 	
-	m_sourceFile = source.cap( 1 );
+	m_sourceFile      = source.cap( 1 );
 	m_sourceTimestamp = source.cap( 2 );
-	m_sourceRevision = source.cap( 4 );
+	m_sourceRevision  = source.cap( 4 );
 	
 	kdDebug() << " source: " << m_sourceFile << endl;
 	kdDebug() << "   time: " << m_sourceTimestamp << endl;
@@ -496,12 +504,11 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 	
 	if( ++it == list.end() ) return 1;
 	
-	QRegExp3 dest( "^\\+\\+\\+ ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
 	if( !dest.exactMatch( *it ) ) return 1;
 	
-	m_destinationFile = dest.cap( 1 );
+	m_destinationFile      = dest.cap( 1 );
 	m_destinationTimestamp = dest.cap( 2 );
-	m_destinationRevision = dest.cap( 4 );
+	m_destinationRevision  = dest.cap( 4 );
 	
 	kdDebug() << "   dest: " << m_destinationFile << endl;
 	kdDebug() << "   time: " << m_destinationTimestamp << endl;
@@ -510,7 +517,6 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 	++it;
 	while( it != list.end() ) {
 		
-		QRegExp3 head( "^@@ -([0-9]+),([0-9]+) \\+([0-9]+),([0-9]+) @@( ?)(.*)$" );
 		if( !head.exactMatch( *it ) ) return 1;
 		
 		linenoA = head.cap( 1 ).toInt();
@@ -523,10 +529,6 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 		
 		++it;
 		
-		QRegExp3 line( "^([ \\-+])(.*)$" );
-		QRegExp3 unchanged( "^ (.*)$" );
-		QRegExp3 removed(   "^-(.*)$" );
-		QRegExp3 added(     "^\\+(.*)$" );
 		while( it != list.end() && line.exactMatch( *it ) ) {
 			
 			Difference* diff = new Difference( linenoA, linenoB );

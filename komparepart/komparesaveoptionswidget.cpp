@@ -19,19 +19,17 @@
 
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
-#include <qspinbox.h>
-#include <qradiobutton.h>
 #include <qlabel.h>
+#include <qradiobutton.h>
+#include <qspinbox.h>
 
-#include <kurlrequester.h>
-#include <kfiledialog.h>
-#include <kfile.h>
 #include <kdebug.h>
+#include <kfile.h>
+#include <kfiledialog.h>
+#include <kurlrequester.h>
 
 #include "diffsettings.h"
-
 #include "kdiffsaveoptionswidget.h"
-#include "kdiffsaveoptionswidget.moc"
 
 KDiffSaveOptionsWidget::KDiffSaveOptionsWidget( QString source, QString destination,
            DiffSettings * settings, QWidget * parent )
@@ -61,23 +59,23 @@ KDiffSaveOptionsWidget::KDiffSaveOptionsWidget( QString source, QString destinat
 		m_directoryRequester->setURL( root.url() );
 	}
 	
-	connect( m_SmallerChangesCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_LargeFilesCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_IgnoreCaseCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_ExpandTabsCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_SmallerChangesCB,   SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_LargeFilesCB,       SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_IgnoreCaseCB,       SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_ExpandTabsCB,       SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
 	connect( m_IgnoreEmptyLinesCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
 	connect( m_IgnoreWhiteSpaceCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_FunctionNamesCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_RecursiveCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_NewFilesCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_AllTextCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_ContextRB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_EdRB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_NormalRB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_RCSRB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_UnifiedRB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_SideBySideRB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_ContextLinesSB, SIGNAL(valueChanged(int)), SLOT(updateCommandLine()) );
+	connect( m_FunctionNamesCB,    SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_RecursiveCB,        SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_NewFilesCB,         SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_AllTextCB,          SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_ContextRB,          SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_EdRB,               SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_NormalRB,           SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_RCSRB,              SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_UnifiedRB,          SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_SideBySideRB,       SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
+	connect( m_ContextLinesSB,     SIGNAL(valueChanged(int)), SLOT(updateCommandLine()) );
 	connect( m_directoryRequester, SIGNAL(textChanged(const QString&)), SLOT(updateCommandLine()) );
 	
 	loadOptions();
@@ -179,39 +177,41 @@ void KDiffSaveOptionsWidget::updateCommandLine()
 
 void KDiffSaveOptionsWidget::loadOptions()
 {
-	m_SmallerChangesCB->setChecked( m_settings->m_createSmallerDiff );
-	m_LargeFilesCB->setChecked( m_settings->m_largeFiles );
-	m_IgnoreCaseCB->setChecked( m_settings->m_ignoreChangesInCase );
-	m_ExpandTabsCB->setChecked( m_settings->m_convertTabsToSpaces );
+	m_SmallerChangesCB->setChecked  ( m_settings->m_createSmallerDiff );
+	m_LargeFilesCB->setChecked      ( m_settings->m_largeFiles );
+	m_IgnoreCaseCB->setChecked      ( m_settings->m_ignoreChangesInCase );
+	m_ExpandTabsCB->setChecked      ( m_settings->m_convertTabsToSpaces );
 	m_IgnoreEmptyLinesCB->setChecked( m_settings->m_ignoreEmptyLines );
 	m_IgnoreWhiteSpaceCB->setChecked( m_settings->m_ignoreWhiteSpace );
-	m_FunctionNamesCB->setChecked( m_settings->m_showCFunctionChange );
-	m_RecursiveCB->setChecked( m_settings->m_recursive );
-	m_NewFilesCB->setChecked( m_settings->m_newFiles );
-	m_AllTextCB->setChecked( m_settings->m_allText );
+	m_FunctionNamesCB->setChecked   ( m_settings->m_showCFunctionChange );
+	m_RecursiveCB->setChecked       ( m_settings->m_recursive );
+	m_NewFilesCB->setChecked        ( m_settings->m_newFiles );
+	m_AllTextCB->setChecked         ( m_settings->m_allText );
 	
-	m_ContextLinesSB->setValue( m_settings->m_linesOfContext );
+	m_ContextLinesSB->setValue      ( m_settings->m_linesOfContext );
 
-	m_FormatBG->setButton( m_settings->m_format );
+	m_FormatBG->setButton           ( m_settings->m_format );
 
 	updateCommandLine();
 }
 
 void KDiffSaveOptionsWidget::saveOptions()
 {
-	m_settings->m_createSmallerDiff = m_SmallerChangesCB->isChecked();
-	m_settings->m_largeFiles = m_LargeFilesCB->isChecked();
+	m_settings->m_createSmallerDiff   = m_SmallerChangesCB->isChecked();
+	m_settings->m_largeFiles          = m_LargeFilesCB->isChecked();
 	m_settings->m_ignoreChangesInCase = m_IgnoreCaseCB->isChecked();
 	m_settings->m_convertTabsToSpaces = m_ExpandTabsCB->isChecked();
-	m_settings->m_ignoreEmptyLines = m_IgnoreEmptyLinesCB->isChecked();
-	m_settings->m_ignoreWhiteSpace = m_IgnoreWhiteSpaceCB->isChecked();
+	m_settings->m_ignoreEmptyLines    = m_IgnoreEmptyLinesCB->isChecked();
+	m_settings->m_ignoreWhiteSpace    = m_IgnoreWhiteSpaceCB->isChecked();
 	m_settings->m_showCFunctionChange = m_FunctionNamesCB->isChecked();
-	m_settings->m_recursive = m_RecursiveCB->isChecked();
-	m_settings->m_newFiles = m_NewFilesCB->isChecked();
-	m_settings->m_allText = m_AllTextCB->isChecked();
+	m_settings->m_recursive           = m_RecursiveCB->isChecked();
+	m_settings->m_newFiles            = m_NewFilesCB->isChecked();
+	m_settings->m_allText             = m_AllTextCB->isChecked();
 	
-	m_settings->m_linesOfContext = m_ContextLinesSB->value();
+	m_settings->m_linesOfContext      = m_ContextLinesSB->value();
 
 	m_settings->m_format = static_cast<Format>( m_FormatBG->id( m_FormatBG->selected() ) );
 
 }
+
+#include "kdiffsaveoptionswidget.moc"

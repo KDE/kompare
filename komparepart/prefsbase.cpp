@@ -17,12 +17,10 @@
 **
 ***************************************************************************/
 
-#include <qobjectlist.h>
 #include <qlayout.h>
+#include <qobjectlist.h>
 
 #include "prefsbase.h"
-
-#include "prefsbase.moc"
 
 PrefsBase::PrefsBase( QWidget* parent ) : KTabCtl( parent )
 {
@@ -42,6 +40,9 @@ QSize PrefsBase::sizeHintForWidget( QWidget* widget )
 	// widget children and taking the width of the widest child and adding
 	// layout()->margin() and layout()->spacing()
 	//
+
+	// this code in this method has been ripped out of a file in kbabel
+	// so copyright goes to the kbabel authors.
 
 	QSize size;
 
@@ -99,3 +100,5 @@ void PrefsBase::setDefaults()
 {
 
 };
+
+#include "prefsbase.moc"

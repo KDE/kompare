@@ -23,7 +23,6 @@
 #include <kurl.h>
 
 #include "kdiffsaveoptionsbase.h"
-
 #include "kdiff.h"
 
 class DiffSettings;
@@ -35,14 +34,14 @@ public:
 	KDiffSaveOptionsWidget( QString source, QString destination, DiffSettings* settings, QWidget* parent );
 	~KDiffSaveOptionsWidget();
 	
-	void saveOptions();
-	QString directory() const;
+	void      saveOptions();
+	QString   directory() const;
 	
 protected slots:
-	void updateCommandLine();
+	void      updateCommandLine();
 	
 private:
-	void loadOptions();
+	void      loadOptions();
 	
 	DiffSettings*   m_settings;
 	QString         m_source;

@@ -19,8 +19,8 @@
 
 #include "difference.h"
 
-Difference::Difference( int sourceLineNo, int destinationLineNo )
-	: m_type( Unchanged ),
+Difference::Difference( int sourceLineNo, int destinationLineNo ) :
+	m_type( Unchanged ),
 	m_sourceLineNo( sourceLineNo ),
 	m_destinationLineNo( destinationLineNo ),
 	m_applied( false )

@@ -21,7 +21,7 @@
 #define DIFFMODEL_H
 
 #include <qobject.h>
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qstringlist.h>
 
 #include "kdiff.h"
@@ -52,9 +52,9 @@ public:
 		{ return const_cast<DiffModel*>(this)->m_hunks.at( i ); };
 	Difference* differenceAt( int i ) const
 		{ return const_cast<DiffModel*>(this)->m_differences.at( i ); };
-	const QList<DiffHunk>& getHunks() const
+	const QPtrList<DiffHunk>& getHunks() const
 		{ return m_hunks; };
-	const QList<Difference>& getDifferences() const
+	const QPtrList<Difference>& getDifferences() const
 		{ return m_differences; };
 
 	QString sourceFile();
@@ -81,17 +81,17 @@ private:
 	int parseRCSDiff( const QStringList& list, QStringList::ConstIterator& it );
 	int parseUnifiedDiff( const QStringList& list, QStringList::ConstIterator& it );
 
-	QString             m_sourceFile;
-	QString             m_sourceTimestamp;
-	QString             m_sourceRevision;
-	QString             m_destinationFile;
-	QString             m_destinationTimestamp;
-	QString             m_destinationRevision;
-	QList<DiffHunk>     m_hunks;
-	QList<Difference>   m_differences;
-	int                 m_appliedCount;
-	Format              m_format;
-	bool                m_modified;
+	QString              m_sourceFile;
+	QString              m_sourceTimestamp;
+	QString              m_sourceRevision;
+	QString              m_destinationFile;
+	QString              m_destinationTimestamp;
+	QString              m_destinationRevision;
+	QPtrList<DiffHunk>   m_hunks;
+	QPtrList<Difference> m_differences;
+	int                  m_appliedCount;
+	Format               m_format;
+	bool                 m_modified;
 };
 
 #endif

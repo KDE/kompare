@@ -18,8 +18,6 @@
 ***************************************************************************/
 #include "settingsbase.h"
 
-#include "settingsbase.moc"
-
 SettingsBase::SettingsBase( QWidget* parent ) : QObject( parent )
 {
 
@@ -41,4 +39,6 @@ void SettingsBase::saveSettings( KConfig* /* config */ )
 
 void SettingsBase::emitSettingsChanged() {
 	emit settingsChanged();
-}
+};
+
+#include "settingsbase.moc"

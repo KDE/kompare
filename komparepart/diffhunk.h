@@ -20,7 +20,7 @@
 #ifndef DIFFHUNK_H
 #define DIFFHUNK_H
 
-#include <qlist.h>
+#include <qptrlist.h>
 
 class Difference;
 
@@ -30,7 +30,7 @@ public:
 	DiffHunk( int sourceLine, int destinationLine, QString function = QString::null );
 	~DiffHunk();
 
-	const QList<Difference>& getDifferences() const { return m_differences; };
+	const QPtrList<Difference>& getDifferences() const { return m_differences; };
 	const QString getFunction() const { return m_function; };
 	
 	void add( Difference* diff );
@@ -38,7 +38,7 @@ public:
 private:
 	int               m_sourceLine;
 	int               m_destinationLine;
-	QList<Difference> m_differences;
+	QPtrList<Difference> m_differences;
 	QString           m_function;
 };
 

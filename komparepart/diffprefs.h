@@ -20,14 +20,14 @@
 #ifndef DIFFPREFS_H
 #define DIFFPREFS_H
 
-#include <qwidget.h>
 #include <qcheckbox.h>
-#include <qvbuttongroup.h>
 #include <qspinbox.h>
+#include <qvbuttongroup.h>
+#include <qwidget.h>
 
+#include "diffsettings.h"
 #include "prefsbase.h"
 #include "settingsbase.h"
-#include "diffsettings.h"
 
 class DiffPrefs : public PrefsBase
 {

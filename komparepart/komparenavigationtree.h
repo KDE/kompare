@@ -20,13 +20,13 @@
 #ifndef KDIFFNAVIGATIONTREE_H
 #define KDIFFNAVIGATIONTREE_H
 
-#include <qlist.h>
+#include <qptrlist.h>
 #include <qptrdict.h>
 
 #include <klistview.h>
 
-class KDiffPart;
 class KDiffModelList;
+class KDiffPart;
 
 class KDiffNavigationTree : public KListView
 {
@@ -48,7 +48,7 @@ private slots:
 	void slotAppliedChanged( const Difference* d );
 	
 private:
-	void setItemText( QListViewItem* item, const Difference* d );
+	void           setItemText( QListViewItem* item, const Difference* d );
 	QListViewItem* firstItem();
 	QListViewItem* lastItem();
 

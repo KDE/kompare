@@ -18,24 +18,26 @@
 ***************************************************************************/
 
 #include <qheader.h>
+#include <qpainter.h>
 
-#include <klocale.h>
 #include <kdebug.h>
+#include <klocale.h>
 
-#include "kdiffmodellist.h"
 #include "diffmodel.h"
 #include "diffhunk.h"
 #include "difference.h"
 #include "generalsettings.h"
+#include "kdiffmodellist.h"
 
 #include "kdifflistview.h"
-#include "kdifflistview.moc"
 
 #define COL_LINE_NO      0
 #define COL_MAIN         1
 
-KDiffListView::KDiffListView( KDiffModelList* models, bool isSource, GeneralSettings* settings, QWidget* parent, const char* name )
-	: KListView( parent, name ),
+KDiffListView::KDiffListView( KDiffModelList* models, bool isSource, 
+                              GeneralSettings* settings, 
+                              QWidget* parent, const char* name ) :
+	KListView( parent, name ),
 	m_models( models ),
 	m_isSource( isSource ),
 	m_selectedModel( -1 ),
@@ -459,3 +461,5 @@ void KDiffListViewHunkItem::paintCell( QPainter * p, const QColorGroup & cg, int
 		             align, m_hunk->getFunction() );
 	}
 }
+
+#include "kdifflistview.moc"

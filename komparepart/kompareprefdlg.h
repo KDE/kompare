@@ -20,11 +20,11 @@
 #ifndef KDIFFPREFDLG_H
 #define KDIFFPREFDLG_H
 
-#include "generalprefs.h"
-#include "diffprefs.h"
-#include "miscprefs.h"
-
 #include <kdialogbase.h>
+
+#include "diffprefs.h"
+#include "generalprefs.h"
+#include "miscprefs.h"
 
 class KDiffPrefDlg : public KDialogBase
 {

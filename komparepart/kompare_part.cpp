@@ -71,6 +71,8 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 		m_diffSettings = new DiffSettings( 0 );
 	}
 
+	readProperties( instance()->config() );
+
 	// This creates the "Model creator" and connects the signals and slots
 	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_info, this, "komparemodellist" );
 	connect( m_modelList, SIGNAL(status( Kompare::Status )),
@@ -136,8 +138,6 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	setWidget( m_splitter->parentWidget() );
 
 	setupActions();
-
-	readProperties( instance()->config() );
 
 	// set our XML-UI resource file
 	setXMLFile( "komparepartui.rc" );
@@ -274,9 +274,7 @@ const QString KomparePart::fetchURL( const KURL& url )
 	{
 		// is Local already, check if exists
 		if ( exists( url.path() ) )
-		{
 			return url.path();
-		}
 		else
 		{
 			slotShowError( i18n( "The URL <b>%1</b> does not exist on your system." ).arg( url.prettyURL() ) );
@@ -746,20 +744,16 @@ bool KomparePart::queryClose()
 
 int KomparePart::readProperties( KConfig *config )
 {
-	config->setGroup( "View" );
 	m_viewSettings->loadSettings( config );
-	config->setGroup( "DiffSettings" );
-	m_diffSettings->loadSettings   ( config );
+	m_diffSettings->loadSettings( config );
 	emit configChanged();
 	return 0;
 }
 
 int KomparePart::saveProperties( KConfig *config )
 {
-	config->setGroup( "View" );
 	m_viewSettings->saveSettings( config );
-	config->setGroup( "DiffSettings" );
-	m_diffSettings->saveSettings   ( config );
+	m_diffSettings->saveSettings( config );
 	return 0;
 }
 
@@ -768,14 +762,10 @@ void KomparePart::optionsPreferences()
 	// show preferences
 	KomparePrefDlg* pref = new KomparePrefDlg( m_viewSettings, m_diffSettings );
 
-	if ( pref->exec() ) {
-		KConfig* config = instance()->config();
-		saveProperties( config );
-		config->sync();
-		//FIXME: maybe this signal should also be emitted when
-		// Apply is pressed. I'll figure it out this week.
+	connect( pref, SIGNAL(applyClicked()), this, SIGNAL(configChanged()) );
+
+	if ( pref->exec() )
 		emit configChanged();
-	}
 }
 
 void KomparePart::slotSetModified( bool modified )

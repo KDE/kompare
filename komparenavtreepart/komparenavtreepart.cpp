@@ -157,7 +157,7 @@ void KompareNavTreePart::buildTreeInMemory()
 		m_destRootItem->addModel( destPath, model, &m_modelToDestDirItemDict );
 		++it;
 	}
-	m_srcDirTree->setSelected( m_srcDirTree->firstChild(), true );
+//	m_srcDirTree->setSelected( m_srcDirTree->firstChild(), true );
 }
 
 void KompareNavTreePart::buildDirectoryTree()

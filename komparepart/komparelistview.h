@@ -65,6 +65,7 @@ public:
 	void setSelectedDifference( const Diff2::Difference* diff, bool scroll );
 
 	const QString& spaces() const { return m_spaces; };
+	void setSpaces( int spaces );
 
 public slots:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
@@ -75,7 +76,6 @@ public slots:
 	void slotApplyDifference( bool apply );
 	void slotApplyAllDifferences( bool apply );
 	void slotApplyDifference( const Diff2::Difference* diff, bool apply );
-	void slotConfigChanged();
 
 protected slots:
 	void slotDelayedScrollToId();

@@ -33,15 +33,10 @@ SettingsBase::~SettingsBase()
 
 void SettingsBase::loadSettings( KConfig* /* config */ )
 {
-	emitSettingsChanged();
 }
 
 void SettingsBase::saveSettings( KConfig* /* config */ )
 {
-}
-
-void SettingsBase::emitSettingsChanged() {
-	emit settingsChanged();
 }
 
 #include "settingsbase.moc"

@@ -62,7 +62,7 @@ public slots:
 
 	void slotDifferenceClicked( const Diff2::Difference* diff );
 
-	void slotFontChanged();
+	void slotConfigChanged();
 
 	void scrollToId( int id );
 	void slotDelayedUpdateScrollBars();

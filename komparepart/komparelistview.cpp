@@ -73,7 +73,6 @@ KompareListViewFrame::KompareListViewFrame( bool isSource,
 	m_layout.addWidget(frame2);
 	m_layout.addWidget(&m_view);
 
-	connect( parent, SIGNAL(configChanged()), &m_view, SLOT(slotConfigChanged()) );
 	connect( &m_view, SIGNAL(differenceClicked(const Diff2::Difference*)),
 	         parent, SLOT(slotDifferenceClicked(const Diff2::Difference*)) );
 
@@ -129,7 +128,8 @@ KompareListView::KompareListView( bool isSource,
 	setVScrollBarMode( QScrollView::AlwaysOff );
 	setHScrollBarMode( QScrollView::AlwaysOff );
 	setFocusPolicy( QWidget::NoFocus );
-	setFont( settings->m_font );
+	setFont( m_settings->m_font );
+	setSpaces( m_settings->m_tabToNumberOfSpaces );
 }
 
 KompareListView::~KompareListView()
@@ -399,12 +399,13 @@ void KompareListView::slotApplyDifference( const Difference* diff, bool apply )
 	m_itemDict[ (void*)diff ]->applyDifference( apply );
 }
 
-void KompareListView::slotConfigChanged()
+void KompareListView::setSpaces( int spaces )
 {
-	m_spaces = "";
-	kdDebug( 8104 ) << "tabToNumberOfSpaces: " << m_settings->m_tabToNumberOfSpaces << endl;
-	for ( int i = 0; i < m_settings->m_tabToNumberOfSpaces; i++ )
+	m_spaces.truncate( 0 );
+	kdDebug( 8104 ) << "tabToNumberOfSpaces: " << spaces << endl;
+	for ( int i = 0; i < spaces; i++ )
 		m_spaces += " ";
+
 	triggerUpdate();
 }
 
@@ -615,10 +616,11 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, i
 
 	paintText( p, bg, column, width, align );
 
-	if( diffItemParent()->isSelected() ) {
-		if( this == parent()->firstChild() )
+	if ( diffItemParent()->isSelected() )
+	{
+		if ( this == parent()->firstChild() )
 			p->drawLine( 0, 0, width, 0 );
-		if( nextSibling() == 0 )
+		if ( nextSibling() == 0 )
 			p->drawLine( 0, height() - 1, width, height() - 1 );
 	}
 }

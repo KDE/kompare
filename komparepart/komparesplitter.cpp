@@ -65,7 +65,7 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget * parent,
 	setSizePolicy( QSizePolicy (QSizePolicy::Ignored, QSizePolicy::Ignored ));
 	setOpaqueResize( true );
 
-	connect( this, SIGNAL(configChanged()), SLOT(slotFontChanged()) );
+	connect( this, SIGNAL(configChanged()), SLOT(slotConfigChanged()) );
 	connect( this, SIGNAL(configChanged()), SLOT(slotDelayedRepaintHandles()) );
 	connect( this, SIGNAL(configChanged()), SLOT(slotDelayedUpdateScrollBars()) );
 	
@@ -182,11 +182,13 @@ void KompareSplitter::childEvent( QChildEvent *c )
 void KompareSplitter::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
 	QSplitterLayoutStruct *curr;
-	for( curr = d->list.first(); curr; curr = d->list.next() ) {
-		if(curr->isHandle) {
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+	{
+		if ( curr->isHandle )
 			((KompareConnectWidgetFrame*)
 				curr->wid)->wid()->slotSetSelection( model, diff );
-		} else {
+		else
+		{
 			((KompareListViewFrame*)
 				curr->wid)->view()->slotSetSelection( model, diff );
 			((KompareListViewFrame*)
@@ -200,8 +202,8 @@ void KompareSplitter::slotSetSelection( const DiffModel* model, const Difference
 void KompareSplitter::slotSetSelection( const Difference* diff )
 {
 	QSplitterLayoutStruct *curr;
-	for( curr = d->list.first(); curr; curr = d->list.next() )
-		if(curr->isHandle)
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+		if ( curr->isHandle )
 			((KompareConnectWidgetFrame*)
 				curr->wid)->wid()->slotSetSelection( diff );
 		else
@@ -214,8 +216,8 @@ void KompareSplitter::slotSetSelection( const Difference* diff )
 void KompareSplitter::slotApplyDifference( bool apply )
 {
 	QSplitterLayoutStruct *curr;
-	for( curr = d->list.first(); curr; curr = d->list.next() )
-		if(!curr->isHandle)
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+		if ( !curr->isHandle )
 			((KompareListViewFrame*)
 				curr->wid)->view()->slotApplyDifference( apply );
 	slotDelayedRepaintHandles();
@@ -224,8 +226,8 @@ void KompareSplitter::slotApplyDifference( bool apply )
 void KompareSplitter::slotApplyAllDifferences( bool apply )
 {
 	QSplitterLayoutStruct *curr;
-	for( curr = d->list.first(); curr; curr = d->list.next() )
-		if(!curr->isHandle)
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+		if ( !curr->isHandle )
 			((KompareListViewFrame*)
 				curr->wid)->view()->slotApplyAllDifferences( apply );
 	slotDelayedRepaintHandles();
@@ -235,8 +237,8 @@ void KompareSplitter::slotApplyAllDifferences( bool apply )
 void KompareSplitter::slotApplyDifference( const Difference* diff, bool apply )
 {
 	QSplitterLayoutStruct *curr;
-	for( curr = d->list.first(); curr; curr = d->list.next() )
-		if(!curr->isHandle)
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+		if ( !curr->isHandle )
 			((KompareListViewFrame*)
 				curr->wid)->view()->slotApplyDifference( diff, apply );
 	slotDelayedRepaintHandles();
@@ -245,18 +247,21 @@ void KompareSplitter::slotApplyDifference( const Difference* diff, bool apply )
 void KompareSplitter::slotDifferenceClicked( const Difference* diff )
 {
 	QSplitterLayoutStruct *curr;
-	for( curr = d->list.first(); curr; curr = d->list.next() )
-		if(!curr->isHandle)
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+		if ( !curr->isHandle )
 			((KompareListViewFrame*)
 				curr->wid)->view()->setSelectedDifference( diff, false );
 	emit selectionChanged( diff );
 }
 
-void KompareSplitter::slotFontChanged()
+void KompareSplitter::slotConfigChanged()
 {
 	QSplitterLayoutStruct *curr;
-	for( curr = d->list.first(); curr; curr = d->list.next() ) {
-		if(!curr->isHandle) {
+	for ( curr = d->list.first(); curr; curr = d->list.next() ) {
+		if ( !curr->isHandle )
+		{
+			((KompareListViewFrame*)
+				curr->wid)->view()->setSpaces( m_settings->m_tabToNumberOfSpaces );
 			((KompareListViewFrame*)
 				curr->wid)->view()->setFont( m_settings->m_font );
 			((KompareListViewFrame*)
@@ -268,16 +273,16 @@ void KompareSplitter::slotFontChanged()
 void KompareSplitter::slotDelayedRepaintHandles()
 {
 	QSplitterLayoutStruct *curr;
-	for( curr = d->list.first(); curr; curr = d->list.next() )
-		if(curr->isHandle)
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+		 if ( curr->isHandle )
 			((KompareConnectWidgetFrame*)curr->wid)->wid()->slotDelayedRepaint();
 }
 
 void KompareSplitter::repaintHandles()
 {
 	QSplitterLayoutStruct *curr;
-	for( curr = d->list.first(); curr; curr = d->list.next() )
-		if(curr->isHandle)
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+		if ( curr->isHandle )
 			((KompareConnectWidgetFrame*)curr->wid)->wid()->repaint();
 }
 

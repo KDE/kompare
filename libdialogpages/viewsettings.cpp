@@ -38,8 +38,7 @@ ViewSettings::ViewSettings( QWidget* parent )
 	m_addColor( 0, 0, 0),
 	m_appliedColor( 0, 0, 0),
 	m_scrollNoOfLines( 0 ),
-	m_tabToNumberOfSpaces( 0 ),
-	m_fontSize( 0 )
+	m_tabToNumberOfSpaces( 0 )
 {
 }
 
@@ -49,34 +48,32 @@ ViewSettings::~ViewSettings()
 
 void ViewSettings::loadSettings( KConfig* config )
 {
-	config->setGroup( "View Options" );
-	m_removeColor         = config->readColorEntry( "RemoveColor",         &default_removeColor );
-	m_changeColor         = config->readColorEntry( "ChangeColor",         &default_changeColor );
-	m_addColor            = config->readColorEntry( "AddColor",            &default_addColor );
-	m_appliedColor        = config->readColorEntry( "AppliedColor",        &default_appliedColor );
-	m_scrollNoOfLines     = config->readNumEntry  ( "ScrollNoOfLines",     3 );
-	m_tabToNumberOfSpaces = config->readNumEntry  ( "TabToNumberOfSpaces", 4 );
+	KConfigGroup* cfg = new KConfigGroup( config, "View Options" );
+	m_removeColor         = cfg->readColorEntry( "RemoveColor",         &default_removeColor );
+	m_changeColor         = cfg->readColorEntry( "ChangeColor",         &default_changeColor );
+	m_addColor            = cfg->readColorEntry( "AddColor",            &default_addColor );
+	m_appliedColor        = cfg->readColorEntry( "AppliedColor",        &default_appliedColor );
+	m_scrollNoOfLines     = cfg->readNumEntry  ( "ScrollNoOfLines",     3 );
+	m_tabToNumberOfSpaces = cfg->readNumEntry  ( "TabToNumberOfSpaces", 4 );
 
-	m_font                = config->readFontEntry ( "TextFont" );
-	m_fontSize            = config->readNumEntry  ( "TextFontSize", 10 );
-
-	m_font.setPointSize( m_fontSize );
+	QFont stdFixed = KGlobalSettings::fixedFont();
+	stdFixed.setPointSize( 10 );
+	m_font                = cfg->readFontEntry ( "TextFont", &stdFixed );
 
 	SettingsBase::loadSettings( config );
 }
 
 void ViewSettings::saveSettings( KConfig* config )
 {
-	config->setGroup( "View Options" );
-	config->writeEntry( "RemoveColor",         m_removeColor );
-	config->writeEntry( "ChangeColor",         m_changeColor );
-	config->writeEntry( "AddColor",            m_addColor );
-	config->writeEntry( "AppliedColor",        m_appliedColor );
-	config->writeEntry( "ScrollNoOfLines",     m_scrollNoOfLines );
-	config->writeEntry( "TabToNumberOfSpaces", m_tabToNumberOfSpaces );
+	KConfigGroup* cfg = new KConfigGroup( config, "View Options" );
+	cfg->writeEntry( "RemoveColor",         m_removeColor );
+	cfg->writeEntry( "ChangeColor",         m_changeColor );
+	cfg->writeEntry( "AddColor",            m_addColor );
+	cfg->writeEntry( "AppliedColor",        m_appliedColor );
+	cfg->writeEntry( "ScrollNoOfLines",     m_scrollNoOfLines );
+	cfg->writeEntry( "TabToNumberOfSpaces", m_tabToNumberOfSpaces );
 
-	config->writeEntry( "TextFont",            m_font );
-	config->writeEntry( "TextFontSize",        m_fontSize );
+	cfg->writeEntry( "TextFont",            m_font );
 
 	SettingsBase::saveSettings( config );
 }

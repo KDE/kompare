@@ -22,7 +22,8 @@
 Difference::Difference( int sourceLineNo, int destinationLineNo )
 	: m_type( Unchanged ),
 	m_sourceLineNo( sourceLineNo ),
-	m_destinationLineNo( destinationLineNo )
+	m_destinationLineNo( destinationLineNo ),
+	m_applied( false )
 {
 };
 
@@ -48,6 +49,11 @@ int Difference::sourceLineCount() const
 int Difference::destinationLineCount() const
 {
 	return m_destinationLines.count();
+}
+
+void Difference::toggleApplied()
+{
+	m_applied = !m_applied;
 }
 
 QString Difference::asString() const

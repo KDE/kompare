@@ -7,6 +7,10 @@
     <Action name="file_diffstats"/>
   </Menu>
   <Menu name="difference"><text>&amp;Difference</text>
+    <Action name="difference_apply"/>
+    <Action name="difference_applyall"/>
+    <Action name="difference_unapplyall"/>
+    <Separator/>
     <Action name="difference_previousfile"/>
     <Action name="difference_nextfile"/>
     <Separator/>
@@ -27,5 +31,9 @@
   <Separator/>
   <Action name="difference_previous"/>
   <Action name="difference_next"/>
+  <Separator/>
+  <Action name="difference_apply"/>
+  <Action name="difference_applyall"/>
+  <Action name="difference_unapplyall"/>
 </ToolBar>
 </kpartgui>

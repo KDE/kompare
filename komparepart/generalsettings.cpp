@@ -65,7 +65,7 @@ QColor GeneralSettings::getColorForDifferenceType( Difference::Type type, bool s
 	}
 
 	if( selected ) {
-		color = color.dark( 105 );
+		color = color.light( 105 );
 	}
 
 	return color;

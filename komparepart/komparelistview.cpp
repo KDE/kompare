@@ -176,14 +176,20 @@ void KDiffListView::setSelectedModel( int index )
 		model = m_models->modelAt( index );
 	
 	if( index == m_selectedModel ) return;
-	m_selectedModel = index;
 	
 	clear();
 	m_items.clear();
+	m_itemDict.clear();
 	m_maxScrollId = 0;
 	m_maxMainWidth = 0;
+	disconnect( m_models->modelAt( index ), SIGNAL(appliedChanged( const Difference* )),
+	            this, SLOT(slotAppliedChanged( const Difference* )) );
+	
+	m_selectedModel = index;
 	
 	if( model == 0 ) return;
+	
+	m_itemDict.resize(model->differenceCount());
 	
 	QListIterator<DiffHunk> hunkIt(model->getHunks());
 	
@@ -205,12 +211,16 @@ void KDiffListView::setSelectedModel( int index )
 			
 			if( diff->type() != Difference::Unchanged ) {
 				m_items.append( (KDiffListViewDiffItem*)item );
+				m_itemDict.insert( diff, (KDiffListViewDiffItem*)item );
 			}
 			
 			m_maxScrollId = item->scrollId() + item->height() - 1;
 			m_maxMainWidth = QMAX( m_maxMainWidth, ((KDiffListViewDiffItem*)item)->maxMainWidth() );
 		}
 	}
+	
+	connect( model, SIGNAL(appliedChanged( const Difference* )),
+	         this, SLOT(slotAppliedChanged( const Difference* )) );
 	updateMainColumnWidth();
 }
 
@@ -243,6 +253,11 @@ void KDiffListView::contentsMousePressEvent( QMouseEvent* e )
 		setSelected( item, true );
 		emit selectionChanged( m_selectedModel, m_items.findRef( item ) );
 	}
+}
+
+void KDiffListView::slotAppliedChanged( const Difference* d )
+{
+	m_itemDict[(void*)d]->appliedChanged();
 }
 
 KDiffListViewItem::KDiffListViewItem( QListView* parent )
@@ -295,7 +310,7 @@ int KDiffListViewDiffItem::maxHeight()
 
 int KDiffListViewDiffItem::lineCount() const
 {
-	if( isSource() ) {
+	if( isSource() || m_difference->applied() ) {
 		return m_difference->sourceLineCount();
 	} else {
 		return m_difference->destinationLineCount();
@@ -308,7 +323,7 @@ int KDiffListViewDiffItem::maxMainWidth() const
 	QFontMetrics fm = listView()->fontMetrics();
 	
 	QStringList list;
-	if( isSource() )
+	if( isSource() || m_difference->applied() )
 		list = m_difference->sourceLines();
 	else
 		list = m_difference->destinationLines();
@@ -358,7 +373,7 @@ void KDiffListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, int
 	int lines = lineCount();
 	
 	int line = 0;
-	if( m_listView->isSource() ) {
+	if( isSource() || m_difference->applied() ) {
 		line = m_difference->sourceLineNumber();
 	} else {
 		line = m_difference->destinationLineNumber();
@@ -375,7 +390,7 @@ void KDiffListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, int
 			break;
 		case COL_MAIN:
 		default:
-			if( isSource() )
+			if( isSource() || m_difference->applied() )
 				text = m_difference->sourceLineAt( i );
 			else
 				text = m_difference->destinationLineAt( i );
@@ -387,6 +402,11 @@ void KDiffListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, int
 		y += m_listView->fontMetrics().lineSpacing();
 		
 	}
+}
+
+void KDiffListViewDiffItem::appliedChanged()
+{
+	setup();
 }
 
 KDiffListViewHunkItem::KDiffListViewHunkItem( KDiffListView* parent, DiffHunk* hunk )

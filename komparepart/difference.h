@@ -20,12 +20,12 @@
 #ifndef DIFFERENCE_H
 #define DIFFERENCE_H
 
-#include <qobject.h>
-#include <qstring.h>
+#include <qstringlist.h>
 
-class Difference : QObject
+class QString;
+
+class Difference
 {
-Q_OBJECT
 public:
 	enum Type { Change, Insert, Delete, Unchanged };
 
@@ -42,17 +42,21 @@ public:
 	QString destinationLineAt( int i ) const { return m_destinationLines[ i ]; };
 	const QStringList sourceLines() const { return m_sourceLines; };
 	const QStringList destinationLines() const { return m_destinationLines; };
+	bool applied() const { return m_applied; };
 	
 	void setType( Type type ) { m_type = type; };
 	void addSourceLine( QString line );
 	void addDestinationLine( QString line );
-
+	
+	void toggleApplied();
+	
 private:
 	Type             m_type;
 	int              m_sourceLineNo;
 	int              m_destinationLineNo;
 	QStringList      m_sourceLines;
 	QStringList      m_destinationLines;
+	bool             m_applied;
 
 };
 

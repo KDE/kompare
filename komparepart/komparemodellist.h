@@ -25,6 +25,8 @@
 
 #include "diffmodel.h"
 
+class QFile;
+
 class KDiffProcess;
 class DiffSettings;
 

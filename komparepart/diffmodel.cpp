@@ -773,4 +773,11 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 	return 0;
 }
 
+void DiffModel::toggleApplied( int diffIndex )
+{
+	Difference* d = m_differences.at( diffIndex );
+	d->toggleApplied();
+	emit appliedChanged( d );
+}
+
 #include "diffmodel.moc"

@@ -93,9 +93,9 @@ public:
 		{ return m_selectedModel; };
 	int getSelectedDifferenceIndex() const
 		{ return m_selectedDifference; };
-	const DiffModel* getSelectedModel()
+	DiffModel* getSelectedModel()
 		{ return m_models->modelAt( m_selectedModel ); };
-	const Difference* getSelectedDifference()
+	Difference* getSelectedDifference()
 		{ return m_models->modelAt( m_selectedModel )->differenceAt( m_selectedDifference ); };
 
 public slots:
@@ -125,8 +125,14 @@ protected slots:
 	void slotShowError( QString error );
 	
 	void slotSelectionChanged( int model, int diff );
+	void slotAppliedChanged( const Difference* d );
 	void slotDifferenceMenuAboutToShow();
 	void slotGoDifferenceActivated( int item );
+	void slotApplyDifference();
+	void slotApplyAllDifferences();
+	void slotUnapplyAllDifferences();
+	void slotPreviousFile();
+	void slotNextFile();
 	void slotPreviousDifference();
 	void slotNextDifference();
 	void optionsPreferences();
@@ -149,6 +155,11 @@ private:
 	KDiffNavigationTree*   m_navigationTree;
 	KAction*               m_diffStats;
 	KAction*               m_saveDiff;
+	KAction*               m_applyDifference;
+	KAction*               m_applyAll;
+	KAction*               m_unapplyAll;
+	KAction*               m_previousFile;
+	KAction*               m_nextFile;
 	KAction*               m_previousDifference;
 	KAction*               m_nextDifference;
 	KDifferencesAction*    m_differences;

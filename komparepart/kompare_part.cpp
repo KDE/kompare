@@ -122,11 +122,26 @@ void KDiffPart::setupActions()
 	m_diffStats = new KAction( i18n( "Show diff stats" ), "", 0,
 	              this, SLOT(slotShowDiffstats()),
 	              actionCollection(), "file_diffstats" );
-	m_previousDifference = new KAction( i18n("&Previous Difference"), "previous", Qt::CTRL + Qt::Key_Up,
+	m_applyDifference = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
+	              this, SLOT(slotApplyDifference()),
+	              actionCollection(), "difference_apply" );
+	m_applyAll = new KAction( i18n("App&ly all"), "2rightarrow", Qt::CTRL + Qt::Key_A,
+	              this, SLOT(slotApplyAllDifferences()),
+	              actionCollection(), "difference_applyall" );
+	m_unapplyAll = new KAction( i18n("U&napply all"), "2leftarrow", Qt::CTRL + Qt::Key_U,
+	              this, SLOT(slotUnapplyAllDifferences()),
+	              actionCollection(), "difference_unapplyall" );
+	m_previousFile = new KAction( i18n("P&revious File"), "2uparrow", Qt::CTRL + Qt::Key_PageUp,
+	              this, SLOT(slotPreviousFile()),
+	              actionCollection(), "difference_previousfile" );
+	m_nextFile = new KAction( i18n("N&ext File"), "2downarrow", Qt::CTRL + Qt::Key_PageDown,
+	              this, SLOT(slotNextFile()),
+	              actionCollection(), "difference_nextfile" );
+	m_previousDifference = new KAction( i18n("&Previous Difference"), "1uparrow", Qt::CTRL + Qt::Key_Up,
 	              this, SLOT(slotPreviousDifference()),
 	              actionCollection(), "difference_previous" );
 	m_previousDifference->setEnabled( false );
-	m_nextDifference = new KAction( i18n("&Next Difference"), "next", Qt::CTRL + Qt::Key_Down,
+	m_nextDifference = new KAction( i18n("&Next Difference"), "1downarrow", Qt::CTRL + Qt::Key_Down,
 	              this, SLOT(slotNextDifference()),
 	              actionCollection(), "difference_next" );
 	m_nextDifference->setEnabled( false );
@@ -135,6 +150,30 @@ void KDiffPart::setupActions()
 	connect( m_differences, SIGNAL( activated( int ) ), this, SLOT( slotGoDifferenceActivated( int ) ) );
 
 	KStdAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
+}
+
+void KDiffPart::updateActions()
+{
+	int model = getSelectedModelIndex();
+	int diff = getSelectedDifferenceIndex();
+	if( model >= 0 && diff >= 0 ) {
+		m_applyDifference->setEnabled( true );
+		const Difference* d = getSelectedDifference();
+		if( d->applied() ) {
+			m_applyDifference->setText( i18n( "Un&apply Difference" ) );
+			m_applyDifference->setIcon( "1leftarrow" );
+		} else {
+			m_applyDifference->setText( i18n( "&Apply Difference" ) );
+			m_applyDifference->setIcon( "1rightarrow" );
+		}
+	} else {
+		m_applyDifference->setEnabled( false );
+	}
+	m_previousFile->setEnabled( model > 0 );
+	m_nextFile->setEnabled( model < m_models->modelCount() - 1 );
+	m_previousDifference->setEnabled( diff > 0 || model > 0 );
+	m_nextDifference->setEnabled( diff < getSelectedModel()->differenceCount() - 1 ||
+	                              model < m_models->modelCount() - 1 );
 }
 
 void KDiffPart::setReadWrite(bool rw)
@@ -280,16 +319,26 @@ void KDiffPart::slotSetSelection( int model, int diff )
 	if( model == m_selectedModel && diff == m_selectedDifference )
 		return;
 
+	disconnect( getSelectedModel(), SIGNAL(appliedChanged( const Difference* )),
+	            this, SLOT(slotAppliedChanged( const Difference* )) );
+	
 	m_selectedModel = model;
 	m_selectedDifference = diff;
 
+	connect( getSelectedModel(), SIGNAL(appliedChanged( const Difference* )),
+	            this, SLOT(slotAppliedChanged( const Difference* )) );
+	
 	emit selectionChanged( model, diff );
 }
 
-void KDiffPart::slotSelectionChanged( int model, int diff ) {
-	m_previousDifference->setEnabled( diff > 0 || model > 0 );
-	m_nextDifference->setEnabled( diff < getSelectedModel()->differenceCount() - 1 ||
-	                              model < m_models->modelCount() - 1 );
+void KDiffPart::slotSelectionChanged( int /* model */, int /* diff */ )
+{
+	updateActions();
+}
+
+void KDiffPart::slotAppliedChanged( const Difference* /* d */ )
+{
+	updateActions();
 }
 
 void KDiffPart::slotDifferenceMenuAboutToShow()
@@ -300,6 +349,49 @@ void KDiffPart::slotDifferenceMenuAboutToShow()
 void KDiffPart::slotGoDifferenceActivated( int item )
 {
 	slotSetSelection( getSelectedModelIndex(), item );
+}
+
+void KDiffPart::slotApplyDifference()
+{
+	getSelectedModel()->toggleApplied( getSelectedDifferenceIndex() );
+	if( m_nextDifference->isEnabled() )
+		slotNextDifference();
+}
+
+void KDiffPart::slotApplyAllDifferences()
+{
+	DiffModel* model = getSelectedModel();
+	QListIterator<Difference> it = QListIterator<Difference>(model->getDifferences());
+	int i = 0;
+	while ( it.current() ) {
+		if( !(*it)->applied() )
+			model->toggleApplied( i );
+		i++; ++it;
+	}
+}
+
+void KDiffPart::slotUnapplyAllDifferences()
+{
+	DiffModel* model = getSelectedModel();
+	QListIterator<Difference> it = QListIterator<Difference>(model->getDifferences());
+	int i = 0;
+	while ( it.current() ) {
+		if( (*it)->applied() )
+			model->toggleApplied( i );
+		i++; ++it;
+	}
+}
+
+void KDiffPart::slotPreviousFile()
+{
+	int modelIndex = getSelectedModelIndex();
+	slotSetSelection( modelIndex - 1, 0 );
+}
+
+void KDiffPart::slotNextFile()
+{
+	int modelIndex = getSelectedModelIndex();
+	slotSetSelection( modelIndex + 1, 0 );
 }
 
 void KDiffPart::slotPreviousDifference()

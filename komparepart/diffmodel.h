@@ -23,24 +23,19 @@
 #include <qobject.h>
 #include <qlist.h>
 #include <qstringlist.h>
-#include <qfile.h>
-//#include
 
 class DiffHunk;
 class Difference;
 class KDiffModelList;
 
-class DiffModel : QObject
+class DiffModel : public QObject
 {
 Q_OBJECT
 public:
 	enum DiffFormat { Context, Ed, Normal, RCS, Unified, Unknown };
-//	enum ParseResult { Success,
-public:
+	
 	DiffModel();
 	~DiffModel();
-
-public:
 
 	static DiffFormat determineDiffFormat( QString line );
 
@@ -50,9 +45,9 @@ public:
 		{ return m_hunks.count(); };
 	int differenceCount() const
 		{ return m_differences.count(); };
-	const DiffHunk* hunkAt( int i ) const
+	DiffHunk* hunkAt( int i ) const
 		{ return const_cast<DiffModel*>(this)->m_hunks.at( i ); };
-	const Difference* differenceAt( int i ) const
+	Difference* differenceAt( int i ) const
 		{ return const_cast<DiffModel*>(this)->m_differences.at( i ); };
 	const QList<DiffHunk>& getHunks() const
 		{ return m_hunks; };
@@ -63,6 +58,11 @@ public:
 	QString destinationFile() { return m_destinationFile; };
 	QString sourceTimestamp() { return m_sourceTimestamp; };
 	QString destinationTimestamp() { return m_destinationTimestamp; };
+
+	void toggleApplied( int diffIndex );
+
+signals:
+	void appliedChanged( const Difference* d );
 
 private:
 	int parseContextDiff( const QStringList& list, QStringList::ConstIterator& it );

@@ -22,6 +22,7 @@
 
 #include <klistview.h>
 #include <qlist.h>
+#include <qptrdict.h>
 
 class KDiffModelList;
 class DiffModel;
@@ -68,11 +69,15 @@ protected:
 	void contentsMouseReleaseEvent ( QMouseEvent * ) {};
 	void contentsMouseMoveEvent ( QMouseEvent * ) {};
 	
+protected slots:
+	void slotAppliedChanged( const Difference* d );
+	
 	void updateMainColumnWidth();
 	
 private:
 	KDiffModelList*                  m_models;
 	QList<KDiffListViewDiffItem>     m_items;
+	QPtrDict<KDiffListViewDiffItem>  m_itemDict;
 	bool                             m_isSource;
 	int                              m_selectedModel;
 	GeneralSettings*                 m_settings;
@@ -109,6 +114,8 @@ public:
 	
 	int maxHeight();
 	int maxMainWidth() const;
+	
+	void appliedChanged();
 	
 private:
 	bool isSource() const { return m_listView->isSource(); };

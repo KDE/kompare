@@ -487,15 +487,6 @@ void KomparePart::saveDiff()
 	delete dlg;
 }
 
-KURL KomparePart::diffURL()
-{
-	// This should just call url from the ReadOnlyPart, or leave it out completely
-	if( !m_info.source.isEmpty() ) {
-		saveDiff(); // Why are we saving here ???
-	}
-	return m_info.source;
-}
-
 KAboutData *KomparePart::createAboutData()
 {
     KAboutData *about = new KAboutData("kompare", I18N_NOOP("KomparePart"), "3.2");
@@ -637,6 +628,9 @@ void KomparePart::slotShowDiffstats( void )
 {
 	// Fetch all the args needed for komparestatsmessagebox
 	// oldfile, newfile, diffformat, noofhunks, noofdiffs
+
+	QString blah = m_modelList->recreateDiff();
+	kdDebug(8103) << blah << endl;
 
 	QString oldFile;
 	QString newFile;

@@ -85,9 +85,6 @@ public:
 	// bool isModified() const { return m_modelList->isModified(); }
 	// Do we really want to expose this ???
 	const Diff2::KompareModelList* model() const { return m_modelList; };
-	/** Returns the url to the open diff file, or a url to a temporary
-	    diff file if we are comparing files. */
-	KURL diffURL(); // why ? url() from the ReadOnlyPart does the same...
 
 	static KAboutData *createAboutData();
 

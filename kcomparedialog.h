@@ -2,7 +2,7 @@
                                 kcomparedialog.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2002 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
@@ -37,6 +37,9 @@ public:
 
 	KURL getSourceURL() const;
 	KURL getDestinationURL() const;
+
+protected slots:
+	virtual void slotOk();
 
 private slots:
 	void slotEnableCompare();

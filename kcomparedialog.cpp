@@ -2,7 +2,7 @@
                                 comparedialog.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2002 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
@@ -49,7 +49,7 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 	KConfig* config = kapp->config();
 	config->setGroup( "Recent Files" );
 
-	m_sourceURLComboBox = new KURLComboBox( KURLComboBox::Both, true );
+	m_sourceURLComboBox = new KURLComboBox( KURLComboBox::Both, true, this, "SourceURLComboBox" );
 	m_sourceURLComboBox->setURLs( config->readListEntry( "Recent Sources" ) );
 
 	if( sourceURL ) {
@@ -71,7 +71,7 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 	destinationGBLayout->setSpacing( 6 );
 	destinationGBLayout->setMargin( 11 );
 
-	m_destinationURLComboBox = new KURLComboBox( KURLComboBox::Both, true );
+	m_destinationURLComboBox = new KURLComboBox( KURLComboBox::Both, true, this, "DestURLComboBox" );
 	m_destinationURLComboBox->setURLs( config->readListEntry( "Recent Destinations" ) );
 
 	if( destinationURL ) {
@@ -109,6 +109,15 @@ KCompareDialog::~KCompareDialog()
 	config->writeEntry( "Recent Sources", m_sourceURLComboBox->urls() );
 	config->writeEntry( "Recent Destinations", m_destinationURLComboBox->urls() );
 	config->sync();
+}
+
+void KCompareDialog::slotOk()
+{
+	m_sourceURLComboBox->setURL( m_sourceURLComboBox->currentText() );
+	m_destinationURLComboBox->setURL( m_destinationURLComboBox->currentText() );
+
+	// Dunno what it does but i'll call it anyway since i only need this additionally
+	KDialogBase::slotOk();
 }
 
 void KCompareDialog::slotEnableCompare()

@@ -160,8 +160,8 @@ void KompareNavTreePart::buildTreeInMemory()
 		kdDebug(8105) << "Oops needs to implement this..." << endl;
 	}
 
-	kdDebug(8105) << "srcBase  = " << srcBase << endl;
-	kdDebug(8105) << "destBase = " << destBase << endl;
+//	kdDebug(8105) << "srcBase  = " << srcBase << endl;
+//	kdDebug(8105) << "destBase = " << destBase << endl;
 
 	m_srcRootItem  = new KDirLVI( m_srcDirTree, srcBase );
 	m_destRootItem = new KDirLVI( m_destDirTree, destBase );
@@ -176,8 +176,8 @@ void KompareNavTreePart::buildTreeInMemory()
 		srcPath  = model->sourcePath();
 		destPath = model->destinationPath();
 
-		kdDebug(8105) << "srcPath  = " << srcPath  << endl;
-		kdDebug(8105) << "destPath = " << destPath << endl;
+//		kdDebug(8105) << "srcPath  = " << srcPath  << endl;
+//		kdDebug(8105) << "destPath = " << destPath << endl;
 		m_srcRootItem->addModel( srcPath, model, &m_modelToSrcDirItemDict );
 		m_destRootItem->addModel( destPath, model, &m_modelToDestDirItemDict );
 		++it;
@@ -352,9 +352,11 @@ void KompareNavTreePart::slotFileListSelectionChanged( QListViewItem* item )
 
 	KFileLVI* file = static_cast<KFileLVI*>(item);
 	m_selectedModel = file->model();
+	m_changesList->blockSignals( true );
 	file->fillChangesList( m_changesList, &m_diffToChangeItemDict );
+	m_changesList->blockSignals( false );
 
-//	Difference* diff = (static_cast<KChangeLVI*>(m_changesList->selectedItem()))->difference();
+	m_selectedDifference = (static_cast<KChangeLVI*>(m_changesList->selectedItem()))->difference();
 
 	emit selectionChanged( m_selectedModel, m_selectedDifference );
 }
@@ -505,12 +507,12 @@ KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : KListViewItem( parent )
 // addModel always removes it own path from the beginning
 void KDirLVI::addModel( QString& path, Diff2::DiffModel* model, QPtrDict<KDirLVI>* modelToDirItemDict )
 {
-	kdDebug(8105) << "KDirLVI::addModel called with path = " << path << " from KDirLVI with m_dirName = " << m_dirName << endl;
+//	kdDebug(8105) << "KDirLVI::addModel called with path = " << path << " from KDirLVI with m_dirName = " << m_dirName << endl;
 
 	if ( !m_dirName.isEmpty() )
 		path = path.remove( 0, m_dirName.length() );
 
-	kdDebug(8105) << "Path after removal of own dir (\"" << m_dirName << "\") = " << path << endl;
+//	kdDebug(8105) << "Path after removal of own dir (\"" << m_dirName << "\") = " << path << endl;
 
 	if ( path.isEmpty() ) {
 		m_modelList.append( model );

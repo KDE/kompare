@@ -67,6 +67,9 @@ public slots:
 	void slotApplyDifference( const Diff2::Difference* diff, bool apply );
 	void slotConfigChanged();
 
+protected slots:
+	void slotDelayedScrollToId();
+
 signals:
 	void differenceClicked( const Diff2::Difference* diff );
 
@@ -78,16 +81,17 @@ protected:
 	void contentsMouseMoveEvent ( QMouseEvent * ) {};
 
 private:
-	QPtrList<KompareListViewDiffItem>  m_items;
-	QPtrDict<KompareListViewDiffItem>  m_itemDict;
-	bool                               m_isSource;
-	ViewSettings*                      m_settings;
-	int                                m_maxScrollId;
-	int                                m_scrollId;
-	int                                m_maxMainWidth;
-	const Diff2::DiffModel*            m_selectedModel;
-	const Diff2::Difference*           m_selectedDifference;
-	QString                            m_spaces;
+	QPtrList<KompareListViewDiffItem> m_items;
+	QPtrDict<KompareListViewDiffItem> m_itemDict;
+	bool                              m_isSource;
+	ViewSettings*                     m_settings;
+	int                               m_maxScrollId;
+	int                               m_scrollId;
+	int                               m_maxMainWidth;
+	const Diff2::DiffModel*           m_selectedModel;
+	const Diff2::Difference*          m_selectedDifference;
+	QString                           m_spaces;
+	int                               m_idToScrollTo;
 };
 
 class KompareListViewItem : public QListViewItem

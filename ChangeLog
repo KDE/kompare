@@ -1,4 +1,10 @@
 Sep    27, 2003 : Otto Bruggeman
+	* Fixed the redrawing problems in the connect widget with a QTimer::singleShot()
+	* Undid a stupid commit that changed the keyboard shortcuts for next and previous difference
+	* Fixed another bug in the navigation part that made it emit a signal twice
+	* Fixed a bug in the listview drawing, still one left that i cant seem to solve :(
+
+Sep    27, 2003 : Otto Bruggeman
 	* Moved the apply and navigation actions into the komparemodellist
 	* Fixed Ingo's problem with the next and prev difference KActions
 

@@ -20,6 +20,7 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qstyle.h>
+#include <qtimer.h>
 
 #include <kdebug.h>
 
@@ -42,7 +43,7 @@ KompareConnectWidget::KompareConnectWidget( KompareListView* left, KompareListVi
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 )
 {
-	connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( repaint() ) );
+	connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( slotDelayedRepaint() ) );
 	setBackgroundMode( NoBackground );
 	setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum ) );
 }
@@ -59,14 +60,19 @@ void KompareConnectWidget::slotSetSelection( const DiffModel* model, const Diffe
 	if ( m_selectedModel == model && m_selectedDifference != diff )
 	{
 		m_selectedDifference = diff;
-		repaint();
+		slotDelayedRepaint();
 		return;
 	}
 
 	m_selectedModel = model;
 	m_selectedDifference = diff;
 
-	repaint();
+	slotDelayedRepaint();
+}
+
+void KompareConnectWidget::slotDelayedRepaint()
+{
+	QTimer::singleShot( 0, this, SLOT( repaint() ) );
 }
 
 void KompareConnectWidget::slotSetSelection( const Difference* diff )
@@ -76,7 +82,7 @@ void KompareConnectWidget::slotSetSelection( const Difference* diff )
 
 	m_selectedDifference = diff;
 
-	repaint();
+	slotDelayedRepaint();
 }
 
 QSize KompareConnectWidget::sizeHint() const

@@ -1,10 +1,3 @@
-
-FIX IMMEDIATELY !!!
-
-* fix view (diffs only partly shown and such), compare to pre n7y to see what happenend
-
-* fix connect widget with a singleshot timer for compensating for the delayed drawing of the qlistview
-
 !!! Must do before a merge back into HEAD !!!
 * Write a kconfupdate script to convert the kconfigfile
   * the diff options now have their own group
@@ -18,7 +11,7 @@ Very important:
 * Other various things that need to be fixed asap (before 3.2 is released)
 
 In descending order of importance:
-* fix some drawing bugs in the connect widget (still some left, damn it)
+* Add a kompare manual/document
 * in-line diffing
 * add support for handediting conflicts
 * session management (should almost work)
@@ -27,7 +20,6 @@ In descending order of importance:
 * clicking in the connect widget should select a difference (tricky!)
 * add support for incremental patch saving (i'll explain if anyone wants to know)
 * Add support for diff3 (that is comparing 3 files at once)
-* Add a kompare manual/document
 
 Special requests:
 Puetzk:

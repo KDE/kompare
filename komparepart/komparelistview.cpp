@@ -20,6 +20,7 @@
 #include <qheader.h>
 #include <qpainter.h>
 #include <qregexp.h>
+#include <qtimer.h>
 
 #include <kdebug.h>
 
@@ -179,10 +180,10 @@ int KompareListView::scrollId()
 
 void KompareListView::setSelectedDifference( const Difference* diff, bool scroll )
 {
+	kdDebug(8104) << "KompareListView::setSelectedDifference(" << diff << ", " << scroll << ")" << endl;
+
 	if ( m_selectedDifference == diff )
 		return;
-
-	kdDebug(8104) << "KompareListView::setSelectedDifference()" << endl;
 
 	m_selectedDifference = diff;
 
@@ -192,12 +193,19 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 		return;
 	}
 	// Only scroll to item if it isn't selected. This is so that
-	// clicking an item doesn't scroll to to it. KompareView sets the
+	// clicking an item doesn't scroll to it. KompareView sets the
 	// selection manually in that case.
-	if( scroll ) {
-		scrollToId( item->scrollId() );
+	if( scroll )
+	{
+		m_idToScrollTo = item->scrollId();
+		kdDebug(8104) << "Triggering a singleshot timer... should scroll to ID : " << m_idToScrollTo << endl;
+		QTimer::singleShot( 0, this, SLOT( slotDelayedScrollToId() ) );
 	}
 	setSelected( item, true );
+}
+void KompareListView::slotDelayedScrollToId()
+{
+	scrollToId( m_idToScrollTo );
 }
 
 void KompareListView::slotSetSelection( const Difference* diff )
@@ -392,7 +400,7 @@ int KompareListViewDiffItem::maxHeight()
 
 void KompareListViewDiffItem::setSelected( bool b )
 {
-//	kdDebug(8104) << "KompareListViewDiffItem::setSelected( " << b << " )" << endl;
+	kdDebug(8104) << "KompareListViewDiffItem::setSelected( " << b << " )" << endl;
 	KompareListViewItem::setSelected( b );
 	QListViewItem* item = m_sourceItem->isVisible() ?
 	                      m_sourceItem->firstChild() :

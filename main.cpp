@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 	{
 		KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-		KompareShell* widget;
+		KompareShell* ks;
 
 		kdDebug(8100) << "Arg Count = " << args->count() << endl;
 		for ( int i=0; i < args->count(); i++ )
@@ -79,6 +79,7 @@ int main(int argc, char *argv[])
 
 		if ( args->isSet( "o" ) )
 		{
+			kdDebug( 8100 ) << "Option -o is set" << endl;
 			if ( args->count() != 1 )
 			{
 				kdDebug(8100) << "Crap i should not add -o to the Exec entry in the desktopfile. Now kompare wont even start from the menu" << endl;
@@ -86,20 +87,18 @@ int main(int argc, char *argv[])
 			}
 			else
 			{
-				widget = new KompareShell();
-				widget->show();
-				if ( *(args->arg( 0 )) == '-' )
-				{
-					kdDebug(8100) << "Url = -" << endl;
-					widget->open( args->arg( 0 ) );
-				}
+				ks = new KompareShell();
+				ks->show();
+				if ( ( strlen( args->arg(0) ) == 1 ) && (  *(args->arg(0)) == '-' ) )
+					ks->openStdin();
 				else
-					widget->open( args->url( 0 ) );
+					ks->openDiff( args->url( 0 ) );
 				difault = false;
 			}
 		}
 		else if ( args->isSet( "c" ) )
 		{
+			kdDebug( 8100 ) << "Option -c is set" << endl;
 			if ( args->count() != 2 )
 			{
 				KCmdLineArgs::usage( "kompare" );
@@ -107,14 +106,15 @@ int main(int argc, char *argv[])
 			}
 			else
 			{
-				widget = new KompareShell();
-				widget->show();
-				widget->compare( args->url( 0 ), args->url( 1 ) );
+				ks = new KompareShell();
+				ks->show();
+				ks->compare( args->url( 0 ), args->url( 1 ) );
 				difault = false;
 			}
 		}
 		else if ( args->isSet( "b" ) )
 		{
+			kdDebug( 8100 ) << "Option -b is set" << endl;
 			if ( args->count() != 2 )
 			{
 				KCmdLineArgs::usage( "kompare" );
@@ -122,32 +122,36 @@ int main(int argc, char *argv[])
 			}
 			else
 			{
-				widget = new KompareShell();
-				widget->show();
-				widget->blend( args->url( 0 ), args->url( 1 ) );
+				ks = new KompareShell();
+				ks->show();
+				ks->blend( args->url( 0 ), args->url( 1 ) );
 				difault = false;
 			}
 		}
-		else if ( args->count() == 1  && *(args->arg(0)) == '-' )
+		else if ( args->count() == 1 )
 		{
-			widget = new KompareShell();
-			widget->show();
-			widget->open( args->arg( 0 ) );
-			difault = false;
-		}
-		else if ( args->count() == 1  && *(args->arg(0)) != '-' )
-		{
-			widget = new KompareShell();
-			widget->show();
-			widget->open( args->url( 0 ) );
+			ks = new KompareShell();
+			ks->show();
+
+			if ( ( strlen( args->arg(0) ) == 1 && *(args->arg(0)) == '-' ) )
+				ks->openStdin();
+			else
+				ks->openDiff( args->url( 0 ) );
+
 			difault = false;
 		}
 		else if ( args->count() == 2 )
 		{
-			widget = new KompareShell();
-			widget->show();
-			widget->compare( args->url( 0 ), args->url( 1 ) );
+			// In this case we are assuming you want to compare files/dirs
+			// and not blending because that is almost impossible to detect
+			ks = new KompareShell();
+			ks->show();
+			ks->compare( args->url( 0 ), args->url( 1 ) );
 			difault = false;
+		}
+		else if ( args->count() == 0 ) // no options and no args
+		{
+			difault = true;
 		}
 
 		if ( difault )
@@ -167,9 +171,9 @@ int main(int argc, char *argv[])
 
 			if( dialog->exec() == QDialog::Accepted )
 			{
-				widget = new KompareShell();
-				widget->show();
-				widget->compare( dialog->getFirstURL(), dialog->getSecondURL() );
+				ks = new KompareShell();
+				ks->show();
+				ks->compare( dialog->getFirstURL(), dialog->getSecondURL() );
 			}
 			else
 				return -1;

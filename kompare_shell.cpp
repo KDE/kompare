@@ -180,13 +180,28 @@ bool KompareShell::queryClose()
 	return m_viewPart->queryClose();
 }
 
-void KompareShell::open(const KURL& url)
+void KompareShell::openDiff(const KURL& url)
 {
-	kdDebug(8102) << "Url = " << url.url() << endl;
+	kdDebug(8102) << "Url = " << url.prettyURL() << endl;
 	m_diffURL = url;
 	m_viewPart->openDiff( url );
 }
 
+void KompareShell::openStdin()
+{
+	kdDebug(8102) << "Using stdin to read the diff" << endl;
+	QFile file;
+	file.open( IO_ReadOnly, stdin );
+	QTextStream stream( &file );
+	QStringList diff;
+
+	while (!stream.eof()) {
+		diff.append( stream.readLine() );
+	}
+
+	m_viewPart->openDiff( diff.join( "\n" ) );
+
+}
 void KompareShell::compare(const KURL& source,const KURL& destination )
 {
 	m_sourceURL = source;
@@ -202,9 +217,13 @@ void KompareShell::compare(const KURL& source,const KURL& destination )
 		if ( fi.isDir() )
 		{
 			sourceIsDirectory = true;
-			kdDebug(8102) << "Source : " << source.url() << " is a directory !!! Yippie " << endl;
+			kdDebug(8102) << "Source : " << source.prettyURL() << " is a directory !!! Yippie " << endl;
 		}
+		else
+			kdDebug(8102) << "Source is not a directory..." << endl;
 	}
+	else
+		kdDebug(8102) << "Source is not local..." << endl;
 
 	if ( m_destinationURL.isLocalFile() )
 	{
@@ -212,9 +231,13 @@ void KompareShell::compare(const KURL& source,const KURL& destination )
 		if ( fi.isDir() )
 		{
 			destinationIsDirectory = true;
-			kdDebug(8102) << "Destination : " << destination.url() << " is a directory !!! Yippie " << endl;
+			kdDebug(8102) << "Destination : " << destination.prettyURL() << " is a directory !!! Yippie " << endl;
 		}
+		else
+			kdDebug(8102) << "Destination is not a directory..." << endl;
 	}
+	else
+		kdDebug(8102) << "Destination is not local..." << endl;
 
 	if ( sourceIsDirectory && destinationIsDirectory )
 	{
@@ -372,7 +395,7 @@ void KompareShell::slotFileOpen()
 	if( !url.isEmpty() ) {
 		KompareShell* shell = new KompareShell();
 		shell->show();
-		shell->open( url );
+		shell->openDiff( url );
 	}
 }
 

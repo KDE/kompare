@@ -45,8 +45,8 @@ class KompareNavTreePart;
 *
 * @short Application Shell
 * @author John Firebaugh <jfirebaugh@kde.org>
-* @author Otto Bruggeman <bruggie@bruggie.dnsalias.org>
-* @version 0.2
+* @author Otto Bruggeman <bruggie@home.nl>
+* @version 3.2
 */
 class KompareShell : public KParts::DockMainWindow
 {
@@ -65,7 +65,12 @@ public:
 	/**
 	* Use this method to load whatever file/URL you have
 	*/
-	void open( const KURL& url );
+	void openDiff( const KURL& url );
+
+	/**
+	* Use this method to load the diff from stdin
+	*/
+	void openStdin();
 
 	/**
 	 * Use this method to compare 2 URLs (files or directories)

@@ -1,4 +1,10 @@
-* use better icons
-* reorganize code a bit
+In descending order of importance:
+* add support to save a patch
+* add support to load a patch and apply it perhaps even save the modified file
+* implement multiple file support
+* implement context and rcs format
 * cvs support
-* perhaps a wizard for newbie/non-coders...
+* add icons for most menu options
+* use better icons for open and close the L and R are not very usefull in countries that dont have the R and L for their words for left and right
+* reorganize code a bit
+* perhaps a wizard for newbie/non-coders

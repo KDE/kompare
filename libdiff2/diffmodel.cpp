@@ -26,6 +26,8 @@
 #include "diffhunk.h"
 #include "diffmodel.h"
 
+#define kdDebug() kdDebug(8101)
+
 /**  */
 DiffModel::DiffModel( KURL srcBaseURL, KURL destBaseURL ) :
 	m_srcBaseURL( srcBaseURL ),
@@ -59,7 +61,7 @@ int DiffModel::parseDiff( enum Kompare::Format format, const QStringList& lines 
 /**  */
 int DiffModel::parseContextDiff( const QStringList& list )
 {
-	kdDebug( 8101 ) << "Context diff parsing:" << endl;
+	kdDebug() << "Context diff parsing:" << endl;
 
 	// '  ' unchanged (context info)
 	// '- ' removed in new file
@@ -91,9 +93,9 @@ int DiffModel::parseContextDiff( const QStringList& list )
 	m_sourceTimestamp = source.cap( 2 );
 	m_sourceRevision = source.cap( 4 );
 
-//	kdDebug( 8101 ) << " source: " << m_sourceFile << endl;
-//	kdDebug( 8101 ) << "   time: " << m_sourceTimestamp << endl;
-//	kdDebug( 8101 ) << "    rev: " << m_sourceRevision << endl;
+//	kdDebug() << " source: " << m_sourceFile << endl;
+//	kdDebug() << "   time: " << m_sourceTimestamp << endl;
+//	kdDebug() << "    rev: " << m_sourceRevision << endl;
 
 	if( ++it == list.end() )
 		return 3;
@@ -106,9 +108,9 @@ int DiffModel::parseContextDiff( const QStringList& list )
 	m_destinationTimestamp = dest.cap( 2 );
 	m_destinationRevision = dest.cap( 4 );
 
-//	kdDebug( 8101 ) << "   dest: " << m_destinationFile << endl;
-//	kdDebug( 8101 ) << "   time: " << m_destinationTimestamp << endl;
-//	kdDebug( 8101 ) << "    rev: " << m_destinationRevision << endl;
+//	kdDebug() << "   dest: " << m_destinationFile << endl;
+//	kdDebug() << "   time: " << m_destinationTimestamp << endl;
+//	kdDebug() << "    rev: " << m_destinationRevision << endl;
 
 	++it;
 
@@ -163,28 +165,28 @@ int DiffModel::parseContextDiff( const QStringList& list )
 		while( oldIt != oldLines.end() || newIt != newLines.end() ) {
 
 			if( oldIt != oldLines.end() && removed.exactMatch( *oldIt ) ) {
-//				kdDebug( 8101 ) << "Delete: " << endl;
+//				kdDebug() << "Delete: " << endl;
 				diff = new Difference( linenoA, linenoB );
 				diff->setType( Difference::Delete );
 				diff->setIndex( diffIndex++ );
 				m_differences.append( diff );
 				hunk->add( diff );
 				for( ; oldIt != oldLines.end() && removed.exactMatch( *oldIt ); ++oldIt ) {
-					kdDebug( 8101 ) << " " << removed.cap( 1 ) << endl;
+					kdDebug() << " " << removed.cap( 1 ) << endl;
 					diff->addSourceLine( removed.cap( 1 ) );
 					linenoA++;
 				}
 			}
 
 			else if( newIt != newLines.end() && added.exactMatch( *newIt ) ) {
-//				kdDebug( 8101 ) << "Insert: " << endl;
+//				kdDebug() << "Insert: " << endl;
 				diff = new Difference( linenoA, linenoB );
 				diff->setType( Difference::Insert );
 				diff->setIndex( diffIndex++ );
 				m_differences.append( diff );
 				hunk->add( diff );
 				for( ; newIt != newLines.end() && added.exactMatch( *newIt ); ++newIt ) {
-					kdDebug( 8101 ) << " " << added.cap( 1 ) << endl;
+					kdDebug() << " " << added.cap( 1 ) << endl;
 					diff->addDestinationLine( added.cap( 1 ) );
 					linenoB++;
 				}
@@ -192,7 +194,7 @@ int DiffModel::parseContextDiff( const QStringList& list )
 
 			else if( (oldIt != oldLines.end() && unchanged.exactMatch( *oldIt ) ) ||
 			    (newIt != newLines.end() && unchanged.exactMatch( *newIt ) ) ) {
-//				kdDebug( 8101 ) << "Unchanged: " << endl;
+//				kdDebug() << "Unchanged: " << endl;
 				diff = new Difference( linenoA, linenoB );
 				diff->setType( Difference::Unchanged );
 				hunk->add( diff );
@@ -201,12 +203,12 @@ int DiffModel::parseContextDiff( const QStringList& list )
 					QString l;
 					if( oldIt != oldLines.end() ) {
 						l = unchanged.cap( 1 );
-						kdDebug( 8101 ) << " " << l << endl;
+						kdDebug() << " " << l << endl;
 						++oldIt;
 					}
 					if( newIt != newLines.end() ) {
 						l = unchanged.cap( 1 );
-						kdDebug( 8101 ) << " " << l << endl;
+						kdDebug() << " " << l << endl;
 						++newIt;
 					}
 					diff->addSourceLine( l );
@@ -218,20 +220,20 @@ int DiffModel::parseContextDiff( const QStringList& list )
 
 			else if( (oldIt != oldLines.end() && changed.exactMatch( *oldIt ) ) ||
 			    (newIt != newLines.end() && changed.exactMatch( *newIt ) ) ) {
-//				kdDebug( 8101 ) << "Changed: " << endl;
+//				kdDebug() << "Changed: " << endl;
 				diff = new Difference( linenoA, linenoB );
 				diff->setType( Difference::Change );
 				diff->setIndex( diffIndex++ );
 				m_differences.append( diff );
 				hunk->add( diff );
 				while( oldIt != oldLines.end() && changed.exactMatch( *oldIt ) ) {
-					kdDebug( 8101 ) << " " << changed.cap( 1 ) << endl;
+					kdDebug() << " " << changed.cap( 1 ) << endl;
 					diff->addSourceLine( changed.cap( 1 ) );
 					linenoA++;
 					++oldIt;
 				}
 				while( newIt != newLines.end() && changed.exactMatch( *newIt ) ) {
-					kdDebug( 8101 ) << " " << changed.cap( 1 ) << endl;
+					kdDebug() << " " << changed.cap( 1 ) << endl;
 					diff->addDestinationLine( changed.cap( 1 ) );
 					linenoB++;
 					++newIt;
@@ -254,7 +256,7 @@ int DiffModel::parseEdDiff( const QStringList& list )
 	// Somehow we have to ask the user what file this is a diff against,
 	// if this is a single file diff. If (s)he can't help us with that
 	// we are fucked...
-	kdDebug( 8101 ) << "Ed diff parsing:" << endl;
+	kdDebug() << "Ed diff parsing:" << endl;
 
 	QString line;
 	Difference* diff = 0L;
@@ -270,11 +272,11 @@ int DiffModel::parseEdDiff( const QStringList& list )
 	int diffIndex = 0;
 	while ( it != list.end() )
 	{
-		kdDebug( 8101 ) << "Line is:" << line << endl;
+		kdDebug() << "Line is:" << line << endl;
 		if ( head1.exactMatch( *it ) )
 		{
 			// number[acd]
-			kdDebug( 8101 ) << "Found an added/removed/changed part" << endl;
+			kdDebug() << "Found an added/removed/changed part" << endl;
 			++it;	// next line or lines have the changes
 			// op is operator
 			// ln is linenumber
@@ -304,14 +306,14 @@ int DiffModel::parseEdDiff( const QStringList& list )
 
 			while( !dot.exactMatch( *it ) )
 			{
-				kdDebug( 8101 ) << "A/C/D: Line is: " << line << endl;
+				kdDebug() << "A/C/D: Line is: " << line << endl;
 			}
 			// dot line found, end of block...
 		}
 		else if ( head2.exactMatch( *it ) )
 		{
 			// number,number[acd]
-			kdDebug( 8101 ) << "Found an added/removed/changed part with number of lines" << endl;
+			kdDebug() << "Found an added/removed/changed part with number of lines" << endl;
 			++it;	// next line or lines have the changes
 			// op is operator
 			// ln is linenumber
@@ -337,14 +339,14 @@ int DiffModel::parseEdDiff( const QStringList& list )
 
 			while( !dot.exactMatch( *it ) )
 			{
-				kdDebug( 8101 ) << "A/C/D: Line is: " << line << endl;
+				kdDebug() << "A/C/D: Line is: " << line << endl;
 			}
 			// dot line found, end of block...
 		}
 //		else
 //		{
-//			kdDebug( 8101 ) << "Oops something is screwed here..." << endl;
-//			kdDebug( 8101 ) << line << endl;
+//			kdDebug() << "Oops something is screwed here..." << endl;
+//			kdDebug() << line << endl;
 //			return 1;
 //		}
 		++it;
@@ -358,7 +360,7 @@ int DiffModel::parseEdDiff( const QStringList& list )
 /**  */
 int DiffModel::parseNormalDiff( const QStringList& list )
 {
-	kdDebug( 8101 ) << "Normal diff parsing:" << endl;
+	kdDebug() << "Normal diff parsing:" << endl;
 
 	QRegExp head( "^([0-9]+)([acd]?)([0-9]*),([0-9]+)([acd]?)([0-9]*)$" );
 	QRegExp source( "< (.*)$" );
@@ -426,7 +428,7 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 /**  */
 int DiffModel::parseRCSDiff( const QStringList& list )
 {
-	kdDebug( 8101 ) << "RCS  diff parsing:" << endl;
+	kdDebug() << "RCS  diff parsing:" << endl;
 
 	// FIXME: does not work...
 	/* A rcs diff has one or 2 lines describing the changes */
@@ -447,7 +449,7 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 	if ( it == list.end() )
 		return 0; // No lines to parse
 
-	kdDebug( 8101 ) << "There are lines..." << endl;
+	kdDebug() << "There are lines..." << endl;
 
 	DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
 	m_hunks.append( hunk );
@@ -456,11 +458,11 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 	while( it != list.end() )
 	{
 		line = (*it);
-		kdDebug( 8101 ) << "Line is: " << line << endl;
+		kdDebug() << "Line is: " << line << endl;
 
 		if ( line.find( QRegExp( "^a[0-9]+ [0-9]+" ), 0 ) == 0 )
 		{
-			kdDebug( 8101 ) << "Added line found." << endl;
+			kdDebug() << "Added line found." << endl;
 			int len, pos;
 			line.replace( 0, 1, "" ); // Strip the 'a'
 			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
@@ -482,7 +484,7 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 			while ( ( it != list.end() ) && ( line.find( QRegExp( "^[ad][0-9]+ [0-9]+" ), 0 ) != 0 ) )
 			{
 				// Add it to the difference
-				kdDebug( 8101 ) << "AddDestinationLine( " << line << " )" << endl;
+				kdDebug() << "AddDestinationLine( " << line << " )" << endl;
 				diff->addDestinationLine( line );
 
 				++it;
@@ -493,7 +495,7 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 		}
 		else if ( line.find( QRegExp( "^d[0-9]+ [0-9]+" ), 0 ) == 0 )
 		{
-			kdDebug( 8101 ) << "Delete line found." << endl;
+			kdDebug() << "Delete line found." << endl;
 			// We dont have the actual deleted lines in the diffoutput/difffile
 			// This will be a big problem in the viewerclass...
 			int len, pos;
@@ -522,7 +524,7 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 		}
 		else
 		{
-			kdDebug( 8101 ) << "Oops, something is wrong here..." << endl;
+			kdDebug() << "Oops, something is wrong here..." << endl;
 			return 1; // faulty output or something went wrong during parsing
 		}
 		++it;
@@ -536,7 +538,7 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 /**  */
 int DiffModel::parseUnifiedDiff( const QStringList& list )
 {
-	kdDebug( 8101 ) << "Unified diff parsing:" << endl;
+	kdDebug() << "Unified diff parsing:" << endl;
 
 	QStringList::ConstIterator it = list.begin();
 	int linenoA, linenoB;
@@ -565,9 +567,9 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 	m_sourceTimestamp = source.cap( 2 );
 	m_sourceRevision  = source.cap( 4 );
 
-//	kdDebug( 8101 ) << " source: " << m_sourceFile << endl;
-//	kdDebug( 8101 ) << "   time: " << m_sourceTimestamp << endl;
-//	kdDebug( 8101 ) << "    rev: " << m_sourceRevision << endl;
+//	kdDebug() << " source: " << m_sourceFile << endl;
+//	kdDebug() << "   time: " << m_sourceTimestamp << endl;
+//	kdDebug() << "    rev: " << m_sourceRevision << endl;
 
 	if( ++it == list.end() ) return 3; // no next line
 
@@ -577,24 +579,24 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 	m_destinationTimestamp = dest.cap( 2 );
 	m_destinationRevision  = dest.cap( 4 );
 
-//	kdDebug( 8101 ) << "   dest: " << m_destinationFile << endl;
-//	kdDebug( 8101 ) << "   time: " << m_destinationTimestamp << endl;
-//	kdDebug( 8101 ) << "    rev: " << m_destinationRevision << endl;
+//	kdDebug() << "   dest: " << m_destinationFile << endl;
+//	kdDebug() << "   time: " << m_destinationTimestamp << endl;
+//	kdDebug() << "    rev: " << m_destinationRevision << endl;
 
 	++it;
 	int diffIndex = 0;
 	while( it != list.end() )
 	{
 		if( !head.exactMatch( *it ) ) {
-			kdDebug( 8101 ) << "faulty line is   : " << (*it) << endl;
-			kdDebug( 8101 ) << "previous line was: " << (*(--it)) << endl;
+			kdDebug() << "faulty line is   : " << (*it) << endl;
+			kdDebug() << "previous line was: " << (*(--it)) << endl;
 			return 5; // invalid head line
 		}
 
 		linenoA = head.cap( 1 ).toInt();
 		linenoB = head.cap( 3 ).toInt();
 
-//		kdDebug( 8101 ) << " hunk: " << linenoA << " " << linenoB << endl;
+//		kdDebug() << " hunk: " << linenoA << " " << linenoB << endl;
 
 		DiffHunk* hunk = new DiffHunk( linenoA, linenoB, head.cap( 5 ) );
 		m_hunks.append( hunk );

@@ -30,6 +30,8 @@
 
 #include "komparemodellist.h"
 
+#define kdDebug() kdDebug(8101)
+
 KompareModelList::KompareModelList()
 	: QObject(),
 	m_diffProcess( 0 ),

@@ -78,7 +78,7 @@ void KompareConnectWidget::slotSetSelection( const Difference* diff )
 
 QSize KompareConnectWidget::sizeHint() const
 {
-	return QSize(50, style().scrollBarExtent().height());
+	return QSize(50, style().pixelMetric(QStyle::PM_ScrollBarExtent));
 }
 
 void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )

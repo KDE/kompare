@@ -42,11 +42,11 @@ KompareView::KompareView( GeneralSettings* settings, QWidget *parent, const char
 	m_settings( settings )
 {
 	setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
-	setLineWidth( style().defaultFrameWidth() );
+	setLineWidth( style().pixelMetric( QStyle::PM_DefaultFrameWidth ) );
 
 	QGridLayout *pairlayout = new QGridLayout(this, 4, 3, 10);
 	pairlayout->setSpacing( 0 );
-	pairlayout->setMargin( style().defaultFrameWidth() );
+	pairlayout->setMargin( style().pixelMetric( QStyle::PM_DefaultFrameWidth ) );
 	pairlayout->setRowStretch(0, 0);
 	pairlayout->setRowStretch(1, 1);
 	pairlayout->setColStretch(1, 0);

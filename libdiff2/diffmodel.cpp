@@ -140,7 +140,7 @@ Difference* DiffModel::firstDifference()
 	m_selectedDifference = m_differences.at( m_diffIndex );
 
 	return m_selectedDifference;
-};
+}
 
 Difference* DiffModel::lastDifference()
 {
@@ -151,7 +151,7 @@ Difference* DiffModel::lastDifference()
 	m_selectedDifference = m_differences.at( m_diffIndex );
 
 	return m_selectedDifference;
-};
+}
 
 Difference* DiffModel::prevDifference()
 {
@@ -169,7 +169,7 @@ Difference* DiffModel::prevDifference()
 	}
 
 	return m_selectedDifference;
-};
+}
 
 Difference* DiffModel::nextDifference()
 {
@@ -187,7 +187,7 @@ Difference* DiffModel::nextDifference()
 	}
 
 	return m_selectedDifference;
-};
+}
 
 const QString DiffModel::sourceFile() const
 {

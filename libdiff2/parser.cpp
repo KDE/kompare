@@ -35,14 +35,14 @@ Parser::~Parser()
 
 QPtrList<DiffModel>* Parser::parse( const QString& diff )
 {
-	kdDebug(8101) << "DiffOutput: " << diff << endl;
+//	kdDebug(8101) << "DiffOutput: " << diff << endl;
 	/* Just split the QString and call the other static parse method */
 	return Parser::parse( QStringList::split( diff, "\n" ) );
 }
 
 QPtrList<DiffModel>* Parser::parse( const QStringList& diff )
 {
-	kdDebug(8101) << "DiffOutput: " << diff.join("\n") << endl;
+//	kdDebug(8101) << "DiffOutput: " << diff.join("\n") << endl;
 
 	/* Basically determine the generator then call the parse method */
 	ParserBase* parser;

@@ -50,7 +50,7 @@ FilesPage::FilesPage( QWidget* parent ) : PageBase( parent ), m_URLChanged( fals
 	connect( m_firstURLRequester, SIGNAL( urlSelected( const QString & ) ), SLOT( setSecondURL( const QString & ) ) );
 	connect( m_secondURLRequester, SIGNAL( urlSelected( const QString & ) ), SLOT( setFirstURL( const QString & ) ) );
 
-	m_thirdGB = new QGroupBox( 1, Qt::Vertical, "Encoding", page );
+	m_thirdGB = new QGroupBox( 1, Qt::Vertical, i18n( "Encoding" ), page );
 	m_encodingComboBox = new QComboBox( false, m_thirdGB, "encoding_combobox" );
 	m_encodingComboBox->insertStringList( KGlobal::charsets()->availableEncodingNames() );
 

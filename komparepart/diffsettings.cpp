@@ -20,7 +20,6 @@
 
 DiffSettings::DiffSettings( QWidget* parent )
 	: SettingsBase( parent ),
-	m_diffProgram( QString::null ),
 	m_linesOfContext( 0 ),
 	m_format( Kompare::Unified ),
 	m_largeFiles( false ),
@@ -33,15 +32,10 @@ DiffSettings::DiffSettings( QWidget* parent )
 	m_showCFunctionChange( false ),
 	m_convertTabsToSpaces( false ),
 	m_ignoreRegExp( false ),
-	m_ignoreRegExpText( QString::null ),
-	m_ignoreRegExpTextHistory( QString::null ),
 	m_recursive( false ),
 	m_newFiles( false ),
 	m_excludeFilePattern( false ),
-	m_excludeFilePatternList( QString::null ),
 	m_excludeFilesFile( false ),
-	m_excludeFilesFileURL( QString::null ),
-	m_excludeFilesFileHistoryList( QString::null )
 {
 }
 

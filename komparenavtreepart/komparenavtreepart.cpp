@@ -352,6 +352,12 @@ void KompareNavTreePart::slotApplyAllDifferences( bool apply )
 	// setItemText( m_differenceToItemDict[(void*)d], d );
 }
 
+void KompareNavTreePart::slotApplyDifference( const Difference* diff, bool apply )
+{
+	// this applies to the currently selected difference
+	// setItemText( m_differenceToItemDict[(void*)d], d );
+}
+
 KChangeLVI::KChangeLVI( KListView* parent, Difference* diff ) : KListViewItem( parent )
 {
 	m_difference = diff;
@@ -414,8 +420,8 @@ KFileLVI::KFileLVI( KListView* parent, DiffModel* model ) : KListViewItem( paren
 
 	setText( 0, model->srcFile() );
 	setText( 1, model->destFile() );
-	setPixmap( 0, SmallIcon( "file" ) );
-	setPixmap( 1, SmallIcon( "file" ) );
+	setPixmap( 0, SmallIcon( "txt" ) );
+	setPixmap( 1, SmallIcon( "txt" ) );
 	setSelectable( true );
 }
 

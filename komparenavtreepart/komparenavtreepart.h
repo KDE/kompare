@@ -66,6 +66,7 @@ private slots:
 
 	void slotApplyDifference( bool apply );
 	void slotApplyAllDifferences( bool apply );
+	void slotApplyDifference( const Difference* diff, bool apply );
 
 	void buildTreeInMemory();
 

@@ -70,7 +70,7 @@ KompareShell::KompareShell()
 #endif
 	if ( offers.count() == 0 )
 	{
-		KMessageBox::error(this, i18n( "Could not find our KompareViewPart!" ) );
+		KMessageBox::error(this, i18n( "Could not find our KompareViewPart." ) );
 		exit(1);
 	}
 
@@ -99,7 +99,7 @@ KompareShell::KompareShell()
 	{
 		// if we couldn't load our Part, we exit since the Shell by
 		// itself can't do anything useful
-		KMessageBox::error(this, i18n( "Could not load our KompareViewPart!" ) );
+		KMessageBox::error(this, i18n( "Could not load our KompareViewPart." ) );
 		exit(2);
 	}
 
@@ -107,7 +107,7 @@ KompareShell::KompareShell()
 	offers = KTrader::self()->query( "text/x-diff", "KParts/ReadOnlyPart", "'Kompare/NavigationPart' in ServiceTypes", QString::null );
 	if ( offers.count() == 0 )
 	{
-		KMessageBox::error(this, i18n( "Could not find our KompareNavigationPart!" ) );
+		KMessageBox::error(this, i18n( "Could not find our KompareNavigationPart." ) );
 		exit(3);
 	}
 
@@ -131,7 +131,7 @@ KompareShell::KompareShell()
 	{
 		// if we couldn't load our Part, we exit since the Shell by
 		// itself can't do anything useful
-		KMessageBox::error(this, i18n( "Could not load our KompareNavigationPart!" ) );
+		KMessageBox::error(this, i18n( "Could not load our KompareNavigationPart." ) );
 		exit(4);
 	}
 

@@ -38,7 +38,7 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 {
 	m_settings = settings;
 	
-	m_directoryRequester->fileDialog()->setMode( static_cast<KFile::Mode>(
+	m_directoryRequester->setMode( static_cast<KFile::Mode>(
 	    KFile::ExistingOnly | KFile::Directory | KFile::LocalOnly ) );
 	
 	KURL sourceURL;

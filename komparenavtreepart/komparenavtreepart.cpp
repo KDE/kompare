@@ -399,6 +399,8 @@ void KompareNavTreePart::slotApplyAllDifferences( bool /*apply*/ )
 {
 	QPtrDictIterator<KChangeLVI> it( m_diffToChangeItemDict );
 
+	kdDebug() << "m_diffToChangeItemDict.count() = " << m_diffToChangeItemDict.count() << endl;
+
 	for ( ; it.current(); ++it )
 	{
 		it.current()->setDifferenceText();
@@ -445,6 +447,7 @@ void KChangeLVI::setDifferenceText()
 		break;
 	default:
 		kdDebug(8105) << "Unknown or Unchanged enum value when checking for diff->type() in KChangeLVI's constructor" << endl;
+		text = "";
 	}
 
 	setText( 2, text );
@@ -498,6 +501,7 @@ KFileLVI::KFileLVI( KListView* parent, DiffModel* model ) : KListViewItem( paren
 void KFileLVI::fillChangesList( KListView* changesList, QPtrDict<KChangeLVI>* diffToChangeItemDict )
 {
 	changesList->clear();
+	diffToChangeItemDict->clear();
 
 	DifferenceListConstIterator diffIt = m_model->differences()->begin();
 	DifferenceListConstIterator dEnd   = m_model->differences()->end();

@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	                      I18N_NOOP("(c) 2001-2004, John Firebaugh and Otto Bruggeman"), 0, "http://bruggie.dnsalias.org/kompare/" );
 	aboutData.addAuthor( "John Firebaugh", I18N_NOOP("Author"), "jfirebaugh@kde.org" );
 	aboutData.addAuthor( "Otto Bruggeman", I18N_NOOP("Author"), "otto.bruggeman@home.nl" );
-	aboutData.addCredit( "Chris (lastname unknown)", I18N_NOOP("Icon creator"), "chris@os11.com" );
+	aboutData.addCredit( "Chris Luetchford", I18N_NOOP("Kompare icon artist"), "chris@os11.com" );
 	aboutData.addCredit( "Malte Starostik", I18N_NOOP("A lot of good advice"), "malte@kde.org" );
 	aboutData.addCredit( "Bernd Gehrmann", I18N_NOOP("Cervisia diff viewer"), "bernd@physik.hu-berlin.de" );
 

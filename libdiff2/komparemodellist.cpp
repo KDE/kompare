@@ -345,7 +345,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 
 	temp->close();
 	if( temp->status() != 0 ) {
-		emit error( i18n( "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>" ).temp->name() );
+		emit error( i18n( "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>" ).arg( temp->name() ) );
 		temp->unlink();
 		delete temp;
 		return false;
@@ -361,8 +361,8 @@ bool KompareModelList::saveDestination( DiffModel* model )
 		result = KIO::NetAccess::mkdir( KURL( destination ).path(), (QWidget*)parent() );
 		if ( !result )
 		{
-			emit error( 1i8n( "<qt>Could not create destination directory <b>%1</b>.\nThe file had not been saved !</qt>" ) );
-			return;
+			emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved !</qt>" ) );
+			return false;
 		}
 		result = KIO::NetAccess::upload( temp->name(), KURL( destination ), (QWidget*)parent() );
 	}

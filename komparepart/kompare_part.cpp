@@ -481,8 +481,7 @@ void KomparePart::saveDiff()
 	                                             m_info.localDestination,
 	                                             m_diffSettings, dlg );
 	dlg->setMainWidget( w );
-	KGuiItem saveGuiItem( i18n("Save") );
-	dlg->setButtonOK( saveGuiItem );
+	dlg->setButtonOK( KStdGuiItem::save() );
 
 	if( dlg->exec() ) {
 		w->saveOptions();
@@ -648,8 +647,8 @@ void KomparePart::slotSwap()
 		                i18n( "You have made changes to the destination file(s).\n"
 		                      "Would you like to save them?" ),
 		                i18n(  "Save Changes?" ),
-		                i18n(  "Save" ),
-		                i18n(  "Discard" )
+		                KStdGuiItem::save(),
+		                KStdGuiItem::discard()
 		            );
 
 		if ( query == KMessageBox::Yes )
@@ -771,8 +770,8 @@ bool KomparePart::queryClose()
 	                i18n("You have made changes to the destination file(s).\n"
 	                     "Would you like to save them?" ),
 	                i18n( "Save Changes?" ),
-	                i18n( "Save" ),
-	                i18n( "Discard" )
+	                KStdGuiItem::save(),
+	                KStdGuiItem::discard()
 	            );
 
 	if( query == KMessageBox::Cancel )

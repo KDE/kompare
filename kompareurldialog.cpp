@@ -107,8 +107,8 @@ KompareURLDialog::~KompareURLDialog()
 
 void KompareURLDialog::slotOk()
 {
-	m_firstURLComboBox->setURL( m_firstURLComboBox->currentText() );
-	m_secondURLComboBox->setURL( m_secondURLComboBox->currentText() );
+	m_firstURLComboBox->setURL( KURL( m_firstURLComboBox->currentText() ) );
+	m_secondURLComboBox->setURL( KURL( m_secondURLComboBox->currentText() ) );
 
 	KDialogBase::slotOk();
 }
@@ -121,16 +121,16 @@ void KompareURLDialog::slotEnableOk()
 
 KURL KompareURLDialog::getFirstURL() const
 {
-	if( result() == QDialog::Accepted )
-		return m_firstURLRequester->url();
+	if ( result() == QDialog::Accepted )
+		return KURL( m_firstURLRequester->url() );
 	else
 		return KURL();
 }
 
 KURL KompareURLDialog::getSecondURL() const
 {
-	if( result() == QDialog::Accepted )
-		return m_secondURLRequester->url();
+	if ( result() == QDialog::Accepted )
+		return KURL( m_secondURLRequester->url() );
 	else
 		return KURL();
 }
@@ -163,14 +163,14 @@ void KompareURLDialog::setGroup( const QString& groupName )
 	kdDebug() << "Recent Sources: " << urlList.join("\n") << endl;
 	kdDebug() << "LastChosenSourceListEntry: " << lastChosenEntry << endl;
 	m_firstURLComboBox->setURLs( urlList );
-	m_firstURLComboBox->setURL( lastChosenEntry );
+	m_firstURLComboBox->setURL( KURL( lastChosenEntry ) );
 
 	urlList = m_config->readListEntry( "Recent Destinations" );
 	lastChosenEntry = m_config->readEntry( "LastChosenDestinationListEntry", "" );
 	kdDebug() << "Recent Destinations: " << urlList.join("\n") << endl;
 	kdDebug() << "LastChosenDestinationListEntry: " << lastChosenEntry << endl;
 	m_secondURLComboBox->setURLs( urlList );
-	m_secondURLComboBox->setURL( lastChosenEntry );
+	m_secondURLComboBox->setURL( KURL( lastChosenEntry ) );
 }
 
 void KompareURLDialog::setFirstURLRequesterMode( unsigned int mode )

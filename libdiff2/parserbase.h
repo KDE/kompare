@@ -2,7 +2,7 @@
 **                             parserbase.h
 **                              -------------------
 **      begin                   : Tue Jul 30 23:53:52 2002
-**      copyright               : (C) 2002-2003 by Otto Bruggeman
+**      copyright               : (C) 2002-2004 Otto Bruggeman
 **      email                   : otto.bruggeman@home.nl
 **
 ***************************************************************************/
@@ -22,7 +22,7 @@
 
 #include "kompare.h"
 #include "difference.h"
-#include "diffmodel.h"
+#include "diffmodellist.h"
 
 class QStringList;
 class QString;
@@ -30,15 +30,17 @@ class QString;
 namespace Diff2
 {
 
+class KompareModelList;
+
 class ParserBase
 {
 public:
-	ParserBase( const QStringList& diff );
+	ParserBase( const KompareModelList* list, const QStringList& diff );
 	virtual ~ParserBase();
 
 public:
 	enum Kompare::Format format() { return determineFormat(); };
-	QPtrList<DiffModel>* parse();
+	DiffModelList* parse();
 
 protected:
 	virtual bool parseContextDiffHeader();
@@ -59,11 +61,11 @@ protected:
 	virtual bool parseRCSHunkBody();
 	virtual bool parseUnifiedHunkBody();
 
-	virtual QPtrList<DiffModel>* parseContext();
-	virtual QPtrList<DiffModel>* parseEd();
-	virtual QPtrList<DiffModel>* parseNormal();
-	virtual QPtrList<DiffModel>* parseRCS();
-	virtual QPtrList<DiffModel>* parseUnified();
+	virtual DiffModelList* parseContext();
+	virtual DiffModelList* parseEd();
+	virtual DiffModelList* parseNormal();
+	virtual DiffModelList* parseRCS();
+	virtual DiffModelList* parseUnified();
 
 protected:
 	/** What is format of the diff */
@@ -114,10 +116,13 @@ protected:
 protected:
 	const QStringList&         m_diffLines;
 	DiffModel*                 m_currentModel;
-	QPtrList<DiffModel>*       m_models;
+	DiffModelList*             m_models;
 	QStringList::ConstIterator m_diffIterator;
 
 	bool                       m_singleFileDiff;
+
+protected:
+	const KompareModelList* m_list;
 };
 
 } // End of namespace Diff2

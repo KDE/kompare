@@ -79,7 +79,7 @@ public:
 	// use the readProperties and saveProperties methods
 	virtual bool queryClose();
 
-	// bool isModified() const { return m_modelList->isModified(); };
+	// bool isModified() const { return m_modelList->isModified(); }
 	// Do we really want to expose this ???
 	const Diff2::KompareModelList* model() const { return m_modelList; };
 	/** Returns the url to the open diff file, or a url to a temporary
@@ -150,10 +150,6 @@ signals:
 
 	// Stuff that can probably be removed by putting it in the part where it belongs in my opinion
 public slots:
-	/** Save the currently selected destination in a multi-file diff,
-	    or the single destination if a single file diff. */
-	bool saveDestination();
-
 	/** Save all destinations. */
 	bool saveAll();
 
@@ -193,6 +189,7 @@ protected slots:
 	void slotShowDiffstats();
 	void optionsPreferences();
 	void updateActions();
+	void updateCaption();
 	void updateStatus();
 
 private:
@@ -212,7 +209,6 @@ private:
 
 	KompareView*             m_diffView;
 
-	KAction*                 m_save;
 	KAction*                 m_saveAll;
 	KAction*                 m_saveDiff;
 	KAction*                 m_swap;

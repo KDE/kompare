@@ -2,7 +2,7 @@
 **                              perforceparser.cpp
 **                              ------------------
 **      begin                   : Sun Aug  4 15:05:35 2002
-**      copyright               : (C) 2002-2003 by Otto Bruggeman
+**      copyright               : (C) 2002-2004 Otto Bruggeman
 **      email                   : otto.bruggeman@home.nl
 **
 ***************************************************************************/
@@ -23,7 +23,7 @@
 
 using namespace Diff2;
 
-PerforceParser::PerforceParser( const QStringList& diff ) : ParserBase( diff )
+PerforceParser::PerforceParser( const KompareModelList* list, const QStringList& diff ) : ParserBase( list, diff )
 {
 	m_contextDiffHeader1.setPattern( "==== (.*) - (.*) ====" );
 	m_rcsDiffHeader.setPattern     ( "==== (.*) - (.*) ====" );

@@ -20,10 +20,10 @@
 #ifndef KOMPAREMODELLIST_H
 #define KOMPAREMODELLIST_H
 
-#include <qptrlist.h>
 #include <qobject.h>
 
 #include "diffmodel.h"
+#include "diffmodellist.h"
 #include "kompare.h"
 
 class QFile;
@@ -46,11 +46,11 @@ public:
 	~KompareModelList();
 
 public:
-	/* Comparing methods */
-	bool compare( const QString& source, const QString& destination );
-
 	// Swap source with destination and show differences
 	void swap();
+
+	/* Comparing methods */
+	bool compare( const QString& source, const QString& destination );
 
 	bool compareFiles( const QString& source, const QString& destination );
 	bool compareDirs( const QString& source, const QString& destination );
@@ -78,17 +78,17 @@ public:
 	// this is like patching but with a twist
 	bool blendOriginalIntoModelList( const QString& localURL );
 
-	enum Kompare::Mode          mode()   const { return m_info->mode; };
-	const QPtrList<DiffModel>*  models() const { return m_models; };
+	enum Kompare::Mode    mode()   const { return m_info->mode; };
+	const DiffModelList*  models() const { return m_models; };
 
-	int                         modelCount() const;
-	int                         differenceCount() const;
-	int                         appliedCount() const;
+	int modelCount() const;
+	int differenceCount() const;
+	int appliedCount() const;
 
-	DiffModel*                  modelAt( int i ) const { return const_cast<KompareModelList*>(this)->m_models->at( i ); };
-	int                         findModel( DiffModel* model ) const { return const_cast<KompareModelList*>(this)->m_models->findRef( model ); };
+	DiffModel* modelAt( int i ) const { return const_cast<KompareModelList*>(this)->m_models->at( i ); };
+	int        findModel( DiffModel* model ) const { return const_cast<KompareModelList*>(this)->m_models->findRef( model ); };
 
-	bool                        isModified() const;
+	bool isModified() const;
 
 	int currentModel() const      { return const_cast<KompareModelList*>(this)->m_models->findRef( m_selectedModel ); };
 	int currentDifference() const { return m_selectedModel ? m_selectedModel->findDifference( m_selectedDifference ) : -1; };
@@ -150,6 +150,10 @@ protected slots:
 	void slotActionApplyAllDifferences();
 	void slotActionUnapplyAllDifferences();
 
+	/** Save the currently selected destination in a multi-file diff,
+	    or the single destination if a single file diff. */
+	void slotSaveDestination();
+
 private slots:
 	void slotDirectoryChanged( const QString& );
 	void slotFileChanged( const QString& );
@@ -172,7 +176,7 @@ private:
 
 	DiffSettings*         m_diffSettings;
 
-	QPtrList<DiffModel>*  m_models;
+	DiffModelList*        m_models;
 
 	QString               m_source;
 	QString               m_destination;
@@ -196,6 +200,8 @@ private:
 	KAction*              m_nextFile;
 	KAction*              m_previousDifference;
 	KAction*              m_nextDifference;
+
+	KAction*              m_save;
 };
 
 } // End of namespace Diff2

@@ -2,8 +2,8 @@
                                 diffmodel.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
@@ -47,6 +47,24 @@ DiffModel::DiffModel( const QString& source, const QString& destination ) :
 {
 	splitSourceInPathAndFileName();
 	splitDestinationInPathAndFileName();
+}
+
+DiffModel::DiffModel() :
+	m_source( "" ),
+	m_destination( "" ),
+	m_sourcePath( "" ),
+	m_destinationPath( "" ),
+	m_sourceFile( "" ),
+	m_destinationFile( "" ),
+	m_sourceTimestamp( "" ),
+	m_destinationTimestamp( "" ),
+	m_sourceRevision( "" ),
+	m_destinationRevision( "" ),
+	m_appliedCount( 0 ),
+	m_modified( false ),
+	m_diffIndex( 0 ),
+	m_selectedDifference( 0 )
+{
 }
 
 /**  */
@@ -106,6 +124,16 @@ DiffModel& DiffModel::operator=( const DiffModel& model )
 	}
 
 	return *this;
+}
+
+int DiffModel::localeAwareCompareSource( const DiffModel* model )
+{
+	int result = m_sourcePath.localeAwareCompare( model->m_sourcePath );
+
+	if ( result == 0 )
+		return m_sourceFile.localeAwareCompare( model->m_sourceFile );
+
+	return result;
 }
 
 const QPtrList<Difference>& DiffModel::allDifferences()
@@ -258,28 +286,42 @@ void DiffModel::applyDifference( bool apply )
 	else if ( !apply && m_selectedDifference->applied() )
 		m_appliedCount--;
 
-	if ( m_appliedCount == 0 )
-		m_modified = false;
-	else
-		m_modified = true;
+	bool modified;
 
-	emit setModified( m_modified );
+	// Not setting the m_modified yet so i can still query the current
+	// modified status from the slot that is connected to the signal
+	if ( m_appliedCount == 0 )
+		modified = false;
+	else
+		modified = true;
+
+	emit setModified( modified );
+
+	m_modified = modified;
 
 	m_selectedDifference->apply( apply );
 }
 
 void DiffModel::applyAllDifferences( bool apply )
 {
+	bool modified;
+
+	// Not setting the m_modified yet so i can still query the current
+	// modified status from the slot that is connected to the signal
 	if ( apply )
 	{
 		m_appliedCount = m_differences.count();
-		m_modified = true;
+		modified = true;
 	}
 	else
 	{
 		m_appliedCount = 0;
-		m_modified = false;
+		modified = false;
 	}
+
+	emit setModified( modified );
+
+	m_modified = modified;
 
 	Difference* difference = m_differences.first();
 	while ( difference )
@@ -291,11 +333,11 @@ void DiffModel::applyAllDifferences( bool apply )
 
 void DiffModel::slotSetModified( bool modified )
 {
+	// Not setting the m_modified yet so i can still query the current
+	// modified status from the slot that is connected to the signal
+	emit setModified( modified );
+
 	m_modified = modified;
-	if ( modified )
-		emit setModified( true );
-	else
-		emit setModified( false );
 }
 
 bool DiffModel::setSelectedDifference( Difference* diff )

@@ -78,6 +78,9 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::
 	                                 (( KomparePart* )parent)->actionCollection(), "difference_next" );
 	m_nextDifference->setEnabled( false );
 
+	m_save            = KStdAction::save( this, SLOT(slotSaveDestination()), ((KomparePart*)parent)->actionCollection() );
+	m_save->setEnabled( false );
+
 	updateModelListActions();
 }
 
@@ -251,12 +254,22 @@ bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 	return true;
 }
 
+void KompareModelList::slotSaveDestination()
+{
+	if ( m_selectedModel )
+	{
+		saveDestination( m_selectedModel );
+	}
+}
+
 bool KompareModelList::saveDestination( const DiffModel* model_ )
 {
 	kdDebug() << "KompareModelList::saveDestination: " << endl;
 
 	DiffModel* model = const_cast<DiffModel*>( model_ );
-	if( !model->isModified() ) return true;
+
+	if( !model->isModified() )
+		return true;
 
 	KTempFile* temp = new KTempFile();
 
@@ -308,7 +321,7 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 		}
 	}
 
-	kdDebug( 8101 ) << "Everything: " << endl << list.join( "\n" ) << endl;
+	// kdDebug( 8101 ) << "Everything: " << endl << list.join( "\n" ) << endl;
 
 	if( list.count() > 0 )
 		*stream << list.join( "\n" ) << "\n";
@@ -328,13 +341,13 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 		QString destination = model->destinationPath() + model->destinationFile();
 		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
 		kdDebug(8101) << "DestinationURL : " << destination << endl;
-		result = KIO::NetAccess::upload( temp->name(), destination, (QWidget*)parent() );
+		result = KIO::NetAccess::upload( temp->name(), KURL( destination ), (QWidget*)parent() );
 	}
 	else
 	{
 		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
 		kdDebug(8101) << "DestinationURL : " << m_destination << endl;
-		result = KIO::NetAccess::upload( temp->name(), m_destination, (QWidget*)parent() );
+		result = KIO::NetAccess::upload( temp->name(), KURL( m_destination ), (QWidget*)parent() );
 	}
 
 	if ( !result )
@@ -367,9 +380,11 @@ bool KompareModelList::saveAll()
 
 void KompareModelList::slotDiffProcessFinished( bool success )
 {
-	if ( success ) {
+	if ( success )
+	{
 		emit status( Kompare::Parsing );
-		if ( parseDiffOutput( m_diffProcess->diffOutput() ) != 0 ) {
+		if ( parseDiffOutput( m_diffProcess->diffOutput() ) != 0 )
+		{
 			emit error( i18n( "Could not parse diff output." ) );
 		}
 		else
@@ -380,9 +395,13 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 			show();
 		}
 		emit status( Kompare::FinishedParsing );
-	} else if ( m_diffProcess->exitStatus() == 0 ) {
+	}
+	else if ( m_diffProcess->exitStatus() == 0 )
+	{
 		emit error( i18n( "The files are identical." ) );
-	} else {
+	}
+	else
+	{
 		emit error( m_diffProcess->stdErr() );
 	}
 
@@ -498,7 +517,7 @@ void KompareModelList::slotWriteDiffOutput( bool success )
 			emit error( i18n( "Could not write to the temporary file." ) );
 		}
 
-		KIO::NetAccess::upload( m_diffTemp->name(), m_diffURL, (QWidget*)parent() );
+		KIO::NetAccess::upload( m_diffTemp->name(), KURL( m_diffURL ), (QWidget*)parent() );
 
 		emit status( Kompare::FinishedWritingDiff );
 	}
@@ -732,25 +751,24 @@ void KompareModelList::slotApplyDifference( bool apply )
 {
 	m_selectedModel->applyDifference( apply );
 	emit applyDifference( apply );
-	emit setModified( m_selectedModel->isModified() );
 }
 
 void KompareModelList::slotApplyAllDifferences( bool apply )
 {
-	// FIXME: we need to use hunks here as well
 	m_selectedModel->applyAllDifferences( apply );
 	emit applyAllDifferences( apply );
-	emit setModified( apply );
 }
 
 int KompareModelList::parseDiffOutput( const QStringList& lines )
 {
 	kdDebug(8101) << "KompareModelList::parseDiffOutput" << endl;
-	Parser* parser = new Parser();
+	Parser* parser = new Parser( this );
 	m_models = parser->parse( lines );
 
 	m_info->generator = parser->generator();
 	m_info->format = parser->format();
+
+	delete parser;
 
 	if ( m_models )
 	{
@@ -777,8 +795,8 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 	DiffModel* model;
 	QFile file;
 
-	QPtrList<DiffModel>* models = m_models;
-	m_models = new QPtrList<DiffModel>();
+	DiffModelList* models = m_models;
+	m_models = new DiffModelList();
 	if ( fi.isDir() )
 	{ // is a dir
 		QDir dir( localURL, QString::null, QDir::Name|QDir::DirsFirst, QDir::All );
@@ -842,12 +860,13 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 
 	Difference* newDiff;
 	DiffModel* newModel = new DiffModel();
+	connect( newModel, SIGNAL( setModified( bool ) ), this, SLOT( slotSetModified( bool ) ) );
 	// We don't want a full copy so dont use newModel = new DiffModel( model );
 	*newModel = *model;
 
 	int srcLineNo = 1, destLineNo = 1;
 
-	DiffHunk* newHunk   = new DiffHunk( srcLineNo, destLineNo );
+	DiffHunk* newHunk = new DiffHunk( srcLineNo, destLineNo );
 
 	newModel->addHunk( newHunk );
 
@@ -920,7 +939,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			{
 				// FIXME: Leave that diff out for now
 				// We'll have to do all sorts of nice things to get this working properly
-				// Like trying offsets and or fuzzy matching
+				// Like trying offsets and or fuzzy matching or check for tabs that were converted into spaces by diff
 				kdDebug(8101) << "Unchanged: Wow, conflict... what should we do now ???" << endl;
 				diffList.next();
 			}
@@ -1025,9 +1044,10 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 	}
 */
 
+	disconnect( model, SIGNAL( setModified( bool ) ), this, SLOT( slotSetModified( bool ) ) );
 	m_models->remove( model );
 	delete model;
-	m_models->append( newModel );
+	m_models->inSort( newModel );
 
 	m_selectedModel = firstModel();
 
@@ -1084,12 +1104,17 @@ int KompareModelList::appliedCount() const
 
 void KompareModelList::slotSetModified( bool modified )
 {
-	kdDebug(8101) << "m_noOfModified = " << m_noOfModified << endl;
+	kdDebug(8101) << "KompareModelList::slotSetModified( " << modified << " );" << endl;
+	kdDebug(8101) << "Before: m_noOfModified = " << m_noOfModified << endl;
 
-	if ( modified )
+	// If selectedModel emits its signal setModified it does not set the model
+	// internal m_modified bool yet, it only does that after the emit.
+	if ( modified && !m_selectedModel->isModified() )
 		m_noOfModified++;
-	else
+	else if ( !modified && m_selectedModel->isModified() )
 		m_noOfModified--;
+
+	kdDebug(8101) << "After : m_noOfModified = " << m_noOfModified << endl;
 
 	if ( m_noOfModified < 0 )
 	{
@@ -1142,13 +1167,15 @@ void KompareModelList::updateModelListActions()
 
 			m_applyDifference->setEnabled( true );
 			m_unApplyDifference->setEnabled( true );
+			m_save->setEnabled( m_selectedModel->isModified() );
 		}
 		else
 		{
-			m_applyDifference->setEnabled( false );
+			m_applyDifference->setEnabled  ( false );
 			m_unApplyDifference->setEnabled( false );
-			m_applyAll->setEnabled( false );
-			m_unapplyAll->setEnabled( false );
+			m_applyAll->setEnabled         ( false );
+			m_unapplyAll->setEnabled       ( false );
+			m_save->setEnabled             ( false );
 		}
 
 		m_previousFile->setEnabled      ( hasPrevModel() );
@@ -1158,15 +1185,16 @@ void KompareModelList::updateModelListActions()
 	}
 	else
 	{
-		m_applyDifference->setEnabled( false );
-		m_unApplyDifference->setEnabled( false );
-		m_applyAll->setEnabled( false );
-		m_unapplyAll->setEnabled( false );
+		m_applyDifference->setEnabled   ( false );
+		m_unApplyDifference->setEnabled ( false );
+		m_applyAll->setEnabled          ( false );
+		m_unapplyAll->setEnabled        ( false );
 
 		m_previousFile->setEnabled      ( false );
 		m_nextFile->setEnabled          ( false );
 		m_previousDifference->setEnabled( false );
 		m_nextDifference->setEnabled    ( false );
+		m_save->setEnabled              ( false );
 	}
 }
 

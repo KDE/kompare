@@ -138,7 +138,6 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 
 	// we are not modified since we haven't done anything yet
 	setModified( false );
-
 }
 
 KomparePart::~KomparePart()
@@ -149,7 +148,6 @@ void KomparePart::setupActions()
 {
 	// create our actions
 
-	m_save            = KStdAction::save( this, SLOT(saveDestination()), actionCollection() );
 	m_saveAll         = new KAction( i18n("Save &All"), "save_all", 0,
 	                                 this, SLOT(saveAll()),
 	                                 actionCollection(), "file_save_all" );
@@ -172,12 +170,6 @@ void KomparePart::updateActions()
 	m_saveDiff->setEnabled ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
 	m_swap->setEnabled     ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
 	m_diffStats->setEnabled( m_modelList->modelCount() > 0 );
-
-	const Diff2::DiffModel* model = m_modelList->selectedModel();
-	if ( model )
-		m_save->setEnabled( model->isModified() );
-	else
-		m_save->setEnabled( false );
 }
 
 bool KomparePart::openDiff( const KURL& url )
@@ -195,6 +187,7 @@ bool KomparePart::openDiff( const KURL& url )
 		kdDebug(8103) << "Download succeeded " << endl;
 		result = m_modelList->openDiff( m_info.localSource );
 		updateActions();
+		updateCaption();
 		updateStatus();
 	}
 	else
@@ -218,6 +211,7 @@ bool KomparePart::openDiff( const QString& diffOutput )
 		value = true;
 		m_modelList->show();
 		updateActions();
+		updateCaption();
 		updateStatus();
 	}
 	return value;
@@ -236,6 +230,7 @@ bool KomparePart::openDiff( const QStringList& diffOutput )
 		value = true;
 		m_modelList->show();
 		updateActions();
+		updateCaption();
 		updateStatus();
 	}
 	return value;
@@ -335,6 +330,7 @@ void KomparePart::compareFiles( const KURL& sourceFile, const KURL& destinationF
 	{
 		m_modelList->compareFiles( m_info.localSource, m_info.localDestination );
 		updateActions();
+		updateCaption();
 		updateStatus();
 	}
 	// Clean up needed ???
@@ -356,6 +352,7 @@ void KomparePart::compareDirs( const KURL& sourceDirectory, const KURL& destinat
 	{
 		m_modelList->compareDirs( m_info.localSource, m_info.localDestination );
 		updateActions();
+		updateCaption();
 		updateStatus();
 	}
 	// Clean up needed ???
@@ -365,6 +362,7 @@ void KomparePart::compare3Files( const KURL& /*originalFile*/, const KURL& /*cha
 {
 	// FIXME: actually implement this some day :)
 	updateActions();
+	updateCaption();
 	updateStatus();
 }
 
@@ -448,26 +446,11 @@ bool KomparePart::openFile()
 	return true;
 }
 
-bool KomparePart::saveDestination()
-{
-	const Diff2::DiffModel* model = m_modelList->selectedModel();
-	if ( model )
-	{
-		bool result = m_modelList->saveDestination( model );
-		updateActions();
-		updateStatus();
-		return result;
-	}
-	else
-	{
-		return false;
-	}
-}
-
 bool KomparePart::saveAll()
 {
 	bool result = m_modelList->saveAll();
 	updateActions();
+	updateCaption();
 	updateStatus();
 	return result;
 }
@@ -534,6 +517,31 @@ void KomparePart::slotSetStatus( enum Kompare::Status status )
 	}
 }
 
+void KomparePart::updateCaption()
+{
+	QString source = m_info.source.prettyURL();
+	QString destination = m_info.destination.prettyURL();
+
+	QString text;
+
+	switch ( m_info.mode )
+	{
+	case Kompare::ComparingFiles :
+	case Kompare::ComparingDirs :
+	case Kompare::BlendingFile :
+	case Kompare::BlendingDir :
+		text = source + ":" + destination;
+		break;
+	case Kompare::ShowingDiff :
+		text = source;
+		break;
+	default:
+		break;
+	}
+
+	emit setWindowCaption( text );
+}
+
 void KomparePart::updateStatus()
 {
 	QString source = m_info.source.prettyURL();
@@ -547,37 +555,30 @@ void KomparePart::updateStatus()
 		text = i18n( "Comparing file %1 with file %2" )
 		   .arg( source )
 		   .arg( destination );
-		emit setStatusBarText( text );
-		emit setWindowCaption( source + ":" + destination );
 		break;
 	case Kompare::ComparingDirs :
 		text = i18n( "Comparing files in %1 with files in %2" )
 		   .arg( source )
 		   .arg( destination );
-		emit setStatusBarText( text );
-		emit setWindowCaption( source + ":" + destination );
 		break;
 	case Kompare::ShowingDiff :
-		emit setStatusBarText( i18n( "Viewing diff output from %1" ) .arg( source ) );
-		emit setWindowCaption( source );
+		text = i18n( "Viewing diff output from %1" ).arg( source );
 		break;
 	case Kompare::BlendingFile :
 		text = i18n( "Blending diff output from %1 into file %2" )
 		    .arg( source )
 		    .arg( destination );
-		emit setStatusBarText( text );
-		emit setWindowCaption( source + ":" + destination );
 		break;
 	case Kompare::BlendingDir :
 		text = i18n( "Blending diff output from %1 into folder %2" )
 		    .arg( m_info.source.prettyURL() )
 		    .arg( m_info.destination.prettyURL() );
-		emit setStatusBarText( text );
-		emit setWindowCaption( source + ":" + destination );
 		break;
 	default:
 		break;
 	}
+
+	emit setStatusBarText( text );
 }
 
 void KomparePart::slotShowError( QString error )
@@ -601,6 +602,7 @@ void KomparePart::slotSwap()
 
 		if ( query == KMessageBox::Yes )
 			m_modelList->saveAll();
+
 		if ( query == KMessageBox::Cancel )
 			return; // Abort prematurely so no swapping
 	}
@@ -615,6 +617,7 @@ void KomparePart::slotSwap()
 	m_info.localDestination = string;
 
 	// Update window caption and statusbar text
+	updateCaption();
 	updateStatus();
 
 	m_modelList->swap();
@@ -720,8 +723,12 @@ bool KomparePart::queryClose()
 	                i18n( "Discard" )
 	            );
 
-	if( query == KMessageBox::Cancel ) return false;
-	if( query == KMessageBox::Yes )    return m_modelList->saveAll();
+	if( query == KMessageBox::Cancel )
+		return false;
+
+	if( query == KMessageBox::Yes )
+		return m_modelList->saveAll();
+
 	return true;
 }
 
@@ -760,9 +767,11 @@ void KomparePart::optionsPreferences()
 }
 
 void KomparePart::slotSetModified( bool modified )
-{
+{ 
+	kdDebug() << "KomparePart::slotSetModified( " << modified << " );" << endl;
 	setModified( modified );
 	updateActions();
+	updateCaption();
 }
 
 // It's usually safe to leave the factory code alone.. with the

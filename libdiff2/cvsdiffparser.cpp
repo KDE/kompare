@@ -2,7 +2,7 @@
 **                              cvsdiffparser.cpp
 **                              -----------------
 **      begin                   : Sun Aug  4 15:05:35 2002
-**      copyright               : (C) 2002-2003 by Otto Bruggeman
+**      copyright               : (C) 2002-2004 Otto Bruggeman
 **      email                   : otto.bruggeman@home.nl
 **
 ***************************************************************************/
@@ -23,7 +23,7 @@
 
 using namespace Diff2;
 
-CVSDiffParser::CVSDiffParser( const QStringList& diff ) : ParserBase( diff )
+CVSDiffParser::CVSDiffParser( const KompareModelList* list, const QStringList& diff ) : ParserBase( list, diff )
 {
 	// The regexps needed for context cvs diff parsing, the rest is the same as in parserbase.cpp
 	// third capture in header1 is non optional for cvs diff, it is the revision

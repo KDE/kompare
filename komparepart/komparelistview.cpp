@@ -79,7 +79,9 @@ int KompareListView::firstVisibleDifference()
 	QListViewItem* item = itemAt( QPoint( 0, 0 ) );
 
 	if( item == 0 )
+	{
 		kdDebug(8104) << "no item at viewport coordinates (0,0)" << endl;
+	}
 
 	while( item && item->isVisible() ) {
 		KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>(item);
@@ -99,8 +101,10 @@ int KompareListView::lastVisibleDifference()
 	QListViewItem* item = itemAt( QPoint( 0, visibleHeight() - 1 ) );
 
 	if( item == 0 )
+	{
 		kdDebug(8104) << "no item at viewport coordinates (0," << visibleHeight() - 1 << ")" << endl;
 		item = lastItem();
+	}
 
 	while( item && item->isVisible() ) {
 		KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>(item);

@@ -26,15 +26,15 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 	sourceGBLayout->setSpacing( 6 );
 	sourceGBLayout->setMargin( 11 );
 
-	m_sourceURLComboBox = new KURLComboBox( KURLComboBox::Files, true );
-	if( sourceURL ) {
-		kdDebug() << sourceURL->url() << endl;
-		m_sourceURLComboBox->setURL( *sourceURL );
-	}
 
 	KConfig* config = kapp->config();
 	config->setGroup( "Recent Files" );
+
+	m_sourceURLComboBox = new KURLComboBox( KURLComboBox::Files, true );
 	m_sourceURLComboBox->setURLs( config->readListEntry( "Recent Sources" ) );
+	if( sourceURL ) {
+		m_sourceURLComboBox->setURL( *sourceURL );
+	}
 
 	m_sourceURLRequester = new KURLRequester( m_sourceURLComboBox, sourceGB );
 	m_sourceURLRequester->setFocus();
@@ -51,14 +51,12 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 	destinationGBLayout->setMargin( 11 );
 
 	m_destinationURLComboBox = new KURLComboBox( KURLComboBox::Files, true );
+	m_destinationURLComboBox->setURLs( config->readListEntry( "Recent Destinations" ) );
 	if( destinationURL ) {
-		kdDebug() << destinationURL->url() << endl;
 		m_destinationURLComboBox->setURL( *destinationURL );
 	}
-
-	m_destinationURLComboBox->setURLs( config->readListEntry( "Recent Destinations" ) );
-
 	m_destinationURLRequester = new KURLRequester( m_destinationURLComboBox, destinationGB );
+
 	destinationGBLayout->addWidget( m_destinationURLRequester );
 	topLayout->addWidget( destinationGB );
 

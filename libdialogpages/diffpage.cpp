@@ -303,9 +303,9 @@ void DiffPage::addOptionsTab()
 	m_linesCheckBox       = new QCheckBox( i18n( "I&gnore added or removed empty lines" ), moreOptionButtonGroup );
 	QToolTip::add( m_linesCheckBox, i18n( "This option corresponds to the -B diff option." ) );
 	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes in the amount of whitespace" ), moreOptionButtonGroup );
-	QToolTip::add( m_whitespaceCheckBox, i18n( "This option corresponds to the -w diff option." ) );
+	QToolTip::add( m_whitespaceCheckBox, i18n( "This option corresponds to the -b diff option." ) );
 	m_allWhitespaceCheckBox = new QCheckBox( i18n( "Ign&ore all whitespace" ), moreOptionButtonGroup );
-	QToolTip::add( m_allWhitespaceCheckBox, i18n( "This option corresponds to the -b diff option." ) );
+	QToolTip::add( m_allWhitespaceCheckBox, i18n( "This option corresponds to the -w diff option." ) );
 	m_ignoreTabExpansionCheckBox = new QCheckBox( i18n( "Igno&re changes due to tab expansion" ), moreOptionButtonGroup );
 	QToolTip::add( m_ignoreTabExpansionCheckBox, i18n( "This option corresponds to the -E diff option." ) );
 

@@ -42,7 +42,6 @@
 #include "kompareprefdlg.h"
 #include "komparesaveoptionswidget.h"
 #include "kompareview.h"
-#include "miscsettings.h"
 
 
 ViewSettings* KomparePart::m_viewSettings = 0L;

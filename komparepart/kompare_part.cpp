@@ -163,7 +163,7 @@ void KomparePart::setupActions()
 	m_saveDiff        = new KAction( i18n("Save .&diff"), 0,
 	                                 this, SLOT(saveDiff()),
 	                                 actionCollection(), "file_save_diff" );
-	m_swap            = new KAction( i18n( "Swap Source && Destination" ), 0,
+	m_swap            = new KAction( i18n( "Swap Source with Destination" ), 0,
 	                                 this, SLOT(slotSwap()),
 	                                 actionCollection(), "file_swap" );
 	m_diffStats       = new KAction( i18n( "Show Statistics" ), 0,

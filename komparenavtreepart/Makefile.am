@@ -3,8 +3,6 @@
 #########################################################################
 
 INCLUDES = \
-	-D INLINE_DIFFERENCES=0 \
-	-D EXCLUDE_DIFF_OPTION=0 \
 	-I$(top_srcdir)/kompare/libdiff2 \
 	-I$(top_srcdir)/kompare/komparepart \
 	$(all_includes)

@@ -1,11 +1,9 @@
 In descending order of importance:
 * add support to save a diff
+* implement context, ed and rcs format
 * add support to load a diff and apply it and save the modified file
 * implement multiple file support
-* implement context and rcs format
-* add support for imcremental patch saving (i'll explain who want to know)
+* add support for incremental patch saving (i'll explain if anyone wants to know)
 * cvs support
 * add icons for most menu options
-* use better icons for open and close the L and R are not very usefull in countries that dont have the R and L for their words for left and right
-* reorganize code a bit
 * perhaps a wizard for newbie/non-coders

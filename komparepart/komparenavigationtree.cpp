@@ -33,7 +33,8 @@
 #define COL_DIFFERENCE    2
 
 KDiffNavigationTree::KDiffNavigationTree( KDiffModelList* models, QWidget* parent, const char* name )
-	: KListView( parent, name )
+	: KListView( parent, name ),
+	m_models( models )
 {
 	addColumn( i18n("Source") );
 	addColumn( i18n("Destination") );
@@ -41,7 +42,9 @@ KDiffNavigationTree::KDiffNavigationTree( KDiffModelList* models, QWidget* paren
 	setAllColumnsShowFocus( true );
 	setRootIsDecorated( true );
 	setSorting( -1 );
-
+	
+	(void)new QListViewItem( this );
+	
 	connect( this, SIGNAL(selectionChanged( QListViewItem* )),
 	               SLOT(slotSelectionChanged( QListViewItem* )) );
 	connect( models, SIGNAL(modelAdded( DiffModel* )),
@@ -54,30 +57,42 @@ KDiffNavigationTree::~KDiffNavigationTree()
 
 void KDiffNavigationTree::slotAddModel( DiffModel * model )
 {
+	firstChild()->setOpen( true );
+	
+	KURL sourceBaseURL = m_models->sourceBaseURL();
+	KURL destinationBaseURL = m_models->destinationBaseURL();
+	if( !sourceBaseURL.isEmpty() && !destinationBaseURL.isEmpty() )
+	{
+		firstChild()->setSelectable( false );
+		firstChild()->setText( COL_SOURCE, sourceBaseURL.url() );
+		firstChild()->setPixmap( COL_SOURCE,
+		     KMimeType::pixmapForURL( sourceBaseURL, 0, 0, KIcon::SizeSmall ) );
+		firstChild()->setText( COL_DESTINATION, destinationBaseURL.url() );
+		firstChild()->setPixmap( COL_DESTINATION,
+		     KMimeType::pixmapForURL( destinationBaseURL, 0, 0, KIcon::SizeSmall ) );
+	}
+	
 	QListViewItem* modelItem;
 	
 	QListViewItem* after = lastItem();
 	if( after )
-		modelItem = new QListViewItem( this, after );
+		modelItem = new QListViewItem( firstChild(), after );
 	else
-		modelItem = new QListViewItem( this );
+		modelItem = new QListViewItem( firstChild() );
 	
-	modelItem->setText( COL_SOURCE, model->getSourceFilename() );
-	modelItem->setText( COL_DESTINATION, model->getDestinationFilename() );
-
-//	KURL url = m_diffPart->getSourceURL();
-//	if( !url.isEmpty() ) {
-//		modelItem->setPixmap( COL_SOURCE, KMimeType::pixmapForURL( url, 0, 0, KIcon::SizeSmall ) );
-//	}
-//
-//	url = m_diffPart->getDestinationURL();
-//	if( !url.isEmpty() ) {
-//		modelItem->setPixmap( COL_DESTINATION, KMimeType::pixmapForURL( url, 0, 0, KIcon::SizeSmall ) );
-//	}
-
+	modelItem->setText( COL_SOURCE, model->sourceFile() );
+	modelItem->setText( COL_DESTINATION, model->destinationFile() );
 	modelItem->setOpen( true );
 	modelItem->setSelectable( false );
-
+	if( !sourceBaseURL.isEmpty() ) {
+		modelItem->setPixmap( COL_SOURCE, KMimeType::pixmapForURL(
+		     KURL( sourceBaseURL, model->sourceFile() ), 0, 0, KIcon::SizeSmall ) );
+	}
+	if( !destinationBaseURL.isEmpty() ) {
+		modelItem->setPixmap( COL_DESTINATION, KMimeType::pixmapForURL(
+		     KURL( destinationBaseURL, model->destinationFile() ), 0, 0, KIcon::SizeSmall ) );
+	}
+	
 	QListIterator<Difference> diffIt(model->getDifferences());
 
 	// Go backwards so the items appear in the correct order when
@@ -86,11 +101,11 @@ void KDiffNavigationTree::slotAddModel( DiffModel * model )
 		Difference *diff = diffIt.current();
 
 		QListViewItem* diffItem = new QListViewItem( modelItem );
-		diffItem->setText( COL_SOURCE, i18n( "Line %1" ).arg( diff->linenoA ) );
-		diffItem->setText( COL_DESTINATION, i18n( "Line %1" ).arg( diff->linenoB ) );
+		diffItem->setText( COL_SOURCE, i18n( "Line %1" ).arg( diff->sourceLineNumber() ) );
+		diffItem->setText( COL_DESTINATION, i18n( "Line %1" ).arg( diff->destinationLineNumber() ) );
 
 		QString text = "";
-		switch( diff->type ) {
+		switch( diff->type() ) {
 		case Difference::Change:
 			text = i18n( "Nonmatching lines" );
 			break;
@@ -109,7 +124,7 @@ void KDiffNavigationTree::slotAddModel( DiffModel * model )
 
 QListViewItem* KDiffNavigationTree::lastItem()
 {
-	QListViewItem* item = firstChild();
+	QListViewItem* item = firstChild()->firstChild();
 	QListViewItem* lastItem = item;
 	while( item != 0 ) {
 		lastItem = item;
@@ -122,7 +137,7 @@ void KDiffNavigationTree::slotSetSelection( int model, int diff )
 {
 	QListViewItem* current;
 
-	for( current = firstChild(); model > 0; model-- ) {
+	for( current = firstChild()->firstChild(); model > 0; model-- ) {
 		current = current->nextSibling();
 	}
 
@@ -135,12 +150,12 @@ void KDiffNavigationTree::slotSetSelection( int model, int diff )
 
 void KDiffNavigationTree::slotSelectionChanged( QListViewItem* item )
 {
-	if( item->depth() != 1 ) return;
+	if( item->depth() != 2 ) return;
 
 	QListViewItem* parent = item->parent();
 
 	int model = 0;
-	for( QListViewItem* current = firstChild(); current && current != parent; model++ ) {
+	for( QListViewItem* current = firstChild()->firstChild(); current && current != parent; model++ ) {
 		current = current->nextSibling();
 	}
 

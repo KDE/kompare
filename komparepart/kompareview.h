@@ -25,31 +25,28 @@ class QFile;
 #include "kdiffmodellist.h"
 
 class DiffModel;
-class DiffView;
-class DiffConnectWidget;
+class KDiffListView;
+class KDiffConnectWidget;
 class GeneralSettings;
 
 class KDiffView : public QWidget
 {
 	Q_OBJECT
-
+	
 public:
 	KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget *parent=0, const char *name=0 );
 	~KDiffView();
-
-	void setFont( const QFont& font );
-	void setTabWidth( uint tabWidth );
-
-	int getSelectedDifferenceIndex() { return m_selectedDifference; };
-
+	
 public slots:
 	void slotSetSelection( int model, int diff );
-
+	
+signals:
+	void selectionChanged( int model, int diff );
+	
 protected:
-	void updateViews();
 	void resizeEvent( QResizeEvent* e );
 	void updateScrollBars();
-
+	
 private:
 	KDiffModelList*           m_models;
 	int                       m_selectedModel;
@@ -57,14 +54,11 @@ private:
 	GeneralSettings*          m_settings;
 	QLabel*                   revlabel1;
 	QLabel*                   revlabel2;
-	DiffView*                 diff1;
-	DiffView*                 diff2;
-	DiffConnectWidget*        zoom;
+	KDiffListView*            diff1;
+	KDiffListView*            diff2;
+	KDiffConnectWidget*       zoom;
 	QScrollBar*               vScroll;
 	QScrollBar*               hScroll;
-private slots: // Private slots
-  /** No descriptions */
-  void slotAddModel( DiffModel* model );
 };
 
 #endif

@@ -16,19 +16,25 @@
 **   (at your option) any later version.
 **
 ***************************************************************************/
-#include "kdiffview.h"
 
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qscrollbar.h>
-#include <klocale.h>
-#include <kdebug.h>
 
-#include "diffview.h"
+#include <klocale.h>
+#include <kmimetype.h>
+#include <kdebug.h>
+#include <kglobalsettings.h>
+
+#include "kdifflistview.h"
+#include "kdiffconnectwidget.h"
 #include "diffmodel.h"
 #include "diffhunk.h"
 #include "difference.h"
 #include "generalsettings.h"
+
+#include "kdiffview.h"
+#include "kdiffview.moc"
 
 KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget *parent, const char *name )
 	: QWidget(parent, name),
@@ -54,7 +60,7 @@ KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget
 	QVBoxLayout* Frame1Layout = new QVBoxLayout( Frame1 );
 	Frame1Layout->setSpacing( 0 );
 	Frame1Layout->setMargin( 3 );
-	revlabel1 = new QLabel("Rev A", Frame1);
+	revlabel1 = new QLabel( i18n( "Source" ), Frame1);
 	Frame1Layout->addWidget( revlabel1 );
 	pairlayout->addWidget(Frame1, 0, 0);
 
@@ -70,17 +76,24 @@ KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget
 	QVBoxLayout* Frame2Layout = new QVBoxLayout( Frame2 );
 	Frame2Layout->setSpacing( 0 );
 	Frame2Layout->setMargin( 3 );
-	revlabel2 = new QLabel("Rev A", Frame2 );
+	revlabel2 = new QLabel( i18n( "Destination" ), Frame2 );
 	Frame2Layout->addWidget( revlabel2 );
 	pairlayout->addMultiCellWidget( Frame2, 0,0, 2,3 );
 
-	diff1 = new DiffView( m_settings, true, this );
-	diff2 = new DiffView( m_settings, true, this );
+	diff1 = new KDiffListView( models, true, m_settings, this );
+	diff2 = new KDiffListView( models, false, m_settings, this );
+	diff1->setFrameStyle( QFrame::NoFrame );
+	diff2->setFrameStyle( QFrame::NoFrame );
+	diff1->setVScrollBarMode( QScrollView::AlwaysOff );
+	diff2->setVScrollBarMode( QScrollView::AlwaysOff );
+	diff1->setHScrollBarMode( QScrollView::AlwaysOff );
+	diff2->setHScrollBarMode( QScrollView::AlwaysOff );
+	diff1->setFont( KGlobalSettings::fixedFont() );
+	diff2->setFont( KGlobalSettings::fixedFont() );
 	pairlayout->addWidget(diff1, 1, 0);
 	pairlayout->addWidget(diff2, 1, 2);
 
-	zoom = new DiffConnectWidget( m_settings, this );
-	zoom->setDiffViews( diff1, diff2 );
+	zoom = new KDiffConnectWidget( models, diff1, diff2, m_settings, this );
 	pairlayout->addWidget( zoom,  1, 1);
 
 	vScroll = new QScrollBar( QScrollBar::Vertical, this );
@@ -89,6 +102,9 @@ KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget
 	hScroll = new QScrollBar( QScrollBar::Horizontal, this );
 	pairlayout->addMultiCellWidget( hScroll, 2,2, 0,2 );
 
+	connect( diff1, SIGNAL(selectionChanged(int,int)), SIGNAL(selectionChanged(int,int)) );
+	connect( diff2, SIGNAL(selectionChanged(int,int)), SIGNAL(selectionChanged(int,int)) );
+	
 	connect( vScroll, SIGNAL(valueChanged(int)), diff1, SLOT(scrollToId(int)) );
 	connect( vScroll, SIGNAL(valueChanged(int)), diff2, SLOT(scrollToId(int)) );
 	connect( vScroll, SIGNAL(valueChanged(int)), zoom, SLOT(repaint()) );
@@ -100,124 +116,27 @@ KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget
 	connect( hScroll, SIGNAL(sliderMoved(int)), diff1, SLOT(setXOffset(int)) );
 	connect( hScroll, SIGNAL(sliderMoved(int)), diff2, SLOT(setXOffset(int)) );
 
-	connect( m_models, SIGNAL(modelAdded( DiffModel* )),
-	                   SLOT(slotAddModel( DiffModel* )) );
+	updateScrollBars();
 }
 
 KDiffView::~KDiffView()
 {
 }
 
-void KDiffView::slotAddModel( DiffModel* /* model */ )
-{
-	updateViews();
-}
-
 void KDiffView::slotSetSelection( int model, int diff )
 {
-	bool modelChanged = model != m_selectedModel;
-
-	if( modelChanged ) {
-		m_selectedModel = model;
-		updateViews();
-	}
-
-	if( !modelChanged && m_selectedDifference >= 0 ) {
-		const Difference* d = m_models->modelAt( m_selectedModel )->differenceAt( m_selectedDifference );
-		for (int i = d->linenoA; i < d->linenoA+d->sourceLineCount(); ++i)
-			diff1->setInverted(i, false);
-		for (int i = d->linenoB; i < d->linenoB+d->destinationLineCount(); ++i)
-			diff2->setInverted(i, false);
-	}
-
-	m_selectedDifference = diff;
-
-	if( m_selectedDifference >= 0 ) {
-		const Difference* d = m_models->modelAt( m_selectedModel )->differenceAt( m_selectedDifference );
-		for (int i = d->linenoA; i < d->linenoA+d->sourceLineCount(); ++i)
-			diff1->setInverted(i, true);
-		for (int i = d->linenoB; i < d->linenoB+d->destinationLineCount(); ++i)
-			diff2->setInverted(i, true);
-		diff1->setCenterLine(d->linenoA);
-		diff2->setCenterLine(d->linenoB);
-	}
-	
-	diff1->repaint();
-	diff2->repaint();
-	zoom->repaint();
-	updateScrollBars();
-
-}
-
-void KDiffView::updateViews() {
-
-	diff1->clear();
-	diff2->clear();
-	
-	if( m_selectedModel >= 0 ) {
-		
-		DiffModel* model = m_models->modelAt( m_selectedModel );
-		
-		QListIterator<DiffHunk> it = QListIterator<DiffHunk>( model->getHunks() );
-		int linenoA = 1;
-		int linenoB = 1;
-		int id = 0;
-		for( ; it.current(); ++it ) {
-			const DiffHunk* h = it.current();
-			linenoA = h->lineStartA;
-			linenoB = h->lineStartB;
-			diff1->addLine( i18n( "%1: Line %1" ).arg( model->getSourceFilename() ).arg( linenoA ), Difference::Separator, -1, id );
-			diff2->addLine( i18n( "%1: Line %1" ).arg( model->getDestinationFilename() ).arg( linenoB ), Difference::Separator, -1, id );
-			id++;
-			QListIterator<Difference> differences = QListIterator<Difference>( h->getDifferences() );
-			for( ; differences.current(); ++differences ) {
-				const Difference* d = differences.current();
-				const QStringList linesA = d->getSourceLines();
-				const QStringList linesB = d->getDestinationLines();
-				QStringList::ConstIterator itA = linesA.begin();
-				QStringList::ConstIterator itB = linesB.begin();
-				if( d->type == Difference::Unchanged ) {
-					for ( ; itA != linesA.end(); ++itA ) {
-						diff1->addLine((*itA), Difference::Unchanged,linenoA,id);
-						diff2->addLine((*itA), Difference::Unchanged,linenoB,id);
-						linenoA++;
-						linenoB++;
-						id++;
-					}
-				} else {
-					while( itA != linesA.end() || itB != linesB.end() ) {
-						if (itA != linesA.end()) {
-							diff1->addLine((*itA), d->type,linenoA,id);
-							++itA;
-							if (itB != linesB.end()) {
-								diff2->addLine((*itB), Difference::Change,linenoB++,id);
-								++itB;
-							}
-							linenoA++;
-							id++;
-						} else {
-							diff2->addLine((*itB), Difference::Insert,linenoB++,id);
-							id++;
-							++itB;
-						}
-					}
-				}
-			}
-		}
-		diff1->addLine( "", Difference::Unchanged, linenoA, id );
-		diff2->addLine( "", Difference::Unchanged, linenoB, id );
-		revlabel1->setText( model->getSourceFilename() );
-		revlabel2->setText( model->getDestinationFilename() );
-		zoom->setModel( model );
-	}
-	
+	revlabel1->setText( m_models->modelAt( model )->sourceFile() );
+	revlabel2->setText( m_models->modelAt( model )->destinationFile() );
+	diff1->slotSetSelection( model, diff );
+	diff2->slotSetSelection( model, diff );
+	zoom->slotSetSelection( model, diff );
 	updateScrollBars();
 }
 
 void KDiffView::updateScrollBars()
 {
-	if( diff1->totalHeight() <= diff1->height() &&
-	    diff2->totalHeight() <= diff2->height() ) {
+	if( diff1->contentsHeight() <= diff1->visibleHeight() &&
+	    diff2->contentsHeight() <= diff2->visibleHeight() ) {
 		if( vScroll->isVisible() )
 			vScroll->hide();
 	} else {
@@ -228,13 +147,13 @@ void KDiffView::updateScrollBars()
 		vScroll->blockSignals( true );
 		vScroll->setRange( QMIN( diff1->minScrollId(), diff2->minScrollId() ),
 		                   QMAX( diff1->maxScrollId(), diff2->maxScrollId() ) );
-		vScroll->setValue( diff1->getScrollId() );
-		vScroll->setSteps( 1, diff1->pageStep() );
+		vScroll->setValue( diff1->scrollId() );
+		vScroll->setSteps( 7, diff1->visibleHeight() - 14 );
 		vScroll->blockSignals( false );
 	}
 
-	if( diff1->totalWidth() <= diff1->width() &&
-	    diff2->totalWidth() <= diff2->width() ) {
+	if( diff1->contentsWidth() <= diff1->visibleWidth() &&
+	    diff2->contentsWidth() <= diff2->visibleWidth() ) {
 		if( hScroll->isVisible() )
 			hScroll->hide();
 	} else {
@@ -243,24 +162,12 @@ void KDiffView::updateScrollBars()
 		}
 
 		hScroll->blockSignals( true );
-		hScroll->setRange( 0, QMAX( diff1->totalWidth() - diff1->width(),
-		                            diff2->totalWidth() - diff2->width() ) );
-		hScroll->setValue( QMAX( diff1->xOffset(), diff2->xOffset() ) );
-		hScroll->setSteps( 10, diff1->width() - 10 );
+		hScroll->setRange( 0, QMAX( diff1->contentsWidth() - diff1->visibleWidth(),
+		                            diff2->contentsWidth() - diff2->visibleWidth() ) );
+		hScroll->setValue( QMAX( diff1->contentsX(), diff2->contentsX() ) );
+		hScroll->setSteps( 10, diff1->visibleWidth() - 10 );
 		hScroll->blockSignals( false );
 	}
-}
-
-void KDiffView::setFont( const QFont& font )
-{
-	diff1->setFont(font);
-	diff2->setFont(font);
-}
-
-void KDiffView::setTabWidth( uint tabWidth )
-{
-	diff1->setTabWidth(tabWidth);
-	diff2->setTabWidth(tabWidth);
 }
 
 void KDiffView::resizeEvent( QResizeEvent* e )
@@ -268,5 +175,3 @@ void KDiffView::resizeEvent( QResizeEvent* e )
 	QWidget::resizeEvent( e );
 	updateScrollBars();
 }
-
-#include "kdiffview.moc"

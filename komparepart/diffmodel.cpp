@@ -29,11 +29,9 @@
 
 /**  */
 DiffModel::DiffModel()
+	: m_sourceFile( i18n( "Source" ) ),
+	m_destinationFile( i18n( "Destination" ) )
 {
-	sourceFilename = i18n( "Source" );
-	destinationFilename = i18n( "Destination" );
-	sourceTimestamp = "";
-	destinationTimestamp = "";
 };
 
 /**  */
@@ -238,7 +236,7 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 			if ( oldLines.count() == 0 )
 			{ // Only added lines -> make difference from newLines and type Insert
 //				diff = new Difference( linenoA, linenoB );
-//				diff->type = Difference::Insert;
+//				diff->setType( Difference::Insert );
 				for( QStringList::ConstIterator newIt = newLines.begin(); newIt != newLines.end(); ++newIt)
 				{
 					QString line = (*newIt);
@@ -247,7 +245,7 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 						oldLines.append( line );
 					}
 				}
-//				differences.append( diff );
+//				m_differences.append( diff );
 //				hunk->add( diff );
 			}
 			if ( newLines.count() == 0 )
@@ -273,7 +271,7 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 					if ( ((*oldIt).find( QRegExp( "^  " ), 0 ) == 0) && ((*newIt).find( QRegExp( "^  " ), 0 ) == 0) )
 					{
 						diff = new Difference( linenoA, linenoB );
-						diff->type = Difference::Unchanged;
+						diff->setType( Difference::Unchanged );
 						kdDebug() << "Type is: Unchanged" << endl;
 						while( (oldIt != oldLines.end()) && (newIt != newLines.end()))
 						{
@@ -299,7 +297,7 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 					else if ( ((*oldIt).find( QRegExp( "^! " ), 0 ) == 0) && (((*newIt).find( QRegExp( "^! " ), 0 ) == 0)) )
 					{
 						diff = new Difference( linenoA, linenoB );
-						diff->type = Difference::Change;
+						diff->setType( Difference::Change );
 						kdDebug() << "Type is: Change" << endl;
 						while ( (oldIt != oldLines.end()) && (*oldIt).find( QRegExp( "^! " ), 0 ) == 0 )
 						{
@@ -317,13 +315,13 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 							linenoB++;
 							++newIt;
 						}
-						differences.append( diff );
+						m_differences.append( diff );
 						hunk->add( diff );
 					}
 					else if ( (*oldIt).find( QRegExp( "^- " ), 0 ) == 0 )
 					{
 						diff = new Difference( linenoA, linenoB );
-						diff->type = Difference::Delete;
+						diff->setType( Difference::Delete );
 						kdDebug() << "Type is: Delete" << endl;
 						while( ( oldIt != oldLines.end() ) && ( (*oldIt).find( QRegExp( "^- " ), 0 ) == 0 ) )
 						{
@@ -333,13 +331,13 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 							linenoA++;
 							++oldIt;
 						}
-						differences.append( diff );
+						m_differences.append( diff );
 						hunk->add( diff );
 					}
 					else if ( (*newIt).find( QRegExp( "^\\+ " ), 0 ) == 0 )
 					{
 						diff = new Difference( linenoA, linenoB );
-						diff->type = Difference::Insert;
+						diff->setType( Difference::Insert );
 						kdDebug() << "Type is: Insert" << endl;
 						while( ( newIt != newLines.end() ) && ( (*newIt).find( QRegExp( "^\\+ " ), 0 ) == 0 ) )
 						{
@@ -349,7 +347,7 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 							linenoB++;
 							++newIt;
 						}
-						differences.append( diff );
+						m_differences.append( diff );
 						hunk->add( diff );
 					}
 					else
@@ -362,7 +360,7 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 				}
 			}
 
-			hunks.append( hunk );
+			m_hunks.append( hunk );
 
 			if ( it == list.end() )
 			{
@@ -523,7 +521,7 @@ int DiffModel::parseNormalDiff( const QStringList& list, QStringList::ConstItera
 		// Too bad... the number of hunks == the number of differences
 		// so in this case it would unnecessary to have a hunk as well
 		DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
-		hunks.append( hunk );
+		m_hunks.append( hunk );
 
 		hunk->lineStartA = linenoA;
 		hunk->lineStartB = linenoB;
@@ -531,9 +529,9 @@ int DiffModel::parseNormalDiff( const QStringList& list, QStringList::ConstItera
 		Difference* diff = new Difference( linenoA, linenoB );
 		hunk->add( diff );
 
-		differences.append( diff );
+		m_differences.append( diff );
 
-		diff->type = type;
+		diff->setType( type );
 
 		if ( line.find( QRegExp( "^," ), 0 ) == 0 )
 		{
@@ -552,7 +550,7 @@ int DiffModel::parseNormalDiff( const QStringList& list, QStringList::ConstItera
 
 		kdDebug() << "nolinesA: " << nolinesA << endl;
 		// no of lines is known now...
-		if ( diff->type != Difference::Insert )
+		if ( diff->type() != Difference::Insert )
 			for ( i = 0; i < nolinesA; i++ )
 			{
 				++it;
@@ -562,11 +560,11 @@ int DiffModel::parseNormalDiff( const QStringList& list, QStringList::ConstItera
 				diff->addSourceLine( line );
 			}
 
-		if ( diff->type == Difference::Change )
+		if ( diff->type() == Difference::Change )
 			++it; // this should be the --- line
 
 		kdDebug() << "nolinesB: " << nolinesB << endl;
-		if ( diff->type != Difference::Delete )
+		if ( diff->type() != Difference::Delete )
 			for ( i = 0; i < nolinesB; i++ )
 			{
 				++it;
@@ -612,7 +610,7 @@ int DiffModel::parseRCSDiff( const QStringList& list, QStringList::ConstIterator
 	kdDebug() << "There are lines..." << endl;
 
 	DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
-	hunks.append( hunk );
+	m_hunks.append( hunk );
 
 	while( it != list.end() )
 	{
@@ -631,10 +629,10 @@ int DiffModel::parseRCSDiff( const QStringList& list, QStringList::ConstIterator
 			nolinesB = line.mid(pos, len).toInt();
 
 			DiffHunk* hunk = new DiffHunk( 0, linenoB );
-			hunks.append( hunk );
+			m_hunks.append( hunk );
 
 			Difference* diff = new Difference( 0, linenoB ); // A is unknown
-			diff->type = Difference::Insert;
+			diff->setType( Difference::Insert );
 
 			++it;
 			line = (*it);
@@ -670,10 +668,10 @@ int DiffModel::parseRCSDiff( const QStringList& list, QStringList::ConstIterator
 // so we can indicate the deleted lines.
 
 //			DiffHunk* hunk = new DiffHunk( 0, linenoB );
-//			hunks.append( hunk );
+//			m_hunks.append( hunk );
 
 //			Difference diff = new Difference( linenoA, 0 );
-//			diff->type = Difference::Delete;
+//			diff->setType( Difference::Delete );
 
 			// We should now add the source lines, unfortunately there are none...
 
@@ -707,22 +705,25 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 	if( line.find( QRegExp( "^--- " ), 0 ) < 0 ) return 1;
 	line.replace( QRegExp( "^--- " ), "" );
 	if ( ( pos = QRegExp( "^[^\\t]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-	sourceFilename = line.mid(pos, len);
-	kdDebug() << sourceFilename << endl;
+	KURL url;
+	url.setPath( line.mid(pos, len) );
+	m_sourceFile = url.fileName();
+	kdDebug() << m_sourceFile << endl;
 	line.replace( QRegExp( "^[^\\t]+\\t" ), "" );
-	sourceTimestamp = line;
-	kdDebug() << sourceTimestamp << endl;
+	m_sourceTimestamp = line;
+	kdDebug() << m_sourceTimestamp << endl;
 
 	if( ++it == list.end() ) return 1;
 	line = (*it);
 	if( line.find( QRegExp( "^\\+\\+\\+ " ), 0 ) < 0 ) return 1;
 	line.replace( QRegExp( "^\\+\\+\\+ " ), "" );
 	if ( ( pos = QRegExp( "^[^\\t]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-	destinationFilename = line.mid(pos, len);
-	kdDebug() << destinationFilename << endl;
+	url.setPath( line.mid(pos, len) );
+	m_destinationFile = url.fileName();
+	kdDebug() << m_destinationFile << endl;
 	line.replace( QRegExp( "^[^\\t]+\\t" ), "" );
-	destinationTimestamp = line;
-	kdDebug() << destinationTimestamp << endl;
+	m_destinationTimestamp = line;
+	kdDebug() << m_destinationTimestamp << endl;
 
 	++it;
 	while( it != list.end() )
@@ -752,7 +753,7 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 		if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
 
 		DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
-		hunks.append( hunk );
+		m_hunks.append( hunk );
 
 		++it;
 		while( it != list.end() && ((*it).find( QRegExp( "^[ \\-+]" ), 0 ) == 0) )
@@ -764,7 +765,7 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 			hunk->add( diff );
 
 			if( line.find( QRegExp( "^ " ), 0 ) == 0 ) {
-				diff->type = Difference::Unchanged;
+				diff->setType( Difference::Unchanged );
 				for( ; it != list.end() && ((*it).find( QRegExp( "^ " ), 0 ) == 0); ++it ) {
 					line = (*it);
 					line.replace( 0, 1, "" );
@@ -788,10 +789,10 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 					diff->addDestinationLine( line );
 					linenoB++;
 				}
-				if      ( diff->sourceLineCount() == 0 )      diff->type = Difference::Insert;
-				else if ( diff->destinationLineCount() == 0 ) diff->type = Difference::Delete;
-				else                                          diff->type = Difference::Change;
-				differences.append( diff );
+				if      ( diff->sourceLineCount() == 0 )      diff->setType( Difference::Insert );
+				else if ( diff->destinationLineCount() == 0 ) diff->setType( Difference::Delete );
+				else                                          diff->setType( Difference::Change );
+				m_differences.append( diff );
 			}
 		}
 	}

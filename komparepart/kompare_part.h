@@ -88,9 +88,6 @@ public:
 	void loadSettings(KConfig *config);
 	void saveSettings(KConfig *config);
 
-	const KURL& getSourceURL() const { return m_sourceURL; };
-	const KURL& getDestinationURL() const { return m_destinationURL; };
-
 	int modelCount() const
 		{ return m_models->modelCount(); };
 	int getSelectedModelIndex() const

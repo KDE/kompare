@@ -25,6 +25,7 @@
 #include <klistview.h>
 
 class KDiffPart;
+class KDiffModelList;
 
 class KDiffNavigationTree : public KListView
 {
@@ -44,9 +45,10 @@ private slots:
 	void slotSelectionChanged( QListViewItem* item );
 	void slotAddModel( DiffModel * );
 
-private: // Private methods
-  /** No descriptions */
+private:
   QListViewItem* lastItem();
+
+  KDiffModelList*   m_models;
 };
 
 #endif

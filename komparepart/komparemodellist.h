@@ -19,14 +19,11 @@
 #define KDIFFMODELLIST_H
 
 #include <qobject.h>
-
 #include <qlist.h>
 
-#include "diffmodel.h"
+#include <kurl.h>
 
-/**
-  *@author John Firebaugh
-  */
+#include "diffmodel.h"
 
 class KDiffModelList : public QObject {
 	Q_OBJECT
@@ -37,12 +34,18 @@ public:
 	void addModel( DiffModel* model );
 	int modelCount() { return m_models.count(); };
 	DiffModel* modelAt( int i ) { return m_models.at( i ); };
+	const KURL& sourceBaseURL() const { return m_sourceBaseURL; };
+	const KURL& destinationBaseURL() const { return m_destinationBaseURL; };
+	void setSourceBaseURL( const KURL& sourceBaseURL );
+	void setDestinationBaseURL( const KURL& destiationBaseURL );
 	
 signals:
 	void modelAdded( DiffModel* );
 	
 private:
-	QList<DiffModel> m_models;
+	QList<DiffModel>  m_models;
+	KURL              m_sourceBaseURL;
+	KURL              m_destinationBaseURL;
 	
 };
 

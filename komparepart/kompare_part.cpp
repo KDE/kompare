@@ -70,6 +70,8 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 	m_diffView = new KDiffView( m_models, m_generalSettings, parentWidget, widgetName );
 	connect( this, SIGNAL(selectionChanged(int,int)),
 	         m_diffView, SLOT(slotSetSelection(int,int)) );
+	connect( m_diffView, SIGNAL(selectionChanged(int,int)),
+	         this, SLOT(slotSetSelection(int,int)) );
 
 	// notify the part that this is our internal widget
 	setWidget(m_diffView);
@@ -220,8 +222,8 @@ void KDiffPart::compare( const KURL& source, const KURL& destination, DiffSettin
 		m_diffProcess = new KDiffProcess( settings, source, destination );
 	else
 		m_diffProcess = new KDiffProcess( m_diffSettings, source, destination );
-	m_sourceURL = source;
-	m_destinationURL = destination;
+	m_models->setSourceBaseURL( source.upURL() );
+	m_models->setDestinationBaseURL( destination.upURL() );
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )), this, SLOT(slotDiffProcessFinished( bool )) );
 	kdDebug() << "starting diff process" << endl;
 	m_diffProcess->start();

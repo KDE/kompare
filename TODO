@@ -3,7 +3,6 @@ In descending order of importance:
 * implement ed and rcs format
 * add support to load a diff and apply it and save the modified file
 * the tree view should show directory structure
-* clicking on a difference in the main view should select it
 * add support for incremental patch saving (i'll explain if anyone wants to know)
 * network transparency (support comparison of non-local files)
 * add icons for most menu options (almost done, using standard icons now for most)

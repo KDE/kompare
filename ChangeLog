@@ -1,3 +1,8 @@
+june   27, 2001 : John Firebaugh
+	Ported main view to QListView
+	Remove obsolete files
+	Clicking a difference in the main view selects it
+	Better scrolling
 june   24, 2001 : John Firebaugh
 	Coverted to dock window and added navigation tree in a dock.
 	Multiple file diffs are now supported. Each file will show up

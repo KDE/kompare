@@ -19,59 +19,57 @@
 
 #include "difference.h"
 
-/** */
-Difference::Difference( int linenoA, int linenoB )
+Difference::Difference( int sourceLineNo, int destinationLineNo )
+	: m_type( Unchanged ),
+	m_sourceLineNo( sourceLineNo ),
+	m_destinationLineNo( destinationLineNo )
 {
-	this->linenoA = linenoA;
-	this->linenoB = linenoB;
 };
 
-/** */
 Difference::~Difference()
 {
 };
 
 void Difference::addSourceLine( QString line )
 {
-	sourceLines.append( line );
+	m_sourceLines.append( line );
 }
 
 void Difference::addDestinationLine( QString line )
 {
-	destinationLines.append( line );
+	m_destinationLines.append( line );
 }
 
 int Difference::sourceLineCount() const
 {
-	return sourceLines.count();
+	return m_sourceLines.count();
 }
 
 int Difference::destinationLineCount() const
 {
-	return destinationLines.count();
+	return m_destinationLines.count();
 }
 
-/** */
 QString Difference::asString() const
 {
 	int linecountA = sourceLineCount();
 	int linecountB = destinationLineCount();
-	int lineendA = linenoA+linecountA-1;
-	int lineendB = linenoB+linecountB-1;
+	int lineendA = m_sourceLineNo+linecountA-1;
+	int lineendB = m_destinationLineNo+linecountB-1;
 	QString res;
 	if (linecountB == 0)
-		res = QString("%1,%2d%3").arg(linenoA).arg(lineendA).arg(linenoB-1);
+		res = QString("%1,%2d%3").arg(m_sourceLineNo).arg(lineendA).arg(m_destinationLineNo-1);
 	else if (linecountA == 0)
-		res = QString("%1a%2,%3").arg(linenoA-1).arg(linenoB).arg(lineendB);
-	else if (linenoA == lineendA)
-		if (linenoB == lineendB)
-			res = QString("%1c%2").arg(linenoA).arg(linenoB);
+		res = QString("%1a%2,%3").arg(m_sourceLineNo-1).arg(m_destinationLineNo).arg(lineendB);
+	else if (m_sourceLineNo == lineendA)
+		if (m_destinationLineNo == lineendB)
+			res = QString("%1c%2").arg(m_sourceLineNo).arg(m_destinationLineNo);
 		else
-			res = QString("%1c%2,%3").arg(linenoA).arg(linenoB).arg(lineendB);
-	else if (linenoB == lineendB)
-		res = QString("%1,%2c%3").arg(linenoA).arg(lineendA).arg(linenoB);
+			res = QString("%1c%2,%3").arg(m_sourceLineNo).arg(m_destinationLineNo).arg(lineendB);
+	else if (m_destinationLineNo == lineendB)
+		res = QString("%1,%2c%3").arg(m_sourceLineNo).arg(lineendA).arg(m_destinationLineNo);
 	else
-		res = QString("%1,%2c%3,%4").arg(linenoA).arg(lineendA).arg(linenoB).arg(lineendB);
+		res = QString("%1,%2c%3,%4").arg(m_sourceLineNo).arg(lineendA).arg(m_destinationLineNo).arg(lineendB);
 
 	return res;
 }

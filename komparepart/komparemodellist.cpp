@@ -31,3 +31,13 @@ void KDiffModelList::addModel( DiffModel* model )
 	m_models.append( model );
 	emit modelAdded( model );
 }
+
+void KDiffModelList::setSourceBaseURL( const KURL& url )
+{
+	m_sourceBaseURL = url;
+}
+
+void KDiffModelList::setDestinationBaseURL( const KURL& url )
+{
+	m_destinationBaseURL = url;
+}

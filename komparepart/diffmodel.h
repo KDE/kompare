@@ -48,22 +48,22 @@ public:
 	int parseDiff( enum DiffFormat format, const QStringList& list, QStringList::ConstIterator& it);
 
 	int hunkCount() const
-		{ return hunks.count(); };
+		{ return m_hunks.count(); };
 	int differenceCount() const
-		{ return differences.count(); };
+		{ return m_differences.count(); };
 	const DiffHunk* hunkAt( int i ) const
-		{ return const_cast<DiffModel*>(this)->hunks.at( i ); };
+		{ return const_cast<DiffModel*>(this)->m_hunks.at( i ); };
 	const Difference* differenceAt( int i ) const
-		{ return const_cast<DiffModel*>(this)->differences.at( i ); };
+		{ return const_cast<DiffModel*>(this)->m_differences.at( i ); };
 	const QList<DiffHunk>& getHunks() const
-		{ return hunks; };
+		{ return m_hunks; };
 	const QList<Difference>& getDifferences() const
-		{ return differences; };
+		{ return m_differences; };
 
-	QString getSourceFilename() { return sourceFilename; };
-	QString getDestinationFilename() { return destinationFilename; };
-	QString getSourceTimestamp() { return sourceTimestamp; };
-	QString getDestinationTimestamp() { return destinationTimestamp; };
+	QString sourceFile() { return m_sourceFile; };
+	QString destinationFile() { return m_destinationFile; };
+	QString sourceTimestamp() { return m_sourceTimestamp; };
+	QString destinationTimestamp() { return m_destinationTimestamp; };
 
 private:
 	int parseContextDiff( const QStringList& list, QStringList::ConstIterator& it );
@@ -72,13 +72,12 @@ private:
 	int parseRCSDiff( const QStringList& list, QStringList::ConstIterator& it );
 	int parseUnifiedDiff( const QStringList& list, QStringList::ConstIterator& it );
 
-	QString sourceFilename;
-	QString sourceTimestamp;
-	QString destinationFilename;
-	QString destinationTimestamp;
-
-	QList<DiffHunk>   hunks;
-	QList<Difference> differences;
+	QString             m_sourceFile;
+	QString             m_sourceTimestamp;
+	QString             m_destinationFile;
+	QString             m_destinationTimestamp;
+	QList<DiffHunk>     m_hunks;
+	QList<Difference>   m_differences;
 
 	int m_noOfHunks;
 };

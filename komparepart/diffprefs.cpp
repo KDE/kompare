@@ -85,7 +85,7 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 
 	m_tabsCheckBox        = new QCheckBox( i18n( "&Expand tabs to spaces in output" ), moreOptionButtonGroup );
 	m_linesCheckBox       = new QCheckBox( i18n( "I&gnore added or removed empty lines" ), moreOptionButtonGroup );
-	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes to the number of whitespaces in a line" ), moreOptionButtonGroup );
+	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes in the amount of whitespace" ), moreOptionButtonGroup );
 
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
@@ -106,7 +106,7 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 	m_largerCheckBox->setChecked    ( m_settings->m_largeFiles );
 	m_tabsCheckBox->setChecked      ( m_settings->m_convertTabsToSpaces );
 	m_caseCheckBox->setChecked      ( m_settings->m_ignoreChangesInCase );
-	m_linesCheckBox->setChecked     ( m_settings->m_ignoreWhitespaceComparingLines );
+	m_linesCheckBox->setChecked     ( m_settings->m_ignoreEmptyLines );
 	m_whitespaceCheckBox->setChecked( m_settings->m_ignoreWhiteSpace );
 
 	m_locSpinBox->setValue          ( m_settings->m_linesOfContext );
@@ -133,7 +133,7 @@ void DiffPrefs::apply()
 	setts->m_createSmallerDiff              = m_smallerCheckBox->isChecked();
 	setts->m_convertTabsToSpaces            = m_tabsCheckBox->isChecked();
 	setts->m_ignoreChangesInCase            = m_caseCheckBox->isChecked();
-	setts->m_ignoreWhitespaceComparingLines = m_linesCheckBox->isChecked();
+	setts->m_ignoreEmptyLines               = m_linesCheckBox->isChecked();
 	setts->m_ignoreWhiteSpace               = m_whitespaceCheckBox->isChecked();
 
 	setts->m_linesOfContext                 = m_locSpinBox->value();

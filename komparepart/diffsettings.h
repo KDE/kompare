@@ -39,17 +39,17 @@ public:
 public:
 	int m_linesOfContext;
 	Format m_format;
-	bool m_largeFiles;
-	bool m_ignoreWhiteSpace;
-	bool m_ignoreEmptyLines;
-	bool m_createSmallerDiff;
-	bool m_ignoreChangesInCase;
-	bool m_showCFunctionChange;
-	bool m_convertTabsToSpaces;
-	bool m_ignoreWhitespaceComparingLines;
-	bool m_recursive;
-	bool m_newFiles;
-	bool m_allText;
+	bool m_largeFiles;                         // -H
+	bool m_ignoreWhiteSpace;                   // -b
+	bool m_ignoreEmptyLines;                   // -B
+	bool m_createSmallerDiff;                  // -d
+	bool m_ignoreChangesInCase;                // -i
+	bool m_showCFunctionChange;                // -p
+	bool m_convertTabsToSpaces;                // -t
+	bool m_ignoreWhitespaceComparingLines;     // -w
+	bool m_recursive;                          // -r
+	bool m_newFiles;                           // -N
+	bool m_allText;                            // -a
 };
 
 #endif

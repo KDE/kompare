@@ -199,7 +199,7 @@ protected slots:
 
 private:
 	void setupActions();
-	bool exists( const KURL& url );
+	bool exists( const QString& url );
 	bool isDirectory( const KURL& url );
 	const QString& fetchURL( const KURL& url );
 

@@ -237,7 +237,7 @@ bool KomparePart::openDiff( const QString& diffOutput )
 {
 	bool value;
 
-	if ( (value = m_modelList->parseDiffOutput( QStringList::split( "\n", diffOutput ) ) ) == true )
+	if ( (value = m_modelList->parseDiffOutput( QStringList::split( "\n", diffOutput ) ) ) )
 	{
 		updateActions();
 		updateStatus();
@@ -249,7 +249,7 @@ bool KomparePart::openDiff( const QStringList& diffOutput )
 {
 	bool value;
 
-	if ( (value = m_modelList->parseDiffOutput( diffOutput ) ) == true )
+	if ( (value = m_modelList->parseDiffOutput( diffOutput ) ) )
 	{
 		updateActions();
 		updateStatus();
@@ -272,9 +272,9 @@ bool KomparePart::openDiff3( const QString& diff3Output )
 	return false;
 }
 
-bool KomparePart::exists( const KURL& url )
+bool KomparePart::exists( const QString& url )
 {
-	QFileInfo fi( url.path() );
+	QFileInfo fi( url );
 	if ( fi.exists() )
 		return true;
 	else
@@ -283,15 +283,33 @@ bool KomparePart::exists( const KURL& url )
 
 const QString& KomparePart::fetchURL( const KURL& url )
 {
-	QString* tempFile = new QString();
-
-	if ( ! KIO::NetAccess::download( url, *tempFile, ( QWidget* )parent() ) )
+	QString* tempFile = new QString( "" );
+	if ( !url.isLocalFile() )
 	{
-		KMessageBox::error( this->widget(), i18n( "The url %1 can not be downloaded." ).arg( url.prettyURL() ) );
-		*tempFile = "";
+		if ( ! KIO::NetAccess::download( url, *tempFile, ( QWidget* )parent() ) )
+		{
+			slotShowError( i18n( "The url %1 can not be downloaded." ).arg( url.prettyURL() ) );
+			*tempFile = "";
+			return *tempFile;
+		}
+		else
+			return *tempFile;
 	}
-
-	return *tempFile;
+	else
+	{
+		// is Local already, check if exists
+		if ( exists( url.url() ) )
+		{
+			delete tempFile;
+			*tempFile = url.path();
+			return *tempFile;
+		}
+		else
+		{
+			slotShowError( i18n( "The url %1 does not exist on your system." ).arg( m_localSource ) );
+			return *tempFile;
+		}
+	}
 }
 
 void KomparePart::compare( const KURL& source, const KURL& destination )
@@ -300,36 +318,16 @@ void KomparePart::compare( const KURL& source, const KURL& destination )
 	m_destinationURL = destination;
 
 	// determine if urls are local and if so if not download them
-	if ( source.isLocalFile() )
+	if ( ( m_localSource = fetchURL( source ) ).isEmpty() )
 	{
-		if ( exists( source ) )
-			m_localSource = source.path();
-		else
-		{
-			KMessageBox::error( this->widget(), i18n( "The url %1 does not exist on your system." ).arg( m_localSource ) );
-			return;
-		}
-	}
-	else
-	{
-		if ( ( m_localSource = fetchURL( source ) ) == "" )
-			return;
+		return;
 	}
 
-	if ( destination.isLocalFile() )
+	if ( ( m_localDestination = fetchURL( destination ) ).isEmpty() )
 	{
-		if ( exists( destination ) )
-			m_localDestination = destination.path();
-		else
-		{
-			KMessageBox::error( this->widget(), i18n( "The url %1 does not exist on your system." ).arg( m_localDestination ) );
-			return;
-		}
-	}
-	else
-	{
-		if ( ( m_localDestination = fetchURL( destination ) ) == "" )
-			return;
+		// i hope a local file will not be removed if it was not downloaded...
+		KIO::NetAccess::removeTempFile( m_localSource );
+		return;
 	}
 
 	m_modelList->compare( m_localSource, m_localDestination );
@@ -371,100 +369,55 @@ void KomparePart::compareDirs( const KURL& sourceDirectory, const KURL& destinat
 
 void KomparePart::compare3Files( const KURL& /*originalFile*/, const KURL& /*changedFile1*/, const KURL& /*changedFile2*/ )
 {
+	// FIXME: actually implement this some day :)
 	updateActions();
 	updateStatus();
 }
 
 void KomparePart::openFileAndDiff( const KURL& file, const KURL& diffFile )
 {
-	QString tempDiffFile;
-	QString tempFile;
-
-	m_modelList->clear();
-
-	if ( !KIO::NetAccess::download( file, tempFile, (QWidget*)parent() ) )
+	if ( ( m_localSource = fetchURL( file ) ).isEmpty() )
 		return;
 
-	if ( !KIO::NetAccess::download( diffFile, tempDiffFile, (QWidget*)parent() ) )
+	if ( ( m_localDestination = fetchURL( diffFile ) ).isEmpty() )
 	{
-		KIO::NetAccess::removeTempFile( tempFile );
+		KIO::NetAccess::removeTempFile( m_localSource );
 		return;
 	}
 
-	m_file = tempDiffFile;
-
-	kdDebug(8103) << "Parsing the file contents..." << endl;
-	if ( m_modelList->parseDiffOutput( readFile() ) == 0 )
+	if ( m_modelList->openFileAndDiff( m_localSource, m_localDestination ) )
 	{
-		kdDebug(8103) << "Parsing complete..." << endl;
+		kdDebug(8103) << "File merged with diff output..." << endl;
 	}
 	else
 	{
-		kdDebug(8103) << "Parsing gave us some problems, no model(s) and or no difference(s)" << endl;
-		KMessageBox::error( 0L, i18n("No models or no differences, this file: %1, is not a diff file").arg( diffFile.prettyURL() ) );
-		return;
+		kdDebug(8103) << "Could not merge file with diff output..." << endl;
 	}
-
-	// Do our thing :)
-	if ( !m_modelList->blendOriginalIntoModelList( tempFile ) )
-	{
-		// Trouble blending the original into the model
-		kdDebug(8103) << "Oops cant blend original file into modellist : " << tempFile << endl;
-	}
-
-	// Still need to show the models even if something went wrong,
-	// kompare will then act as if openDiff was called
-	m_modelList->show();
 
 	// Clean up after ourselves
-	KIO::NetAccess::removeTempFile( tempFile );
-	KIO::NetAccess::removeTempFile( tempDiffFile );
+	KIO::NetAccess::removeTempFile( m_localSource );
+	KIO::NetAccess::removeTempFile( m_localDestination );
 }
 
 void KomparePart::openDirAndDiff ( const KURL& dir,  const KURL& diffFile )
 {
-	QString tempDiffFile;
-	QString tempDir;
-
-	m_modelList->clear();
-
-	if ( !KIO::NetAccess::download( dir, tempDir, (QWidget*)parent() ) )
+	if ( ( m_localSource = fetchURL( dir ) ).isEmpty() )
 		return;
 
-	if ( !KIO::NetAccess::download( diffFile, tempDiffFile, (QWidget*)parent() ) )
+	if ( ( m_localDestination = fetchURL( diffFile ) ).isEmpty() )
 	{
-		KIO::NetAccess::removeTempFile( tempDir );
+		KIO::NetAccess::removeTempFile( m_localSource );
 		return;
 	}
 
-	m_file = tempDiffFile;
-
-	kdDebug(8103) << "Parsing the file contents..." << endl;
-	if ( m_modelList->parseDiffOutput( readFile() ) == 0 )
-	{
-		kdDebug(8103) << "Parsing complete..." << endl;
-	}
-	else
-	{
-		kdDebug(8103) << "Parsing gave us some problems, no model(s) and or no difference(s)" << endl;
-		KMessageBox::error( 0L, i18n("No models or no differences, this file: %1, is not a diff file").arg( diffFile.prettyURL() ) );
-		return;
-	}
-
-	// Do our thing :)
-	if ( !m_modelList->blendOriginalIntoModelList( tempDir ) )
-	{
-		// Trouble blending the original into the model
-		kdDebug(8103) << "Oops cant blend original dir into modellist : " << tempDir << endl;
-	}
 
 	// Still need to show the models even if something went wrong,
 	// kompare will then act as if openDiff was called
 	m_modelList->show();
 
 	// Clean up after ourselves
-	KIO::NetAccess::removeTempFile( tempDir );
-	KIO::NetAccess::removeTempFile( tempDiffFile );
+	KIO::NetAccess::removeTempFile( m_localSource );
+	KIO::NetAccess::removeTempFile( m_localDestination );
 }
 
 QStringList& KomparePart::readFile()
@@ -793,7 +746,7 @@ KInstance* KomparePartFactory::instance()
 {
 	if( !s_instance )
 	{
-		s_about = new KAboutData("komparepart", I18N_NOOP("KomparePart"), "2.1");
+		s_about = new KAboutData("komparepart", I18N_NOOP("KomparePart"), "3.2");
 		s_about->addAuthor("John Firebaugh", "Author", "jfirebaugh@kde.org");
 		s_about->addAuthor("Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
 		s_instance = new KInstance(s_about);

@@ -369,7 +369,7 @@ void KompareShell::slotFileBlendURLAndDiff()
 {
 	KompareURLDialog* dialog = new KompareURLDialog( this );
 
-	dialog->setCaption( i18n( "Blend File/Folder With diff Output" ) );
+	dialog->setCaption( i18n( "Blend File/Folder with diff Output" ) );
 	dialog->setFirstGroupBoxTitle( i18n( "File/Folder" ) );
 	dialog->setSecondGroupBoxTitle( i18n( "Diff Output" ) );
 

@@ -332,7 +332,7 @@ void DiffPage::addExcludeTab()
 
 	connect( m_excludeFilePatternCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFilePatternToggled(bool)));
 
-	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( i18n( "File With Filenames to Exclude" ), page );
+	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( i18n( "File with Filenames to Exclude" ), page );
 	m_excludeFileCheckBox     = new QCheckBox( "", excludeFileNameGroupBox );
 	QToolTip::add( m_excludeFileCheckBox, i18n( "If this is checked you can enter a filename in the combo box on the right." ) );
 	m_excludeFileURLComboBox  = new KURLComboBox( KURLComboBox::Files, true, excludeFileNameGroupBox, "exclude_file_urlcombo" );

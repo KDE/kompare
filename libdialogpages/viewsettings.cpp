@@ -78,7 +78,7 @@ void ViewSettings::saveSettings( KConfig* config )
 	SettingsBase::saveSettings( config );
 }
 
-QColor ViewSettings::colorForDifferenceType( Difference::Type type, bool selected, bool applied )
+QColor ViewSettings::colorForDifferenceType( int type, bool selected, bool applied )
 {
 	// FIXME: does not belong here
 	QColor color;

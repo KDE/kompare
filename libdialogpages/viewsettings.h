@@ -41,7 +41,7 @@ public:
 	// some virtual functions that will be overloaded from the base class
 	virtual void loadSettings( KConfig* config );
 	virtual void saveSettings( KConfig* config );
-	QColor colorForDifferenceType( Diff2::Difference::Type type, bool selected = false, bool applied = false );
+	QColor colorForDifferenceType( int type, bool selected = false, bool applied = false );
 
 public:
 	QColor m_removeColor;

@@ -25,11 +25,11 @@ using namespace Diff2;
 
 PerforceParser::PerforceParser( const KompareModelList* list, const QStringList& diff ) : ParserBase( list, diff )
 {
-	m_contextDiffHeader1.setPattern( "==== (.*) - (.*) ====\n" );
+	m_contextDiffHeader1.setPattern( "==== (.*) - (.*) ====" );
 	m_contextDiffHeader1.setMinimal( true );
-	m_rcsDiffHeader.setPattern     ( "==== (.*) - (.*) ====\n" );
+	m_rcsDiffHeader.setPattern     ( "==== (.*) - (.*) ====" );
 	m_rcsDiffHeader.setMinimal     ( true );
-	m_unifiedDiffHeader1.setPattern( "==== (.*) - (.*) ====\n" );
+	m_unifiedDiffHeader1.setPattern( "==== (.*) - (.*) ====" );
 	m_unifiedDiffHeader1.setMinimal( true );
 }
 

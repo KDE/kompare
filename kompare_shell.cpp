@@ -229,7 +229,7 @@ void KompareShell::setupActions()
 	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_C,
 	              this, SLOT(slotFileCompareFiles()),
 	              actionCollection(), "file_compare_files" );
-	new KAction( i18n("&Blend URL With Diff..."), "fileblend", Qt::CTRL + Qt::Key_B,
+	new KAction( i18n("&Blend URL with Diff..."), "fileblend", Qt::CTRL + Qt::Key_B,
 	              this, SLOT(slotFileBlendURLAndDiff()),
 	              actionCollection(), "file_blend_url" );
 	KStdAction::quit(kapp, SLOT(quit()), actionCollection());

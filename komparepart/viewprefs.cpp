@@ -85,7 +85,7 @@ ViewPrefs::ViewPrefs( QWidget* parent ) : PrefsBase( parent )
 
 	// Temporarily here for testing...
 	// number of spaces for a tab character stuff
-	tabGroupBox = new QHGroupBox( i18n( "Tabs To Spaces" ), page );
+	tabGroupBox = new QHGroupBox( i18n( "Tabs to Spaces" ), page );
 	layout->addWidget( tabGroupBox );
 	tabGroupBox->setMargin( KDialog::marginHint() );
 

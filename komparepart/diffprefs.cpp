@@ -105,7 +105,7 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent ),
 	QHBoxLayout* groupLayout = new QHBoxLayout( layout, -1, "regexp_horizontal_layout" );
 	groupLayout->setMargin( KDialog::marginHint() );
 
-	m_ignoreRegExpCheckBox = new QCheckBox( i18n( "Ignore Regexp :" ), page );
+	m_ignoreRegExpCheckBox = new QCheckBox( i18n( "Ignore regexp:" ), page );
 	groupLayout->addWidget( m_ignoreRegExpCheckBox );
 	m_ignoreRegExpEdit = new KLineEdit( QString::null, page, "regexplineedit" );
 	groupLayout->addWidget( m_ignoreRegExpEdit );
@@ -113,7 +113,7 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent ),
 	if ( !KTrader::self()->query("KRegExpEditor/KRegExpEditor").isEmpty() )
 	{
 		// Ok editor is available, use it
-		QButton* ignoreRegExpEditButton = new QPushButton( i18n( "&Editor" ), page, "regexp_editor_button" );
+		QButton* ignoreRegExpEditButton = new QPushButton( i18n( "&Edit..." ), page, "regexp_editor_button" );
 		groupLayout->addWidget( ignoreRegExpEditButton );
 		connect( ignoreRegExpEditButton, SIGNAL( clicked() ), this, SLOT( slotShowRegExpEditor() ) );
 	}

@@ -18,6 +18,7 @@
 ***************************************************************************/
 
 #include <qstringlist.h>
+#include <qdir.h>
 
 #include <kio/netaccess.h>
 #include <kdebug.h>
@@ -27,7 +28,7 @@
 #include "kdiffprocess.h"
 #include "kdiffprocess.moc"
 
-KDiffProcess::KDiffProcess( const QString& source, const QString& destination, DiffSettings* diffSettings )
+KDiffProcess::KDiffProcess( QString source, QString destination, QString dir, DiffSettings* diffSettings )
 	: KShellProcess()
 {
 	// connect the stdout and stderr signals
@@ -47,8 +48,14 @@ KDiffProcess::KDiffProcess( const QString& source, const QString& destination, D
 		writeDefaultCommandLine();
 	}
 	
+	if( !dir.isEmpty() ) {
+		QDir::setCurrent( dir );
+	}
+	
 	// Write file names
-	*this << "--" << source << destination;
+	*this << "--";
+	*this << constructRelativePath( dir, source );
+	*this << constructRelativePath( dir, destination );
 }
 
 void KDiffProcess::writeDefaultCommandLine()
@@ -61,40 +68,26 @@ void KDiffProcess::writeCommandLine( DiffSettings* diffSettings )
 	// load the executable into the KProcess
 	*this << "diff";
 	
-	if ( diffSettings->m_linesOfContext != 3 ) // standard value
-	{
-		// if it differs then we need these:
-		if ( diffSettings->m_useUnifiedDiff )
-		{
-			*this << "-U" << QString::number( diffSettings->m_linesOfContext );
-		}
-		else if ( diffSettings->m_useContextDiff )
-		{
-			*this << "-C" << QString::number( diffSettings->m_linesOfContext );
-		}
-		else if ( diffSettings->m_useNormalDiff )
-		{
-			// do nothing... :)
-		}
-	}
-	else
-	{
-		if ( diffSettings->m_useUnifiedDiff )
-		{
-			*this << "-u";
-		}
-		else if ( diffSettings->m_useContextDiff )
-		{
-			*this << "-c";
-		}
-		else if ( diffSettings->m_useRCSDiff )
-		{
-			*this << "-n";
-		}
-		else if ( diffSettings->m_useNormalDiff )
-		{
-			// do nothing... :)
-		}
+	switch( diffSettings->m_format ) {
+	case Unified :
+		*this << "-U" << QString::number( diffSettings->m_linesOfContext );
+		break;
+	case Context :
+		*this << "-C" << QString::number( diffSettings->m_linesOfContext );
+		break;
+	case RCS :
+		*this << "-n";
+		break;
+	case Ed :
+		*this << "-e";
+		break;
+	case SideBySide:
+		*this << "-y";
+		break;
+	case Normal :
+	case Unknown :
+	default:
+		break;
 	}
 
 	if ( diffSettings->m_largeFiles )

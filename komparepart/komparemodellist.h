@@ -23,6 +23,7 @@
 
 #include <kurl.h>
 
+#include "kdiff.h"
 #include "diffmodel.h"
 
 class QFile;
@@ -32,7 +33,8 @@ class KTempFile;
 class KDiffProcess;
 class DiffSettings;
 
-class KDiffModelList : public QObject {
+class KDiffModelList : public QObject, KDiff
+{
 	Q_OBJECT
 	
 public:
@@ -46,7 +48,7 @@ public:
 	bool saveDestination( int index );
 
 	bool openDiff( const KURL& url );
-	bool saveDiff( const KURL& url, DiffSettings* settings );
+	bool saveDiff( const KURL& url, QString directory, DiffSettings* settings );
 	bool saveAll();
 	
 	void swap();
@@ -56,8 +58,10 @@ public:
 	const QList<DiffModel>& getModels() { return m_models; };
 	int modelCount() { return m_models.count(); };
 	DiffModel* modelAt( int i ) { return m_models.at( i ); };
-	KURL sourceBaseURL() const { return m_sourceURL.upURL(); };
-	KURL destinationBaseURL() const { return m_destinationURL.upURL(); };
+	KURL sourceBaseURL() const;
+	KURL destinationBaseURL() const;
+	QString sourceTemp() const { return m_sourceTemp; };
+	QString destinationTemp() const { return m_destinationTemp; };
 	KURL diffURL() const { return m_diffURL; };
 	bool isModified() const;
 	

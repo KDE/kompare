@@ -24,14 +24,16 @@
 
 #include <kprocess.h>
 
+#include "kdiff.h"
+
 class DiffSettings;
 
-class KDiffProcess : public KShellProcess
+class KDiffProcess : public KShellProcess, KDiff
 {
 	Q_OBJECT
 	
 public:
-	KDiffProcess( const QString& source, const QString& destination, DiffSettings* settings = 0 );
+	KDiffProcess( QString source, QString destination, QString directory = QString::null, DiffSettings* settings = 0 );
 	~KDiffProcess();
 	
 	bool start();

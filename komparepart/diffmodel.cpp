@@ -41,23 +41,23 @@ DiffModel::~DiffModel()
 {
 };
 
-DiffModel::DiffFormat DiffModel::determineDiffFormat( QString line )
+KDiff::Format DiffModel::determineDiffFormat( QString line )
 {
 	if( line.find( QRegExp( "^[0-9]+[0-9,]*[acd][0-9]+[0-9,]*$" ), 0 ) == 0 )
-		return DiffModel::Normal;
+		return Normal;
 	else if( line.find( QRegExp( "^--- [^\\t]+\\t" ), 0 ) == 0 )
-		return DiffModel::Unified;
+		return Unified;
 	else if( line.find( QRegExp( "^\\*\\*\\* [^\\t]+\\t" ), 0 ) == 0 )
-		return DiffModel::Context;
+		return Context;
 	else if( line.find( QRegExp( "^[acd][0-9]+ [0-9]+" ), 0 ) == 0 )
-		return DiffModel::RCS;
+		return RCS;
 	else if( line.find( QRegExp( "^[0-9]+[0-9,]*[acd]" ), 0 ) == 0 )
-		return DiffModel::Ed;
+		return Ed;
 
-	return DiffModel::Unknown;
+	return Unknown;
 }
 
-int DiffModel::parseDiff( enum DiffFormat format, const QStringList& lines, QStringList::ConstIterator& it )
+int DiffModel::parseDiff( Format format, const QStringList& lines, QStringList::ConstIterator& it )
 {
 	m_format = format;
 

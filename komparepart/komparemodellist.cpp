@@ -51,25 +51,30 @@ KDiffModelList::~KDiffModelList()
 bool KDiffModelList::compare( const KURL& source, const KURL& destination )
 {
 	m_mode = Compare;
+	
 	m_sourceURL = source;
 	m_destinationURL = destination;
 	
 	clear();
-
-	if( KIO::NetAccess::download( m_sourceURL, m_sourceTemp ) &&
-	    KIO::NetAccess::download( m_destinationURL, m_destinationTemp ) ) {
-		
-		m_diffProcess = new KDiffProcess( m_sourceTemp, m_destinationTemp );
-		connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
-		         this, SLOT(slotDiffProcessFinished( bool )) );
-		
-		emit status( RunningDiff );
-		m_diffProcess->start();
-		
-		return true;
+	
+	if( !KIO::NetAccess::download( m_sourceURL, m_sourceTemp ) ) {
+		emit error( KIO::NetAccess::lastErrorString() );
+		return false;
 	}
-
-	return false;
+	
+	if( !KIO::NetAccess::download( m_destinationURL, m_destinationTemp ) ) {
+		emit error( KIO::NetAccess::lastErrorString() );
+		return false;
+	}
+	
+	m_diffProcess = new KDiffProcess( m_sourceTemp, m_destinationTemp );
+	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
+	         this, SLOT(slotDiffProcessFinished( bool )) );
+	
+	emit status( RunningDiff );
+	m_diffProcess->start();
+	
+	return true;
 }
 
 bool KDiffModelList::saveDestination( int index )
@@ -191,7 +196,7 @@ bool KDiffModelList::openDiff( const KURL& url )
 	return true;
 }
 
-bool KDiffModelList::saveDiff( const KURL& url, DiffSettings* settings )
+bool KDiffModelList::saveDiff( const KURL& url, QString directory, DiffSettings* settings )
 {
 	m_diffURL = url;
 	
@@ -205,7 +210,7 @@ bool KDiffModelList::saveDiff( const KURL& url, DiffSettings* settings )
 		return false;
 	}
 	
-	m_diffProcess = new KDiffProcess( m_sourceTemp, m_destinationTemp, settings );
+	m_diffProcess = new KDiffProcess( m_sourceTemp, m_destinationTemp, directory, settings );
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotWriteDiffOutput( bool )) );
 	
@@ -250,7 +255,7 @@ int KDiffModelList::parseDiffs( const QStringList& lines )
 	while( it != lines.end() ) {
 
 		// Discard leading garbage
-		while( it != lines.end() && DiffModel::determineDiffFormat( (*it) ) == DiffModel::Unknown ) {
+		while( it != lines.end() && DiffModel::determineDiffFormat( (*it) ) == Unknown ) {
 			kdDebug() << "discarding: " << (*it) << endl;
 			++it;
 		}
@@ -285,4 +290,22 @@ bool KDiffModelList::isModified() const
 		if( (*it)->isModified() ) return true;
 	}
 	return false;
+}
+
+KURL KDiffModelList::sourceBaseURL() const
+{
+//	if( m_sourceURL.isDirectory() ) {
+//		return m_sourceURL;
+//	} else {
+		return m_sourceURL.upURL();
+//	}
+}
+
+KURL KDiffModelList::destinationBaseURL() const
+{
+//	if( m_destinationURL.isDirectory() ) {
+//		return m_destinationURL;
+//	} else {
+		return m_destinationURL.upURL();
+//	}
 }

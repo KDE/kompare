@@ -27,6 +27,7 @@
 #include <kdebug.h>
 #include <kmessagebox.h>
 #include <klistview.h>
+#include <kdialogbase.h>
 
 #include <qfile.h>
 
@@ -39,6 +40,7 @@
 #include "generalsettings.h"
 #include "diffsettings.h"
 #include "miscsettings.h"
+#include "kdiffsaveoptionswidget.h"
 
 GeneralSettings* KDiffPart::m_generalSettings = 0L;
 DiffSettings*    KDiffPart::m_diffSettings = 0L;
@@ -120,22 +122,25 @@ void KDiffPart::setupActions()
 	// create our actions
 
 	m_save = KStdAction::save( this, SLOT(saveDestination()), actionCollection() );
+	m_saveAll = new KAction( i18n("Save &All"), "save_all", 0,
+	              this, SLOT(saveAll()),
+	              actionCollection(), "file_save_all" );
 	m_saveDiff = new KAction( i18n("Save .&diff"), 0,
 	              this, SLOT(saveDiff()),
 	              actionCollection(), "file_save_diff" );
-	m_swap = new KAction( i18n( "Swap source and destination" ), 0,
+	m_swap = new KAction( i18n( "Swap Source and Destination" ), 0,
 	              this, SLOT(slotSwap()),
 	              actionCollection(), "file_swap" );
-	m_diffStats = new KAction( i18n( "Show diff stats" ), 0,
+	m_diffStats = new KAction( i18n( "Show Statistics" ), 0,
 	              this, SLOT(slotShowDiffstats()),
 	              actionCollection(), "file_diffstats" );
 	m_applyDifference = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
 	              this, SLOT(slotApplyDifference()),
 	              actionCollection(), "difference_apply" );
-	m_applyAll = new KAction( i18n("App&ly all"), "2rightarrow", Qt::CTRL + Qt::Key_A,
+	m_applyAll = new KAction( i18n("App&ly All"), "2rightarrow", Qt::CTRL + Qt::Key_A,
 	              this, SLOT(slotApplyAllDifferences()),
 	              actionCollection(), "difference_applyall" );
-	m_unapplyAll = new KAction( i18n("U&napply all"), "2leftarrow", Qt::CTRL + Qt::Key_U,
+	m_unapplyAll = new KAction( i18n("U&napply All"), "2leftarrow", Qt::CTRL + Qt::Key_U,
 	              this, SLOT(slotUnapplyAllDifferences()),
 	              actionCollection(), "difference_unapplyall" );
 	m_previousFile = new KAction( i18n("P&revious File"), "2uparrow", Qt::CTRL + Qt::Key_PageUp,
@@ -161,6 +166,7 @@ void KDiffPart::setupActions()
 
 void KDiffPart::updateActions()
 {
+	m_saveAll->setEnabled( m_models->isModified() );
 	m_saveDiff->setEnabled( m_models->mode() == KDiffModelList::Compare );
 	m_swap->setEnabled( m_models->mode() == KDiffModelList::Compare );
 	m_diffStats->setEnabled( m_models->modelCount() > 0 );
@@ -223,9 +229,23 @@ bool KDiffPart::openDiff( const KURL& url )
 
 void KDiffPart::saveDiff()
 {
-	KURL url = KFileDialog::getSaveURL( m_models->destinationBaseURL().url(),
-	              "*.diff *.patch", widget(), i18n( "Save .diff" ) );
-	m_models->saveDiff( url, m_diffSettings );
+	KDialogBase* dlg = new KDialogBase( widget(), "save options",
+	    true /* modal */, i18n("Diff Options"), KDialogBase::Ok|KDialogBase::Cancel );
+	KDiffSaveOptionsWidget* w = new KDiffSaveOptionsWidget(
+	    m_models->sourceTemp(), m_models->destinationTemp(), m_diffSettings, dlg );
+	dlg->setMainWidget( w );
+	dlg->setButtonOKText( i18n("Save") );
+	
+	if( dlg->exec() ) {
+		w->saveOptions();
+		KConfig* config = instance()->config();
+		saveSettings( config );
+		config->sync();
+		KURL url = KFileDialog::getSaveURL( m_models->destinationBaseURL().url(),
+		              "*.diff *.patch", widget(), i18n( "Save .diff" ) );
+		m_models->saveDiff( url, w->directory(), m_diffSettings );
+	}
+	delete dlg;
 }
 
 KURL KDiffPart::diffURL()
@@ -315,24 +335,24 @@ void KDiffPart::slotShowDiffstats( void )
 	newFile = getSelectedModel() ? getSelectedModel()->destinationFile() : QString::null;
 	if ( getSelectedModel() )
 	{
-		switch( getSelectedModel()->getFormat() )
-		{
-		case DiffModel::Unified :
+		switch( getSelectedModel()->getFormat() ) {
+		case Unified :
 			diffFormat = i18n( "Unified" );
 			break;
-		case DiffModel::Context :
+		case Context :
 			diffFormat = i18n( "Context" );
 			break;
-		case DiffModel::RCS :
+		case RCS :
 			diffFormat = i18n( "RCS" );
 			break;
-		case DiffModel::Ed :
+		case Ed :
 			diffFormat = i18n( "Ed" );
 			break;
-		case DiffModel::Normal :
+		case Normal :
 			diffFormat = i18n( "Normal" );
 			break;
-		case DiffModel::Unknown :
+		case Unknown :
+		default:
 			diffFormat = i18n( "Unknown" );
 			break;
 		}

@@ -9,7 +9,8 @@ noinst_HEADERS =  kdiff_part.h kdiff_actions.h kdiffnavigationtree.h \
         kdiffprocess.h diffprefs.h diffsettings.h generalprefs.h \
         generalsettings.h kdiffprefdlg.h miscprefs.h miscsettings.h \
         settingsbase.h diffmodel.h difference.h diffhunk.h \
-        kdifflistview.h kdiffconnectwidget.h
+        kdifflistview.h kdiffconnectwidget.h kdiffsaveoptionsbase.h \
+        kdiffsaveoptionswidget.h kdiff.h
 
 # let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
@@ -22,7 +23,8 @@ libkdiffpart_la_SOURCES = kdiff_part.cpp kdiff_actions.cpp \
 	kdiffview.cpp diffsettings.cpp kdiffprocess.cpp settingsbase.cpp \
 	miscsettings.cpp generalsettings.cpp kdiffprefdlg.cpp diffprefs.cpp \
 	miscprefs.cpp generalprefs.cpp prefsbase.cpp kdiffmodellist.cpp \
-	kdifflistview.cpp kdiffconnectwidget.cpp
+	kdifflistview.cpp kdiffconnectwidget.cpp kdiffsaveoptionsbase.ui \
+	kdiffsaveoptionswidget.cpp
 
 libkdiffpart_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
 libkdiffpart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE)

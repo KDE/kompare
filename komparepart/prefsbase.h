@@ -26,9 +26,9 @@
 #include <ktabctl.h>
 #include <kconfig.h>
 
-#include "settingsbase.h"
+#include "kdiff.h"
 
-class PrefsBase : public KTabCtl
+class PrefsBase : public KTabCtl, KDiff
 {
 Q_OBJECT
 public: 

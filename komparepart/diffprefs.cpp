@@ -114,30 +114,7 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 
 	m_locSpinButton->setValue( m_settings->m_linesOfContext );
 
-	if ( m_settings->m_useUnifiedDiff )
-	{
-		m_modeButtonGroup->setButton( 4 );
-	}
-	else if ( m_settings->m_useContextDiff )
-	{
-		m_modeButtonGroup->setButton( 0 );
-	}
-	else if ( m_settings->m_useNormalDiff )
-	{
-		m_modeButtonGroup->setButton( 2 );
-	}
-	else if ( m_settings->m_useRCSDiff )
-	{
-		m_modeButtonGroup->setButton( 3 );
-	}
-	else if ( m_settings->m_useEdDiff )
-	{
-		m_modeButtonGroup->setButton( 1 );
-	}
-	else
-	{
-		m_modeButtonGroup->setButton( 0 );
-	}
+	m_modeButtonGroup->setButton( m_settings->m_format );
 };
 
 DiffSettings* DiffPrefs::getSettings( void )
@@ -164,50 +141,7 @@ void DiffPrefs::apply()
 
 	setts->m_linesOfContext = m_locSpinButton->value();
 
-	if ( ((QRadioButton*)m_modeButtonGroup->find(0))->isChecked() )
-	{
-		setts->m_useUnifiedDiff = false;
-		setts->m_useContextDiff = true;
-		setts->m_useNormalDiff = false;
-		setts->m_useEdDiff = false;
-		setts->m_useRCSDiff = false;
-	}
-	else if ( ((QRadioButton*)m_modeButtonGroup->find(1))->isChecked() )
-	{
-		setts->m_useUnifiedDiff = false;
-		setts->m_useContextDiff = false;
-		setts->m_useNormalDiff = false;
-		setts->m_useEdDiff = true;
-		setts->m_useRCSDiff = false;
-	}
-	else if ( ((QRadioButton*)m_modeButtonGroup->find(2))->isChecked() )
-	{
-		setts->m_useUnifiedDiff = false;
-		setts->m_useContextDiff = false;
-		setts->m_useNormalDiff = true;
-		setts->m_useEdDiff = false;
-		setts->m_useRCSDiff = false;
-	}
-	else if ( ((QRadioButton*)m_modeButtonGroup->find(3))->isChecked() )
-	{
-		setts->m_useUnifiedDiff = false;
-		setts->m_useContextDiff = false;
-		setts->m_useNormalDiff = false;
-		setts->m_useEdDiff = false;
-		setts->m_useRCSDiff = true;
-	}
-	else if ( ((QRadioButton*)m_modeButtonGroup->find(4))->isChecked() )
-	{
-		setts->m_useUnifiedDiff = true;
-		setts->m_useContextDiff = false;
-		setts->m_useNormalDiff = false;
-		setts->m_useEdDiff = false;
-		setts->m_useRCSDiff = false;
-	}
-	else
-	{
-		// error...
-	}
+	setts->m_format = static_cast<Format>( m_modeButtonGroup->id( m_modeButtonGroup->selected() ) );
 };
 
 void DiffPrefs::setDefaults()
@@ -221,6 +155,6 @@ void DiffPrefs::setDefaults()
 	
 	m_locSpinButton->setValue( 3 );
 	
-	m_modeButtonGroup->setButton( 4 ); // unified
+	m_modeButtonGroup->setButton( Unified );
 };
 

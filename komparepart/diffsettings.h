@@ -22,6 +22,7 @@
 
 #include <qwidget.h>
 
+#include "kdiff.h"
 #include "settingsbase.h"
 
 class DiffSettings : public SettingsBase
@@ -37,11 +38,7 @@ public:
 
 public:
 	int m_linesOfContext;
-	bool m_useUnifiedDiff;
-	bool m_useContextDiff;
-	bool m_useNormalDiff;
-	bool m_useRCSDiff;
-	bool m_useEdDiff;
+	Format m_format;
 	bool m_largeFiles;
 	bool m_ignoreWhiteSpace;
 	bool m_ignoreEmptyLines;

@@ -1,3 +1,11 @@
+july   28, 2001 : John Firebaugh
+	Directories can be selected in the compare dialog
+	New base clase KDiff, holds some common stuff
+	Use an enum for format in preferences
+	Implement a save options dialog, displayed at "Save .diff"
+	The diff can be run in any directory, the paths to source
+	and destination will be automatically determined from this.
+	Save all.
 july   25, 2001 : John Firebaugh
 	Promt to save changes on close
 	Show [modified] caption

@@ -32,11 +32,7 @@ DiffSettings::~DiffSettings()
 void DiffSettings::loadSettings( KConfig* config )
 {
 	m_linesOfContext = config->readNumEntry( "LinesOfContext", 3 );
-	m_useContextDiff = config->readBoolEntry( "UseContextDiff", false );
-	m_useNormalDiff = config->readBoolEntry( "UseNormalDiff", false );
-	m_useUnifiedDiff = config->readBoolEntry( "UseUnifiedDiff", true );
-	m_useEdDiff = config->readBoolEntry( "UseEdDiff", false );
-	m_useRCSDiff = config->readBoolEntry( "UseRCSDiff", false );
+	m_format = static_cast<Format>( config->readNumEntry( "Format", Unified ) );
 	m_largeFiles = config->readBoolEntry( "LargeFiles", true );
 	m_ignoreWhiteSpace = config->readBoolEntry( "IgnoreWhiteSpace", false );
 	m_ignoreEmptyLines = config->readBoolEntry( "IgnoreEmptyLines", false );
@@ -50,11 +46,7 @@ void DiffSettings::loadSettings( KConfig* config )
 void DiffSettings::saveSettings( KConfig* config )
 {
 	config->writeEntry( "LinesOfContext", m_linesOfContext );
-	config->writeEntry( "UseNormalDiff", m_useNormalDiff );
-	config->writeEntry( "UseContextDiff", m_useContextDiff );
-	config->writeEntry( "UseUnifiedDiff", m_useUnifiedDiff );
-	config->writeEntry( "UseRCSDiff", m_useRCSDiff );
-	config->writeEntry( "UseEdDiff", m_useEdDiff );
+	config->writeEntry( "Format", m_format );
 	config->writeEntry( "LargeFiles", m_largeFiles );
 	config->writeEntry( "IgnoreWhiteSpace", m_ignoreWhiteSpace );
 	config->writeEntry( "IgnoreEmptyLines", m_ignoreEmptyLines );

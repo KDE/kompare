@@ -24,22 +24,23 @@
 #include <qlist.h>
 #include <qstringlist.h>
 
+#include "kdiff.h"
+
 class DiffHunk;
 class Difference;
 class KDiffModelList;
 
-class DiffModel : public QObject
+class DiffModel : public QObject, KDiff
 {
 Q_OBJECT
 public:
-	enum DiffFormat { Context, Ed, Normal, RCS, Unified, Unknown };
 	
 	DiffModel();
 	~DiffModel();
 
-	static DiffFormat determineDiffFormat( QString line );
+	static Format determineDiffFormat( QString line );
 
-	int parseDiff( enum DiffFormat format, const QStringList& list, QStringList::ConstIterator& it);
+	int parseDiff( Format format, const QStringList& list, QStringList::ConstIterator& it);
 
 	int hunkCount() const
 		{ return m_hunks.count(); };
@@ -61,7 +62,7 @@ public:
 	QString sourceTimestamp() { return m_sourceTimestamp; };
 	QString destinationTimestamp() { return m_destinationTimestamp; };
 
-	enum DiffFormat getFormat() { return m_format; };
+	Format getFormat() { return m_format; };
 	bool isModified() const { return m_modified; };
 
 public slots:
@@ -85,7 +86,7 @@ private:
 	QList<DiffHunk>     m_hunks;
 	QList<Difference>   m_differences;
 	int                 m_appliedCount;
-	enum DiffFormat     m_format;
+	Format              m_format;
 	bool                m_modified;
 };
 

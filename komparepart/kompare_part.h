@@ -23,6 +23,7 @@
 #include <kparts/part.h>
 #include <kparts/factory.h>
 
+#include "kdiff.h"
 #include "diffmodel.h"
 
 #include <kdiffmodellist.h>
@@ -49,7 +50,7 @@ class MiscSettings;
 * @author John Firebaugh <jfirebaugh@kde.org>
 * @version 0.1
 */
-class KDiffPart : public KParts::ReadWritePart
+class KDiffPart : public KParts::ReadWritePart, KDiff
 {
 	Q_OBJECT
 public:
@@ -165,6 +166,7 @@ private:
 	KDiffView*             m_diffView;
 	KDiffNavigationTree*   m_navigationTree;
 	KAction*               m_save;
+	KAction*               m_saveAll;
 	KAction*               m_saveDiff;
 	KAction*               m_swap;
 	KAction*               m_diffStats;

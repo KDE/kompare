@@ -1,5 +1,5 @@
 /***************************************************************************
-                                settingsbase.h  -  description
+                                kdiffsaveoptionswidget.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
@@ -17,31 +17,36 @@
 **
 ***************************************************************************/
 
-#ifndef SETTINGSBASE_H
-#define SETTINGSBASE_H
+#ifndef KDIFFSAVEOPTIONSWIDGET_H
+#define KDIFFSAVEOPTIONSWIDGET_H
 
-#include <qobject.h>
-#include <qwidget.h>
-#include <qcolor.h>
+#include <kurl.h>
 
-#include <kconfig.h>
+#include "kdiffsaveoptionsbase.h"
 
 #include "kdiff.h"
 
-class SettingsBase : public QObject, KDiff
+class DiffSettings;
+
+class KDiffSaveOptionsWidget : public KDiffSaveOptionsBase, KDiff
 {
 Q_OBJECT
 public:
-	SettingsBase( QWidget* parent );
-	~SettingsBase();
-
-public:
-	virtual void loadSettings( KConfig* config );
-	virtual void saveSettings( KConfig* config );
-	void emitSettingsChanged();
-
-signals:
-	void settingsChanged();
+	KDiffSaveOptionsWidget( QString source, QString destination, DiffSettings* settings, QWidget* parent );
+	~KDiffSaveOptionsWidget();
+	
+	void saveOptions();
+	QString directory() const;
+	
+protected slots:
+	void updateCommandLine();
+	
+private:
+	void loadOptions();
+	
+	DiffSettings*   m_settings;
+	QString         m_source;
+	QString         m_destination;
 };
 
 #endif

@@ -38,8 +38,8 @@ public:
 	bool start();
 	
 	const QStringList  diffOutput();
-	QString            stdout()       { return m_stdout; };
-	QString            stderr()       { return m_stderr; };
+	QString            stdOut()       { return m_stdout; };
+	QString            stdErr()       { return m_stderr; };
 	
 signals:
 	void diffHasFinished( bool finishedNormally );

@@ -192,7 +192,7 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 	} else if( m_diffProcess->exitStatus() == 0 ) {
 		emit error( i18n( "The files are identical." ) );
 	} else {
-		emit error( m_diffProcess->stderr() );
+		emit error( m_diffProcess->stdErr() );
 	}
 
 	delete m_diffProcess;

@@ -142,12 +142,12 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 //		kdDebug(8106) << " drawing: " << first << " - " << last << endl;
 		if( first >= 0 && last >= 0 && first <= last )
 		{
-			QValueListConstIterator<Difference*> diffIt = m_selectedModel->differences().at( first );
-			QValueListConstIterator<Difference*> dEnd   = m_selectedModel->differences().end();
+			DifferenceListConstIterator diffIt = m_selectedModel->differences().at( first );
+			DifferenceListConstIterator dEnd   = m_selectedModel->differences().at( last );
 
 			QRect leftRect, rightRect;
 
-			for( int i = first; diffIt != dEnd && i <= last; ++diffIt, ++i )
+			for( int i = first; i <= last; ++diffIt, ++i )
 			{
 				Difference* diff = *diffIt;
 				bool selected = (diff == m_selectedDifference);
@@ -162,10 +162,17 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 					leftRect = m_leftView->itemRect( i );
 					rightRect = m_rightView->itemRect( i );
 				}
+
 				int tl = leftRect.top();
 				int tr = rightRect.top();
 				int bl = leftRect.bottom();
 				int br = rightRect.bottom();
+
+				// Bah, stupid 16-bit signed shorts in that crappy X stuff...
+				tl = tl >= -32768 ? tl : -32768;
+				tr = tr >= -32768 ? tr : -32768;
+				bl = bl <=  32767 ? bl :  32767;
+				br = br <=  32767 ? br :  32767;
 
 //				kdDebug(8106) << "drawing: " << tl << " " << tr << " " << bl << " " << br << endl;
 				QPointArray topBezier = makeTopBezier( tl, tr );
@@ -181,9 +188,7 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 					p->drawPolyline( topBezier );
 					p->drawPolyline( bottomBezier );
 				}
-
 			}
-
 		}
 	}
 
@@ -199,11 +204,12 @@ QPointArray KompareConnectWidget::makeTopBezier( int tl, int tr )
 {
 	int l = 0;
 	int r = width();
+	int o = (int)(((double)r/100)*40); // 40% of width
 	QPointArray controlPoints;
 
-	if ( true )
+	if ( tl != tr )
 	{
-		controlPoints.setPoints( 4, l,tl, 20,tl, r-20,tr, r,tr );
+		controlPoints.setPoints( 4, l,tl, o,tl, r-o,tr, r,tr );
 		return controlPoints.cubicBezier();
 	}
 	else
@@ -217,11 +223,12 @@ QPointArray KompareConnectWidget::makeBottomBezier( int bl, int br )
 {
 	int l = 0;
 	int r = width();
+	int o = (int)(((double)r/100)*40); // 40% of width
 	QPointArray controlPoints;
 
-	if ( true )
+	if ( bl != br )
 	{
-		controlPoints.setPoints( 4, r,br, r-20,br, 20,bl, l,bl );
+		controlPoints.setPoints( 4, r,br, r-o,br, o,bl, l,bl );
 		return controlPoints.cubicBezier();
 	}
 	else

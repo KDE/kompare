@@ -290,32 +290,61 @@ void KompareSplitter::repaintHandles()
 void KompareSplitter::wheelEvent( QWheelEvent* e )
 {
 	// scroll lines...
-	if ( e->delta() < 0 ) // scroll back into file
+	if ( e->orientation() == Qt::Vertical )
 	{
-		m_vScroll->addLine();
+		if ( e->state() & Qt::ControlButton )
+			if ( e->delta() < 0 ) // scroll up in the file
+				m_vScroll->addPage();
+			else // scroll down in the file
+				m_vScroll->subtractPage();
+		else
+			if ( e->delta() < 0 ) // scroll up in the file
+				m_vScroll->addLine();
+			else // scroll down in the file
+				m_vScroll->subtractLine();
 	}
-	else // scroll forward into file
+	else
 	{
-		m_vScroll->subtractLine();
+		if ( e->state() & Qt::ControlButton )
+			if ( e->delta() < 0 ) // scroll up in the file
+				m_hScroll->addPage();
+			else // scroll down in the file
+				m_hScroll->subtractPage();
+		else
+			if ( e->delta() < 0 ) // scroll to the left in the file
+				m_hScroll->addLine();
+			else // scroll to the right in the file
+				m_hScroll->subtractLine();
 	}
+	e->accept();
 	repaintHandles();
 }
 
 void KompareSplitter::timerTimeout()
 {
-	if(restartTimer) restartTimer = false;
-	else m_scrollTimer->stop();
+	if ( restartTimer )
+		restartTimer = false;
+	else
+		m_scrollTimer->stop();
+
 	slotDelayedRepaintHandles();	
+
 	emit scrollViewsToId( scrollTo );
 }
 
 void KompareSplitter::scrollToId( int id )
 {
 	scrollTo = id;
-	if(restartTimer) {}
-	else if( m_scrollTimer->isActive() ) {
+
+	if( restartTimer )
+		return;
+
+	if( m_scrollTimer->isActive() )
+	{
 		restartTimer = true;
-	} else {
+	}
+	else
+	{
 		emit scrollViewsToId( id );
 		slotDelayedRepaintHandles();
 		m_scrollTimer->start(30, false);
@@ -332,7 +361,8 @@ void KompareSplitter::slotUpdateScrollBars()
 	int m_scrollDistance = m_settings->m_scrollNoOfLines * lineSpacing();
 	int m_pageSize = pageSize();
 
-	if( needVScrollBar() ) {
+	if( needVScrollBar() )
+	{
 		m_vScroll->show();
 
 		m_vScroll->blockSignals( true );
@@ -341,18 +371,23 @@ void KompareSplitter::slotUpdateScrollBars()
 		m_vScroll->setValue( scrollId() );
 		m_vScroll->setSteps( m_scrollDistance, m_pageSize );
 		m_vScroll->blockSignals( false );
-	} else {
+	}
+	else
+	{
 		m_vScroll->hide();
 	}
 
-	if( needHScrollBar() ) {
+	if( needHScrollBar() )
+	{
 		m_hScroll->show();
 		m_hScroll->blockSignals( true );
 		m_hScroll->setRange( 0, maxHScrollId() );
 		m_hScroll->setValue( maxContentsX() );
 		m_hScroll->setSteps( 10, minVisibleWidth() - 10 );
 		m_hScroll->blockSignals( false );
-	} else {
+	}
+	else
+	{
 		m_hScroll->hide();
 	}
 }
@@ -374,8 +409,8 @@ void KompareSplitter::slotUpdateVScrollValue()
 int KompareSplitter::scrollId()
 {
 	QSplitterLayoutStruct *curr = d->list.first();
-	for( curr = d->list.first(); curr; curr = d->list.next() )
-		if(!curr->isHandle)
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+		if ( !curr->isHandle )
 			return ((KompareListViewFrame*) curr->wid)->view()->scrollId();
 	return minVScrollId();
 }
@@ -383,8 +418,8 @@ int KompareSplitter::scrollId()
 int KompareSplitter::lineSpacing()
 {
 	QSplitterLayoutStruct *curr = d->list.first();
-	for( curr = d->list.first(); curr; curr = d->list.next() )
-		if(!curr->isHandle)
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+		if ( !curr->isHandle )
 			return ((KompareListViewFrame*)
 				curr->wid)->view()->fontMetrics().lineSpacing();
 	return 1;
@@ -393,8 +428,10 @@ int KompareSplitter::lineSpacing()
 int KompareSplitter::pageSize()
 {
 	QSplitterLayoutStruct *curr;
-	for( curr = d->list.first(); curr; curr = d->list.next() )  {
-		if(!curr->isHandle) {
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+	{
+		if ( !curr->isHandle )
+		{
 			KompareListView *view = ((KompareListViewFrame*) curr->wid)->view();
 			return view->visibleHeight() - QStyle::PM_ScrollBarExtent;
 		}
@@ -406,12 +443,13 @@ bool KompareSplitter::needVScrollBar()
 {
 	QSplitterLayoutStruct *curr;
 	int pagesize = pageSize();
-	for( curr = d->list.first(); curr; curr = d->list.next() ) {
-		if(!curr->isHandle) {
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+	{
+		if( !curr->isHandle )
+		{
 			KompareListView *view = ((KompareListViewFrame*) curr->wid)->view();
-			if( view ->contentsHeight() > pagesize) {
+			if( view ->contentsHeight() > pagesize)
 				return true;
-			}
 		}
 	}
 	return false;
@@ -423,14 +461,15 @@ int KompareSplitter::minVScrollId()
 	QSplitterLayoutStruct *curr;
 	int min = -1;
 	int mSId;
-	for( curr = d->list.first(); curr; curr = d->list.next() ) {
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+	{
 		if(!curr->isHandle) {
 			KompareListView* view = ((KompareListViewFrame*)curr->wid)->view();
 			mSId = view->minScrollId();
 			if (mSId < min || min == -1) min = mSId;
 		}
 	}
-	return (min==-1)?0:min;
+	return ( min == -1 ) ? 0 : min;
 }
 
 int KompareSplitter::maxVScrollId()
@@ -438,10 +477,13 @@ int KompareSplitter::maxVScrollId()
 	QSplitterLayoutStruct *curr;
 	int max = 0;
 	int mSId;
-	for( curr = d->list.first(); curr; curr = d->list.next() ) {
-		if(!curr->isHandle) {
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+	{
+		if ( !curr->isHandle )
+		{
 			mSId = ((KompareListViewFrame*)curr->wid)->view()->maxScrollId();
-			if (mSId > max) max = mSId;
+			if ( mSId > max )
+				max = mSId;
 		}
 	}
 	return max;
@@ -450,10 +492,13 @@ int KompareSplitter::maxVScrollId()
 bool KompareSplitter::needHScrollBar()
 {
 	QSplitterLayoutStruct *curr;
-	for( curr = d->list.first(); curr; curr = d->list.next() ) {
-		if(!curr->isHandle) {
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+	{
+		if( !curr->isHandle )
+		{
 			KompareListView *view = ((KompareListViewFrame*) curr->wid)->view();
-			if( view->contentsWidth() > view->visibleWidth() ) return true;
+			if ( view->contentsWidth() > view->visibleWidth() )
+				return true;
 		}
 	}
 	return false;
@@ -464,11 +509,14 @@ int KompareSplitter::maxHScrollId()
 	QSplitterLayoutStruct *curr;
 	int max = 0;
 	int mHSId;
-	for( curr = d->list.first(); curr; curr = d->list.next() ) {
-		if(!curr->isHandle) {
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+	{
+		if( !curr->isHandle )
+		{
 			KompareListView *view = ((KompareListViewFrame*) curr->wid)->view();
 			mHSId = view->contentsWidth() - view->visibleWidth();
-			if( mHSId > max ) max = mHSId;
+			if ( mHSId > max )
+				max = mHSId;
 		}
 	}
 	return max;
@@ -479,10 +527,13 @@ int KompareSplitter::maxContentsX()
 	QSplitterLayoutStruct *curr;
 	int max = 0;
 	int mCX;
-	for( curr = d->list.first(); curr; curr = d->list.next() ) {
-		if(!curr->isHandle) {
+	for ( curr = d->list.first(); curr; curr = d->list.next() )
+	{
+		if ( !curr->isHandle )
+		{
 			mCX = ((KompareListViewFrame*) curr->wid)->view()->contentsX();
-			if( mCX > max ) max = mCX;
+			if ( mCX > max )
+				max = mCX;
 		}
 	}
 	return max;
@@ -493,16 +544,20 @@ int KompareSplitter::minVisibleWidth()
 	// Why the hell do we want to know this?
 	// ah yes, its because we use it to set the "page size" for horiz. scrolling.
 	// despite the fact that *noone* has a pgright and pgleft key :P
+	// But we do have mousewheels with horizontal scrolling functionality,
+	// pressing shift and scrolling then goes left and right one page at the time
 	QSplitterLayoutStruct *curr;
 	int min = -1;
 	int vW;
-	for( curr = d->list.first(); curr; curr = d->list.next() ) {
-		if(!curr->isHandle) {
+	for( curr = d->list.first(); curr; curr = d->list.next() )
+	{
+		if ( !curr->isHandle ) {
 			vW = ((KompareListViewFrame*)curr->wid)->view()->visibleWidth();
-			if (vW < min || min == -1) min = vW;
+			if ( vW < min || min == -1 )
+				min = vW;
 		}
 	}
-	return (min==-1)?0:min;
+	return ( min == -1 ) ? 0 : min;
 }
 
 #include "komparesplitter.moc"

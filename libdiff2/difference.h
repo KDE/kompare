@@ -213,6 +213,10 @@ private:
 	LevenshteinTable*     m_table;
 };
 
+typedef QValueList<Difference*> DifferenceList;
+typedef QValueList<Difference*>::iterator DifferenceListIterator;
+typedef QValueList<Difference*>::const_iterator DifferenceListConstIterator;
+
 } // End of namespace Diff2
 
 #endif

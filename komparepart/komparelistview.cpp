@@ -33,6 +33,9 @@
 #define COL_LINE_NO      0
 #define COL_MAIN         1
 
+#define BLANK_LINE_HEIGHT 3
+#define HUNK_LINE_HEIGHT  5
+
 #define kdDebug() kdDebug(8104)
 
 KompareListView::KompareListView( bool isSource,
@@ -302,12 +305,14 @@ KompareListViewItem::KompareListViewItem( KompareListView* parent )
 	: QListViewItem( parent )
 	, m_scrollId( 0 )
 {
+	kdDebug() << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListViewItem* after )
 	: QListViewItem( parent, after )
 	, m_scrollId( after->scrollId() + after->maxHeight() )
 {
+	kdDebug() << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListViewItem* parent )
@@ -354,8 +359,7 @@ void KompareListViewDiffItem::init()
 {
 	setExpandable( true );
 	setOpen( true );
-	if( !kompareListView()->isSource() && m_difference->type() != Difference::Unchanged )
-		m_destItem = new KompareListViewLineContainerItem( this, false );
+	m_destItem = new KompareListViewLineContainerItem( this, false );
 	m_sourceItem = new KompareListViewLineContainerItem( this, true );
 	setVisibility();
 }
@@ -370,8 +374,7 @@ void KompareListViewDiffItem::setVisibility()
 {
 	m_sourceItem->setVisible( m_difference->type() == Difference::Unchanged ||
 	                          kompareListView()->isSource() || m_difference->applied() );
-	if( m_destItem )
-		m_destItem->setVisible( !m_sourceItem->isVisible() );
+	m_destItem->setVisible( !m_sourceItem->isVisible() );
 }
 
 void KompareListViewDiffItem::applyDifference( bool apply )
@@ -384,7 +387,11 @@ void KompareListViewDiffItem::applyDifference( bool apply )
 
 int KompareListViewDiffItem::maxHeight()
 {
-	return QMAX( m_sourceItem->totalHeight(), m_destItem ? m_destItem->totalHeight() : 0 );
+	int lines = QMAX( m_difference->sourceLineCount(), m_difference->destinationLineCount() );
+	if( lines == 0 )
+		return BLANK_LINE_HEIGHT;
+	else
+		return lines * listView()->fontMetrics().lineSpacing();
 }
 
 void KompareListViewDiffItem::setSelected( bool b )
@@ -509,7 +516,7 @@ KompareListViewBlankLineItem::KompareListViewBlankLineItem( KompareListViewLineC
 void KompareListViewBlankLineItem::setup()
 {
 	KompareListViewLineItem::setup();
-	setHeight( 3 );
+	setHeight( BLANK_LINE_HEIGHT );
 }
 
 void KompareListViewBlankLineItem::paintText( QPainter*, const QColorGroup&, int, int, int )
@@ -533,7 +540,7 @@ KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, Kompa
 int KompareListViewHunkItem::maxHeight()
 {
 	if( m_hunk->function().isEmpty() ) {
-		return 5;
+		return HUNK_LINE_HEIGHT;
 	} else {
 		return listView()->fontMetrics().lineSpacing();
 	}

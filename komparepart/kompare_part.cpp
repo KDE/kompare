@@ -119,12 +119,11 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	         m_modelList, SLOT(slotSelectionChanged(const Diff2::Difference*)) );
 
 	connect( m_modelList, SIGNAL(applyDifference(bool)),
-	         m_diffView,  SIGNAL(applyDifference(bool)) );
+	         m_diffView, SLOT(slotApplyDifference(bool)) );
 	connect( m_modelList, SIGNAL(applyAllDifferences(bool)),
-	         m_diffView,  SIGNAL(applyAllDifferences(bool)) );
+	         m_diffView, SLOT(slotApplyAllDifferences(bool)) );
 	connect( m_modelList, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
-	         m_diffView,  SIGNAL(applyDifference(const Diff2::Difference*, bool)) );
-
+	         m_diffView, SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
 	connect( this, SIGNAL(configChanged()), m_diffView, SLOT(slotConfigChanged()) );
 
 	// notify the part that this is our internal widget

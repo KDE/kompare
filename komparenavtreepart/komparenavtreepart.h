@@ -127,6 +127,8 @@ public:
 public:
 	Diff2::Difference* difference() { return m_difference; };
 	virtual int compare( QListViewItem* item, int column, bool ascending ) const;
+
+	void setDifferenceText();
 private:
 	Diff2::Difference* m_difference;
 };

@@ -74,14 +74,14 @@ int KompareListView::firstVisibleDifference()
 	}
 
 	while( item ) {
-		KompareListViewDiffItem* dvlitem = dynamic_cast<KompareListViewDiffItem*>(item);
-		if( dvlitem && dvlitem->difference()->type() != Difference::Unchanged )
+		KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>(item);
+		if( lineItem && lineItem->diffItemParent()->difference()->type() != Difference::Unchanged )
 			break;
 		item = item->itemBelow();
 	}
 
 	if( item ) {
-		return m_items.findRef( (KompareListViewDiffItem*)item );
+		return m_items.findRef( ((KompareListViewLineItem*)item)->diffItemParent() );
 	}
 
 	return -1;
@@ -96,14 +96,14 @@ int KompareListView::lastVisibleDifference()
 	}
 
 	while( item ) {
-		KompareListViewDiffItem* dvlitem = dynamic_cast<KompareListViewDiffItem*>(item);
-		if( dvlitem && dvlitem->difference()->type() != Difference::Unchanged )
+		KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>(item);
+		if( lineItem && lineItem->diffItemParent()->difference()->type() != Difference::Unchanged )
 			break;
 		item = item->itemAbove();
 	}
 
 	if( item ) {
-		return m_items.findRef( (KompareListViewDiffItem*)item );
+		return m_items.findRef( ((KompareListViewLineItem*)item)->diffItemParent() );
 	}
 
 	return -1;
@@ -116,7 +116,7 @@ QRect KompareListView::itemRect( int i )
 	int y = itemPos( item );
 	int vx, vy;
 	contentsToViewport( x, y, vx, vy );
-	return QRect( vx, vy, 0, item->height() );
+	return QRect( vx, vy, 0, item->totalHeight() );
 }
 
 int KompareListView::minScrollId()

@@ -376,10 +376,10 @@ void KDiffPart::slotSetSelection( int model, int diff )
 	emit selectionChanged( model, diff );
 }
 
-void KDiffPart::slotSelectionChanged( int /* model */, int diff ) {
-	int count = getSelectedModel()->getDifferences().count();
-	m_previousDifference->setEnabled( diff > 0 );
-	m_nextDifference->setEnabled( diff < count - 1 );
+void KDiffPart::slotSelectionChanged( int model, int diff ) {
+	m_previousDifference->setEnabled( diff > 0 || model > 0 );
+	m_nextDifference->setEnabled( diff < getSelectedModel()->differenceCount() - 1 ||
+	                              model < m_models.count() - 1 );
 }
 
 void KDiffPart::slotDifferenceMenuAboutToShow()
@@ -394,12 +394,22 @@ void KDiffPart::slotGoDifferenceActivated( int item )
 
 void KDiffPart::slotPreviousDifference()
 {
-	slotSetSelection( getSelectedModelIndex(), getSelectedDifferenceIndex() - 1 );
+	int modelIndex = getSelectedModelIndex();
+	int diffIndex = getSelectedDifferenceIndex();
+	if( diffIndex > 0 )
+		slotSetSelection( modelIndex, diffIndex - 1 );
+	else
+		slotSetSelection( modelIndex - 1, m_models.at( modelIndex - 1 )->differenceCount() - 1 );
 }
 
 void KDiffPart::slotNextDifference()
 {
-	slotSetSelection( getSelectedModelIndex(), getSelectedDifferenceIndex() + 1 );
+	int modelIndex = getSelectedModelIndex();
+	int diffIndex = getSelectedDifferenceIndex();
+	if( diffIndex < getSelectedModel()->differenceCount() - 1 )
+		slotSetSelection( getSelectedModelIndex(), getSelectedDifferenceIndex() + 1 );
+	else
+		slotSetSelection( modelIndex + 1, 0 );
 }
 
 void KDiffPart::optionsPreferences()

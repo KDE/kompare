@@ -65,6 +65,9 @@ void DifferencesAction::fillDifferenceMenu( const DiffModel* diffModel, int curr
 			m_differenceMenu->removeItemAt( i );
 	}
 
+	if ( diffModel == 0 ) // No model so no changes
+		return;
+
 	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(diffModel->differences());
 	int i = 0;
 	while ( it.current() ) {

@@ -81,6 +81,12 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	         m_diffView->srcLV(), SLOT(slotSetSelection(const Difference*)) );
 	connect( m_diffView->srcLV(), SIGNAL(selectionChanged(const Difference*)),
 	         m_models, SLOT(slotSelectionChanged(const Difference*)) );
+	connect( m_models, SIGNAL(applyDifference(bool)),
+	         m_diffView->srcLV(), SLOT(slotApplyDifference(bool)) );
+	connect( m_models, SIGNAL(applyAllDifferences(bool)),
+	         m_diffView->srcLV(), SLOT(slotApplyAllDifferences(bool)) );
+	connect( m_models, SIGNAL(applyDifference(const Difference*, bool)),
+	         m_diffView->srcLV(), SLOT(slotApplyDifference(const Difference*, bool)) );
 	// right view (destination)
 	connect( m_models, SIGNAL(setSelection(const DiffModel*, const Difference*)),
 	         m_diffView->destLV(), SLOT(slotSetSelection(const DiffModel*, const Difference*)) );
@@ -88,6 +94,12 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	         m_diffView->destLV(), SLOT(slotSetSelection(const Difference*)) );
 	connect( m_diffView->destLV(), SIGNAL(selectionChanged(const Difference*)),
 	         m_models, SLOT(slotSelectionChanged(const Difference*)) );
+	connect( m_models, SIGNAL(applyDifference(bool)),
+	         m_diffView->destLV(), SLOT(slotApplyDifference(bool)) );
+	connect( m_models, SIGNAL(applyAllDifferences(bool)),
+	         m_diffView->destLV(), SLOT(slotApplyAllDifferences(bool)) );
+	connect( m_models, SIGNAL(applyDifference(const Difference*, bool)),
+	         m_diffView->destLV(), SLOT(slotApplyDifference(const Difference*, bool)) );
 	// middle (zoomwidget)
 	connect( m_models, SIGNAL(setSelection(const DiffModel*, const Difference*)),
 	         m_diffView->zoomWidget(), SLOT(slotSetSelection(const DiffModel*, const Difference*)) );
@@ -109,10 +121,10 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	         m_models, SLOT(slotSelectionChanged(const Difference*)) );
 	connect( m_models, SIGNAL(modelsChanged(const QPtrList<DiffModel>*)),
 	         m_kompareActions, SLOT(slotModelsChanged(const QPtrList<DiffModel>*)) );
-	connect( m_kompareActions, SIGNAL(applyDifference( bool)),
-	         m_models, SLOT(slotApplyDifference( bool)) );
-	connect( m_kompareActions, SIGNAL(applyAllDifferences( bool)),
-	         m_models, SLOT(slotApplyAllDifferences( bool)) );
+	connect( m_kompareActions, SIGNAL(applyDifference(bool)),
+	         m_models, SLOT(slotApplyDifference(bool)) );
+	connect( m_kompareActions, SIGNAL(applyAllDifferences(bool)),
+	         m_models, SLOT(slotApplyAllDifferences(bool)) );
 	connect( m_kompareActions, SIGNAL(previousModel()),
 	         m_models, SLOT(slotPreviousModel()) );
 	connect( m_kompareActions, SIGNAL(nextModel()),

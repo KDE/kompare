@@ -62,6 +62,7 @@ public slots:
 	int  scrollId();
 	void slotApplyDifference( bool apply );
 	void slotApplyAllDifferences( bool apply );
+	void slotApplyDifference( const Difference* diff, bool apply );
 
 signals:
 	void selectionChanged( const Difference* diff );

@@ -85,6 +85,7 @@ signals:
 	void setSelection( const Difference* diff );
 	void applyDifference( bool apply );
 	void applyAllDifferences( bool apply );
+	void applyDifference( const Difference* diff, bool apply );
 
 public slots:
 	void slotSelectionChanged( const DiffModel* model, const Difference* diff );

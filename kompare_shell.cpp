@@ -144,6 +144,13 @@ KompareShell::KompareShell()
 			         m_viewPart->model(), SLOT( slotSelectionChanged(const Difference*) ) );
 			connect( m_viewPart->model(), SIGNAL( setSelection(const Difference*) ),
 			         m_navTreePart, SLOT( slotSetSelection(const Difference*) ) );
+			// connect the apply signals...
+			connect( m_viewPart->model(), SIGNAL(applyDifference(bool)),
+			         m_navTreePart, SLOT(slotApplyDifference(bool)) );
+			connect( m_viewPart->model(), SIGNAL(applyAllDifferences(bool)),
+			         m_navTreePart, SLOT(slotApplyAllDifferences(bool)) );
+			connect( m_viewPart->model(), SIGNAL(applyDifference(const Difference*, bool)),
+			         m_navTreePart, SLOT(slotApplyDifference(const Difference*, bool)) );
 		}
 	}
 	else

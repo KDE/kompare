@@ -288,6 +288,11 @@ void KompareListView::slotApplyAllDifferences( bool apply )
 	repaint();
 }
 
+void KompareListView::slotApplyDifference( const Difference* diff, bool apply )
+{
+	m_itemDict[ (void*)diff ]->applyDifference( apply );
+}
+
 void KompareListView::wheelEvent( QWheelEvent* e )
 {
 	e->ignore(); // we want the parent to catch wheel events

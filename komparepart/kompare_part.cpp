@@ -20,6 +20,7 @@
 #include <qlayout.h>
 #include <qwidget.h>
 
+#include <kaction.h>
 #include <kdebug.h>
 #include <kfiletreeview.h>
 #include <kfiledialog.h>
@@ -35,7 +36,6 @@
 #include "diffmodel.h"
 #include "diffsettings.h"
 #include "viewsettings.h"
-#include "kompare_actions.h"
 #include "kompare_part.h"
 #include "komparelistview.h"
 #include "kompareconnectwidget.h"

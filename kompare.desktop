@@ -3,11 +3,11 @@
 Type=Application
 Name=KDiff
 Name[eo]=Diferenco
-Name[ro]=Diferenţe
+Name[fr]=Comparateur de fichiers
+Name[pl]=Różnice
 Comment=
-Comment[ro]= Sfaturi utile despre KDE
 MimeType=text/x-diff;
-Exec=kdiff -caption "%c" %i %m
+Exec=kdiff -caption "%c" %i %m %U
 Icon=kdiff
 DocPath=kdiff/index.html
 Terminal=0

@@ -1,3 +1,12 @@
+march 20th, 2001 : Otto Bruggeman
+	Fixed a stupid bug that caused the last line in the rightview not
+	to be colored.
+	Implemented slots for using the KHistoryCombo in the views to select
+	files with.
+	Still a nasty bug with regard to the initial directory in the
+	KFileDialog, needs to be fixed asap but i dont know the cause.
+	Still an error in the historylist and completionlist items. They are
+	not shown correctly.
 march 19th, 2001 : Otto Bruggeman
 	Added most of the preferences dialog
 	Some speed improvements

@@ -1,31 +1,29 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kmaindiffview" version="1">
+<kpartgui name="kmaindiffview" version="2">
 <MenuBar>
-  <Menu name="file"><text>&amp;File</text>
-    <Action name="file_open_left" />
-    <Action name="file_open_right" />
-    <Action name="file_close_left" />
-    <Action name="file_close_right" />
-  </Menu>
-  <Menu name="diff"><text>&amp;Diff</text>
-    <Action name="diff_use_unified_diff"/>
-    <Separator/>
-    <Action name="diff_apply_diff" />
-    <Action name="diff_create_diff"/>
-  </Menu>
-  <Menu name="settings"><text>&amp;Settings</text>
-    <Action name="settings_preferences"/>
-  </Menu>
+	<Menu name="file"><text>&amp;File</text>
+		<Action name="file_open_left" />
+		<Action name="file_open_right" />
+		<Action name="file_close_left" />
+		<Action name="file_close_right" />
+	</Menu>
+	<Menu name="diff"><text>&amp;Diff</text>
+		<Action name="diff_apply_diff" />
+		<Action name="diff_create_diff"/>
+	</Menu>
+	<Menu name="settings"><text>&amp;Settings</text>
+		<Action name="settings_preferences"/>
+	</Menu>
 </MenuBar>
 
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
-  <Action name="file_open_left"  group="file_operations" />
-  <Action name="file_open_right" group="file_operations" />
-  <Action name="file_close_left" group="file_operations" />
-  <Action name="file_close_right" group="file_operations" />
-  <Separator/>
-  <Action name="diff_apply_diff"  group="diff_operations" />
-  <Action name="diff_create_diff" group="diff_operations" />
+	<Action name="file_open_left"  group="file_operations" />
+	<Action name="file_open_right" group="file_operations" />
+	<Action name="file_close_left" group="file_operations" />
+	<Action name="file_close_right" group="file_operations" />
+	<Separator/>
+	<Action name="diff_apply_diff"  group="diff_operations" />
+	<Action name="diff_create_diff" group="diff_operations" />
 </ToolBar>
 
 </kpartgui>

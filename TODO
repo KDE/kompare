@@ -1,7 +1,6 @@
 * use better icons
 * get the preferences to work
-* clean up the menu a bit
 * implement more diff commandline options
 * reorganize code a bit
-* implement an update signal when the contents of the combobox change
-
+* cvs support
+* perhaps a wizard for newbie/non-coders...

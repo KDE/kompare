@@ -177,37 +177,43 @@ int KompareListView::scrollId()
 	return m_scrollId;
 }
 
-void KompareListView::slotSetSelection( const Difference* diff )
+void KompareListView::setSelectedDifference( const Difference* diff, bool scroll )
 {
 	if ( m_selectedDifference == diff )
 		return;
-
+	
+	kdDebug() << "KompareListView::setSelectedDifference()" << endl;
+	
 	m_selectedDifference = diff;
-	QListViewItem* item = static_cast<QListViewItem*>(m_itemDict[ (void*)diff ]);
+	
+	KompareListViewItem* item = m_itemDict[ (void*)diff ];
+	if( !item ) {
+		kdDebug() << "KompareListView::slotSetSelection(): couldn't find our selection!" << endl;
+		return;
+	}
+	// Only scroll to item if it isn't selected. This is so that
+	// clicking an item doesn't scroll to to it. KompareView sets the
+	// selection manually in that case.
+	if( scroll ) {
+		scrollToId( item->scrollId() );
+	}
 	setSelected( item, true );
-	ensureItemVisible( item );
-	repaint();
-	return;
+}
+
+void KompareListView::slotSetSelection( const Difference* diff )
+{
+	setSelectedDifference( diff, true );
 }
 
 void KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
-	if( m_selectedModel && m_selectedModel == model )
-	{
-		if ( m_selectedDifference == diff )
-			return;
-
-		m_selectedDifference = diff;
-		QListViewItem* item = static_cast<QListViewItem*>(m_itemDict[ (void*)diff ]);
-		setSelected( item, true );
-		ensureItemVisible( item );
-		viewport()->repaint();
+	if( m_selectedModel && m_selectedModel == model ) {
+		slotSetSelection( diff );
 		return;
 	}
 
 	// new model, so disconnect from old one...
-	if ( m_selectedModel )
-	{
+	if ( m_selectedModel ) {
 		disconnect( m_selectedModel, SIGNAL(appliedChanged( const Difference* )),
 		            this, SLOT(slotAppliedChanged( const Difference* )) );
 	}
@@ -251,20 +257,6 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 	         this, SLOT(slotAppliedChanged( const Difference* )) );
 }
 
-void KompareListView::setSelectedDifference( const Difference* diff, bool scroll )
-{
-	KompareListViewItem* item = m_itemDict[ (void*)diff ];
-	// Only scroll to item if it isn't selected. This is so that
-	// clicking an item doesn't scroll to to it. KompareView sets the
-	// selection manually in that case.
-	if( item != selectedItem() && scroll ) {
-//		scrollToId( item->scrollId() );
-		ensureItemVisible( static_cast<QListViewItem*>(item) );
-	}
-
-	setSelected( item, true );
-}
-
 void KompareListView::contentsMousePressEvent( QMouseEvent* e )
 {
 	QPoint vp = contentsToViewport( e->pos() );
@@ -273,7 +265,7 @@ void KompareListView::contentsMousePressEvent( QMouseEvent* e )
 		return;
 	KompareListViewDiffItem* diffItem = lineItem->diffItemParent();
 	if( diffItem->difference()->type() != Difference::Unchanged ) {
-//		setSelected( diffItem, true ); // let the slot handle this
+		setSelectedDifference( diffItem->difference(), false );
 		emit selectionChanged( diffItem->difference() );
 	}
 }
@@ -305,14 +297,14 @@ KompareListViewItem::KompareListViewItem( KompareListView* parent )
 	: QListViewItem( parent )
 	, m_scrollId( 0 )
 {
-	kdDebug() << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
+//	kdDebug() << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListViewItem* after )
 	: QListViewItem( parent, after )
 	, m_scrollId( after->scrollId() + after->maxHeight() )
 {
-	kdDebug() << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
+//	kdDebug() << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListViewItem* parent )
@@ -396,7 +388,7 @@ int KompareListViewDiffItem::maxHeight()
 
 void KompareListViewDiffItem::setSelected( bool b )
 {
-	kdDebug() << "KompareListViewDiffItem::setSelected( " << b << " )" << endl;
+//	kdDebug() << "KompareListViewDiffItem::setSelected( " << b << " )" << endl;
 	KompareListViewItem::setSelected( b );
 	QListViewItem* item = m_sourceItem->isVisible() ?
 	                      m_sourceItem->firstChild() :

@@ -41,8 +41,6 @@ class KompareListView : public KListView
 public:
 	KompareListView( bool isSource, GeneralSettings* settings, QWidget* parent, const char* name = 0 );
 	virtual ~KompareListView();
-
-	void setSelectedDifference( const Difference* diff, bool scroll = true );
 	
 	KompareListViewItem* itemAtIndex( int i );
 	int                  firstVisibleDifference();
@@ -68,6 +66,7 @@ signals:
 	void selectionChanged( const Difference* diff );
 
 protected:
+	void setSelectedDifference( const Difference* diff, bool scroll );
 	void wheelEvent( QWheelEvent* e );
 	void contentsMousePressEvent ( QMouseEvent * e );
 	void contentsMouseDoubleClickEvent ( QMouseEvent* ) {};

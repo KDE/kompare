@@ -73,12 +73,12 @@ bool KompareModelList::compareFiles( const KURL& source, const KURL& destination
 	m_mode = Kompare::ComparingFiles;
 	m_type = Kompare::SingleFileDiff;
 
-	if( !KIO::NetAccess::download( m_sourceURL, m_sourceTemp ) ) {
+	if( !KIO::NetAccess::download( m_sourceURL, m_sourceTemp, (QWidget*)parent() ) ) {
 		emit error( KIO::NetAccess::lastErrorString() );
 		return false;
 	}
 
-	if( !KIO::NetAccess::download( m_destinationURL, m_destinationTemp ) ) {
+	if( !KIO::NetAccess::download( m_destinationURL, m_destinationTemp, (QWidget*)parent() ) ) {
 		emit error( KIO::NetAccess::lastErrorString() );
 		return false;
 	}
@@ -191,13 +191,13 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 		QString destination = model->destinationPath() + model->destinationFile();
 		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
 		kdDebug(8101) << "DestinationURL : " << destination << endl;
-		result = KIO::NetAccess::upload( temp->name(), destination );
+		result = KIO::NetAccess::upload( temp->name(), destination, (QWidget*)parent() );
 	}
 	else
 	{
 		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
 		kdDebug(8101) << "DestinationURL : " << m_destinationURL.url() << endl;
-		result = KIO::NetAccess::upload( temp->name(), m_destinationURL );
+		result = KIO::NetAccess::upload( temp->name(), m_destinationURL, (QWidget*)parent() );
 	}
 
 	if ( !result )
@@ -290,7 +290,7 @@ bool KompareModelList::openDiff( const KURL& url )
 	else
 	{
 		kdDebug(8101) << "Reading from file " << m_diffURL.url() << endl;
-		if( !KIO::NetAccess::download( m_diffURL, diffTemp ) )
+		if( !KIO::NetAccess::download( m_diffURL, diffTemp, (QWidget*)parent() ) )
  		{
 			kdDebug() << "Download of url " << m_diffURL.url() << " failed..." << endl;
 			return false;
@@ -371,7 +371,7 @@ void KompareModelList::slotWriteDiffOutput( bool success )
 			emit error( i18n( "Could not write to file." ) );
 		}
 
-		KIO::NetAccess::upload( m_diffTemp->name(), m_diffURL );
+		KIO::NetAccess::upload( m_diffTemp->name(), m_diffURL, (QWidget*)parent() );
 
 		emit status( Kompare::FinishedWritingDiff );
 	}

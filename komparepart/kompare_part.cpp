@@ -274,10 +274,10 @@ void KomparePart::openFileAndDiff( const KURL& file, const KURL& diffFile )
 
 	m_modelList->clear();
 
-	if ( !KIO::NetAccess::download( file, tempFile ) )
+	if ( !KIO::NetAccess::download( file, tempFile, (QWidget*)parent() ) )
 		return;
 
-	if ( !KIO::NetAccess::download( diffFile, tempDiffFile ) )
+	if ( !KIO::NetAccess::download( diffFile, tempDiffFile, (QWidget*)parent() ) )
 	{
 		KIO::NetAccess::removeTempFile( tempFile );
 		return;
@@ -320,10 +320,10 @@ void KomparePart::openDirAndDiff ( const KURL& dir,  const KURL& diffFile )
 
 	m_modelList->clear();
 
-	if ( !KIO::NetAccess::download( dir, tempDir ) )
+	if ( !KIO::NetAccess::download( dir, tempDir, (QWidget*)parent() ) )
 		return;
 
-	if ( !KIO::NetAccess::download( diffFile, tempDiffFile ) )
+	if ( !KIO::NetAccess::download( diffFile, tempDiffFile, (QWidget*)parent() ) )
 	{
 		KIO::NetAccess::removeTempFile( tempDir );
 		return;

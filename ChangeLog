@@ -1,5 +1,11 @@
+Sep    07, 2003 : Otto Bruggeman
+	* Some changes to the interface. Made the copy ctor and assignment operator
+	  and added a private d-pointer
+	* Removed the use of all deprecated methods and replaced them with undeprecated ones :)
+
 Aug    27, 2003 : Otto Bruggeman
-	* After shitloads of trouble here finally some fixes for the stupid desktopifile stuff
+	* After shitloads of trouble here finally some fixes for the stupid desktop
+	  file stuff
 	* Fixes for when there are not enough args for a certain commandline option.
 
 Aug    22, 2003 : Otto Bruggeman
@@ -16,12 +22,12 @@ Aug    10, 2003 : Otto Bruggeman
 	  (kompare_shell.cpp 1.33 -> 1.34). This is about roaming user fixes.
 	  Thanks Helge !
 
-July   19, 2003 : Otto Bruggeman
+Jul    19, 2003 : Otto Bruggeman
 	* Backported Ingo Klocker's changes from head to make_it_cool
 	  (kompare_shell.cpp 1.34 -> 1.35). This is about being able to
 	  configure the shortcuts from kompare_part as well. Thanks Ingo !
-1
-June   29, 2003 : Otto Bruggeman
+
+Jun    29, 2003 : Otto Bruggeman
         * Fixed bug 58144 by adding a check for comparing dirs, in that case
           destinationURL is a directory and not a file name so we need to
           recreate the filename. This involved changing some code to use a
@@ -30,7 +36,7 @@ June   29, 2003 : Otto Bruggeman
           and restarted with 3.1.3. But that is unfortunately unfixable with a
           kconf_update script.
 
-June   29, 2003 : Otto Bruggeman
+Jun    29, 2003 : Otto Bruggeman
 	* Removed a lot of commented code since it is no longer used and will
 	  never be used again.
 	* Added 2 methods to the interface: openDiff3(KURL) and 

@@ -93,12 +93,12 @@ public:
 
 		// Find a common root.
 		root = from;
-		while( !root.isMalformed() && !root.isParentOf( toURL ) ) {
+		while( !root.isValid() && !root.isParentOf( toURL ) ) {
 			root = root.upURL();
 			upLevels++;
 		}
 
-		if( root.isMalformed() ) return to;
+		if( root.isValid() ) return to;
 
 		QString relative;
 		for( ; upLevels > 0; upLevels-- ) {

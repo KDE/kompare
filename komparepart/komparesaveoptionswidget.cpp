@@ -48,13 +48,13 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 
 	// Find a common root.
 	KURL root( sourceURL );
-	while( !root.isMalformed() && !root.isParentOf( destinationURL ) ) {
+	while( !root.isValid() && !root.isParentOf( destinationURL ) ) {
 		root = root.upURL();
 	}
 
 	// If we found a common root, change to that directory and
 	// strip the common part from source and destination.
-	if( !root.isMalformed() ) {
+	if( !root.isValid() ) {
 		m_directoryRequester->setURL( root.url() );
 	}
 

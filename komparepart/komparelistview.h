@@ -100,7 +100,6 @@ private:
 	const Diff2::DiffModel*           m_selectedModel;
 	const Diff2::Difference*          m_selectedDifference;
 	QString                           m_spaces;
-	int                               m_idToScrollTo;
 };
 
 class KompareListViewFrame : public QFrame

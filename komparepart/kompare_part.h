@@ -17,6 +17,8 @@ class KDiffView;
 class KDifferencesAction;
 class KDiffProcess;
 
+class DiffModel;
+
 /**
 * This is a "Part".  It that does all the real work in a KPart
 * application.
@@ -91,12 +93,16 @@ private:
 	DiffSettings*       m_diffSettings;
 	MiscSettings*       m_miscSettings;
 
+	QList<DiffModel>    m_diffmodels;
+
 	KDiffView*          m_diffView;
+	KAction*            m_safeDiff;
 	KAction*            m_previousDifference;
 	KAction*            m_nextDifference;
 	KDifferencesAction* m_differences;
 	KToggleAction*      m_synchronizeScrollBars;
 	KDiffProcess*       m_diffProcess;
+	QStringList         m_diffOutput;
 	KURL*               m_leftURL;
 	KURL*               m_rightURL;
 };

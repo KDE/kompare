@@ -29,8 +29,7 @@ public:
 	QString getSourceTimestamp() { return sourceTimestamp; };
 	QString getDestinationTimestamp() { return destinationTimestamp; };
 	
-	static int parseDiffFile( QFile& file, QList<DiffModel>& models );
-	static DiffFormat determineDiffFormat( const QStringList& list );
+	int parseDiff( const QStringList& list );
 	int parseDiff( const QStringList& list, enum DiffFormat format );
 
 private:

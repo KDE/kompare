@@ -1,6 +1,9 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kdiff_part" version="2">
+<kpartgui name="kdiff_part" version="3">
 <MenuBar>
+  <Menu name="file"><text>&amp;File</text>
+    <Action name="file_save_diff"/>
+  </Menu>
   <Menu name="difference"><text>&amp;Difference</text>
     <Action name="difference_previousfile"/>
     <Action name="difference_nextfile"/>
@@ -16,6 +19,8 @@
   </Menu>
 </MenuBar>
 <ToolBar name="mainToolBar">
+  <Action name="file_save_diff"/>
+  <Separator/>
   <Action name="difference_previousfile"/>
   <Action name="difference_nextfile"/>
   <Separator/>

@@ -22,18 +22,21 @@ DiffModel::~DiffModel()
 };
 
 /**  */
-DiffModel::DiffFormat DiffModel::determineDiffFormat( const QStringList& list )
+int DiffModel::parseDiff( const QStringList& list )
 {
-	if( list.count() == 0 ) return Unknown;
+	DiffFormat format;
+	if( list.count() == 0 ) return 1;
 	QString line = list[0];
-	kdDebug() << line << endl;
+	kdDebug() << "Determining format from this line: " << line << endl;
 	if( line.find( QRegExp( "^[0-9]+[0-9,]*[acd][0-9]+[0-9,]*$" ), 0 ) == 0 )
-		return Normal;
-	if( line.find( QRegExp( "^--- " ), 0 ) == 0 )
-		return Unified;
-	if( line.find( QRegExp( "^\\*\\*\\* " ), 0 ) == 0 )
-		return Context;
-	return Unknown;
+		format = Normal;
+	else if( line.find( QRegExp( "^--- " ), 0 ) == 0 )
+		format = Unified;
+	else if( line.find( QRegExp( "^\\*\\*\\* " ), 0 ) == 0 )
+		format = Context;
+	else format = Unknown;
+
+	return parseDiff( list, format );
 };
 
 int DiffModel::parseDiff( const QStringList& lines, enum DiffFormat format )
@@ -50,27 +53,9 @@ int DiffModel::parseDiff( const QStringList& lines, enum DiffFormat format )
 }
 
 /**  */
-int DiffModel::parseDiffFile( QFile& file, QList<DiffModel>& models )
-{
-	if (file.open(IO_ReadOnly) == false)
-		return 1;
-
-	QTextStream stream(&file);
-	QStringList lines;
-	while (!stream.eof())
-		lines.append(stream.readLine());
-
-	file.close();
-
-	DiffModel* model = new DiffModel(); // TODO: handle multi-file diff
-	models.append( model );
-
-	return model->parseDiff( lines, determineDiffFormat( lines ) );
-}
-
-/**  */
 int DiffModel::parseContextDiff( const QStringList& list )
 {
+	// '  ' unchanged (context info)
 	// '- ' removed in new file
 	// '+ ' added in new file
 	// '! ' changed in new file
@@ -158,6 +143,8 @@ int DiffModel::parseContextDiff( const QStringList& list )
 			nolinesA = line.mid( pos, len ).toInt() - linenoA + 1;
 			kdDebug() << "NolinesA: " << nolinesA << endl;
 
+			hunk->lineStartA = linenoA;
+
 			++it;
 			line = (*it);
 			kdDebug() << "Line before --- check: " << line << endl;
@@ -165,7 +152,7 @@ int DiffModel::parseContextDiff( const QStringList& list )
 			// do while not start of "new" part of hunk
 			while ( (it != list.end()) && (QRegExp( "^---" ).match( line, 0, &len ) < 0) )
 			{
-				Difference* difference = new Difference( linenoA, 0 ); // no idea what to fill in...
+				Difference* difference = new Difference( linenoA, 0 ); // no idea what to fill in for B...
 				hunk->add( difference );
 
 				kdDebug() << "Searching in old part of hunk" << endl;
@@ -175,10 +162,15 @@ int DiffModel::parseContextDiff( const QStringList& list )
 				if ( line.find( QRegExp( "^- " ), 0 ) == 0 )
 				{
 					difference->type = Difference::Delete;
+					difference->linenoA = linenoA;
+					difference->linenoB = 0;
 					while ( (it != list.end()) && (line.find( QRegExp( "^- " ), 0 ) == 0) )
 					{
 						// keep adding it...
 						kdDebug() << "Found a '-':" << line << endl;
+						line.replace( 0, 2, "" );
+						difference->addSourceLine( line );
+						linenoA++;
 						++it;
 						line = (*it);
 					}
@@ -186,10 +178,15 @@ int DiffModel::parseContextDiff( const QStringList& list )
 				else if ( line.find( QRegExp( "^  " ), 0 ) == 0 )
 				{
 					difference->type = Difference::Unchanged;
+					difference->linenoA = linenoA;
+					difference->linenoB = 0;
 					while ( (it != list.end()) && (line.find( QRegExp( "^  " ), 0 ) == 0) )
 					{
 						// keep adding it...
 						kdDebug() << "Found a ' ':" << line << endl;
+						line.replace( 0, 2, "" );
+						difference->addSourceLine( line );
+						linenoA++;
 						++it;
 						line = (*it);
 					}
@@ -197,10 +194,15 @@ int DiffModel::parseContextDiff( const QStringList& list )
 				else if ( line.find( QRegExp( "^! " ), 0 ) == 0 )
 				{
 					difference->type = Difference::Change;
+					difference->linenoA = linenoA;
+					difference->linenoB = 0;
 					while ( (it != list.end()) && (line.find( QRegExp( "^! " ), 0 ) == 0) )
 					{
 						// keep adding it...
 						kdDebug() << "Found a '!':" << line << endl;
+						line.replace( 0, 2, "" );
+						difference->addSourceLine( line );
+						linenoA++;
 						++it;
 						line = (*it);
 					}
@@ -230,6 +232,8 @@ int DiffModel::parseContextDiff( const QStringList& list )
 			nolinesB = line.mid( pos, len ).toInt() - linenoB + 1;
 			kdDebug() << "NolinesB: " << nolinesB << endl;
 
+			hunk->lineStartB = linenoB;
+
 			++it;
 			line = (*it);
 			kdDebug() << line << endl;
@@ -238,7 +242,7 @@ int DiffModel::parseContextDiff( const QStringList& list )
 			while ( (it != list.end()) && (QRegExp( "^\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*" ).match( line, 0, &len ) < 0) )
 			{
 				kdDebug() << "Searching in new part of hunk" << endl;
-				Difference* difference = new Difference( 0, 0 ); // no idea what to fill in...
+				Difference* difference = new Difference( 0, linenoB ); // no idea what to fill in for A...
 				hunk->add( difference );
 
 				// Assume it's still a valid diff file
@@ -246,10 +250,15 @@ int DiffModel::parseContextDiff( const QStringList& list )
 				if ( line.find( QRegExp( "^\\+ " ), 0 ) == 0 )
 				{
 					difference->type = Difference::Insert;
+					difference->linenoA = 0;
+					difference->linenoB = linenoB;
 					while ( (it != list.end()) && (line.find( QRegExp( "^\\+ " ), 0 ) == 0) )
 					{
 						// keep adding it...
 						kdDebug() << "Found a '+':" << line << endl;
+						line.replace( 0, 2, "" );
+						difference->addDestinationLine( line );
+						linenoB++;
 						++it;
 						line = (*it);
 					}
@@ -257,10 +266,15 @@ int DiffModel::parseContextDiff( const QStringList& list )
 				else if ( line.find( QRegExp( "^  " ), 0 ) == 0 )
 				{
 					difference->type = Difference::Unchanged;
+					difference->linenoA = 0;
+					difference->linenoB = linenoB;
 					while ( (it != list.end()) && (line.find( QRegExp( "^  " ), 0 ) == 0) )
 					{
 						// keep adding it...
 						kdDebug() << "Found a ' ':" << line << endl;
+						line.replace( 0, 2, "" );
+						difference->addDestinationLine( line );
+						linenoB++;
 						++it;
 						line = (*it);
 					}
@@ -268,10 +282,15 @@ int DiffModel::parseContextDiff( const QStringList& list )
 				else if ( line.find( QRegExp( "^! " ), 0 ) == 0 )
 				{
 					difference->type = Difference::Change;
+					difference->linenoA = 0;
+					difference->linenoB = linenoB;
 					while ( (it != list.end()) && (line.find( QRegExp( "^! " ), 0 ) == 0) )
 					{
 						// keep adding it...
 						kdDebug() << "Found a '!':" << line << endl;
+						line.replace( 0, 2, "" );
+						difference->addDestinationLine( line );
+						linenoB++;
 						++it;
 						line = (*it);
 					}

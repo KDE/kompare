@@ -1,5 +1,12 @@
+may    14, 2001 : Otto Bruggeman
+	context diff does not work atm, there is some problem with the separa-
+	tion of old and new. Maybe the old and new needs to be reintegrated.
+	I fixed some functions and now diffmodel does no longer need static
+	functions. All loading is done from the kdiffpart and that is where
+	save should go as well. Removed determineDiffFormat because it is not
+	needed anymore.
 may    13, 2001 : Otto Bruggeman
-	contextdiff is better implemented it find all stuff in the diff atm
+	contextdiff is better implemented it finds all stuff in the diff atm
 	but it does not work.
 may     4, 2001 : Otto Bruggeman
 	cleaned up the code by moving the part to a subdir

@@ -76,6 +76,9 @@ void KDiffPart::setupActions()
 {
 	// create our actions
 
+	m_safeDiff = new KAction( i18n("&Save diff"), "file_save", Qt::CTRL + Key_S,
+	              this, SLOT(slotSaveDiff()),
+	              actionCollection(), "file_save_diff" );
 	m_previousDifference = new KAction( i18n("&Previous Difference"), "previous", Qt::CTRL + Qt::Key_Up,
 	              this, SLOT(slotPreviousDifference()),
 	              actionCollection(), "difference_previous" );
@@ -145,8 +148,9 @@ void KDiffPart::slotDiffProcessFinished( bool success )
 		else if ( m_diffSettings->m_useRCSDiff )     type = DiffModel::RCS;
 		else if ( m_diffSettings->m_useUnifiedDiff ) type = DiffModel::Unified;
 		else                                         type = DiffModel::Unknown;
-		
-		model->parseDiff( m_diffProcess->getDiffOutput(), type ); // XXX Fixme
+	
+		m_diffOutput = m_diffProcess->getDiffOutput();	
+		model->parseDiff( m_diffOutput, type ); // XXX Fixme, is it fixed now ? :)
 		m_diffView->setModel( model, true );
 	} else if( m_diffProcess->m_diffProcess->exitStatus() == 0 ) {
 		KMessageBox::information( widget(), i18n( "The files are identical." ) );
@@ -163,13 +167,24 @@ bool KDiffPart::openFile()
 	// m_file is always local so we can use QFile on it
 	QFile file(m_file);
 
-	QList<DiffModel> models;
-	if( DiffModel::parseDiffFile( file, models ) != 0 ) {
+	if (file.open(IO_ReadOnly) == false)
+		return 1;
+
+	QTextStream stream(&file);
+	QStringList list;
+	while (!stream.eof())
+		list.append(stream.readLine());
+
+	DiffModel* model = new DiffModel();
+
+	if ( model->parseDiff( list ) != 0 )
+	{
 		KMessageBox::error( widget(), i18n( "Could not parse diff file." ) );
 		return false;
 	}
 
-	DiffModel* model = models.first();
+	m_diffmodels.append( model );
+
 	m_diffView->setModel( model, true ); // XXX TODO handle multi files
 
 	return true;

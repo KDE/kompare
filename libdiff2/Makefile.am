@@ -11,7 +11,7 @@ noinst_HEADERS = \
 # let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
 
-lib_LTLIBRARIES = libdiff2.la
+noinst_LTLIBRARIES = libdiff2.la
 
 # the Part's source, library search path, and link libraries
 libdiff2_la_SOURCES = \
@@ -21,8 +21,6 @@ libdiff2_la_SOURCES = \
 	difference.cpp \
 	diffhunk.cpp
 
-libdiff2_la_LDFLAGS = -module -avoid-version -no-undefined \
-	$(KDE_PLUGIN) \
-	$(all_libraries)
+libdiff2_la_LDFLAGS = $(all_libraries)
 libdiff2_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE)
 

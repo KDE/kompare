@@ -584,7 +584,7 @@ DiffModel* KompareModelList::lastModel()
 DiffModel* KompareModelList::prevModel()
 {
 	kdDebug( 8101 ) << "KompareModelList::prevModel()" << endl;
-	if ( --m_modelIndex >= 0 )
+	if ( --m_modelIndex < m_models->count() )
 	{
 		kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
 		m_selectedModel = m_models->at( m_modelIndex );
@@ -1156,13 +1156,13 @@ void KompareModelList::slotActionApplyDifference()
 
 void KompareModelList::slotActionApplyAllDifferences()
 {
-	slotApplyDifference( true );
+	slotApplyAllDifferences( true );
 	updateModelListActions();
 }
 
 void KompareModelList::slotActionUnapplyAllDifferences()
 {
-	slotApplyDifference( false );
+	slotApplyAllDifferences( false );
 	updateModelListActions();
 }
 

@@ -371,19 +371,19 @@ void KompareNavTreePart::slotChangesListSelectionChanged( QListViewItem* item )
 	emit selectionChanged( m_selectedDifference );
 }
 
-void KompareNavTreePart::slotApplyDifference( bool apply )
+void KompareNavTreePart::slotApplyDifference( bool /*apply*/ )
 {
 	// this applies to the currently selected difference
 	// setItemText( m_differenceToItemDict[(void*)d], d );
 }
 
-void KompareNavTreePart::slotApplyAllDifferences( bool apply )
+void KompareNavTreePart::slotApplyAllDifferences( bool /*apply*/ )
 {
 	// this applies to the currently selected model
 	// setItemText( m_differenceToItemDict[(void*)d], d );
 }
 
-void KompareNavTreePart::slotApplyDifference( const Diff2::Difference* diff, bool apply )
+void KompareNavTreePart::slotApplyDifference( const Diff2::Difference* /*diff*/, bool /*apply*/ )
 {
 	// this applies to the currently selected difference
 	// setItemText( m_differenceToItemDict[(void*)d], d );

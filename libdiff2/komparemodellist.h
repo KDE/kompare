@@ -184,7 +184,7 @@ private:
 	KDirWatch*            m_fileWatch;
 
 	int                   m_noOfModified;
-	int                   m_modelIndex;
+	unsigned int          m_modelIndex;
 
 	struct Kompare::Info* m_info;
 

@@ -125,7 +125,7 @@ private:
 	int                  m_appliedCount;
 	bool                 m_modified;
 
-	int                  m_diffIndex;
+	unsigned int         m_diffIndex;
 	Difference*          m_selectedDifference;
 };
 

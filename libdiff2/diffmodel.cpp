@@ -281,11 +281,12 @@ void DiffModel::applyAllDifferences( bool apply )
 		m_modified = false;
 	}
 
-	emit setModified( m_modified );
-
-	QPtrListIterator<Difference> it( m_differences );
-	for ( ;it.current(); ++it )
-		(*it)->apply( apply );
+	Difference* difference = m_differences.first();
+	while ( difference )
+	{
+		difference->apply( apply );
+		difference = m_differences.next();
+	}
 }
 
 void DiffModel::slotSetModified( bool modified )

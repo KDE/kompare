@@ -27,7 +27,7 @@ DiffParser::DiffParser( const KompareModelList* list, const QStringList& diff ) 
 {
 	// The regexps needed for context diff parsing, the rest is the same as in parserbase.cpp
 	m_contextDiffHeader1.setPattern( "\\*\\*\\* ([^\\t]+)\\t([^\\t]+)\\n" );
-	m_contextDiffHeader2.setPattern( "\\-\\-\\- ([^\\t]+)\\t([^\\t]+)\\n" );
+	m_contextDiffHeader2.setPattern( "--- ([^\\t]+)\\t([^\\t]+)\\n" );
 }
 
 DiffParser::~DiffParser()

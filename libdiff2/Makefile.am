@@ -33,5 +33,5 @@ libdiff2_la_SOURCES = \
 	perforceparser.cpp
 
 libdiff2_la_LDFLAGS = $(all_libraries)
-libdiff2_la_LIBADD  = $(LIB_KFILE) $(top_builddir)/kompare/libdialogpages/libdialogpages.la
+libdiff2_la_LIBADD  = $(LIB_KFILE)
 

@@ -36,7 +36,6 @@
 #include "diffhunk.h"
 #include "diffmodel.h"
 #include "diffmodellist.h"
-#include "diffsettings.h"
 #include "kompareprocess.h"
 #include "komparemodellist.h"
 #include "parser.h"
@@ -187,9 +186,8 @@ bool KompareModelList::compareFiles( const QString& source, const QString& desti
 //	connect( m_fileWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotFileChanged( const QString& ) ) );
 
 //	m_fileWatch->startScan();
-
-	QStringList arguments = m_diffSettings->createArgumentList();
-	m_diffProcess = new KompareProcess( arguments, m_encoding );
+	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_source, m_destination );
+	m_diffProcess->setEncoding( m_encoding );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );
@@ -217,9 +215,8 @@ bool KompareModelList::compareDirs( const QString& source, const QString& destin
 //	connect( m_dirWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotDirectoryChanged( const QString& ) ) );
 
 //	m_dirWatch->startScan();
-
-	QStringList arguments = m_diffSettings->createArgumentList();
-	m_diffProcess = new KompareProcess( arguments, m_encoding );
+	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_source, m_destination );
+	m_diffProcess->setEncoding( m_encoding );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );
@@ -493,7 +490,7 @@ QStringList KompareModelList::split( const QString& fileContents )
 	return list;
 }
 
-QString KompareModelList::readFile( const QString& fileName )
+QString KompareModelList::readFile( const QString& fileName ) const
 {
 	QStringList list;
 
@@ -502,11 +499,8 @@ QString KompareModelList::readFile( const QString& fileName )
 
 	QTextStream stream( &file );
 	kdDebug() << "Codec = " << m_textCodec << endl;
-	
-	if ( !m_textCodec )
-		m_textCodec = QTextCodec::codecForLocale();
-
-	stream.setCodec( m_textCodec );
+	if ( m_textCodec )
+		stream.setCodec( m_textCodec );
 
 	QString contents = stream.read();
 
@@ -571,8 +565,7 @@ bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSett
 		return false;
 	}
 
-	QStringList arguments = diffSettings->createArgumentList();
-	m_diffProcess = new KompareProcess( arguments, m_encoding );
+	m_diffProcess = new KompareProcess( diffSettings, Kompare::Custom, m_source, m_destination, directory );
 	m_diffProcess->setEncoding( m_encoding );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
@@ -852,11 +845,13 @@ int KompareModelList::parseDiffOutput( const QString& diff )
 	Parser* parser = new Parser( this );
 	m_models = parser->parse( diffLines );
 
+	m_info.generator = parser->generator();
+	m_info.format    = parser->format();
+
+	delete parser;
+
 	if ( m_models )
 	{
-		m_info.generator = parser->generator();
-		m_info.format    = parser->format();
-
 		m_selectedModel = firstModel();
 		kdDebug(8101) << "Ok there are differences..." << endl;
 		m_selectedDifference = m_selectedModel->firstDifference();
@@ -864,14 +859,10 @@ int KompareModelList::parseDiffOutput( const QString& diff )
 	}
 	else
 	{
-		if ( parser->format() == Kompare::Ed || parser->format() == Kompare::RCS )
-			emit error( i18n("This format is no longer supported") );
 		// Wow trouble, no models, so no differences...
 		kdDebug(8101) << "Now i'll be damned, there should be models here !!!" << endl;
 		return -1;
 	}
-
-	delete parser;
 
 	return 0;
 }

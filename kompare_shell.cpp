@@ -163,18 +163,17 @@ void KompareShell::updateStatusBar()
 	int modelIndex = m_part->selectedModelIndex();
 	int modelCount = m_part->modelCount();
 	if (modelIndex >= 0) {
-		fileStr = i18n( " %1 of %2 file ", " %1 of %2 files ", modelCount )
-		          .arg(modelIndex+1).arg(modelCount);
+		fileStr = i18n( " %1 of %n file ", " %1 of %n files ", modelCount ).arg(modelIndex+1);
 		int diffIndex = m_part->selectedDifferenceIndex();
 		int diffCount = m_part->selectedModel()->differenceCount();
 		int appliedCount = m_part->appliedCount();
 		if (diffIndex >= 0)
-			diffStr = i18n(" %1 of %2 difference, %3 applied ", " %1 of %2 differences, %3 applied ", diffCount )
-			          .arg(diffIndex+1).arg(diffCount).arg(appliedCount);
+			diffStr = i18n(" %1 of %n difference, %2 applied ", " %1 of %n differences, %2 applied ", diffCount )
+			          .arg(diffIndex+1).arg(appliedCount);
 		else
-			diffStr = i18n(" %1 difference ", " %1 differences ", diffCount ).arg(diffCount);
+			diffStr = i18n(" %n difference ", " %n differences ", diffCount );
 	} else {
-		fileStr = i18n( " %1 file ", " %1 files ", modelCount ).arg( modelCount );
+		fileStr = i18n( " %n file ", " %n files ", modelCount );
 	}
 	statusBar()->changeItem( fileStr, ID_N_OF_N_FILES );
 	statusBar()->changeItem( diffStr, ID_N_OF_N_DIFFERENCES );

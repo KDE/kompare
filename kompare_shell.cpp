@@ -17,9 +17,9 @@
 **
 ***************************************************************************/
 
-#include <document.h>
-#include <editinterface.h>
-#include <view.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/editinterface.h>
+#include <ktexteditor/view.h>
 #include <kdebug.h>
 #include <kedittoolbar.h>
 #include <kencodingfiledialog.h>

@@ -78,6 +78,8 @@ void KomparePrefDlg::slotApply()
 	// well apply the settings that are currently selected
 	m_viewPage->apply();
 	m_diffPage->apply();
+
+	emit applyClicked();
 }
 
 /** No descriptions */

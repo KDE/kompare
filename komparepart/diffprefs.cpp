@@ -41,7 +41,7 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 	layout->setMargin( KDialog::marginHint() );
 
 	// add diff modes
-	m_modeButtonGroup = new QVButtonGroup( i18n( "Output format" ), page );
+	m_modeButtonGroup = new QVButtonGroup( i18n( "Output Format" ), page );
 	layout->addWidget( m_modeButtonGroup );
 	m_modeButtonGroup->setMargin( KDialog::marginHint() );	
 
@@ -52,7 +52,7 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 	radioButton = new QRadioButton( i18n( "Unified" ), m_modeButtonGroup );
 
 	// #lines of context (loc)
-	locGroupBox     = new QHGroupBox( i18n( "Lines of context" ), page );
+	locGroupBox     = new QHGroupBox( i18n( "Lines of Context" ), page );
 	layout->addWidget( locGroupBox );
 	locGroupBox->setMargin( KDialog::marginHint() );
 

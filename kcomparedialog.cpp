@@ -36,7 +36,7 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 	QVBoxLayout* topLayout = new QVBoxLayout( plainPage(), 0,
 	          spacingHint() );
 
-	QGroupBox* sourceGB = new QGroupBox( i18n( "Source:" ), plainPage() );
+	QGroupBox* sourceGB = new QGroupBox( i18n( "Source" ), plainPage() );
 	sourceGB->setColumnLayout(0, Qt::Vertical );
 	sourceGB->layout()->setSpacing( 0 );
 	sourceGB->layout()->setMargin( 0 );
@@ -62,7 +62,7 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 	sourceGBLayout->addWidget( m_sourceURLRequester );
 	topLayout->addWidget( sourceGB );
 
-	QGroupBox* destinationGB = new QGroupBox( i18n( "Destination:" ), plainPage() );
+	QGroupBox* destinationGB = new QGroupBox( i18n( "Destination" ), plainPage() );
 	destinationGB->setColumnLayout(0, Qt::Vertical );
 	destinationGB->layout()->setSpacing( 0 );
 	destinationGB->layout()->setMargin( 0 );

@@ -74,7 +74,7 @@ GeneralPrefs::GeneralPrefs( QWidget* parent ) : PrefsBase( parent )
 	layout->addWidget( m_showEntireFile );
 
 	// scroll number of lines (snol)
-	snolGroupBox = new QHGroupBox( i18n( "Mouse wheel" ), page );
+	snolGroupBox = new QHGroupBox( i18n( "Mouse Wheel" ), page );
 	layout->addWidget( snolGroupBox );
 	snolGroupBox->setMargin( KDialog::marginHint() );
 

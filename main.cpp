@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
 			widget->open( args->arg( 0 ) );
 			difault = false;
 		}
-		else if ( args->count() == 1  && *(args->arg(0)) != '-' )`
+		else if ( args->count() == 1  && *(args->arg(0)) != '-' )
 		{
 			widget = new KompareShell();
 			widget->show();

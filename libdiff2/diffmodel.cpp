@@ -2,8 +2,8 @@
                                 diffmodel.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
@@ -47,6 +47,24 @@ DiffModel::DiffModel( const QString& source, const QString& destination ) :
 {
 	splitSourceInPathAndFileName();
 	splitDestinationInPathAndFileName();
+}
+
+DiffModel::DiffModel() :
+	m_source( "" ),
+	m_destination( "" ),
+	m_sourcePath( "" ),
+	m_destinationPath( "" ),
+	m_sourceFile( "" ),
+	m_destinationFile( "" ),
+	m_sourceTimestamp( "" ),
+	m_destinationTimestamp( "" ),
+	m_sourceRevision( "" ),
+	m_destinationRevision( "" ),
+	m_appliedCount( 0 ),
+	m_modified( false ),
+	m_diffIndex( 0 ),
+	m_selectedDifference( 0 )
+{
 }
 
 /**  */

@@ -2,8 +2,8 @@
                                 diffmodel.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
@@ -37,7 +37,8 @@ class DiffModel : public QObject
 Q_OBJECT
 public:
 
-	DiffModel( const QString& srcBaseURL = "", const QString& destBaseURL = "" );
+	DiffModel( const QString& srcBaseURL, const QString& destBaseURL );
+	DiffModel();
 	~DiffModel();
 
 	int parseDiff( enum Kompare::Format format, const QStringList& list );

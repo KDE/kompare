@@ -2,8 +2,8 @@
                                 main.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
@@ -31,7 +31,7 @@
 static const char description[] =
 	I18N_NOOP("A program to view the differences between files and optionally generate a diff." );
 
-static const char version[] = "3.2";
+static const char version[] = "3.2.90";
 
 static KCmdLineOptions options[] =
 {
@@ -49,9 +49,10 @@ int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "kompare", I18N_NOOP("Kompare"), version, description,
 	                      KAboutData::License_GPL,
-	                      I18N_NOOP("(c) 2001-2003, John Firebaugh and Otto Bruggeman"), 0, "http://bruggie.dnsalias.org/kompare/" );
+	                      I18N_NOOP("(c) 2001-2004, John Firebaugh and Otto Bruggeman"), 0, "http://bruggie.dnsalias.org/kompare/" );
 	aboutData.addAuthor( "John Firebaugh", I18N_NOOP("Author"), "jfirebaugh@kde.org" );
 	aboutData.addAuthor( "Otto Bruggeman", I18N_NOOP("Author"), "otto.bruggeman@home.nl" );
+	aboutData.addCredit( "Chris (lastname unknown)", I18N_NOOP("Icon creator"), "chris@os11.com" );
 	aboutData.addCredit( "Malte Starostik", I18N_NOOP("A lot of good advice"), "malte@kde.org" );
 	aboutData.addCredit( "Bernd Gehrmann", I18N_NOOP("Cervisia diff viewer"), "bernd@physik.hu-berlin.de" );
 

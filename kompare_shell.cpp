@@ -165,7 +165,7 @@ KompareShell::KompareShell()
 	         m_navTreePart, SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
 
 	// Hook up the KomparePart -> KompareShell communication
-	connect( m_viewPart, SIGNAL( setStatusBar( int, int, int, int, int ) ),
+	connect( m_viewPart, SIGNAL( setStatusBarModelInfo( int, int, int, int, int ) ),
 	         this, SLOT( slotUpdateStatusBar( int, int, int, int, int ) ) );
 	connect( m_viewPart, SIGNAL( setStatusBarText(const QString&) ),
 	         this, SLOT( slotSetStatusBarText(const QString&) ) );

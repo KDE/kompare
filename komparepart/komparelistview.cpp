@@ -23,6 +23,7 @@
 #include <qtimer.h>
 
 #include <kdebug.h>
+#include <kglobal.h>
 
 #include "diffmodel.h"
 #include "diffhunk.h"
@@ -629,10 +630,10 @@ void KompareListViewLineItem::paintText( QPainter * p, const QColorGroup& /*cg*/
 			             align, textChunk );
 			offset += chunkWidth;
 		}
-		if ( prevValue < m_text->string().length() - 1 )
+		if ( prevValue < m_text->string().length() )
 		{
 			// Still have to draw some string without changes
-			textChunk = m_text->string().mid( prevValue, m_text->string().length() - prevValue );
+			textChunk = m_text->string().mid( prevValue, kMax( ( unsigned int )1, m_text->string().length() - prevValue ) );
 //			kdDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
 			QFont font( p->font() );
 			font.setBold( false );

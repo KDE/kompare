@@ -33,6 +33,8 @@
 #define COL_LINE_NO      0
 #define COL_MAIN         1
 
+#define kdDebug() kdDebug(8104)
+
 KompareListView::KompareListView( bool isSource,
                                   GeneralSettings* settings,
                                   QWidget* parent, const char* name ) :
@@ -45,8 +47,9 @@ KompareListView::KompareListView( bool isSource,
 	m_selectedDifference( 0 )
 {
 	header()->hide();
-	addColumn( "Line Number", 40 );
+	addColumn( "Line Number", 0 );
 	addColumn( "Main" );
+	addColumn( "Blank" );
 	setColumnAlignment( COL_LINE_NO, AlignRight );
 	setAllColumnsShowFocus( true );
 	setRootIsDecorated( false );
@@ -55,6 +58,7 @@ KompareListView::KompareListView( bool isSource,
 	setTreeStepSize( 0 );
 	setColumnWidthMode( COL_LINE_NO, Maximum );
 	setColumnWidthMode( COL_MAIN, Maximum );
+	setResizeMode( LastColumn );
 }
 
 KompareListView::~KompareListView()
@@ -146,7 +150,7 @@ void KompareListView::scrollToId( int id )
 	if( item ) {
 		int pos = item->itemPos();
 		int itemId = item->scrollId();
-		int height = item->height();
+		int height = item->totalHeight();
 		double r = (double)( id - itemId ) / (double) item->maxHeight();
 		int y = pos + (int)(r * (double)height) - minScrollId();
 		kdDebug() << "scrollToID: " << endl;
@@ -154,7 +158,7 @@ void KompareListView::scrollToId( int id )
 		kdDebug() << "    pos = " << pos << endl;
 		kdDebug() << " itemId = " << itemId << endl;
 		kdDebug() << "      r = " << r << endl;
-		kdDebug() << " height = " << item->height() << endl;
+		kdDebug() << " height = " << height << endl;
 		kdDebug() << "  minID = " << minScrollId() << endl;
 		kdDebug() << "      y = " << y << endl;
 		setContentsPos( contentsX(), y );

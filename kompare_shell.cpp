@@ -29,6 +29,7 @@
 #include <kuserprofile.h>
 #include <kdebug.h>
 #include <ktrader.h>
+#include <kparts/componentfactory.h>
 
 #include "kompare_part.h"
 #include "komparenavtreepart.h"
@@ -426,14 +427,10 @@ void KompareShell::slotShowTextView()
 		KService::Ptr ptr = KServiceTypeProfile::preferredService( "text/plain", "KParts/ReadOnlyPart" );
 		if ( ptr == 0 || !ptr->isValid() )
 			return;
-		KLibFactory* factory = KLibLoader::self()->factory( ptr->library().ascii() );
 
 		m_textViewWidget = createDockWidget( i18n("Text View"), ptr->pixmap( KIcon::Small ) );
-
-		if( factory )
-			m_textViewPart = static_cast<KParts::ReadOnlyPart *>(
-			    factory->create(m_textViewWidget, ptr->name().ascii(), "KParts::ReadOnlyPart"));
-
+		m_textViewPart = KParts::ComponentFactory::createInstanceFromService<KParts::ReadOnlyPart>(
+				 ptr, m_textViewWidget );
 		if( m_textViewPart ) {
 			m_textViewWidget->setWidget( m_textViewPart->widget() );
 			m_textViewPart->openURL( m_viewPart->url() );

@@ -25,8 +25,12 @@
 #include "kompareprocess.h"
 
 KompareProcess::KompareProcess( QString source, QString destination, QString dir, DiffSettings* diffSettings )
-	: KShellProcess()
+	: KProcess()
 {
+	// Some stuff to compensate for using a KProcess instead of a KShellProcess since that one is deprecated
+	setUseShell( true );
+	setEnvironment( "LANG", "C");
+	
 	// connect the stdout and stderr signals
 	connect( this, SIGNAL( receivedStdout( KProcess*, char*, int ) ),
 	         this, SLOT  ( receivedStdout( KProcess*, char*, int ) ) );
@@ -166,7 +170,7 @@ bool KompareProcess::start()
 	    cmdLine += (*it) + " ";
 	kdDebug() << cmdLine << endl;
 #endif
-	return( KShellProcess::start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
+	return( KProcess::start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
 }
 
 void KompareProcess::processExited( KProcess* /* proc */ )

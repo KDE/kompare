@@ -110,7 +110,7 @@ bool KompareModelList::compare( const KURL& source, const KURL& destination )
 	{
 		// one of them is a directory and the other a file... cant
 		// compare such a monster
-		// FIXME
+		// FIXME:
 		// Wishlist item from puetzk: in this case (file and dir)
 		// (make a temp dir, apply the patch (the file) and compare the dir with the temp dir)
 		emit error( i18n("You can not compare a directory with a file") );
@@ -525,6 +525,25 @@ int KompareModelList::determineDiffFormat( const QStringList& lines )
 	return -1;
 }
 
+int KompareModelList::createModel( QStringList* file, int* modelIndex )
+{
+	DiffModel* model = new DiffModel();
+	int result = model->parseDiff( m_format, *file );
+	if ( result == 0 )
+	{
+		kdDebug() << "One file parsed" << endl;
+		model->setIndex( (*modelIndex)++ );
+		m_models.append( model );
+	}
+	else
+	{
+		kdDebug() << "Trouble, file parsing failed with result = " << result << endl;
+		kdDebug() << file->join( "\n" ) << endl;
+		delete model;
+	}
+	file->clear();
+}
+
 int KompareModelList::parseDiffOutput( const QStringList& lines )
 {
 	// FIXME: remove code duplication
@@ -582,27 +601,16 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 		while( it != lines.end() )
 		{
 //			kdDebug() << (*it) << endl;
-			// FIXME
+			// FIXME:
 			// not completely correct, diff and Index: have to be outside of
 			// an ed/rcs hunk to be a valid new file, else it could be that
 			// a line in the file starts with "diff " or "Index: "
 			if ( (*it).startsWith( "Index: " ) )
 			{
-				DiffModel* model = new DiffModel();
-				int result = model->parseDiff( m_format, *file );
-				if ( result == 0 )
-				{
-					kdDebug() << "One file parsed" << endl;
-					model->setIndex( modelIndex++ );
-					m_models.append( model );
-				}
-				else
-				{
-					kdDebug() << "Trouble, file parsing failed with result = " << result << endl;
-					kdDebug() << file->join( "\n" ) << endl;
-					delete model;
-				}
-				file->clear();
+				createModel( file, &modelIndex );
+				// add the line for normal, ed and rcs so they can get
+				// the filenames from, it they have no other way of knowing
+				file->append( *it );
 			}
 			else if ( (*it).startsWith( "Only in " ) )
 			{
@@ -619,6 +627,11 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 				// skip...
 				kdDebug() << "Skipping : " << (*it) << endl;
 			}
+			else if ( (*it).startsWith( "Common subdirectories" ) )
+			{
+				// skip...
+				kdDebug() << "Skipping : " << (*it) << endl;
+			}
 			else
 			{
 				file->append( *it );
@@ -629,28 +642,13 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 		// if file is not empty then there was another file, doing this seperately out of the loop
 		if ( file->count() > 0 )
 		{
-			DiffModel* model = new DiffModel();
-			int result = model->parseDiff( m_format, *file );
-			if ( result == 0 )
-			{
-				kdDebug() << "One file parsed" << endl;
-				model->setIndex( modelIndex++ );
-				m_models.append( model );
-			}
-			else
-			{
-				kdDebug() << "Trouble, file parsing failed with result = " << result << endl;
-				kdDebug() << file->join( "\n" ) << endl;
-				delete model;
-			}
-			file->clear();
+			createModel( file, &modelIndex );
 		}
 
 		if ( m_models.count() > 1 ) {
 			kdDebug() << "MultiFileCVSDiff" << endl;
 			m_type = MultiFileCVSDiff;
-		}
-		else {
+		} else {
 			kdDebug() << "SingleFileCVSDiff" << endl;
 			m_type = SingleFileCVSDiff;
 		}
@@ -667,21 +665,10 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 			// a line in the file starts with "diff -" or "Index: "
 			if ( (*it).startsWith( "diff " ) )
 			{
-				DiffModel* model = new DiffModel();
-				int result = model->parseDiff( m_format, *file );
-				if ( result == 0 )
-				{
-					kdDebug() << "One file parsed" << endl;
-					model->setIndex( modelIndex++ );
-					m_models.append( model );
-				}
-				else
-				{
-					kdDebug() << "Trouble, file parsing failed with result = " << result << endl;
-					kdDebug() << file->join( "\n" ) << endl;
-					delete model;
-				}
-				file->clear();
+				createModel( file, &modelIndex );
+				// add the line for normal, ed and rcs so they can get
+				// the filenames from, it they have no other way of knowing
+				file->append( *it );
 			}
 			else if ( (*it).startsWith( "Only in " ) )
 			{
@@ -698,6 +685,11 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 				// skip...
 				kdDebug() << "Skipping : " << (*it) << endl;
 			}
+			else if ( (*it).startsWith( "Common subdirectories" ) )
+			{
+				// skip...
+				kdDebug() << "Skipping : " << (*it) << endl;
+			}
 			else
 			{
 				file->append( *it );
@@ -707,39 +699,38 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 
 		if ( file->count() > 0 )
 		{
-			DiffModel* model = new DiffModel();
-			int result = model->parseDiff( m_format, *file );
-			if ( result == 0 )
-			{
-				kdDebug() << "One file parsed" << endl;
-				model->setIndex( modelIndex++ );
-				m_models.append( model );
-			}
-			else
-			{
-				kdDebug() << "Trouble, file parsing failed with result = " << result << endl;
-				kdDebug() << file->join( "\n" ) << endl;
-				delete model;
-			}
-			file->clear();
+			createModel( file, &modelIndex );
 		}
 
 		if ( m_models.count() > 1 ) {
 			kdDebug() << "MultiFileDiff" << endl;
 			m_type = MultiFileDiff;
-		}
-		else {
+		} else {
 			kdDebug() << "SingleFileDiff" << endl;
 			m_type = SingleFileDiff;
 		}
 	}
-	// delete old one and contruct a new one
-	delete m_modelIt;
-	m_modelIt = new QPtrListIterator<DiffModel>( m_models );
-	m_selectedModel = m_modelIt->toFirst();
-	delete m_diffIt;
-	m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
-	m_selectedDifference = m_diffIt->toFirst();
+	// delete old one and construct a new one
+	if ( m_models.count() != 0 )
+	{
+		delete m_modelIt;
+		m_modelIt = new QPtrListIterator<DiffModel>( m_models );
+		m_selectedModel = m_modelIt->toFirst();
+		if ( m_selectedModel->differences().count() != 0 )
+		{
+			delete m_diffIt;
+			m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
+			m_selectedDifference = m_diffIt->toFirst();
+		} else {
+			// Wow trouble, no differences in the model, abort
+			return 2;
+		}
+	}
+	else
+	{
+		// Wow trouble, no models, so no differences...
+		return 1;
+	}
 
 	emit modelsChanged( &m_models );
 	emit setSelection( m_selectedModel, m_selectedDifference );

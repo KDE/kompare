@@ -109,6 +109,7 @@ private:
 	int determineType      ( const QStringList& lines, enum Kompare::Format format );
 	QPtrList<DiffModel> splitFiles( const QStringList& lines, bool split );
 	void clear();
+	int createModel( QStringList* file, int* modelIndex );
 
 private:
 	KompareProcess*      m_diffProcess;

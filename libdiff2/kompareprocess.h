@@ -21,13 +21,12 @@
 #define KOMPAREPROCESS_H
 
 #include <kprocess.h>
-#include <kurl.h>
 
 #include "kompare.h"
 
 class DiffSettings;
 
-class KompareProcess : public KShellProcess, Kompare
+class KompareProcess : public KProcess, Kompare
 {
 	Q_OBJECT
 	

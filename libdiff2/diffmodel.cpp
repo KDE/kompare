@@ -362,11 +362,15 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 {
 	kdDebug() << "Normal diff parsing:" << endl;
 
-	QRegExp head( "^([0-9]+)([acd]?)([0-9]*),([0-9]+)([acd]?)([0-9]*)$" );
-	QRegExp source( "< (.*)$" );
-	QRegExp dest  ( "> (.*)$" );
-	QRegExp div   ( "^---$" );
+	QRegExp files  ( "^diff ((-|--)[a-zA-Z0-9=\\\"]+ )*(|-- +)(.*) +(.*)$" );
+	QRegExp headAdd( "^([0-9]+)a([0-9]+)(|,[0-9]+).*" ); // Dont care about the second number yet
+	QRegExp headDel( "^([0-9]+)(|,[0-9]+)d([0-9]+).*" );
+	QRegExp headMod( "^([0-9]+)(|,[0-9]+)c([0-9]+)(|,[0-9]+).*" );
+	QRegExp source ( "< (.*)$" );
+	QRegExp dest   ( "> (.*)$" );
+	QRegExp div    ( "^---$" );
 
+	QString type = QString::null;
 	if ( list.count() == 0 )
 		return 1; // no lines to compare
 
@@ -375,11 +379,13 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 
 	while ( it != list.end() )
 	{
-		if ( head.exactMatch( *it ) )
+		if ( headAdd.exactMatch( *it ) ||
+		     headDel.exactMatch( *it ) ||
+		     headMod.exactMatch( *it ) )
 		{
-			--it;
 			break;
 		}
+		++it;
 	}
 
 	if ( it == list.end() )
@@ -388,10 +394,27 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 	int diffIndex = 0;
 	while ( it != list.end() )
 	{
-		if( !head.exactMatch( *it ) ) return 1;
+		if ( headAdd.exactMatch( *it ) )
+		{
+			type = "a";
+			linenoA = headAdd.cap( 1 ).toInt();
+			linenoB = headAdd.cap( 2 ).toInt();
+		}
+		else if ( headDel.exactMatch( *it ) )
+		{
+			type = "d";
+			linenoA = headDel.cap( 1 ).toInt();
+			linenoB = headDel.cap( 3 ).toInt();
+		}
+		else if ( headMod.exactMatch( *it ) )
+		{
+			type = "c";
+			linenoA = headMod.cap( 1 ).toInt();
+			linenoB = headMod.cap( 3 ).toInt();
+		}
+		else
+			return 3;
 
-		linenoA = head.cap( 1 ).toInt();
-		linenoB = head.cap( 4 ).toInt();
 
 		DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
 		m_hunks.append( hunk );
@@ -401,25 +424,28 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 		hunk->add( diff );
 		m_differences.append( diff );
 
-		if( head.cap( 2 ) == "a" ) {
+		if( type == "a" ) {
 			diff->setType( Difference::Insert );
-		} else if ( head.cap( 2 ) == "c" ) {
+		} else if ( type == "c") {
 			diff->setType( Difference::Change );
-		} else if ( head.cap( 5 ) == "d" ) {
+		} else if ( type == "d" ) {
 			diff->setType( Difference::Delete );
-		} else return 1;
+		} else return 4;
 
 		it++;
 
-		for( ; it != list.end() && source.exactMatch( *it ); ++it ) {
-			diff->addSourceLine( source.cap( 1 ) );
-		}
-		if( it != list.end() && div.exactMatch( *it ) ) {
-			++it;
-		}
-		for( ; it != list.end() && dest.exactMatch( *it ); ++it ) {
-			diff->addDestinationLine( dest.cap( 1 ) );
-		}
+		if ( type == "c" || type == "d" )
+			for( ; it != list.end() && source.exactMatch( *it ); ++it ) {
+				diff->addSourceLine( source.cap( 1 ) );
+			}
+		if ( type == "c" )
+			if( it != list.end() && div.exactMatch( *it ) ) {
+				++it;
+			}
+		if ( type == "a" || type == "c" )
+			for( ; it != list.end() && dest.exactMatch( *it ); ++it ) {
+				diff->addDestinationLine( dest.cap( 1 ) );
+			}
 	}
 
 	return 0;

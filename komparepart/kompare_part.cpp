@@ -378,8 +378,8 @@ void KomparePart::slotShowDiffstats( void )
 
 	if ( modelCount() == 0 ) { // no diff loaded yet
 		KMessageBox::information( 0L, i18n(
-		    "Sorry, no diff file or no 2 files have been diffed, "
-		    "so there are no stats available."),
+		    "No diff file, or no 2 files have been diffed. "
+		    "Therefore no stats are available."),
 		    i18n("Diff Statistics"), QString::null, false );
 	}
 	else if ( modelCount() == 1 ) { // 1 file in diff, or 2 files compared

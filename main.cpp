@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "kompare", I18N_NOOP("Kompare"), version, description,
 	                      KAboutData::License_GPL,
-	                      "(c) 2001, John Firebaugh and Otto Bruggeman", 0, 0, "jfirebaugh@kde.org");
+	                      "(c) 2001-2002, John Firebaugh and Otto Bruggeman", 0, 0, "jfirebaugh@kde.org");
 	aboutData.addAuthor( "John Firebaugh", "Author", "jfirebaugh@kde.org" );
 	aboutData.addAuthor( "Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
 	aboutData.addCredit( "Malte Starostik", "Big help :)", "malte@kde.org" );

@@ -204,7 +204,7 @@ QPointArray KompareConnectWidget::makeTopBezier( int tl, int tr )
 {
 	int l = 0;
 	int r = width();
-	int o = (int)(((double)r/100)*40); // 40% of width
+	int o = (int)((double)r*0.4); // 40% of width
 	QPointArray controlPoints;
 
 	if ( tl != tr )
@@ -223,7 +223,7 @@ QPointArray KompareConnectWidget::makeBottomBezier( int bl, int br )
 {
 	int l = 0;
 	int r = width();
-	int o = (int)(((double)r/100)*40); // 40% of width
+	int o = (int)((double)r*0.4); // 40% of width
 	QPointArray controlPoints;
 
 	if ( bl != br )

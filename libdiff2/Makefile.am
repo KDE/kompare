@@ -18,6 +18,7 @@ noinst_LTLIBRARIES = libdiff2.la
 libdiff2_la_SOURCES = \
 	kompareprocess.cpp \
 	komparemodellist.cpp \
+	diffmodellist.cpp \
 	diffmodel.cpp \
 	difference.cpp \
 	diffhunk.cpp \

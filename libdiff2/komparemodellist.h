@@ -42,7 +42,7 @@ class KompareModelList : public QObject
 {
 	Q_OBJECT
 public:
-	KompareModelList( DiffSettings* diffSettings, struct Kompare::Info* info, QObject* parent = 0, const char* name = 0 );
+	KompareModelList( DiffSettings* diffSettings, struct Kompare::Info& info, QObject* parent = 0, const char* name = 0 );
 	~KompareModelList();
 
 public:
@@ -55,18 +55,17 @@ public:
 	bool compareFiles( const QString& source, const QString& destination );
 	bool compareDirs( const QString& source, const QString& destination );
 
-public:
-	bool openDiff( const QString& url );
+	bool openDiff( const QString& diff );
 
-public:
 	bool openFileAndDiff( const QString& file, const QString& diff );
 	bool openDirAndDiff( const QString& dir, const QString& diff );
 
-public:
 	bool saveDiff( const QString& url, QString directory, DiffSettings* diffSettings );
 	bool saveAll();
 
-	bool saveDestination( const DiffModel* model );
+	bool saveDestination( DiffModel* model );
+
+	QString recreateDiff() const;
 
 	// This parses the difflines and creates new models
 	int parseDiffOutput( const QStringList& lines );
@@ -78,23 +77,25 @@ public:
 	// this is like patching but with a twist
 	bool blendOriginalIntoModelList( const QString& localURL );
 
-	enum Kompare::Mode    mode()   const { return m_info->mode; };
+	enum Kompare::Mode    mode()   const { return m_info.mode; };
 	const DiffModelList*  models() const { return m_models; };
 
 	int modelCount() const;
 	int differenceCount() const;
 	int appliedCount() const;
 
-	DiffModel* modelAt( int i ) const { return const_cast<KompareModelList*>(this)->m_models->at( i ); };
-	int        findModel( DiffModel* model ) const { return const_cast<KompareModelList*>(this)->m_models->findRef( model ); };
+	const DiffModel* modelAt( int i ) const { return *( m_models->at( i ) ); };
+	int              findModel( DiffModel* model ) const { return m_models->findIndex( model ); };
 
 	bool isModified() const;
 
-	int currentModel() const      { return const_cast<KompareModelList*>(this)->m_models->findRef( m_selectedModel ); };
+	int currentModel() const      { return m_models->findIndex( m_selectedModel ); };
 	int currentDifference() const { return m_selectedModel ? m_selectedModel->findDifference( m_selectedDifference ) : -1; };
 
 	const DiffModel* selectedModel() const       { return m_selectedModel; };
 	const Difference* selectedDifference() const { return m_selectedDifference; };
+
+	void clear();
 
 private:
 	Diff2::DiffModel* firstModel();
@@ -106,10 +107,6 @@ private:
 
 	void updateModelListActions();
 
-public:
-	// clear the models (needs to be public if the part is reused)
-	void clear();
-
 protected:
 	bool blendFile( DiffModel* model, const QStringList& lines );
 
@@ -117,7 +114,7 @@ signals:
 	void status( Kompare::Status status );
 	void setStatusBarModelInfo( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
 	void error( QString error );
-	void modelsChanged( const QPtrList<Diff2::DiffModel>* models );
+	void modelsChanged( const Diff2::DiffModelList* models );
 	void setSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void setSelection( const Diff2::Difference* diff );
 	void applyDifference( bool apply );
@@ -190,7 +187,7 @@ private:
 	int                   m_noOfModified;
 	unsigned int          m_modelIndex;
 
-	struct Kompare::Info* m_info;
+	struct Kompare::Info& m_info;
 
 	KAction*              m_applyDifference;
 	KAction*              m_unApplyDifference;

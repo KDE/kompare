@@ -35,7 +35,6 @@
 #include <kio/netaccess.h>
 
 #include "diffmodel.h"
-#include "kompare_part.h"
 #include "komparelistview.h"
 #include "kompareconnectwidget.h"
 #include "diffsettings.h"
@@ -43,6 +42,8 @@
 #include "kompareprefdlg.h"
 #include "komparesaveoptionswidget.h"
 #include "kompareview.h"
+
+#include "kompare_part.h"
 
 typedef KParts::GenericFactory<KomparePart> KomparePartFactory;
 K_EXPORT_COMPONENT_FACTORY( libkomparepart, KomparePartFactory )
@@ -67,7 +68,7 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	}
 
 	// This creates the "Model creator" and connects the signals and slots
-	m_modelList = new Diff2::KompareModelList( m_diffSettings, &m_info, this, "komparemodellist" );
+	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_info, this, "komparemodellist" );
 	connect( m_modelList, SIGNAL(status( Kompare::Status )),
 	         this, SLOT(slotSetStatus( Kompare::Status )) );
 	connect( m_modelList, SIGNAL(setStatusBarModelInfo( int, int, int, int, int )),
@@ -87,8 +88,8 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	         this, SLOT( slotSetModified( bool ) ) );
 
 	// This is the stuff to connect the "interface" of the kompare part to the model inside
-	connect( m_modelList, SIGNAL(modelsChanged(const QPtrList<Diff2::DiffModel>*)),
-	         this, SIGNAL(modelsChanged(const QPtrList<Diff2::DiffModel>*)) );
+	connect( m_modelList, SIGNAL(modelsChanged(const Diff2::DiffModelList*)),
+	         this, SIGNAL(modelsChanged(const Diff2::DiffModelList*)) );
 
 	connect( m_modelList, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)),
 	         this, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)) );
@@ -111,18 +112,19 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	m_diffView = new KompareView( m_viewSettings, parentWidget, widgetName );
 
 	connect( m_modelList, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)),
-	         m_diffView, SLOT(slotSetSelection(const Diff2::DiffModel*, const Diff2::Difference*)) );
+	         m_diffView,  SLOT(slotSetSelection(const Diff2::DiffModel*, const Diff2::Difference*)) );
 	connect( m_modelList, SIGNAL(setSelection(const Diff2::Difference*)),
-	         m_diffView, SLOT(slotSetSelection(const Diff2::Difference*)) );
-	connect( m_diffView, SIGNAL(selectionChanged(const Diff2::Difference*)),
+	         m_diffView,  SLOT(slotSetSelection(const Diff2::Difference*)) );
+	connect( m_diffView,  SIGNAL(selectionChanged(const Diff2::Difference*)),
 	         m_modelList, SLOT(slotSelectionChanged(const Diff2::Difference*)) );
 
 	connect( m_modelList, SIGNAL(applyDifference(bool)),
-	         m_diffView, SLOT(slotApplyDifference(bool)) );
+	         m_diffView,  SIGNAL(applyDifference(bool)) );
 	connect( m_modelList, SIGNAL(applyAllDifferences(bool)),
-	         m_diffView, SLOT(slotApplyAllDifferences(bool)) );
+	         m_diffView,  SIGNAL(applyAllDifferences(bool)) );
 	connect( m_modelList, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
-	         m_diffView, SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
+	         m_diffView,  SIGNAL(applyDifference(const Diff2::Difference*, bool)) );
+
 	connect( this, SIGNAL(configChanged()), m_diffView, SLOT(slotConfigChanged()) );
 
 	// notify the part that this is our internal widget
@@ -145,6 +147,7 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 
 KomparePart::~KomparePart()
 {
+	cleanUpTemporaryFiles();
 }
 
 void KomparePart::setupActions()
@@ -257,64 +260,68 @@ bool KomparePart::openDiff3( const QString& diff3Output )
 bool KomparePart::exists( const QString& url )
 {
 	QFileInfo fi( url );
-	if ( fi.exists() )
-		return true;
-	else
-		return false;
+	return fi.exists();
 }
 
-const QString& KomparePart::fetchURL( const KURL& url )
+const QString KomparePart::fetchURL( const KURL& url )
 {
-	QString* tempFile = new QString( "" );
+	QString tempFileName( "" );
 	if ( !url.isLocalFile() )
 	{
-		if ( ! KIO::NetAccess::download( url, *tempFile, widget() ) )
+		if ( ! KIO::NetAccess::download( url, tempFileName, widget() ) )
 		{
 			// FIXME: %1 should be bold
-			slotShowError( i18n( "The url %1 can not be downloaded." ).arg( url.prettyURL() ) );
-			*tempFile = "";
-			return *tempFile;
+			slotShowError( i18n( "The url <b>%1</b> can not be downloaded." ).arg( url.prettyURL() ) );
+			tempFileName = "";
+			return tempFileName;
 		}
 		else
-			return *tempFile;
+			return tempFileName;
 	}
 	else
 	{
 		// is Local already, check if exists
 		if ( exists( url.path() ) )
 		{
-			*tempFile = url.path();
-			return *tempFile;
+			return url.path();
 		}
 		else
 		{
 			// FIXME: %1 should be bold
-			slotShowError( i18n( "The url %1 does not exist on your system." ).arg( url.prettyURL() ) );
-			return *tempFile;
+			slotShowError( i18n( "The url <b>%1</b> does not exist on your system." ).arg( url.prettyURL() ) );
+			return tempFileName;
 		}
 	}
 }
 
+void KomparePart::cleanUpTemporaryFiles()
+{
+	// i hope a local file will not be removed if it was not downloaded...
+	if ( !m_info.localSource.isEmpty() )
+		KIO::NetAccess::removeTempFile( m_info.localSource );
+	if ( !m_info.localDestination.isEmpty() )
+		KIO::NetAccess::removeTempFile( m_info.localDestination );
+}
+
 void KomparePart::compare( const KURL& source, const KURL& destination )
 {
-	emit kompareInfo( &m_info );
-
 	m_info.source = source;
 	m_info.destination = destination;
 
-	if ( ( m_info.localSource = fetchURL( source ) ).isEmpty() )
+	m_info.localSource = fetchURL( source );
+	m_info.localDestination = fetchURL( destination );
+
+	emit kompareInfo( &m_info );
+
+	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
-		return;
+		m_modelList->compare( m_info.localSource, m_info.localDestination );
+		updateActions();
+		updateCaption();
+		updateStatus();
 	}
 
-	if ( ( m_info.localDestination = fetchURL( destination ) ).isEmpty() )
-	{
-		// i hope a local file will not be removed if it was not downloaded...
-		KIO::NetAccess::removeTempFile( m_info.localSource );
-		return;
-	}
-
-	m_modelList->compare( m_info.localSource, m_info.localDestination );
+	cleanUpTemporaryFiles();
 }
 
 void KomparePart::compareFiles( const KURL& sourceFile, const KURL& destinationFile )
@@ -336,7 +343,8 @@ void KomparePart::compareFiles( const KURL& sourceFile, const KURL& destinationF
 		updateCaption();
 		updateStatus();
 	}
-	// Clean up needed ???
+
+	cleanUpTemporaryFiles();
 }
 
 void KomparePart::compareDirs( const KURL& sourceDirectory, const KURL& destinationDirectory )
@@ -358,7 +366,8 @@ void KomparePart::compareDirs( const KURL& sourceDirectory, const KURL& destinat
 		updateCaption();
 		updateStatus();
 	}
-	// Clean up needed ???
+
+	cleanUpTemporaryFiles();
 }
 
 void KomparePart::compare3Files( const KURL& /*originalFile*/, const KURL& /*changedFile1*/, const KURL& /*changedFile2*/ )
@@ -430,6 +439,7 @@ QStringList KomparePart::readFile()
 	QFile file( m_file );
 	file.open(  IO_ReadOnly );
 	QTextStream stream( &file );
+	stream.setEncoding( QTextStream::Latin1 );
 
 	kdDebug(8103) << "Reading from m_file = " << m_file << endl;
 	while ( !stream.eof() )

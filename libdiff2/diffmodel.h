@@ -39,39 +39,42 @@ public:
 
 	DiffModel( const QString& srcBaseURL, const QString& destBaseURL );
 	DiffModel();
+	DiffModel( const DiffModel& ) : QObject() {};
 	~DiffModel();
 
 	int parseDiff( enum Kompare::Format format, const QStringList& list );
+
+	QString recreateDiff() const;
 
 	int hunkCount() const       { return m_hunks.count(); }
 	int differenceCount() const { return m_differences.count(); }
 	int appliedCount() const    { return m_appliedCount; }
 
-	DiffHunk* hunkAt( int i )         { return m_hunks.at( i ); }
-	Difference* differenceAt( int i ) { return m_differences.at( i ); }
+	DiffHunk* hunkAt( int i )               { return *( m_hunks.at( i ) ); }
+	const Difference* differenceAt( int i ) { return *( m_differences.at( i ) ); }
 
-	const QPtrList<DiffHunk>& hunks() const         { return m_hunks; }
-	const QPtrList<Difference>& differences() const { return m_differences; }
+	const QValueList<DiffHunk*>   hunks() const       { return m_hunks; }
+	const QValueList<Difference*> differences() const { return m_differences; }
 
-	const QPtrList<Difference>& allDifferences();
+	const QValueList<Difference*> allDifferences();
 
-	int findDifference( const Difference* diff ) const { return const_cast<DiffModel*>(this)->m_differences.findRef( diff ); }
+	int findDifference( Difference* diff ) const { return m_differences.findIndex( diff ); }
 
 	Difference* firstDifference();
 	Difference* lastDifference();
 	Difference* prevDifference();
 	Difference* nextDifference();
 
-	const QString  source() const              { return m_source; }
-	const QString  destination() const         { return m_destination; }
-	const QString  sourceFile() const;
-	const QString  destinationFile() const;
-	const QString  sourcePath() const;
-	const QString  destinationPath() const;
-	const QString& sourceTimestamp()           { return m_sourceTimestamp; }
-	const QString& destinationTimestamp()      { return m_destinationTimestamp; }
-	const QString& sourceRevision() const      { return m_sourceRevision; }
-	const QString& destinationRevision() const { return m_destinationRevision; }
+	const QString source() const               { return m_source; }
+	const QString destination() const          { return m_destination; }
+	const QString sourceFile() const;
+	const QString destinationFile() const;
+	const QString sourcePath() const;
+	const QString destinationPath() const;
+	const QString sourceTimestamp() const      { return m_sourceTimestamp; }
+	const QString destinationTimestamp() const { return m_destinationTimestamp; }
+	const QString sourceRevision() const       { return m_sourceRevision; }
+	const QString destinationRevision() const  { return m_destinationRevision; }
 
 	void setSourceFile( QString path );
 	void setDestinationFile( QString path );
@@ -93,6 +96,8 @@ public:
 	bool setSelectedDifference( Difference* diff );
 
 	DiffModel& operator=( const DiffModel& model );
+	bool operator<( const DiffModel* model );
+	bool operator>( const DiffModel* model );
 
 	int localeAwareCompareSource( const DiffModel* model );
 
@@ -107,29 +112,30 @@ private:
 	void splitDestinationInPathAndFileName();
 
 private:
-	QString              m_source;
-	QString              m_destination;
+	QString m_source;
+	QString m_destination;
 
-	QString              m_sourcePath;
-	QString              m_destinationPath;
+	QString m_sourcePath;
+	QString m_destinationPath;
 
-	QString              m_sourceFile;
-	QString              m_destinationFile;
+	QString m_sourceFile;
+	QString m_destinationFile;
 
-	QString              m_sourceTimestamp;
-	QString              m_destinationTimestamp;
+	QString m_sourceTimestamp;
+	QString m_destinationTimestamp;
 
-	QString              m_sourceRevision;
-	QString              m_destinationRevision;
+	QString m_sourceRevision;
+	QString m_destinationRevision;
 
-	QPtrList<DiffHunk>   m_hunks;
-	QPtrList<Difference> m_differences;
-	QPtrList<Difference> m_allDifferences;
-	int                  m_appliedCount;
-	bool                 m_modified;
+	QValueList<DiffHunk*>   m_hunks;
+	QValueList<Difference*> m_differences;
+	QValueList<Difference*> m_allDifferences;
 
-	unsigned int         m_diffIndex;
-	Difference*          m_selectedDifference;
+	int  m_appliedCount;
+	bool m_modified;
+
+	unsigned int m_diffIndex;
+	Difference*  m_selectedDifference;
 };
 
 } // End of namespace Diff2

@@ -33,19 +33,21 @@ public:
 	DiffHunk( int sourceLine, int destinationLine, QString function = QString::null );
 	~DiffHunk();
 
-	const QPtrList<Difference>& differences() const { return m_differences; };
-	const QString function() const { return m_function; };
+	const QValueList<Difference*>& differences() const { return m_differences; };
+	const QString& function() const { return m_function; };
 
-	const int sourceLineNumber() const      { return m_sourceLine; };
-	const int destinationLineNumber() const { return m_destinationLine; };
+	int sourceLineNumber() const      { return m_sourceLine; };
+	int destinationLineNumber() const { return m_destinationLine; };
 
 	void add( Difference* diff );
 
+	QString recreateHunk() const;
+
 private:
-	int               m_sourceLine;
-	int               m_destinationLine;
-	QPtrList<Difference> m_differences;
-	QString           m_function;
+	int                     m_sourceLine;
+	int                     m_destinationLine;
+	QValueList<Difference*> m_differences;
+	QString                 m_function;
 };
 
 } // End of namespace Diff2

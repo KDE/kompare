@@ -19,32 +19,37 @@
 #ifndef DIFFMODELLIST_H
 #define DIFFMODELLIST_H
 
-#include <qptrlist.h> // include for the base class
-
-#include <kdebug.h>
+#include <qvaluelist.h> // include for the base class
 
 #include "diffmodel.h"
 
 namespace Diff2
 {
 
-class DiffModelList : public QPtrList<DiffModel>
+typedef QValueListIterator<DiffModel*> DiffModelListIterator;
+typedef QValueListConstIterator<DiffModel*> DiffModelListConstIterator;
+
+class DiffModelList : public QValueList<DiffModel*>
 {
 public:
 	DiffModelList() {}
-	DiffModelList( const DiffModelList &list ) : QPtrList<DiffModel>( list ) {}
-	~DiffModelList() { this->clear(); }
+	DiffModelList( const DiffModelList &list ) : QValueList<DiffModel*>( list ) {}
+	virtual ~DiffModelList()
+	{
+		clear();
+	}
 
 public:
-	DiffModelList& operator=( const DiffModelList &list )
-	{
-		return ( DiffModelList& )QPtrList<DiffModel>::operator=( list );
-	}
+	DiffModel* operator[]( size_type i );
+	const DiffModel* operator[]( size_type i ) const;
+	DiffModelList& operator=( const DiffModelList &list );
 
-	virtual int compareItems( QPtrCollection::Item s1, QPtrCollection::Item s2 )
-	{
-		return ( (DiffModel*)s1 )->localeAwareCompareSource( (DiffModel*)s2 );
-	}
+	virtual int compareItems( QPtrCollection::Item s1, QPtrCollection::Item s2 );
+
+	void debugPrint();
+
+	virtual void sort();
+
 }; // End of class DiffModelList
 
 } // End of Namespace Diff2

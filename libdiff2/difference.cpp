@@ -37,12 +37,12 @@ Difference::~Difference()
 
 void Difference::addSourceLine( QString line )
 {
-	m_sourceLines.append( *( new DifferenceString( line ) ) );
+	m_sourceLines.append( new DifferenceString( line ) );
 }
 
 void Difference::addDestinationLine( QString line )
 {
-	m_destinationLines.append( *( new DifferenceString( line ) ) );
+	m_destinationLines.append( new DifferenceString( line ) );
 }
 
 int Difference::sourceLineCount() const
@@ -87,5 +87,22 @@ void Difference::determineInlineDifferences()
 	// No longer needed, if we ever need to recalculate the inline differences we should
 	// simply recreate the table
 	delete m_table;
+	m_table = 0;
 }
 
+QString Difference::recreateDifference() const
+{
+	QString difference;
+
+	// source
+	DifferenceStringListConstIterator stringIt = m_sourceLines.begin();
+	DifferenceStringListConstIterator sEnd     = m_sourceLines.end();
+
+	for ( ; stringIt != sEnd; ++stringIt )
+	{
+		difference += "nothing here yet...\n";
+	}
+	//destination
+
+	return difference;
+}

@@ -107,11 +107,14 @@ unsigned int LevenshteinTable::createTable( DifferenceString* source, Difference
 	m_source      = source;
 	m_destination = destination;
 
-	QString s = ' ' + source->string();      // Optimization, so i dont have to subtract 1 from the indexes every single time
-	QString d = ' ' + destination->string(); // and add 1 to the width and height of the table
+	QString s = ' ' + source->string();      // Optimization, so i dont have to subtract 1 from the indexes every 
+	QString d = ' ' + destination->string(); // single time and add 1 to the width and height of the table
 
 	unsigned int m = s.length();
 	unsigned int n = d.length();
+
+	const QChar* sq = s.unicode();
+	const QChar* dq = d.unicode();
 
 	if ( m == 1 )
 		return --n;
@@ -133,15 +136,15 @@ unsigned int LevenshteinTable::createTable( DifferenceString* source, Difference
 
 	int cost = 0, north = 0, west = 0, northwest = 0;
 
-	QChar si, dj;
+	ushort si, dj;
 	// Optimization, calculate row wise instead of column wise, wont trash the cache so much with large strings
 	for ( j = 1; j < n; ++j )
 	{
-		dj = d[ j ];
+		dj = dq[ j ];
 
 		for ( i = 1; i < m; ++i )
 		{
-			si = s[ i ];
+			si = sq[ i ];
 			if ( si == dj )
 				cost = 0;
 			else
@@ -199,19 +202,20 @@ void LevenshteinTable::createListsOfCommands()
 //			kdDebug(8101) << "Picking north" << endl;
 //			kdDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
 
-			c = m_destination->commandsList()->first();
+			if ( !m_destination->commandsList().isEmpty() )
+				c = m_destination->commandsList().first();
 			if ( c && c->m_type == Command::End )
 			{
 //				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( n == currentValue )
-					m_destination->commandsList()->prepend( new Command( Command::Start, y ) );
+					m_destination->commandsList().prepend( new Command( Command::Start, y ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
 //				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( n < currentValue )
-					m_destination->commandsList()->prepend( new Command( Command::End, y ) );
+					m_destination->commandsList().prepend( new Command( Command::End, y ) );
 			}
 
 			--y;
@@ -220,34 +224,36 @@ void LevenshteinTable::createListsOfCommands()
 //			kdDebug(8101) << "Picking northwest" << endl;
 //			kdDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
 
-			c = m_destination->commandsList()->first();
+			if ( !m_destination->commandsList().isEmpty() )
+				c = m_destination->commandsList().first();
 			if ( c && c->m_type == Command::End )
 			{
 //				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( nw == currentValue )
-					m_destination->commandsList()->prepend( new Command( Command::Start, y ) );
+					m_destination->commandsList().prepend( new Command( Command::Start, y ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
 //				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( nw < currentValue )
-					m_destination->commandsList()->prepend( new Command( Command::End, y ) );
+					m_destination->commandsList().prepend( new Command( Command::End, y ) );
 			}
 
-			c = m_source->commandsList()->first();
+			if ( !m_destination->commandsList().isEmpty() )
+				c = m_source->commandsList().first();
 			if ( c && c->m_type == Command::End )
 			{
 //				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( nw == currentValue )
-					m_source->commandsList()->prepend( new Command( Command::Start, x ) );
+					m_source->commandsList().prepend( new Command( Command::Start, x ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
 //				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( nw < currentValue )
-					m_source->commandsList()->prepend( new Command( Command::End, x ) );
+					m_source->commandsList().prepend( new Command( Command::End, x ) );
 			}
 
 			--y;
@@ -257,19 +263,20 @@ void LevenshteinTable::createListsOfCommands()
 //			kdDebug(8101) << "Picking west" << endl;
 //			kdDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
 
-			c = m_source->commandsList()->first();
+			if ( !m_destination->commandsList().isEmpty() )
+				c = m_source->commandsList().first();
 			if ( c && c->m_type == Command::End )
 			{
 //				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( w == currentValue )
-					m_source->commandsList()->prepend( new Command( Command::Start, x ) );
+					m_source->commandsList().prepend( new Command( Command::Start, x ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
 //				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( w < currentValue )
-					m_source->commandsList()->prepend( new Command( Command::End, x ) );
+					m_source->commandsList().prepend( new Command( Command::End, x ) );
 			}
 
 			--x;

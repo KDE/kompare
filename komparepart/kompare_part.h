@@ -36,6 +36,7 @@ class KURL;
 namespace Diff2 {
 class Difference;
 class DiffModel;
+class DiffModelList;
 class KompareModelList;
 }
 class DiffSettings;
@@ -130,7 +131,7 @@ public:
 	// These just point to their namesake in the KompareModelList or get called from their
 	// namesake in KompareModelList.
 signals:
-	void modelsChanged( const QPtrList<Diff2::DiffModel>* models );
+	void modelsChanged( const Diff2::DiffModelList* models );
 
 	void setSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void setSelection( const Diff2::Difference* diff );
@@ -195,10 +196,11 @@ protected slots:
 	void updateStatus();
 
 private:
+	void cleanUpTemporaryFiles();
 	void setupActions();
 	bool exists( const QString& url );
 	bool isDirectory( const KURL& url );
-	const QString& fetchURL( const KURL& url );
+	const QString fetchURL( const KURL& url );
 
 private:
 	// Uhm why were these static again ???

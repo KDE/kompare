@@ -74,12 +74,12 @@ DiffModelList* Parser::parse( const QStringList& diff )
 	if ( modelList )
 	{
 		kdDebug(8101) << "Modelcount: " << modelList->count() << endl;
-		DiffModel* model = modelList->first();
-		while ( model )
+		DiffModelListIterator modelIt = modelList->begin();
+		DiffModelListIterator mEnd    = modelList->end();
+		for ( ; modelIt != mEnd; ++modelIt )
 		{
-			kdDebug(8101) << "Hunkcount:  " << model->hunkCount() << endl;
-			kdDebug(8101) << "Diffcount:  " << model->differenceCount() << endl;
-			model = modelList->next();
+			kdDebug(8101) << "Hunkcount:  " << (*modelIt)->hunkCount() << endl;
+			kdDebug(8101) << "Diffcount:  " << (*modelIt)->differenceCount() << endl;
 		}
 	}
 
@@ -91,18 +91,20 @@ DiffModelList* Parser::parse( const QStringList& diff )
 enum Kompare::Generator Parser::determineGenerator( const QStringList& diffLines )
 {
 	// Shit have to duplicate some code with this method and the ParserBase derived classes
-	QStringList::ConstIterator it = diffLines.begin();
+	QString cvsDiff     ( "Index: " );
+	QString perforceDiff( "==== " );
 
-	QRegExp cvsDiffRE     ( "^Index: " );
-	QRegExp perforceDiffRE( "^==== " );
-	while (  it != diffLines.end() )
+	QStringList::ConstIterator it = diffLines.begin();
+	QStringList::ConstIterator linesEnd = diffLines.end();
+
+	while (  it != linesEnd )
 	{
-		if ( ( *it ).find( cvsDiffRE, 0 ) == 0 )
+		if ( ( *it ).startsWith( cvsDiff ) == 0 )
 		{
 			kdDebug(8101) << "Diff is a CVSDiff" << endl;
 			return Kompare::CVSDiff;
 		}
-		else if ( ( *it ).find( perforceDiffRE, 0 ) == 0 )
+		else if ( ( *it ).startsWith( perforceDiff ) == 0 )
 		{
 			kdDebug(8101) << "Diff is a Perforce Diff" << endl;
 			return Kompare::Perforce;

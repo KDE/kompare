@@ -72,7 +72,7 @@ KompareListView::~KompareListView()
 
 KompareListViewItem* KompareListView::itemAtIndex( int i )
 {
-	return m_items.at( i );
+	return m_items[ i ];
 }
 
 int KompareListView::firstVisibleDifference()
@@ -92,7 +92,7 @@ int KompareListView::firstVisibleDifference()
 	}
 
 	if( item )
-		return m_items.findRef( ((KompareListViewLineItem*)item)->diffItemParent() );
+		return m_items.findIndex( ((KompareListViewLineItem*)item)->diffItemParent() );
 
 	return -1;
 }
@@ -115,7 +115,7 @@ int KompareListView::lastVisibleDifference()
 	}
 
 	if( item )
-		return m_items.findRef( ((KompareListViewLineItem*)item)->diffItemParent() );
+		return m_items.findIndex( ((KompareListViewLineItem*)item)->diffItemParent() );
 
 	return -1;
 }
@@ -245,27 +245,36 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 
 	m_itemDict.resize(model->differenceCount());
 
-	QPtrListIterator<DiffHunk> hunkIt(model->hunks());
+	QValueListConstIterator<DiffHunk*> hunkIt = model->hunks().begin();
+	QValueListConstIterator<DiffHunk*> hEnd   = model->hunks().end();
 
 	KompareListViewItem* item = 0;
-	for( ; hunkIt.current(); ++hunkIt ) {
-		DiffHunk* hunk = hunkIt.current();
+	Difference* tmpdiff = 0;
+	DiffHunk* hunk = 0;
+	
+
+	for ( ; hunkIt != hEnd; ++hunkIt )
+	{
+		hunk = *hunkIt;
 
 		if( item )
 			item = new KompareListViewHunkItem( this, item, hunk );
 		else
 			item = new KompareListViewHunkItem( this, hunk );
 
-		QPtrListIterator<Difference> diffIt(hunk->differences());
+		QValueListConstIterator<Difference*> diffIt = hunk->differences().begin();
+		QValueListConstIterator<Difference*> dEnd   = hunk->differences().end();
 
-		for( ; diffIt.current(); ++diffIt ) {
-			Difference* diff = diffIt.current();
+		for ( ; diffIt != dEnd; ++diffIt )
+		{
+			tmpdiff = *diffIt;
 
-			item = new KompareListViewDiffItem( this, item, diff );
+			item = new KompareListViewDiffItem( this, item, tmpdiff );
 
-			if( diff->type() != Difference::Unchanged ) {
+			if ( tmpdiff->type() != Difference::Unchanged )
+			{
 				m_items.append( (KompareListViewDiffItem*)item );
-				m_itemDict.insert( diff, (KompareListViewDiffItem*)item );
+				m_itemDict.insert( tmpdiff, (KompareListViewDiffItem*)item );
 			}
 		}
 	}
@@ -538,7 +547,9 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 {
 	if ( column == COL_MAIN )
 	{
-		Command* c = m_text->commandsList()->first();
+		QValueListIterator<Command*> commandIt = m_text->commandsList().begin();
+		QValueListIterator<Command*> cEnd      = m_text->commandsList().end();
+		Command* c = *commandIt;
 		QString textChunk;
 		int offset = listView()->itemMargin();
 		unsigned int prevValue = 0;
@@ -554,36 +565,41 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 		}
 
 		p->fillRect( 0, 0, offset, height(), normalBrush );
-		for ( ; c; c = m_text->commandsList()->next() )
+
+		if ( ! m_text->commandsList().isEmpty() )
 		{
-			textChunk = m_text->string().mid( prevValue, c->offset() - prevValue );
-//			kdDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
-//			kdDebug(8104) << "c->offset() = " << c->offset() << endl;
-//			kdDebug(8104) << "prevValue   = " << prevValue << endl;
-			textChunk.replace( QRegExp( "\\t" ), kompareListView()->spaces() );
-			prevValue = c->offset();
-			if ( c->type() == Command::End )
+			for ( ; commandIt != cEnd; ++commandIt )
 			{
-				QFont font( p->font() );
-				font.setBold( true );
-				p->setFont( font );
-//				p->setPen( Qt::blue );
-				brush = changeBrush;
+				c  = *commandIt;
+				textChunk = m_text->string().mid( prevValue, c->offset() - prevValue );
+//				kdDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
+//				kdDebug(8104) << "c->offset() = " << c->offset() << endl;
+//				kdDebug(8104) << "prevValue   = " << prevValue << endl;
+				textChunk.replace( QRegExp( "\\t" ), kompareListView()->spaces() );
+				prevValue = c->offset();
+				if ( c->type() == Command::End )
+				{
+					QFont font( p->font() );
+					font.setBold( true );
+					p->setFont( font );
+//					p->setPen( Qt::blue );
+					brush = changeBrush;
+				}
+				else
+				{
+					QFont font( p->font() );
+					font.setBold( false );
+					p->setFont( font );
+//					p->setPen( Qt::black );
+					brush = normalBrush;
+				}
+				chunkWidth = p->fontMetrics().width( textChunk );
+				p->fillRect( offset, 0, chunkWidth, height(), brush );
+				p->drawText( offset, 0,
+				             chunkWidth, height(),
+				             align, textChunk );
+				offset += chunkWidth;
 			}
-			else
-			{
-				QFont font( p->font() );
-				font.setBold( false );
-				p->setFont( font );
-//				p->setPen( Qt::black );
-				brush = normalBrush;
-			}
-			chunkWidth = p->fontMetrics().width( textChunk );
-			p->fillRect( offset, 0, chunkWidth, height(), brush );
-			p->drawText( offset, 0,
-			             chunkWidth, height(),
-			             align, textChunk );
-			offset += chunkWidth;
 		}
 		if ( prevValue < m_text->string().length() )
 		{

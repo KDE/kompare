@@ -85,7 +85,7 @@ protected:
 	void contentsMouseMoveEvent ( QMouseEvent * ) {};
 
 private:
-	QPtrList<KompareListViewDiffItem> m_items;
+	QValueList<KompareListViewDiffItem*> m_items;
 	QPtrDict<KompareListViewDiffItem> m_itemDict;
 	bool                              m_isSource;
 	ViewSettings*                     m_settings;

@@ -39,7 +39,7 @@ protected:
 protected:
 //	virtual bool parseContextDiffHeader();
 	virtual bool parseEdDiffHeader();
-//	virtual bool parseNormalDiffHeader();
+	virtual bool parseNormalDiffHeader();
 	virtual bool parseRCSDiffHeader();
 //	virtual bool parseUnifiedDiffHeader();
 

@@ -36,16 +36,18 @@ public:
 	enum Type { Start = 0, End = 1 };
 
 public:
+	Command()
+	{ m_type = Command::Start; m_offset = 0; }
 	Command( enum Command::Type type, unsigned int offset )
-	{ m_type = type; m_offset = offset; };
-	~Command() {};
+	{ m_type = type; m_offset = offset; }
+	~Command() {}
 
 public:
-	enum Command::Type type()   const { return m_type;   };
-	unsigned int       offset() const { return m_offset; };
+	enum Command::Type type()   const { return m_type;   }
+	unsigned int       offset() const { return m_offset; }
 
-	void setType  ( enum Command::Type type ) { m_type   = type;   };
-	void setOffset( unsigned int offset )     { m_offset = offset; };
+	void setType  ( enum Command::Type type ) { m_type   = type;   }
+	void setOffset( unsigned int offset )     { m_offset = offset; }
 
 public:
 	enum Command::Type m_type;
@@ -59,49 +61,45 @@ public:
 	{
 //		kdDebug(8101) << "DifferenceString::DifferenceString()" << endl;
 		m_string = QString::null;
-		m_commandsList = new QPtrList<Command>();
-	};
-	DifferenceString( const QString& string, QPtrList<Command>* commandsList = 0 )
+		m_commandsList = QValueList<Command*>();
+	}
+	DifferenceString( const QString& string, const QValueList<Command*>& commandsList = QValueList<Command*>() )
 	{
 //		kdDebug(8101) << "DifferenceString::DifferenceString( " << string << ", " << commandsList << " )" << endl;
 		m_string = string;
 		m_commandsList = commandsList;
-		if ( ! m_commandsList )
-			m_commandsList = new QPtrList<Command>();
 	}
-	~DifferenceString()
-	{
-		delete m_commandsList;
-	};
+	~DifferenceString() {}
 
 public:
 	const QString& string() const
 	{
 		return m_string;
-	};
-	QPtrList<Command>* commandsList()
+	}
+	// Cant be const unfortunately
+	QValueList<Command*> commandsList()
 	{
 		return m_commandsList;
-	};
+	}
 	void setString( const QString& string )
 	{
 		m_string = string;
 	};
-	void setCommandsList( QPtrList<Command>* commandsList )
+	void setCommandsList( const QValueList<Command*>& commandsList )
 	{
 		m_commandsList = commandsList;
-	};
+	}
 
 private:
-	QPtrList<Command>* m_commandsList;
+	QValueList<Command*> m_commandsList;
 	QString m_string;
 };
 
 class LevenshteinTable;
 
-typedef QValueList<DifferenceString> DifferenceStringList;
-typedef QValueListConstIterator<DifferenceString> DifferenceStringConstIterator;
-typedef QValueListIterator<DifferenceString> DifferenceStringIterator;
+typedef QValueList<DifferenceString*> DifferenceStringList;
+typedef QValueListIterator<DifferenceString*> DifferenceStringListIterator;
+typedef QValueListConstIterator<DifferenceString*> DifferenceStringListConstIterator;
 
 class Difference
 {
@@ -115,28 +113,30 @@ public:
 public:
 	enum Difference::Type type() const { return m_type; };
 
-	int sourceLineNumber() const { return m_sourceLineNo; };
-	int destinationLineNumber() const { return m_destinationLineNo; };
+	int sourceLineNumber() const { return m_sourceLineNo; }
+	int destinationLineNumber() const { return m_destinationLineNo; }
 
 	int sourceLineCount() const;
 	int destinationLineCount() const;
 
-	DifferenceString* sourceLineAt( int i ) { return &m_sourceLines[ i ]; };
-	DifferenceString* destinationLineAt( int i ) { return &m_destinationLines[ i ]; };
+	DifferenceString* sourceLineAt( int i ) { return m_sourceLines[ i ]; }
+	DifferenceString* destinationLineAt( int i ) { return m_destinationLines[ i ]; }
 
-	const DifferenceStringList sourceLines() const { return m_sourceLines; };
-	const DifferenceStringList destinationLines() const { return m_destinationLines; };
+	const DifferenceStringList sourceLines() const { return m_sourceLines; }
+	const DifferenceStringList destinationLines() const { return m_destinationLines; }
 
 	void apply( bool apply );
-	bool applied() const { return m_applied; };
+	bool applied() const { return m_applied; }
 
-	void setType( enum Difference::Type type ) { m_type = type; };
+	void setType( enum Difference::Type type ) { m_type = type; }
 
 	void addSourceLine( QString line );
 	void addDestinationLine( QString line );
 
 	/** This method will calculate the differences between the individual strings and store them as Commands */
 	void determineInlineDifferences();
+
+	QString recreateDifference() const;
 
 private:
 	enum Difference::Type m_type;

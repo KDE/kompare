@@ -116,15 +116,14 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 //		kdDebug(8106) << " drawing: " << first << " - " << last << endl;
 		if( first >= 0 && last >= 0 && first <= last )
 		{
-			QPtrListIterator<Difference> diffIt =
-			     QPtrListIterator<Difference>( m_selectedModel->differences() );
-			diffIt += first;
+			QValueListConstIterator<Difference*> diffIt = m_selectedModel->differences().at( first );
+			QValueListConstIterator<Difference*> dEnd   = m_selectedModel->differences().end();
 
 			QRect leftRect, rightRect;
 
-			for( int i = first; diffIt.current() && i <= last; ++diffIt, ++i )
+			for( int i = first; diffIt != dEnd && i <= last; ++diffIt, ++i )
 			{
-				const Difference* diff = diffIt.current();
+				Difference* diff = *diffIt;
 				bool selected = (diff == m_selectedDifference);
 
 				if ( QApplication::reverseLayout() )

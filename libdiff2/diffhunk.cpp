@@ -38,3 +38,24 @@ void DiffHunk::add( Difference* diff )
 {
 	m_differences.append( diff );
 }
+
+QString DiffHunk::recreateHunk() const
+{
+	QString hunk;
+
+	// recreate header
+	hunk += QString::fromLatin1( "@@ -%1,%2 +%3,%4 @@" ).arg( m_sourceLine ).arg("").arg( m_destinationLine ).arg("");
+	if ( !m_function.isEmpty() )
+		hunk += m_function;
+	hunk += QString::fromLatin1( "\n" );
+	// recreate body
+	QValueListConstIterator<Difference*> diffIt = m_differences.begin();
+	QValueListConstIterator<Difference*> dEnd   = m_differences.end();
+
+	for ( ; diffIt != dEnd; ++diffIt )
+	{
+		hunk += (*diffIt)->recreateDifference();
+	}
+
+	return hunk;
+}

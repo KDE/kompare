@@ -20,6 +20,8 @@
 #include <kdebug.h>
 
 #include "cvsdiffparser.h"
+#include "komparemodellist.h"
+
 
 using namespace Diff2;
 
@@ -29,6 +31,8 @@ CVSDiffParser::CVSDiffParser( const KompareModelList* list, const QStringList& d
 	// third capture in header1 is non optional for cvs diff, it is the revision
 	m_contextDiffHeader1.setPattern( "^\\*\\*\\* ([^\\t]+)\\t([^\\t]+)\\t(.*)$" );
 	m_contextDiffHeader2.setPattern( "^--- ([^\\t]+)\\t([^\\t]+)(|\\t(.*))$" );
+
+	m_normalDiffHeader.setPattern( "Index: (.*)" );
 }
 
 CVSDiffParser::~CVSDiffParser()
@@ -79,6 +83,50 @@ enum Kompare::Format CVSDiffParser::determineFormat()
 //	kdDebug(8101) << "Difflines are from an unknown diff..." << endl;
 	return Kompare::UnknownFormat;
 }
+
+bool CVSDiffParser::parseNormalDiffHeader()
+{
+	kdDebug(8101) << "CVSDiffParser::parseNormalDiffHeader()" << endl;
+	bool result = false;
+
+	QStringList::ConstIterator diffEnd = m_diffLines.end();
+
+	while ( m_diffIterator != diffEnd )
+	{
+		if ( m_normalDiffHeader.exactMatch( *m_diffIterator ) )
+		{
+			kdDebug(8101) << "Matched length Header = " << m_normalDiffHeader.matchedLength() << endl;
+			kdDebug(8101) << "Matched string Header = " << m_normalDiffHeader.cap( 0 ) << endl;
+
+			m_currentModel = new DiffModel();
+			QObject::connect( m_currentModel, SIGNAL( setModified( bool ) ), m_list, SLOT( slotSetModified( bool ) ) );
+			m_currentModel->setSourceFile          ( m_normalDiffHeader.cap( 1 ) );
+			m_currentModel->setDestinationFile     ( m_normalDiffHeader.cap( 1 ) );
+
+			result = true;
+
+			++m_diffIterator;
+			break;
+		}
+		else
+		{
+			kdDebug(8101) << "No match for: " << ( *m_diffIterator ) << endl;
+		}
+		++m_diffIterator;
+	}
+
+	if ( result == false )
+	{
+		// Set this to the first line again and hope it is a single file diff
+		m_diffIterator = m_diffLines.begin();
+		m_currentModel = new DiffModel();
+		QObject::connect( m_currentModel, SIGNAL( setModified( bool ) ), m_list, SLOT( slotSetModified( bool ) ) );
+		m_singleFileDiff = true;
+	}
+
+	return result;
+}
+
 
 bool CVSDiffParser::parseEdDiffHeader()
 {

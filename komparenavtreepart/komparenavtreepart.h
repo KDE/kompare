@@ -29,6 +29,7 @@
 #include <kparts/part.h>
 
 #include "kompare.h"
+#include "diffmodellist.h"
 
 class KompareModelList;
 class KomparePart;
@@ -56,7 +57,7 @@ public:
 public slots:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void slotSetSelection( const Diff2::Difference* diff );
-	void slotModelsChanged( const QPtrList<Diff2::DiffModel>* modelList );
+	void slotModelsChanged( const Diff2::DiffModelList* modelList );
 	void slotKompareInfo( Kompare::Info* info );
 
 signals:
@@ -92,7 +93,7 @@ private:
 
 private:
 	QSplitter*                         m_splitter;
-	const QPtrList<Diff2::DiffModel>*  m_modelList;
+	const Diff2::DiffModelList*        m_modelList;
 
 	QPtrDict<KChangeLVI>               m_diffToChangeItemDict;
 	QPtrDict<KFileLVI>                 m_modelToFileItemDict;
@@ -161,7 +162,7 @@ public:
 private:
 	KDirLVI* findChild( QString dir );
 private:
-	QPtrList<Diff2::DiffModel> m_modelList;
+	Diff2::DiffModelList m_modelList;
 	QString m_dirName;
 	bool m_rootItem;
 };

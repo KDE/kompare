@@ -74,6 +74,8 @@ ParserBase::ParserBase( const KompareModelList* list, const QStringList& diff ) 
 
 ParserBase::~ParserBase()
 {
+	if ( m_models )
+		m_models = 0; // dont delete this, i pass it around...
 }
 
 enum Kompare::Format ParserBase::determineFormat()
@@ -502,10 +504,21 @@ bool ParserBase::parseNormalHunkBody()
 
 	return true;
 }
-
+ 
 bool ParserBase::parseRCSHunkBody()
 {
 	return false;
+}
+
+bool ParserBase::matchesUnifiedHunkLine( QString line ) const
+{
+	static QChar context( ' ' );
+	static QChar added  ( '+' );
+	static QChar removed( '-' );
+
+	QChar first = line[0];
+
+	return ( first == context || first == added || first == removed );
 }
 
 bool ParserBase::parseUnifiedHunkBody()
@@ -526,31 +539,37 @@ bool ParserBase::parseUnifiedHunkBody()
 	DiffHunk* hunk = new DiffHunk( linenoA, linenoB, function );
 	m_currentModel->addHunk( hunk );
 
-	while( m_diffIterator != m_diffLines.end() && m_unifiedHunkBodyLine.exactMatch( *m_diffIterator ) )
+	QStringList::ConstIterator m_diffLinesEnd = m_diffLines.end();
+
+	QString context = QString( " " );
+	QString added   = QString( "+" );
+	QString removed = QString( "-" );
+
+	while( m_diffIterator != m_diffLinesEnd && matchesUnifiedHunkLine( *m_diffIterator ) )
 	{
 		Difference* diff = new Difference( linenoA, linenoB );
 		hunk->add( diff );
 
-		if( m_unifiedHunkBodyLine.cap( 1 ) == " " )
+		if( (*m_diffIterator).startsWith( context ) )
 		{	// context
-			for( ; m_diffIterator != m_diffLines.end() && m_unifiedHunkBodyContext.exactMatch( *m_diffIterator ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLines.end() && (*m_diffIterator).startsWith( context ); ++m_diffIterator )
 			{
-				diff->addSourceLine( m_unifiedHunkBodyContext.cap( 1 ) );
-				diff->addDestinationLine( m_unifiedHunkBodyContext.cap( 1 ) );
+				diff->addSourceLine( QString( *m_diffIterator ).remove( 0, 1 ) );
+				diff->addDestinationLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				linenoA++;
 				linenoB++;
 			}
 		}
 		else
 		{	// This is a real difference, not context
-			for( ; m_diffIterator != m_diffLines.end() && m_unifiedHunkBodyRemoved.exactMatch( *m_diffIterator ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLines.end() && (*m_diffIterator).startsWith( removed ); ++m_diffIterator )
 			{
-				diff->addSourceLine( m_unifiedHunkBodyRemoved.cap( 1 ) );
+				diff->addSourceLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				linenoA++;
 			}
-			for( ; m_diffIterator != m_diffLines.end() && m_unifiedHunkBodyAdded.exactMatch( *m_diffIterator ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLines.end() && (*m_diffIterator).startsWith( added ); ++m_diffIterator )
 			{
-				diff->addDestinationLine( m_unifiedHunkBodyAdded.cap( 1 ) );
+				diff->addDestinationLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				linenoB++;
 			}
 			if ( diff->sourceLineCount() == 0 )
@@ -583,8 +602,10 @@ DiffModelList* ParserBase::parseContext()
 		while ( parseContextHunkHeader() )
 			parseContextHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->inSort( m_currentModel );
+			m_models->append( m_currentModel );
 	}
+
+	m_models->sort();
 
 	if ( m_models->count() > 0 )
 	{
@@ -604,8 +625,10 @@ DiffModelList* ParserBase::parseEd()
 		while ( parseEdHunkHeader() )
 			parseEdHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->inSort( m_currentModel );
+			m_models->append( m_currentModel );
 	}
+
+	m_models->sort();
 
 	if ( m_models->count() > 0 )
 	{
@@ -625,7 +648,7 @@ DiffModelList* ParserBase::parseNormal()
 		while ( parseNormalHunkHeader() )
 			parseNormalHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->inSort( m_currentModel );
+			m_models->append( m_currentModel );
 	}
 
 	if ( m_singleFileDiff )
@@ -633,8 +656,10 @@ DiffModelList* ParserBase::parseNormal()
 		while ( parseNormalHunkHeader() )
 			parseNormalHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->inSort( m_currentModel );
+			m_models->append( m_currentModel );
 	}
+
+	m_models->sort();
 
 	if ( m_models->count() > 0 )
 	{
@@ -654,8 +679,10 @@ DiffModelList* ParserBase::parseRCS()
 		while ( parseRCSHunkHeader() )
 			parseRCSHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->inSort( m_currentModel );
+			m_models->append( m_currentModel );
 	}
+
+	m_models->sort();
 
 	if ( m_models->count() > 0 )
 	{
@@ -677,8 +704,10 @@ DiffModelList* ParserBase::parseUnified()
 //		kdDebug(8101) << "New model ready to be analyzed..." << endl;
 //		kdDebug(8101) << " differenceCount() == " << m_currentModel->differenceCount() << endl;
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->inSort( m_currentModel );
+			m_models->append( m_currentModel );
 	}
+
+	m_models->sort();
 
 	if ( m_models->count() > 0 )
 	{

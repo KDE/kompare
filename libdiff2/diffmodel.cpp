@@ -18,6 +18,7 @@
 ***************************************************************************/
 
 #include <qregexp.h>
+#include <qvaluelist.h>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -126,6 +127,20 @@ DiffModel& DiffModel::operator=( const DiffModel& model )
 	return *this;
 }
 
+bool DiffModel::operator<( const DiffModel* model )
+{
+	if ( localeAwareCompareSource( model ) < 0 )
+		return true;
+	return false;
+}
+
+bool DiffModel::operator>( const DiffModel* model )
+{
+	if ( localeAwareCompareSource( model ) > 0 )
+		return true;
+	return false;
+}
+
 int DiffModel::localeAwareCompareSource( const DiffModel* model )
 {
 	int result = m_sourcePath.localeAwareCompare( model->m_sourcePath );
@@ -136,25 +151,59 @@ int DiffModel::localeAwareCompareSource( const DiffModel* model )
 	return result;
 }
 
-const QPtrList<Difference>& DiffModel::allDifferences()
+QString DiffModel::recreateDiff() const
+{
+	// For now we'll always return a diff in the diff format
+	QString diff;
+
+	// recreate header
+	QString tab = QString::fromLatin1( "\t" );
+	QString nl  = QString::fromLatin1( "\n" );
+	diff += QString::fromLatin1( "--- %1\t%2" ).arg( m_source ).arg( m_sourceTimestamp );
+	if ( !m_sourceRevision.isEmpty() )
+		diff += tab + m_sourceRevision;
+	diff += nl;
+	diff += QString::fromLatin1( "+++ %1\t%2" ).arg( m_destination ).arg( m_destinationTimestamp );
+	if ( !m_destinationRevision.isEmpty() )
+		diff += tab + m_destinationRevision;
+	diff += nl;
+
+	// recreate body by iterating over the hunks
+	QValueListConstIterator<DiffHunk*> hunkIt = m_hunks.begin();
+	QValueListConstIterator<DiffHunk*> hEnd   = m_hunks.end();
+
+	for ( ; hunkIt != hEnd; ++hunkIt )
+	{
+		diff += (*hunkIt)->recreateHunk();
+	}
+
+	return diff;
+}
+
+const QValueList<Difference*> DiffModel::allDifferences()
 {
 	if ( m_hunks.count() != 0 )
 	{
-		DiffHunk* hunk;
-		for ( hunk = m_hunks.first(); hunk; hunk = m_hunks.next() )
+		QValueListConstIterator<DiffHunk*> hunkIt = m_hunks.begin();
+		QValueListConstIterator<DiffHunk*> hEnd   = m_hunks.end();
+
+		for ( ; hunkIt != hEnd; ++hunkIt )
 		{
-			QPtrListIterator<Difference> diffIt( hunk->differences() );
-			while ( *diffIt )
+			DiffHunk* hunk = *hunkIt;
+
+			QValueListConstIterator<Difference*> diffIt = hunk->differences().begin();
+			QValueListConstIterator<Difference*> dEnd   = hunk->differences().end();
+
+			for ( ; diffIt != dEnd; ++diffIt )
 			{
 				m_allDifferences.append( *diffIt );
-				++diffIt;
 			}
 		}
 		return m_allDifferences;
 	}
 	else
 	{
-		QPtrList<Difference> *diffList = new QPtrList<Difference>();
+		QValueList<Difference*> *diffList = new QValueList<Difference*>();
 		return *diffList;
 	}
 }
@@ -165,7 +214,7 @@ Difference* DiffModel::firstDifference()
 	m_diffIndex = 0;
 	kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
 
-	m_selectedDifference = m_differences.at( m_diffIndex );
+	m_selectedDifference = m_differences[ m_diffIndex ];
 
 	return m_selectedDifference;
 }
@@ -176,7 +225,7 @@ Difference* DiffModel::lastDifference()
 	m_diffIndex = m_differences.count() - 1;
 	kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
 
-	m_selectedDifference = m_differences.at( m_diffIndex );
+	m_selectedDifference = m_differences[ m_diffIndex ];
 
 	return m_selectedDifference;
 }
@@ -187,7 +236,7 @@ Difference* DiffModel::prevDifference()
 	if ( --m_diffIndex < m_differences.count() )
 	{
 		kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
-		m_selectedDifference = m_differences.at( m_diffIndex );
+		m_selectedDifference = m_differences[ m_diffIndex ];
 	}
 	else
 	{
@@ -205,7 +254,7 @@ Difference* DiffModel::nextDifference()
 	if (  ++m_diffIndex < m_differences.count() )
 	{
 		kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
-		m_selectedDifference = m_differences.at( m_diffIndex );
+		m_selectedDifference = m_differences[ m_diffIndex ];
 	}
 	else
 	{
@@ -323,11 +372,12 @@ void DiffModel::applyAllDifferences( bool apply )
 
 	m_modified = modified;
 
-	Difference* difference = m_differences.first();
-	while ( difference )
+	QValueListIterator<Difference*> diffIt = m_differences.begin();
+	QValueListIterator<Difference*> dEnd   = m_differences.end();
+	
+	for ( ; diffIt != dEnd; ++diffIt )
 	{
-		difference->apply( apply );
-		difference = m_differences.next();
+		(*diffIt)->apply( apply );
 	}
 }
 
@@ -347,9 +397,10 @@ bool DiffModel::setSelectedDifference( Difference* diff )
 
 	if ( diff != m_selectedDifference )
 	{
-		if ( ( m_differences.findRef( diff ) ) == -1 )
+		if ( ( m_differences.findIndex( diff ) ) == -1 )
 			return false;
-		m_diffIndex = m_differences.findRef( diff );
+		// Dont set m_diffIndex if it cant be found
+		m_diffIndex = m_differences.findIndex( diff );
 		kdDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
 		m_selectedDifference = diff;
 	}

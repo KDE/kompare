@@ -67,6 +67,9 @@ protected:
 	virtual DiffModelList* parseRCS();
 	virtual DiffModelList* parseUnified();
 
+protected: // Helper methods to speed things up
+	bool matchesUnifiedHunkLine( QString line ) const;
+
 protected:
 	/** What is format of the diff */
 	virtual enum Kompare::Format determineFormat();

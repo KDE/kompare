@@ -136,8 +136,8 @@ KompareShell::KompareShell()
 	}
 
 	// Hook up the inter part communication
-	connect( m_viewPart, SIGNAL( modelsChanged(const QPtrList<Diff2::DiffModel>*) ),
-	         m_navTreePart, SLOT( slotModelsChanged( const QPtrList<Diff2::DiffModel>*) ) );
+	connect( m_viewPart, SIGNAL( modelsChanged(const Diff2::DiffModelList*) ),
+	         m_navTreePart, SLOT( slotModelsChanged( const Diff2::DiffModelList*) ) );
 
 	connect( m_viewPart, SIGNAL( kompareInfo(Kompare::Info*) ),
 	         m_navTreePart, SLOT( slotKompareInfo(Kompare::Info*) ) );

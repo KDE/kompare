@@ -53,10 +53,10 @@ public:
 	DiffHunk* hunkAt( int i )               { return *( m_hunks.at( i ) ); }
 	const Difference* differenceAt( int i ) { return *( m_differences.at( i ) ); }
 
-	const QValueList<DiffHunk*>   hunks() const       { return m_hunks; }
-	const QValueList<Difference*> differences() const { return m_differences; }
+	const DiffHunkList   hunks() const       { return m_hunks; }
+	const DifferenceList differences() const { return m_differences; }
 
-	const QValueList<Difference*> allDifferences();
+	const DifferenceList allDifferences();
 
 	int findDifference( Difference* diff ) const { return m_differences.findIndex( diff ); }
 
@@ -127,9 +127,9 @@ private:
 	QString m_sourceRevision;
 	QString m_destinationRevision;
 
-	QValueList<DiffHunk*>   m_hunks;
-	QValueList<Difference*> m_differences;
-	QValueList<Difference*> m_allDifferences;
+	DiffHunkList   m_hunks;
+	DifferenceList m_differences;
+	DifferenceList m_allDifferences;
 
 	int  m_appliedCount;
 	bool m_modified;

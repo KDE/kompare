@@ -169,8 +169,8 @@ QString DiffModel::recreateDiff() const
 	diff += nl;
 
 	// recreate body by iterating over the hunks
-	QValueListConstIterator<DiffHunk*> hunkIt = m_hunks.begin();
-	QValueListConstIterator<DiffHunk*> hEnd   = m_hunks.end();
+	DiffHunkListConstIterator hunkIt = m_hunks.begin();
+	DiffHunkListConstIterator hEnd   = m_hunks.end();
 
 	for ( ; hunkIt != hEnd; ++hunkIt )
 	{
@@ -180,19 +180,19 @@ QString DiffModel::recreateDiff() const
 	return diff;
 }
 
-const QValueList<Difference*> DiffModel::allDifferences()
+const DifferenceList DiffModel::allDifferences()
 {
 	if ( m_hunks.count() != 0 )
 	{
-		QValueListConstIterator<DiffHunk*> hunkIt = m_hunks.begin();
-		QValueListConstIterator<DiffHunk*> hEnd   = m_hunks.end();
+		DiffHunkListConstIterator hunkIt = m_hunks.begin();
+		DiffHunkListConstIterator hEnd   = m_hunks.end();
 
 		for ( ; hunkIt != hEnd; ++hunkIt )
 		{
 			DiffHunk* hunk = *hunkIt;
 
-			QValueListConstIterator<Difference*> diffIt = hunk->differences().begin();
-			QValueListConstIterator<Difference*> dEnd   = hunk->differences().end();
+			DifferenceListConstIterator diffIt = hunk->differences().begin();
+			DifferenceListConstIterator dEnd   = hunk->differences().end();
 
 			for ( ; diffIt != dEnd; ++diffIt )
 			{
@@ -203,7 +203,7 @@ const QValueList<Difference*> DiffModel::allDifferences()
 	}
 	else
 	{
-		QValueList<Difference*> *diffList = new QValueList<Difference*>();
+		DifferenceList *diffList = new DifferenceList;
 		return *diffList;
 	}
 }
@@ -372,8 +372,8 @@ void DiffModel::applyAllDifferences( bool apply )
 
 	m_modified = modified;
 
-	QValueListIterator<Difference*> diffIt = m_differences.begin();
-	QValueListIterator<Difference*> dEnd   = m_differences.end();
+	DifferenceListIterator diffIt = m_differences.begin();
+	DifferenceListIterator dEnd   = m_differences.end();
 	
 	for ( ; diffIt != dEnd; ++diffIt )
 	{

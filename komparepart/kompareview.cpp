@@ -30,11 +30,11 @@
 #include "difference.h"
 #include "generalsettings.h"
 
-KDiffView::KDiffView( GeneralSettings* settings, QWidget *parent, const char *name )
+KDiffView::KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget *parent, const char *name )
 	: QWidget(parent, name),
-	m_models( 0 ),
-	m_selectedModel( 0 ),
-	m_selectedDifference( 0 ),
+	m_models( models ),
+	m_selectedModel( -1 ),
+	m_selectedDifference( -1 ),
 	m_settings( settings )
 {
 	QGridLayout *pairlayout = new QGridLayout(this, 4, 3, 10);
@@ -100,15 +100,16 @@ KDiffView::KDiffView( GeneralSettings* settings, QWidget *parent, const char *na
 	connect( hScroll, SIGNAL(sliderMoved(int)), diff1, SLOT(setXOffset(int)) );
 	connect( hScroll, SIGNAL(sliderMoved(int)), diff2, SLOT(setXOffset(int)) );
 
+	connect( m_models, SIGNAL(modelAdded( DiffModel* )),
+	                   SLOT(slotAddModel( DiffModel* )) );
 }
 
 KDiffView::~KDiffView()
 {
 }
 
-void KDiffView::setModels( const QList<DiffModel>* models )
+void KDiffView::slotAddModel( DiffModel* /* model */ )
 {
-	m_models = models;
 	updateViews();
 }
 
@@ -121,8 +122,8 @@ void KDiffView::slotSetSelection( int model, int diff )
 		updateViews();
 	}
 
-	if( !modelChanged ) {
-		const Difference* d = modelAt( m_selectedModel )->differenceAt( m_selectedDifference );
+	if( !modelChanged && m_selectedDifference >= 0 ) {
+		const Difference* d = m_models->modelAt( m_selectedModel )->differenceAt( m_selectedDifference );
 		for (int i = d->linenoA; i < d->linenoA+d->sourceLineCount(); ++i)
 			diff1->setInverted(i, false);
 		for (int i = d->linenoB; i < d->linenoB+d->destinationLineCount(); ++i)
@@ -131,13 +132,16 @@ void KDiffView::slotSetSelection( int model, int diff )
 
 	m_selectedDifference = diff;
 
-	const Difference* d = modelAt( m_selectedModel )->differenceAt( m_selectedDifference );
-	for (int i = d->linenoA; i < d->linenoA+d->sourceLineCount(); ++i)
-		diff1->setInverted(i, true);
-	for (int i = d->linenoB; i < d->linenoB+d->destinationLineCount(); ++i)
-		diff2->setInverted(i, true);
-	diff1->setCenterLine(d->linenoA);
-	diff2->setCenterLine(d->linenoB);
+	if( m_selectedDifference >= 0 ) {
+		const Difference* d = m_models->modelAt( m_selectedModel )->differenceAt( m_selectedDifference );
+		for (int i = d->linenoA; i < d->linenoA+d->sourceLineCount(); ++i)
+			diff1->setInverted(i, true);
+		for (int i = d->linenoB; i < d->linenoB+d->destinationLineCount(); ++i)
+			diff2->setInverted(i, true);
+		diff1->setCenterLine(d->linenoA);
+		diff2->setCenterLine(d->linenoB);
+	}
+	
 	diff1->repaint();
 	diff2->repaint();
 	zoom->repaint();
@@ -147,62 +151,66 @@ void KDiffView::slotSetSelection( int model, int diff )
 
 void KDiffView::updateViews() {
 
-	DiffModel* model = modelAt( m_selectedModel );
-
 	diff1->clear();
 	diff2->clear();
-
-	QListIterator<DiffHunk> it = QListIterator<DiffHunk>( model->getHunks() );
-	int linenoA = 1;
-	int linenoB = 1;
-	int id = 0;
-	for( ; it.current(); ++it ) {
-		const DiffHunk* h = it.current();
-		linenoA = h->lineStartA;
-		linenoB = h->lineStartB;
-		diff1->addLine( i18n( "%1: Line %1" ).arg( model->getSourceFilename() ).arg( linenoA ), Difference::Separator, -1, id );
-		diff2->addLine( i18n( "%1: Line %1" ).arg( model->getDestinationFilename() ).arg( linenoB ), Difference::Separator, -1, id );
-		id++;
-		QListIterator<Difference> differences = QListIterator<Difference>( h->getDifferences() );
-		for( ; differences.current(); ++differences ) {
-			const Difference* d = differences.current();
-			const QStringList linesA = d->getSourceLines();
-			const QStringList linesB = d->getDestinationLines();
-			QStringList::ConstIterator itA = linesA.begin();
-			QStringList::ConstIterator itB = linesB.begin();
-			if( d->type == Difference::Unchanged ) {
-				for ( ; itA != linesA.end(); ++itA ) {
-					diff1->addLine((*itA), Difference::Unchanged,linenoA,id);
-					diff2->addLine((*itA), Difference::Unchanged,linenoB,id);
-					linenoA++;
-					linenoB++;
-					id++;
-				}
-			} else {
-				while( itA != linesA.end() || itB != linesB.end() ) {
-					if (itA != linesA.end()) {
-						diff1->addLine((*itA), d->type,linenoA,id);
-						++itA;
-						if (itB != linesB.end()) {
-							diff2->addLine((*itB), Difference::Change,linenoB++,id);
+	
+	if( m_selectedModel >= 0 ) {
+		
+		DiffModel* model = m_models->modelAt( m_selectedModel );
+		
+		QListIterator<DiffHunk> it = QListIterator<DiffHunk>( model->getHunks() );
+		int linenoA = 1;
+		int linenoB = 1;
+		int id = 0;
+		for( ; it.current(); ++it ) {
+			const DiffHunk* h = it.current();
+			linenoA = h->lineStartA;
+			linenoB = h->lineStartB;
+			diff1->addLine( i18n( "%1: Line %1" ).arg( model->getSourceFilename() ).arg( linenoA ), Difference::Separator, -1, id );
+			diff2->addLine( i18n( "%1: Line %1" ).arg( model->getDestinationFilename() ).arg( linenoB ), Difference::Separator, -1, id );
+			id++;
+			QListIterator<Difference> differences = QListIterator<Difference>( h->getDifferences() );
+			for( ; differences.current(); ++differences ) {
+				const Difference* d = differences.current();
+				const QStringList linesA = d->getSourceLines();
+				const QStringList linesB = d->getDestinationLines();
+				QStringList::ConstIterator itA = linesA.begin();
+				QStringList::ConstIterator itB = linesB.begin();
+				if( d->type == Difference::Unchanged ) {
+					for ( ; itA != linesA.end(); ++itA ) {
+						diff1->addLine((*itA), Difference::Unchanged,linenoA,id);
+						diff2->addLine((*itA), Difference::Unchanged,linenoB,id);
+						linenoA++;
+						linenoB++;
+						id++;
+					}
+				} else {
+					while( itA != linesA.end() || itB != linesB.end() ) {
+						if (itA != linesA.end()) {
+							diff1->addLine((*itA), d->type,linenoA,id);
+							++itA;
+							if (itB != linesB.end()) {
+								diff2->addLine((*itB), Difference::Change,linenoB++,id);
+								++itB;
+							}
+							linenoA++;
+							id++;
+						} else {
+							diff2->addLine((*itB), Difference::Insert,linenoB++,id);
+							id++;
 							++itB;
 						}
-						linenoA++;
-						id++;
-					} else {
-						diff2->addLine((*itB), Difference::Insert,linenoB++,id);
-						id++;
-						++itB;
 					}
 				}
 			}
 		}
+		diff1->addLine( "", Difference::Unchanged, linenoA, id );
+		diff2->addLine( "", Difference::Unchanged, linenoB, id );
+		revlabel1->setText( model->getSourceFilename() );
+		revlabel2->setText( model->getDestinationFilename() );
+		zoom->setModel( model );
 	}
-	diff1->addLine( "", Difference::Unchanged, linenoA, id );
-	diff2->addLine( "", Difference::Unchanged, linenoB, id );
-	revlabel1->setText( model->getSourceFilename() );
-	revlabel2->setText( model->getDestinationFilename() );
-	zoom->setModel( model );
+	
 	updateScrollBars();
 }
 

@@ -25,6 +25,7 @@
 #include "difference.h"
 #include "diffmodel.h"
 #include "diffhunk.h"
+#include "kdiffmodellist.h"
 
 /**  */
 DiffModel::DiffModel()
@@ -57,7 +58,7 @@ DiffModel::DiffFormat DiffModel::determineDiffFormat( QString line )
 }
 
 /**  */
-int DiffModel::parseDiff( const QStringList& lines, QList<DiffModel>* models )
+int DiffModel::parseDiff( const QStringList& lines, KDiffModelList* models )
 {
 	if( lines.count() == 0 ) return 1;
 
@@ -75,7 +76,7 @@ int DiffModel::parseDiff( const QStringList& lines, QList<DiffModel>* models )
 
 		kdDebug() << "parsed one file, result: " << result << endl;
 
-		models->append( model );
+		models->addModel( model );
 
 	}
 

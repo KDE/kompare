@@ -94,8 +94,10 @@ KCompareDialog::~KCompareDialog()
 {
 	KConfig* config = kapp->config();
 	config->setGroup( "Recent Files" );
+	kdDebug() << "Recent Sources: " << m_sourceURLComboBox->urls().join( " " ) << endl;
 	config->writeEntry( "Recent Sources", m_sourceURLComboBox->urls() );
 	config->writeEntry( "Recent Destinations", m_destinationURLComboBox->urls() );
+	config->sync();
 }
 
 void KCompareDialog::slotEnableCompare()

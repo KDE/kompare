@@ -24,6 +24,7 @@
 #include "kdiff_part.h"
 #include "diffmodel.h"
 #include "difference.h"
+#include "kdiffmodellist.h"
 
 #include "kdiffnavigationtree.h"
 
@@ -31,9 +32,8 @@
 #define COL_DESTINATION   1
 #define COL_DIFFERENCE    2
 
-KDiffNavigationTree::KDiffNavigationTree( KDiffPart* part, QWidget* parent, const char* name )
-	: KListView( parent, name ),
-	m_diffPart( part )
+KDiffNavigationTree::KDiffNavigationTree( KDiffModelList* models, QWidget* parent, const char* name )
+	: KListView( parent, name )
 {
 	addColumn( i18n("Source") );
 	addColumn( i18n("Destination") );
@@ -44,70 +44,78 @@ KDiffNavigationTree::KDiffNavigationTree( KDiffPart* part, QWidget* parent, cons
 
 	connect( this, SIGNAL(selectionChanged( QListViewItem* )),
 	               SLOT(slotSelectionChanged( QListViewItem* )) );
-
+	connect( models, SIGNAL(modelAdded( DiffModel* )),
+	                 SLOT(slotAddModel( DiffModel* )) );
 }
 
 KDiffNavigationTree::~KDiffNavigationTree()
 {
-
 }
 
-void KDiffNavigationTree::setModels( const QList<DiffModel>* models )
+void KDiffNavigationTree::slotAddModel( DiffModel * model )
 {
-	clear();
+	QListViewItem* modelItem;
+	
+	QListViewItem* after = lastItem();
+	if( after )
+		modelItem = new QListViewItem( this, after );
+	else
+		modelItem = new QListViewItem( this );
+	
+	modelItem->setText( COL_SOURCE, model->getSourceFilename() );
+	modelItem->setText( COL_DESTINATION, model->getDestinationFilename() );
 
-	QListIterator<DiffModel> modelIt(*models);
+//	KURL url = m_diffPart->getSourceURL();
+//	if( !url.isEmpty() ) {
+//		modelItem->setPixmap( COL_SOURCE, KMimeType::pixmapForURL( url, 0, 0, KIcon::SizeSmall ) );
+//	}
+//
+//	url = m_diffPart->getDestinationURL();
+//	if( !url.isEmpty() ) {
+//		modelItem->setPixmap( COL_DESTINATION, KMimeType::pixmapForURL( url, 0, 0, KIcon::SizeSmall ) );
+//	}
+
+	modelItem->setOpen( true );
+	modelItem->setSelectable( false );
+
+	QListIterator<Difference> diffIt(model->getDifferences());
 
 	// Go backwards so the items appear in the correct order when
-	// added to the list view.
-	for( modelIt.toLast(); modelIt.current(); --modelIt ) {
-		DiffModel *model = modelIt.current();
+	// added to their parent.
+	for( diffIt.toLast(); diffIt.current(); --diffIt ) {
+		Difference *diff = diffIt.current();
 
-		QListViewItem* modelItem = new QListViewItem( this );
-		modelItem->setText( COL_SOURCE, model->getSourceFilename() );
-		modelItem->setText( COL_DESTINATION, model->getDestinationFilename() );
+		QListViewItem* diffItem = new QListViewItem( modelItem );
+		diffItem->setText( COL_SOURCE, i18n( "Line %1" ).arg( diff->linenoA ) );
+		diffItem->setText( COL_DESTINATION, i18n( "Line %1" ).arg( diff->linenoB ) );
 
-		KURL url = m_diffPart->getSourceURL();
-		if( !url.isEmpty() ) {
-			modelItem->setPixmap( COL_SOURCE, KMimeType::pixmapForURL( url, 0, 0, KIcon::SizeSmall ) );
+		QString text = "";
+		switch( diff->type ) {
+		case Difference::Change:
+			text = i18n( "Nonmatching lines" );
+			break;
+		case Difference::Insert:
+			text = i18n( "Lines inserted in destination" );
+			break;
+		case Difference::Delete:
+		default:
+			text = i18n( "Lines deleted from destination" );
+			break;
 		}
-
-		url = m_diffPart->getDestinationURL();
-		if( !url.isEmpty() ) {
-			modelItem->setPixmap( COL_DESTINATION, KMimeType::pixmapForURL( url, 0, 0, KIcon::SizeSmall ) );
-		}
-
-		modelItem->setOpen( true );
-		modelItem->setSelectable( false );
-
-		QListIterator<Difference> diffIt(model->getDifferences());
-
-		// Go backwards so the items appear in the correct order when
-		// added to their parent.
-		for( diffIt.toLast(); diffIt.current(); --diffIt ) {
-			Difference *diff = diffIt.current();
-
-			QListViewItem* diffItem = new QListViewItem( modelItem );
-			diffItem->setText( COL_SOURCE, i18n( "Line %1" ).arg( diff->linenoA ) );
-			diffItem->setText( COL_DESTINATION, i18n( "Line %1" ).arg( diff->linenoB ) );
-
-			QString text = "";
-			switch( diff->type ) {
-			case Difference::Change:
-				text = i18n( "Nonmatching lines" );
-				break;
-			case Difference::Insert:
-				text = i18n( "Lines inserted in destination" );
-				break;
-			case Difference::Delete:
-			default:
-				text = i18n( "Lines deleted from destination" );
-				break;
-			}
-			diffItem->setText( COL_DIFFERENCE, text );
+		diffItem->setText( COL_DIFFERENCE, text );
 //			diffItem->setPixmap( );
-		}
 	}
+}
+
+QListViewItem* KDiffNavigationTree::lastItem()
+{
+	QListViewItem* item = firstChild();
+	QListViewItem* lastItem = item;
+	while( item != 0 ) {
+		lastItem = item;
+		item = item->nextSibling();
+	}
+	return lastItem;
 }
 
 void KDiffNavigationTree::slotSetSelection( int model, int diff )

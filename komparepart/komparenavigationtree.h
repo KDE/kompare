@@ -29,11 +29,10 @@ class KDiffPart;
 class KDiffNavigationTree : public KListView
 {
 	Q_OBJECT
-public:
-	KDiffNavigationTree( KDiffPart* part, QWidget* parent = 0L, const char* name = 0L );
-	virtual ~KDiffNavigationTree();
 
-	void setModels( const QList<DiffModel>* models );
+public:
+	KDiffNavigationTree( KDiffModelList* models, QWidget* parent = 0L, const char* name = 0L );
+	virtual ~KDiffNavigationTree();
 
 public slots:
 	void slotSetSelection( int model, int diff );
@@ -43,9 +42,11 @@ signals:
 
 private slots:
 	void slotSelectionChanged( QListViewItem* item );
+	void slotAddModel( DiffModel * );
 
-private:
-	KDiffPart*      m_diffPart;
+private: // Private methods
+  /** No descriptions */
+  QListViewItem* lastItem();
 };
 
 #endif

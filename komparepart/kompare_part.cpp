@@ -57,32 +57,36 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 {
 	// we need an instance
 	setInstance( KDiffPartFactory::instance() );
-
+	
 	if( !m_generalSettings ) {
 		m_generalSettings = new GeneralSettings( 0 );
 		m_diffSettings = new DiffSettings( 0 );
 		m_miscSettings = new MiscSettings( 0 );
 	}
-
+	
+	m_models = new KDiffModelList();
+	
 	// this should be your custom internal widget
-	m_diffView = new KDiffView( m_generalSettings, parentWidget, widgetName );
+	m_diffView = new KDiffView( m_models, m_generalSettings, parentWidget, widgetName );
+	connect( this, SIGNAL(selectionChanged(int,int)),
+	         m_diffView, SLOT(slotSetSelection(int,int)) );
 
 	// notify the part that this is our internal widget
 	setWidget(m_diffView);
-
+	
 	setupActions();
-
+	
 	loadSettings( instance()->config() );
-
+	
 	// set our XML-UI resource file
 	setXMLFile("kdiffpartui.rc");
-
+	
 	// we are read-write by default
 	setReadWrite(true);
-
+	
 	// we are not modified since we haven't done anything yet
 	setModified(false);
-
+	
 	connect( this, SIGNAL(selectionChanged(int,int)),
 	         this, SLOT(slotSelectionChanged(int,int)) );
 }
@@ -95,7 +99,11 @@ KDiffPart::~KDiffPart()
 QWidget* KDiffPart::createNavigationWidget( QWidget* parent, const char* name )
 {
 	if( !m_navigationTree ) {
-		m_navigationTree = new KDiffNavigationTree( this, parent, name );
+		m_navigationTree = new KDiffNavigationTree( m_models, parent, name );
+		connect( this, SIGNAL(selectionChanged(int,int)),
+		         m_navigationTree, SLOT(slotSetSelection(int,int)) );
+		connect( m_navigationTree, SIGNAL(selectionChanged(int,int)),
+		         this, SLOT(slotSetSelection(int,int)) );
 	} else {
 		// FIXME
 	}
@@ -221,22 +229,10 @@ void KDiffPart::compare( const KURL& source, const KURL& destination, DiffSettin
 
 bool KDiffPart::parseDiff( QStringList diff )
 {
-	if ( DiffModel::parseDiff( diff, &m_models ) != 0 ) {
+	if ( DiffModel::parseDiff( diff, m_models ) != 0 ) {
 		// error, do something
 		KMessageBox::error( widget(), i18n( "Could not parse diff." ) );
 		return false;
-	}
-
-	m_diffView->setModels( &m_models );
-	connect( this, SIGNAL(selectionChanged(int,int)),
-	         m_diffView, SLOT(slotSetSelection(int,int)) );
-
-	if( m_navigationTree ) {
-		m_navigationTree->setModels( &m_models );
-		connect( this, SIGNAL(selectionChanged(int,int)),
-		         m_navigationTree, SLOT(slotSetSelection(int,int)) );
-		connect( m_navigationTree, SIGNAL(selectionChanged(int,int)),
-		         this, SLOT(slotSetSelection(int,int)) );
 	}
 
 	slotSetSelection( 0, 0 );
@@ -379,7 +375,7 @@ void KDiffPart::slotSetSelection( int model, int diff )
 void KDiffPart::slotSelectionChanged( int model, int diff ) {
 	m_previousDifference->setEnabled( diff > 0 || model > 0 );
 	m_nextDifference->setEnabled( diff < getSelectedModel()->differenceCount() - 1 ||
-	                              model < m_models.count() - 1 );
+	                              model < m_models->modelCount() - 1 );
 }
 
 void KDiffPart::slotDifferenceMenuAboutToShow()
@@ -399,7 +395,7 @@ void KDiffPart::slotPreviousDifference()
 	if( diffIndex > 0 )
 		slotSetSelection( modelIndex, diffIndex - 1 );
 	else
-		slotSetSelection( modelIndex - 1, m_models.at( modelIndex - 1 )->differenceCount() - 1 );
+		slotSetSelection( modelIndex - 1, m_models->modelAt( modelIndex - 1 )->differenceCount() - 1 );
 }
 
 void KDiffPart::slotNextDifference()

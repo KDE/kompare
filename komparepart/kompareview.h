@@ -16,12 +16,13 @@
 #define _KDIFFVIEW_H_
 
 #include <qwidget.h>
-#include <qlist.h>
 
 class QLabel;
 class QComboBox;
 class QFont;
 class QFile;
+
+#include "kdiffmodellist.h"
 
 class DiffModel;
 class DiffView;
@@ -33,10 +34,8 @@ class KDiffView : public QWidget
 	Q_OBJECT
 
 public:
-	KDiffView( GeneralSettings* settings, QWidget *parent=0, const char *name=0 );
+	KDiffView( KDiffModelList* models, GeneralSettings* settings, QWidget *parent=0, const char *name=0 );
 	~KDiffView();
-
-	void setModels( const QList<DiffModel>* models );
 
 	void setFont( const QFont& font );
 	void setTabWidth( uint tabWidth );
@@ -52,11 +51,7 @@ protected:
 	void updateScrollBars();
 
 private:
-
-	DiffModel* modelAt( int i )
-		{ return const_cast<QList<DiffModel>*>(m_models)->at( i ); };
-
-	const QList<DiffModel>*   m_models;
+	KDiffModelList*           m_models;
 	int                       m_selectedModel;
 	int                       m_selectedDifference;
 	GeneralSettings*          m_settings;
@@ -67,6 +62,9 @@ private:
 	DiffConnectWidget*        zoom;
 	QScrollBar*               vScroll;
 	QScrollBar*               hScroll;
+private slots: // Private slots
+  /** No descriptions */
+  void slotAddModel( DiffModel* model );
 };
 
 #endif

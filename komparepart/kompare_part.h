@@ -25,6 +25,8 @@
 
 #include "diffmodel.h"
 
+#include <kdiffmodellist.h>
+
 class QWidget;
 
 class KToggleAction;
@@ -35,7 +37,6 @@ class KDiffNavigationTree;
 class KDifferencesAction;
 class KDiffProcess;
 class KDiffStatsDlg;
-
 class GeneralSettings;
 class DiffSettings;
 class MiscSettings;
@@ -91,17 +92,15 @@ public:
 	const KURL& getDestinationURL() const { return m_destinationURL; };
 
 	int modelCount() const
-		{ return m_models.count(); };
-	const DiffModel* modelAt( int i )
-		{ return m_models.at( i ); };
+		{ return m_models->modelCount(); };
 	int getSelectedModelIndex() const
 		{ return m_selectedModel; };
 	int getSelectedDifferenceIndex() const
 		{ return m_selectedDifference; };
 	const DiffModel* getSelectedModel()
-		{ return m_models.at( m_selectedModel ); };
+		{ return m_models->modelAt( m_selectedModel ); };
 	const Difference* getSelectedDifference()
-		{ return m_models.at( m_selectedModel )->differenceAt( m_selectedDifference ); };
+		{ return m_models->modelAt( m_selectedModel )->differenceAt( m_selectedDifference ); };
 
 public slots:
 	void slotSetSelection( int model, int diff );
@@ -142,8 +141,7 @@ private:
 	static DiffSettings*       m_diffSettings;
 	static MiscSettings*       m_miscSettings;
 
-	QList<DiffModel>       m_models;
-
+	KDiffModelList*        m_models;
 	int                    m_selectedModel;
 	int                    m_selectedDifference;
 

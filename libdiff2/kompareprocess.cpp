@@ -218,9 +218,9 @@ void KompareProcess::slotProcessExited( KProcess* /* proc */ )
 {
 	// exit status of 0: no differences
 	//                1: some differences
-	//                2: error
-	kdDebug(8101) << "Exited..." << endl;
-	emit diffHasFinished( normalExit() && exitStatus() == 1 );
+	//                2: error but there may be differences !
+	kdDebug(8101) << "Exited with exit status : " << exitStatus() << endl;
+	emit diffHasFinished( normalExit() && exitStatus() != 0 );
 }
 
 const QStringList KompareProcess::diffOutput()

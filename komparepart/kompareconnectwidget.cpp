@@ -17,6 +17,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <qapplication.h>
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qstyle.h>
@@ -118,13 +119,24 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 			QPtrListIterator<Difference> diffIt =
 			     QPtrListIterator<Difference>( m_selectedModel->differences() );
 			diffIt += first;
+
+			QRect leftRect, rightRect;
+
 			for( int i = first; diffIt.current() && i <= last; ++diffIt, ++i )
 			{
 				const Difference* diff = diffIt.current();
 				bool selected = (diff == m_selectedDifference);
 
-				QRect leftRect = m_leftView->itemRect( i );
-				QRect rightRect = m_rightView->itemRect( i );
+				if ( QApplication::reverseLayout() )
+				{
+					leftRect = m_rightView->itemRect( i );
+					rightRect = m_leftView->itemRect( i );
+				}
+				else
+				{
+					leftRect = m_leftView->itemRect( i );
+					rightRect = m_rightView->itemRect( i );
+				}
 				int tl = leftRect.top();
 				int tr = rightRect.top();
 				int bl = leftRect.bottom();

@@ -410,27 +410,27 @@ void KompareSplitter::wheelEvent( QWheelEvent* e )
 	if ( e->orientation() == Qt::Vertical )
 	{
 		if ( e->state() & Qt::ControlButton )
-			if ( e->delta() < 0 ) // scroll up in the file
+			if ( e->delta() < 0 ) // scroll down one page
 				m_vScroll->addPage();
-			else // scroll down in the file
+			else // scroll up one page
 				m_vScroll->subtractPage();
 		else
-			if ( e->delta() < 0 ) // scroll up in the file
+			if ( e->delta() < 0 ) // scroll down
 				m_vScroll->addLine();
-			else // scroll down in the file
+			else // scroll up
 				m_vScroll->subtractLine();
 	}
 	else
 	{
 		if ( e->state() & Qt::ControlButton )
-			if ( e->delta() < 0 ) // scroll up in the file
+			if ( e->delta() < 0 ) // scroll right one page
 				m_hScroll->addPage();
-			else // scroll down in the file
+			else // scroll left one page
 				m_hScroll->subtractPage();
 		else
-			if ( e->delta() < 0 ) // scroll to the left in the file
+			if ( e->delta() < 0 ) // scroll to the right
 				m_hScroll->addLine();
-			else // scroll to the right in the file
+			else // scroll to the left
 				m_hScroll->subtractLine();
 	}
 	e->accept();

@@ -402,8 +402,8 @@ void KompareListView::slotApplyDifference( const Difference* diff, bool apply )
 void KompareListView::slotConfigChanged()
 {
 	m_spaces = "";
-	kdDebug( 8104 ) << "tabToNumberOfSpaces: " << settings()->m_tabToNumberOfSpaces << endl;
-	for ( int i = 0; i < settings()->m_tabToNumberOfSpaces; i++ )
+	kdDebug( 8104 ) << "tabToNumberOfSpaces: " << m_settings->m_tabToNumberOfSpaces << endl;
+	for ( int i = 0; i < m_settings->m_tabToNumberOfSpaces; i++ )
 		m_spaces += " ";
 	triggerUpdate();
 }
@@ -627,9 +627,6 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 {
 	if ( column == COL_MAIN )
 	{
-		QValueListIterator<Command*> commandIt = m_text->commandsList().begin();
-		QValueListIterator<Command*> cEnd      = m_text->commandsList().end();
-		Command* c = *commandIt;
 		QString textChunk;
 		int offset = listView()->itemMargin();
 		unsigned int prevValue = 0;
@@ -646,8 +643,12 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 
 		p->fillRect( 0, 0, offset, height(), normalBrush );
 
-		if ( ! m_text->commandsList().isEmpty() )
+		if ( !m_text->commandsList().isEmpty() )
 		{
+			QValueListIterator<Command*> commandIt = m_text->commandsList().begin();
+			QValueListIterator<Command*> cEnd      = m_text->commandsList().end();
+			Command* c = *commandIt;
+
 			for ( ; commandIt != cEnd; ++commandIt )
 			{
 				c  = *commandIt;

@@ -38,7 +38,7 @@ class KompareConnectWidget : public QWidget
 
 public:
 	KompareConnectWidget( KompareListView* left, KompareListView* right,
-	      ViewSettings* settings, QWidget* parent, const char* name=0);
+	      ViewSettings* settings, QWidget* parent, const char* name = 0 );
 	~KompareConnectWidget();
 
 public slots:
@@ -71,7 +71,7 @@ class KompareConnectWidgetFrame : public QSplitterHandle
 	Q_OBJECT
 public:
 	KompareConnectWidgetFrame( KompareListView* left, KompareListView* right,
-	      ViewSettings* settings, KompareSplitter* parent, const char* name=0);
+	      ViewSettings* settings, KompareSplitter* parent, const char* name = 0 );
 	~KompareConnectWidgetFrame();
 	
 	QSize sizeHint() const;
@@ -80,7 +80,7 @@ public:
 
 protected:
 	// stop the parent QSplitterHandle painting
-	void paintEvent( QPaintEvent* e ) { }
+	void paintEvent( QPaintEvent* /* e */ ) { }
 
 private:
 	KompareConnectWidget      m_wid;

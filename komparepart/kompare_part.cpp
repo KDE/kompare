@@ -375,7 +375,7 @@ void KomparePart::slotShowDiffstats( void )
 		KMessageBox::information( 0L, i18n(
 		    "Sorry, no diff file or no 2 files have been diffed, "
 		    "so there are no stats available."),
-		    i18n("Diff statistics"), QString::null, false );
+		    i18n("Diff Statistics"), QString::null, false );
 	}
 	else if ( modelCount() == 1 ) { // 1 file in diff, or 2 files compared
 		KMessageBox::information( 0L, i18n(
@@ -389,7 +389,7 @@ void KomparePart::slotShowDiffstats( void )
 		    "Number of differences : %5")
 		    .arg(oldFile).arg(newFile).arg(diffFormat)
 		    .arg(noOfHunks).arg(noOfDiffs),
-		    i18n("Diff statistics"), QString::null, false );
+		    i18n("Diff Statistics"), QString::null, false );
 	} else { // more than 1 file in diff, or 1 or more directories compared (not yet possible afaik))
 		KMessageBox::information( 0L, i18n(
 		    "Statistics:\n"
@@ -404,7 +404,7 @@ void KomparePart::slotShowDiffstats( void )
 		    "Number of differences : %6")
 		    .arg(filesInDiff).arg(diffFormat).arg(oldFile)
 		    .arg(newFile).arg(noOfHunks).arg(noOfDiffs),
-		    i18n("Diff statistics"), QString::null, false );
+		    i18n("Diff Statistics"), QString::null, false );
 	}
 }
 

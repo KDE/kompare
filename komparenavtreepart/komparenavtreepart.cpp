@@ -36,6 +36,8 @@
 #define COL_DESTINATION   1
 #define COL_DIFFERENCE    2
 
+#define kdDebug() kdDebug(8105)
+
 KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 	: KParts::ReadOnlyPart( parent, name ),
 	m_splitter( 0 ),

@@ -318,8 +318,8 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 
 	m_itemDict.resize(model->differenceCount());
 
-	QValueListConstIterator<DiffHunk*> hunkIt = model->hunks().begin();
-	QValueListConstIterator<DiffHunk*> hEnd   = model->hunks().end();
+	DiffHunkListConstIterator hunkIt = model->hunks().begin();
+	DiffHunkListConstIterator hEnd   = model->hunks().end();
 
 	KompareListViewItem* item = 0;
 	Difference* tmpdiff = 0;
@@ -335,8 +335,8 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 		else
 			item = new KompareListViewHunkItem( this, hunk );
 
-		QValueListConstIterator<Difference*> diffIt = hunk->differences().begin();
-		QValueListConstIterator<Difference*> dEnd   = hunk->differences().end();
+		DifferenceListConstIterator diffIt = hunk->differences().begin();
+		DifferenceListConstIterator dEnd   = hunk->differences().end();
 
 		for ( ; diffIt != dEnd; ++diffIt )
 		{

@@ -72,6 +72,9 @@ private:
 	KompareConnectWidget*     m_zoom;
 	QScrollBar*               m_vScroll;
 	QScrollBar*               m_hScroll;
+
+	int                       m_scrollDistance;
+	int                       m_pageSize;
 };
 
 #endif

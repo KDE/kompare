@@ -167,6 +167,10 @@ void KompareView::scrollToId( int id )
 
 void KompareView::updateScrollBars()
 {
+	// FIXME: The + 3 was determined by trial and error, it might be different for other font sizes. Will have to check.
+	m_scrollDistance = m_settings->m_scrollNoOfLines * ( QFontMetrics( KGlobalSettings::fixedFont() ).height() + 3 );
+	m_pageSize = m_diff1->visibleHeight() - 14;
+
 	if( m_diff1->contentsHeight() <= m_diff1->visibleHeight() &&
 	    m_diff2->contentsHeight() <= m_diff2->visibleHeight() ) {
 		if( m_vScroll->isVisible() )
@@ -177,10 +181,9 @@ void KompareView::updateScrollBars()
 		}
 
 		m_vScroll->blockSignals( true );
-		m_vScroll->setRange( QMIN( m_diff1->minScrollId(), m_diff2->minScrollId() ),
-		                   QMAX( m_diff1->maxScrollId(), m_diff2->maxScrollId() ) );
+		m_vScroll->setRange( 0, QMAX( m_diff1->maxScrollId(), m_diff2->maxScrollId() ) );
 		m_vScroll->setValue( m_diff1->scrollId() );
-		m_vScroll->setSteps( 7, m_diff1->visibleHeight() - 14 );
+		m_vScroll->setSteps( m_scrollDistance, m_pageSize );
 		m_vScroll->blockSignals( false );
 	}
 
@@ -211,15 +214,13 @@ void KompareView::resizeEvent( QResizeEvent* e )
 void KompareView::wheelEvent( QWheelEvent* e )
 {
 	// scroll lines...
-	int pos = m_vScroll->value();
-	int height = m_diff1->itemRect( 0 ).height();
 	if ( e->delta() < 0 ) // scroll back into file
 	{
-		m_vScroll->setValue( pos + m_settings->m_scrollNoOfLines*height );
+		m_vScroll->addLine();
 	}
 	else // scroll forward into file
 	{
-		m_vScroll->setValue( pos - m_settings->m_scrollNoOfLines*height );
+		m_vScroll->subtractLine();
 	}
 	m_zoom->repaint();
 }

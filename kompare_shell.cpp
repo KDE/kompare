@@ -183,7 +183,9 @@ bool KompareShell::queryClose()
 
 void KompareShell::open(const KURL& url)
 {
+#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 	kdDebug(8102) << "Url = " << url << endl;
+#endif
 	m_diffURL = url;
 	m_viewPart->openDiff( url );
 }
@@ -258,7 +260,9 @@ void KompareShell::setupActions()
 	              actionCollection(), "file_blend_url" );
 	KStdAction::quit(kapp, SLOT(quit()), actionCollection());
 
+#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 	createStandardStatusBarAction();
+#endif
 	setStandardToolBarMenuEnabled(true);
 	m_showTextView = new KToggleAction( i18n("Show T&ext View"), 0, this, SLOT(slotShowTextView()),
 	                                  actionCollection(), "options_show_text_view" );

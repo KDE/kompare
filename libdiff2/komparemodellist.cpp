@@ -25,6 +25,7 @@
 #include <kdirwatch.h>
 #include <kio/netaccess.h>
 #include <klocale.h>
+#include <kdeversion.h>
 #include <ktempfile.h>
 
 #include "difference.h"
@@ -196,7 +197,9 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 	else
 	{
 		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
+#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 		kdDebug(8101) << "DestinationURL : " << m_destinationURL << endl;
+#endif
 		result = KIO::NetAccess::upload( temp->name(), m_destinationURL );
 	}
 
@@ -271,7 +274,9 @@ void KompareModelList::slotFileChanged( const QString& /*file*/ )
 
 bool KompareModelList::openDiff( const KURL& url )
 {
+#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 	kdDebug(8101) << "Fucking Url = " << url << endl;
+#endif
 
 	if ( !url.isEmpty() )
 		m_diffURL = url;
@@ -292,7 +297,9 @@ bool KompareModelList::openDiff( const KURL& url )
 		kdDebug(8101) << "Reading from file " << m_diffURL.url() << endl;
 		if( !KIO::NetAccess::download( m_diffURL, diffTemp ) )
  		{
+#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 			kdDebug() << "Download of url " << m_diffURL << " failed..." << endl;
+#endif
 			return false;
 		}
 		file.setName( diffTemp );

@@ -16,6 +16,7 @@
 ***************************************************************************/
 
 #include <kdebug.h>
+#include <kdeversion.h>
 
 #include "parser.h"
 #include "cvsdiffparser.h"
@@ -42,7 +43,9 @@ QPtrList<DiffModel>* Parser::parse( const QString& diff )
 
 QPtrList<DiffModel>* Parser::parse( const QStringList& diff )
 {
+#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 	kdDebug(8101) << diff << endl;
+#endif
 
 	/* Basically determine the generator then call the parse method */
 	ParserBase* parser;

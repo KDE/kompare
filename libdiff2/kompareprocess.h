@@ -25,14 +25,13 @@
 #include "kompare.h"
 
 class DiffSettings;
-class ViewSettings;
 
 class KompareProcess : public KProcess, public KompareFunctions
 {
 	Q_OBJECT
 
 public:
-	KompareProcess( DiffSettings* diffSettings, ViewSettings* viewSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString directory = QString::null );
+	KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString directory = QString::null );
 	~KompareProcess();
 
 	bool start();
@@ -55,7 +54,6 @@ protected slots:
 
 private:
 	DiffSettings*          m_diffSettings;
-	ViewSettings*          m_viewSettings;
 	enum Kompare::DiffMode m_mode;
 	QString                m_stdout;
 	QString                m_stderr;

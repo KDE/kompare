@@ -40,11 +40,10 @@
 
 using namespace Diff2;
 
-KompareModelList::KompareModelList( DiffSettings* diffSettings, ViewSettings* viewSettings, struct Kompare::Info* info, QObject* parent, const char* name )
+KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::Info* info, QObject* parent, const char* name )
 	: QObject( parent, name ),
 	m_diffProcess( 0 ),
 	m_diffSettings( diffSettings ),
-	m_viewSettings( viewSettings ),
 	m_models( 0 ),
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 ),
@@ -161,7 +160,7 @@ bool KompareModelList::compareFiles( const QString& source, const QString& desti
 	connect( m_fileWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotFileChanged( const QString& ) ) );
 
 	m_fileWatch->startScan();
-	m_diffProcess = new KompareProcess( m_diffSettings, m_viewSettings, Kompare::Custom, m_source, m_destination );
+	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_source, m_destination );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );
@@ -189,7 +188,7 @@ bool KompareModelList::compareDirs( const QString& source, const QString& destin
 	connect( m_dirWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotDirectoryChanged( const QString& ) ) );
 
 	m_dirWatch->startScan();
-	m_diffProcess = new KompareProcess( m_diffSettings, m_viewSettings, Kompare::Custom, m_source, m_destination );
+	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_source, m_destination );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );
@@ -441,7 +440,7 @@ bool KompareModelList::openDiff( const QString& diffFile )
 	return true;
 }
 
-bool KompareModelList::saveDiff( const QString& /*url*/, QString directory, DiffSettings* diffSettings, ViewSettings* viewSettings )
+bool KompareModelList::saveDiff( const QString& /*url*/, QString directory, DiffSettings* diffSettings )
 {
 	kdDebug() << "KompareModelList::saveDiff: " << endl;
 
@@ -455,7 +454,7 @@ bool KompareModelList::saveDiff( const QString& /*url*/, QString directory, Diff
 		return false;
 	}
 */
-	m_diffProcess = new KompareProcess( diffSettings, viewSettings, Kompare::Custom, m_source, m_destination, directory );
+	m_diffProcess = new KompareProcess( diffSettings, Kompare::Custom, m_source, m_destination, directory );
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotWriteDiffOutput( bool )) );
 

@@ -64,7 +64,7 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	}
 
 	// This creates the "Model creator" and connects the signals and slots
-	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_viewSettings, &m_info, this, "komparemodellist" );
+	m_modelList = new Diff2::KompareModelList( m_diffSettings, &m_info, this, "komparemodellist" );
 	connect( m_modelList, SIGNAL(status( Kompare::Status )),
 	         this, SLOT(slotSetStatus( Kompare::Status )) );
 	connect( m_modelList, SIGNAL(error( QString )),
@@ -487,7 +487,7 @@ void KomparePart::saveDiff()
 		KURL url = KFileDialog::getSaveURL( m_info.destination.url(),
 		              i18n("*.diff *.dif *.patch|Patch files"), widget(), i18n( "Save .diff" ) );
 		// FIXME: is url is remote we still need to upload it
-		m_modelList->saveDiff( url.url(), w->directory(), m_diffSettings, m_viewSettings );
+		m_modelList->saveDiff( url.url(), w->directory(), m_diffSettings );
 	}
 	delete dlg;
 }

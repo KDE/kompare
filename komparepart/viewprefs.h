@@ -52,7 +52,6 @@ public:
 	KColorButton* m_changedColorButton;
 	KColorButton* m_addedColorButton;
 	KColorButton* m_appliedColorButton;
-	QCheckBox*    m_showEntireFile;
 	// snol == scroll number of lines
 	QSpinBox*     m_snolSpinBox;
 	QSpinBox*     m_tabSpinBox;

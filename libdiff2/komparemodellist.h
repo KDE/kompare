@@ -33,7 +33,6 @@ class KDirWatch;
 class KTempFile;
 
 class DiffSettings;
-class ViewSettings;
 class KompareProcess;
 
 namespace Diff2
@@ -43,7 +42,7 @@ class KompareModelList : public QObject
 {
 	Q_OBJECT
 public:
-	KompareModelList( DiffSettings* diffSettings, ViewSettings* viewSettings, struct Kompare::Info* info, QObject* parent = 0, const char* name = 0 );
+	KompareModelList( DiffSettings* diffSettings, struct Kompare::Info* info, QObject* parent = 0, const char* name = 0 );
 	~KompareModelList();
 
 public:
@@ -64,7 +63,7 @@ public:
 	bool openDirAndDiff( const QString& dir, const QString& diff );
 
 public:
-	bool saveDiff( const QString& url, QString directory, DiffSettings* diffSettings, ViewSettings* viewSettings );
+	bool saveDiff( const QString& url, QString directory, DiffSettings* diffSettings );
 	bool saveAll();
 
 	bool saveDestination( const DiffModel* model );
@@ -167,7 +166,6 @@ private:
 	KompareProcess*       m_diffProcess;
 
 	DiffSettings*         m_diffSettings;
-	ViewSettings*         m_viewSettings;
 
 	QPtrList<DiffModel>*  m_models;
 

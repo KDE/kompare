@@ -44,7 +44,6 @@ public:
 	QColor colorForDifferenceType( Diff2::Difference::Type type, bool selected = false, bool applied = false );
 
 public:
-	bool   m_showEntireFile;
 	QColor m_removeColor;
 	QColor m_changeColor;
 	QColor m_addColor;

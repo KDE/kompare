@@ -22,13 +22,11 @@
 #include <kdebug.h>
 
 #include "diffsettings.h"
-#include "viewsettings.h"
 #include "kompareprocess.h"
 
-KompareProcess::KompareProcess( DiffSettings* diffSettings, ViewSettings*viewSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString dir )
+KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString dir )
 	: KProcess(),
 	m_diffSettings( diffSettings ),
-	m_viewSettings( viewSettings ),
 	m_mode( mode )
 {
 	setUseShell( true );
@@ -76,14 +74,7 @@ void KompareProcess::writeDefaultCommandLine()
 		*this << m_diffSettings->m_diffProgram << "-dr";
 	}
 
-	if ( !m_viewSettings || m_viewSettings->m_showEntireFile )
-	{
-		*this << "-U65535";
-	}
-	else
-	{
-		*this << "-U" << QString::number( m_diffSettings->m_linesOfContext );
-	}
+	*this << "-U" << QString::number( m_diffSettings->m_linesOfContext );
 }
 
 void KompareProcess::writeCommandLine()

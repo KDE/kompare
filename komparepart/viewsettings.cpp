@@ -39,7 +39,6 @@ ViewSettings::~ViewSettings()
 void ViewSettings::loadSettings( KConfig* config )
 {
 	config->setGroup( "View Options" );
-	m_showEntireFile      = config->readBoolEntry ( "ShowEntireFile",      true );
 	m_removeColor         = config->readColorEntry( "RemoveColor",         &default_removeColor );
 	m_changeColor         = config->readColorEntry( "ChangeColor",         &default_changeColor );
 	m_addColor            = config->readColorEntry( "AddColor",            &default_addColor );
@@ -53,7 +52,6 @@ void ViewSettings::loadSettings( KConfig* config )
 void ViewSettings::saveSettings( KConfig* config )
 {
 	config->setGroup( "View Options" );
-	config->writeEntry( "ShowEntireFile",      m_showEntireFile );
 	config->writeEntry( "RemoveColor",         m_removeColor );
 	config->writeEntry( "ChangeColor",         m_changeColor );
 	config->writeEntry( "AddColor",            m_addColor );

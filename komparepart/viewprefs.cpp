@@ -70,10 +70,6 @@ ViewPrefs::ViewPrefs( QWidget* parent ) : PrefsBase( parent )
 	m_appliedColorButton = new KColorButton( colorGroupBox );
 	label->setBuddy( m_appliedColorButton );
 
-	// add the show entire file checkbox
-	m_showEntireFile = new QCheckBox( i18n( "Show entire file when comparing" ), page );
-	layout->addWidget( m_showEntireFile );
-
 	// scroll number of lines (snol)
 	snolGroupBox = new QHGroupBox( i18n( "Mouse Wheel" ), page );
 	layout->addWidget( snolGroupBox );
@@ -108,7 +104,6 @@ void ViewPrefs::setSettings( ViewSettings* setts )
 {
 	m_settings = setts;
 
-	m_showEntireFile->setChecked  ( m_settings->m_showEntireFile );
 	m_addedColorButton->setColor  ( m_settings->m_addColor );
 	m_changedColorButton->setColor( m_settings->m_changeColor );
 	m_removedColorButton->setColor( m_settings->m_removeColor );
@@ -131,7 +126,6 @@ void ViewPrefs::apply()
 	ViewSettings* setts;
 	setts = settings();
 
-	setts->m_showEntireFile      = m_showEntireFile->isChecked();
 	setts->m_addColor            = m_addedColorButton->color();
 	setts->m_changeColor         = m_changedColorButton->color();
 	setts->m_removeColor         = m_removedColorButton->color();
@@ -144,7 +138,6 @@ void ViewPrefs::apply()
 
 void ViewPrefs::setDefaults()
 {
-	m_showEntireFile->setChecked  ( true );
 	m_addedColorButton->setColor  ( ViewSettings::default_addColor );
 	m_changedColorButton->setColor( ViewSettings::default_changeColor );
 	m_removedColorButton->setColor( ViewSettings::default_removeColor );

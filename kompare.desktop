@@ -3,13 +3,14 @@
 Encoding=UTF-8
 Type=Application
 Name=Kompare
+Name[af]=K-vergelyk
 Name[ar]=المقارن
 Name[eo]=Komparilo
 Name[lv]=Salīdzināt
 Name[th]=เปรียบเทียบ - K
 Name[xx]=xx
 GenericName=Diff/Patch Frontend
-GenericName[af]=diff/lap voorprogram
+GenericName[af]=Diff/Lap Voorprogram
 GenericName[ar]=واجهة Diff/Patch
 GenericName[bs]=Frontend za Diff/Patch
 GenericName[cs]=Rozhraní pro Diff/Patch

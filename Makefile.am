@@ -63,14 +63,14 @@ partrc_DATA = kdiffpartui.rc
 #	diffprefs.cpp kmaindiffview.cpp \
 #	kdiffview.cpp prefsbase.cpp
 
-unifiedgrammar.cpp: unifiedgrammar.y
-	bison -o unifiedgrammar.cpp unifiedgrammar.y
+#unifiedgrammar.cpp: unifiedgrammar.y
+#	bison -o unifiedgrammar.cpp unifiedgrammar.y
 
-unifiedgrammar.h: unifiedgrammar.y
-	bison -d -o unifiedgrammar.c unifiedgrammar.y && rm unifiedgrammar.c
+#unifiedgrammar.h: unifiedgrammar.y
+#	bison -d -o unifiedgrammar.c unifiedgrammar.y && rm unifiedgrammar.c
 
-unifiedlexer.cpp: unifiedlexer.l
-	flex -+ -ounifiedlexer.cpp unifiedlexer.l
+#unifiedlexer.cpp: unifiedlexer.l
+#	flex -+ -ounifiedlexer.cpp unifiedlexer.l
 
 rc.cpp:
 	$(EXTRACTRC) *.rc > rc.cpp

@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	                      KAboutData::License_GPL,
 	                      "(c) 2001, Otto Bruggeman", 0, 0, "otto.bruggeman@home.nl");
 	aboutData.addAuthor( "Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
-	aboutData.addAuthor( "John Firebaugh", "Author", "jfirebaugh@mac.com" );
+	aboutData.addAuthor( "John Firebaugh", "Author", "jfirebaugh@kde.org" );
 	aboutData.addCredit( "Malte Starostik", "Big help :)", "malte@kde.org" );
 	aboutData.addCredit( "Bernd Gehrmann", "Cervisia diff viewer", "bernd@physik.hu-berlin.de" );
 	KCmdLineArgs::init(argc, argv, &aboutData);

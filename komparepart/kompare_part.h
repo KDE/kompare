@@ -96,7 +96,7 @@ private:
 	QList<DiffModel>    m_diffmodels;
 
 	KDiffView*          m_diffView;
-	KAction*            m_safeDiff;
+	KAction*            m_saveDiff;
 	KAction*            m_previousDifference;
 	KAction*            m_nextDifference;
 	KDifferencesAction* m_differences;

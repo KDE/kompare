@@ -76,9 +76,8 @@ void KDiffPart::setupActions()
 {
 	// create our actions
 
-	m_safeDiff = new KAction( i18n("&Save diff"), "file_save", Qt::CTRL + Key_S,
-	              this, SLOT(slotSaveDiff()),
-	              actionCollection(), "file_save_diff" );
+	m_saveDiff = KStdAction::save( this, SLOT(slotSaveDiff()), actionCollection() );
+	m_saveDiff->setText( i18n("&Save diff") );
 	m_previousDifference = new KAction( i18n("&Previous Difference"), "previous", Qt::CTRL + Qt::Key_Up,
 	              this, SLOT(slotPreviousDifference()),
 	              actionCollection(), "difference_previous" );
@@ -152,6 +151,7 @@ void KDiffPart::slotDiffProcessFinished( bool success )
 		m_diffOutput = m_diffProcess->getDiffOutput();	
 		model->parseDiff( m_diffOutput, type ); // XXX Fixme, is it fixed now ? :)
 		m_diffView->setModel( model, true );
+		setModified( true );
 	} else if( m_diffProcess->m_diffProcess->exitStatus() == 0 ) {
 		KMessageBox::information( widget(), i18n( "The files are identical." ) );
 	} else {
@@ -352,7 +352,8 @@ KInstance* KDiffPartFactory::instance()
 	if( !s_instance )
 	{
 		s_about = new KAboutData("kdiffpart", I18N_NOOP("KDiffPart"), "0.1");
-		s_about->addAuthor("John Firebaugh", 0, "jfirebaugh@mac.com");
+		s_about->addAuthor("John Firebaugh", "Author", "jfirebaugh@kde.org");
+		s_about->addAuthor("Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
 		s_instance = new KInstance(s_about);
 	}
 	return s_instance;

@@ -1,0 +1,12 @@
+==== //depot/craphola#1 - /home/bruggie/perforce-repo/craphola ====
+a4 7
+
+This will be a copy and paste of the previous lines just to have some changes for revision 2 of this file
+
+This is another t4extfile used to test the perforce diff stuff
+I'm just adding this file to see what it does with multiple file that have differences
+
+Now i'll add some text more later in the #2 revision but that has to wait a bit
+==== //depot/testje#2 - /home/bruggie/perforce-repo/testje ====
+a5 2
+More lines for #3 to see what happens in a multifile diff

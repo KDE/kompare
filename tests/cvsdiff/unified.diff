@@ -1,0 +1,50 @@
+Index: client/dcopfind.cpp
+===================================================================
+RCS file: /home/kde/kdelibs/dcop/client/dcopfind.cpp,v
+retrieving revision 1.2
+diff -u -r1.2 dcopfind.cpp
+--- client/dcopfind.cpp	2001/10/31 01:17:39	1.2
++++ client/dcopfind.cpp	2002/01/16 18:07:51
+@@ -36,7 +36,7 @@
+ static bool bAppIdOnly = 0;
+ static bool bLaunchApp = 0;
+ 
+-bool findObject( const char* app, const char* obj, const char* func, int argc, char** args )
++bool findObject( const char* app, const char* obj, const char* func, QCStringList args )
+ {
+     QString f = func; // Qt is better with unicode strings, so use one.
+     int left = f.find( '(' );
+@@ -118,7 +118,7 @@
+ 	f = fc;
+     }
+ 
+-    if ( (int) types.count() != argc ) {
++    if ( types.count() != args.count() ) {
+ 	qWarning( "arguments do not match" );
+ 	exit(1);
+     }
+@@ -128,9 +128,9 @@
+ 
+     int i = 0;
+     for ( QStringList::Iterator it = types.begin(); it != types.end(); ++it ) {
+-        marshall(arg, argc, args, i, *it);
++        marshall(arg, args, i, *it);
+     }
+-    if ( (int) i != argc ) {
++    if ( (uint) i != args.count() ) {
+ 	qWarning( "arguments do not match" );
+ 	exit(1);
+     }
+@@ -221,7 +221,11 @@
+        argc = 0;
+     }
+ 
+-    findObject( app, objid, function, argc, args );
++    QCStringList params;
++    for( int i = 0; i < argc; i++ )
++	    params.append( args[ i ] );
++    
++    findObject( app, objid, function, params );
+ 
+     return 0;
+ }

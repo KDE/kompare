@@ -1,0 +1,911 @@
+diff -aur dcop/client/dcop.cpp dcop2/client/dcop.cpp
+--- dcop/client/dcop.cpp	Wed Jan 30 22:38:07 2002
++++ dcop2/client/dcop.cpp	Wed Jan 30 22:37:04 2002
+@@ -20,19 +20,47 @@
+ 
+ ******************************************************************/
+ 
+-#include <qvariant.h>
++#include <ctype.h>
++#include <stdio.h>
++#include <stdlib.h>
++
+ #include <qcolor.h>
+-#include "../kdatastream.h"
++#include <qdir.h>
++#include <qfile.h>
++#include <qfileinfo.h>
++#include <qmap.h>
++#include <qstringlist.h>
++#include <qtextstream.h>
++#include <qvariant.h>
++
++// putenv() is not available on all platforms, so make sure the emulation
++// wrapper is available in those cases by loading config.h!
++#include <config.h>
++
+ #include "../dcopclient.h"
+ #include "../dcopref.h"
+-#include <stdlib.h>
+-#include <stdio.h>
+-#include <ctype.h>
++#include "../kdatastream.h"
+ 
+ #include "marshall.cpp"
+ 
++typedef QMap<QString, QString> UserList;
++
+ static DCOPClient* dcop = 0;
+ 
++static QTextStream cout( stdout, IO_WriteOnly );
++static QTextStream cerr( stderr, IO_WriteOnly );
++
++/**
++ * Session to send call to
++ * DefaultSession - current session. Current KDE session when called without
++ *                  --user or --all-users option. Otherwise this value ignores
++ *                  all users with more than one active session.
++ * AllSessions    - Send to all sessions found. requires --user or --all-users.
++ * QuerySessions  - Don't call DCOP, return a list of available sessions.
++ * CustomSession  - Use the specified session
++ */
++enum Session { DefaultSession = 0, AllSessions, QuerySessions, CustomSession };
++
+ bool startsWith(const QCString &id, const char *str, int n)
+ {
+   return !n || (strncmp(id.data(), str, n) == 0);
+@@ -118,9 +146,8 @@
+     }
+ }
+ 
+-void callFunction( const char* app, const char* obj, const char* func, int argc, char** args )
++void callFunction( const char* app, const char* obj, const char* func, const QCStringList args )
+ {
+-
+     QString f = func; // Qt is better with unicode strings, so use one.
+     int left = f.find( '(' );
+     int right = f.find( ')' );
+@@ -136,7 +163,7 @@
+ 	bool ok = false;
+ 	QCStringList funcs = dcop->remoteFunctions( app, obj, &ok );
+ 	QCString realfunc;
+-	if ( !ok && argc == 0 )
++	if ( !ok && args.isEmpty() )
+ 	    goto doit;
+ 	if ( !ok )
+         {
+@@ -153,15 +180,16 @@
+ 
+ 	    if ( l > 0 && (*it).mid( s, l - s ) == func ) {
+ 		realfunc = (*it).mid( s );
+-		int a = (*it).contains(',');
+-		if ( ( a == 0 && argc == 0) || ( a > 0 && a + 1 == argc ) )
++		uint a = (*it).contains(',');
++		if ( ( a == 0 && args.isEmpty() ) || ( a > 0 && a + 1 == args.count() ) )
+ 		    break;
+ 	    }
+ 	}
+ 	if ( realfunc.isEmpty() )
+ 	{
+ 	    qWarning("no such function");
+-            exit(1);
++//            exit(1);
++	    return;
+ 	}
+ 	f = realfunc;
+ 	left = f.find( '(' );
+@@ -243,11 +271,12 @@
+     QCString replyType;
+     QDataStream arg(data, IO_WriteOnly);
+ 
+-    int i = 0;
+-    for ( QStringList::Iterator it = types.begin(); it != types.end(); ++it ) {
+-        marshall(arg, argc, args, i, *it);
+-    }
+-    if ( i != argc ) {
++    uint i = 0;
++    for( QStringList::Iterator it = types.begin(); it != types.end(); ++it )
++        marshall( arg, args, i, *it );
++
++    if ( i != args.count() )
++    {
+ 	qWarning( "arguments do not match" );
+ 	exit(1);
+     }
+@@ -266,78 +295,479 @@
+     }
+ }
+ 
++/**
++ * Show command-line help and exit
++ */
++void showHelp( int exitCode = 0 )
++{
++    cout << "Usage: dcop [options] [application [object [function [arg1] [arg2] ... ] ] ]" << endl
++	 << "" << endl
++	 << "Console DCOP client" << endl
++	 << "" << endl
++	 << "Generic options:" << endl
++	 << "  --help          Show help about options" << endl
++	 << "" << endl
++	 << "Options:" << endl
++	 << "  --pipe          Call DCOP for each line read from stdin" << endl
++	 << "  --user <user>   Connect to the given user's DCOP server. This option will" << endl
++	 << "                  ignore the values of the environment vars $DCOPSERVER and" << endl
++	 << "                  $ICEAUTHORITY, even if they are set." << endl
++	 << "                  If the user has more than one open session, you must also" << endl
++	 << "                  use one of the --list-sessions, --session or --als-sessions" << endl
++	 << "                  command-line options." << endl
++	 << "  --all-users     Send the same DCOP call to all users with a running DCOP" << endl
++	 << "                  server. Only failed calls to existing DCOP servers will"
++	 << "                  generate an error message. If no DCOP server is available" << endl
++	 << "                  at all, no error will be generated." << endl;
++    
++    exit( exitCode );
++}
+ 
+-
+-int main( int argc, char** argv )
++/**
++ * Return a list of all users and their home directories.
++ * Returns an empty list if /etc/passwd cannot be read for some reason.
++ */
++static UserList userList()
+ {
++    UserList result;
++    
++    QFile f( "/etc/passwd" );
++
++    if( !f.open( IO_ReadOnly ) )
++    {
++	cerr << "Can't open /etc/passwd for reading!" << endl;
++	return result;
++    }
+ 
+-    if ( argc > 1 && argv[1][0] == '-' ) {
+-	fprintf( stderr, "Usage: dcop [ application [object [function [arg1] [arg2] [arg3] ... ] ] ] \n" );
+-	exit(0);
++    QStringList l( QStringList::split( '\n', f.readAll() ) );
++
++    for( QStringList::ConstIterator it( l.begin() ); it != l.end(); ++it )
++    {
++	QStringList userInfo( QStringList::split( ':', *it, true ) );
++	result[ userInfo[ 0 ] ] = userInfo[ 5 ];
+     }
+ 
+-    DCOPClient client;
+-    client.attach();
+-    dcop = &client;
++    return result;
++}
++
++/**
++ * Return a list of available DCOP sessions for the specified user
++ * An empty list means no sessions are available, or an error occurred.
++ */
++QStringList dcopSessionList( const QString &user, const QString &home )
++{
++    if( home.isEmpty() )
++    {
++	cerr << "WARNING: Cannot determine home directory for user "
++	     << user << "!" << endl
++	     << "Please check permissions or set the $DCOPSERVER variable manually before" << endl
++	     << "calling dcop." << endl;
++	return QStringList();
++    }
++
++    QStringList result;
++    QFileInfo dirInfo( home );
++    if( !dirInfo.exists() || !dirInfo.isReadable() )
++	return result;
++
++    QDir d( home );
++    d.setFilter( QDir::Files | QDir::Hidden | QDir::NoSymLinks );
++    d.setNameFilter( ".DCOPserver*" );
++
++    const QFileInfoList *list = d.entryInfoList();
++    if( !list )
++	return result;
++
++    QFileInfoListIterator it( *list );
++    QFileInfo *fi;
++
++    while ( ( fi = it.current() ) != 0 )
++    {
++	if( fi->isReadable() )
++	    result.append( fi->fileName() );
++	++it;
++    }
++    return result;
++}
+ 
++/**
++ * Do the actual DCOP call
++ */
++void runDCOP( QCStringList args, UserList users, Session session,
++              const QString sessionName, bool readStdin )
++{
+     QCString app;
+     QCString objid;
+     QCString function;
+-    char **args = 0;
+-    if ((argc > 1) && (strncmp(argv[1], "DCOPRef(", 8)) == 0)
++    QCStringList params;
++    DCOPClient *client = 0L;
++    if ( !args.isEmpty() && args[ 0 ].find( "DCOPRef(" ) == 0 )
+     {
+-       char *delim = strchr(argv[1], ',');
+-       if (!delim)
+-       {
+-          fprintf(stderr, "Error: '%s' is not a valid DCOP reference.\n", argv[1]);
+-          return 1;
+-       }
+-       *delim = 0;
+-       app = argv[1] + 8;
+-       delim++;
+-       delim[strlen(delim)-1] = 0;
+-       objid = delim;
+-       if (argc > 2)
+-          function = argv[2];
+-       if (argc > 3)
+-          args = &argv[3];
+-       argc++;
++	// WARNING: This part (until the closing '}') could very
++	// well be broken now. As I don't know how to trigger and test
++	// dcoprefs this code is *not* tested. It compiles and it looks
++	// ok to me, but that's all I can say - Martijn (2001/12/24)
++	int delimPos = args[ 0 ].findRev( ',' );
++	if( delimPos == -1 )
++        {
++	    cerr << "Error: '" << args[ 0 ]
++		 << "' is not a valid DCOP reference." << endl;
++	    exit( -1 );
++        }
++        args[ 0 ][ delimPos ] = 0;
++        app = args[ 0 ].mid( 8 );
++        delimPos++;
++        args[ 0 ][ args[ 0 ].length() - 1 ] = 0;
++        objid = args[ 0 ].mid( delimPos );
++        if( args.count() > 1 )
++	    function = args[ 1 ];
++	if( args.count() > 2 )
++	{
++	    params = args;
++	    params.remove( params.begin() );
++	    params.remove( params.begin() );
++	}
+     }
+     else
+     {
+-       if (argc > 1)
+-          app = argv[1];
+-       if (argc > 2)
+-          objid = argv[2];
+-       if (argc > 3)
+-          function = argv[3];
+-       if (argc > 4)
+-          args = &argv[4];
+-    }
+-
+-    switch ( argc ) {
+-    case 0:
+-    case 1:
+-	queryApplications("");
+-	break;
+-    case 2:
+-        if (endsWith(app, '*'))
+-           queryApplications(app);
+-        else
+-           queryObjects( app, "" );
+-	break;
+-    case 3:
+-        if (endsWith(objid, '*'))
+-           queryObjects(app, objid);
+-        else
+-           queryFunctions( app, objid );
+-	break;
+-    case 4:
+-    default:
+-	callFunction( app, objid, function, argc - 4, args );
+-	break;
++        if( !args.isEmpty() )
++	    app = args[ 0 ];
++        if( args.count() > 1 )
++	    objid = args[ 1 ];
++        if( args.count() > 2 )
++	    function = args[ 2 ];
++        if( args.count() > 3)
++	{
++	    params = args;
++	    params.remove( params.begin() );
++	    params.remove( params.begin() );
++	    params.remove( params.begin() );
++	}
++    }
++
++    bool firstRun = true;
++    UserList::Iterator it;
++    QStringList sessions;
++    bool presetDCOPServer = false;
++//    char *dcopStr = 0L;
++    QString dcopServer;
++    
++    for( it = users.begin(); it != users.end() || firstRun; it++ )
++    {
++	firstRun = false;
++
++	//cout << "Iterating '" << it.key() << "'" << endl;
++
++	if( session == QuerySessions )
++	{
++	    QStringList sessions = dcopSessionList( it.key(), it.data() );
++	    if( sessions.isEmpty() )
++	    {
++		cout << "No active sessions";
++		if( !( *it ).isEmpty() )
++		    cout << " for user " << *it;
++		cout << endl;
++	    }
++	    else
++	    {
++		cout << "Active sessions ";
++		if( !( *it ).isEmpty() )
++		    cout << "for user " << *it << " ";
++		cout << ":" << endl;
++		
++		QStringList::Iterator sIt;
++		for( sIt = sessions.begin(); sIt != sessions.end(); sIt++ )
++		    cout << "  " << *sIt << endl;
++
++		cout << endl;
++	    }
++	    continue;
++	}
++
++	if( getenv( "DCOPSERVER" ) )
++	{
++	    sessions.append( getenv( "DCOPSERVER" ) );
++	    presetDCOPServer = true;
++	}
++
++	if( users.count() > 1 || ( users.count() == 1 &&
++	    ( getenv( "DCOPSERVER" ) == 0 /*&& getenv( "DISPLAY" ) == 0*/ ) ) )
++	{
++	    sessions = dcopSessionList( it.key(), it.data() );
++	    if( sessions.isEmpty() )
++	    {
++		if( users.count() > 1 )
++		    continue;
++		else
++		{
++		    cerr << "ERROR: No active KDE sessions!" << endl
++			 << "If you are sure there is one, please set the $DCOPSERVER variable manually" << endl
++			 << "before calling dcop." << endl;
++		    exit( -1 );
++		}
++	    }
++	    else if( sessions.count() > 1 && session != AllSessions )
++	    {
++		cerr << "ERROR: Multiple available KDE sessions!" << endl
++		     << "Please specify the correct session to use with --session or use the" << endl
++		     << "--all-sessions option to broadcast to all sessions." << endl;
++		exit( -1 );
++	    }
++	}
+ 
++	if( users.count() > 1 || ( users.count() == 1 &&
++	    ( getenv( "ICEAUTHORITY" ) == 0 || getenv( "DISPLAY" ) == 0 ) ) )
++	{
++	    // Check for ICE authority file and if the file can be read by us
++	    QString home = it.data();
++	    QString iceFile = it.data() + "/.ICEauthority";
++	    QFileInfo fi( iceFile );
++	    if( iceFile.isEmpty() )
++	    {
++		cerr << "WARNING: Cannot determine home directory for user "
++		     << it.key() << "!" << endl
++		     << "Please check permissions or set the $ICEAUTHORITY variable manually before" << endl
++		     << "calling dcop." << endl;
++	    }
++	    else if( fi.exists() )
++	    {
++		if( fi.isReadable() )
++		{
++		    char *envStr = strdup( ( "ICEAUTHORITY=" + iceFile ).ascii() );
++		    putenv( envStr );
++		    //cerr << "ice: " << envStr << endl;
++		}
++		else
++		{
++		    cerr << "WARNING: ICE authority file " << iceFile
++			 << "is not readable by you!" << endl
++			 << "Please check permissions or set the $ICEAUTHORITY variable manually before" << endl
++			 << "calling dcop." << endl;
++		}
++	    }
++	    else
++	    {
++		if( users.count() > 1 )
++		    continue;
++		else
++		{
++		    cerr << "WARNING: Cannot find ICE authority file "
++		         << iceFile << "!" << endl
++			 << "Please check permissions or set the $ICEAUTHORITY"
++			 << " variable manually before" << endl
++			 << "calling dcop." << endl;
++		}
++	    }
++	}
++
++	// Main loop
++	// If users is an empty list we're calling for the currently logged
++	// in user. In this case we don't have a session, but still want
++	// to iterate the loop once.
++	QStringList::Iterator sIt = sessions.begin();
++	for( ; sIt != sessions.end() || users.isEmpty(); sIt++ )
++	{
++	    if( !presetDCOPServer && !users.isEmpty() )
++	    {
++		QString dcopFile = it.data() + "/" + *sIt;
++		QFile f( dcopFile );
++		if( !f.open( IO_ReadOnly ) )
++		{
++		    cerr << "Can't open " << dcopFile << " for reading!" << endl;
++		    exit( -1 );
++		}
++
++		QStringList l( QStringList::split( '\n', f.readAll() ) );
++		dcopServer = l.first();
++
++		if( dcopServer.isEmpty() )
++		{
++		    cerr << "WARNING: Unable to determine DCOP server for session "
++			 << *sIt << "!" << endl
++			 << "Please check permissions or set the $DCOPSERVER variable manually before" << endl
++			 << "calling dcop." << endl;
++		    exit( -1 );
++		}
++	    }
++	    
++	    delete client;
++	    client = new DCOPClient;
++	    if( !dcopServer.isEmpty() )
++		client->setServerAddress( dcopServer.ascii() );
++	    bool success = client->attach();
++	    if( !success )
++	    {
++		cerr << "ERROR: Couldn't attach to DCOP server!" << endl;
++		continue;
++	    }
++	    dcop = client;
++
++	    switch ( args.count() )
++	    {
++	    case 0:
++		queryApplications("");
++		break;
++	    case 1:
++		if (endsWith(app, '*'))
++		   queryApplications(app);
++		else
++		   queryObjects( app, "" );
++		break;
++	    case 2:
++		if (endsWith(objid, '*'))
++		   queryObjects(app, objid);
++		else
++		   queryFunctions( app, objid );
++		break;
++	    case 3:
++	    default:
++		if( readStdin )
++		{
++		    QCStringList::Iterator replaceArg = args.end();
++		   
++		    QCStringList::Iterator it;
++		    for( it = args.begin(); it != args.end(); it++ )
++			if( *it == "%1" )
++			    replaceArg = it;
++		    
++		    // Read from stdin until EOF and call function for each line read
++		    char *buf = new char[ 1000 ];
++		    while ( !feof( stdin ) )
++		    {
++			fgets( buf, 1000, stdin );
++		
++			if( replaceArg != args.end() )
++			    *replaceArg = buf;
++
++			callFunction( app, objid, function, params );
++		    }
++		}
++		else
++		{
++		    // Just call function
++//		    cout << "call " << app << ", " << objid << ", " << function << ", (params)" << endl;
++		    callFunction( app, objid, function, params );
++		}
++		break;
++	    }
++	    // Another sIt++ would make the loop infinite...
++	    if( users.isEmpty() )
++		break;
++	}
++	
++	// Another it++ would make the loop infinite...
++	if( it == users.end() )
++	    break;
+     }
++}
++
++
++int main( int argc, char** argv )
++{
++    bool readStdin = false;
++    int numOptions = 0;
++    QString user;
++    Session session = DefaultSession;
++    QString sessionName;
++    
++    // Scan for command-line options first
++    for( int pos = 1 ; pos <= argc - 1 ; pos++ )
++    {
++	if( strcmp( argv[ pos ], "--help" ) == 0 )
++	    showHelp( 0 );
++	else if( strcmp( argv[ pos ], "--pipe" ) == 0 )
++	{
++	    readStdin = true;
++	    numOptions++;
++	}
++	else if( strcmp( argv[ pos ], "--user" ) == 0 )
++	{
++	    if( pos <= argc - 2 )
++	    {
++		user = QString::fromLocal8Bit( argv[ pos + 1] );
++		numOptions +=2;
++		pos++;
++	    }
++	    else
++	    {
++		cerr << "Missing username for '--user' option!" << endl << endl;
++		showHelp( -1 );
++	    }
++	}
++	else if( strcmp( argv[ pos ], "--all-users" ) == 0 )
++	{
++	    user = "*";
++	    numOptions ++;
++	}
++	else if( strcmp( argv[ pos ], "--list-sessions" ) == 0 )
++	{
++	    session = QuerySessions;
++	    numOptions ++;
++	}
++	else if( strcmp( argv[ pos ], "--all-sessions" ) == 0 )
++	{
++	    session = AllSessions;
++	    numOptions ++;
++	}
++	else if( argv[ pos ][ 0 ] == '-' )
++	{
++	    cerr << "Unknown command-line option '" << argv[ pos ]
++		 << "'." << endl << endl;
++	    showHelp( -1 );
++	}
++	else
++	    break;	// End of options
++    }
++
++    argc -= numOptions;
++
++    QCStringList args;
++    for( int i = numOptions; i < argc + numOptions - 1; i++ )
++	args.append( argv[ i + 1 ] );
++    
++    if( readStdin && args.count() < 3 )
++    {
++	cerr << "--pipe option only supported for function calls!" << endl << endl;
++	showHelp( -1 );
++    }
++    
++    if( user == "*" && args.count() < 3 && session != QuerySessions )
++    {
++	cerr << "ERROR: The --all-users option is only supported for function calls!" << endl << endl;
++	showHelp( -1 );
++    }
++    
++    if( session == QuerySessions && !args.isEmpty() )
++    {
++	cerr << "ERROR: The --list-sessions option cannot be used for actual DCOP calls!" << endl << endl;
++	showHelp( -1 );
++    }
++    
++    if( session == QuerySessions && user.isEmpty() )
++    {
++	cerr << "ERROR: The --list-sessions option can only be used with the --user or" << endl
++	     << "--all-users options!" << endl << endl;
++	showHelp( -1 );
++    }
++    
++    if( session != DefaultSession && session != QuerySessions &&
++        args.count() < 3 )
++    {
++	cerr << "ERROR: The --session and --all-sessions options are only supported for function" << endl
++	     << "calls!" << endl << endl;
++	showHelp( -1 );
++    }
++    
++    UserList users;
++    if( user == "*" )
++	users = userList();
++    else if( !user.isEmpty() )
++	users[ user ] = userList()[ user ];
++
++    runDCOP( args, users, session, sessionName, readStdin );
+ 
+     return 0;
+ }
++
++// vim: set ts=8 sts=4 sw=4 noet:
++
+diff -aur dcop/client/dcopfind.cpp dcop2/client/dcopfind.cpp
+--- dcop/client/dcopfind.cpp	Wed Jan 30 22:38:07 2002
++++ dcop2/client/dcopfind.cpp	Wed Jan 30 22:37:04 2002
+@@ -36,7 +36,7 @@
+ static bool bAppIdOnly = 0;
+ static bool bLaunchApp = 0;
+ 
+-bool findObject( const char* app, const char* obj, const char* func, int argc, char** args )
++bool findObject( const char* app, const char* obj, const char* func, QCStringList args )
+ {
+     QString f = func; // Qt is better with unicode strings, so use one.
+     int left = f.find( '(' );
+@@ -118,7 +118,7 @@
+ 	f = fc;
+     }
+ 
+-    if ( (int) types.count() != argc ) {
++    if ( types.count() != args.count() ) {
+ 	qWarning( "arguments do not match" );
+ 	exit(1);
+     }
+@@ -128,9 +128,9 @@
+ 
+     int i = 0;
+     for ( QStringList::Iterator it = types.begin(); it != types.end(); ++it ) {
+-        marshall(arg, argc, args, i, *it);
++        marshall(arg, args, i, *it);
+     }
+-    if ( (int) i != argc ) {
++    if ( (uint) i != args.count() ) {
+ 	qWarning( "arguments do not match" );
+ 	exit(1);
+     }
+@@ -221,7 +221,11 @@
+        argc = 0;
+     }
+ 
+-    findObject( app, objid, function, argc, args );
++    QCStringList params;
++    for( int i = 0; i < argc; i++ )
++	    params.append( args[ i ] );
++    
++    findObject( app, objid, function, params );
+ 
+     return 0;
+ }
+diff -aur dcop/client/marshall.cpp dcop2/client/marshall.cpp
+--- dcop/client/marshall.cpp	Wed Jan 30 22:38:07 2002
++++ dcop2/client/marshall.cpp	Wed Jan 30 22:37:04 2002
+@@ -242,108 +242,110 @@
+ 
+ }
+ 
+-void  marshall(QDataStream &arg, int argc, char **argv, int &i, QString type)
++void marshall( QDataStream &arg, QCStringList args, uint &i, QString type )
+ {
+-	if (type == "QStringList")
+-           type = "QValueList<QString>";
+-	if (type == "QCStringList")
+-           type = "QValueList<QCString>";
+-	if (i >= argc)
+-	{
+-	    qWarning("Not enough arguments.");
+-            exit(1);
+-        }       
+-        QString s = QString::fromLocal8Bit(argv[i]);
+- 
+-	if ( type == "int" )
+-	    arg << s.toInt();
+-	else if ( type == "uint" )
+-	    arg << s.toUInt();
+-	else if ( type == "unsigned" )
+-	    arg << s.toUInt();
+-	else if ( type == "unsigned int" )
+-	    arg << s.toUInt();
+-	else if ( type == "long" )
+-	    arg << s.toLong();
+-	else if ( type == "long int" )
+-	    arg << s.toLong();
+-	else if ( type == "unsigned long" )
+-	    arg << s.toULong();
+-	else if ( type == "unsigned long int" )
+-	    arg << s.toULong();
+-	else if ( type == "float" )
+-	    arg << s.toFloat();
+-	else if ( type == "double" )
+-	    arg << s.toDouble();
+-	else if ( type == "bool" )
+-	    arg << mkBool( s );
+-	else if ( type == "QString" )
+-	    arg << s;
+-	else if ( type == "QCString" )
+-	    arg << QCString( argv[i] );
+-	else if ( type == "QColor" )
+-	    arg << mkColor( s );
+-	else if ( type == "QPoint" )
+-	    arg << mkPoint( s );
+-	else if ( type == "QSize" )
+-	    arg << mkSize( s );
+-	else if ( type == "QRect" )
+-	    arg << mkRect( s );
+-	else if ( type == "QVariant" ) {
+-	    if ( s == "true" || s == "false" )
+-		arg << QVariant( mkBool( s ), 42 );
+-	    else if ( s.left( 4 ) == "int(" )
+-		arg << QVariant( s.mid(4, s.length()-5).toInt() );
+-	    else if ( s.left( 7 ) == "QPoint(" )
+-		arg << QVariant( mkPoint( s.mid(7, s.length()-8) ) );
+-	    else if ( s.left( 6 ) == "QSize(" )
+-		arg << QVariant( mkSize( s.mid(6, s.length()-7) ) );
+-	    else if ( s.left( 6 ) == "QRect(" )
+-		arg << QVariant( mkRect( s.mid(6, s.length()-7) ) );
+-	    else if ( s.left( 7 ) == "QColor(" )
+-		arg << QVariant( mkColor( s.mid(7, s.length()-8) ) );
+-	    else
+-		arg << QVariant( s );
+-	} else if ( type.startsWith("QValueList<")) {
+-            type = type.mid(11, type.length() - 12);
+-            QStringList list;
+-	    QString delim = s;
+-            if (delim == "[")
+-               delim = "]";
+-            if (delim == "(")
+-               delim = ")";
+-            i++;
+-	    QByteArray dummy_data;
+-            QDataStream dummy_arg(dummy_data, IO_WriteOnly);
++    if (type == "QStringList")
++       type = "QValueList<QString>";
++    if (type == "QCStringList")
++       type = "QValueList<QCString>";
++    if( i > args.count() )
++    {
++	qWarning("Not enough arguments.");
++	exit(1);
++    }       
++    QString s = QString::fromLocal8Bit( args[ i ] );
+ 
+-            int j = i;
+-            int count = 0;
+-            // Parse list to get the count
+-            while (true) {
+-		if (j >= argc)
+-		{
+-		    qWarning("List end-delimiter '%s' not found.", delim.latin1());
+-		    exit(1);
+-		}
+-                if (argv[j] == delim) break;
+-                marshall(dummy_arg, argc, argv, j, type);
+-                count++;
+-            }
+-            arg << (Q_UINT32) count;
+-            // Parse the list for real
+-            while (true) {
+-		if (i >= argc)
+-		{
+-		    qWarning("List end-delimiter '%s' not found.", delim.latin1());
+-		    exit(1);
+-		}
+-                if (argv[i] == delim) break;
+-                marshall(arg, argc, argv, i, type);
+-            }
+-	} else {
+-	    qWarning( "cannot handle datatype '%s'", type.latin1() );
+-	    exit(1);
+-	}
++    if ( type == "int" )
++	arg << s.toInt();
++    else if ( type == "uint" )
++	arg << s.toUInt();
++    else if ( type == "unsigned" )
++	arg << s.toUInt();
++    else if ( type == "unsigned int" )
++	arg << s.toUInt();
++    else if ( type == "long" )
++	arg << s.toLong();
++    else if ( type == "long int" )
++	arg << s.toLong();
++    else if ( type == "unsigned long" )
++	arg << s.toULong();
++    else if ( type == "unsigned long int" )
++	arg << s.toULong();
++    else if ( type == "float" )
++	arg << s.toFloat();
++    else if ( type == "double" )
++	arg << s.toDouble();
++    else if ( type == "bool" )
++	arg << mkBool( s );
++    else if ( type == "QString" )
++	arg << s;
++    else if ( type == "QCString" )
++	arg << QCString( args[ i ] );
++    else if ( type == "QColor" )
++	arg << mkColor( s );
++    else if ( type == "QPoint" )
++	arg << mkPoint( s );
++    else if ( type == "QSize" )
++	arg << mkSize( s );
++    else if ( type == "QRect" )
++	arg << mkRect( s );
++    else if ( type == "QVariant" ) {
++	if ( s == "true" || s == "false" )
++	    arg << QVariant( mkBool( s ), 42 );
++	else if ( s.left( 4 ) == "int(" )
++	    arg << QVariant( s.mid(4, s.length()-5).toInt() );
++	else if ( s.left( 7 ) == "QPoint(" )
++	    arg << QVariant( mkPoint( s.mid(7, s.length()-8) ) );
++	else if ( s.left( 6 ) == "QSize(" )
++	    arg << QVariant( mkSize( s.mid(6, s.length()-7) ) );
++	else if ( s.left( 6 ) == "QRect(" )
++	    arg << QVariant( mkRect( s.mid(6, s.length()-7) ) );
++	else if ( s.left( 7 ) == "QColor(" )
++	    arg << QVariant( mkColor( s.mid(7, s.length()-8) ) );
++	else
++	    arg << QVariant( s );
++    } else if ( type.startsWith("QValueList<")) {
++	type = type.mid(11, type.length() - 12);
++	QStringList list;
++	QString delim = s;
++	if (delim == "[")
++	   delim = "]";
++	if (delim == "(")
++	   delim = ")";
+ 	i++;
++	QByteArray dummy_data;
++	QDataStream dummy_arg(dummy_data, IO_WriteOnly);
++
++	uint j = i;
++	uint count = 0;
++	// Parse list to get the count
++	while (true) {
++	    if( j > args.count() )
++	    {
++		qWarning("List end-delimiter '%s' not found.", delim.latin1());
++		exit(1);
++	    }
++	    if( QString::fromLocal8Bit( args[ j ] ) == delim )
++		break;
++	    marshall( dummy_arg, args, j, type );
++	    count++;
++	}
++	arg << (Q_UINT32) count;
++	// Parse the list for real
++	while (true) {
++	    if( i > args.count() )
++	    {
++		qWarning("List end-delimiter '%s' not found.", delim.latin1());
++		exit(1);
++	    }
++	    if( QString::fromLocal8Bit( args[ i ] ) == delim )
++		break;
++	    marshall( arg, args, i, type );
++	}
++    } else {
++	qWarning( "cannot handle datatype '%s'", type.latin1() );
++	exit(1);
++    }
++    i++;
+ }
+ 

@@ -1,0 +1,24 @@
+Index: client/dcopfind.cpp
+===================================================================
+RCS file: /home/kde/kdelibs/dcop/client/dcopfind.cpp,v
+retrieving revision 1.2
+diff -e -r1.2 dcopfind.cpp
+224c
+    QCStringList params;
+    for( int i = 0; i < argc; i++ )
+	    params.append( args[ i ] );
+    
+    findObject( app, objid, function, params );
+.
+133c
+    if ( (uint) i != args.count() ) {
+.
+131c
+        marshall(arg, args, i, *it);
+.
+121c
+    if ( types.count() != args.count() ) {
+.
+39c
+bool findObject( const char* app, const char* obj, const char* func, QCStringList args )
+.

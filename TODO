@@ -1,22 +1,15 @@
 
 FIX IMMEDIATELY !!!
 
-* key navigation -> problem is in komparemodellist/kompare_part
-
 * fix view (diffs only partly shown and such), compare to pre n7y to see what happenend
 
 * fix connect widget with a singleshot timer for compensating for the delayed drawing of the qlistview
-
-* ingo cant find any other problems yet.
 
 !!! Must do before a merge back into HEAD !!!
 * Write a kconfupdate script to convert the kconfigfile
   * the diff options now have their own group
   * the view options now have their own group
   * the Recent Files group has been renamed to Recent Compare Files
-
-Extremely important:
-* Fix the state of the actions when there are multiple files in the modellist!
 
 Very important:
 * Make sure unified and context actually work again !

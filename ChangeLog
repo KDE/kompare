@@ -1,7 +1,41 @@
+Sep    27, 2003 : Otto Bruggeman
+	* Moved the apply and navigation actions into the komparemodellist
+	* Fixed Ingo's problem with the next and prev difference KActions
+
+Sep    26, 2003 : Otto Bruggeman
+	* Added a struct Info in the Kompare namespace. This one contains all the info about what kompare is doing
+	* Fixed splitting the path string in diffmodel
+	* Fixed showing the path in komparenavtreepart in the directory listviews
+
+Sep    24, 2003 : Otto Bruggeman
+	* Fixes opening diffs, comparing files after moving all that code around
+
+Sep    23, 2003 : Otto Bruggeman
+	* Moved a lot of url downloading to the kompare part and moved the opening and reading of the downloads to komparemodellist
+
+Sep    22, 2003 : Otto Bruggeman
+	* Added openStdin() to KompareShell
+	* Fixed stupid implicit conversion from QString to QStringList in kompare_part.cpp
+	* Added openDiff( QStringList ) to the interface and to the part
+
+Sep    14, 2003 : Otto Bruggeman
+	* Fixed exit status of the kompare process
+
+Sep    13, 2003 : Otto Bruggeman
+	* Removed some files that apparently came back after the merge
+
 Sep    07, 2003 : Otto Bruggeman
 	* Some changes to the interface. Made the copy ctor and assignment operator
 	  and added a private d-pointer
 	* Removed the use of all deprecated methods and replaced them with undeprecated ones :)
+
+Sep    02, 2003 : Scott Wheeler
+	* Made the interface pure virtual
+
+Sep    01, 2003 : Scott Wheeler
+	* Fixed constness of the KompareModelList constructor
+	* Fixed another 2 warnings about comapring signed with unsigned ints
+	* Fixed the initialization of the difault var
 
 Aug    27, 2003 : Otto Bruggeman
 	* After shitloads of trouble here finally some fixes for the stupid desktop

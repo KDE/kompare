@@ -19,8 +19,11 @@
 
 #include <qdir.h>
 #include <qstringlist.h>
+#include <qtextcodec.h>
 
+#include <kcharsets.h>
 #include <kdebug.h>
+#include <kglobal.h>
 
 #include "diffsettings.h"
 #include "kompareprocess.h"
@@ -28,7 +31,8 @@
 KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString dir )
 	: KProcess(),
 	m_diffSettings( diffSettings ),
-	m_mode( mode )
+	m_mode( mode ),
+	m_textDecoder( 0 )
 {
 	setUseShell( true );
 
@@ -200,20 +204,35 @@ KompareProcess::~KompareProcess()
 {
 }
 
+void KompareProcess::setEncoding( const QString& encoding )
+{
+	QTextCodec* textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
+	if ( textCodec )
+		m_textDecoder = textCodec->makeDecoder();
+	else
+	{
+		kdDebug(8101) << "Using locale codec as backup..." << endl;
+		textCodec = QTextCodec::codecForLocale();
+		m_textDecoder = textCodec->makeDecoder();
+	}
+}
+
 void KompareProcess::slotReceivedStdout( KProcess* /* process */, char* buffer, int length )
 {
 	// add all output to m_stdout
-//	kdDebug(8101) << buffer << endl;
-	m_stdout += QString::fromLocal8Bit( buffer, length );
-//	kdDebug(8101) << "StdOut from within slotReceivedStdOut: " << endl;
-//	kdDebug(8101) << m_stdout << endl;
-//	kdDebug(8101).flush();
+	if ( m_textDecoder )
+		m_stdout += m_textDecoder->toUnicode( buffer, length );
+	else
+		kdDebug(8101) << "KompareProcess::slotReceivedStdout : No decoder !!!" << endl;
 }
 
 void KompareProcess::slotReceivedStderr( KProcess* /* process */, char* buffer, int length )
 {
 	// add all output to m_stderr
-	m_stderr += QString::fromLocal8Bit( buffer, length );
+	if ( m_textDecoder )
+		m_stderr += m_textDecoder->toUnicode( buffer, length );
+	else
+		kdDebug(8101) << "KompareProcess::slotReceivedStderr : No decoder !!!" << endl;
 }
 
 bool KompareProcess::start()

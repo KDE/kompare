@@ -20,9 +20,11 @@
 #include <qfile.h>
 #include <qdir.h>
 #include <qregexp.h>
+#include <qtextcodec.h>
 #include <qvaluelist.h>
 
 #include <kaction.h>
+#include <kcharsets.h>
 #include <kdebug.h>
 #include <kdirwatch.h>
 #include <kio/netaccess.h>
@@ -51,7 +53,8 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::
 	m_selectedDifference( 0 ),
 	m_noOfModified( 0 ),
 	m_modelIndex( 0 ),
-	m_info( info )
+	m_info( info ),
+	m_textCodec( 0 )
 {
 	m_applyDifference    = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
 	                                 this, SLOT(slotActionApplyDifference()),
@@ -184,6 +187,7 @@ bool KompareModelList::compareFiles( const QString& source, const QString& desti
 
 //	m_fileWatch->startScan();
 	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_source, m_destination );
+	m_diffProcess->setEncoding( m_encoding );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );
@@ -212,6 +216,7 @@ bool KompareModelList::compareDirs( const QString& source, const QString& destin
 
 //	m_dirWatch->startScan();
 	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_source, m_destination );
+	m_diffProcess->setEncoding( m_encoding );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );
@@ -393,6 +398,12 @@ bool KompareModelList::saveAll()
 void KompareModelList::setEncoding( const QString& encoding )
 {
 	m_encoding = encoding;
+	kdDebug() << "Encoding : " << encoding << endl;
+	m_textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
+	kdDebug() << "TextCodec: " << m_textCodec << endl;
+	if ( !m_textCodec )
+		m_textCodec = QTextCodec::codecForLocale();
+	kdDebug() << "TextCodec: " << m_textCodec << endl;
 }
 
 void KompareModelList::slotDiffProcessFinished( bool success )
@@ -486,6 +497,8 @@ QString KompareModelList::readFile( const QString& fileName ) const
 	file.open( IO_ReadOnly );
 
 	QTextStream stream( &file );
+	kdDebug() << "Codec = " << m_textCodec << endl;
+	stream.setCodec( m_textCodec );
 
 	QString contents = stream.read();
 
@@ -551,6 +564,8 @@ bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSett
 	}
 
 	m_diffProcess = new KompareProcess( diffSettings, Kompare::Custom, m_source, m_destination, directory );
+	m_diffProcess->setEncoding( m_encoding );
+
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotWriteDiffOutput( bool )) );
 

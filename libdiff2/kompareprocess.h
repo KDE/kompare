@@ -24,6 +24,8 @@
 
 #include "kompare.h"
 
+class QTextCodec;
+
 class DiffSettings;
 
 class KompareProcess : public KProcess, public KompareFunctions
@@ -36,9 +38,11 @@ public:
 
 	bool start();
 
-	QString diffOutput() { return m_stdout; };
-	QString stdOut()     { return m_stdout; };
-	QString stdErr()     { return m_stderr; };
+	QString diffOutput() { return m_stdout; }
+	QString stdOut()     { return m_stdout; }
+	QString stdErr()     { return m_stderr; }
+
+	void setEncoding( const QString& encoding );
 
 signals:
 	void diffHasFinished( bool finishedNormally );
@@ -57,6 +61,7 @@ private:
 	enum Kompare::DiffMode m_mode;
 	QString                m_stdout;
 	QString                m_stderr;
+	QTextDecoder*          m_textDecoder;
 };
 
 #endif

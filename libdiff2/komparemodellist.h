@@ -205,6 +205,7 @@ private:
 	KAction*              m_save;
 
 	QString               m_encoding;
+	QTextCodec*           m_textCodec;
 };
 
 } // End of namespace Diff2

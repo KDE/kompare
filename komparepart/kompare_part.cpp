@@ -238,15 +238,15 @@ bool KomparePart::openDiff( const QStringList& diffOutput )
 bool KomparePart::openDiff3( const KURL& diff3Url )
 {
 	// FIXME: Implement this !!!
-	kdDebug() << "Not implemented yet. Filename is: " << diff3Url.url() << endl;
+	kdDebug(8103) << "Not implemented yet. Filename is: " << diff3Url.url() << endl;
 	return false;
 }
 
 bool KomparePart::openDiff3( const QString& diff3Output )
 {
 	// FIXME: Implement this !!!
-	kdDebug() << "Not implemented yet. diff3 output is: " << endl;
-	kdDebug() << diff3Output << endl;
+	kdDebug(8103) << "Not implemented yet. diff3 output is: " << endl;
+	kdDebug(8103) << diff3Output << endl;
 	return false;
 }
 
@@ -424,7 +424,7 @@ QStringList KomparePart::readFile()
 	file.open(  IO_ReadOnly );
 	QTextStream stream( &file );
 
-	kdDebug() << "Reading from m_file = " << m_file << endl;
+	kdDebug(8103) << "Reading from m_file = " << m_file << endl;
 	while ( !stream.eof() )
 	{
 		lines.append( stream.readLine() );
@@ -468,7 +468,7 @@ bool KomparePart::saveAll()
 
 void KomparePart::saveDiff()
 {
-	KDialogBase* dlg = new KDialogBase( widget(), "save options",
+	KDialogBase* dlg = new KDialogBase( widget(), "save_options",
 	                                    true /* modal */, i18n("Diff Options"),
 	                                    KDialogBase::Ok|KDialogBase::Cancel );
 	KompareSaveOptionsWidget* w = new KompareSaveOptionsWidget(
@@ -486,7 +486,11 @@ void KomparePart::saveDiff()
 		config->sync();
 		KURL url = KFileDialog::getSaveURL( m_info.destination.url(),
 		              i18n("*.diff *.dif *.patch|Patch files"), widget(), i18n( "Save .diff" ) );
-		// FIXME: is url is remote we still need to upload it
+		// FIXME: if url is remote we still need to upload it
+		kdDebug(8103) << "URL = " << url.prettyURL() << endl;
+		kdDebug(8103) << "Directory = " << w->directory() << endl;
+		kdDebug(8103) << "DiffSettings = " << m_diffSettings << endl;
+
 		m_modelList->saveDiff( url.url(), w->directory(), m_diffSettings );
 	}
 	delete dlg;

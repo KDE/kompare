@@ -22,6 +22,7 @@
 #include <qstyle.h>
 #include <qtimer.h>
 
+#include <kapplication.h>
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kglobalsettings.h>
@@ -118,6 +119,9 @@ KompareView::KompareView( ViewSettings* settings, QWidget *parent, const char *n
 	connect( m_diff2, SIGNAL(differenceClicked(const Diff2::Difference*)),
 	         this, SLOT(slotDifferenceClicked(const Diff2::Difference*)) );
 	updateScrollBars();
+
+	// Connect to the kapp->kdisplayFontChanged signal to get notified when the font might have changed
+	connect( kapp, SIGNAL( kdisplayFontChanged() ), SLOT( slotFontChanged() ) );
 }
 
 KompareView::~KompareView()
@@ -262,6 +266,14 @@ void KompareView::wheelEvent( QWheelEvent* e )
 		m_vScroll->subtractLine();
 	}
 	m_zoom->repaint();
+}
+
+void KompareView::slotFontChanged()
+{
+	m_diff1->setFont( KGlobalSettings::fixedFont() );
+	m_diff2->setFont( KGlobalSettings::fixedFont() );
+	m_diff1->update();
+	m_diff2->update();
 }
 
 #include "kompareview.moc"

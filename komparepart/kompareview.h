@@ -59,6 +59,8 @@ public slots:
 
 	void slotConfigChanged();
 
+	void slotFontChanged( void );
+
 signals:
 	void selectionChanged( const Diff2::Difference* diff );
 

@@ -74,12 +74,18 @@ protected:
 	void childEvent( QChildEvent * );
 	void wheelEvent( QWheelEvent* e );
 
+	void moveSplitter( QCOORD pos, int id );
+
 private slots:
 	void slotDelayedRepaintHandles();
 	void timerTimeout();
 
 private:
-	QSplitterLayoutStruct *addWidget(KompareListViewFrame *w, bool prepend = FALSE );
+	QSplitterLayoutStruct *addWidget(KompareListViewFrame *w,
+		bool prepend = FALSE );
+
+	void doMove( bool backwards, int pos, int id, int delta,
+		bool mayCollapse, int* positions, int* widths );
 
 	void repaintHandles();
 
@@ -88,7 +94,6 @@ private:
 	int                scrollTo;
 
 	// Scrollbars. all this just for the goddamn scrollbars. i hate them.
-	// update t+5h: SCROLLBARS ARE THE BANE OF MY LIFE
 	int  scrollId();
 	int  lineSpacing();
 	int  pageSize();
@@ -103,5 +108,7 @@ private:
 	ViewSettings*      m_settings;
 	QScrollBar*        m_vScroll;
 	QScrollBar*        m_hScroll;
+
+	friend class KompareConnectWidgetFrame;
 };
 #endif //_KOMPARESPLITTER_H_

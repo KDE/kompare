@@ -30,6 +30,7 @@
 #include "viewsettings.h"
 #include "komparemodellist.h"
 #include "komparelistview.h"
+#include "komparesplitter.h"
 
 #include "kompareconnectwidget.h"
 
@@ -68,6 +69,35 @@ KompareConnectWidgetFrame::~KompareConnectWidgetFrame()
 QSize KompareConnectWidgetFrame::sizeHint() const
 {
 	return QSize(50, style().pixelMetric( QStyle::PM_ScrollBarExtent ) );
+}
+
+static int kMouseOffset;
+
+void KompareConnectWidgetFrame::mouseMoveEvent( QMouseEvent *e )
+{
+	if ( !(e->state()&LeftButton) )
+		return;
+
+	QCOORD pos = s->pick( parentWidget()->mapFromGlobal(e->globalPos()) )
+		- kMouseOffset;
+
+	((KompareSplitter*)s)->moveSplitter( pos, id() );
+}
+
+void KompareConnectWidgetFrame::mousePressEvent( QMouseEvent *e )
+{
+	if ( e->button() == LeftButton )
+		kMouseOffset = s->pick( e->pos() );
+	QSplitterHandle::mousePressEvent(e);
+}
+
+void KompareConnectWidgetFrame::mouseReleaseEvent( QMouseEvent *e )
+{
+	if ( !opaque() && e->button() == LeftButton ) {
+		QCOORD pos = s->pick( parentWidget()->mapFromGlobal(e->globalPos()) )
+			- kMouseOffset;
+		((KompareSplitter*)s)->moveSplitter( pos, id() );
+    }
 }
 
 KompareConnectWidget::KompareConnectWidget( KompareListView* left, KompareListView* right,

@@ -184,7 +184,7 @@ protected:
     void mousePressEvent( QMouseEvent * );
     void mouseReleaseEvent( QMouseEvent * );
 
-private:
+public: // private (:
     Orientation orient;
     bool opaq;
     int myId;

@@ -82,6 +82,10 @@ protected:
 	// stop the parent QSplitterHandle painting
 	void paintEvent( QPaintEvent* /* e */ ) { }
 
+	void mouseMoveEvent( QMouseEvent * );
+	void mousePressEvent( QMouseEvent * );
+	void mouseReleaseEvent( QMouseEvent * );
+
 private:
 	KompareConnectWidget      m_wid;
 	QLabel                    m_label;

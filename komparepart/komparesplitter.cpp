@@ -179,6 +179,114 @@ void KompareSplitter::childEvent( QChildEvent *c )
 	}
 }
 
+// This is from a private qt header (kernel/qlayoutengine_p.h). sorry.
+QSize qSmartMinSize( QWidget *w );
+
+static QPoint toggle( QWidget *w, QPoint pos )
+{
+    QSize minS = qSmartMinSize( w );
+    return -pos - QPoint( minS.width(), minS.height() );
+}
+
+static bool isCollapsed( QWidget *w )
+{
+    return w->x() < 0 || w->y() < 0;
+}
+
+static QPoint topLeft( QWidget *w )
+{
+    if ( isCollapsed(w) ) {
+        return toggle( w, w->pos() );
+    } else {
+        return w->pos();
+    }
+}
+
+static QPoint bottomRight( QWidget *w )
+{
+    if ( isCollapsed(w) ) {
+        return toggle( w, w->pos() ) - QPoint( 1, 1 );
+    } else {
+        return w->geometry().bottomRight();
+    }
+}
+
+void KompareSplitter::moveSplitter( QCOORD p, int id )
+{
+	QSplitterLayoutStruct *s = d->list.at( id );
+	int farMin;
+	int min;
+	int max;
+	int farMax;
+	p = adjustPos( p, id, &farMin, &min, &max, &farMax );
+	int oldP = pick( s->wid->pos() );
+	int* poss = new int[d->list.count()];
+	int* ws = new int[d->list.count()];
+	QWidget *w = 0;
+	bool upLeft;
+	if ( QApplication::reverseLayout() && orient == Horizontal ) {
+		int q = p + s->wid->width();
+		doMove( FALSE, q, id - 1, -1, (p > max), poss, ws );
+		doMove( TRUE, q, id, -1, (p < min), poss, ws );
+		upLeft = (q > oldP);
+	} else {
+		doMove( FALSE, p, id, +1, (p > max), poss, ws );
+		doMove( TRUE, p, id - 1, +1, (p < min), poss, ws );
+		upLeft = (p < oldP);
+	}
+	if ( upLeft ) {
+		int count = d->list.count();
+		for ( int id = 0; id < count; ++id ) {
+			w = d->list.at( id )->wid;
+			if( !w->isHidden() )
+				setGeo( w, poss[id], ws[id], TRUE );
+		}
+	} else {
+		for ( int id = d->list.count() - 1; id >= 0; --id ) {
+			w = d->list.at( id )->wid;
+			if( !w->isHidden() )
+				setGeo( w, poss[id], ws[id], TRUE );
+		}
+	}
+	storeSizes();
+}
+
+void KompareSplitter::doMove( bool backwards, int pos, int id, int delta,
+                        bool mayCollapse, int* positions, int* widths )
+{
+	QSplitterLayoutStruct *s;
+	QWidget *w;
+	for ( ; id >= 0 && id < (int)d->list.count();
+			id = backwards ? id - delta : id + delta ) {
+		s = d->list.at( id );
+		w = s->wid;
+		if ( w->isHidden() ) {
+			mayCollapse = TRUE;
+		} else {
+			if ( s->isHandle ) {
+				int dd = s->getSizer( orient );
+				int nextPos = backwards ? pos - dd : pos + dd;
+				positions[id] = pos;
+				widths[id] = dd;
+				pos = nextPos;
+			} else {
+				int dd = backwards ? pos - pick( topLeft(w) )
+				                   : pick( bottomRight(w) ) - pos + 1;
+				if ( dd > 0 || (!isCollapsed(w) && !mayCollapse) ) {
+					dd = QMAX( pick(qSmartMinSize(w)),
+					           QMIN(dd, pick(w->maximumSize())) );
+				} else {
+					dd = 0;
+				}
+				positions[id] = backwards ? pos - dd : pos;
+				widths[id] = dd;
+				pos = backwards ? pos - dd : pos + dd;
+				mayCollapse = TRUE;
+			}
+		}
+	}
+}
+
 void KompareSplitter::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
 	QSplitterLayoutStruct *curr;

@@ -15,7 +15,7 @@ noinst_HEADERS = \
 # let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
 
-kde_module_LTLIBRARIES = libdialogpages.la
+noinst_LTLIBRARIES = libdialogpages.la
 
 # the library's source, library search path, and link libraries
 libdialogpages_la_SOURCES = \

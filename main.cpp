@@ -34,7 +34,7 @@ static const char *version = "v2.0";
 
 static KCmdLineOptions options[] =
 {
-	{ "+[URL [URL2]]", I18N_NOOP( "Document to open. If only one URL is given, it is\nconsidered to be a .diff file. If the file is a -\nthen kompare will read from stdin, this can be used\nfor cvs diff | kompare -. If 2 files are given,\nkompare will compare them." ), 0 },
+	{ "+[URL [URL2]]", I18N_NOOP( "Document to open. If only one URL is given, it is\nconsidered to be a .diff file. If the file is a -\nthen Kompare will read from stdin, this can be used\nfor cvs diff | kompare -. If 2 files are given,\nKompare will compare them." ), 0 },
 	{ 0, 0, 0 }
 };
 

@@ -156,14 +156,14 @@ void KompareListView::scrollToId( int id )
 		int height = item->totalHeight();
 		double r = (double)( id - itemId ) / (double) item->maxHeight();
 		int y = pos + (int)(r * (double)height) - minScrollId();
-		kdDebug() << "scrollToID: " << endl;
-		kdDebug() << "     id = " << id << endl;
-		kdDebug() << "    pos = " << pos << endl;
-		kdDebug() << " itemId = " << itemId << endl;
-		kdDebug() << "      r = " << r << endl;
-		kdDebug() << " height = " << height << endl;
-		kdDebug() << "  minID = " << minScrollId() << endl;
-		kdDebug() << "      y = " << y << endl;
+//		kdDebug() << "scrollToID: " << endl;
+//		kdDebug() << "     id = " << id << endl;
+//		kdDebug() << "    pos = " << pos << endl;
+//		kdDebug() << " itemId = " << itemId << endl;
+//		kdDebug() << "      r = " << r << endl;
+//		kdDebug() << " height = " << height << endl;
+//		kdDebug() << "  minID = " << minScrollId() << endl;
+//		kdDebug() << "      y = " << y << endl;
 		setContentsPos( contentsX(), y );
 	}
 

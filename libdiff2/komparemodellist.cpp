@@ -358,11 +358,15 @@ bool KompareModelList::saveDestination( DiffModel* model )
 		QString destination = model->destinationPath() + model->destinationFile();
 		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
 		kdDebug(8101) << "DestinationURL : " << destination << endl;
-		result = KIO::NetAccess::mkdir( KURL( destination ).path(), (QWidget*)parent() );
-		if ( !result )
+		KIO::UDSEntry entry;
+		if ( !KIO::NetAccess::stat( KURL( destination ).path(), entry, (QWidget*)parent() ) )
 		{
-			emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved.</qt>" ) );
-			return false;
+			result = KIO::NetAccess::mkdir( KURL( destination ).path(), (QWidget*)parent() );
+			if ( !result )
+			{
+				emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved.</qt>" ) );
+				return false;
+			}
 		}
 		result = KIO::NetAccess::upload( temp->name(), KURL( destination ), (QWidget*)parent() );
 	}

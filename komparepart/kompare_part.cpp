@@ -394,7 +394,7 @@ void KDiffPart::optionsPreferences()
 
 void KDiffPart::toggleSynchronize()
 {
-	m_diffView->setSynchronizeScrollBars( m_synchronizeScrollBars->isChecked() );
+//	m_diffView->setSynchronizeScrollBars( m_synchronizeScrollBars->isChecked() );
 }
 
 // It's usually safe to leave the factory code alone.. with the

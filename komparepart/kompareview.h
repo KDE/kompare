@@ -37,7 +37,6 @@ public:
 
 	DiffModel* getModel();
 	void setModel( DiffModel* model, bool ownsModel=false );
-	void setSynchronizeScrollBars( bool sync );
 	void setFont( const QFont& font );
 	void setTabWidth( uint tabWidth );
 
@@ -48,15 +47,22 @@ signals:
 	void selectionChanged();
 	void itemsChanged();
 
-private:
-	GeneralSettings*		m_settings;
+protected:
+	void resizeEvent( QResizeEvent* e );
+	void updateScrollBars();
 
-	QLabel *revlabel1, *revlabel2;
-	DiffView *diff1, *diff2;
-	DiffConnectWidget* zoom;
-	DiffModel* model;
-	int markeditem;
-	bool ownsModel;
+private:
+	GeneralSettings*          m_settings;
+	QLabel*                   revlabel1;
+	QLabel*                   revlabel2;
+	DiffView*                 diff1;
+	DiffView*                 diff2;
+	DiffConnectWidget*        zoom;
+	QScrollBar*               vScroll;
+	QScrollBar*               hScroll;
+	DiffModel*                model;
+	int                       markeditem;
+	bool                      ownsModel;
 };
 
 #endif

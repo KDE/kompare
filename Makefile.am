@@ -18,8 +18,6 @@ messages: rc.cpp
 	$(EXTRACTRC) */*.rc */*.ui >> rc.cpp
 	$(XGETTEXT) `find . -name "*.cpp" -o -name "*.h"` -o $(podir)/kompare.pot
 
-KDE_ICON = AUTO
-
 #########################################################################
 # APPLICATION SECTION
 #########################################################################

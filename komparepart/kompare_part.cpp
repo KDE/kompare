@@ -567,7 +567,7 @@ KInstance* KomparePartFactory::instance()
 {
 	if( !s_instance )
 	{
-		s_about = new KAboutData("komparepart", I18N_NOOP("KomparePart"), "2.0");
+		s_about = new KAboutData("komparepart", I18N_NOOP("KomparePart"), "3.1.4a");
 		s_about->addAuthor("John Firebaugh", "Author", "jfirebaugh@kde.org");
 		s_about->addAuthor("Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
 		s_instance = new KInstance(s_about);

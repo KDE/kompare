@@ -50,8 +50,8 @@ KompareProcess::KompareProcess( QString source, QString destination, QString dir
 	
 	// Write file names
 	*this << "--";
-	*this << constructRelativePath( dir, source );
-	*this << constructRelativePath( dir, destination );
+	*this << KProcess::quote( constructRelativePath( dir, source ) );
+	*this << KProcess::quote( constructRelativePath( dir, destination ) );
 }
 
 void KompareProcess::writeDefaultCommandLine()
@@ -163,7 +163,7 @@ bool KompareProcess::start()
 	QString cmdLine;
 	QValueList<QCString>::ConstIterator it = arguments.begin();
 	for (; it != arguments.end(); ++it )
-	    cmdLine += (*it) + " ";
+	    cmdLine += "\"" + (*it) + "\" ";
 	kdDebug() << cmdLine << endl;
 #endif
 	return( KShellProcess::start( KProcess::NotifyOnExit, KProcess::AllOutput ) );

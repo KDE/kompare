@@ -1,3 +1,21 @@
+Dec    20, 2004 : Jeff Snyder
+	* Things that have happened since 3.3:
+	  (this list is not complete)
+	* Look & feel changed
+
+Dec    20, 2004 : Jeff Snyder
+	* Things that were changed sometime between Nov 25, 2003 and KDE 3.3:
+	  (this list is not complete)
+	* KompareConnectWidget became draggable, by replacing KompareViewFrame
+	  with KompareSplitter.
+
+Dec    20, 2004 : Jeff Snyder
+	* This changelog seems to have been neglected for over a year now. I'll
+	  try to retroactively fix this as and when I remember things that have
+	  been fixed - but it'll probably never be complete and accurate for the
+	  Dec 2003 - Nov 2004 period. I'll be making entries concering what i'm
+	  doing with kompare from now onwards.
+
 Nov    25, 2003 : Otto Bruggeman
 	* Fix nasty looping to the end of the file when hitting previous difference on the first difference in the first file
 

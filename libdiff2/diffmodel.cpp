@@ -480,22 +480,27 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 	DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
 	m_hunks.append( hunk );
 
+        QRegExp lineFormat( "^([ad])([0-9]+) ([0-9]+)" );
+
 	int diffIndex = 0;
 	while( it != list.end() )
 	{
 		line = (*it);
 		kdDebug() << "Line is: " << line << endl;
 
-		if ( line.find( QRegExp( "^a[0-9]+ [0-9]+" ), 0 ) == 0 )
+                if ( lineFormat.search( line ) != 0 )
+                {
+                        kdDebug() << "Oops, something is wrong here..." << endl;
+                        return 1; // faulty output or something went wrong during parsing
+                }
+
+                const QChar lineType( lineFormat.cap( 1 ).constref( 0 ) );
+
+		if ( lineType == 'a' )
 		{
 			kdDebug() << "Added line found." << endl;
-			int len, pos;
-			line.replace( 0, 1, "" ); // Strip the 'a'
-			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-			linenoB = line.mid(pos, len).toInt();
-			line.replace( pos, len+1, "" ); // Also strip the extra ' '
-			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-			nolinesB = line.mid(pos, len).toInt();
+			linenoB = lineFormat.cap(2).toInt();
+			nolinesB = lineFormat.cap(3).toInt();
 
 			DiffHunk* hunk = new DiffHunk( 0, linenoB );
 			m_hunks.append( hunk );
@@ -507,7 +512,7 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 			++it;
 			line = (*it);
 
-			while ( ( it != list.end() ) && ( line.find( QRegExp( "^[ad][0-9]+ [0-9]+" ), 0 ) != 0 ) )
+			while ( ( it != list.end() ) && ( line.find( lineFormat ) != 0 ) )
 			{
 				// Add it to the difference
 				kdDebug() << "AddDestinationLine( " << line << " )" << endl;
@@ -519,18 +524,13 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 			--it; // We went too far, correcting it here...
 			hunk->add( diff );
 		}
-		else if ( line.find( QRegExp( "^d[0-9]+ [0-9]+" ), 0 ) == 0 )
+		else if ( lineType == 'd' )
 		{
 			kdDebug() << "Delete line found." << endl;
 			// We dont have the actual deleted lines in the diffoutput/difffile
 			// This will be a big problem in the viewerclass...
-			int len, pos;
-			line.replace( 0, 1, "" ); // Strip the 'd'
-			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-			linenoA = line.mid(pos, len).toInt();
-			line.replace( pos, len+1, "" ); // Also strip the extra ' '
-			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-			nolinesA = line.mid(pos, len).toInt();
+			linenoA = lineFormat.cap(2).toInt();
+			nolinesA = lineFormat.cap(3).toInt();
 
 // Next lines are commented out because in delete the lines are not here
 // so there is nothing to add but an empty diff and an empty hunk so for
@@ -547,11 +547,6 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 			// We should now add the source lines, unfortunately there are none...
 
 //			hunk->add( diff );
-		}
-		else
-		{
-			kdDebug() << "Oops, something is wrong here..." << endl;
-			return 1; // faulty output or something went wrong during parsing
 		}
 		++it;
 	}

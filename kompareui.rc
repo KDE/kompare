@@ -8,8 +8,8 @@
 		<Action name="file_close_right" />
 	</Menu>
 	<Menu name="diff"><text>&amp;Diff</text>
-		<Action name="diff_apply_diff" />
-		<Action name="diff_create_diff"/>
+		<Action name="diff_load_diff" />
+		<Action name="diff_save_diff"/>
 	</Menu>
 	<Menu name="goto"><text>&amp;Goto</text>
 		<Action name="goto_previous_chunk" />

@@ -51,6 +51,12 @@ public slots:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void slotSetSelection( const Diff2::Difference* diff );
 
+	void slotApplyDifference( const Diff2::Difference* diff, bool apply );
+	void slotApplyDifference( bool apply );
+	void slotApplyAllDifferences( bool apply );
+
+	void slotConfigChanged();
+
 signals:
 	void selectionChanged( const Diff2::Difference* diff );
 

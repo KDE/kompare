@@ -160,11 +160,39 @@ void KompareView::slotSetSelection( const Difference* diff )
 	updateScrollBars();
 }
 
+void KompareView::slotApplyDifference( const Diff2::Difference* diff, bool apply )
+{
+	m_diff1->slotApplyDifference( diff, apply );
+	m_diff2->slotApplyDifference( diff, apply );
+	m_zoom->slotDelayedRepaint();
+}
+
+void KompareView::slotApplyDifference( bool apply )
+{
+	m_diff1->slotApplyDifference( apply );
+	m_diff2->slotApplyDifference( apply );
+	m_zoom->slotDelayedRepaint();
+}
+
+void KompareView::slotApplyAllDifferences( bool apply )
+{
+	m_diff1->slotApplyAllDifferences( apply );
+	m_diff2->slotApplyAllDifferences( apply );
+	m_zoom->slotDelayedRepaint();
+}
+
+void KompareView::slotConfigChanged()
+{
+	m_diff1->slotConfigChanged();
+	m_diff2->slotConfigChanged();
+	m_zoom->slotDelayedRepaint();
+}
+
 void KompareView::scrollToId( int id )
 {
 	m_diff1->scrollToId( id );
 	m_diff2->scrollToId( id );
-	m_zoom->repaint();
+	m_zoom->slotDelayedRepaint();
 }
 
 void KompareView::updateScrollBars()

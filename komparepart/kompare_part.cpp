@@ -112,22 +112,13 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	connect( m_diffView, SIGNAL(selectionChanged(const Diff2::Difference*)),
 	         m_modelList, SLOT(slotSelectionChanged(const Diff2::Difference*)) );
 
-	// left view (source)
 	connect( m_modelList, SIGNAL(applyDifference(bool)),
-	         m_diffView->srcLV(), SLOT(slotApplyDifference(bool)) );
+	         m_diffView, SLOT(slotApplyDifference(bool)) );
 	connect( m_modelList, SIGNAL(applyAllDifferences(bool)),
-	         m_diffView->srcLV(), SLOT(slotApplyAllDifferences(bool)) );
+	         m_diffView, SLOT(slotApplyAllDifferences(bool)) );
 	connect( m_modelList, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
-	         m_diffView->srcLV(), SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
-	connect( this, SIGNAL(configChanged()), m_diffView->srcLV(), SLOT(slotConfigChanged()) );
-	// right view (destination)
-	connect( m_modelList, SIGNAL(applyDifference(bool)),
-	         m_diffView->destLV(), SLOT(slotApplyDifference(bool)) );
-	connect( m_modelList, SIGNAL(applyAllDifferences(bool)),
-	         m_diffView->destLV(), SLOT(slotApplyAllDifferences(bool)) );
-	connect( m_modelList, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
-	         m_diffView->destLV(), SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
-	connect( this, SIGNAL(configChanged()), m_diffView->destLV(), SLOT(slotConfigChanged()) );
+	         m_diffView, SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
+	connect( this, SIGNAL(configChanged()), m_diffView, SLOT(slotConfigChanged()) );
 
 	// notify the part that this is our internal widget
 	setWidget( m_diffView );

@@ -54,7 +54,7 @@ class KompareProcess;
  * @short Main Part
  * @author John Firebaugh <jfirebaugh@kde.org>
  * @author Otto Bruggeman <bruggie@home.nl>
- * @version 0.2
+ * @version 0.3
  */
 class KomparePart : public KParts::ReadWritePart,
                     public KompareInterface
@@ -78,7 +78,7 @@ public:
 	virtual int readProperties( KConfig *config );
 	virtual int saveProperties( KConfig *config );
 	// this one is called when the shell_app is about to close.
-	// we need it now to save the properties of the part  when apps dont (can't)
+	// we need it now to save the properties of the part when apps dont (can't)
 	// use the readProperties and saveProperties methods
 	virtual bool queryClose();
 
@@ -125,10 +125,10 @@ public:
 	/** This will show the directory and the directory with the diff applied */
 	virtual void openDirAndDiff ( const KURL& dir,  const KURL& diffFile );
 
-	// This is the interpart interface, it is signal and slot based so no "real" nterface here
+	// This is the interpart interface, it is signal and slot based so no "real" interface here
 	// All you have to do is connect the parts from your application.
-	// These just point to their namesake in the KompareModelList or get called from their
-	// namesake in KompareModelList.
+	// These just point to their counterpart in the KompareModelList or get called from their
+	// counterpart in KompareModelList.
 signals:
 	void modelsChanged( const Diff2::DiffModelList* models );
 

@@ -79,6 +79,3 @@ QString Difference::asString() const
 
 	return res;
 }
-
-#include "difference.moc"
-

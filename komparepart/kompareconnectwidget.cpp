@@ -51,14 +51,18 @@ void KDiffConnectWidget::slotSetSelection( int model, int diff ) {
 	if( m_selectedModel == model && m_selectedDiff == diff )
 		return;
 	
-	disconnect( m_models->modelAt( m_selectedModel ), SIGNAL( appliedChanged( const Difference* ) ),
-	            this, SLOT( repaint() ) );
+	if( m_selectedModel >= 0 ) {
+		disconnect( m_models->modelAt( m_selectedModel ), SIGNAL( appliedChanged( const Difference* ) ),
+		            this, SLOT( repaint() ) );
+	}
 	
 	m_selectedModel = model;
 	m_selectedDiff = diff;
 	
-	connect( m_models->modelAt( m_selectedModel ), SIGNAL( appliedChanged( const Difference* ) ),
-	            this, SLOT( repaint() ) );
+	if( m_selectedModel >= 0 ) {
+		connect( m_models->modelAt( m_selectedModel ), SIGNAL( appliedChanged( const Difference* ) ),
+		            this, SLOT( repaint() ) );
+	}
 	
 	repaint();
 }

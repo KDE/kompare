@@ -45,11 +45,11 @@ public:
 	void writeDiffFile( QString file, DiffSettings* settings );
 	void saveDestination( int index );
 	
-	int parseDiffs( const QStringList& list );
+	void swap();
 	
 	Mode mode() { return m_mode; };
 	
-	void addModel( DiffModel* model );
+	const QList<DiffModel>& getModels() { return m_models; };
 	int modelCount() { return m_models.count(); };
 	DiffModel* modelAt( int i ) { return m_models.at( i ); };
 	KURL sourceBaseURL() const { return m_sourceURL.upURL(); };
@@ -58,13 +58,16 @@ public:
 signals:
 	void status( KDiffModelList::Status );
 	void error( QString error );
-	void modelAdded( DiffModel* );
+	void modelsChanged();
 
 protected slots:
 	void slotDiffProcessFinished( bool success );
 	void slotWriteDiffOutput( bool success );
 
 private:
+	int parseDiffs( const QStringList& list );
+	void clear();
+	
 	Mode              m_mode;
 	KDiffProcess*     m_diffProcess;
 	QList<DiffModel>  m_models;

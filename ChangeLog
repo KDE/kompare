@@ -1,3 +1,6 @@
+july   14, 2001 : John Firebaugh
+	New menu item "Swap source and destination".
+	Make empty selection work.
 july   13, 2001 : John Firebaugh
 	Text view now works in compare mode.
 	Fix clicking difference to select it.

@@ -49,12 +49,19 @@ void KDiffModelList::compare( const KURL& source, const KURL& destination )
 	m_sourceURL = source;
 	m_destinationURL = destination;
 	
+	clear();
+	
 	m_diffProcess = new KDiffProcess( source, destination );
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );
 	
 	emit status( RunningDiff );
 	m_diffProcess->start();
+}
+
+void KDiffModelList::swap()
+{
+	compare( KURL( m_destinationURL ), KURL( m_sourceURL ) );
 }
 
 void KDiffModelList::slotDiffProcessFinished( bool success )
@@ -78,6 +85,8 @@ void KDiffModelList::slotDiffProcessFinished( bool success )
 void KDiffModelList::readDiffFile( QFile& file )
 {
 	m_mode = Diff;
+	
+	clear();
 	
 	QTextStream stream(&file);
 	QStringList list;
@@ -190,15 +199,15 @@ int KDiffModelList::parseDiffs( const QStringList& lines )
 
 		kdDebug() << "parsed one file, result: " << result << endl;
 
-		addModel( model );
+		m_models.append( model );
 
 	}
-
+	emit modelsChanged();
 	return 0; // FIXME better error handling
 };
 
-void KDiffModelList::addModel( DiffModel* model )
+void KDiffModelList::clear()
 {
-	m_models.append( model );
-	emit modelAdded( model );
+	m_models.clear();
+	emit modelsChanged();
 }

@@ -130,6 +130,7 @@ protected:
 protected slots:
 	void slotSetStatus( KDiffModelList::Status status );
 	void slotShowError( QString error );
+	void slotModelsChanged();
 	
 	void slotSelectionChanged( int model, int diff );
 	void slotAppliedChanged( const Difference* d );
@@ -137,6 +138,8 @@ protected slots:
 	void slotGoDifferenceActivated( int item );
 	
 	void slotSaveDestination();
+	void slotSwap();
+	void slotShowDiffstats();
 	void slotApplyDifference();
 	void slotApplyAllDifferences();
 	void slotUnapplyAllDifferences();
@@ -145,7 +148,6 @@ protected slots:
 	void slotPreviousDifference();
 	void slotNextDifference();
 	void optionsPreferences();
-	void slotShowDiffstats();
 
 private:
 	void setupActions();
@@ -163,9 +165,10 @@ private:
 
 	KDiffView*             m_diffView;
 	KDiffNavigationTree*   m_navigationTree;
-	KAction*               m_diffStats;
 	KAction*               m_save;
 	KAction*               m_saveDiff;
+	KAction*               m_swap;
+	KAction*               m_diffStats;
 	KAction*               m_applyDifference;
 	KAction*               m_applyAll;
 	KAction*               m_unapplyAll;

@@ -44,7 +44,7 @@ signals:
 
 private slots:
 	void slotSelectionChanged( QListViewItem* item );
-	void slotAddModel( DiffModel * );
+	void buildTree();
 	void slotAppliedChanged( const Difference* d );
 	
 private:

@@ -131,8 +131,13 @@ void KDiffView::slotSelectionChanged( int model, int diff )
 
 void KDiffView::slotSetSelection( int model, int diff )
 {
-	revlabel1->setText( m_models->modelAt( model )->sourceFile() );
-	revlabel2->setText( m_models->modelAt( model )->destinationFile() );
+	if( model >= 0 ) {
+		revlabel1->setText( m_models->modelAt( model )->sourceFile() );
+		revlabel2->setText( m_models->modelAt( model )->destinationFile() );
+	} else {
+		revlabel1->setText( QString::null );
+		revlabel2->setText( QString::null );
+	}
 	diff1->slotSetSelection( model, diff );
 	diff2->slotSetSelection( model, diff );
 	zoom->slotSetSelection( model, diff );

@@ -67,6 +67,8 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 	         this, SLOT(slotSetStatus( KDiffModelList::Status )) );
 	connect( m_models, SIGNAL(error( QString )),
 	         this, SLOT(slotShowError( QString )) );
+	connect( m_models, SIGNAL(modelsChanged()),
+	         this, SLOT(slotModelsChanged()) );
 	
 	// this should be your custom internal widget
 	m_diffView = new KDiffView( m_models, m_generalSettings, parentWidget, widgetName );
@@ -127,6 +129,9 @@ void KDiffPart::setupActions()
 	m_saveDiff = new KAction( i18n("Save .&diff"), 0,
 	              this, SLOT(save()),
 	              actionCollection(), "file_save_diff" );
+	m_swap = new KAction( i18n( "Swap source and destination" ), 0,
+	              this, SLOT(slotSwap()),
+	              actionCollection(), "file_swap" );
 	m_diffStats = new KAction( i18n( "Show diff stats" ), 0,
 	              this, SLOT(slotShowDiffstats()),
 	              actionCollection(), "file_diffstats" );
@@ -162,6 +167,10 @@ void KDiffPart::setupActions()
 
 void KDiffPart::updateActions()
 {
+	m_saveDiff->setEnabled( m_models->mode() == KDiffModelList::Compare );
+	m_swap->setEnabled( m_models->mode() == KDiffModelList::Compare );
+	m_diffStats->setEnabled( m_models->modelCount() > 0 );
+	
 	int model = getSelectedModelIndex();
 	int diff = getSelectedDifferenceIndex();
 	if( model >= 0 ) {
@@ -184,9 +193,8 @@ void KDiffPart::updateActions()
 	m_previousFile->setEnabled( model > 0 );
 	m_nextFile->setEnabled( model < m_models->modelCount() - 1 );
 	m_previousDifference->setEnabled( diff > 0 || model > 0 );
-	m_nextDifference->setEnabled( diff < getSelectedModel()->differenceCount() - 1 ||
-	                              model < m_models->modelCount() - 1 );
-	m_diffStats->setEnabled( m_models->modelCount() > 0 );
+	m_nextDifference->setEnabled( model >= 0 &&
+	    ( diff < getSelectedModel()->differenceCount() - 1 || model < m_models->modelCount() - 1 ) );
 }
 
 void KDiffPart::setReadWrite(bool rw)
@@ -283,6 +291,7 @@ KURL KDiffPart::diffURL()
 
 void KDiffPart::slotSetStatus( KDiffModelList::Status status )
 {
+	updateActions();
 	switch( status ) {
 	case KDiffModelList::RunningDiff:
 		emit setStatusBarText( i18n( "Running diff..." ) );
@@ -291,9 +300,6 @@ void KDiffPart::slotSetStatus( KDiffModelList::Status status )
 		emit setStatusBarText( i18n( "Parsing diff..." ) );
 		break;
 	case KDiffModelList::FinishedParsing:
-		if( m_models->mode() == KDiffModelList::Compare ) {
-			m_saveDiff->setEnabled(true);
-		}
 		showDefaultStatus();
 		slotSetSelection( 0, 0 );
 		break;
@@ -339,9 +345,20 @@ void KDiffPart::slotShowError( QString error )
 	KMessageBox::error( widget(), error );
 }
 
+void KDiffPart::slotModelsChanged()
+{
+	if( m_selectedModel > modelCount() - 1 )
+		slotSetSelection( -1, -1 );
+}
+
 void KDiffPart::slotSaveDestination()
 {
 	m_models->saveDestination( m_selectedModel );
+}
+
+void KDiffPart::slotSwap()
+{
+	m_models->swap();
 }
 
 void KDiffPart::slotShowDiffstats( void )
@@ -454,14 +471,18 @@ void KDiffPart::slotSetSelection( int model, int diff )
 	if( model == m_selectedModel && diff == m_selectedDifference )
 		return;
 
-	disconnect( getSelectedModel(), SIGNAL(appliedChanged( const Difference* )),
-	            this, SLOT(slotAppliedChanged( const Difference* )) );
+	if( m_selectedModel >= 0 ) {
+		disconnect( getSelectedModel(), SIGNAL(appliedChanged( const Difference* )),
+		            this, SLOT(slotAppliedChanged( const Difference* )) );
+	}
 	
 	m_selectedModel = model;
 	m_selectedDifference = diff;
 
-	connect( getSelectedModel(), SIGNAL(appliedChanged( const Difference* )),
-	            this, SLOT(slotAppliedChanged( const Difference* )) );
+	if( m_selectedModel >= 0 ) {
+		connect( getSelectedModel(), SIGNAL(appliedChanged( const Difference* )),
+		            this, SLOT(slotAppliedChanged( const Difference* )) );
+	}
 	
 	emit selectionChanged( model, diff );
 }

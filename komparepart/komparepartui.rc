@@ -6,6 +6,7 @@
     <Action name="file_save_as"/>
     <Action name="file_save_diff"/>
     <Separator/>
+    <Action name="file_swap"/>
     <Action name="file_diffstats"/>
   </Menu>
   <Menu name="difference"><text>&amp;Difference</text>

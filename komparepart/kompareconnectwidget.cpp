@@ -60,17 +60,8 @@ void KompareConnectWidget::slotSetSelection( const DiffModel* model, const Diffe
 		return;
 	}
 
-	if( m_selectedModel != model )
-	{
-		disconnect( m_selectedModel, SIGNAL( appliedChanged( const Difference* ) ),
-		            this, SLOT( repaint() ) );
-	}
-
 	m_selectedModel = model;
 	m_selectedDifference = diff;
-
-	connect( m_selectedModel, SIGNAL( appliedChanged(const Difference*) ),
-	         this, SLOT( repaint() ) );
 
 	repaint();
 }

@@ -245,7 +245,7 @@ void KomparePart::saveDiff()
 		saveSettings( config );
 		config->sync();
 		KURL url = KFileDialog::getSaveURL( m_models->destinationBaseURL().url(),
-		              "*.diff *.patch", widget(), i18n( "Save .diff" ) );
+		              i18n("*.diff *.dif *.patch|Patch files"), widget(), i18n( "Save .diff" ) );
 		m_models->saveDiff( url, w->directory(), m_diffSettings );
 	}
 	delete dlg;
@@ -591,6 +591,8 @@ KParts::Part* KomparePartFactory::createPartObject( QWidget *parentWidget, const
 	// See if we are to be read-write or not
 	if (QCString(classname) == "KParts::ReadOnlyPart")
 		obj->setReadWrite(false);
+
+	KGlobal::locale()->insertCatalogue("kompare");
 
 	return obj;
 }

@@ -70,5 +70,3 @@ partdesktop_DATA = kompare_part.desktop
 partrcdir   = $(kde_datadir)/komparepart
 partrc_DATA = komparepartui.rc
 
-messages: rc.cpp
-	$(XGETTEXT) -C *.cpp *.h -o $(podir)/kompare.pot

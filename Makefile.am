@@ -8,7 +8,8 @@ noinst_HEADERS =  kompare_shell.h
 METASOURCES = AUTO
 
 messages: rc.cpp
-	$(XGETTEXT) -C *.cpp *.h -o $(podir)/kompare.pot
+	$(EXTRACTRC) */*.rc */*.ui >> rc.cpp
+	$(XGETTEXT) `find . -name "*.cpp" -o -name "*.h"` -o $(podir)/kompare.pot
 
 KDE_ICON = AUTO
 
@@ -32,5 +33,3 @@ shelldesktop_DATA = kompare.desktop
 shellrcdir   = $(kde_datadir)/kompare
 shellrc_DATA = kompareui.rc
 
-rc.cpp:
-	$(EXTRACTRC) *.rc > rc.cpp

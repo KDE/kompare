@@ -34,6 +34,7 @@ class KURL;
 
 class DiffSettings;
 class GeneralSettings;
+class KFileTreeView;
 class KompareView;
 class KompareNavigationTree;
 class DifferencesAction;
@@ -77,13 +78,13 @@ public:
 
 	int modelCount() const
 		{ return m_models->modelCount(); };
-	int getSelectedModelIndex() const
+	int selectedModelIndex() const
 		{ return m_selectedModel; };
-	int getSelectedDifferenceIndex() const
+	int selectedDifferenceIndex() const
 		{ return m_selectedDifference; };
-	DiffModel* getSelectedModel()
+	DiffModel* selectedModel()
 		{ return m_models->modelAt( m_selectedModel ); };
-	Difference* getSelectedDifference()
+	Difference* selectedDifference()
 		{ return m_models->modelAt( m_selectedModel )->differenceAt( m_selectedDifference ); };
 	int appliedCount() const { return m_models->modelAt( m_selectedModel )->appliedCount(); };
 	
@@ -128,15 +129,15 @@ protected:
 	bool saveFile() { return true; };
 
 protected slots:
-	void slotSetStatus( KompareModelList::Status status );
+	void slotSetStatus( Kompare::Status status );
 	void slotShowError( QString error );
 	void slotModelsChanged();
-	
+
 	void slotSelectionChanged( int model, int diff );
 	void slotAppliedChanged( const Difference* d );
 	void slotDifferenceMenuAboutToShow();
 	void slotGoDifferenceActivated( int item );
-	
+
 	void slotSwap();
 	void slotShowDiffstats();
 	void slotApplyDifference();
@@ -154,31 +155,33 @@ private:
 	void updateActions();
 	void updateStatus();
 
-	static GeneralSettings*    m_generalSettings;
-	static DiffSettings*       m_diffSettings;
-	static MiscSettings*       m_miscSettings;
+	static GeneralSettings* m_generalSettings;
+	static DiffSettings*    m_diffSettings;
+	static MiscSettings*    m_miscSettings;
 
-	KompareModelList*        m_models;
-	int                    m_selectedModel;
-	int                    m_selectedDifference;
+	KompareModelList*       m_models;
+	int                     m_selectedModel;
+	int                     m_selectedDifference;
 
-	KompareView*             m_diffView;
-	KompareNavigationTree*   m_navigationTree;
-	KAction*               m_save;
-	KAction*               m_saveAll;
-	KAction*               m_saveDiff;
-	KAction*               m_swap;
-	KAction*               m_diffStats;
-	KAction*               m_applyDifference;
-	KAction*               m_applyAll;
-	KAction*               m_unapplyAll;
-	KAction*               m_previousFile;
-	KAction*               m_nextFile;
-	KAction*               m_previousDifference;
-	KAction*               m_nextDifference;
-	DifferencesAction*     m_differences;
-	
-	KTempFile*             m_tempDiff;
+	KompareView*            m_diffView;
+
+	KompareNavigationTree*  m_navigationTree;
+
+	KAction*                m_save;
+	KAction*                m_saveAll;
+	KAction*                m_saveDiff;
+	KAction*                m_swap;
+	KAction*                m_diffStats;
+	KAction*                m_applyDifference;
+	KAction*                m_applyAll;
+	KAction*                m_unapplyAll;
+	KAction*                m_previousFile;
+	KAction*                m_nextFile;
+	KAction*                m_previousDifference;
+	KAction*                m_nextDifference;
+	DifferencesAction*      m_differences;
+
+	KTempFile*              m_tempDiff;
 };
 
 class KInstance;
@@ -191,8 +194,8 @@ public:
 	KomparePartFactory();
 	virtual ~KomparePartFactory();
 	virtual KParts::Part* createPartObject( QWidget *parentWidget, const char *widgetName,
-											QObject *parent, const char *name,
-											const char *classname, const QStringList &args );
+	                                        QObject *parent, const char *name,
+	                                        const char *classname, const QStringList &args );
 	static KInstance* instance();
 
 private:

@@ -7,7 +7,7 @@
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -43,7 +43,7 @@ KompareView::KompareView( KompareModelList* models, GeneralSettings* settings, Q
 {
 	setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
 	setLineWidth( style().defaultFrameWidth() );
-	
+
 	QGridLayout *pairlayout = new QGridLayout(this, 4, 3, 10);
 	pairlayout->setSpacing( 0 );
 	pairlayout->setMargin( style().defaultFrameWidth() );
@@ -105,7 +105,7 @@ KompareView::KompareView( KompareModelList* models, GeneralSettings* settings, Q
 
 	connect( diff1, SIGNAL(selectionChanged(int,int)), SLOT(slotSelectionChanged(int,int)) );
 	connect( diff2, SIGNAL(selectionChanged(int,int)), SLOT(slotSelectionChanged(int,int)) );
-	
+
 	connect( vScroll, SIGNAL(valueChanged(int)), SLOT(scrollToId(int)) );
 	connect( vScroll, SIGNAL(sliderMoved(int)), SLOT(scrollToId(int)) );
 	connect( hScroll, SIGNAL(valueChanged(int)), diff1, SLOT(setXOffset(int)) );
@@ -195,6 +195,22 @@ void KompareView::resizeEvent( QResizeEvent* e )
 {
 	QWidget::resizeEvent( e );
 	updateScrollBars();
+}
+
+void KompareView::wheelEvent( QWheelEvent* e )
+{
+	// scroll lines...
+	int pos = vScroll->value();
+	int height = diff1->itemRect( 0 ).height();
+	if ( e->delta() < 0 ) // scroll back into file
+	{
+		vScroll->setValue( pos + m_settings->m_scrollNoOfLines*height );
+	}
+	else // scroll forward into file
+	{
+		vScroll->setValue( pos - m_settings->m_scrollNoOfLines*height );
+	}
+	zoom->repaint();
 }
 
 #include "kompareview.moc"

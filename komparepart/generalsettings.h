@@ -41,14 +41,15 @@ public:
 	// some virtual functions that will be overloaded from the base class
 	virtual void loadSettings( KConfig* config );
 	virtual void saveSettings( KConfig* config );
-	QColor getColorForDifferenceType( Difference::Type type, bool selected = false, bool applied = false );
+	QColor colorForDifferenceType( Difference::Type type, bool selected = false, bool applied = false );
 
 public:
-	bool m_showEntireFile;
+	bool   m_showEntireFile;
 	QColor m_removeColor;
 	QColor m_changeColor;
 	QColor m_addColor;
 	QColor m_appliedColor;
+	int    m_scrollNoOfLines;
 };
 
 #endif

@@ -57,8 +57,8 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 	locGroupBox->setMargin( KDialog::marginHint() );
 
 	label           = new QLabel( i18n( "Number of contextlines:" ), locGroupBox );
-	m_locSpinButton = new QSpinBox( 0, 100, 1, locGroupBox );
-	label->setBuddy( m_locSpinButton );
+	m_locSpinBox    = new QSpinBox( 0, 100, 1, locGroupBox );
+	label->setBuddy( m_locSpinBox );
 
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
@@ -109,12 +109,12 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 	m_linesCheckBox->setChecked     ( m_settings->m_ignoreWhitespaceComparingLines );
 	m_whitespaceCheckBox->setChecked( m_settings->m_ignoreWhiteSpace );
 
-	m_locSpinButton->setValue       ( m_settings->m_linesOfContext );
+	m_locSpinBox->setValue          ( m_settings->m_linesOfContext );
 
 	m_modeButtonGroup->setButton    ( m_settings->m_format );
 };
 
-DiffSettings* DiffPrefs::getSettings( void )
+DiffSettings* DiffPrefs::settings( void )
 {
 	return m_settings;
 }
@@ -127,7 +127,7 @@ void DiffPrefs::restore()
 void DiffPrefs::apply()
 {
 	DiffSettings* setts;
-	setts = (DiffSettings*)getSettings();
+	setts = (DiffSettings*)settings();
 	
 	setts->m_largeFiles                     = m_largerCheckBox->isChecked();
 	setts->m_createSmallerDiff              = m_smallerCheckBox->isChecked();
@@ -136,7 +136,7 @@ void DiffPrefs::apply()
 	setts->m_ignoreWhitespaceComparingLines = m_linesCheckBox->isChecked();
 	setts->m_ignoreWhiteSpace               = m_whitespaceCheckBox->isChecked();
 
-	setts->m_linesOfContext                 = m_locSpinButton->value();
+	setts->m_linesOfContext                 = m_locSpinBox->value();
 
 	setts->m_format = static_cast<Kompare::Format>( m_modeButtonGroup->id( m_modeButtonGroup->selected() ) );
 };
@@ -149,9 +149,9 @@ void DiffPrefs::setDefaults()
 	m_caseCheckBox->setChecked( false );
 	m_linesCheckBox->setChecked( false );
 	m_whitespaceCheckBox->setChecked( false );
-	
-	m_locSpinButton->setValue( 3 );
-	
+
+	m_locSpinBox->setValue( 3 );
+
 	m_modeButtonGroup->setButton( Kompare::Unified );
 };
 

@@ -38,7 +38,7 @@ public:
 
 public:
 	void          setSettings( MiscSettings* );
-	MiscSettings* getSettings( void );
+	MiscSettings* settings( void );
 
 public:
 	virtual void restore();

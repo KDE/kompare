@@ -35,13 +35,37 @@ public:
 		Unknown     = -1
 	};
 	
+	enum Mode {
+		Compare,
+		Diff
+	};
+
+	enum Status {
+		RunningDiff,
+		Parsing,
+		FinishedParsing,
+		FinishedWritingDiff
+	};
+
+	enum Target {
+		Source,
+		Destination
+	};
+
+	enum Type {
+		SingleFileCVSDiff,
+		MultiFileCVSDiff,
+		SingleFileDiff,
+		MultiFileDiff
+	};
+
 	static QString constructRelativePath( const QString& from, const QString& to )
 	{
 		KURL fromURL( from );
 		KURL toURL( to );
 		KURL root;
 		int upLevels = 0;
-		
+
 		// Find a common root.
 		root = from;
 		while( !root.isMalformed() && !root.isParentOf( toURL ) ) {

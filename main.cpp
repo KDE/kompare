@@ -34,7 +34,7 @@ static const char *version = "v2.0";
 
 static KCmdLineOptions options[] =
 {
-	{ "+[URL [URL2]]", I18N_NOOP( "Document to open. If only one URL is given,\nit is considered to be a .diff file. If 2 files are given,\nKompare will compare them." ), 0 },
+	{ "+[URL [URL2]]", I18N_NOOP( "Document to open. If only one URL is given, it is\nconsidered to be a .diff file. If the file is a -\nthen kompare will read from stdin, this can be used\nfor cvs diff | kompare -. If 2 files are given,\nkompare will compare them." ), 0 },
 	{ 0, 0, 0 }
 };
 
@@ -80,6 +80,7 @@ int main(int argc, char *argv[])
 			}
 			break;
 		case 1:  // 1 file -> it is a diff, use load()
+			kdDebug() << "Url is : " << args->arg(0) << endl;
 			widget = new KompareShell();
 			widget->show();
 			widget->load( args->url( 0 ) );
@@ -99,3 +100,6 @@ int main(int argc, char *argv[])
 
 	return kapp->exec();
 }
+
+/* vim: set ts=4 sw=4 noet: */
+

@@ -37,9 +37,9 @@ public:
 	
 	bool start();
 	
-	const QStringList  getDiffOutput();
-	QString            getStdout()       { return m_stdout; };
-	QString            getStderr()       { return m_stderr; };
+	const QStringList  diffOutput();
+	QString            stdout()       { return m_stdout; };
+	QString            stderr()       { return m_stderr; };
 	
 signals:
 	void diffHasFinished( bool finishedNormally );

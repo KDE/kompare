@@ -71,7 +71,7 @@ KompareShell::KompareShell()
 
 		// now that the Part is loaded, we cast it to a Part to get
 		// our hands on it
-		m_part = static_cast<KomparePart *>(factory->create(mainDock,
+		m_part = static_cast<KomparePart*>(factory->create(mainDock,
 		              "kompare_part", "KParts::ReadWritePart" ));
 
 		if (m_part)
@@ -160,13 +160,13 @@ void KompareShell::updateStatusBar()
 {
 	QString fileStr;
 	QString diffStr;
-	int modelIndex = m_part->getSelectedModelIndex();
+	int modelIndex = m_part->selectedModelIndex();
 	int modelCount = m_part->modelCount();
 	if (modelIndex >= 0) {
 		fileStr = i18n( " %1 of %2 file ", " %1 of %2 files ", modelCount )
 		          .arg(modelIndex+1).arg(modelCount);
-		int diffIndex = m_part->getSelectedDifferenceIndex();
-		int diffCount = m_part->getSelectedModel()->differenceCount();
+		int diffIndex = m_part->selectedDifferenceIndex();
+		int diffCount = m_part->selectedModel()->differenceCount();
 		int appliedCount = m_part->appliedCount();
 		if (diffIndex >= 0)
 			diffStr = i18n(" %1 of %2 difference, %3 applied ", " %1 of %2 differences, %3 applied ", diffCount )
@@ -225,7 +225,9 @@ void KompareShell::slotFileCompareFiles()
 		shell->show();
 		shell->compare( source, destination );
 	}
+	kdDebug() << "Deleting dialog" << endl;
 	delete dialog;
+	kdDebug() << "Dialog deleted" << endl;
 }
 
 void KompareShell::optionsShowToolbar()

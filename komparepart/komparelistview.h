@@ -65,6 +65,7 @@ signals:
 	
 protected:
 	void resizeEvent( QResizeEvent* e );
+	void wheelEvent( QWheelEvent* e );
 	void contentsMousePressEvent ( QMouseEvent * e );
 	void contentsMouseDoubleClickEvent ( QMouseEvent* ) {};
 	void contentsMouseReleaseEvent ( QMouseEvent * ) {};
@@ -99,7 +100,7 @@ public:
 	virtual int maxHeight() = 0;
 	
 private:
-	int                  m_scrollId;
+	int m_scrollId;
 };
 
 class KompareListViewDiffItem : public KompareListViewItem
@@ -121,9 +122,9 @@ public:
 private:
 	bool isSource() const { return m_listView->isSource(); };
 	int lineCount() const;
-	
-	KompareListView*       m_listView;
-	Difference*          m_difference;
+
+	KompareListView* m_listView;
+	Difference*      m_difference;
 };
 
 class KompareListViewHunkItem : public KompareListViewItem
@@ -138,7 +139,7 @@ public:
 	int maxHeight();
 	
 private:	
-	DiffHunk*          m_hunk;
+	DiffHunk* m_hunk;
 };
 
 #endif

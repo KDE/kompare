@@ -46,6 +46,7 @@ signals:
 	
 protected:
 	void resizeEvent( QResizeEvent* e );
+	void wheelEvent( QWheelEvent* e );
 	void updateScrollBars();
 
 protected slots:

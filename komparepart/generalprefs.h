@@ -24,6 +24,7 @@
 
 class QCheckBox;
 class KColorButton;
+class QSpinBox;
 
 class GeneralSettings;
 
@@ -36,7 +37,7 @@ public:
 
 public:
 	void setSettings( GeneralSettings* );
-	GeneralSettings* getSettings( void );
+	GeneralSettings* settings( void );
 
 public:
 	GeneralSettings* m_settings;
@@ -47,11 +48,13 @@ public:
 	virtual void setDefaults();
 
 public:
-	QCheckBox* m_showEntireFile;
 	KColorButton* m_removedColorButton;
 	KColorButton* m_changedColorButton;
 	KColorButton* m_addedColorButton;
 	KColorButton* m_appliedColorButton;
+	QCheckBox*    m_showEntireFile;
+	// snol == scroll number of lines
+	QSpinBox*     m_snolSpinBox;
 };
 
 #endif

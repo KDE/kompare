@@ -46,13 +46,13 @@ protected:
 	QPointArray makeConnectPoly( const QPointArray& topBezier, const QPointArray& bottomBezier );
 
 private:
-	KompareModelList*      m_models;
-	GeneralSettings*     m_settings;
-	KompareView*           m_diffView;
-	KompareListView*       m_leftView;
-	KompareListView*       m_rightView;
-	int                  m_selectedModel;
-	int                  m_selectedDiff;
+	KompareModelList*  m_models;
+	GeneralSettings*   m_settings;
+	KompareView*       m_diffView;
+	KompareListView*   m_leftView;
+	KompareListView*   m_rightView;
+	int                m_selectedModel;
+	int                m_selectedDiff;
 
 };
 

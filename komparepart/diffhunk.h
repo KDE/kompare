@@ -30,8 +30,8 @@ public:
 	DiffHunk( int sourceLine, int destinationLine, QString function = QString::null );
 	~DiffHunk();
 
-	const QPtrList<Difference>& getDifferences() const { return m_differences; };
-	const QString getFunction() const { return m_function; };
+	const QPtrList<Difference>& differences() const { return m_differences; };
+	const QString function() const { return m_function; };
 	
 	void add( Difference* diff );
 	

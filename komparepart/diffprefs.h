@@ -41,7 +41,7 @@ public:
 
 public:
 	void setSettings( DiffSettings* );
-	DiffSettings* getSettings( void );
+	DiffSettings* settings( void );
 
 public:
 	virtual void restore();
@@ -50,7 +50,7 @@ public:
 
 public:
 	// loc == lines of context
-	QSpinBox* m_locSpinButton;
+	QSpinBox* m_locSpinBox;
 
 	QCheckBox* m_smallerCheckBox;
 	QCheckBox* m_largerCheckBox;

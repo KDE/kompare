@@ -65,7 +65,7 @@ void DifferencesAction::fillDifferenceMenu( const DiffModel* diffModel, int curr
 			m_differenceMenu->removeItemAt( i );
 	}
 
-	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(diffModel->getDifferences());
+	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(diffModel->differences());
 	int i = 0;
 	while ( it.current() ) {
 		int id = m_differenceMenu->insertItem( it.current()->asString() );

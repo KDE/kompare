@@ -34,13 +34,11 @@ class DiffModel : public QObject, Kompare
 {
 Q_OBJECT
 public:
-	
+
 	DiffModel();
 	~DiffModel();
 
-	static Format determineDiffFormat( QString line );
-
-	int parseDiff( Format format, const QStringList& list, QStringList::ConstIterator& it);
+	int parseDiff( enum Kompare::Format format, const QStringList& list );
 
 	int hunkCount() const
 		{ return m_hunks.count(); };
@@ -52,19 +50,23 @@ public:
 		{ return const_cast<DiffModel*>(this)->m_hunks.at( i ); };
 	Difference* differenceAt( int i ) const
 		{ return const_cast<DiffModel*>(this)->m_differences.at( i ); };
-	const QPtrList<DiffHunk>& getHunks() const
+	const QPtrList<DiffHunk>& hunks() const
 		{ return m_hunks; };
-	const QPtrList<Difference>& getDifferences() const
+	const QPtrList<Difference>& differences() const
 		{ return m_differences; };
+	int findDifference( Difference* diff )
+	    { return m_differences.find( diff ); };
 
-	QString sourceFile();
-	QString destinationFile();
-	QString sourceTimestamp() { return m_sourceTimestamp; };
-	QString destinationTimestamp() { return m_destinationTimestamp; };
-	QString sourceRevision() { return m_sourceRevision; };
-	QString destinationRevision() { return m_destinationRevision; };
+	QString  sourceFile();
+	QString  destinationFile();
+	QString srcPath();
+	QString destPath();
+	QString  sourceTimestamp()       { return m_sourceTimestamp; };
+	QString  destinationTimestamp()  { return m_destinationTimestamp; };
+	QString  sourceRevision()        { return m_sourceRevision; };
+	QString  destinationRevision()   { return m_destinationRevision; };
 
-	Format getFormat() { return m_format; };
+//	Format getFormat() { return m_format; };
 	bool isModified() const { return m_modified; };
 
 public slots:
@@ -75,11 +77,11 @@ signals:
 	void appliedChanged( const Difference* d );
 
 private:
-	int parseContextDiff( const QStringList& list, QStringList::ConstIterator& it );
-	int parseEdDiff( const QStringList& list, QStringList::ConstIterator& it );
-	int parseNormalDiff( const QStringList& list, QStringList::ConstIterator& it );
-	int parseRCSDiff( const QStringList& list, QStringList::ConstIterator& it );
-	int parseUnifiedDiff( const QStringList& list, QStringList::ConstIterator& it );
+	int parseContextDiff( const QStringList& list );
+	int parseEdDiff     ( const QStringList& list );
+	int parseNormalDiff ( const QStringList& list );
+	int parseRCSDiff    ( const QStringList& list );
+	int parseUnifiedDiff( const QStringList& list );
 
 	QString              m_sourceFile;
 	QString              m_sourceTimestamp;
@@ -90,7 +92,6 @@ private:
 	QPtrList<DiffHunk>   m_hunks;
 	QPtrList<Difference> m_differences;
 	int                  m_appliedCount;
-	Format               m_format;
 	bool                 m_modified;
 };
 

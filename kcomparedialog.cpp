@@ -29,8 +29,9 @@
 
 #include "kcomparedialog.h"
 
-KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationURL, QWidget *parent, const char *name )
-    :   KDialogBase( Plain, i18n("Compare Files or Directories"), Ok|Cancel, Ok, parent, name )
+KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationURL,
+	                        QWidget *parent, const char *name )
+	: KDialogBase( Plain, i18n("Compare Files or Directories"), Ok|Cancel, Ok, parent, name )
 {
 	QVBoxLayout* topLayout = new QVBoxLayout( plainPage(), 0,
 	          spacingHint() );
@@ -50,12 +51,14 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 
 	m_sourceURLComboBox = new KURLComboBox( KURLComboBox::Both, true );
 	m_sourceURLComboBox->setURLs( config->readListEntry( "Recent Sources" ) );
+
 	if( sourceURL ) {
 		m_sourceURLComboBox->setURL( *sourceURL );
 	}
 
 	m_sourceURLRequester = new KURLRequester( m_sourceURLComboBox, sourceGB );
 	m_sourceURLRequester->setFocus();
+
 	sourceGBLayout->addWidget( m_sourceURLRequester );
 	topLayout->addWidget( sourceGB );
 
@@ -70,24 +73,30 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 
 	m_destinationURLComboBox = new KURLComboBox( KURLComboBox::Both, true );
 	m_destinationURLComboBox->setURLs( config->readListEntry( "Recent Destinations" ) );
+
 	if( destinationURL ) {
 		m_destinationURLComboBox->setURL( *destinationURL );
 	}
+
 	m_destinationURLRequester = new KURLRequester( m_destinationURLComboBox, destinationGB );
 
 	destinationGBLayout->addWidget( m_destinationURLRequester );
 	topLayout->addWidget( destinationGB );
-	
+
 	m_sourceURLRequester->setMinimumWidth( 400 );
 	m_sourceURLRequester->setMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+
 	m_destinationURLRequester->setMinimumWidth( 400 );
 	m_destinationURLRequester->setMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+
+	// FIXME: qwhatsthis is screwed... still mentions OK there...
 	setButtonOKText( i18n( "Compare" ), i18n( "Compare these files or directories" ) );
 
 	connect( m_sourceURLRequester, SIGNAL( textChanged( const QString& ) ),
 	         this, SLOT( slotEnableCompare() ) );
 	connect( m_destinationURLRequester, SIGNAL( textChanged( const QString& ) ),
 	         this, SLOT( slotEnableCompare() ) );
+
 	slotEnableCompare();
 }
 
@@ -95,7 +104,8 @@ KCompareDialog::~KCompareDialog()
 {
 	KConfig* config = kapp->config();
 	config->setGroup( "Recent Files" );
-	kdDebug() << "Recent Sources: " << m_sourceURLComboBox->urls().join( " " ) << endl;
+	kdDebug() << "Recent Sources     : " << m_sourceURLComboBox->urls().join( " " ) << endl;
+	kdDebug() << "Recent Destinations: " << m_destinationURLComboBox->urls().join( " " ) << endl;
 	config->writeEntry( "Recent Sources", m_sourceURLComboBox->urls() );
 	config->writeEntry( "Recent Destinations", m_destinationURLComboBox->urls() );
 	config->sync();

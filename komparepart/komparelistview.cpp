@@ -197,7 +197,7 @@ void KompareListView::setSelectedModel( int index )
 
 	m_itemDict.resize(model->differenceCount());
 
-	QPtrListIterator<DiffHunk> hunkIt(model->getHunks());
+	QPtrListIterator<DiffHunk> hunkIt(model->hunks());
 
 	KompareListViewItem* item = 0;
 	for( ; hunkIt.current(); ++hunkIt ) {
@@ -208,7 +208,7 @@ void KompareListView::setSelectedModel( int index )
 		else
 			item = new KompareListViewHunkItem( this, hunk );
 
-		QPtrListIterator<Difference> diffIt(hunk->getDifferences());
+		QPtrListIterator<Difference> diffIt(hunk->differences());
 
 		for( ; diffIt.current(); ++diffIt ) {
 			Difference* diff = diffIt.current();
@@ -270,6 +270,11 @@ void KompareListView::contentsMousePressEvent( QMouseEvent* e )
 void KompareListView::slotAppliedChanged( const Difference* d )
 {
 	m_itemDict[(void*)d]->appliedChanged();
+}
+
+void KompareListView::wheelEvent( QWheelEvent* e )
+{
+	e->ignore(); // we want the parent to catch the wheel events
 }
 
 KompareListViewItem::KompareListViewItem( QListView* parent )
@@ -368,7 +373,7 @@ void KompareListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, i
 {
 	QColor bg = cg.base();
 	if( m_difference->type() != Difference::Unchanged ) {
-		bg = m_listView->settings()->getColorForDifferenceType(
+		bg = m_listView->settings()->colorForDifferenceType(
 		        m_difference->type(), isSelected(), m_difference->applied() );
 	} else if( column == COL_LINE_NO ) {
 		bg = cg.background();
@@ -438,7 +443,7 @@ KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, Kompa
 
 int KompareListViewHunkItem::maxHeight()
 {
-	if( m_hunk->getFunction().isEmpty() ) {
+	if( m_hunk->function().isEmpty() ) {
 		return 5;
 	} else {
 		return listView()->fontMetrics().lineSpacing();
@@ -457,7 +462,7 @@ void KompareListViewHunkItem::paintCell( QPainter * p, const QColorGroup & cg, i
 	p->fillRect( 0, 0, width, height(), cg.mid() );
 	if( column == COL_MAIN ) {
 		p->drawText( listView()->itemMargin(), 0, width - listView()->itemMargin(), height(),
-		             align, m_hunk->getFunction() );
+		             align, m_hunk->function() );
 	}
 }
 

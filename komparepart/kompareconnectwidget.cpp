@@ -101,7 +101,7 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 		if( first >= 0 && last >= 0 && first <= last ) {
 			
 			QPtrListIterator<Difference> diffIt =
-			     QPtrListIterator<Difference>( selectedModel->getDifferences() );
+			     QPtrListIterator<Difference>( selectedModel->differences() );
 			diffIt += first;
 			for( int i = first; diffIt.current() && i <= last; ++diffIt, ++i ) {
 
@@ -119,8 +119,8 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 				QPointArray topBezier = makeTopBezier( tl, tr );
 				QPointArray bottomBezier = makeBottomBezier( bl, br );
 
-				p->setPen( m_settings->getColorForDifferenceType( d->type(), selected, d->applied() ) );
-				p->setBrush( m_settings->getColorForDifferenceType( d->type(), selected, d->applied() ) );
+				p->setPen( m_settings->colorForDifferenceType( d->type(), selected, d->applied() ) );
+				p->setBrush( m_settings->colorForDifferenceType( d->type(), selected, d->applied() ) );
 				p->drawPolygon ( makeConnectPoly( topBezier, bottomBezier ) );
 
 				if( selected ) {

@@ -177,7 +177,7 @@ void KompareProcess::processExited( KProcess* /* proc */ )
 	emit diffHasFinished( normalExit() && exitStatus() == 1 );
 }
 
-const QStringList KompareProcess::getDiffOutput()
+const QStringList KompareProcess::diffOutput()
 {
 	return QStringList::split( "\n", m_stdout );
 }

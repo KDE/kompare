@@ -36,27 +36,29 @@ GeneralSettings::~GeneralSettings()
 
 void GeneralSettings::loadSettings( KConfig* config )
 {
-	m_showEntireFile = config->readBoolEntry ( "ShowEntireFile", true );
-	m_removeColor    = config->readColorEntry( "RemoveColor",    &default_removeColor );
-	m_changeColor    = config->readColorEntry( "ChangeColor",    &default_changeColor );
-	m_addColor       = config->readColorEntry( "AddColor",       &default_addColor );
-	m_appliedColor   = config->readColorEntry( "AppliedColor",   &default_appliedColor );
+	m_showEntireFile  = config->readBoolEntry ( "ShowEntireFile",  true );
+	m_removeColor     = config->readColorEntry( "RemoveColor",     &default_removeColor );
+	m_changeColor     = config->readColorEntry( "ChangeColor",     &default_changeColor );
+	m_addColor        = config->readColorEntry( "AddColor",        &default_addColor );
+	m_appliedColor    = config->readColorEntry( "AppliedColor",    &default_appliedColor );
+	m_scrollNoOfLines = config->readNumEntry     ( "ScrollNoOfLines", 3 );
 
 	SettingsBase::loadSettings( config );
 };
 
 void GeneralSettings::saveSettings( KConfig* config )
 {
-	config->writeEntry( "ShowEntireFile", m_showEntireFile );
-	config->writeEntry( "RemoveColor",    m_removeColor );
-	config->writeEntry( "ChangeColor",    m_changeColor );
-	config->writeEntry( "AddColor",       m_addColor );
-	config->writeEntry( "AppliedColor",   m_appliedColor );
+	config->writeEntry( "ShowEntireFile",  m_showEntireFile );
+	config->writeEntry( "RemoveColor",     m_removeColor );
+	config->writeEntry( "ChangeColor",     m_changeColor );
+	config->writeEntry( "AddColor",        m_addColor );
+	config->writeEntry( "AppliedColor",    m_appliedColor );
+	config->writeEntry( "ScrollNoOfLines", m_scrollNoOfLines );
 
 	SettingsBase::saveSettings( config );
 };
 
-QColor GeneralSettings::getColorForDifferenceType( Difference::Type type, bool selected, bool applied )
+QColor GeneralSettings::colorForDifferenceType( Difference::Type type, bool selected, bool applied )
 {
 	QColor color;
 	if( applied ) {

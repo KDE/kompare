@@ -19,8 +19,10 @@
 
 #include <qcheckbox.h>
 #include <qgroupbox.h>
+#include <qhgroupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
+#include <qspinbox.h>
 
 #include <kcolorbutton.h>
 #include <kdialog.h>
@@ -34,6 +36,7 @@ GeneralPrefs::GeneralPrefs( QWidget* parent ) : PrefsBase( parent )
 	QWidget*     page;
 	QVBoxLayout* layout;
 	QGroupBox*   colorGroupBox;
+	QHGroupBox*  snolGroupBox;
 	QLabel*      label;
 
 	page   = new QWidget( this );
@@ -66,9 +69,19 @@ GeneralPrefs::GeneralPrefs( QWidget* parent ) : PrefsBase( parent )
 	m_appliedColorButton = new KColorButton( colorGroupBox );
 	label->setBuddy( m_appliedColorButton );
 
+	// add the show entire file checkbox
 	m_showEntireFile = new QCheckBox( i18n( "Show entire file when comparing" ), page );
 	layout->addWidget( m_showEntireFile );
-	
+
+	// scroll number of lines (snol)
+	snolGroupBox = new QHGroupBox( i18n( "Mouse wheel" ), page );
+	layout->addWidget( snolGroupBox );
+	snolGroupBox->setMargin( KDialog::marginHint() );
+
+	label            = new QLabel( i18n( "Number of lines:" ), snolGroupBox );
+	m_snolSpinBox    = new QSpinBox( 0, 50, 1, snolGroupBox );
+	label->setBuddy( m_snolSpinBox );
+
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
@@ -89,9 +102,10 @@ void GeneralPrefs::setSettings( GeneralSettings* setts )
 	m_changedColorButton->setColor( m_settings->m_changeColor );
 	m_removedColorButton->setColor( m_settings->m_removeColor );
 	m_appliedColorButton->setColor( m_settings->m_appliedColor );
+	m_snolSpinBox->setValue       ( m_settings->m_scrollNoOfLines );
 };
 
-GeneralSettings* GeneralPrefs::getSettings( void )
+GeneralSettings* GeneralPrefs::settings( void )
 {
 	return m_settings;
 };
@@ -103,14 +117,15 @@ void GeneralPrefs::restore()
 void GeneralPrefs::apply()
 {
 	GeneralSettings* setts;
-	setts = getSettings();
+	setts = settings();
 
-	setts->m_showEntireFile = m_showEntireFile->isChecked();
-	setts->m_addColor       = m_addedColorButton->color();
-	setts->m_changeColor    = m_changedColorButton->color();
-	setts->m_removeColor    = m_removedColorButton->color();
-	setts->m_appliedColor   = m_appliedColorButton->color();
-	
+	setts->m_showEntireFile  = m_showEntireFile->isChecked();
+	setts->m_addColor        = m_addedColorButton->color();
+	setts->m_changeColor     = m_changedColorButton->color();
+	setts->m_removeColor     = m_removedColorButton->color();
+	setts->m_appliedColor    = m_appliedColorButton->color();
+	setts->m_scrollNoOfLines = m_snolSpinBox->value();
+
 	setts->emitSettingsChanged();
 };
 
@@ -121,6 +136,7 @@ void GeneralPrefs::setDefaults()
 	m_changedColorButton->setColor( GeneralSettings::default_changeColor );
 	m_removedColorButton->setColor( GeneralSettings::default_removeColor );
 	m_appliedColorButton->setColor( GeneralSettings::default_appliedColor );
+	m_snolSpinBox->setValue       ( 3 );
 };
 
 #include "generalprefs.moc"

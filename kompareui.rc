@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kompare_shell" version="2">
+<kpartgui name="kompare_shell" version="3">
 <MenuBar>
   <Menu noMerge="1" name="file"><text>&amp;File</text>
     <Action name="file_compare_files"/>
@@ -18,7 +18,6 @@
     <Separator/>
     <Action name="options_configure_keybinding"/>
     <Action name="options_configure_toolbars"/>
-    <Action name="options_configure"/>
     <Merge name="configure_merge"/>
     <Separator/>
     <Merge/>

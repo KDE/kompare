@@ -58,24 +58,24 @@ void Difference::toggleApplied()
 
 QString Difference::asString() const
 {
-	int linecountA = sourceLineCount();
-	int linecountB = destinationLineCount();
-	int lineendA = m_sourceLineNo+linecountA-1;
-	int lineendB = m_destinationLineNo+linecountB-1;
+	int lineCountA = sourceLineCount();
+	int lineCountB = destinationLineCount();
+	int lineEndA = m_sourceLineNo+lineCountA-1;
+	int lineEndB = m_destinationLineNo+lineCountB-1;
 	QString res;
-	if (linecountB == 0)
-		res = QString("%1,%2d%3").arg(m_sourceLineNo).arg(lineendA).arg(m_destinationLineNo-1);
-	else if (linecountA == 0)
-		res = QString("%1a%2,%3").arg(m_sourceLineNo-1).arg(m_destinationLineNo).arg(lineendB);
-	else if (m_sourceLineNo == lineendA)
-		if (m_destinationLineNo == lineendB)
+	if (lineCountB == 0)
+		res = QString("%1,%2d%3").arg(m_sourceLineNo).arg(lineEndA).arg(m_destinationLineNo-1);
+	else if (lineCountA == 0)
+		res = QString("%1a%2,%3").arg(m_sourceLineNo-1).arg(m_destinationLineNo).arg(lineEndB);
+	else if (m_sourceLineNo == lineEndA)
+		if (m_destinationLineNo == lineEndB)
 			res = QString("%1c%2").arg(m_sourceLineNo).arg(m_destinationLineNo);
 		else
-			res = QString("%1c%2,%3").arg(m_sourceLineNo).arg(m_destinationLineNo).arg(lineendB);
-	else if (m_destinationLineNo == lineendB)
-		res = QString("%1,%2c%3").arg(m_sourceLineNo).arg(lineendA).arg(m_destinationLineNo);
+			res = QString("%1c%2,%3").arg(m_sourceLineNo).arg(m_destinationLineNo).arg(lineEndB);
+	else if (m_destinationLineNo == lineEndB)
+		res = QString("%1,%2c%3").arg(m_sourceLineNo).arg(lineEndA).arg(m_destinationLineNo);
 	else
-		res = QString("%1,%2c%3,%4").arg(m_sourceLineNo).arg(lineendA).arg(m_destinationLineNo).arg(lineendB);
+		res = QString("%1,%2c%3,%4").arg(m_sourceLineNo).arg(lineEndA).arg(m_destinationLineNo).arg(lineEndB);
 
 	return res;
 }

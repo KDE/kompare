@@ -1,14 +1,19 @@
 In descending order of importance:
-* fix mousewheel support (totally busted atm)
 * use version numbers when available
 * use function names when available
 * fix some drawing bugs in the connection widget
 * patch functionality (including blending)
+* add support for handediting conflicts or is this what you meant with blending?
 * optimize the list view widgets
 * session management
 * implement ed and rcs format
 * merge text view GUI
-* the tree view should show directory structure
 * clicking in the connect widget should select a difference
 * add support for incremental patch saving (i'll explain if anyone wants to know)
 * Add support for diff3 (that is comparing 3 files at once)
+* Add a kompare manual/document
+Puetzk:
+* Allow a directory to be magically patched with a diff file and show the full differences
+* Editing the TO pane
+Falk:
+* Allow only part of a change to be applied to the other file

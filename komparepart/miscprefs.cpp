@@ -52,7 +52,7 @@ void MiscPrefs::setSettings( MiscSettings* setts )
 	m_settings = setts;
 };
 
-MiscSettings* MiscPrefs::getSettings( void )
+MiscSettings* MiscPrefs::settings( void )
 {
 	return m_settings;
 };

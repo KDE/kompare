@@ -36,28 +36,32 @@ class KompareProcess;
 class KompareModelList : public QObject, Kompare
 {
 	Q_OBJECT
-	
+
 public:
-	enum Mode { Compare, Diff };
-	enum Status { RunningDiff, Parsing, FinishedParsing, FinishedWritingDiff };
-	
 	KompareModelList();
 	~KompareModelList();
-	
+
 	bool compare( const KURL& source, const KURL& destination );
 	bool saveDestination( int index );
 
 	bool openDiff( const KURL& url );
 	bool saveDiff( const KURL& url, QString directory, DiffSettings* settings );
 	bool saveAll();
-	
-	void swap();
-	
-	Mode                        mode()                  { return m_mode; };
 
-	const QPtrList<DiffModel>&  getModels()             { return m_models; };
-	int                         modelCount()            { return m_models.count(); };
-	DiffModel*                  modelAt( int i )        { return m_models.at( i ); };
+	void swap();
+
+	enum Kompare::Mode          mode()
+	    { return m_mode; };
+	enum Kompare::Format        format()
+	    { return m_format; };
+	const QPtrList<DiffModel>&  models()
+	    { return m_models; };
+	int                         modelCount()
+	    { return m_models.count(); };
+	DiffModel*                  modelAt( int i )
+	    { return m_models.at( i ); };
+	int                         findModel( DiffModel* model )
+	    { return m_models.find( model ); };
 
 	QString                     sourceTemp() const      { return m_sourceTemp; };
 	QString                     destinationTemp() const { return m_destinationTemp; };
@@ -67,9 +71,9 @@ public:
 	KURL                        destinationBaseURL() const;
 
 	bool                        isModified() const;
-	
+
 signals:
-	void status( KompareModelList::Status );
+	void status( Kompare::Status );
 	void error( QString error );
 	void modelsChanged();
 
@@ -78,21 +82,27 @@ protected slots:
 	void slotWriteDiffOutput( bool success );
 
 private:
-	int  parseDiffs( const QStringList& list );
+	int parseDiffOutput    ( const QStringList& lines );
+	int determineDiffFormat( const QStringList& lines );
+	int determineType      ( const QStringList& lines, enum Kompare::Format format );
+	QPtrList<DiffModel> splitFiles( const QStringList& lines, bool split );
 	void clear();
-	
-	Mode                m_mode;
-	KompareProcess*       m_diffProcess;
-	QPtrList<DiffModel> m_models;
 
-	KURL                m_sourceURL;
-	KURL                m_destinationURL;
-	QString             m_sourceTemp;
-	QString             m_destinationTemp;
+private:
+	KompareProcess*      m_diffProcess;
+	QPtrList<DiffModel>  m_models;
 
-	KURL                m_diffURL;
-	KTempFile*          m_diffTemp;
-	
+	KURL                 m_sourceURL;
+	KURL                 m_destinationURL;
+	QString              m_sourceTemp;
+	QString              m_destinationTemp;
+
+	KURL                 m_diffURL;
+	KTempFile*           m_diffTemp;
+
+	enum Kompare::Format m_format;
+	enum Kompare::Mode   m_mode; // reading from a DiffFile or Comparing in Kompare
+	enum Kompare::Type   m_type; // single, multi and diff or cvsdiff
 };
 
 #endif

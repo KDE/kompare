@@ -266,10 +266,8 @@ const QString KomparePart::fetchURL( const KURL& url )
 		{
 			slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>" ).arg( url.prettyURL() ) );
 			tempFileName = "";
-			return tempFileName;
 		}
-		else
-			return tempFileName;
+		return tempFileName;
 	}
 	else
 	{
@@ -311,7 +309,7 @@ void KomparePart::compare( const KURL& source, const KURL& destination )
 		updateStatus();
 	}
 
-	cleanUpTemporaryFiles();
+//	cleanUpTemporaryFiles();
 }
 
 void KomparePart::compareFiles( const KURL& sourceFile, const KURL& destinationFile )

@@ -349,7 +349,13 @@ void KompareShell::slotDiffURLChanged()
 
 void KompareShell::optionsConfigureKeys()
 {
-	KKeyDialog::configureKeys(actionCollection(), "kompare_shell.rc");
+	KKeyDialog dlg( true, this );
+
+	dlg.insert( actionCollection() );
+	if ( m_viewPart )
+	  dlg.insert( m_viewPart->actionCollection() );
+
+	dlg.configure();
 }
 
 void KompareShell::optionsConfigureToolbars()

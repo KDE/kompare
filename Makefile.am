@@ -1,6 +1,6 @@
 SUBDIRS = kdiffpart pics
 
-INCLUDES= $(all_includes) -I$(top_srcdir)/kdiff/kdiff/kdiffpart
+INCLUDES= -I$(top_srcdir)/kdiff/kdiff/kdiffpart $(all_includes)
 
 noinst_HEADERS =  kdiff_shell.h
 

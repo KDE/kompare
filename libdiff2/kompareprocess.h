@@ -2,7 +2,7 @@
                                 kompareprocess.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
+        copyright               : (C) 2001-2004 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
@@ -22,18 +22,14 @@
 
 #include <kprocess.h>
 
-#include "kompare.h"
-
 class QTextCodec;
 
-class DiffSettings;
-
-class KompareProcess : public KProcess, public KompareFunctions
+class KompareProcess : public KProcess
 {
 	Q_OBJECT
 
 public:
-	KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString directory = QString::null );
+	KompareProcess( const QStringList& arguments, const QString& encoding = QString::null );
 	~KompareProcess();
 
 	bool start();
@@ -47,21 +43,16 @@ public:
 signals:
 	void diffHasFinished( bool finishedNormally );
 
-protected:
-	void writeDefaultCommandLine();
-	void writeCommandLine();
-
 protected slots:
 	void slotReceivedStdout( KProcess*, char*, int );
 	void slotReceivedStderr( KProcess*, char*, int );
-	void slotProcessExited( KProcess* proc );
+	void slotProcessExited ( KProcess* );
 
 private:
-	DiffSettings*          m_diffSettings;
-	enum Kompare::DiffMode m_mode;
-	QString                m_stdout;
-	QString                m_stderr;
-	QTextDecoder*          m_textDecoder;
+	QString       m_stdout;
+	QString       m_stderr;
+	QTextDecoder* m_textDecoder;
+	QStringList   m_arguments;
 };
 
 #endif

@@ -161,10 +161,9 @@ bool KompareProcess::start()
 {
 #ifndef NDEBUG
 	QString cmdLine;
-	for( QStrListIterator i( *this->args() ); i.current(); ++i ) {
-		cmdLine += i.current();
-		cmdLine += " ";
-	}
+	QValueList<QCString>::ConstIterator it = arguments.begin();
+	for (; it != arguments.end(); ++it )
+	    cmdLine += (*it) + " ";
 	kdDebug() << cmdLine << endl;
 #endif
 	return( KShellProcess::start( KProcess::NotifyOnExit, KProcess::AllOutput ) );

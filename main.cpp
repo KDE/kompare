@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 			widget->compare( args->url( 0 ), args->url( 1 ) );
 			break;
 		default: // error
-			KMessageBox::error( NULL, i18n( "Sorry you gave too many arguments, I don't know what to do with them..." ) );
+			KMessageBox::error( NULL, i18n( "Sorry, you gave too many arguments, I don't know what to do with them..." ) );
 			return 0;
 			break;
 		}

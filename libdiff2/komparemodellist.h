@@ -47,23 +47,38 @@ public:
 	KompareModelList( DiffSettings* diffSettings, ViewSettings* viewSettings, QObject* parent = 0, const char* name = 0 );
 	~KompareModelList();
 
-	bool compareFiles( const KURL& source, const KURL& destination );
-	bool compareDirs( const KURL& source, const KURL& destination );
-	bool saveDestination( const DiffModel* model );
+public:
+	/* Comparing methods */
+	bool compare( const QString& source, const QString& destination );
 
-	bool openDiff( const KURL& url );
-	bool saveDiff( const KURL& url, QString directory, DiffSettings* diffSettings, ViewSettings* viewSettings );
+	// Swap source with destination and show differences
+	void swap();
+
+	bool compareFiles( const QString& source, const QString& destination );
+	bool compareDirs( const QString& source, const QString& destination );
+
+public:
+	bool openDiff( const QString& url );
+
+public:
+	bool openFileAndDiff( const QString& file, const QString& diff );
+	bool openDirAndDiff( const QString& dir, const QString& diff );
+
+public:
+	bool saveDiff( const QString& url, QString directory, DiffSettings* diffSettings, ViewSettings* viewSettings );
 	bool saveAll();
+
+	bool saveDestination( const DiffModel* model );
 
 	// This parses the difflines and creates new models
 	int parseDiffOutput( const QStringList& lines );
+
 	// Call this to emit the signals to the rest of the "world" to show the diff
 	void show();
+
 	// This will blend the original URL (dir or file) into the diffmodel,
 	// this is like patching but with a twist
-	bool blendOriginalIntoModelList( QString localURL );
-	// Swap source with destination and show differences
-	void swap();
+	bool blendOriginalIntoModelList( const QString& localURL );
 
 	enum Kompare::Mode          mode()   const { return m_mode; };
 	enum Kompare::Format        format() const { return m_format; };
@@ -75,13 +90,6 @@ public:
 
 	DiffModel*                  modelAt( int i ) const { return const_cast<KompareModelList*>(this)->m_models->at( i ); };
 	int                         findModel( DiffModel* model ) const { return const_cast<KompareModelList*>(this)->m_models->find( model ); };
-
-	QString                     sourceTemp() const      { return m_sourceTemp; };
-	QString                     destinationTemp() const { return m_destinationTemp; };
-
-	KURL                        diffURL() const         { return m_diffURL; };
-	KURL                        sourceBaseURL() const;
-	KURL                        destinationBaseURL() const;
 
 	bool                        isModified() const;
 
@@ -132,6 +140,11 @@ private slots:
 	void slotDirectoryChanged( const QString& );
 	void slotFileChanged( const QString& );
 
+private: // Helper methods
+	bool isDirectory( const QString& url );
+	bool isDiff( const QString& mimetype );
+	QStringList& readFile( const QString& fileName );
+
 private:
 	KompareProcess*      m_diffProcess;
 
@@ -140,28 +153,23 @@ private:
 
 	QPtrList<DiffModel>* m_models;
 
-	KURL                 m_sourceURL;
-	KURL                 m_destinationURL;
-	QString              m_sourceTemp;
-	QString              m_destinationTemp;
-
-	KURL                 m_diffURL;
-	KTempFile*           m_diffTemp;
+	QString              m_source;
+	QString              m_destination;
 
 	enum Kompare::Format m_format;
 	enum Kompare::Mode   m_mode; // reading from a DiffFile or Comparing in Kompare
 	enum Kompare::Type   m_type; // single or multi
 
-	DiffModel*     m_selectedModel;
-	Difference*    m_selectedDifference;
+	DiffModel*           m_selectedModel;
+	Difference*          m_selectedDifference;
 
 	QPtrListIterator<DiffModel>*  m_modelIt;
 	QPtrListIterator<Difference>* m_diffIt;
 
-	KDirWatch* m_dirWatch;
-	KDirWatch* m_fileWatch;
+	KDirWatch*           m_dirWatch;
+	KDirWatch*           m_fileWatch;
 
-	int m_noOfModified;
+	int                  m_noOfModified;
 };
 
 } // End of namespace Diff2

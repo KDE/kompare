@@ -1,3 +1,14 @@
+
+FIX IMMEDIATELY !!!
+
+* key navigation -> problem is in komparemodellist/kompare_part
+
+* fix view (diffs only partly shown and such), compare to pre n7y to see what happenend
+
+* fix connect widget with a singleshot timer for compensating for the delayed drawing of the qlistview
+
+* ingo cant find any other problems yet.
+
 !!! Must do before a merge back into HEAD !!!
 * Write a kconfupdate script to convert the kconfigfile
   * the diff options now have their own group
@@ -14,7 +25,7 @@ Very important:
 * Other various things that need to be fixed asap (before 3.2 is released)
 
 In descending order of importance:
-* fix some drawing bugs in the connection widget (still some left, damn it)
+* fix some drawing bugs in the connect widget (still some left, damn it)
 * in-line diffing
 * add support for handediting conflicts
 * session management (should almost work)

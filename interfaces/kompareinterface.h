@@ -49,6 +49,14 @@ public:
 	virtual bool openDiff3( const QString& diff3Output ) = 0;
 
 	/**
+	 * Compare, with diff, source with destination, can also be used if you dont
+	 * know what source and destination are. The part will try to figure out what
+	 * they are (directory, file, diff output file, regular file) and call the
+	 * appropriate method(s)
+	 */
+	virtual void compare( const KURL& sourceFile, const KURL& destinationFile ) = 0;
+
+	/**
 	 * Compare, with diff, source with destination files
 	 */
 	virtual void compareFiles( const KURL& sourceFile, const KURL& destinationFile ) = 0;

@@ -109,6 +109,9 @@ public:
 	virtual bool openDiff3( const QString& diff3Output );
 
 	/** Compare, with diff, source with destination */
+	virtual void compare( const KURL& sourceFile, const KURL& destinationFile );
+
+	/** Compare, with diff, source with destination */
 	virtual void compareFiles( const KURL& sourceFile, const KURL& destinationFile );
 
 	/** Compare, with diff, source with destination */
@@ -196,6 +199,9 @@ protected slots:
 
 private:
 	void setupActions();
+	bool exists( const KURL& url );
+	bool isDirectory( const KURL& url );
+	const QString& fetchURL( const KURL& url );
 
 private:
 	// Uhm why were these static again ???
@@ -219,6 +225,11 @@ private:
 	KompareActions*          m_kompareActions;
 
 	KTempFile*               m_tempDiff;
+
+	KURL                     m_sourceURL;
+	KURL                     m_destinationURL;
+	QString                  m_localSource;
+	QString                  m_localDestination;
 };
 
 class KInstance;

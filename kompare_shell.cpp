@@ -199,65 +199,16 @@ void KompareShell::openStdin()
 		diff.append( stream.readLine() );
 	}
 
-	m_viewPart->openDiff( diff.join( "\n" ) );
+	m_viewPart->openDiff( diff );
 
 }
+
 void KompareShell::compare(const KURL& source,const KURL& destination )
 {
 	m_sourceURL = source;
 	m_destinationURL = destination;
 
-	bool sourceIsDirectory = false;
-	bool destinationIsDirectory = false;
-
-	// determine if urls are local and if so if they are dirs or files...
-	if ( m_sourceURL.isLocalFile() )
-	{
-		QFileInfo fi( m_sourceURL.path());
-		if ( fi.isDir() )
-		{
-			sourceIsDirectory = true;
-			kdDebug(8102) << "Source : " << source.prettyURL() << " is a directory !!! Yippie " << endl;
-		}
-		else
-			kdDebug(8102) << "Source is not a directory..." << endl;
-	}
-	else
-		kdDebug(8102) << "Source is not local..." << endl;
-
-	if ( m_destinationURL.isLocalFile() )
-	{
-		QFileInfo fi( m_destinationURL.path());
-		if ( fi.isDir() )
-		{
-			destinationIsDirectory = true;
-			kdDebug(8102) << "Destination : " << destination.prettyURL() << " is a directory !!! Yippie " << endl;
-		}
-		else
-			kdDebug(8102) << "Destination is not a directory..." << endl;
-	}
-	else
-		kdDebug(8102) << "Destination is not local..." << endl;
-
-	if ( sourceIsDirectory && destinationIsDirectory )
-	{
-		return m_viewPart->compareDirs( source, destination );
-	}
-	else if ( !sourceIsDirectory && !destinationIsDirectory )
-	{
-		return m_viewPart->compareFiles( source, destination );
-	}
-	else
-	{
-		if ( sourceIsDirectory )
-		{
-			return m_viewPart->openDirAndDiff( source, destination );
-		}
-		else
-		{ // destinationIsDirectory
-			return m_viewPart->openDirAndDiff( destination, source );
-		}
-	}
+	m_viewPart->compare( source, destination );
 }
 
 void KompareShell::blend( const KURL& url1, const KURL& diff )
@@ -407,7 +358,7 @@ void KompareShell::slotFileBlendURLAndDiff()
 	dialog->setFirstGroupBoxTitle( i18n( "File/Directory" ) );
 	dialog->setSecondGroupBoxTitle( i18n( "Diff Output" ) );
 
-	dialog->setButtonOKText( i18n( "Blend" ), i18n( "Blend this file or directory with the diff output" ), i18n( "If you have entered a file or directoryname and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the directory are mixed with the diff output. " ) );
+	dialog->setButtonOKText( i18n( "Blend" ), i18n( "Blend this file or directory with the diff output" ), i18n( "If you have entered a file or directoryname and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the directory are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );
 
 	dialog->setGroup( "Recent Blend Files" );
 

@@ -214,8 +214,22 @@ void KomparePart::updateActions()
 bool KomparePart::openDiff( const KURL& url )
 {
 	kdDebug(8103) << "Url = " << url.url() << endl;
-	bool result = m_modelList->openDiff( url );
-	updateActions();
+
+	m_sourceURL = url;
+	bool result = false;
+	m_localSource = fetchURL( url );
+	if ( !m_localSource.isEmpty() )
+	{
+		kdDebug(8103) << "Download succeeded " << endl;
+		result = m_modelList->openDiff( m_localSource );
+		updateActions();
+		updateStatus();
+	}
+	else
+	{
+		kdDebug(8103) << "Download failed !" << endl;
+	}
+
 	return result;
 }
 
@@ -258,18 +272,101 @@ bool KomparePart::openDiff3( const QString& diff3Output )
 	return false;
 }
 
-void KomparePart::compareFiles( const KURL& source, const KURL& destination )
+bool KomparePart::exists( const KURL& url )
 {
-	m_modelList->compareFiles( source, destination );
-	updateActions();
-	updateStatus();
+	QFileInfo fi( url.path() );
+	if ( fi.exists() )
+		return true;
+	else
+		return false;
 }
 
-void KomparePart::compareDirs( const KURL& source, const KURL& destination )
+const QString& KomparePart::fetchURL( const KURL& url )
 {
-	m_modelList->compareDirs( source, destination );
-	updateActions();
-	updateStatus();
+	QString* tempFile = new QString();
+
+	if ( ! KIO::NetAccess::download( url, *tempFile, ( QWidget* )parent() ) )
+	{
+		KMessageBox::error( this->widget(), i18n( "The url %1 can not be downloaded." ).arg( url.prettyURL() ) );
+		*tempFile = "";
+	}
+
+	return *tempFile;
+}
+
+void KomparePart::compare( const KURL& source, const KURL& destination )
+{
+	m_sourceURL = source;
+	m_destinationURL = destination;
+
+	// determine if urls are local and if so if not download them
+	if ( source.isLocalFile() )
+	{
+		if ( exists( source ) )
+			m_localSource = source.path();
+		else
+		{
+			KMessageBox::error( this->widget(), i18n( "The url %1 does not exist on your system." ).arg( m_localSource ) );
+			return;
+		}
+	}
+	else
+	{
+		if ( ( m_localSource = fetchURL( source ) ) == "" )
+			return;
+	}
+
+	if ( destination.isLocalFile() )
+	{
+		if ( exists( destination ) )
+			m_localDestination = destination.path();
+		else
+		{
+			KMessageBox::error( this->widget(), i18n( "The url %1 does not exist on your system." ).arg( m_localDestination ) );
+			return;
+		}
+	}
+	else
+	{
+		if ( ( m_localDestination = fetchURL( destination ) ) == "" )
+			return;
+	}
+
+	m_modelList->compare( m_localSource, m_localDestination );
+}
+
+void KomparePart::compareFiles( const KURL& sourceFile, const KURL& destinationFile )
+{
+	m_sourceURL = sourceFile;
+	m_destinationURL = destinationFile;
+
+	m_localSource = fetchURL( sourceFile );
+	m_localDestination = fetchURL( destinationFile );
+
+	if ( !m_localSource.isEmpty() && !m_localDestination.isEmpty() )
+	{
+		m_modelList->compareFiles( m_localSource, m_localDestination );
+		updateActions();
+		updateStatus();
+	}
+	// Clean up needed ???
+}
+
+void KomparePart::compareDirs( const KURL& sourceDirectory, const KURL& destinationDirectory )
+{
+	m_sourceURL = sourceDirectory;
+	m_destinationURL = destinationDirectory;
+
+	m_localSource = fetchURL( sourceDirectory );
+	m_localDestination = fetchURL( destinationDirectory );
+
+	if ( !m_localSource.isEmpty() && !m_localDestination.isEmpty() )
+	{
+		m_modelList->compareDirs( m_localSource, m_localDestination );
+		updateActions();
+		updateStatus();
+	}
+	// Clean up needed ???
 }
 
 void KomparePart::compare3Files( const KURL& /*originalFile*/, const KURL& /*changedFile1*/, const KURL& /*changedFile2*/ )
@@ -424,8 +521,8 @@ void KomparePart::saveDiff()
 	                                    true /* modal */, i18n("Diff Options"),
 	                                    KDialogBase::Ok|KDialogBase::Cancel );
 	KompareSaveOptionsWidget* w = new KompareSaveOptionsWidget(
-	                                             m_modelList->sourceTemp(),
-	                                             m_modelList->destinationTemp(),
+	                                             m_localSource,
+	                                             m_localDestination,
 	                                             m_diffSettings, dlg );
 	dlg->setMainWidget( w );
 	dlg->setButtonOKText( i18n("Save") );
@@ -435,9 +532,10 @@ void KomparePart::saveDiff()
 		KConfig* config = instance()->config();
 		saveProperties( config );
 		config->sync();
-		KURL url = KFileDialog::getSaveURL( m_modelList->destinationBaseURL().url(),
+		KURL url = KFileDialog::getSaveURL( m_destinationURL.url(),
 		              i18n("*.diff *.dif *.patch|Patch files"), widget(), i18n( "Save .diff" ) );
-		m_modelList->saveDiff( url, w->directory(), m_diffSettings, m_viewSettings );
+		// FIXME: is url is remote we still need to upload it
+		m_modelList->saveDiff( url.url(), w->directory(), m_diffSettings, m_viewSettings );
 	}
 	delete dlg;
 }
@@ -445,10 +543,10 @@ void KomparePart::saveDiff()
 KURL KomparePart::diffURL()
 {
 	// This should just call url from the ReadOnlyPart, or leave it out completely
-	if( m_modelList->diffURL().isEmpty() ) {
-		saveDiff();
+	if( !m_sourceURL.isEmpty() ) {
+		saveDiff(); // Why are we saving here ???
 	}
-	return m_modelList->diffURL();
+	return m_sourceURL;
 }
 
 void KomparePart::slotSetStatus( enum Kompare::Status status )
@@ -481,17 +579,17 @@ void KomparePart::updateStatus()
 		if( m_modelList->modelCount() > 1 )
 		{
 			emit setStatusBarText( i18n( "Comparing files in %1 with files in %2" )
-			   .arg( m_modelList->sourceBaseURL().prettyURL() )
-			   .arg( m_modelList->destinationBaseURL().prettyURL() ) );
-			emit setWindowCaption( m_modelList->sourceBaseURL().prettyURL()
-			   + " : " + m_modelList->destinationBaseURL().prettyURL() );
+			   .arg( m_sourceURL.prettyURL() )
+			   .arg( m_destinationURL.prettyURL() ) );
+			emit setWindowCaption( m_sourceURL.prettyURL()
+			   + " : " + m_destinationURL.prettyURL() );
 		}
 		else if ( m_modelList->modelCount() == 1 )
 		{
 			emit setStatusBarText( i18n( "Comparing %1 with %2" )
-			   .arg( m_modelList->sourceBaseURL().prettyURL( 1 )
+			   .arg( m_sourceURL.prettyURL( 1 )
 			   + m_modelList->modelAt( 0 )->sourceFile() )
-			   .arg( m_modelList->destinationBaseURL().prettyURL( 1 )
+			   .arg( m_destinationURL.prettyURL( 1 )
 			   + m_modelList->modelAt( 0 )->destinationFile() ) );
 			emit setWindowCaption(  m_modelList->modelAt( 0 )->sourceFile()
 			   + " : " + m_modelList->modelAt( 0 )->destinationFile() );
@@ -499,8 +597,8 @@ void KomparePart::updateStatus()
 	}
 	else
 	{
-		emit setStatusBarText( i18n( "Viewing %1" ).arg( m_modelList->diffURL().prettyURL() ) );
-		emit setWindowCaption( m_modelList->diffURL().filename() );
+		emit setStatusBarText( i18n( "Viewing %1" ).arg( m_sourceURL.prettyURL() ) );
+		emit setWindowCaption( m_sourceURL.filename() );
 	}
 }
 

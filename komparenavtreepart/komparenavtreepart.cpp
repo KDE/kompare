@@ -327,9 +327,11 @@ void KompareNavTreePart::slotFileListSelectionChanged( QListViewItem* item )
 
 	KFileLVI* file = static_cast<KFileLVI*>(item);
 	m_selectedModel = file->model();
+	m_changesList->blockSignals( true );
 	file->fillChangesList( m_changesList, &m_diffToChangeItemDict );
+	m_changesList->blockSignals( false );
 
-//	Difference* diff = (static_cast<KChangeLVI*>(m_changesList->selectedItem()))->difference();
+	m_selectedDifference = (static_cast<KChangeLVI*>(m_changesList->selectedItem()))->difference();
 
 	emit selectionChanged( m_selectedModel, m_selectedDifference );
 }

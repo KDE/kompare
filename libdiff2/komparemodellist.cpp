@@ -490,7 +490,7 @@ QStringList KompareModelList::split( const QString& fileContents )
 	return list;
 }
 
-QString KompareModelList::readFile( const QString& fileName ) const
+QString KompareModelList::readFile( const QString& fileName )
 {
 	QStringList list;
 

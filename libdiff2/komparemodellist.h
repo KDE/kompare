@@ -160,7 +160,7 @@ private slots:
 private: // Helper methods
 	bool isDirectory( const QString& url ) const;
 	bool isDiff( const QString& mimetype ) const;
-	QString readFile( const QString& fileName ) const;
+	QString readFile( const QString& fileName );
 
 	bool hasPrevModel() const;
 	bool hasNextModel() const;

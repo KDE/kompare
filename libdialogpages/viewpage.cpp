@@ -26,6 +26,7 @@
 
 #include <kcolorbutton.h>
 #include <kdialog.h>
+#include <kfontcombo.h>
 #include <klocale.h>
 
 #include "viewpage.h"
@@ -93,6 +94,28 @@ ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
 	addTab( page, i18n( "A&ppearance" ) );
+
+	page   = new QWidget( this );
+	layout = new QVBoxLayout( page );
+	layout->setSpacing( KDialog::spacingHint() );
+	layout->setMargin( KDialog::marginHint() );
+
+	QHGroupBox* gb = new QHGroupBox( i18n( "Text Font" ), page );
+	layout->addWidget( gb );
+	gb->setMargin( KDialog::marginHint() );
+
+	label = new QLabel( i18n( "Font:" ), gb );
+	m_fontCombo = new KFontCombo( gb, "fontcombo" );
+	label->setBuddy( m_fontCombo );
+
+	label = new QLabel( i18n( "Size:" ), gb );
+	m_fontSizeSpinBox = new QSpinBox( 6, 24, 1, gb, "fontsize" );
+	label->setBuddy( m_fontSizeSpinBox );
+
+	layout->addStretch( 1 );
+	page->setMinimumSize( sizeHintForWidget( page ) );
+
+	addTab( page, i18n( "&Fonts" ) );
 }
 
 ViewPage::~ViewPage()
@@ -110,6 +133,9 @@ void ViewPage::setSettings( ViewSettings* setts )
 	m_appliedColorButton->setColor( m_settings->m_appliedColor );
 	m_snolSpinBox->setValue       ( m_settings->m_scrollNoOfLines );
 	m_tabSpinBox->setValue        ( m_settings->m_tabToNumberOfSpaces );
+
+	m_fontCombo->setCurrentFont   ( m_settings->m_font );
+	m_fontSizeSpinBox->setValue   ( m_settings->m_fontSize );
 }
 
 ViewSettings* ViewPage::settings( void )
@@ -133,6 +159,10 @@ void ViewPage::apply()
 	setts->m_scrollNoOfLines     = m_snolSpinBox->value();
 	setts->m_tabToNumberOfSpaces = m_tabSpinBox->value();
 
+	setts->m_font                = m_fontCombo->currentFont();
+	setts->m_fontSize            = m_fontSizeSpinBox->value();
+	setts->m_font.setPointSize( setts->m_fontSize );
+
 	setts->emitSettingsChanged();
 }
 
@@ -143,7 +173,10 @@ void ViewPage::setDefaults()
 	m_removedColorButton->setColor( ViewSettings::default_removeColor );
 	m_appliedColorButton->setColor( ViewSettings::default_appliedColor );
 	m_snolSpinBox->setValue       ( 3 );
-        m_tabSpinBox->setValue( 4 );
+        m_tabSpinBox->setValue        ( 4 );
+
+	m_fontCombo->setCurrentFont   ( QFont( KGlobalSettings::fixedFont() ) );
+        m_fontSizeSpinBox->setValue   ( 10 );
 }
 
 #include "viewpage.moc"

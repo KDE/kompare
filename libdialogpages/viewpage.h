@@ -23,8 +23,10 @@
 #include "pagebase.h"
 
 class QCheckBox;
-class KColorButton;
 class QSpinBox;
+
+class KColorButton;
+class KFontCombo;
 
 class ViewSettings;
 
@@ -55,6 +57,8 @@ public:
 	// snol == scroll number of lines
 	QSpinBox*     m_snolSpinBox;
 	QSpinBox*     m_tabSpinBox;
+	KFontCombo*   m_fontCombo;
+	QSpinBox*     m_fontSizeSpinBox;
 };
 
 #endif

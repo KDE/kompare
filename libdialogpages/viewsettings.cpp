@@ -17,7 +17,10 @@
 **
 ***************************************************************************/
 
+#include <qfont.h>
+
 #include <kconfig.h>
+#include <kglobalsettings.h>
 
 #include "viewsettings.h"
 
@@ -35,7 +38,8 @@ ViewSettings::ViewSettings( QWidget* parent )
 	m_addColor( 0, 0, 0),
 	m_appliedColor( 0, 0, 0),
 	m_scrollNoOfLines( 0 ),
-	m_tabToNumberOfSpaces( 0 )
+	m_tabToNumberOfSpaces( 0 ),
+	m_fontSize( 0 )
 {
 }
 
@@ -53,6 +57,11 @@ void ViewSettings::loadSettings( KConfig* config )
 	m_scrollNoOfLines     = config->readNumEntry  ( "ScrollNoOfLines",     3 );
 	m_tabToNumberOfSpaces = config->readNumEntry  ( "TabToNumberOfSpaces", 4 );
 
+	m_font                = config->readFontEntry ( "TextFont" );
+	m_fontSize            = config->readNumEntry  ( "TextFontSize", 10 );
+
+	m_font.setPointSize( m_fontSize );
+
 	SettingsBase::loadSettings( config );
 }
 
@@ -65,6 +74,9 @@ void ViewSettings::saveSettings( KConfig* config )
 	config->writeEntry( "AppliedColor",        m_appliedColor );
 	config->writeEntry( "ScrollNoOfLines",     m_scrollNoOfLines );
 	config->writeEntry( "TabToNumberOfSpaces", m_tabToNumberOfSpaces );
+
+	config->writeEntry( "TextFont",            m_font );
+	config->writeEntry( "TextFontSize",        m_fontSize );
 
 	SettingsBase::saveSettings( config );
 }

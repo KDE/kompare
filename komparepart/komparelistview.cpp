@@ -129,7 +129,7 @@ KompareListView::KompareListView( bool isSource,
 	setVScrollBarMode( QScrollView::AlwaysOff );
 	setHScrollBarMode( QScrollView::AlwaysOff );
 	setFocusPolicy( QWidget::NoFocus );
-	setFont( KGlobalSettings::fixedFont() );
+	setFont( settings->m_font );
 }
 
 KompareListView::~KompareListView()

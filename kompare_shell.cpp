@@ -17,19 +17,19 @@
 **
 ***************************************************************************/
 
-#include <klocale.h>
-#include <kiconloader.h>
-#include <kstatusbar.h>
-#include <kkeydialog.h>
-#include <kedittoolbar.h>
-#include <kstdaction.h>
-#include <ksqueezedtextlabel.h>
-#include <kmessagebox.h>
-#include <kfiledialog.h>
-#include <kuserprofile.h>
 #include <kdebug.h>
-#include <ktrader.h>
+#include <kedittoolbar.h>
+#include <kencodingfiledialog.h>
+#include <kiconloader.h>
+#include <kkeydialog.h>
+#include <klocale.h>
+#include <kmessagebox.h>
 #include <kparts/componentfactory.h>
+#include <ksqueezedtextlabel.h>
+#include <kstatusbar.h>
+#include <kstdaction.h>
+#include <ktrader.h>
+#include <kuserprofile.h>
 
 #include "kompare_part.h"
 #include "komparenavtreepart.h"
@@ -350,6 +350,7 @@ void KompareShell::readProperties(KConfig* config)
 
 void KompareShell::slotFileOpen()
 {
+	// FIXME: use different filedialog which gets encoding
 	KURL url = KFileDialog::getOpenURL( QString::null, "text/x-diff", this );
 	if( !url.isEmpty() ) {
 		KompareShell* shell = new KompareShell();
@@ -382,6 +383,7 @@ void KompareShell::slotFileBlendURLAndDiff()
 		KompareShell* shell = new KompareShell();
 		kapp->ref();
 		shell->show();
+		shell->m_viewPart->setEncoding( dialog->encoding() );
 		shell->blend( m_sourceURL, m_destinationURL );
 	}
 	delete dialog;
@@ -410,6 +412,8 @@ void KompareShell::slotFileCompareFiles()
 		KompareShell* shell = new KompareShell();
 		kapp->ref();
 		shell->show();
+		kdDebug() << "Damn it, i should be called !!! Oh and encoding is: " << dialog->encoding() << endl;
+		shell->m_viewPart->setEncoding( dialog->encoding() );
 		shell->compare( m_sourceURL, m_destinationURL );
 	}
 	delete dialog;

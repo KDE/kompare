@@ -20,12 +20,6 @@
 #ifndef KOMPARESHELL_H
 #define KOMPARESHELL_H
 
-/* there is no config.h used yet, so disabling
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-*/
-
 #include <kapplication.h>
 #include <kparts/dockmainwindow.h>
 
@@ -46,7 +40,7 @@ class KompareNavTreePart;
 * @short Application Shell
 * @author John Firebaugh <jfirebaugh@kde.org>
 * @author Otto Bruggeman <bruggie@home.nl>
-* @version 3.2
+* @version 3.2.90
 */
 class KompareShell : public KParts::DockMainWindow
 {
@@ -85,6 +79,11 @@ public:
 public slots:
 	void slotUpdateStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
 	void setCaption( const QString& caption );
+
+	/**
+	 * This method only exists because i cant make main a frined of this class
+	 */
+	KomparePart* viewPart() const { return m_viewPart; }
 
 protected:
 	virtual bool queryClose();

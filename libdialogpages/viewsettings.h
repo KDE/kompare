@@ -54,6 +54,9 @@ public:
 	QColor m_selectedAppliedColor;
 	int    m_scrollNoOfLines;
 	int    m_tabToNumberOfSpaces;
+
+	QFont  m_font;
+	int    m_fontSize;
 };
 
 #endif // VIEWSETTINGS_H

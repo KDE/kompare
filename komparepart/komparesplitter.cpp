@@ -65,12 +65,10 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget * parent,
 	setSizePolicy( QSizePolicy (QSizePolicy::Ignored, QSizePolicy::Ignored ));
 	setOpaqueResize( true );
 
+	connect( this, SIGNAL(configChanged()), SLOT(slotFontChanged()) );
 	connect( this, SIGNAL(configChanged()), SLOT(slotDelayedRepaintHandles()) );
 	connect( this, SIGNAL(configChanged()), SLOT(slotDelayedUpdateScrollBars()) );
 	
-	// Connect to the kapp->kdisplayFontChanged signal to get notified when the font might have changed
-	connect( kapp, SIGNAL( kdisplayFontChanged() ), SLOT( slotFontChanged() ) );
-
 	// scrolling
 	connect( m_vScroll, SIGNAL(valueChanged(int)), SLOT(scrollToId(int)) );
 	connect( m_vScroll, SIGNAL(sliderMoved(int)),  SLOT(scrollToId(int)) );

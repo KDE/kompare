@@ -25,6 +25,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 
+#include "kompare_part.h"
 #include "kompare_shell.h"
 #include "kompareurldialog.h"
 
@@ -196,6 +197,7 @@ int main(int argc, char *argv[])
 			{
 				ks = new KompareShell();
 				ks->show();
+				ks->viewPart()->setEncoding( dialog->encoding() );
 				ks->compare( dialog->getFirstURL(), dialog->getSecondURL() );
 			}
 			else

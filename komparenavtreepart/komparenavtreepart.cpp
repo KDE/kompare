@@ -35,6 +35,8 @@
 #define COL_DESTINATION   1
 #define COL_DIFFERENCE    2
 
+using namespace Diff2;
+
 KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 	: KParts::ReadOnlyPart( parent, name ),
 	m_splitter( 0 ),
@@ -99,7 +101,7 @@ void KompareNavTreePart::slotKompareInfo( struct Kompare::Info* info )
 	m_info = info;
 }
 
-void KompareNavTreePart::slotModelsChanged( const Diff2::DiffModelList* modelList )
+void KompareNavTreePart::slotModelsChanged( const DiffModelList* modelList )
 {
 	kdDebug(8105) << "Models (" << modelList << ") have changed... scanning the models... " << endl;
 
@@ -141,7 +143,7 @@ void KompareNavTreePart::buildTreeInMemory()
 	QString srcBase;
 	QString destBase;
 
-	Diff2::DiffModel* model;
+	DiffModel* model;
 	model = m_modelList->first();
 	m_selectedModel = 0L;
 
@@ -179,8 +181,8 @@ void KompareNavTreePart::buildTreeInMemory()
 	QString destPath;
 
 	// Create the tree from the models
-	Diff2::DiffModelListConstIterator modelIt = m_modelList->begin();
-	Diff2::DiffModelListConstIterator mEnd    = m_modelList->end();
+	DiffModelListConstIterator modelIt = m_modelList->begin();
+	DiffModelListConstIterator mEnd    = m_modelList->end();
 
 	for ( ; modelIt != mEnd; ++modelIt )
 	{
@@ -225,7 +227,7 @@ QString KompareNavTreePart::compareFromEndAndReturnSame(
 	return result;
 }
 
-void KompareNavTreePart::slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff )
+void KompareNavTreePart::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
 	kdDebug(8105) << "KompareNavTreePart::slotSetSelection model = " << model << ", diff = " << diff << endl;
 	if ( model == m_selectedModel )
@@ -262,7 +264,7 @@ void KompareNavTreePart::slotSetSelection( const Diff2::DiffModel* model, const 
 	}
 }
 
-void KompareNavTreePart::setSelectedDir( const Diff2::DiffModel* model )
+void KompareNavTreePart::setSelectedDir( const DiffModel* model )
 {
 	KDirLVI* currentDir;
 	currentDir = m_modelToSrcDirItemDict[ (void*)model ];
@@ -284,7 +286,7 @@ void KompareNavTreePart::setSelectedDir( const Diff2::DiffModel* model )
 	m_fileList->blockSignals( false );
 }
 
-void KompareNavTreePart::setSelectedFile( const Diff2::DiffModel* model )
+void KompareNavTreePart::setSelectedFile( const DiffModel* model )
 {
 	KFileLVI* currentFile;
 	currentFile = m_modelToFileItemDict[ (void*)model ];
@@ -299,7 +301,7 @@ void KompareNavTreePart::setSelectedFile( const Diff2::DiffModel* model )
 	m_changesList->blockSignals( false );
 }
 
-void KompareNavTreePart::setSelectedDifference( const Diff2::Difference* diff )
+void KompareNavTreePart::setSelectedDifference( const Difference* diff )
 {
 	KChangeLVI* currentDiff;
 	currentDiff = m_diffToChangeItemDict[ (void*)diff ];
@@ -310,7 +312,7 @@ void KompareNavTreePart::setSelectedDifference( const Diff2::Difference* diff )
 	m_changesList->blockSignals( false );
 }
 
-void KompareNavTreePart::slotSetSelection( const Diff2::Difference* diff )
+void KompareNavTreePart::slotSetSelection( const Difference* diff )
 {
 //	kdDebug(8105) << "Scotty i need more power !!" << endl;
 	if ( m_selectedDifference != diff )
@@ -403,7 +405,7 @@ void KompareNavTreePart::slotApplyAllDifferences( bool /*apply*/ )
 	}
 }
 
-void KompareNavTreePart::slotApplyDifference( const Diff2::Difference* diff, bool /*apply*/ )
+void KompareNavTreePart::slotApplyDifference( const Difference* diff, bool /*apply*/ )
 {
 	// this applies to the currently selected difference
 	KChangeLVI* clvi = m_diffToChangeItemDict[(void*)diff];
@@ -415,7 +417,7 @@ void KChangeLVI::setDifferenceText()
 {
 	QString text;
 	switch( m_difference->type() ) {
-	case Diff2::Difference::Change:
+	case Difference::Change:
 		// Shouldn't this simply be diff->sourceLineCount() ?
 		// because you change the _number of lines_ lines in source, not in dest
 		if( m_difference->applied() )
@@ -425,7 +427,7 @@ void KChangeLVI::setDifferenceText()
 			text = i18n( "Changed %n line", "Changed %n lines",
 			             m_difference->sourceLineCount() );
 		break;
-	case Diff2::Difference::Insert:
+	case Difference::Insert:
 		if( m_difference->applied() )
 			text = i18n( "Applied: Insertion of %n line undone", "Applied: Insertion of %n lines undone",
 			             m_difference->destinationLineCount() );
@@ -433,7 +435,7 @@ void KChangeLVI::setDifferenceText()
 			text = i18n( "Inserted %n line", "Inserted %n lines",
 			             m_difference->destinationLineCount() );
 		break;
-	case Diff2::Difference::Delete:
+	case Difference::Delete:
 		if( m_difference->applied() )
 			text = i18n( "Applied: Deletion of %n line undone", "Applied: Deletion of %n lines undone",
 			             m_difference->sourceLineCount() );
@@ -448,7 +450,7 @@ void KChangeLVI::setDifferenceText()
 	setText( 2, text );
 }
 
-KChangeLVI::KChangeLVI( KListView* parent, Diff2::Difference* diff ) : KListViewItem( parent )
+KChangeLVI::KChangeLVI( KListView* parent, Difference* diff ) : KListViewItem( parent )
 {
 	m_difference = diff;
 
@@ -482,7 +484,7 @@ KChangeLVI::~KChangeLVI()
 {
 }
 
-KFileLVI::KFileLVI( KListView* parent, Diff2::DiffModel* model ) : KListViewItem( parent )
+KFileLVI::KFileLVI( KListView* parent, DiffModel* model ) : KListViewItem( parent )
 {
 	m_model = model;
 
@@ -497,8 +499,8 @@ void KFileLVI::fillChangesList( KListView* changesList, QPtrDict<KChangeLVI>* di
 {
 	changesList->clear();
 
-	Diff2::DifferenceListConstIterator diffIt = m_model->differences().begin();
-	Diff2::DifferenceListConstIterator dEnd   = m_model->differences().end();
+	DifferenceListConstIterator diffIt = m_model->differences()->begin();
+	DifferenceListConstIterator dEnd   = m_model->differences()->end();
 
 	for ( ; diffIt != dEnd; ++diffIt )
 	{
@@ -539,7 +541,7 @@ KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : KListViewItem( parent )
 }
 
 // addModel always removes it own path from the beginning
-void KDirLVI::addModel( QString& path, Diff2::DiffModel* model, QPtrDict<KDirLVI>* modelToDirItemDict )
+void KDirLVI::addModel( QString& path, DiffModel* model, QPtrDict<KDirLVI>* modelToDirItemDict )
 {
 //	kdDebug(8105) << "KDirLVI::addModel called with path = " << path << " from KDirLVI with m_dirName = " << m_dirName << endl;
 
@@ -590,8 +592,8 @@ void KDirLVI::fillFileList( KListView* fileList, QPtrDict<KFileLVI>* modelToFile
 {
 	fileList->clear();
 
-	Diff2::DiffModelListIterator modelIt = m_modelList.begin();
-	Diff2::DiffModelListIterator mEnd    = m_modelList.end();
+	DiffModelListIterator modelIt = m_modelList.begin();
+	DiffModelListIterator mEnd    = m_modelList.end();
 	for ( ;modelIt != mEnd; ++modelIt )
 	{
 		KFileLVI* file = new KFileLVI( fileList, *modelIt );

@@ -34,6 +34,7 @@
 class KompareModelList;
 class KomparePart;
 class KListView;
+
 namespace Diff2 {
 class DiffModel;
 class Difference;

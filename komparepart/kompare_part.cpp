@@ -386,12 +386,12 @@ void KomparePart::slotShowDiffstats( void )
 		KMessageBox::information( 0L, i18n(
 		    "Statistics:\n"
 		    "\n"
-		    "Old file : %1\n"
-		    "New file : %2\n"
+		    "Old file: %1\n"
+		    "New file: %2\n"
 		    "\n"
-		    "Format : %3\n"
-		    "Number of hunks : %4\n"
-		    "Number of differences : %5")
+		    "Format: %3\n"
+		    "Number of hunks: %4\n"
+		    "Number of differences: %5")
 		    .arg(oldFile).arg(newFile).arg(diffFormat)
 		    .arg(noOfHunks).arg(noOfDiffs),
 		    i18n("Diff Statistics"), QString::null, false );
@@ -400,13 +400,13 @@ void KomparePart::slotShowDiffstats( void )
 		    "Statistics:\n"
 		    "\n"
 		    "Number of files in diff file: %1\n"
-		    "Format : %2\n"
+		    "Format: %2\n"
 		    "\n"
-		    "Current old file : %3\n"
-		    "Current new file : %4\n"
+		    "Current old file: %3\n"
+		    "Current new file: %4\n"
 		    "\n"
-		    "Number of hunks : %5\n"
-		    "Number of differences : %6")
+		    "Number of hunks: %5\n"
+		    "Number of differences: %6")
 		    .arg(filesInDiff).arg(diffFormat).arg(oldFile)
 		    .arg(newFile).arg(noOfHunks).arg(noOfDiffs),
 		    i18n("Diff Statistics"), QString::null, false );

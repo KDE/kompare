@@ -47,7 +47,7 @@
             </property>
             <property stdset="1">
                 <name>title</name>
-                <string>Run diff in</string>
+                <string>Run Diff In</string>
             </property>
             <hbox>
                 <property stdset="1">

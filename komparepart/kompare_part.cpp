@@ -629,9 +629,6 @@ void KomparePart::slotShowDiffstats( void )
 	// Fetch all the args needed for komparestatsmessagebox
 	// oldfile, newfile, diffformat, noofhunks, noofdiffs
 
-	QString blah = m_modelList->recreateDiff();
-	kdDebug(8103) << blah << endl;
-
 	QString oldFile;
 	QString newFile;
 	QString diffFormat;

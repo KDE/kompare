@@ -161,7 +161,7 @@ bool KompareModelList::compareFiles( const QString& source, const QString& desti
 	connect( m_fileWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotFileChanged( const QString& ) ) );
 
 	m_fileWatch->startScan();
-	m_diffProcess = new KompareProcess( m_diffSettings, m_viewSettings, Kompare::Default, m_source, m_destination );
+	m_diffProcess = new KompareProcess( m_diffSettings, m_viewSettings, Kompare::Custom, m_source, m_destination );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );
@@ -189,7 +189,7 @@ bool KompareModelList::compareDirs( const QString& source, const QString& destin
 	connect( m_dirWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotDirectoryChanged( const QString& ) ) );
 
 	m_dirWatch->startScan();
-	m_diffProcess = new KompareProcess( m_diffSettings, m_viewSettings, Kompare::Default, m_source, m_destination );
+	m_diffProcess = new KompareProcess( m_diffSettings, m_viewSettings, Kompare::Custom, m_source, m_destination );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );

@@ -66,10 +66,6 @@ public:
 	bool saveDiff( const QString& url, QString directory, DiffSettings* diffSettings );
 	bool saveAll();
 
-	/** Save the currently selected destination in a multi-file diff,
-	    or the single destination if a single file diff. */
-	void slotSaveDestination();
-
 	bool saveDestination( const DiffModel* model );
 
 	// This parses the difflines and creates new models
@@ -153,6 +149,10 @@ protected slots:
 	void slotActionUnApplyDifference();
 	void slotActionApplyAllDifferences();
 	void slotActionUnapplyAllDifferences();
+
+	/** Save the currently selected destination in a multi-file diff,
+	    or the single destination if a single file diff. */
+	void slotSaveDestination();
 
 private slots:
 	void slotDirectoryChanged( const QString& );

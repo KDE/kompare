@@ -7,7 +7,7 @@
 #include "kmaindiffview.h"
 
 static const char *description =
-	I18N_NOOP("KDiff");
+	I18N_NOOP( "KDiff" );
 // INSERT A DESCRIPTION FOR YOUR APPLICATION HERE
 	
 	
@@ -21,9 +21,10 @@ int main(int argc, char *argv[])
 {
 
   KAboutData aboutData( "kdiff", I18N_NOOP("KDiff"),
-    "2.0", "A program to view the differences between files with.", KAboutData::License_GPL,
+    "2.0", I18N_NOOP( "A program to view the differences between files with.\n\n"
+			"Many thanks go to Malte Starostic for all the help he has given me." ), KAboutData::License_GPL,
     "(c) 2001, Otto Bruggeman", 0, 0, "otto.bruggeman@home.nl");
-  aboutData.addAuthor("Otto Bruggeman",0, "otto.bruggeman@home.nl");
+  aboutData.addAuthor( "Otto Bruggeman", 0, "otto.bruggeman@home.nl" );
   KCmdLineArgs::init( argc, argv, &aboutData );
   KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
 

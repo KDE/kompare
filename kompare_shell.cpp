@@ -196,11 +196,10 @@ void KompareShell::openStdin()
 	QFile file;
 	file.open( IO_ReadOnly, stdin );
 	QTextStream stream( &file );
-	QStringList diff;
 
-	while (!stream.eof()) {
-		diff.append( stream.readLine() );
-	}
+	QString diff = stream.read();
+
+	file.close();
 
 	m_viewPart->openDiff( diff );
 

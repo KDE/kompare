@@ -34,8 +34,7 @@ public:
 	~Parser();
 
 public:
-	DiffModelList* parse( const QString& diff );
-	DiffModelList* parse( const QStringList& diff );
+	DiffModelList* parse( QStringList& diffLines );
 
 	enum Kompare::Generator generator() const { return m_generator; };
 	enum Kompare::Format    format() const    { return m_format; };
@@ -43,6 +42,8 @@ public:
 private:
 	/** Which program was used to generate the output */
 	enum Kompare::Generator determineGenerator( const QStringList& diffLines );
+
+	int cleanUpCrap( QStringList& diffLines );
 
 private:
 	enum Kompare::Generator m_generator;

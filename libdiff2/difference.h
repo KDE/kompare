@@ -24,6 +24,7 @@
 #include <qptrlist.h>
 #endif
 #include <qstringlist.h>
+#include <qvaluevector.h>
 
 #if INLINE_DIFFERENCES
 #include <kdebug.h>
@@ -42,15 +43,15 @@ public:
 
 public:
 	Command( enum Command::Type type, unsigned int offset )
-	{ m_type = type; m_offset = offset; };
-	~Command() {};
+	{ m_type = type; m_offset = offset; }
+	~Command() {}
 
 public:
-	enum Command::Type type()   const { return m_type;   };
-	unsigned int       offset() const { return m_offset; };
+	enum Command::Type type()   const { return m_type;   }
+	unsigned int       offset() const { return m_offset; }
 
-	void setType  ( enum Command::Type type ) { m_type   = type;   };
-	void setOffset( unsigned int offset )     { m_offset = offset; };
+	void setType  ( enum Command::Type type ) { m_type   = type;   }
+	void setOffset( unsigned int offset )     { m_offset = offset; }
 
 public:
 	enum Command::Type m_type;
@@ -65,7 +66,7 @@ public:
 //		kdDebug(8101) << "DifferenceString::DifferenceString()" << endl;
 		m_string = QString::null;
 		m_commandsList = new QPtrList<Command>();
-	};
+	}
 	DifferenceString( const QString& string, QPtrList<Command>* commandsList = 0 )
 	{
 //		kdDebug(8101) << "DifferenceString::DifferenceString( " << string << ", " << commandsList << " )" << endl;
@@ -77,25 +78,25 @@ public:
 	~DifferenceString()
 	{
 		delete m_commandsList;
-	};
+	}
 
 public:
 	const QString& string() const
 	{
 		return m_string;
-	};
+	}
 	QPtrList<Command>* commandsList()
 	{
 		return m_commandsList;
-	};
+	}
 	void setString( const QString& string )
 	{
 		m_string = string;
-	};
+	}
 	void setCommandsList( QPtrList<Command>* commandsList )
 	{
 		m_commandsList = commandsList;
-	};
+	}
 
 private:
 	QPtrList<Command>* m_commandsList;
@@ -104,9 +105,9 @@ private:
 
 class LevenshteinTable;
 
-typedef QValueList<DifferenceString> DifferenceStringList;
-typedef QValueListConstIterator<DifferenceString> DifferenceStringConstIterator;
-typedef QValueListIterator<DifferenceString> DifferenceStringIterator;
+typedef QValueVector<DifferenceString> DifferenceStringList;
+typedef QValueVector<DifferenceString>::ConstIterator DifferenceStringConstIterator;
+typedef QValueVector<DifferenceString>::Iterator DifferenceStringIterator;
 
 #endif
 class Difference
@@ -119,34 +120,34 @@ public:
 	~Difference();
 
 public:
-	enum Difference::Type type() const { return m_type; };
+	enum Difference::Type type() const { return m_type; }
 
-	int sourceLineNumber() const { return m_sourceLineNo; };
-	int destinationLineNumber() const { return m_destinationLineNo; };
+	int sourceLineNumber() const { return m_sourceLineNo; }
+	int destinationLineNumber() const { return m_destinationLineNo; }
 
 	int sourceLineCount() const;
 	int destinationLineCount() const;
 
 #if INLINE_DIFFERENCES
-	DifferenceString* sourceLineAt( int i ) { return &m_sourceLines[ i ]; };
-	DifferenceString* destinationLineAt( int i ) { return &m_destinationLines[ i ]; };
+	DifferenceString* sourceLineAt( int i ) { return &m_sourceLines[ i ]; }
+	DifferenceString* destinationLineAt( int i ) { return &m_destinationLines[ i ]; }
 #else
-	const QString& sourceLineAt( int i ) const { return m_sourceLines[ i ]; };
-	const QString& destinationLineAt( int i ) const { return m_destinationLines[ i ]; };
+	const QString& sourceLineAt( int i ) const { return m_sourceLines[ i ]; }
+	const QString& destinationLineAt( int i ) const { return m_destinationLines[ i ]; }
 #endif
 
 #if INLINE_DIFFERENCES
-	const DifferenceStringList sourceLines() const { return m_sourceLines; };
-	const DifferenceStringList destinationLines() const { return m_destinationLines; };
+	const DifferenceStringList sourceLines() const { return m_sourceLines; }
+	const DifferenceStringList destinationLines() const { return m_destinationLines; }
 #else
-	const QStringList sourceLines() const { return m_sourceLines; };
-	const QStringList destinationLines() const { return m_destinationLines; };
+	const QValueVector<QString> sourceLines() const { return m_sourceLines; }
+	const QValueVector<QString> destinationLines() const { return m_destinationLines; }
 #endif
 
 	void apply( bool apply );
-	bool applied() const { return m_applied; };
+	bool applied() const { return m_applied; }
 
-	void setType( enum Difference::Type type ) { m_type = type; };
+	void setType( enum Difference::Type type ) { m_type = type; }
 
 	void addSourceLine( QString line );
 	void addDestinationLine( QString line );
@@ -166,8 +167,8 @@ private:
 	DifferenceStringList  m_sourceLines;
 	DifferenceStringList  m_destinationLines;
 #else
-	QStringList           m_sourceLines;
-	QStringList           m_destinationLines;
+	QValueVector<QString> m_sourceLines;
+	QValueVector<QString> m_destinationLines;
 #endif
 
 	bool                  m_applied;

@@ -111,7 +111,7 @@ int KompareListView::lastVisibleDifference()
 		KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>(item);
 		if( lineItem && lineItem->diffItemParent()->difference()->type() != Difference::Unchanged )
 			break;
-		item = item->itemAbove();
+		item = dynamic_cast<KompareListViewItem*>(item)->previousItem();
 	}
 
 	if( item )
@@ -194,7 +194,7 @@ int KompareListView::scrollId()
 
 void KompareListView::setSelectedDifference( const Difference* diff, bool scroll )
 {
-	kdDebug(8104) << "KompareListView::setSelectedDifference(" << diff << ", " << scroll << ")" << endl;
+	kdDebug(8104) << "KompareListView::setSelectedDifference( diff = " << diff << ", scroll = " << scroll << ")" << endl;
 
 	if ( m_selectedDifference == diff )
 		return;
@@ -231,7 +231,7 @@ void KompareListView::slotSetSelection( const Difference* diff )
 
 void KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
-	kdDebug(8104) << "KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )" << endl;
+	kdDebug(8104) << "KompareListView::slotSetSelection( const DiffModel* model = " << model << ", const Difference* diff = " << diff << " )" << endl;
 
 	if( m_selectedModel && m_selectedModel == model ) {
 		slotSetSelection( diff );
@@ -244,6 +244,8 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 	m_selectedModel = model;
 
 	m_itemDict.resize(model->differenceCount());
+
+	kdDebug(8104) << "Cleared " << (m_isSource ? "source" : "destination") << " view..." << endl;
 
 	QPtrListIterator<DiffHunk> hunkIt(model->hunks());
 
@@ -269,6 +271,8 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 			}
 		}
 	}
+
+	kdDebug(8104) << "All are newed now..." << endl;
 
 	slotSetSelection( diff );
 }
@@ -333,27 +337,31 @@ void KompareListView::wheelEvent( QWheelEvent* e )
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent )
 	: QListViewItem( parent ),
-	m_scrollId( 0 )
+	m_scrollId( 0 ),
+	m_previousItem( 0 )
 {
 //	kdDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListViewItem* after )
 	: QListViewItem( parent, after ),
-	m_scrollId( after->scrollId() + after->maxHeight() )
+	m_scrollId( after->scrollId() + after->maxHeight() ),
+	m_previousItem( after )
 {
 //	kdDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListViewItem* parent )
 	: QListViewItem( parent ),
-	m_scrollId( 0 )
+	m_scrollId( 0 ),
+	m_previousItem( 0 )
 {
 }
 
-KompareListViewItem::KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* /*after*/ )
+KompareListViewItem::KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* after )
 	: QListViewItem( parent ),
-	m_scrollId( 0 )
+	m_scrollId( 0 ),
+	m_previousItem( after )
 {
 }
 
@@ -426,6 +434,7 @@ int KompareListViewDiffItem::maxHeight()
 void KompareListViewDiffItem::setSelected( bool b )
 {
 	kdDebug(8104) << "KompareListViewDiffItem::setSelected( " << b << " )" << endl;
+//	kdDebug(8104) << kdBacktrace() << endl;
 	KompareListViewItem::setSelected( b );
 	QListViewItem* item = m_sourceItem->isVisible() ?
 	                      m_sourceItem->firstChild() :
@@ -580,8 +589,10 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 void KompareListViewLineItem::paintText( QPainter * p, const QColorGroup& /*cg*/, int column, int width, int align )
 #endif
 {
-	if ( column == COL_MAIN )
+	QString adjustedText;
+	switch( column )
 	{
+	case COL_MAIN:
 #if INLINE_DIFFERENCES
 		Command* c = m_text->commandsList()->first();
 		QString textChunk;
@@ -648,15 +659,22 @@ void KompareListViewLineItem::paintText( QPainter * p, const QColorGroup& /*cg*/
 		}
 		p->fillRect( offset, 0, width - offset, height(), normalBrush );
 #else
-		QString adjustedText = text( column );
+		adjustedText = text( column );
 		adjustedText.replace( QRegExp( "\\t" ), kompareListView()->spaces() );
 		p->drawText( listView()->itemMargin(), 0,
 		             width - listView()->itemMargin(), height(),
 		             align, adjustedText );
 #endif
-	}
-	else
-	{
+		break;
+	case COL_LINE_NO:
+#if INLINE_DIFFERENCES
+		p->fillRect( 0, 0, width, height(), bg );
+#endif
+		p->drawText( listView()->itemMargin(), 0,
+		             width - listView()->itemMargin(), height(),
+		             align, text( column ) );
+		break;
+	default:
 #if INLINE_DIFFERENCES
 		p->fillRect( 0, 0, width, height(), bg );
 #endif

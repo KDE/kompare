@@ -71,6 +71,8 @@ protected:
 	/** What is format of the diff */
 	virtual enum Kompare::Format determineFormat();
 
+	bool matchesUnifiedHunkLine( QString line ) const;
+
 protected:
 	// Regexps for context parsing
 	QRegExp m_contextDiffHeader1;

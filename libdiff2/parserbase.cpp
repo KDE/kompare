@@ -510,6 +510,17 @@ bool ParserBase::parseRCSHunkBody()
 	return false;
 }
 
+bool ParserBase::matchesUnifiedHunkLine( QString line ) const
+{
+	static const QChar context( ' ' );
+	static const QChar added  ( '+' );
+	static const QChar removed( '-' );
+
+	QChar first = line[0];
+
+	return ( first == context || first == added || first == removed );
+}
+
 bool ParserBase::parseUnifiedHunkBody()
 {
 //	kdDebug(8101) << "ParserBase::parseUnifiedHunkBody" << endl;
@@ -528,31 +539,38 @@ bool ParserBase::parseUnifiedHunkBody()
 	DiffHunk* hunk = new DiffHunk( linenoA, linenoB, function );
 	m_currentModel->addHunk( hunk );
 
-	while( m_diffIterator != m_diffLines.end() && m_unifiedHunkBodyLine.exactMatch( *m_diffIterator ) )
+	const QStringList::ConstIterator m_diffLinesEnd = m_diffLines.end();
+
+	const QString context = QString( " " );
+	const QString added   = QString( "+" );
+	const QString removed = QString( "-" );
+
+	while( m_diffIterator != m_diffLinesEnd && matchesUnifiedHunkLine( *m_diffIterator ) )
 	{
 		Difference* diff = new Difference( linenoA, linenoB );
 		hunk->add( diff );
 
-		if( m_unifiedHunkBodyLine.cap( 1 ) == " " )
+		if( (*m_diffIterator).startsWith( context ) )
 		{	// context
-			for( ; m_diffIterator != m_diffLines.end() && m_unifiedHunkBodyContext.exactMatch( *m_diffIterator ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( context ); ++m_diffIterator )
 			{
-				diff->addSourceLine( m_unifiedHunkBodyContext.cap( 1 ) );
-				diff->addDestinationLine( m_unifiedHunkBodyContext.cap( 1 ) );
+				QString line = QString( *m_diffIterator ).remove( 0, 1 );
+				diff->addSourceLine( line );
+				diff->addDestinationLine( line );
 				linenoA++;
 				linenoB++;
 			}
 		}
 		else
 		{	// This is a real difference, not context
-			for( ; m_diffIterator != m_diffLines.end() && m_unifiedHunkBodyRemoved.exactMatch( *m_diffIterator ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( removed ); ++m_diffIterator )
 			{
-				diff->addSourceLine( m_unifiedHunkBodyRemoved.cap( 1 ) );
+				diff->addSourceLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				linenoA++;
 			}
-			for( ; m_diffIterator != m_diffLines.end() && m_unifiedHunkBodyAdded.exactMatch( *m_diffIterator ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( added ); ++m_diffIterator )
 			{
-				diff->addDestinationLine( m_unifiedHunkBodyAdded.cap( 1 ) );
+				diff->addDestinationLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				linenoB++;
 			}
 			if ( diff->sourceLineCount() == 0 )

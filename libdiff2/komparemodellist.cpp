@@ -88,7 +88,7 @@ KompareModelList::~KompareModelList()
 {
 }
 
-bool KompareModelList::isDirectory( const QString& url )
+bool KompareModelList::isDirectory( const QString& url ) const
 {
 	QFileInfo fi( url );
 	if ( fi.isDir() )
@@ -97,7 +97,7 @@ bool KompareModelList::isDirectory( const QString& url )
 		return false;
 }
 
-bool KompareModelList::isDiff( const QString& mimeType )
+bool KompareModelList::isDiff( const QString& mimeType ) const
 {
 	if ( mimeType == "text/x-diff" )
 		return true;
@@ -317,20 +317,30 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 					list.append( ( *it ).string() );
 				}
 #else
-				list += diff->destinationLines();
+				QValueVector<QString>::ConstIterator it = diff->destinationLines().begin();
+				QValueVector<QString>::ConstIterator end = diff->destinationLines().end();
+				for ( ; it != end; ++it )
+				{
+					list.append( *it );
+				}
 #endif
 			}
 			else
 			{
 #if INLINE_DIFFERENCES
-				QValueListConstIterator<DifferenceString> it = diff->sourceLines().begin();
-				QValueListConstIterator<DifferenceString> end = diff->sourceLines().end();
+				DifferenceStringConstIterator it = diff->sourceLines().begin();
+				DifferenceStringConstIterator end = diff->sourceLines().end();
 				for ( ; it != end; ++it )
 				{
 					list.append( ( *it ).string() );
 				}
 #else
-				list += diff->sourceLines();
+				QValueVector<QString>::ConstIterator it = diff->sourceLines().begin();
+				QValueVector<QString>::ConstIterator end = diff->sourceLines().end();
+				for ( ; it != end; ++it )
+				{
+					list.append( *it );
+				}
 #endif
 			}
 		}
@@ -339,7 +349,7 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 	// kdDebug( 8101 ) << "Everything: " << endl << list.join( "\n" ) << endl;
 
 	if( list.count() > 0 )
-		*stream << list.join( "\n" ) << "\n";
+		*stream << list.join( "" );
 
 	temp->close();
 	if( temp->status() != 0 ) {
@@ -446,17 +456,44 @@ void KompareModelList::slotFileChanged( const QString& /*file*/ )
 	}
 }
 
-QStringList KompareModelList::readFile( const QString& fileName )
+QStringList KompareModelList::split( const QString& fileContents )
 {
+	QString contents = fileContents;
+	QStringList list;
+
+	int pos = 0, oldpos = 0;
+	// split that does not strip the split char
+#ifdef QT_OS_MAC
+	const char split = '\r';
+#else
+	const char split = '\n';
+#endif
+	while ( ( pos = contents.find( split, oldpos ) ) >= 0 )
+	{
+		list.append( contents.mid( oldpos, pos - oldpos + 1 ) );
+		oldpos = pos + 1;
+	}
+
+	if ( contents.length() > oldpos )
+	{
+		list.append( contents.right( contents.length() - oldpos ) );
+	}
+
+	return list;
+}
+
+QString KompareModelList::readFile( const QString& fileName ) const
+{
+	QStringList list;
+
 	QFile file( fileName );
 	file.open( IO_ReadOnly );
 
 	QTextStream stream( &file );
-	QStringList contents;
 
-	while (!stream.eof()) {
-		contents.append( stream.readLine() );
-	}
+	QString contents = stream.read();
+
+	file.close();
 
 	return contents;
 }
@@ -468,7 +505,7 @@ bool KompareModelList::openDiff( const QString& diffFile )
 	if ( diffFile.isEmpty() )
 		return false;
 
-	QStringList diff = readFile( diffFile );
+	QString diff = readFile( diffFile );
 
 	clear(); // Clear the current models
 
@@ -520,13 +557,10 @@ void KompareModelList::slotWriteDiffOutput( bool success )
 	{
 		QTextStream* stream = m_diffTemp->textStream();
 
-		QStringList output = m_diffProcess->diffOutput();
-		for ( QStringList::ConstIterator it = output.begin(); it != output.end(); ++it )
-		{
-			*stream << (*it) << "\n";
-		}
+		*stream << m_diffProcess->diffOutput();
 
 		m_diffTemp->close();
+
 		if( m_diffTemp->status() != 0 )
 		{
 			emit error( i18n( "Could not write to the temporary file." ) );
@@ -774,14 +808,17 @@ void KompareModelList::slotApplyAllDifferences( bool apply )
 	emit applyAllDifferences( apply );
 }
 
-int KompareModelList::parseDiffOutput( const QStringList& lines )
+int KompareModelList::parseDiffOutput( const QString& diff )
 {
 	kdDebug(8101) << "KompareModelList::parseDiffOutput" << endl;
+
+	QStringList diffLines = split( diff );
+
 	Parser* parser = new Parser( this );
-	m_models = parser->parse( lines );
+	m_models = parser->parse( diffLines );
 
 	m_info->generator = parser->generator();
-	m_info->format = parser->format();
+	m_info->format    = parser->format();
 
 	delete parser;
 
@@ -808,13 +845,15 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 
 	bool result = false;
 	DiffModel* model;
-	QFile file;
+
+	QString fileContents;
 
 	DiffModelList* models = m_models;
 	m_models = new DiffModelList();
+
 	if ( fi.isDir() )
 	{ // is a dir
-		QDir dir( localURL, QString::null, QDir::Name|QDir::DirsFirst, QDir::All );
+//		QDir dir( localURL, QString::null, QDir::Name|QDir::DirsFirst, QDir::All );
 		QPtrListIterator<DiffModel> it( *models );
 		for ( ; it.current() != 0; ++it )
 		{
@@ -824,40 +863,27 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 			if ( !filename.startsWith( localURL ) )
 				filename.prepend( localURL );
 			QFileInfo fi2( filename );
-			QStringList lines;
 			if ( fi2.exists() )
 			{
 				kdDebug(8101) << "Reading from: " << filename << endl;
-				file.setName( filename );
-				file.open( IO_ReadOnly );
-				QTextStream stream( &file );
-				while ( !stream.eof() )
-				{
-					lines.append( stream.readLine() );
-				}
-				file.close();
-				result = blendFile( model, lines );
+				fileContents = readFile( filename );
+				result = blendFile( model, fileContents );
 			}
 			else
 			{
 				kdDebug(8101) << "File " << filename << " does not exist !" << endl;
 				kdDebug(8101) << "Assume empty file !" << endl;
-				result = blendFile( model, lines );
+				fileContents.truncate( 0 );
+				result = blendFile( model, fileContents );
 			}
 		}
 	}
 	else if ( fi.isFile() )
 	{ // is a file
-		QFile file( localURL );
-		file.open( IO_ReadOnly );
-		QTextStream stream( &file );
-		QStringList lines;
-		while ( !stream.eof() )
-		{
-			lines.append( stream.readLine() );
-		}
+		kdDebug(8101) << "Reading from: " << localURL << endl;
+		fileContents = readFile( localURL );
 
-		result = blendFile( models->at( 0 ), lines );
+		result = blendFile( models->at( 0 ), fileContents );
 	}
 
 	delete models; // Hope it does not delete the models, just the container
@@ -865,7 +891,7 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 	return result;
 }
 
-bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
+bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents )
 {
 	if ( !model )
 	{
@@ -884,6 +910,8 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 	DiffHunk* newHunk = new DiffHunk( srcLineNo, destLineNo );
 
 	newModel->addHunk( newHunk );
+
+	QStringList lines = split( fileContents );
 
 	QStringList::ConstIterator it  = lines.begin();
 	QStringList::ConstIterator end = lines.end();
@@ -927,7 +955,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 				{
 					kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *it << endl;
 #if INLINE_DIFFERENCES
-					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i ) << endl;
+					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 #else
 					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i ) << endl;
 #endif
@@ -936,7 +964,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 				}
 				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
 #if INLINE_DIFFERENCES
-				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i ) << endl;
+				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 #else
 				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i ) << endl;
 #endif
@@ -1221,7 +1249,7 @@ void KompareModelList::updateModelListActions()
 	}
 }
 
-bool KompareModelList::hasPrevModel()
+bool KompareModelList::hasPrevModel() const
 {
 	kdDebug(8101) << "KompareModelList::hasPrevModel()" << endl;
 
@@ -1236,7 +1264,7 @@ bool KompareModelList::hasPrevModel()
 	return false;
 }
 
-bool KompareModelList::hasNextModel()
+bool KompareModelList::hasNextModel() const
 {
 	kdDebug(8101) << "KompareModelList::hasNextModel()" << endl;
 
@@ -1250,7 +1278,7 @@ bool KompareModelList::hasNextModel()
 	return false;
 }
 
-bool KompareModelList::hasPrevDiff()
+bool KompareModelList::hasPrevDiff() const
 {
 //	kdDebug(8101) << "KompareModelList::hasPrevDiff()" << endl;
 	int index = m_selectedModel->diffIndex();
@@ -1272,7 +1300,7 @@ bool KompareModelList::hasPrevDiff()
 	return false;
 }
 
-bool KompareModelList::hasNextDiff()
+bool KompareModelList::hasNextDiff() const
 {
 //	kdDebug(8101) << "KompareModelList::hasNextDiff()" << endl;
 	int index = m_selectedModel->diffIndex();

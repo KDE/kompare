@@ -54,12 +54,12 @@ public:
 	int                  minScrollId();
 	int                  maxScrollId();
 
-	bool                 isSource() const { return m_isSource; };
-	ViewSettings*        settings() const { return m_settings; };
+	bool                 isSource() const { return m_isSource; }
+	ViewSettings*        settings() const { return m_settings; }
 
 	void setSelectedDifference( const Diff2::Difference* diff, bool scroll );
 
-	const QString& spaces() const { return m_spaces; };
+	const QString& spaces() const { return m_spaces; }
 
 public slots:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
@@ -83,8 +83,8 @@ protected:
 	void wheelEvent( QWheelEvent* e );
 	void contentsMousePressEvent ( QMouseEvent * e );
 	void contentsMouseDoubleClickEvent ( QMouseEvent* );
-	void contentsMouseReleaseEvent ( QMouseEvent * ) {};
-	void contentsMouseMoveEvent ( QMouseEvent * ) {};
+	void contentsMouseReleaseEvent ( QMouseEvent * ) {}
+	void contentsMouseMoveEvent ( QMouseEvent * ) {}
 
 private:
 	QPtrList<KompareListViewDiffItem> m_items;
@@ -108,14 +108,18 @@ public:
 	KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* after );
 
 	void paintFocus( QPainter* p, const QColorGroup& cg, const QRect& r );
-	int scrollId() { return m_scrollId; };
+	int scrollId() { return m_scrollId; }
 
 	virtual int maxHeight() = 0;
 
 	KompareListView* kompareListView() const;
 
+public:
+	KompareListViewItem* previousItem() const { return m_previousItem; }
+
 private:
 	int     m_scrollId;
+	KompareListViewItem* m_previousItem;
 };
 
 class KompareListViewDiffItem : public KompareListViewItem
@@ -128,7 +132,7 @@ public:
 	void setSelected( bool b );
 	void applyDifference( bool apply );
 
-	Diff2::Difference* difference() { return m_difference; };
+	Diff2::Difference* difference() { return m_difference; }
 
 	int maxHeight();
 
@@ -183,11 +187,12 @@ public:
 #endif
 
 	KompareListViewDiffItem* diffItemParent() const;
-#if INLINE_DIFFERENCES
 
 private:
+#if INLINE_DIFFERENCES
 	Diff2::DifferenceString* m_text;
 #endif
+	int m_lineNumber;
 };
 
 class KompareListViewBlankLineItem : public KompareListViewLineItem

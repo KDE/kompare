@@ -206,25 +206,6 @@ bool KomparePart::openDiff( const QString& diffOutput )
 
 	m_info.mode = Kompare::ShowingDiff;
 
-	if ( m_modelList->parseDiffOutput( QStringList::split( "\n", diffOutput ) ) == 0 )
-	{
-		value = true;
-		m_modelList->show();
-		updateActions();
-		updateCaption();
-		updateStatus();
-	}
-	return value;
-}
-
-bool KomparePart::openDiff( const QStringList& diffOutput )
-{
-	bool value = false;
-
-	emit kompareInfo( &m_info );
-
-	m_info.mode = Kompare::ShowingDiff;
-
 	if ( m_modelList->parseDiffOutput( diffOutput ) == 0 )
 	{
 		value = true;
@@ -233,6 +214,7 @@ bool KomparePart::openDiff( const QStringList& diffOutput )
 		updateCaption();
 		updateStatus();
 	}
+
 	return value;
 }
 
@@ -421,22 +403,19 @@ void KomparePart::openDirAndDiff ( const KURL& dir,  const KURL& diffFile )
 	KIO::NetAccess::removeTempFile( m_info.localDestination );
 }
 
-QStringList KomparePart::readFile()
+QString KomparePart::readFile()
 {
-	QStringList  lines;
 	QFile file( m_file );
-	file.open(  IO_ReadOnly );
+	file.open( IO_ReadOnly );
 	QTextStream stream( &file );
 
 	kdDebug(8103) << "Reading from m_file = " << m_file << endl;
-	while ( !stream.eof() )
-	{
-		lines.append( stream.readLine() );
-	}
+
+	QString contents = stream.read();
 
 	file.close();
 
-	return lines;
+	return contents;
 }
 
 bool KomparePart::openFile()

@@ -96,9 +96,6 @@ public:
 	/** Added on request of Harald Fernengel */
 	virtual bool openDiff( const QString& diffOutput );
 
-	/** Open and parse the diff output */
-	virtual bool openDiff( const QStringList& diffOutput );
-
 	/** Open and parse the diff3 file at diff3Url */
 	virtual bool openDiff3( const KURL& diff3URL );
 
@@ -175,7 +172,7 @@ protected:
 	virtual bool openFile();
 	virtual bool saveFile() { return true; };
 	// This will read the m_file file and return the lines
-	QStringList readFile();
+	QString readFile();
 
 	// patchFile
 	bool patchFile(KURL&);

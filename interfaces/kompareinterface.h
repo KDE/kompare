@@ -34,11 +34,6 @@ public:
 	virtual bool openDiff( const QString& diffOutput ) = 0;
 
 	/**
-	 * Open and parse the supplied diff output
-	 */
-	virtual bool openDiff( const QStringList& diffOutput ) = 0;
-
-	/**
 	 * Open and parse the diff3 file at url.
 	 */
 	virtual bool openDiff3( const KURL& diff3Url ) = 0;

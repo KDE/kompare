@@ -34,35 +34,54 @@ Parser::~Parser()
 {
 }
 
-DiffModelList* Parser::parse( const QString& diff )
+int Parser::cleanUpCrap( QStringList& diffLines )
 {
-//	kdDebug(8101) << "DiffOutput: " << diff << endl;
-	/* Just split the QString and call the other parse method */
-	return Parser::parse( QStringList::split( diff, "\n" ) );
-}
+	QStringList::Iterator it = diffLines.begin();
 
-DiffModelList* Parser::parse( const QStringList& diff )
+	int nol = 0;
+
+	for ( ; it != diffLines.end(); ++it )
+	{
+		if ( (*it).startsWith( "\\ No newline" ) )
+		{
+			--it;
+			QString temp = *it;
+			temp.truncate( temp.find( '\n' ) );
+			*it = temp;
+			++it;
+			it = diffLines.remove( it );
+			// correcting the advance of the iterator because of the remove
+			--it;
+			++nol;
+		}
+	}
+
+	return nol;
+} 
+
+DiffModelList* Parser::parse( QStringList& diffLines )
 {
-//	kdDebug(8101) << "DiffOutput: " << diff.join("\n") << endl;
-
 	/* Basically determine the generator then call the parse method */
 	ParserBase* parser;
 
-	m_generator = determineGenerator( diff );
+	m_generator = determineGenerator( diffLines );
+
+	int nol = cleanUpCrap( diffLines );
+	kdDebug(8101) << "Cleaned up " << nol << " line(s) of crap from the diff..." << endl;
 
 	switch( m_generator )
 	{
 	case Kompare::CVSDiff :
 		kdDebug(8101) << "It is a CVS generated diff..." << endl;
-		parser = new CVSDiffParser( m_list, diff );
+		parser = new CVSDiffParser( m_list, diffLines );
 		break;
 	case Kompare::Diff :
 		kdDebug(8101) << "It is a diff generated diff..." << endl;
-		parser = new DiffParser( m_list, diff );
+		parser = new DiffParser( m_list, diffLines );
 		break;
 	case Kompare::Perforce :
 		kdDebug(8101) << "It is a Perforce generated diff..." << endl;
-		parser = new PerforceParser( m_list, diff );
+		parser = new PerforceParser( m_list, diffLines );
 		break;
 	default:
 		// Nothing to delete, just leave...
@@ -91,23 +110,24 @@ DiffModelList* Parser::parse( const QStringList& diff )
 enum Kompare::Generator Parser::determineGenerator( const QStringList& diffLines )
 {
 	// Shit have to duplicate some code with this method and the ParserBase derived classes
-	QStringList::ConstIterator it = diffLines.begin();
+	QStringList::ConstIterator it           = diffLines.begin();
+	QStringList::ConstIterator diffLinesEnd = diffLines.end();
 
-	QRegExp cvsDiffRE     ( "^Index: " );
-	QRegExp perforceDiffRE( "^==== " );
-	while (  it != diffLines.end() )
+	const QString cvsDiff     ( "Index: " );
+	const QString perforceDiff( "==== " );
+
+	for (  ; it != diffLinesEnd; ++it )
 	{
-		if ( ( *it ).find( cvsDiffRE, 0 ) == 0 )
+		if ( ( *it ).startsWith( cvsDiff ) )
 		{
 			kdDebug(8101) << "Diff is a CVSDiff" << endl;
 			return Kompare::CVSDiff;
 		}
-		else if ( ( *it ).find( perforceDiffRE, 0 ) == 0 )
+		else if ( ( *it ).startsWith( perforceDiff ) )
 		{
 			kdDebug(8101) << "Diff is a Perforce Diff" << endl;
 			return Kompare::Perforce;
 		}
-		++it;
 	}
 
 	kdDebug(8101) << "We'll assume it is a diff Diff" << endl;

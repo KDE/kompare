@@ -85,7 +85,7 @@ GeneralPrefs::GeneralPrefs( QWidget* parent ) : PrefsBase( parent )
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	addTab( page, i18n( "&Appearence" ) );
+	addTab( page, i18n( "&Appearance" ) );
 };
 
 GeneralPrefs::~GeneralPrefs()

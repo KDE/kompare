@@ -56,7 +56,7 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 	layout->addWidget( locGroupBox );
 	locGroupBox->setMargin( KDialog::marginHint() );
 
-	label           = new QLabel( i18n( "Number of contextlines:" ), locGroupBox );
+	label           = new QLabel( i18n( "Number of context lines:" ), locGroupBox );
 	m_locSpinBox    = new QSpinBox( 0, 100, 1, locGroupBox );
 	label->setBuddy( m_locSpinBox );
 
@@ -85,7 +85,7 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 
 	m_tabsCheckBox        = new QCheckBox( i18n( "&Expand tabs to spaces in output" ), moreOptionButtonGroup );
 	m_linesCheckBox       = new QCheckBox( i18n( "I&gnore added or removed empty lines" ), moreOptionButtonGroup );
-	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes in number of whitespace on a line" ), moreOptionButtonGroup );
+	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes to the number of whitespaces in a line" ), moreOptionButtonGroup );
 
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );

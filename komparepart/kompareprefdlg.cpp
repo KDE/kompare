@@ -33,7 +33,7 @@ KomparePrefDlg::KomparePrefDlg( GeneralSettings* genSets, DiffSettings* diffSets
 	setIconListAllVisible(true);
 
 	QVBox* frame;
-	frame = addVBoxPage( i18n( "General" ), i18n( "General settings of the kompare program" ), UserIcon( "diff_general" ) );
+	frame = addVBoxPage( i18n( "General" ), i18n( "General settings of the Kompare program" ), UserIcon( "diff_general" ) );
 	m_generalPage = new GeneralPrefs( frame );
 	m_generalPage->setSettings( genSets );
 

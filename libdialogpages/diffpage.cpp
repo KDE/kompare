@@ -332,9 +332,9 @@ void DiffPage::addExcludeTab()
 
 	connect( m_excludeFilePatternCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFilePatternToggled(bool)));
 
-	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( i18n( "File with Filenames to Exclude" ), page );
+	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( i18n( "File with File Names to Exclude" ), page );
 	m_excludeFileCheckBox     = new QCheckBox( "", excludeFileNameGroupBox );
-	QToolTip::add( m_excludeFileCheckBox, i18n( "If this is checked you can enter a filename in the combo box on the right." ) );
+	QToolTip::add( m_excludeFileCheckBox, i18n( "If this is checked you can enter a file name in the combo box on the right." ) );
 	m_excludeFileURLComboBox  = new KURLComboBox( KURLComboBox::Files, true, excludeFileNameGroupBox, "exclude_file_urlcombo" );
 	QToolTip::add( m_excludeFileURLComboBox, i18n( "Here you can enter the URL of a file with shell patterns to ignore during the comparison of the folders." ) );
 	m_excludeFileURLRequester = new KURLRequester( m_excludeFileURLComboBox, excludeFileNameGroupBox, "exclude_file_name_urlrequester" );

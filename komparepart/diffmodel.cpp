@@ -2,6 +2,7 @@
 #include <qtextstream.h>
 #include <kdebug.h>
 #include <klocale.h>
+#include <kmessagebox.h>
 
 #include "difference.h"
 #include "diffmodel.h"
@@ -345,7 +346,7 @@ int DiffModel::parseEdDiff( const QStringList& /*list*/ )
 {
 	kdDebug() << "Ed diff parsing:" << endl;
 
-	KMessageBox::info( this, i18n( "Sorry not yet implemented" ) );
+	KMessageBox::information( 0, i18n( "Sorry not yet implemented" ) );
 	return 1;
 };
 
@@ -485,7 +486,7 @@ int DiffModel::parseRCSDiff( const QStringList& /*list*/ )
 {
 	kdDebug() << "RCS  diff parsing:" << endl;
 
-	KMessageBox::info( this, i18n( "Sorry not yet implemented" ) );
+	KMessageBox::information( 0, i18n( "Sorry not yet implemented" ) );
 	return 1;
 };
 

@@ -82,10 +82,8 @@ void KDiffPart::setupActions()
 {
 	// create our actions
 
-	m_saveDiff = new KAction( i18n( "&Save .diff" ), "save", Qt::CTRL + Qt::Key_S,
-	              this, SLOT(save()),
-	              actionCollection(), "file_save" );
-//	m_saveDiff->setText( i18n("&Save .diff") );
+	m_saveDiff = KStdAction::save( this, SLOT(save()), actionCollection() );
+	m_saveDiff->setText( i18n("&Save .diff") );
 	m_previousDifference = new KAction( i18n("&Previous Difference"), "previous", Qt::CTRL + Qt::Key_Up,
 	              this, SLOT(slotPreviousDifference()),
 	              actionCollection(), "difference_previous" );

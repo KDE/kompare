@@ -213,7 +213,7 @@ void DiffPrefs::addDiffTab()
 	m_diffProgramGroup->setMargin( KDialog::marginHint() );
 
 	m_diffURLRequester = new KURLRequester( m_diffProgramGroup, "diffURLRequester" );
-	QWhatsThis::add( m_diffURLRequester, i18n( "You can select a different diff program here. On Solaris the standard diff program does not know all the options but the GNU version of diff does. This way you can select that version." ) );
+	QWhatsThis::add( m_diffURLRequester, i18n( "You can select a different diff program here. On Solaris the standard diff program does not support all the options that the GNU version does. This way you can select that version." ) );
 
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
@@ -250,7 +250,7 @@ void DiffPrefs::addFormatTab()
 
 	QLabel* label = new QLabel( i18n( "Number of context lines:" ), groupBox );
 	m_locSpinBox = new QSpinBox( 0, 100, 1, groupBox );
-	QWhatsThis::add( m_locSpinBox, i18n( "The number of context lines is normally 2 or 3. This make the diff readable and appliable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
+	QWhatsThis::add( m_locSpinBox, i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
 	label->setBuddy( m_locSpinBox );
 
 	layout->addStretch( 1 );
@@ -285,14 +285,14 @@ void DiffPrefs::addOptionsTab()
 	QToolTip::add( m_ignoreRegExpCheckBox, i18n( "This option corresponds to the -I diff option." ) );
 	groupLayout->addWidget( m_ignoreRegExpCheckBox );
 	m_ignoreRegExpEdit = new KLineEdit( QString::null, page, "regexplineedit" );
-	QToolTip::add( m_ignoreRegExpEdit, i18n( "Add the regular expression here that you want to use \nto ignore lines that match this regular expression." ) );
+	QToolTip::add( m_ignoreRegExpEdit, i18n( "Add the regular expression here that you want to use\nto ignore lines that match it." ) );
 	groupLayout->addWidget( m_ignoreRegExpEdit );
 
 	if ( !KTrader::self()->query("KRegExpEditor/KRegExpEditor").isEmpty() )
 	{
 		// Ok editor is available, use it
 		QButton* ignoreRegExpEditButton = new QPushButton( i18n( "&Edit..." ), page, "regexp_editor_button" );
-		QToolTip::add( ignoreRegExpEditButton, i18n( "Clicking this will open a regular expression dialog where \nyou can graphically create regular expressions." ) );
+		QToolTip::add( ignoreRegExpEditButton, i18n( "Clicking this will open a regular expression dialog where\nyou can graphically create regular expressions." ) );
 		groupLayout->addWidget( ignoreRegExpEditButton );
 		connect( ignoreRegExpEditButton, SIGNAL( clicked() ), this, SLOT( slotShowRegExpEditor() ) );
 	}
@@ -327,7 +327,7 @@ void DiffPrefs::addExcludeTab()
 
 	QHGroupBox* excludeFilePatternGroupBox = new QHGroupBox( i18n( "File pattern to exclude" ), page );
 	m_excludeFilePatternCheckBox = new QCheckBox( "", excludeFilePatternGroupBox );
-	QToolTip::add( m_excludeFilePatternCheckBox, i18n( "If this is checked you enter a shell pattern in the lineedit on the right or select entries from the list." ) );
+	QToolTip::add( m_excludeFilePatternCheckBox, i18n( "If this is checked you can enter a shell pattern in the text box on the right or select entries from the list." ) );
 	m_excludeFilePatternEditListBox = new KEditListBox( excludeFilePatternGroupBox, "exclude_file_pattern_editlistbox", false, KEditListBox::Add|KEditListBox::Remove );
 	QToolTip::add( m_excludeFilePatternEditListBox, i18n( "Here you can enter or remove a shell pattern or select one or more entries from the list." ) );
 	layout->addWidget( excludeFilePatternGroupBox );
@@ -337,11 +337,11 @@ void DiffPrefs::addExcludeTab()
 
 	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( i18n( "File with filenames to exclude" ), page );
 	m_excludeFileCheckBox     = new QCheckBox( "", excludeFileNameGroupBox );
-	QToolTip::add( m_excludeFileCheckBox, i18n( "If this is checked you enter a filename in the combobox on the right." ) );
+	QToolTip::add( m_excludeFileCheckBox, i18n( "If this is checked you can enter a filename in the combo box on the right." ) );
 	m_excludeFileURLComboBox  = new KURLComboBox( KURLComboBox::Files, true, excludeFileNameGroupBox, "exclude_file_urlcombo" );
-	QToolTip::add( m_excludeFileURLComboBox, i18n( "Here you can enter an url of a file with shell patterns to ignore during the comparision of the folders." ) );
+	QToolTip::add( m_excludeFileURLComboBox, i18n( "Here you can enter the URL of a file with shell patterns to ignore during the comparison of the folders." ) );
 	m_excludeFileURLRequester = new KURLRequester( m_excludeFileURLComboBox, excludeFileNameGroupBox, "exclude_file_name_urlrequester" );
-	QToolTip::add( m_excludeFileURLRequester, i18n( "Any file you select in the dialog that pops up when you click it will be put in the dialog on the left of this button." ) );
+	QToolTip::add( m_excludeFileURLRequester, i18n( "Any file you select in the dialog that pops up when you click it will be put in the dialog to the left of this button." ) );
 	layout->addWidget( excludeFileNameGroupBox );
 
 	connect( m_excludeFileCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFileToggled(bool)));

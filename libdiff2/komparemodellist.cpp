@@ -854,6 +854,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			newHunk->add( newDiff );
 			while ( srcLineNo < diff->sourceLineNumber() && it != end )
 			{
+				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
 				newDiff->addSourceLine( *it );
 				newDiff->addDestinationLine( *it );
 				srcLineNo++;
@@ -866,6 +867,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 		switch ( diff->type() )
 		{
 		case Difference::Unchanged:
+			kdDebug() << "Unchanged" << endl;
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
 #if INLINE_DIFFERENCES
@@ -874,9 +876,13 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 				if ( it != end && *it != diff->sourceLineAt( i ) )
 #endif
 				{
+					kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *it << endl;
+					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 					conflict = true;
 					break;
 				}
+				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
+				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 				srcLineNo++;
 				destLineNo++;
 				++it;
@@ -897,6 +903,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			}
 			break;
 		case Difference::Change:
+			kdDebug() << "Change" << endl;
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
 #if INLINE_DIFFERENCES
@@ -909,6 +916,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 					break;
 				}
 				srcLineNo++;
+				destLineNo++;
 				++it;
 			}
 
@@ -930,12 +938,14 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			}
 			break;
 		case Difference::Insert:
+			kdDebug() << "Insert" << endl;
 			destLineNo += diff->destinationLineCount();
 			diffList.take();
 			newHunk->add( diff );
 			newModel->addDiff( diff );
 			break;
 		case Difference::Delete:
+			kdDebug() << "Delete" << endl;
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
 #if INLINE_DIFFERENCES

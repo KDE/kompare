@@ -258,7 +258,7 @@ void KompareSplitter::slotFontChanged()
 	for( curr = d->list.first(); curr; curr = d->list.next() ) {
 		if(!curr->isHandle) {
 			((KompareListViewFrame*)
-				curr->wid)->view()->setFont( KGlobalSettings::fixedFont() );
+				curr->wid)->view()->setFont( m_settings->m_font );
 			((KompareListViewFrame*)
 				curr->wid)->view()->update();
 		}

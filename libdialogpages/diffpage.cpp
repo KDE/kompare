@@ -322,7 +322,7 @@ void DiffPage::addExcludeTab()
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
 
-	QHGroupBox* excludeFilePatternGroupBox = new QHGroupBox( i18n( "File pattern to exclude" ), page );
+	QHGroupBox* excludeFilePatternGroupBox = new QHGroupBox( i18n( "File Pattern to Exclude" ), page );
 	m_excludeFilePatternCheckBox = new QCheckBox( "", excludeFilePatternGroupBox );
 	QToolTip::add( m_excludeFilePatternCheckBox, i18n( "If this is checked you can enter a shell pattern in the text box on the right or select entries from the list." ) );
 	m_excludeFilePatternEditListBox = new KEditListBox( excludeFilePatternGroupBox, "exclude_file_pattern_editlistbox", false, KEditListBox::Add|KEditListBox::Remove );
@@ -332,7 +332,7 @@ void DiffPage::addExcludeTab()
 
 	connect( m_excludeFilePatternCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFilePatternToggled(bool)));
 
-	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( i18n( "File with filenames to exclude" ), page );
+	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( i18n( "File With Filenames to Exclude" ), page );
 	m_excludeFileCheckBox     = new QCheckBox( "", excludeFileNameGroupBox );
 	QToolTip::add( m_excludeFileCheckBox, i18n( "If this is checked you can enter a filename in the combo box on the right." ) );
 	m_excludeFileURLComboBox  = new KURLComboBox( KURLComboBox::Files, true, excludeFileNameGroupBox, "exclude_file_urlcombo" );

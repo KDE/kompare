@@ -255,8 +255,10 @@ void DiffPrefs::addFormatTab()
 	QRadioButton* radioButton;
 	radioButton = new QRadioButton( i18n( "Context" ), m_modeButtonGroup );
 	radioButton = new QRadioButton( i18n( "Ed" ),      m_modeButtonGroup );
+	radioButton->setEnabled( false );
 	radioButton = new QRadioButton( i18n( "Normal" ),  m_modeButtonGroup );
 	radioButton = new QRadioButton( i18n( "RCS" ),     m_modeButtonGroup );
+	radioButton->setEnabled( false );
 	radioButton = new QRadioButton( i18n( "Unified" ), m_modeButtonGroup );
 
 	// #lines of context (loc)

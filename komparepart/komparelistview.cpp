@@ -132,16 +132,13 @@ int KompareListView::minScrollId()
 
 int KompareListView::maxScrollId()
 {
-	int maxId = 0, id = 0;
 	KompareListViewItem* item = (KompareListViewItem*)firstChild();
 	while( item && item->nextSibling() ) {
-		if( ( id = ((KompareListViewItem*)item->nextSibling())->scrollId() ) > maxId )
-			maxId = id;
 		item = (KompareListViewItem*)item->nextSibling();
 	}
-	maxId += item->maxHeight();
+	int maxId = item->scrollId() + item->maxHeight() - minScrollId();
 	kdDebug(8104) << "Max ID = " << maxId << endl;
-	return maxId - minScrollId();
+	return maxId;
 }
 
 void KompareListView::setXOffset( int x )

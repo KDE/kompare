@@ -41,128 +41,14 @@
 DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent ),
 	m_ignoreRegExpDialog( 0 )
 {
-	QWidget*       page;
-	QVBoxLayout*   layout;
-	QVButtonGroup* optionButtonGroup;
-	QVButtonGroup* moreOptionButtonGroup;
-	QHGroupBox*    groupBox;
-	QLabel*        label;
-	QRadioButton*  radioButton;
+	addDiffTab();
 
-	page   = new QWidget( this );
-	layout = new QVBoxLayout( page );
-	layout->setSpacing( KDialog::spacingHint() );
-	layout->setMargin( KDialog::marginHint() );
+	addFormatTab();
 
-	// add diff program selector
-	m_diffProgramGroup = new QVButtonGroup( i18n( "Diff Program" ), page );
-	layout->addWidget( m_diffProgramGroup );
-	m_diffProgramGroup->setMargin( KDialog::marginHint() );
-
-	m_diffURLRequester = new KURLRequester( m_diffProgramGroup, "diffURLRequester" );
-
-	layout->addStretch( 1 );
-	page->setMinimumSize( sizeHintForWidget( page ) );
-
-	addTab( page, i18n( "&Diff" ) );
-
-	page   = new QWidget( this );
-	layout = new QVBoxLayout( page );
-	layout->setSpacing( KDialog::spacingHint() );
-	layout->setMargin( KDialog::marginHint() );
-
-	// add diff modes
-	m_modeButtonGroup = new QVButtonGroup( i18n( "Output Format" ), page );
-	layout->addWidget( m_modeButtonGroup );
-	m_modeButtonGroup->setMargin( KDialog::marginHint() );
-
-	radioButton = new QRadioButton( i18n( "Context" ), m_modeButtonGroup );
-	radioButton = new QRadioButton( i18n( "Ed" ),      m_modeButtonGroup );
-	radioButton = new QRadioButton( i18n( "Normal" ),  m_modeButtonGroup );
-	radioButton = new QRadioButton( i18n( "RCS" ),     m_modeButtonGroup );
-	radioButton = new QRadioButton( i18n( "Unified" ), m_modeButtonGroup );
-
-	// #lines of context (loc)
-	groupBox = new QHGroupBox( i18n( "Lines of Context" ), page );
-	layout->addWidget( groupBox );
-	groupBox->setMargin( KDialog::marginHint() );
-
-	label           = new QLabel( i18n( "Number of context lines:" ), groupBox );
-	m_locSpinBox    = new QSpinBox( 0, 100, 1, groupBox );
-	label->setBuddy( m_locSpinBox );
-
-	layout->addStretch( 1 );
-	page->setMinimumSize( sizeHintForWidget( page ) );
-
-	addTab( page, i18n( "&Format" ) );
-
-	page   = new QWidget( this );
-	layout = new QVBoxLayout( page );
-	layout->setSpacing( KDialog::spacingHint() );
-	layout->setMargin( KDialog::marginHint() );
-
-	// add diff options
-	optionButtonGroup     = new QVButtonGroup( i18n( "General" ), page );
-	layout->addWidget( optionButtonGroup );
-	optionButtonGroup->setMargin( KDialog::marginHint() );
-
-	m_smallerCheckBox     = new QCheckBox( i18n( "&Look for smaller changes" ), optionButtonGroup );
-	m_largerCheckBox      = new QCheckBox( i18n( "O&ptimize for large files" ), optionButtonGroup );
-	m_caseCheckBox        = new QCheckBox( i18n( "&Ignore changes in case" ), optionButtonGroup );
-
-	QHBoxLayout* groupLayout = new QHBoxLayout( layout, -1, "regexp_horizontal_layout" );
-	groupLayout->setMargin( KDialog::marginHint() );
-
-	m_ignoreRegExpCheckBox = new QCheckBox( i18n( "Ignore regexp:" ), page );
-	groupLayout->addWidget( m_ignoreRegExpCheckBox );
-	m_ignoreRegExpEdit = new KLineEdit( QString::null, page, "regexplineedit" );
-	groupLayout->addWidget( m_ignoreRegExpEdit );
-
-	if ( !KTrader::self()->query("KRegExpEditor/KRegExpEditor").isEmpty() )
-	{
-		// Ok editor is available, use it
-		QButton* ignoreRegExpEditButton = new QPushButton( i18n( "&Edit..." ), page, "regexp_editor_button" );
-		groupLayout->addWidget( ignoreRegExpEditButton );
-		connect( ignoreRegExpEditButton, SIGNAL( clicked() ), this, SLOT( slotShowRegExpEditor() ) );
-	}
-
-	moreOptionButtonGroup = new QVButtonGroup( i18n( "Whitespace" ), page );
-	layout->addWidget( moreOptionButtonGroup );
-	moreOptionButtonGroup->setMargin( KDialog::marginHint() );
-
-	m_tabsCheckBox        = new QCheckBox( i18n( "&Expand tabs to spaces in output" ), moreOptionButtonGroup );
-	m_linesCheckBox       = new QCheckBox( i18n( "I&gnore added or removed empty lines" ), moreOptionButtonGroup );
-	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes in the amount of whitespace" ), moreOptionButtonGroup );
-
-	layout->addStretch( 1 );
-	page->setMinimumSize( sizeHintForWidget( page ) );
-
-	addTab( page, i18n( "O&ptions" ) );
+	addOptionsTab();
 
 #if EXCLUDE_DIFF_OPTION
-	page = new QWidget( this );
-	layout = new QVBoxLayout( page );
-	layout->setSpacing( KDialog::spacingHint() );
-	layout->setMargin( KDialog::marginHint() );
-
-	// FIXME: restore the i18n() call, dunno how smart the extraction script is and i dont want to cause fuzzies
-	QHGroupBox* excludeFilePatternGroupBox = new QHGroupBox( "File pattern to exclude", page );
-	m_excludeFilePatternCheckBox = new QCheckBox( "", excludeFilePatternGroupBox );
-	m_excludeFilePatternComboBox = new KComboBox( true, excludeFilePatternGroupBox, "exclude_file_pattern_combobox" );
-	layout->addWidget( excludeFilePatternGroupBox );
-
-	// FIXME: restore the i18n() call, dunno how smart the extraction script is and i dont want to cause fuzzies
-	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( "File with filenames to exclude", page );
-	m_excludeFileCheckBox     = new QCheckBox( "", excludeFileNameGroupBox );
-	m_excludeFileURLComboBox  = new KURLComboBox( KURLComboBox::Files, true, excludeFileNameGroupBox, "exclude_file_urlcombo" );
-	m_excludeFileURLRequester = new KURLRequester( m_excludeFileURLComboBox, excludeFileNameGroupBox, "exclude_file_name_urlrequester" );
-	layout->addWidget( excludeFileNameGroupBox );
-
-	layout->addStretch( 1 );
-	page->setMinimumSize( sizeHintForWidget( page ) );
-
-	// FIXME: restore the i18n() call, dunno how smart the extraction script is and i dont want to cause fuzzies
-	addTab( page, "&Exclude" );
+	addExcludeTab();
 #endif
 }
 
@@ -194,10 +80,12 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 
 #if EXCLUDE_DIFF_OPTION
 	m_excludeFilePatternCheckBox->setChecked       ( m_settings->m_excludeFilePattern );
+	slotExcludeFilePatternToggled                  ( m_settings->m_excludeFilePattern );
 	m_excludeFilePatternComboBox->setCompletedItems( m_settings->m_excludeFilePatternHistoryList );
 	m_excludeFilePatternComboBox->setCurrentText   ( m_settings->m_excludeFilePatternText );
 
 	m_excludeFileCheckBox->setChecked( m_settings->m_excludeFilesFile );
+	slotExcludeFileToggled           ( m_settings->m_excludeFilesFile );
 	m_excludeFileURLComboBox->setURLs( m_settings->m_excludeFilesFileHistoryList );
 	m_excludeFileURLComboBox->setURL ( m_settings->m_excludeFilesFileURL );
 #endif
@@ -295,5 +183,166 @@ void DiffPrefs::slotShowRegExpEditor()
 	if ( ok )
 		m_ignoreRegExpEdit->setText( iface->regExp() );
 }
+
+#if EXCLUDE_DIFF_OPTION
+void DiffPrefs::slotExcludeFilePatternToggled( bool on )
+{
+	if ( !on )
+	{
+		m_excludeFilePatternComboBox->setEnabled( false );
+	}
+	else
+	{
+		m_excludeFilePatternComboBox->setEnabled( true );
+	}
+}
+
+void DiffPrefs::slotExcludeFileToggled( bool on )
+{
+	if ( !on )
+	{
+		m_excludeFileURLComboBox->setEnabled( false );
+		m_excludeFileURLRequester->setEnabled( false );
+	}
+	else
+	{
+		m_excludeFileURLComboBox->setEnabled( true );
+		m_excludeFileURLRequester->setEnabled( true );
+	}
+}
+#endif
+
+void DiffPrefs::addDiffTab()
+{
+	QWidget* page   = new QWidget( this );
+	QVBoxLayout* layout = new QVBoxLayout( page );
+	layout->setSpacing( KDialog::spacingHint() );
+	layout->setMargin( KDialog::marginHint() );
+
+	// add diff program selector
+	m_diffProgramGroup = new QVButtonGroup( i18n( "Diff Program" ), page );
+	layout->addWidget( m_diffProgramGroup );
+	m_diffProgramGroup->setMargin( KDialog::marginHint() );
+
+	m_diffURLRequester = new KURLRequester( m_diffProgramGroup, "diffURLRequester" );
+
+	layout->addStretch( 1 );
+	page->setMinimumSize( sizeHintForWidget( page ) );
+
+	addTab( page, i18n( "&Diff" ) );
+}
+
+void DiffPrefs::addFormatTab()
+{
+	QWidget* page   = new QWidget( this );
+	QVBoxLayout* layout = new QVBoxLayout( page );
+	layout->setSpacing( KDialog::spacingHint() );
+	layout->setMargin( KDialog::marginHint() );
+
+	// add diff modes
+	m_modeButtonGroup = new QVButtonGroup( i18n( "Output Format" ), page );
+	layout->addWidget( m_modeButtonGroup );
+	m_modeButtonGroup->setMargin( KDialog::marginHint() );
+
+	QRadioButton* radioButton;
+	radioButton = new QRadioButton( i18n( "Context" ), m_modeButtonGroup );
+	radioButton = new QRadioButton( i18n( "Ed" ),      m_modeButtonGroup );
+	radioButton = new QRadioButton( i18n( "Normal" ),  m_modeButtonGroup );
+	radioButton = new QRadioButton( i18n( "RCS" ),     m_modeButtonGroup );
+	radioButton = new QRadioButton( i18n( "Unified" ), m_modeButtonGroup );
+
+	// #lines of context (loc)
+	QHGroupBox* groupBox = new QHGroupBox( i18n( "Lines of Context" ), page );
+	layout->addWidget( groupBox );
+	groupBox->setMargin( KDialog::marginHint() );
+
+	QLabel* label = new QLabel( i18n( "Number of context lines:" ), groupBox );
+	m_locSpinBox = new QSpinBox( 0, 100, 1, groupBox );
+	label->setBuddy( m_locSpinBox );
+
+	layout->addStretch( 1 );
+	page->setMinimumSize( sizeHintForWidget( page ) );
+
+	addTab( page, i18n( "&Format" ) );
+}
+
+void DiffPrefs::addOptionsTab()
+{
+	QWidget* page   = new QWidget( this );
+	QVBoxLayout* layout = new QVBoxLayout( page );
+	layout->setSpacing( KDialog::spacingHint() );
+	layout->setMargin( KDialog::marginHint() );
+
+	// add diff options
+	QVButtonGroup* optionButtonGroup     = new QVButtonGroup( i18n( "General" ), page );
+	layout->addWidget( optionButtonGroup );
+	optionButtonGroup->setMargin( KDialog::marginHint() );
+
+	m_smallerCheckBox     = new QCheckBox( i18n( "&Look for smaller changes" ), optionButtonGroup );
+	m_largerCheckBox      = new QCheckBox( i18n( "O&ptimize for large files" ), optionButtonGroup );
+	m_caseCheckBox        = new QCheckBox( i18n( "&Ignore changes in case" ), optionButtonGroup );
+
+	QHBoxLayout* groupLayout = new QHBoxLayout( layout, -1, "regexp_horizontal_layout" );
+	groupLayout->setMargin( KDialog::marginHint() );
+
+	m_ignoreRegExpCheckBox = new QCheckBox( i18n( "Ignore regexp:" ), page );
+	groupLayout->addWidget( m_ignoreRegExpCheckBox );
+	m_ignoreRegExpEdit = new KLineEdit( QString::null, page, "regexplineedit" );
+	groupLayout->addWidget( m_ignoreRegExpEdit );
+
+	if ( !KTrader::self()->query("KRegExpEditor/KRegExpEditor").isEmpty() )
+	{
+		// Ok editor is available, use it
+		QButton* ignoreRegExpEditButton = new QPushButton( i18n( "&Edit..." ), page, "regexp_editor_button" );
+		groupLayout->addWidget( ignoreRegExpEditButton );
+		connect( ignoreRegExpEditButton, SIGNAL( clicked() ), this, SLOT( slotShowRegExpEditor() ) );
+	}
+
+	QVButtonGroup* moreOptionButtonGroup = new QVButtonGroup( i18n( "Whitespace" ), page );
+	layout->addWidget( moreOptionButtonGroup );
+	moreOptionButtonGroup->setMargin( KDialog::marginHint() );
+
+	m_tabsCheckBox        = new QCheckBox( i18n( "&Expand tabs to spaces in output" ), moreOptionButtonGroup );
+	m_linesCheckBox       = new QCheckBox( i18n( "I&gnore added or removed empty lines" ), moreOptionButtonGroup );
+	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes in the amount of whitespace" ), moreOptionButtonGroup );
+
+	layout->addStretch( 1 );
+	page->setMinimumSize( sizeHintForWidget( page ) );
+
+	addTab( page, i18n( "O&ptions" ) );
+}
+
+#if EXCLUDE_DIFF_OPTION
+void DiffPrefs::addExcludeTab()
+{
+	QWidget* page = new QWidget( this );
+	QVBoxLayout* layout = new QVBoxLayout( page );
+	layout->setSpacing( KDialog::spacingHint() );
+	layout->setMargin( KDialog::marginHint() );
+
+	// FIXME: restore the i18n() call, dunno how smart the extraction script is and i dont want to cause fuzzies
+	QHGroupBox* excludeFilePatternGroupBox = new QHGroupBox( "File pattern to exclude", page );
+	m_excludeFilePatternCheckBox = new QCheckBox( "", excludeFilePatternGroupBox );
+	m_excludeFilePatternComboBox = new KComboBox( true, excludeFilePatternGroupBox, "exclude_file_pattern_combobox" );
+	layout->addWidget( excludeFilePatternGroupBox );
+
+	connect( m_excludeFilePatternCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFilePatternToggled(bool)));
+
+	// FIXME: restore the i18n() call, dunno how smart the extraction script is and i dont want to cause fuzzies
+	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( "File with filenames to exclude", page );
+	m_excludeFileCheckBox     = new QCheckBox( "", excludeFileNameGroupBox );
+	m_excludeFileURLComboBox  = new KURLComboBox( KURLComboBox::Files, true, excludeFileNameGroupBox, "exclude_file_urlcombo" );
+	m_excludeFileURLRequester = new KURLRequester( m_excludeFileURLComboBox, excludeFileNameGroupBox, "exclude_file_name_urlrequester" );
+	layout->addWidget( excludeFileNameGroupBox );
+
+	connect( m_excludeFileCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFileToggled(bool)));
+
+	layout->addStretch( 1 );
+	page->setMinimumSize( sizeHintForWidget( page ) );
+
+	// FIXME: restore the i18n() call, dunno how smart the extraction script is and i dont want to cause fuzzies
+	addTab( page, "&Exclude" );
+}
+#endif
 
 #include "diffprefs.moc"

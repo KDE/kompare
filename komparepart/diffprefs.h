@@ -54,6 +54,16 @@ public:
 
 protected slots:
 	void slotShowRegExpEditor();
+#if EXCLUDE_DIFF_OPTION
+	void slotExcludeFilePatternToggled( bool );
+	void slotExcludeFileToggled( bool );
+#endif
+
+private:
+	void addDiffTab();
+	void addFormatTab();
+	void addOptionsTab();
+	void addExcludeTab();
 
 public:
 	DiffSettings*  m_settings;

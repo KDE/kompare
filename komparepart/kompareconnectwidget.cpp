@@ -112,6 +112,7 @@ KompareConnectWidget::KompareConnectWidget( KompareListView* left, KompareListVi
 //	connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( slotDelayedRepaint() ) );
 	setBackgroundMode( NoBackground );
 	setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum ) );
+	setFocusProxy( parent->parentWidget() );
 }
 
 KompareConnectWidget::~KompareConnectWidget()

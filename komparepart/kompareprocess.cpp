@@ -50,8 +50,8 @@ KompareProcess::KompareProcess( QString source, QString destination, QString dir
 	
 	// Write file names
 	*this << "--";
-	*this << KProcess::quote( constructRelativePath( dir, source ) );
-	*this << KProcess::quote( constructRelativePath( dir, destination ) );
+	*this << KShellProcess::quote( constructRelativePath( dir, source ) );
+	*this << KShellProcess::quote( constructRelativePath( dir, destination ) );
 }
 
 void KompareProcess::writeDefaultCommandLine()

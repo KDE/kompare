@@ -42,7 +42,7 @@ static KCmdLineOptions options[] =
 	{ "+[URL1 [URL2]]",0 , 0 },
 	{ "+-", 0, 0 },
 //	{ "", I18N_NOOP( "" ), 0 },
-	{ 0, 0, 0 }
+	KCmdLineLastOption
 };
 
 int main(int argc, char *argv[])

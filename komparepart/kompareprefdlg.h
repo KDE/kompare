@@ -36,7 +36,7 @@ public:
 public:
 	GeneralPrefs*	m_generalPage;
 	DiffPrefs*	m_diffPage;
-	MiscPrefs*	m_miscPage;
+//	MiscPrefs*	m_miscPage;
 
 protected slots:
 	/** No descriptions */

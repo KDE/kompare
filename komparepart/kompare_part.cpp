@@ -154,7 +154,7 @@ void KomparePart::setupActions()
 	m_saveAll         = new KAction( i18n("Save &All"), "save_all", 0,
 	                                 this, SLOT(saveAll()),
 	                                 actionCollection(), "file_save_all" );
-	m_saveDiff        = new KAction( i18n("Save .&diff"), 0,
+	m_saveDiff        = new KAction( i18n("Save .&diff..."), 0,
 	                                 this, SLOT(saveDiff()),
 	                                 actionCollection(), "file_save_diff" );
 	m_swap            = new KAction( i18n( "Swap Source with Destination" ), 0,
@@ -476,14 +476,42 @@ void KomparePart::saveDiff()
 		KConfig* config = instance()->config();
 		saveProperties( config );
 		config->sync();
-		KURL url = KFileDialog::getSaveURL( m_info.destination.url(),
-		              i18n("*.diff *.dif *.patch|Patch files"), widget(), i18n( "Save .diff" ) );
-		// FIXME: if url is remote we still need to upload it
-		kdDebug(8103) << "URL = " << url.prettyURL() << endl;
-		kdDebug(8103) << "Directory = " << w->directory() << endl;
-		kdDebug(8103) << "DiffSettings = " << m_diffSettings << endl;
 
-		m_modelList->saveDiff( url.url(), w->directory(), m_diffSettings );
+		while ( 1 )
+		{
+			KURL url = KFileDialog::getSaveURL( m_info.destination.url(),
+			              i18n("*.diff *.dif *.patch|Patch files"), widget(), i18n( "Save .diff" ) );
+			if ( KIO::NetAccess::exists( url, false, widget() ) )
+			{
+				int result = KMessageBox::warningYesNoCancel( widget(), i18n("The file exists or is write protected, do you want to overwrite it ?"), i18n("File Exists") );
+				if ( result == KMessageBox::Cancel )
+				{
+					break;
+				}
+				else if ( result == KMessageBox::No )
+				{
+					continue;
+				}
+				else
+				{
+					kdDebug(8103) << "URL = " << url.prettyURL() << endl;
+					kdDebug(8103) << "Directory = " << w->directory() << endl;
+					kdDebug(8103) << "DiffSettings = " << m_diffSettings << endl;
+
+					m_modelList->saveDiff( url.url(), w->directory(), m_diffSettings );
+					break;
+				}
+			}
+			else
+			{
+				kdDebug(8103) << "URL = " << url.prettyURL() << endl;
+				kdDebug(8103) << "Directory = " << w->directory() << endl;
+				kdDebug(8103) << "DiffSettings = " << m_diffSettings << endl;
+
+				m_modelList->saveDiff( url.url(), w->directory(), m_diffSettings );
+				break;
+			}
+		}
 	}
 	delete dlg;
 }

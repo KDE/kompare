@@ -22,6 +22,7 @@
 
 #include <qptrlist.h>
 #include <qstringlist.h>
+#include <qvaluevector.h>
 
 #include <kdebug.h>
 
@@ -97,9 +98,9 @@ private:
 
 class LevenshteinTable;
 
-typedef QValueList<DifferenceString*> DifferenceStringList;
-typedef QValueListIterator<DifferenceString*> DifferenceStringListIterator;
-typedef QValueListConstIterator<DifferenceString*> DifferenceStringListConstIterator;
+typedef QValueVector<DifferenceString*> DifferenceStringList;
+typedef QValueVector<DifferenceString*>::iterator DifferenceStringListIterator;
+typedef QValueVector<DifferenceString*>::const_iterator DifferenceStringListConstIterator;
 
 class Difference
 {

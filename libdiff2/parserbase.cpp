@@ -15,18 +15,7 @@
 **
 ***************************************************************************/
 
-//#include <qstring.h>
-
-#if INLINE_DIFFERENCES
-#include <iostream>
-
-#include <qptrlist.h>
-#endif
-
 #include <kdebug.h>
-#if INLINE_DIFFERENCES
-#include <kglobal.h>
-#endif
 
 #include "diffmodel.h"
 #include "diffhunk.h"
@@ -40,10 +29,8 @@ ParserBase::ParserBase( const QStringList& diff ) :
     m_diffLines( diff ),
     m_currentModel( 0 ),
     m_models( 0 ),
-    m_diffIterator( m_diffLines.begin() )
-#if INLINE_DIFFERENCES
-    ,m_levenshteinTable( 0 )
-#endif
+    m_diffIterator( m_diffLines.begin() ),
+    m_singleFileDiff( false )
 {
 //	kdDebug(8101) << diff << endl;
 //	kdDebug(8101) << m_diffLines << endl;
@@ -164,7 +151,7 @@ bool ParserBase::parseNormalDiffHeader()
 
 	while ( m_diffIterator != m_diffLines.end() )
 	{
-		if ( m_normalDiffHeader.exactMatch( *(m_diffIterator)++ ) )
+		if ( m_normalDiffHeader.exactMatch( *m_diffIterator ) )
 		{
 //			kdDebug(8101) << "Matched length Header = " << m_normalDiffHeader.matchedLength() << endl;
 //			kdDebug(8101) << "Matched string Header = " << m_normalDiffHeader.cap( 0 ) << endl;
@@ -175,8 +162,22 @@ bool ParserBase::parseNormalDiffHeader()
 
 			result = true;
 
+			++m_diffIterator;
 			break;
 		}
+		else
+		{
+			kdDebug(8101) << "No match for: " << ( *m_diffIterator ) << endl;
+		}
+		++m_diffIterator;
+	}
+
+	if ( result == false )
+	{
+		// Set this to the first line again and hope it is a single file diff
+		m_diffIterator = m_diffLines.begin();
+		m_currentModel = new DiffModel();
+		m_singleFileDiff = true;
 	}
 
 	return result;
@@ -194,8 +195,9 @@ bool ParserBase::parseUnifiedDiffHeader()
 
 	while ( m_diffIterator != m_diffLines.end() ) // dont assume we start with the diffheader1 line
 	{
-		if ( !m_unifiedDiffHeader1.exactMatch( *(m_diffIterator)++ ) )
+		if ( !m_unifiedDiffHeader1.exactMatch( *m_diffIterator ) )
 		{
+			++m_diffIterator;
 			continue;
 		}
 //		kdDebug(8101) << "Matched length Header1 = " << m_unifiedDiffHeader1.matchedLength() << endl;
@@ -233,7 +235,7 @@ bool ParserBase::parseContextHunkHeader()
 	if ( !m_contextHunkHeader1.exactMatch( *(m_diffIterator) ) )
 		return false; // big fat trouble, aborting...
 
-	m_diffIterator++;
+	++m_diffIterator;
 
 	if ( m_diffIterator == m_diffLines.end() )
 		return false;
@@ -241,7 +243,7 @@ bool ParserBase::parseContextHunkHeader()
 	if ( !m_contextHunkHeader2.exactMatch( *(m_diffIterator) ) )
 		return false; // big fat trouble, aborting...
 
-	m_diffIterator++;
+	++m_diffIterator;
 
 	return true;
 }
@@ -272,7 +274,7 @@ bool ParserBase::parseNormalHunkHeader()
 		else
 			return false;
 
-		m_diffIterator++;
+		++m_diffIterator;
 		return true;
 	}
 
@@ -290,7 +292,7 @@ bool ParserBase::parseUnifiedHunkHeader()
 
 	if ( m_unifiedHunkHeader.exactMatch( *m_diffIterator ) )
 	{
-		m_diffIterator++;
+		++m_diffIterator;
 		return true;
 	}
 	else
@@ -311,8 +313,10 @@ bool ParserBase::parseContextHunkBody()
 		oldLines.append( *m_diffIterator );
 	}
 
-	if( !m_contextHunkHeader3.exactMatch( *(m_diffIterator)++ ) )
+	if( !m_contextHunkHeader3.exactMatch( *m_diffIterator ) )
 		return false;
+
+	++m_diffIterator;
 
 	// Storing the dest part of the hunk for later use
 	QStringList newLines;
@@ -594,7 +598,8 @@ QPtrList<DiffModel>* ParserBase::parseEd()
 	{
 		while ( parseEdHunkHeader() )
 			parseEdHunkBody();
-		m_models->append( m_currentModel );
+		if ( m_currentModel->differenceCount() > 0 )
+			m_models->append( m_currentModel );
 	}
 
 	if ( m_models->count() > 0 )
@@ -614,7 +619,16 @@ QPtrList<DiffModel>* ParserBase::parseNormal()
 	{
 		while ( parseNormalHunkHeader() )
 			parseNormalHunkBody();
-		m_models->append( m_currentModel );
+		if ( m_currentModel->differenceCount() > 0 )
+			m_models->append( m_currentModel );
+	}
+
+	if ( m_singleFileDiff )
+	{
+		while ( parseNormalHunkHeader() )
+			parseNormalHunkBody();
+		if ( m_currentModel->differenceCount() > 0 )
+			m_models->append( m_currentModel );
 	}
 
 	if ( m_models->count() > 0 )
@@ -634,7 +648,8 @@ QPtrList<DiffModel>* ParserBase::parseRCS()
 	{
 		while ( parseRCSHunkHeader() )
 			parseRCSHunkBody();
-		m_models->append( m_currentModel );
+		if ( m_currentModel->differenceCount() > 0 )
+			m_models->append( m_currentModel );
 	}
 
 	if ( m_models->count() > 0 )
@@ -654,7 +669,8 @@ QPtrList<DiffModel>* ParserBase::parseUnified()
 	{
 		while ( parseUnifiedHunkHeader() )
 			parseUnifiedHunkBody();
-		m_models->append( m_currentModel );
+		if ( m_currentModel->differenceCount() > 0 )
+			m_models->append( m_currentModel );
 	}
 
 	if ( m_models->count() > 0 )

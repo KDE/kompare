@@ -18,11 +18,6 @@
 #ifndef _DIFF2_PARSERBASE_H
 #define _DIFF2_PARSERBASE_H
 
-//#define INLINE_DIFFERENCES 1
-
-#if INLINE_DIFFERENCES
-#include <qptrlist.h>
-#endif
 #include <qregexp.h>
 
 #include "kompare.h"
@@ -34,10 +29,6 @@ class QString;
 
 namespace Diff2
 {
-
-#if INLINE_DIFFERENCES
-class Table;
-#endif
 
 class ParserBase
 {
@@ -126,9 +117,7 @@ protected:
 	QPtrList<DiffModel>*       m_models;
 	QStringList::ConstIterator m_diffIterator;
 
-#if INLINE_DIFFERENCES
-	Table* m_levenshteinTable;
-#endif
+	bool                       m_singleFileDiff;
 };
 
 } // End of namespace Diff2

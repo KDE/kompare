@@ -25,6 +25,7 @@
 #include <kstdaction.h>
 #include <kmessagebox.h>
 #include <kfiledialog.h>
+#include <ksqueezedtextlabel.h>
 #include <kuserprofile.h>
 #include <kdebug.h>
 
@@ -195,8 +196,9 @@ void KompareShell::setupStatusBar()
 	// Made these entries permanent so they will appear on the right side
 	statusBar()->insertItem( i18n(" 0 of 0 differences "), ID_N_OF_N_DIFFERENCES, 0, true );
 	statusBar()->insertItem( i18n(" 0 of 0 files "), ID_N_OF_N_FILES, 0, true );
-	statusBar()->insertItem( "", ID_GENERAL, 1 );
-	statusBar()->setItemAlignment( ID_GENERAL, AlignLeft );
+	m_generalLabel = new KSqueezedTextLabel( "", 0, "general_statusbar_label" );
+	statusBar()->addWidget( m_generalLabel, 1, false );
+	m_generalLabel->setAlignment( Qt::AlignLeft );
 }
 
 void KompareShell::updateStatusBar()
@@ -226,7 +228,7 @@ void KompareShell::updateStatusBar()
 
 void KompareShell::slotSetStatusBarText( const QString& text )
 {
-	statusBar()->changeItem( text, ID_GENERAL );
+	m_generalLabel->setText( text );
 }
 
 void KompareShell::setCaption( const QString& caption )

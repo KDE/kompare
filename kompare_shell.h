@@ -32,7 +32,8 @@
 #include "kompare.h"
 
 class KToggleAction;
-
+class KSqueezedTextLabel;
+ 
 class KomparePart;
 class KompareNavTreePart;
 
@@ -125,6 +126,8 @@ private:
 	KToggleAction*        m_showTextView;
 	
 	enum Kompare::Mode    m_mode;
+	// This is the statusbarwidget for displaying the general stuff
+	KSqueezedTextLabel*   m_generalLabel;
 };
 
 #endif // KOMPARE_H

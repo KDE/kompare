@@ -1228,7 +1228,7 @@ void KompareModelList::slotSetModified( bool modified )
 
 	if ( m_noOfModified < 0 )
 	{
-		kdDebug(8101) << "Wow something is fucked up..." << endl;
+		kdDebug(8101) << "Wow something is ****ed up..." << endl;
 	}
 	else if ( m_noOfModified == 0 )
 	{

@@ -22,7 +22,7 @@ bin_PROGRAMS = kdiff
 # the application source, library search path, and link libraries
 kdiff_SOURCES = main.cpp kdiff_shell.cpp kcomparedialog.cpp
 kdiff_LDFLAGS = $(KDE_RPATH) $(all_libraries)
-kdiff_LDADD   = $(LIB_KPARTS) $(top_srcdir)/kdiff/kdiff/kdiffpart/libkdiffpart.la
+kdiff_LDADD   = $(LIB_KPARTS) $(top_builddir)/kdiff/kdiff/kdiffpart/libkdiffpart.la
 
 # this is where the desktop file will go
 shelldesktopdir   = $(kde_appsdir)/Utilities

@@ -1,0 +1,170 @@
+Index: NEWS
+===================================================================
+1c1
+< 
+---
+> just a fake modif for kompare tests
+Index: README
+===================================================================
+1,114c1,2
+< 						Vim KPart
+< 
+< 
+< 									by Philippe Fremy <pfremy@kde.com>
+< 
+< 
+< Okay, I made it : a Vim KPart!
+< 
+< This means that you can have Vim embedded inside Konqueror, and everywhere a
+< text ReadWrite or ReadOnly KPart is requested. Actually, there is almost no
+< place right now where this is the case in KDE. KMail uses its own editor,
+< KDEvelop uses its own editor, Kate uses some more powerful Kate component.
+< 
+< But this only the beginning. Enabling a part in those programs shouldn't be
+< much hassle and you can probably help me do it. My hope is really to get
+< KDevelop use Vim.
+< 
+< 
+< ======= OBSOLETE ===========
+< Requirements:
+< -------------
+< To make this KPart work, you need a graphicial Vim version 6 with the client-server stuff feature activated and with the vim60-vimpart-patch.diff applied. The patch is in this dir. I hope to get it into the main Vim tree.  KVim has already the patch but is slightly less stable that the original GVim.  A big advantage of KVim is that you get the native KDE dialogs when vim asks a question.
+< 
+< 
+< ======= OBSOLETE ===========
+< Installation:
+< -------------
+< To make your vimpart work, you'll have to go into the vimpart directory and run "testVim your_patched_vim". If the test does work, a file goodVim will be created. You will be able to install and use the component. Else, the test will report why it fails (features missing in vim).
+< 
+< 
+< 
+< ======= OBSOLETE ===========
+< Testing:
+< --------
+< If you want to see your component without installing it, you can do the
+< following:
+< 
+< 1. configure, build. Then go into the Vimpart subdirectory.
+< 
+< 2. Include the current Vimpart directory in your KDEDIRS:
+< export KDEDIRS=`pwd`:$KDEDIR
+< 
+< 3. Symlink .libs to lib
+< ln -s .libs lib
+< 
+< 4. Create pseudo share/services dir:
+< mkdir share; mkdir share/services;
+< 
+< 5. Symlink to Vimpart.desktop:
+< ln -s Vimpart.desktop share/services/Vimpart.desktop
+< 
+< 6. Create a pseudo share/config dir
+< mkdir share/config;
+< 
+< 7. Symlink to vimwidgetrc
+< ln -s vimwidgetrc share/config/vimwidgetrc
+< 
+< 8. Update the desktop mimetype database:
+< kbuildsycoca
+< 
+< To test it, run VimPartShell. Or run konqueror from this dir and click on a
+< text file.
+< 
+< 
+< ======= OBSOLETE ===========
+< Remarks:
+< --------
+< The initial preference of the Vim KPart is 10. Kate uses 8, so if you install the part, it will override Kate for all the mimetypes. You can always change that by manually editing the initial preference in the desktop file or by simply selecting which editor you prefer for which mimetype in the control center.
+< 
+< If you find some mimetype not handled by the Vim KPart although they should be, send me a patch!
+< 
+< 
+< 
+< How it works:
+< -------------
+< At the beginning, we started to write KVim, a port of GVim to KDE to make
+< it possible to embed Vim inside KDE. But with the latest version of Vim, it
+< turns out that it is not necessary to have a native Vim.
+< 
+< 
+< I use QXembed, a widget which can embed any X application if it knows its X Window Id, using some X feature.  The patch I provide will make vim displays its window id on stdout when the window is mapped. GVim 6.0 then provides a way to send commands to a Vim window from another process. If you look at the VimWidget source, you will see that 70% of the code is there to handle the communication process. The rest uses the communication channel to send the vim commands needed by kpart and ktexteditor.
+< 
+< As far as I can tell, the part is race-condition free. If you issue many sendNormalCmd and many evalExpr, they are guaranted to be executed sequentially. This has caused me enough problems when it wasn't the case!
+< 
+< 
+< Qt, KDE2 and KDE3:
+< ------------------
+< The VimWidget itself depends very litle on KDE. It is quite easy to port remove the KDE specific stuff, to use it in a Qt only program. In fact, at the beginning, it was only Qt-based.
+< 
+< 
+< 
+< ======= OBSOLETE ===========
+< Features & TODO:
+< ----------------
+< I think most basic features required by an editor widget or part are supported. There are some possible improvement but I would like more feedback to know what really needs to be done. So don't hesitate to write me about your feelings using this.
+< 
+< My TODO list is:
+< - restore the editing mode after sendCmd
+< - implement KTextEditor interface
+< - add some useful actions to the part (like search, ...)
+< 
+< 
+< 
+< Feedback:
+< ---------
+< For the Vim KPart : pfremy@kde.com
+< For KVim: pfremy@kde.org, mikmak@freenux.org, orzel@kde.org
+< 
+< 
+< 
+< 
+< 
+< 
+< 
+---
+> Yes, that's really a Vim Komponent :)
+> Yes, you can have Vim inside KDE apps, you guessed it :)
+115a4,43
+> So, it's designed for KDE 3.x (if someone wants to port it to KDE 2 that
+> should be easy), it uses GVim or KVim (even Motif Vim works) 6.x.
+> It can be used in different apps : 
+> 	- KDevelop (version 3)
+> 	- Konqueror (as a file viewer)
+> 	- KWrite
+> 	- KMail (coming in KDE 3.2)
+> 	- Kompare, KBabel ........ ;)
+> 
+> CONFIGURATION
+> =============
+> once you compiled and installed it as any other app, 
+> start your KDE Control Center, go to the file manager section
+> and open the Vim Component configuration module.
+> Here, you have to select a Vim executable which may be found on 
+> your computer (generally /usr/bin/vim) will do it fine for most
+> linux distributions. All you need is that it's a GUI-enabled Vim 6.0 or
+> better.
+> Push the test button, if that's okay then that's should be enough to start
+> using it :)
+> 
+> FUNCTIONMENT
+> ============
+> Philippe Fremy (pfremy@kde.com) wrote the initial version of this kpart.
+> The concept is to start a normal GUI Vim (like gvim), then "embeds" the Vim
+> window into a KDE Widget.
+> It used to be based on the ClientServer feature of Vim (type :help
+> clientserver in Vim for more info) using external processus to control the
+> embedded Vim. That was running quite fine, but was slow :/
+> We changed that :)
+> Now we communicate directly from the kpart to the embedded Vim thanks to X11
+> without using externals processus. That's much faster and reliable ;)
+> KVim has also another remote control system using KDE's DCOP communication
+> backend.
+> Currently I would advice people to use DCOP when running KVim and using X11
+> communication with GVim (DCOP won't work with GVim anyway).
+> There may be some differences in speed, though I have not noticed it here.
+> The most important difference is that DCOP provides a signal system and that can
+> make a difference to improve the interaction between KVim and the hosting
+> application (KDevelop for example). But it's not yet used.
+116a45,46
+> Hope you'll enjoy Vim inside KDE :)
+> Mickael "Mikmak" Marchand (marchand@kde.org)

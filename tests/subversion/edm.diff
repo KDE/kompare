@@ -1,0 +1,57 @@
+Index: NEWS
+===================================================================
+1c
+just a fake modif for kompare tests
+.
+Index: README
+===================================================================
+116a
+Hope you'll enjoy Vim inside KDE :)
+Mickael "Mikmak" Marchand (marchand@kde.org)
+.
+115a
+So, it's designed for KDE 3.x (if someone wants to port it to KDE 2 that
+should be easy), it uses GVim or KVim (even Motif Vim works) 6.x.
+It can be used in different apps : 
+	- KDevelop (version 3)
+	- Konqueror (as a file viewer)
+	- KWrite
+	- KMail (coming in KDE 3.2)
+	- Kompare, KBabel ........ ;)
+
+CONFIGURATION
+=============
+once you compiled and installed it as any other app, 
+start your KDE Control Center, go to the file manager section
+and open the Vim Component configuration module.
+Here, you have to select a Vim executable which may be found on 
+your computer (generally /usr/bin/vim) will do it fine for most
+linux distributions. All you need is that it's a GUI-enabled Vim 6.0 or
+better.
+Push the test button, if that's okay then that's should be enough to start
+using it :)
+
+FUNCTIONMENT
+============
+Philippe Fremy (pfremy@kde.com) wrote the initial version of this kpart.
+The concept is to start a normal GUI Vim (like gvim), then "embeds" the Vim
+window into a KDE Widget.
+It used to be based on the ClientServer feature of Vim (type :help
+clientserver in Vim for more info) using external processus to control the
+embedded Vim. That was running quite fine, but was slow :/
+We changed that :)
+Now we communicate directly from the kpart to the embedded Vim thanks to X11
+without using externals processus. That's much faster and reliable ;)
+KVim has also another remote control system using KDE's DCOP communication
+backend.
+Currently I would advice people to use DCOP when running KVim and using X11
+communication with GVim (DCOP won't work with GVim anyway).
+There may be some differences in speed, though I have not noticed it here.
+The most important difference is that DCOP provides a signal system and that can
+make a difference to improve the interaction between KVim and the hosting
+application (KDevelop for example). But it's not yet used.
+.
+1,114c
+Yes, that's really a Vim Komponent :)
+Yes, you can have Vim inside KDE apps, you guessed it :)
+.

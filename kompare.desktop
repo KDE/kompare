@@ -1,0 +1,12 @@
+# KDE Config File  
+[Desktop Entry]
+Type=Application
+Exec=kdiff -caption "%c" %i %m  
+Icon=kdiff.png
+MiniIcon=kdiff.png
+DocPath=kdiff/index.html
+Comment=
+Comment[de]=
+Terminal=0
+Name=KDiff
+Name[de]=KDiff

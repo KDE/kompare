@@ -559,6 +559,24 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 	return 0;
 }
 
+QString DiffModel::sourceFile()
+{
+	int i = m_sourceFile.findRev( "/" );
+	if( i >= 0 )
+		return QString( m_sourceFile ).replace( 0, i+1, "" );
+	else
+		return m_sourceFile;
+}
+
+QString DiffModel::destinationFile()
+{
+	int i = m_destinationFile.findRev( "/" );
+	if( i >= 0 )
+		return QString( m_destinationFile ).replace( 0, i+1, "" );
+	else
+		return m_destinationFile;
+}
+
 void DiffModel::toggleApplied( int diffIndex )
 {
 	Difference* d = m_differences.at( diffIndex );

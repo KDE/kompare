@@ -57,8 +57,8 @@ public:
 	const QList<Difference>& getDifferences() const
 		{ return m_differences; };
 
-	QString sourceFile() { return KURL( m_sourceFile ).filename(); };
-	QString destinationFile() { return KURL( m_destinationFile ).filename(); };
+	QString sourceFile();
+	QString destinationFile();
 	QString sourceTimestamp() { return m_sourceTimestamp; };
 	QString destinationTimestamp() { return m_destinationTimestamp; };
 

@@ -134,7 +134,7 @@ void ViewPage::setSettings( ViewSettings* setts )
 	m_snolSpinBox->setValue       ( m_settings->m_scrollNoOfLines );
 	m_tabSpinBox->setValue        ( m_settings->m_tabToNumberOfSpaces );
 
-	m_fontCombo->setCurrentFont   ( m_settings->m_font );
+	m_fontCombo->setCurrentFont   ( m_settings->m_font.family() );
 	m_fontSizeSpinBox->setValue   ( m_settings->m_fontSize );
 }
 

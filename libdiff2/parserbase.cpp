@@ -382,8 +382,8 @@ bool ParserBase::parseContextHunkBody()
 				linenoB++;
 			}
 		}
-		else if(  ( oldIt != oldLines.end() && m_contextHunkBodyContext.exactMatch( *oldIt ) ) ||
-		          ( newIt != newLines.end() && m_contextHunkBodyContext.exactMatch( *newIt ) ) )
+		else if(  ( oldIt == oldLines.end() || m_contextHunkBodyContext.exactMatch( *oldIt ) ) &&
+		          ( newIt == newLines.end() || m_contextHunkBodyContext.exactMatch( *newIt ) ) )
 		{
 //			kdDebug(8101) << "Unchanged: " << endl;
 			diff = new Difference( linenoA, linenoB );

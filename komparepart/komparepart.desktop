@@ -1,13 +1,17 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KomparePart
+Name[af]=k-vergelyk-deel
 Name[de]=Einbettungsfähiges Kompare-Programm
 Name[eo]=Komparo-parto
 Name[fr]=Composant de comparaison de fichiers
 Name[he]=רכיב Kompare
 Name[lv]=SalīdzinātDaļu
+Name[pl]=Moduł Kompare
 Name[pt_BR]=Parte do Kompare
+Name[ro]=Componentă Kompare
 Name[sv]=Kompare-del
+Name[th]=ส่วนเปรียบเทียบ
 Name[xx]=xx
 Name[zu]=Ingxenye yeKompare
 MimeType=text/x-diff

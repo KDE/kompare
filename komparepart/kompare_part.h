@@ -169,7 +169,7 @@ public slots:
 signals:
 	void appliedChanged();
 	void diffURLChanged();
-	void basePathsChanged( const QString& source, const QString& destination );
+	void kompareInfo( Kompare::Info* info );
 	void setStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
 //	void setStatusBarText( const QString& text );
 
@@ -227,10 +227,12 @@ private:
 
 	KTempFile*               m_tempDiff;
 
-	KURL                     m_sourceURL;
+/*	KURL                     m_sourceURL;
 	KURL                     m_destinationURL;
 	QString                  m_localSource;
 	QString                  m_localDestination;
+*/
+	struct Kompare::Info     m_info;
 };
 
 class KInstance;

@@ -138,8 +138,8 @@ KompareShell::KompareShell()
 	connect( m_viewPart, SIGNAL( modelsChanged(const QPtrList<Diff2::DiffModel>*) ),
 	         m_navTreePart, SLOT( slotModelsChanged( const QPtrList<Diff2::DiffModel>*) ) );
 
-	connect( m_viewPart, SIGNAL( basePathsChanged(const QString&, const QString&) ),
-	         m_navTreePart, SLOT( slotBasePathsChanged(const QString&, const QString&) ) );
+	connect( m_viewPart, SIGNAL( kompareInfo(Kompare::Info*) ),
+	         m_navTreePart, SLOT( slotKompareInfo(Kompare::Info*) ) );
 
 	connect( m_navTreePart, SIGNAL( selectionChanged(const Diff2::DiffModel*, const Diff2::Difference*) ),
 	         m_viewPart, SIGNAL( selectionChanged(const Diff2::DiffModel*, const Diff2::Difference*) ) );

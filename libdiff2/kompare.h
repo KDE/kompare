@@ -38,7 +38,7 @@ namespace Kompare
 		CVSDiff          = 0,
 		Diff             = 1,
 		Perforce         = 2,
-		Reserved1        = 3,
+		SubVersion       = 3,
 		Reserved2        = 4,
 		Reserved3        = 5,
 		Reserved4        = 6,
@@ -49,14 +49,18 @@ namespace Kompare
 	};
 
 	enum Mode {
-		ComparingFiles,
-		ComparingDirs,
-		ShowingDiff
+		ComparingFiles,  // compareFiles
+		ComparingDirs,   // compareDirs
+		ShowingDiff,     // openDiff
+		BlendingDir,     // openDirAnfDiff
+		BlendingFile,    // openFileAndDiff
+		UnknownMode      // Used to initialize the Infoi struct
 	};
 
 	enum DiffMode {
 		Default,
-		Custom
+		Custom,
+		UnknownDiffMode // Use to initialize the Info struct
 	};
 
 	enum Status {
@@ -72,9 +76,35 @@ namespace Kompare
 		Destination
 	};
 
-	enum Type {
-		SingleFileDiff,
-		MultiFileDiff
+	struct Info {
+		Info (
+			enum Mode _mode = UnknownMode,
+			enum DiffMode _diffMode = UnknownDiffMode,
+			enum Format _format = UnknownFormat,
+			enum Generator _generator = UnknownGenerator,
+			KURL _source = "",
+			KURL _destination = "",
+			QString _localSource = "",
+			QString _localDestination = ""
+		)
+		{
+			mode = _mode;
+			diffMode = _diffMode;
+			format = _format;
+			generator = _generator;
+			source = _source;
+			destination = _destination;
+			localSource = _localSource;
+			localDestination = _localDestination;
+		}
+		enum Mode      mode;
+		enum DiffMode  diffMode;
+		enum Format    format;
+		enum Generator generator;
+		KURL           source;
+		KURL           destination;
+		QString        localSource;
+		QString        localDestination;
 	};
 } // End of namespace Kompare
 

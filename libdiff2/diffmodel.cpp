@@ -32,7 +32,11 @@ using namespace Diff2;
 DiffModel::DiffModel( const QString& source, const QString& destination ) :
 	m_source( source ),
 	m_destination( destination ),
+	m_sourceFile( "" ),
+	m_destinationPath( "" ),
 	m_sourceTimestamp( "" ),
+	m_destinationFile( "" ),
+	m_sourcePath( "" ),
 	m_destinationTimestamp( "" ),
 	m_sourceRevision( "" ),
 	m_destinationRevision( "" ),
@@ -58,7 +62,11 @@ void DiffModel::splitSourceInPathAndFileName()
 		m_sourcePath = m_source.mid( 0, pos+1 );
 
 	if( ( pos = m_source.findRev( "/" ) ) >= 0 )
-		m_sourceFile = m_source.replace( 0, pos+1, "" );
+		m_sourceFile = m_source.mid( pos+1, m_source.length() - pos );
+	else
+		m_sourceFile = m_source;
+
+	kdDebug(8101) << m_source << " was split into " << m_sourcePath << " and " << m_sourceFile << endl;
 }
 
 void DiffModel::splitDestinationInPathAndFileName()
@@ -69,7 +77,11 @@ void DiffModel::splitDestinationInPathAndFileName()
 		m_destinationPath = m_destination.mid( 0, pos+1 );
 
 	if( ( pos = m_destination.findRev( "/" ) ) >= 0 )
-		m_destinationFile = m_destination.replace( 0, pos+1, "" );
+		m_destinationFile = m_destination.mid( pos+1, m_destination.length() - pos );
+	else
+		m_destinationFile = m_source;
+
+	kdDebug(8101) << m_destination << " was split into " << m_destinationPath << " and " << m_destinationFile << endl;
 }
 
 DiffModel& DiffModel::operator=( const DiffModel& model )

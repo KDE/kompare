@@ -37,9 +37,16 @@ public:
 	QPtrList<DiffModel>* parse( const QString& diff );
 	QPtrList<DiffModel>* parse( const QStringList& diff );
 
+	enum Kompare::Generator generator() const { return m_generator; };
+	enum Kompare::Format    format() const    { return m_format; };
+
 private:
 	/** Which program was used to generate the output */
 	enum Kompare::Generator determineGenerator( const QStringList& diffLines );
+
+private:
+	enum Kompare::Generator m_generator;
+	enum Kompare::Format    m_format;
 };
 
 } // End of namespace Diff2

@@ -46,8 +46,7 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 	m_changesList( 0 ),
 	m_srcRootItem( 0 ),
 	m_destRootItem( 0 ),
-	m_source( "" ),
-	m_destination( "" )
+	m_info( 0 )
 {
 	m_splitter = new QSplitter( Qt::Horizontal );
 
@@ -92,14 +91,9 @@ KompareNavTreePart::~KompareNavTreePart()
 {
 }
 
-void KompareNavTreePart::slotBasePathsChanged( const QString& source, const QString& destination )
+void KompareNavTreePart::slotKompareInfo( struct Kompare::Info* info )
 {
-	m_source = source;
-	if ( !m_source.endsWith( "/" ) )
-		m_source += "/";
-	m_destination = destination;
-	if ( !m_destination.endsWith( "/" ) )
-		m_destination += "/";
+	m_info = info;
 }
 
 void KompareNavTreePart::slotModelsChanged( const QPtrList<Diff2::DiffModel>* modelList )
@@ -132,31 +126,48 @@ void KompareNavTreePart::buildTreeInMemory()
 	if ( m_modelList->count() == 0 )
 		return; // avoids a crash on clear()
 
-	QString srcPath  = m_source;
-	QString destPath = m_destination;
-	kdDebug(8105) << "srcPath  = " << srcPath << endl;
-	kdDebug(8105) << "destPath = " << destPath << endl;
+	if ( m_info == 0 )
+		return;
 
-/*
-	QString result;
-	// result is the same piece minus a leading / -> we need all dirs to end with a /
-	if ( srcPath == destPath )
-		result = srcPath;
-	else
-		result = compareFromEndAndReturnSame( srcPath, destPath );
-	kdDebug(8105) << "compareFromEndAndReturnSame = " << result << endl;
-
-	QString srcBase = m_source + srcPath.replace( srcPath.length() - result.length(), result.length(), "" );
-	QString destBase = m_destination + destPath.replace( destPath.length() - result.length(), result.length(), "" );
-
-	kdDebug(8105) << "srcBase  = " << srcBase << endl;
-	kdDebug(8105) << "destBase = " << destBase <<endl;
-*/
-	m_srcRootItem  = new KDirLVI( m_srcDirTree, m_source );
-	m_destRootItem = new KDirLVI( m_destDirTree, m_destination );
+	QString srcBase;
+	QString destBase;
 
 	Diff2::DiffModel* model;
+	model = m_modelList->getFirst();
 	m_selectedModel = 0L;
+
+	switch ( m_info->mode )
+	{
+	case Kompare::ShowingDiff:
+		srcBase = model->sourcePath();
+		destBase = model->destinationPath();
+		break;
+	case Kompare::ComparingFiles:
+		srcBase  = model->sourcePath();
+		destBase = model->destinationPath();
+		break;
+	case Kompare::ComparingDirs:
+		srcBase = m_info->localSource;
+		if ( !srcBase.endsWith( "/" ) )
+			srcBase += "/";
+		destBase = m_info->localDestination;
+		if ( !destBase.endsWith( "/" ) )
+			destBase += "/";
+		break;
+	case Kompare::BlendingFile:
+	case Kompare::BlendingDir:
+	default:
+		kdDebug(8105) << "Oops needs to implement this..." << endl;
+	}
+
+	kdDebug(8105) << "srcBase  = " << srcBase << endl;
+	kdDebug(8105) << "destBase = " << destBase << endl;
+
+	m_srcRootItem  = new KDirLVI( m_srcDirTree, srcBase );
+	m_destRootItem = new KDirLVI( m_destDirTree, destBase );
+
+	QString srcPath;
+	QString destPath;
 
 	// Create the tree from the models
 	QPtrListIterator<Diff2::DiffModel> it( *m_modelList );
@@ -165,8 +176,8 @@ void KompareNavTreePart::buildTreeInMemory()
 		srcPath  = model->sourcePath();
 		destPath = model->destinationPath();
 
-//		kdDebug(8105) << "srcPath  = " << srcPath  << endl;
-//		kdDebug(8105) << "destPath = " << destPath << endl;
+		kdDebug(8105) << "srcPath  = " << srcPath  << endl;
+		kdDebug(8105) << "destPath = " << destPath << endl;
 		m_srcRootItem->addModel( srcPath, model, &m_modelToSrcDirItemDict );
 		m_destRootItem->addModel( destPath, model, &m_modelToDestDirItemDict );
 		++it;
@@ -472,7 +483,10 @@ KDirLVI::KDirLVI( KListView* parent, QString& dir ) : KListViewItem( parent )
 	setPixmap( 0, SmallIcon( "folder" ) );
 	setOpen( true );
 	setSelectable( true );
-	setText( 0, m_dirName );
+	if ( m_dirName.isEmpty() )
+		setText( 0, i18n( "Unknown" ) );
+	else
+		setText( 0, m_dirName );
 }
 
 KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : KListViewItem( parent )
@@ -489,10 +503,12 @@ KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : KListViewItem( parent )
 // addModel always removes it own path from the beginning
 void KDirLVI::addModel( QString& path, Diff2::DiffModel* model, QPtrDict<KDirLVI>* modelToDirItemDict )
 {
-//	kdDebug(8105) << "KDirLVI::addModel called with path = " << path << " from KDirLVI with m_dirName = " << m_dirName << endl;
+	kdDebug(8105) << "KDirLVI::addModel called with path = " << path << " from KDirLVI with m_dirName = " << m_dirName << endl;
 
-	path = path.remove( 0, m_dirName.length() );
-//	kdDebug(8105) << "Path after removal of own dir = " << path << endl;
+	if ( !m_dirName.isEmpty() )
+		path = path.remove( 0, m_dirName.length() );
+
+	kdDebug(8105) << "Path after removal of own dir (\"" << m_dirName << "\") = " << path << endl;
 
 	if ( path.isEmpty() ) {
 		m_modelList.append( model );

@@ -38,18 +38,18 @@
 
 using namespace Diff2;
 
-KompareModelList::KompareModelList( DiffSettings* diffSettings, ViewSettings* viewSettings, QObject* parent, const char* name )
+KompareModelList::KompareModelList( DiffSettings* diffSettings, ViewSettings* viewSettings, struct Kompare::Info* info, QObject* parent, const char* name )
 	: QObject( parent, name ),
 	m_diffProcess( 0 ),
 	m_diffSettings( diffSettings ),
 	m_viewSettings( viewSettings ),
 	m_models( 0 ),
-	m_mode( Kompare::ShowingDiff ),
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 ),
 	m_modelIt( 0 ),
 	m_diffIt( 0 ),
-	m_noOfModified( 0 )
+	m_noOfModified( 0 ),
+	m_info( info )
 {
 }
 
@@ -80,6 +80,7 @@ bool KompareModelList::compare( const QString& source, const QString& destinatio
 
 	if ( isDirectory( source ) && isDirectory( destination ) )
 	{
+		m_info->mode = Kompare::ComparingDirs;
 		result = compareDirs( source, destination );
 	}
 	else if ( !isDirectory( source ) && !isDirectory( destination ) )
@@ -90,23 +91,28 @@ bool KompareModelList::compare( const QString& source, const QString& destinatio
 		// Not checking if it is a text file/something diff can even compare, we'll let diff handle that
 		if ( !isDiff( sourceMimeType ) && isDiff( destinationMimeType ) )
 		{
+			m_info->mode = Kompare::BlendingFile;
 			result = openFileAndDiff( source, destination );
 		}
 		else if ( isDiff( sourceMimeType ) && !isDiff( destinationMimeType ) )
 		{
+			m_info->mode = Kompare::BlendingFile;
 			result = openFileAndDiff( destination, source );
 		}
 		else
 		{
+			m_info->mode = Kompare::ComparingFiles;
 			result = compareFiles( source, destination );
 		}
 	}
 	else if ( isDirectory( source ) && !isDirectory( destination ) )
 	{
+		m_info->mode = Kompare::BlendingDir;
 		result = openDirAndDiff( source, destination );
 	}
 	else
 	{
+		m_info->mode = Kompare::BlendingDir;
 		result = openDirAndDiff( destination, source );
 	}
 
@@ -119,9 +125,6 @@ bool KompareModelList::compareFiles( const QString& source, const QString& desti
 	m_destination = destination;
 
 	clear(); // Destroy the old models...
-
-	m_mode = Kompare::ComparingFiles;
-	m_type = Kompare::SingleFileDiff;
 
 	m_fileWatch = new KDirWatch( this, "filewatch" );
 	m_fileWatch->addFile( m_source );
@@ -149,9 +152,6 @@ bool KompareModelList::compareDirs( const QString& source, const QString& destin
 	m_destination = destination;
 
 	clear(); // Destroy the old models...
-
-	m_mode = Kompare::ComparingDirs;
-	m_type = Kompare::MultiFileDiff;
 
 	m_dirWatch = new KDirWatch( this, "dirwatch" );
 	// Watch files in the dirs and watch the dirs recursively
@@ -274,7 +274,7 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 
 	bool result = false;
 
-	if ( m_mode == Kompare::ComparingDirs )
+	if ( m_info->mode == Kompare::ComparingDirs )
 	{
 		QString destination = model->destinationPath() + model->destinationFile();
 		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
@@ -390,8 +390,6 @@ bool KompareModelList::openDiff( const QString& diffFile )
 		emit error( i18n( "Could not parse diff output." ) );
 		return false;
 	}
-
-	m_mode = Kompare::ShowingDiff;
 
 	emit status( Kompare::FinishedParsing );
 
@@ -610,6 +608,9 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 	kdDebug(8101) << "KompareModelList::parseDiffOutput" << endl;
 	Parser* parser = new Parser();
 	m_models = parser->parse( lines );
+
+	m_info->generator = parser->generator();
+	m_info->format = parser->format();
 
 	if ( m_models )
 	{
@@ -874,9 +875,9 @@ void KompareModelList::clear()
 
 void KompareModelList::swap()
 {
-	if ( m_mode == Kompare::ComparingFiles )
+	if ( m_info->mode == Kompare::ComparingFiles )
 		compareFiles( m_destination, m_source );
-	else if ( m_mode == Kompare::ComparingDirs )
+	else if ( m_info->mode == Kompare::ComparingDirs )
 		compareDirs( m_destination,  m_source );
 }
 

@@ -101,8 +101,6 @@ private:
 	void splitDestinationInPathAndFileName();
 
 private:
-//	KURL                 m_source;
-//	KURL                 m_destination;
 	QString              m_source;
 	QString              m_destination;
 

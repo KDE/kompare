@@ -38,6 +38,7 @@ public:
 	virtual ~ParserBase();
 
 public:
+	enum Kompare::Format format() { return determineFormat(); };
 	QPtrList<DiffModel>* parse();
 
 protected:

@@ -28,6 +28,8 @@
 #include <kparts/factory.h>
 #include <kparts/part.h>
 
+#include "kompare.h"
+
 class KompareModelList;
 class KomparePart;
 class KListView;
@@ -53,7 +55,7 @@ public slots:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void slotSetSelection( const Diff2::Difference* diff );
 	void slotModelsChanged( const QPtrList<Diff2::DiffModel>* modelList );
-	void slotBasePathsChanged( const QString& source, const QString& destination );
+	void slotKompareInfo( Kompare::Info* info );
 
 signals:
 	void selectionChanged( const Diff2::DiffModel* model, const Diff2::Difference* diff );
@@ -108,6 +110,8 @@ private:
 
 	QString                            m_source;
 	QString                            m_destination;
+
+	struct Kompare::Info*              m_info;
 };
 
 // These 3 classes are need to store the models into a tree so it is easier

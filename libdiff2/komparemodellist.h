@@ -44,7 +44,7 @@ class KompareModelList : public QObject
 {
 	Q_OBJECT
 public:
-	KompareModelList( DiffSettings* diffSettings, ViewSettings* viewSettings, QObject* parent = 0, const char* name = 0 );
+	KompareModelList( DiffSettings* diffSettings, ViewSettings* viewSettings, struct Kompare::Info* info, QObject* parent = 0, const char* name = 0 );
 	~KompareModelList();
 
 public:
@@ -80,8 +80,7 @@ public:
 	// this is like patching but with a twist
 	bool blendOriginalIntoModelList( const QString& localURL );
 
-	enum Kompare::Mode          mode()   const { return m_mode; };
-	enum Kompare::Format        format() const { return m_format; };
+	enum Kompare::Mode          mode()   const { return m_info->mode; };
 	const QPtrList<DiffModel>*  models() const { return m_models; };
 
 	int                         modelCount() const;
@@ -146,30 +145,28 @@ private: // Helper methods
 	QStringList& readFile( const QString& fileName );
 
 private:
-	KompareProcess*      m_diffProcess;
+	KompareProcess*       m_diffProcess;
 
-	DiffSettings*        m_diffSettings;
-	ViewSettings*        m_viewSettings;
+	DiffSettings*         m_diffSettings;
+	ViewSettings*         m_viewSettings;
 
-	QPtrList<DiffModel>* m_models;
+	QPtrList<DiffModel>*  m_models;
 
-	QString              m_source;
-	QString              m_destination;
+	QString               m_source;
+	QString               m_destination;
 
-	enum Kompare::Format m_format;
-	enum Kompare::Mode   m_mode; // reading from a DiffFile or Comparing in Kompare
-	enum Kompare::Type   m_type; // single or multi
-
-	DiffModel*           m_selectedModel;
-	Difference*          m_selectedDifference;
+	DiffModel*            m_selectedModel;
+	Difference*           m_selectedDifference;
 
 	QPtrListIterator<DiffModel>*  m_modelIt;
 	QPtrListIterator<Difference>* m_diffIt;
 
-	KDirWatch*           m_dirWatch;
-	KDirWatch*           m_fileWatch;
+	KDirWatch*            m_dirWatch;
+	KDirWatch*            m_fileWatch;
 
-	int                  m_noOfModified;
+	int                   m_noOfModified;
+
+	struct Kompare::Info* m_info;
 };
 
 } // End of namespace Diff2

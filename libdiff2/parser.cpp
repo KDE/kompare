@@ -47,7 +47,9 @@ QPtrList<DiffModel>* Parser::parse( const QStringList& diff )
 	/* Basically determine the generator then call the parse method */
 	ParserBase* parser;
 
-	switch( determineGenerator( diff ) )
+	m_generator = determineGenerator( diff );
+
+	switch( m_generator )
 	{
 	case Kompare::CVSDiff :
 		kdDebug(8101) << "It is a CVS generated diff..." << endl;
@@ -66,6 +68,7 @@ QPtrList<DiffModel>* Parser::parse( const QStringList& diff )
 		return 0L;
 	}
 
+	m_format = parser->format();
 	QPtrList<DiffModel>* modelList = parser->parse();
 	if ( modelList )
 	{

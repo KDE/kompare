@@ -547,7 +547,7 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 
 	QRegExp source   ( "^--- ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
 	QRegExp dest     ( "^\\+\\+\\+ ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
-	QRegExp line     ( "^([ \\-\\+\\\\])(.*)$" );
+	QRegExp line     ( "^([ \\-\\+])(.*)$" );
 	QRegExp unchanged( "^ (.*)$" );
 	QRegExp removed  ( "^-(.*)$" );
 	QRegExp added    ( "^\\+(.*)$" );
@@ -617,12 +617,6 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 					linenoA++;
 					linenoB++;
 				}
-			}
-			else if ( line.cap( 1 ) =="\\" )
-			{
-				// This is the beginning of a message such as "\ No newline at end of file"
-				// In this case just let it disappear
-				++it;
 			}
 			else
 			{	// This is a real difference, not context crap

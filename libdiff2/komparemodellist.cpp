@@ -303,8 +303,9 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	QTextStream* stream = temp->textStream();
 	QStringList list;
 
-	DiffHunkListConstIterator hunkIt = model->hunks().begin();
-	DiffHunkListConstIterator hEnd   = model->hunks().end();
+	DiffHunkListConstIterator hunkIt = model->hunks()->begin();
+	DiffHunkListConstIterator hEnd   = model->hunks()->end();
+
 	for( ; hunkIt != hEnd; ++hunkIt )
 	{
 		DiffHunk* hunk = *hunkIt;
@@ -875,15 +876,12 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 
 	QString fileContents;
 
-	DiffModelList* models = m_models;
-	m_models = new DiffModelList();
-
 	if ( fi.isDir() )
 	{ // is a dir
 		kdDebug() << "Blend Dir" << endl;
 //		QDir dir( localURL, QString::null, QDir::Name|QDir::DirsFirst, QDir::All );
-		DiffModelListIterator modelIt = models->begin();
-		DiffModelListIterator mEnd    = models->end();
+		DiffModelListIterator modelIt = m_models->begin();
+		DiffModelListIterator mEnd    = m_models->end();
 		for ( ; modelIt != mEnd; ++modelIt )
 		{
 			model = *modelIt;
@@ -914,11 +912,9 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 		kdDebug(8101) << "Reading from: " << localURL << endl;
 		fileContents = readFile( localURL );
 
-		result = blendFile( (*models)[ 0 ], fileContents );
+		result = blendFile( (*m_models)[ 0 ], fileContents );
 		kdDebug() << "End of Blend File" << endl;
 	}
-
-	delete models; // Hope it does not delete the models, just the container
 
 	return result;
 }
@@ -931,45 +927,42 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 		return false;
 	}
 
-	Difference* newDiff;
-	DiffModel* newModel = new DiffModel();
-	connect( newModel, SIGNAL( setModified( bool ) ), this, SLOT( slotSetModified( bool ) ) );
-	// We don't want a full copy so dont use newModel = new DiffModel( model );
-	*newModel = *model;
-
 	int srcLineNo = 1, destLineNo = 1;
-
-	DiffHunk* newHunk = new DiffHunk( srcLineNo, destLineNo );
-
-	newModel->addHunk( newHunk );
 
 	QStringList lines = split( fileContents );
 
-	QStringList::ConstIterator linesIt  = lines.begin();
-	QStringList::ConstIterator lEnd     = lines.end();
+	QStringList::ConstIterator linesIt = lines.begin();
+	QStringList::ConstIterator lEnd    = lines.end();
 
-	DifferenceList diffList = model->allDifferences();
-	kdDebug() << "Number of differences in diffList = " << diffList.count() << endl;
-	Difference* diff;
+	DiffHunkList* hunks = model->hunks();
+	kdDebug(8101) << "Hunks in hunklist: " << hunks->count() << endl;
+	DiffHunkListIterator hunkIt = hunks->begin();
 
-	DifferenceListIterator diffIt = diffList.begin();
-	DifferenceListIterator dEnd   = diffList.end();
+	DiffHunk*   newHunk = 0;
+	Difference* newDiff = 0;
 
-	DifferenceListIterator tempIt;
+	// FIXME: this approach is not very good, we should first check if the hunk applies cleanly
+	// and without offset and if not use that new linenumber with offset to compare against
+	// This will only work for files we just diffed with kompare but not for blending where
+	// file(s) to patch has/have potentially changed
 
-	for ( ; diffIt != dEnd ; ++diffIt )
+	for ( ; hunkIt != hunks->end(); ++hunkIt )
 	{
-		diff = *diffIt;
-		kdDebug() << "*(Diff it) = " << diff << endl;
-		// Check if there are lines in the original file before the difference
-		// that are not yet in the diff. If so create new Context diff
-		if ( srcLineNo < diff->sourceLineNumber() )
+		// Do we need to insert a new hunk before this one ?
+		DiffHunk* hunk = *hunkIt;
+		if ( srcLineNo < hunk->sourceLineNumber() )
 		{
-			newDiff = new Difference( srcLineNo, destLineNo );
+			newHunk = new DiffHunk( srcLineNo, destLineNo, "", DiffHunk::AddedByBlend );
+
+			hunks->insert( hunkIt, newHunk );
+
+			newDiff = new Difference( srcLineNo, destLineNo,
+			              Difference::Unchanged | Difference::AddedByBlend );
+
 			newHunk->add( newDiff );
-			while ( srcLineNo < diff->sourceLineNumber() && linesIt != lEnd )
+
+			while ( srcLineNo < hunk->sourceLineNumber() && linesIt != lEnd )
 			{
-//				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *linesIt << endl;
 				newDiff->addSourceLine( *linesIt );
 				newDiff->addDestinationLine( *linesIt );
 				srcLineNo++;
@@ -977,109 +970,27 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 				++linesIt;
 			}
 		}
-		// Now i've got to add that diff
-		switch ( diff->type() )
+
+		// Now we add the linecount difference for the hunk that follows
+		int size = hunk->sourceLineCount();
+
+		for ( int i = 0; i < size; ++i )
 		{
-		case Difference::Unchanged:
-			kdDebug(8101) << "Unchanged" << endl;
-			for ( int i = 0; i < diff->sourceLineCount(); i++ )
-			{
-				if ( linesIt != lEnd && *linesIt != diff->sourceLineAt( i )->string() )
-				{
-					kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
-					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
-
-					// Do conflict resolution (well sort of)
-					diff->sourceLineAt( i )->setConflictString( *linesIt );
-					diff->setConflict( true );
-				}
-//				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *linesIt << endl;
-//				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
-				srcLineNo++;
-				destLineNo++;
-				++linesIt;
-			}
-
-			tempIt = diffIt;
-			--diffIt;
-			diffList.remove( tempIt );
-			newHunk->add( diff );
-
-			break;
-		case Difference::Change:
-			kdDebug(8101) << "Change" << endl;
-
-			//QStringListConstIterator saveIt = linesIt;
-
-			for ( int i = 0; i < diff->sourceLineCount(); i++ )
-			{
-				if ( linesIt != lEnd && *linesIt != diff->sourceLineAt( i )->string() )
-				{
-					kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
-					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
-
-					// Do conflict resolution (well sort of)
-					diff->sourceLineAt( i )->setConflictString( *linesIt );
-					diff->setConflict( true );
-				}
-				srcLineNo++;
-				destLineNo++;
-				++linesIt;
-			}
-
-			destLineNo += diff->destinationLineCount();
-
-			tempIt = diffIt;
-			--diffIt;
-			diffList.remove( tempIt );
-			newHunk->add( diff );
-			newModel->addDiff( diff );
-
-			break;
-		case Difference::Insert:
-			kdDebug(8101) << "Insert" << endl;
-			destLineNo += diff->destinationLineCount();
-			tempIt = diffIt;
-			--diffIt;
-			diffList.remove( tempIt );
-			newHunk->add( diff );
-			newModel->addDiff( diff );
-			break;
-		case Difference::Delete:
-			kdDebug(8101) << "Delete" << endl;
-			kdDebug(8101) << "Number of lines in Delete: " << diff->sourceLineCount() << endl;
-			for ( int i = 0; i < diff->sourceLineCount(); i++ )
-			{
-				if ( linesIt != lEnd && *linesIt != diff->sourceLineAt( i )->string() )
-				{
-					kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
-					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
-
-					// Do conflict resolution (well sort of)
-					diff->sourceLineAt( i )->setConflictString( *linesIt );
-					diff->setConflict( true );
-				}
-
-//				kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
-//				kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
-				srcLineNo++;
-				++linesIt;
-			}
-
-			tempIt = diffIt;
-			--diffIt;
-			diffList.remove( tempIt );
-			newHunk->add( diff );
-			newModel->addDiff( diff );
-			break;
-		default:
-			kdDebug(8101) << "Crap, some diff type we dont know about ???" << endl;
+			++linesIt;
 		}
+
+		srcLineNo += size;
+		destLineNo += (*hunkIt)->destinationLineCount();
 	}
 
 	if ( linesIt != lEnd )
 	{
-		newDiff = new Difference( srcLineNo, destLineNo, Difference::Unchanged );
+		newHunk = new DiffHunk( srcLineNo, destLineNo, "", DiffHunk::AddedByBlend );
+
+		model->addHunk( newHunk );
+
+		newDiff = new Difference( srcLineNo, destLineNo, Difference::Unchanged | Difference::AddedByBlend );
+
 		newHunk->add( newDiff );
 
 		while ( linesIt != lEnd )
@@ -1089,6 +1000,138 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 			++linesIt;
 		}
 	}
+#if 0
+		DifferenceList hunkDiffList   = (*hunkIt)->differences();
+		DifferenceListIterator diffIt = hunkDiffList.begin();
+		DifferenceListIterator dEnd   = hunkDiffList.end();
+		kdDebug() << "Number of differences in hunkDiffList = " << diffList.count() << endl;
+
+		DifferenceListIterator tempIt;
+		Difference* diff;
+
+		for ( ; diffIt != dEnd; ++diffIt )
+		{
+			diff = *diffIt;
+			kdDebug() << "*(Diff it) = " << diff << endl;
+			// Check if there are lines in the original file before the difference
+			// that are not yet in the diff. If so create new Unchanged diff
+			if ( srcLineNo < diff->sourceLineNumber() )
+			{
+				newDiff = new Difference( srcLineNo, destLineNo,
+				              Difference::Unchanged | Difference::AddedByBlend );
+				newHunk->add( newDiff );
+				while ( srcLineNo < diff->sourceLineNumber() && linesIt != lEnd )
+				{
+//					kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *linesIt << endl;
+					newDiff->addSourceLine( *linesIt );
+					newDiff->addDestinationLine( *linesIt );
+					srcLineNo++;
+					destLineNo++;
+					++linesIt;
+				}
+			}
+			// Now i've got to add that diff
+			switch ( diff->type() )
+			{
+			case Difference::Unchanged:
+				kdDebug(8101) << "Unchanged" << endl;
+				for ( int i = 0; i < diff->sourceLineCount(); i++ )
+				{
+					if ( linesIt != lEnd && *linesIt != diff->sourceLineAt( i )->string() )
+					{
+						kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
+						kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+
+						// Do conflict resolution (well sort of)
+						diff->sourceLineAt( i )->setConflictString( *linesIt );
+						diff->setConflict( true );
+					}
+//					kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *linesIt << endl;
+//					kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+					srcLineNo++;
+					destLineNo++;
+					++linesIt;
+				}
+
+				tempIt = diffIt;
+				--diffIt;
+				diffList.remove( tempIt );
+				newHunk->add( diff );
+
+				break;
+			case Difference::Change:
+				kdDebug(8101) << "Change" << endl;
+
+				//QStringListConstIterator saveIt = linesIt;
+
+				for ( int i = 0; i < diff->sourceLineCount(); i++ )
+				{
+					if ( linesIt != lEnd && *linesIt != diff->sourceLineAt( i )->string() )
+					{
+						kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
+						kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+
+						// Do conflict resolution (well sort of)
+						diff->sourceLineAt( i )->setConflictString( *linesIt );
+						diff->setConflict( true );
+					}
+					srcLineNo++;
+					destLineNo++;
+					++linesIt;
+				}
+
+				destLineNo += diff->destinationLineCount();
+
+				tempIt = diffIt;
+				--diffIt;
+				diffList.remove( tempIt );
+				newHunk->add( diff );
+				newModel->addDiff( diff );
+
+				break;
+			case Difference::Insert:
+				kdDebug(8101) << "Insert" << endl;
+				destLineNo += diff->destinationLineCount();
+				tempIt = diffIt;
+				--diffIt;
+				diffList.remove( tempIt );
+				newHunk->add( diff );
+				newModel->addDiff( diff );
+				break;
+			case Difference::Delete:
+				kdDebug(8101) << "Delete" << endl;
+				kdDebug(8101) << "Number of lines in Delete: " << diff->sourceLineCount() << endl;
+				for ( int i = 0; i < diff->sourceLineCount(); i++ )
+				{
+					if ( linesIt != lEnd && *linesIt != diff->sourceLineAt( i )->string() )
+					{
+						kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
+						kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+
+						// Do conflict resolution (well sort of)
+						diff->sourceLineAt( i )->setConflictString( *linesIt );
+						diff->setConflict( true );
+					}
+
+//					kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
+//					kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+					srcLineNo++;
+					++linesIt;
+				}
+
+				tempIt = diffIt;
+				--diffIt;
+				diffList.remove( tempIt );
+				newHunk->add( diff );
+				newModel->addDiff( diff );
+				break;
+			default:
+				kdDebug(8101) << "Crap, some diff type we dont know about ???" << endl;
+			}
+		}
+	}
+#endif
+
 /*
 	diffList = newModel->differences();
 
@@ -1099,12 +1142,6 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 		kdDebug(8101) << "sourcelinenumber = " << diff->sourceLineNumber() << endl;
 	}
 */
-
-	disconnect( model, SIGNAL( setModified( bool ) ), this, SLOT( slotSetModified( bool ) ) );
-	m_models->remove( model );
-	delete model;
-	m_models->append( newModel );
-	m_models->sort();
 
 	m_selectedModel = firstModel();
 

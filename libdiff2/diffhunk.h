@@ -20,7 +20,7 @@
 #ifndef DIFFHUNK_H
 #define DIFFHUNK_H
 
-#include <qptrlist.h>
+#include "difference.h"
 
 namespace Diff2
 {
@@ -30,25 +30,39 @@ class Difference;
 class DiffHunk
 {
 public:
-	DiffHunk( int sourceLine, int destinationLine, QString function = QString::null );
+	enum Type { Normal, AddedByBlend };
+
+public:
+	DiffHunk( int sourceLine, int destinationLine, QString function = QString::null, Type type = Normal );
 	~DiffHunk();
 
-	const QValueList<Difference*>& differences() const { return m_differences; };
-	const QString& function() const { return m_function; };
+	const DifferenceList& differences() const { return m_differences; };
+	const QString& function() const           { return m_function; };
 
 	int sourceLineNumber() const      { return m_sourceLine; };
 	int destinationLineNumber() const { return m_destinationLine; };
+
+	int sourceLineCount() const;
+	int destinationLineCount() const;
+
+	const Type type() const   { return m_type; }
+	void setType( Type type ) { m_type = type; }
 
 	void add( Difference* diff );
 
 	QString recreateHunk() const;
 
 private:
-	int                     m_sourceLine;
-	int                     m_destinationLine;
-	QValueList<Difference*> m_differences;
-	QString                 m_function;
+	int            m_sourceLine;
+	int            m_destinationLine;
+	DifferenceList m_differences;
+	QString        m_function;
+	Type           m_type;
 };
+
+typedef QValueList<DiffHunk*> DiffHunkList;
+typedef QValueList<DiffHunk*>::iterator DiffHunkListIterator;
+typedef QValueList<DiffHunk*>::const_iterator DiffHunkListConstIterator;
 
 } // End of namespace Diff2
 

@@ -1,3 +1,11 @@
+Oct    07, 2001 : Otto Bruggeman
+	Fix crash when part is not found, basically dont use kapp->quit() 
+	but use exit(int). Would be interested to know why it crashes though,
+	the bt gave nothing meaningful here. I should have compiled kompare with
+	debug code.
+Sept   17/18, 2001 : Otto Bruggeman
+	Fixed some stuff dont know what anymore (writing this on oct 7)
+	Probably some more fixes for the klibloader.
 Sept   17, 2001 : Otto Bruggeman
 	Moved to kdesdk and renamed to kompare with preservation of history.
 	Changed almost every occurence of kdiff to kompare (not in this file).

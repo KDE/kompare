@@ -14,6 +14,7 @@
 #include <kstdaction.h>
 #include <klibloader.h>
 #include <kmessagebox.h>
+#include <kfiledialog.h>
 
 #include "kdiff_part.h"
 #include "kdiffview.h"
@@ -83,8 +84,10 @@ void KDiffShell::compare(const KURL& source,const KURL& destination )
 
 void KDiffShell::setupActions()
 {
-	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_O, this, SLOT(compareFiles()),
+	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_O,
+	              this, SLOT(slotFileCompareFiles()),
 	              actionCollection(), "file_compare_files" );
+	KStdAction::open(this, SLOT(slotFileOpen()), actionCollection());
 	KStdAction::quit(kapp, SLOT(quit()), actionCollection());
 
 	m_toolbarAction = KStdAction::showToolbar(this, SLOT(optionsShowToolbar()), actionCollection());
@@ -127,7 +130,12 @@ void KDiffShell::readProperties(KConfig* /*config*/)
 	// in 'saveProperties'
 }
 
-void KDiffShell::compareFiles()
+void KDiffShell::slotFileOpen()
+{
+	load( KFileDialog::getOpenURL( QString::null, QString::null, this ) );
+}
+
+void KDiffShell::slotFileCompareFiles()
 {
 
 }

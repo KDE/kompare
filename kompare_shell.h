@@ -59,7 +59,8 @@ protected:
 	void readProperties(KConfig *);
 
 private slots:
-	void compareFiles();
+	void slotFileCompareFiles();
+	void slotFileOpen();
 	void optionsShowToolbar();
 	void optionsShowStatusbar();
 	void optionsConfigureKeys();

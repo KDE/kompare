@@ -149,8 +149,9 @@ void KDiffView::updateViews() {
 
 	DiffModel* model = modelAt( m_selectedModel );
 
-	// FIXME diff1->clear();
-	// FIXME diff2->clear();
+	diff1->clear();
+	diff2->clear();
+
 	QListIterator<DiffHunk> it = QListIterator<DiffHunk>( model->getHunks() );
 	int linenoA = 1;
 	int linenoB = 1;

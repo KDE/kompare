@@ -34,12 +34,18 @@ class DiffModel : QObject
 Q_OBJECT
 public:
 	enum DiffFormat { Context, Ed, Normal, RCS, Unified, Unknown };
-
+//	enum ParseResult { Success,
 public:
 	DiffModel();
 	~DiffModel();
 
 public:
+
+	static int parseDiff( const QStringList& list, QList<DiffModel>* models );
+	static DiffFormat determineDiffFormat( QString line );
+
+	int parseDiff( enum DiffFormat format, const QStringList& list, QStringList::ConstIterator& it);
+
 	int hunkCount() const
 		{ return hunks.count(); };
 	int differenceCount() const
@@ -57,16 +63,13 @@ public:
 	QString getDestinationFilename() { return destinationFilename; };
 	QString getSourceTimestamp() { return sourceTimestamp; };
 	QString getDestinationTimestamp() { return destinationTimestamp; };
-	
-	int parseDiff( const QStringList& list );
-	int parseDiff( const QStringList& list, enum DiffFormat format );
 
 private:
-	int parseContextDiff( const QStringList& list );
-	int parseEdDiff( const QStringList& list );
-	int parseNormalDiff( const QStringList& list );
-	int parseRCSDiff( const QStringList& list );
-	int parseUnifiedDiff( const QStringList& list );
+	int parseContextDiff( const QStringList& list, QStringList::ConstIterator& it );
+	int parseEdDiff( const QStringList& list, QStringList::ConstIterator& it );
+	int parseNormalDiff( const QStringList& list, QStringList::ConstIterator& it );
+	int parseRCSDiff( const QStringList& list, QStringList::ConstIterator& it );
+	int parseUnifiedDiff( const QStringList& list, QStringList::ConstIterator& it );
 
 	QString sourceFilename;
 	QString sourceTimestamp;

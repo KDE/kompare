@@ -1,3 +1,7 @@
+june   24, 2001 : John Firebaugh
+	Coverted to dock window and added navigation tree in a dock.
+	Multiple file diffs are now supported. Each file will show up
+	as an item in the tree, with differences as children.
 june   22, 2001 : Otto Bruggeman
 	Tried implementing rcs and ed but they dont work atm, same for show
 	diffstats, will fix that asap.

@@ -221,17 +221,11 @@ void KDiffPart::compare( const KURL& source, const KURL& destination, DiffSettin
 
 bool KDiffPart::parseDiff( QStringList diff )
 {
-	DiffModel* model = new DiffModel();
-
-	if ( model->parseDiff( diff ) != 0 )
-	{
+	if ( DiffModel::parseDiff( diff, &m_models ) != 0 ) {
 		// error, do something
 		KMessageBox::error( widget(), i18n( "Could not parse diff." ) );
-		delete model;
 		return false;
 	}
-
-	m_models.append( model );
 
 	m_diffView->setModels( &m_models );
 	connect( this, SIGNAL(selectionChanged(int,int)),

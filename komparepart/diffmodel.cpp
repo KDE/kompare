@@ -40,48 +40,63 @@ DiffModel::~DiffModel()
 {
 };
 
-/**  */
-int DiffModel::parseDiff( const QStringList& list )
+DiffModel::DiffFormat DiffModel::determineDiffFormat( QString line )
 {
-	DiffFormat format;
-	if( list.count() == 0 ) return 1;
-	QString line = list[0];
-	kdDebug() << "Determining format from this line: " << line << endl;
 	if( line.find( QRegExp( "^[0-9]+[0-9,]*[acd][0-9]+[0-9,]*$" ), 0 ) == 0 )
-		format = Normal;
-	else if( line.find( QRegExp( "^--- " ), 0 ) == 0 )
-		format = Unified;
-	else if( line.find( QRegExp( "^\\*\\*\\* " ), 0 ) == 0 )
-		format = Context;
+		return DiffModel::Normal;
+	else if( line.find( QRegExp( "^--- [^\\t]+\\t" ), 0 ) == 0 )
+		return DiffModel::Unified;
+	else if( line.find( QRegExp( "^\\*\\*\\* [^\\t]+\\t" ), 0 ) == 0 )
+		return DiffModel::Context;
 	else if( line.find( QRegExp( "^[acd][0-9]+ [0-9]+" ), 0 ) == 0 )
-		format = RCS;
+		return DiffModel::RCS;
 	else if( line.find( QRegExp( "^[0-9]+[0-9,]*[acd]" ), 0 ) == 0 )
-		format = Ed;
-	else
-	{
-		format = Unknown;
-		kdDebug() << "Unknown format found, aborting..." << endl;
-		return 1; // Error i guess...
+		return DiffModel::Ed;
+
+	return DiffModel::Unknown;
+}
+
+/**  */
+int DiffModel::parseDiff( const QStringList& lines, QList<DiffModel>* models )
+{
+	if( lines.count() == 0 ) return 1;
+
+	QStringList::ConstIterator it = lines.begin();
+	while( it != lines.end() ) {
+
+		// Discard leading garbage
+		while( it != lines.end() && determineDiffFormat( (*it) ) == Unknown ) {
+			kdDebug() << "discarding: " << (*it) << endl;
+			++it;
+		}
+
+		DiffModel* model = new DiffModel();
+		int result = model->parseDiff( determineDiffFormat( (*it) ), lines, it );
+
+		kdDebug() << "parsed one file, result: " << result << endl;
+
+		models->append( model );
+
 	}
 
-	return parseDiff( list, format );
+	return 0; // FIXME better error handling
 };
 
-int DiffModel::parseDiff( const QStringList& lines, enum DiffFormat format )
+int DiffModel::parseDiff( enum DiffFormat format, const QStringList& lines, QStringList::ConstIterator& it )
 {
 	switch( format )
 	{
-		case Context: return parseContextDiff( lines );
-		case Ed:      return parseEdDiff(      lines );
-		case Normal:  return parseNormalDiff(  lines );
-		case RCS:     return parseRCSDiff(     lines );
-		case Unified: return parseUnifiedDiff( lines );
+		case Context: return parseContextDiff( lines, it );
+		case Ed:      return parseEdDiff(      lines, it );
+		case Normal:  return parseNormalDiff(  lines, it );
+		case RCS:     return parseRCSDiff(     lines, it );
+		case Unified: return parseUnifiedDiff( lines, it );
 		default:      return 1;
 	}
 }
 
 /**  */
-int DiffModel::parseContextDiff( const QStringList& list )
+int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIterator& it )
 {
 	// '  ' unchanged (context info)
 	// '- ' removed in new file
@@ -98,8 +113,6 @@ int DiffModel::parseContextDiff( const QStringList& list )
 	int linenoA, linenoB;
 
 	kdDebug() << "Context diff parsing:" << endl;
-
-	QStringList::ConstIterator it = list.begin();
 
 	if ( it == list.end() ) return 0; // no differences
 	line = (*it);
@@ -367,13 +380,11 @@ int DiffModel::parseContextDiff( const QStringList& list )
 };
 
 /**  */
-int DiffModel::parseEdDiff( const QStringList& list )
+int DiffModel::parseEdDiff( const QStringList& list, QStringList::ConstIterator& it )
 {
 	kdDebug() << "Ed diff parsing:" << endl;
 
 	QString line;
-
-	QStringList::ConstIterator it = list.begin();
 
 	if ( it == list.end() )
 		return 0; // Nothing to parse, should not happen though
@@ -445,7 +456,7 @@ int DiffModel::parseEdDiff( const QStringList& list )
 };
 
 /**  */
-int DiffModel::parseNormalDiff( const QStringList& list )
+int DiffModel::parseNormalDiff( const QStringList& list, QStringList::ConstIterator& it )
 {
 	QString line;
 	int pos, len;
@@ -458,7 +469,6 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 	kdDebug() << "Normal  diff parsing:" << endl;
 
 	// first attempt to get normal diff working
-	QStringList::ConstIterator it = list.begin();
 
 	if( it == list.end() ) return 0; // no differences
 	line = (*it);
@@ -577,7 +587,7 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 };
 
 /**  */
-int DiffModel::parseRCSDiff( const QStringList& list )
+int DiffModel::parseRCSDiff( const QStringList& list, QStringList::ConstIterator& it )
 {
 	kdDebug() << "RCS  diff parsing:" << endl;
 
@@ -593,7 +603,6 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 	/* dLINENUMBER NUMBEROFLINES -> deleted in NUMBEROFLINES in oldfile at LINENUMBER */
 
 	QString line;
-	QStringList::ConstIterator it = list.begin();
 	int linenoA, linenoB, nolinesA, nolinesB;
 
 	if ( it == list.end() )
@@ -683,15 +692,13 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 };
 
 /**  */
-int DiffModel::parseUnifiedDiff( const QStringList& list )
+int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIterator& it )
 {
 	QString line;
 	int pos, len;
 	int linenoA, linenoB;
 
 	kdDebug() << "Unified  diff parsing:" << endl;
-
-	QStringList::ConstIterator it = list.begin();
 
 	if( it == list.end() ) return 0; // no differences
 	line = (*it);

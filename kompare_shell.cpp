@@ -37,8 +37,6 @@
 #include <kfiledialog.h>
 
 #include "kdiff_part.h"
-#include "kdiffview.h"
-#include "diffmodel.h"
 #include "kcomparedialog.h"
 
 #define ID_N_OF_N      1

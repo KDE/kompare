@@ -371,7 +371,8 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 		}
 		else
 		{
-			blendOriginalIntoModelList( m_info->localSource );
+			if ( m_info->mode != Kompare::ShowingDiff )
+				blendOriginalIntoModelList( m_info->localSource );
 			updateModelListActions();
 			show();
 		}
@@ -715,6 +716,7 @@ void KompareModelList::slotApplyDifference( bool apply )
 	m_selectedModel->applyDifference( apply );
 	emit applyDifference( apply );
 	emit setModified( m_selectedModel->isModified() );
+	slotNextDifference();
 }
 
 void KompareModelList::slotApplyAllDifferences( bool apply )

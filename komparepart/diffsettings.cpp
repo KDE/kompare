@@ -29,7 +29,7 @@ DiffSettings::~DiffSettings()
 
 void DiffSettings::loadSettings( KConfig* config )
 {
-	m_linesOfContext                 = config->readNumEntry( "LinesOfContext", 3 );
+	m_linesOfContext                 = config->readNumEntry ( "LinesOfContext", 3 );
 	m_largeFiles                     = config->readBoolEntry( "LargeFiles", true );
 	m_ignoreWhiteSpace               = config->readBoolEntry( "IgnoreWhiteSpace", false );
 	m_ignoreEmptyLines               = config->readBoolEntry( "IgnoreEmptyLines", false );
@@ -53,7 +53,7 @@ void DiffSettings::saveSettings( KConfig* config )
 	config->writeEntry( "IgnoreWhiteSpace",               m_ignoreWhiteSpace );
 	config->writeEntry( "IgnoreEmptyLines",               m_ignoreEmptyLines );
 	config->writeEntry( "IgnoreChangesInCase",            m_ignoreChangesInCase );
-	config->writeEntry( "IgnoreWhitespacecomparingLines", m_ignoreWhitespaceComparingLines );
+	config->writeEntry( "IgnoreWhitespaceComparingLines", m_ignoreWhitespaceComparingLines );
 	config->writeEntry( "CreateSmallerDiff",              m_createSmallerDiff );
 	config->writeEntry( "ConvertTabsToSpaces",            m_convertTabsToSpaces );
 	config->writeEntry( "ShowCFunctionChange",            m_showCFunctionChange );

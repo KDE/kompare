@@ -45,7 +45,7 @@
 #include "kompareview.h"
 
 typedef KParts::GenericFactory<KomparePart> KomparePartFactory;
-K_EXPORT_COMPONENT_FACTORY( libkomparepart, KomparePartFactory );
+K_EXPORT_COMPONENT_FACTORY( libkomparepart, KomparePartFactory )
 
 ViewSettings* KomparePart::m_viewSettings = 0L;
 DiffSettings* KomparePart::m_diffSettings = 0L;

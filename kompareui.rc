@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kmaindiffview" version="2">
+<kpartgui name="kmaindiffview" version="4">
 <MenuBar>
 	<Menu name="file"><text>&amp;File</text>
 		<Action name="file_open_left" />
@@ -11,6 +11,10 @@
 		<Action name="diff_apply_diff" />
 		<Action name="diff_create_diff"/>
 	</Menu>
+	<Menu name="goto"><text>&amp;Goto</text>
+		<Action name="goto_previous_chunk" />
+		<Action name="goto_next_chunk"/>
+	</Menu>
 	<Menu name="settings"><text>&amp;Settings</text>
 		<Action name="settings_preferences"/>
 	</Menu>
@@ -19,11 +23,14 @@
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
 	<Action name="file_open_left"  group="file_operations" />
 	<Action name="file_open_right" group="file_operations" />
-	<Action name="file_close_left" group="file_operations" />
+	<Action name="file_close_left"  group="file_operations" />
 	<Action name="file_close_right" group="file_operations" />
 	<Separator/>
 	<Action name="diff_apply_diff"  group="diff_operations" />
 	<Action name="diff_create_diff" group="diff_operations" />
+	<Separator/>
+	<Action name="goto_previous_chunk"  group="goto_operations" />
+	<Action name="goto_next_chunk" group="goto_operations" />
 </ToolBar>
 
 </kpartgui>

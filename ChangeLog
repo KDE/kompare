@@ -1,3 +1,6 @@
+april  5th, 2001 : Otto Bruggeman
+	Implemented the ability to move from chuck to chunk in the htmlview
+	Cleaned up the preferences, squashed a few bugs
 april  4th, 2001 : Otto Bruggeman
 	Normal format works as well
 april  4th, 2001 : Otto Bruggeman

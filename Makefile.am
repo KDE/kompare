@@ -26,8 +26,7 @@ kompare_LDFLAGS = $(all_libraries)
 kompare_LDADD   = $(LIB_KPARTS) interfaces/libkompareinterface.la
 
 # this is where the desktop file will go
-shelldesktopdir = $(kde_appsdir)/Development
-shelldesktop_DATA = kompare.desktop
+xdg_apps_DATA = kompare.desktop
 
 # this is where the shell's XML-GUI resource file goes
 shellrcdir = $(kde_datadir)/kompare

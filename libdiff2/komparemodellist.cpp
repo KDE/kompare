@@ -228,7 +228,7 @@ bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff
 
 	if ( parseDiffOutput( readFile( diff ) ) != 0 )
 	{
-		emit error( i18n( "No models or no differences, this file: %1, is not a valid diff file" ).arg(  diff ) );
+		emit error( i18n( "No models or no differences, this file: <b>%1</b>, is not a valid diff file" ).arg(  diff ) );
 		return false;
 	}
 
@@ -236,7 +236,7 @@ bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff
 	if ( !blendOriginalIntoModelList( file ) )
 	{
 		kdDebug(8101) << "Oops cant blend original file into modellist : " << file << endl;
-		emit( i18n( "There were problems applying the diff (%1) to the file (%2)." ).arg( diff ).arg( file ) );
+		emit( i18n( "There were problems applying the diff <b>%1</b> to the file <b>%2</b>." ).arg( diff ).arg( file ) );
 		return false;
 	}
 
@@ -252,7 +252,7 @@ bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 
 	if ( parseDiffOutput( readFile( diff ) ) != 0 )
 	{
-		emit error( i18n( "No models or no differences, this file: %1, is not a valid diff file" ).arg( diff ) );
+		emit error( i18n( "No models or no differences, this file: <b>%1</b>, is not a valid diff file" ).arg( diff ) );
 		return false;
 	}
 
@@ -261,7 +261,7 @@ bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 	{
 		// Trouble blending the original into the model
 		kdDebug(8101) << "Oops cant blend original dir into modellist : " << dir << endl;
-		emit error( i18n( "There were problems applying the diff (%1) to the folder (%2)." ).arg( diff ).arg( dir ) );
+		emit error( i18n( "There were problems applying the diff <b>%1</b> to the folder <b>%2</b>." ).arg( diff ).arg( dir ) );
 		return false;
 	}
 
@@ -363,7 +363,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 
 	if ( !result )
 	{
-		emit error( i18n( "Could not upload the temporary file to the destination location %2. The temporary file is still available under: %1. You can manually copy it to the right place." ).arg( temp->name() ).arg( m_destination ) );
+		emit error( i18n( "Could not upload the temporary file to the destination location <b>%1</b>. The temporary file is still available under: <b>%2</b>. You can manually copy it to the right place." ).arg( m_destination ).arg( temp->name() ) );
 	}
 	else
 	{

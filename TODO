@@ -1,4 +1,5 @@
 In descending order of importance:
+* fix mousewheel support (totally busted atm)
 * use version numbers when available
 * use function names when available
 * fix some drawing bugs in the connection widget

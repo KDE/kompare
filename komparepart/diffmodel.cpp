@@ -253,7 +253,7 @@ int DiffModel::parseContextDiff( const QStringList& list )
 							else
 								break; // leave this while
 						}
-						differences.append( diff );
+						// don't add unchanged to differences
 						hunk->add( diff );
 					}
 					else if ( ((*oldIt).find( QRegExp( "^! " ), 0 ) == 0) && (((*newIt).find( QRegExp( "^! " ), 0 ) == 0)) )

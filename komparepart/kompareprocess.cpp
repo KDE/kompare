@@ -27,10 +27,8 @@
 #include "kdiffprocess.h"
 #include "kdiffprocess.moc"
 
-KDiffProcess::KDiffProcess( const KURL& source, const KURL& destination, DiffSettings* diffSettings )
-	: KShellProcess(),
-	m_leftURL( source ),
-	m_rightURL( destination )
+KDiffProcess::KDiffProcess( const QString& source, const QString& destination, DiffSettings* diffSettings )
+	: KShellProcess()
 {
 	// connect the stdout and stderr signals
 	connect( this, SIGNAL( receivedStdout( KProcess*, char*, int ) ),
@@ -42,11 +40,15 @@ KDiffProcess::KDiffProcess( const KURL& source, const KURL& destination, DiffSet
 	connect( this, SIGNAL( processExited( KProcess* ) ),
 	         this, SLOT( processExited( KProcess* ) ) );
 	
+	// Write command and options
 	if( diffSettings ) {
 		writeCommandLine( diffSettings );
 	} else {
 		writeDefaultCommandLine();
 	}
+	
+	// Write file names
+	*this << "--" << source << destination;
 }
 
 void KDiffProcess::writeDefaultCommandLine()
@@ -153,24 +155,19 @@ void KDiffProcess::receivedStderr( KProcess* /* process */, char* buffer, int le
 
 bool KDiffProcess::start()
 {
-	if( KIO::NetAccess::download( m_leftURL, m_leftTemp ) &&
-	    KIO::NetAccess::download( m_rightURL, m_rightTemp ) ) {
-		*this << "--" << m_leftTemp << m_rightTemp;
-		QString cmdLine;
-		for( QStrListIterator i( *this->args() ); i.current(); ++i ) {
-			cmdLine += i.current();
-			cmdLine += " ";
-		}
-		kdDebug() << cmdLine << endl;
-		return( KShellProcess::start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
+#ifndef NDEBUG
+	QString cmdLine;
+	for( QStrListIterator i( *this->args() ); i.current(); ++i ) {
+		cmdLine += i.current();
+		cmdLine += " ";
 	}
-	return false;
+	kdDebug() << cmdLine << endl;
+#endif
+	return( KShellProcess::start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
 }
 
 void KDiffProcess::processExited( KProcess* /* proc */ )
 {
-	KIO::NetAccess::removeTempFile( m_leftTemp );
-	KIO::NetAccess::removeTempFile( m_rightTemp );
 	// exit status of 0: no differences
 	//                1: some differences
 	//                2: error

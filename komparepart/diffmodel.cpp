@@ -31,7 +31,8 @@
 DiffModel::DiffModel()
 	: m_sourceFile( i18n( "Source" ) ),
 	m_destinationFile( i18n( "Destination" ) ),
-	m_appliedCount( 0 )
+	m_appliedCount( 0 ),
+	m_modified( false )
 {
 };
 
@@ -781,7 +782,14 @@ void DiffModel::toggleApplied( int diffIndex )
 	else
 		m_appliedCount++;
 	d->toggleApplied();
+	
+	setModified( true );
 	emit appliedChanged( d );
+}
+
+void DiffModel::setModified( bool modified )
+{
+	m_modified = modified;
 }
 
 #include "diffmodel.moc"

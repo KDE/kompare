@@ -2,7 +2,7 @@ In descending order of importance:
 * implement blending the original file in (this helps in implementing the rcs and ed)
 * implement ed and rcs format
 * patch functionality
-* better save feedback
+* use version numbers when available
 * session management
 * merge text view GUI
 * the tree view should show directory structure

@@ -36,7 +36,7 @@ class KDiffPart;
 * statusbar but relies on the "Part" to do all the real work.
 *
 * @short Application Shell
-* @author John Firebaugh <jfirebaugh@mac.com>
+* @author John Firebaugh <jfirebaugh@kde.org>
 * @version 0.1
 */
 class KDiffShell : public KParts::DockMainWindow
@@ -63,7 +63,12 @@ public:
 	 */
 	void compare(const KURL& source,const KURL& destination );
 
+public slots:
+	void setCaption( const QString& caption );
+
 protected:
+	virtual bool queryClose();
+	
 	/**
 	* This method is called when it is time for the app to save its
 	* properties for session management purposes.

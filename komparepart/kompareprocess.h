@@ -31,7 +31,7 @@ class KDiffProcess : public KShellProcess
 	Q_OBJECT
 	
 public:
-	KDiffProcess( const KURL& sourceURL, const KURL& destinationURL, DiffSettings* settings = 0 );
+	KDiffProcess( const QString& source, const QString& destination, DiffSettings* settings = 0 );
 	~KDiffProcess();
 	
 	bool start();
@@ -55,10 +55,6 @@ protected slots:
 private:
 	QString      m_stdout;
 	QString      m_stderr;
-	KURL         m_leftURL;
-	KURL         m_rightURL;
-	QString      m_leftTemp;
-	QString      m_rightTemp;
 };
 
 #endif

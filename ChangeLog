@@ -1,3 +1,7 @@
+july   25, 2001 : John Firebaugh
+	Promt to save changes on close
+	Show [modified] caption
+	Clean up internal save mechanism
 july   14, 2001 : John Firebaugh
 	New menu item "Swap source and destination".
 	Make empty selection work.

@@ -27,7 +27,6 @@
 #include <kdebug.h>
 #include <kmessagebox.h>
 #include <klistview.h>
-#include <ktempfile.h>
 
 #include <qfile.h>
 
@@ -99,11 +98,6 @@ KDiffPart::KDiffPart( QWidget *parentWidget, const char *widgetName,
 
 KDiffPart::~KDiffPart()
 {
-	if( m_tempDiff ) {
-		m_tempDiff->unlink();
-		delete m_tempDiff;
-		m_tempDiff = 0;
-	}
 }
 
 QWidget* KDiffPart::createNavigationWidget( QWidget* parent, const char* name )
@@ -125,9 +119,9 @@ void KDiffPart::setupActions()
 {
 	// create our actions
 
-	m_save = KStdAction::save( this, SLOT(slotSaveDestination()), actionCollection() );
+	m_save = KStdAction::save( this, SLOT(saveDestination()), actionCollection() );
 	m_saveDiff = new KAction( i18n("Save .&diff"), 0,
-	              this, SLOT(save()),
+	              this, SLOT(saveDiff()),
 	              actionCollection(), "file_save_diff" );
 	m_swap = new KAction( i18n( "Swap source and destination" ), 0,
 	              this, SLOT(slotSwap()),
@@ -185,10 +179,9 @@ void KDiffPart::updateActions()
 				m_applyDifference->setIcon( "1rightarrow" );
 			}
 		}
-		setModified( appliedCount() > 0 );
+		m_save->setEnabled( getSelectedModel()->isModified() );
 	} else {
-		m_applyDifference->setEnabled( false );
-		setModified( false );
+		m_save->setEnabled( false );
 	}
 	m_previousFile->setEnabled( model > 0 );
 	m_nextFile->setEnabled( model < m_models->modelCount() - 1 );
@@ -197,28 +190,9 @@ void KDiffPart::updateActions()
 	    ( diff < getSelectedModel()->differenceCount() - 1 || model < m_models->modelCount() - 1 ) );
 }
 
-void KDiffPart::setReadWrite(bool rw)
+bool KDiffPart::openURL( const KURL& url )
 {
-	// notify your internal widget of the read-write state
-	ReadWritePart::setReadWrite(rw);
-}
-
-void KDiffPart::setModified(bool modified)
-{
-	// get a handle on our Save action and make sure it is valid
-	// KAction *save = actionCollection()->action(KStdAction::stdName(KStdAction::Save));
-	if (!m_save)
-		return;
-
-	// if so, we either enable or disable it based on the current
-	// state
-	if (modified)
-		m_save->setEnabled(true);
-	else
-		m_save->setEnabled(false);
-
-	// in any event, we want our parent to do it's thing
-	ReadWritePart::setModified(modified);
+  return openDiff( url );
 }
 
 void KDiffPart::compare( const KURL& source, const KURL& destination )
@@ -226,67 +200,40 @@ void KDiffPart::compare( const KURL& source, const KURL& destination )
 	m_models->compare( source, destination );
 }
 
-bool KDiffPart::openFile()
+bool KDiffPart::saveDestination()
 {
-	QFile file(m_file);
-
-	if( !file.open(IO_ReadOnly) )
-		return false;
-	
-	m_models->readDiffFile( file );
-	
-	return true;
+	bool result = m_models->saveDestination( m_selectedModel );
+	updateActions();
+	updateStatus();
+	return result;
 }
 
-bool KDiffPart::save()
+bool KDiffPart::saveAll()
 {
-	// Don't write to url yet, we must wait until the diff is finished
-	return saveFile();
+	bool result = m_models->saveAll();
+	updateActions();
+	updateStatus();
+	return result;
 }
 
-bool KDiffPart::saveFile()
+bool KDiffPart::openDiff( const KURL& url )
 {
-	// if we aren't read-write, return immediately
-	if (isReadWrite() == false)
-		return false;
+	return m_models->openDiff( url );
+}
 
-	// Remove the temporary diff, if we have created one.
-	if( m_tempDiff ) {
-		m_tempDiff->unlink();
-		delete m_tempDiff;
-		m_tempDiff = 0;
-	}
-
-	if ( m_file.isEmpty() ) {
-		KURL url = KFileDialog::getSaveURL( QString::null, "*.diff", widget(), "FileSaveDialog" );
-		if ( !url.isEmpty() ) {
-			return saveAs( url );
-		}
-		return false;
-	}
-
-	m_models->writeDiffFile( m_file, m_diffSettings );
-
-	return true;
+void KDiffPart::saveDiff()
+{
+	KURL url = KFileDialog::getSaveURL( m_models->destinationBaseURL().url(),
+	              "*.diff *.patch", widget(), i18n( "Save .diff" ) );
+	m_models->saveDiff( url, m_diffSettings );
 }
 
 KURL KDiffPart::diffURL()
 {
-	// If m_file is set, we either have loaded a .diff file, or we have
-	// saved the results of a comparison. In either case, we can just
-	// return url(). If we haven't loaded a .diff file or saved, we will
-	// create a temporary file and save the diff there.
-	if ( m_file ) {
-		return url();
-	} else {
-		if( !m_tempDiff ) {
-			m_tempDiff = new KTempFile();
-			m_models->writeDiffFile( m_tempDiff->name(), m_diffSettings );
-		}
-		KURL url;
-		url.setPath( m_tempDiff->name() );
-		return url;
+	if( m_models->diffURL().isEmpty() ) {
+		saveDiff();
 	}
+	return m_models->diffURL();
 }
 
 void KDiffPart::slotSetStatus( KDiffModelList::Status status )
@@ -300,15 +247,11 @@ void KDiffPart::slotSetStatus( KDiffModelList::Status status )
 		emit setStatusBarText( i18n( "Parsing diff..." ) );
 		break;
 	case KDiffModelList::FinishedParsing:
-		showDefaultStatus();
+		updateStatus();
 		slotSetSelection( 0, 0 );
 		break;
 	case KDiffModelList::FinishedWritingDiff:
-		// If m_tempDiff is non-null, we are in the process of saving
-		// a .diff file. Otherwise, we are just saving a temporary.
-		if( !m_tempDiff )
-			saveToURL();
-		showDefaultStatus();
+		updateStatus();
 		emit diffURLChanged();
 		break;
 	default:
@@ -316,7 +259,7 @@ void KDiffPart::slotSetStatus( KDiffModelList::Status status )
 	}
 }
 
-void KDiffPart::showDefaultStatus()
+void KDiffPart::updateStatus()
 {
 	if( m_models->mode() == KDiffModelList::Compare ) {
 		if( modelCount() > 1 ) {
@@ -349,11 +292,6 @@ void KDiffPart::slotModelsChanged()
 {
 	if( m_selectedModel > modelCount() - 1 )
 		slotSetSelection( -1, -1 );
-}
-
-void KDiffPart::slotSaveDestination()
-{
-	m_models->saveDestination( m_selectedModel );
 }
 
 void KDiffPart::slotSwap()
@@ -446,6 +384,20 @@ void KDiffPart::slotShowDiffstats( void )
 	}
 }
 
+bool KDiffPart::askSaveChanges()
+{
+	if( !isModified() ) return true;
+	
+	int query = KMessageBox::warningYesNoCancel( widget(),
+	    i18n("You have made changes to the destination.\n"
+	         "Would you like to save them?" ), i18n( "Save Changes?" ),
+	         i18n( "Save" ), i18n( "Discard" ) );
+	
+	if( query == KMessageBox::Cancel ) return false;
+	if( query == KMessageBox::Yes ) return m_models->saveAll();
+	return true;
+}
+
 void KDiffPart::loadSettings(KConfig *config)
 {
 	config->setGroup( "General" );
@@ -495,7 +447,7 @@ void KDiffPart::slotSelectionChanged( int /* model */, int /* diff */ )
 void KDiffPart::slotAppliedChanged( const Difference* /* d */ )
 {
 	updateActions();
-	emit appliedChanged();
+	updateStatus();
 }
 
 void KDiffPart::slotDifferenceMenuAboutToShow()

@@ -62,7 +62,10 @@ public:
 	QString destinationTimestamp() { return m_destinationTimestamp; };
 
 	enum DiffFormat getFormat() { return m_format; };
+	bool isModified() const { return m_modified; };
 
+public slots:
+	void setModified( bool modified );
 	void toggleApplied( int diffIndex );
 
 signals:
@@ -83,6 +86,7 @@ private:
 	QList<Difference>   m_differences;
 	int                 m_appliedCount;
 	enum DiffFormat     m_format;
+	bool                m_modified;
 };
 
 #endif

@@ -27,6 +27,8 @@
 
 class QFile;
 
+class KTempFile;
+
 class KDiffProcess;
 class DiffSettings;
 
@@ -40,10 +42,12 @@ public:
 	KDiffModelList();
 	~KDiffModelList();
 	
-	void compare( const KURL& source, const KURL& destination );
-	void readDiffFile( QFile& file );
-	void writeDiffFile( QString file, DiffSettings* settings );
-	void saveDestination( int index );
+	bool compare( const KURL& source, const KURL& destination );
+	bool saveDestination( int index );
+
+	bool openDiff( const KURL& url );
+	bool saveDiff( const KURL& url, DiffSettings* settings );
+	bool saveAll();
 	
 	void swap();
 	
@@ -54,6 +58,8 @@ public:
 	DiffModel* modelAt( int i ) { return m_models.at( i ); };
 	KURL sourceBaseURL() const { return m_sourceURL.upURL(); };
 	KURL destinationBaseURL() const { return m_destinationURL.upURL(); };
+	KURL diffURL() const { return m_diffURL; };
+	bool isModified() const;
 	
 signals:
 	void status( KDiffModelList::Status );
@@ -71,9 +77,14 @@ private:
 	Mode              m_mode;
 	KDiffProcess*     m_diffProcess;
 	QList<DiffModel>  m_models;
+
 	KURL              m_sourceURL;
 	KURL              m_destinationURL;
-	QString           m_diffFile;
+	QString           m_sourceTemp;
+	QString           m_destinationTemp;
+
+	KURL              m_diffURL;
+	KTempFile*        m_diffTemp;
 	
 };
 

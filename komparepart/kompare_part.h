@@ -31,7 +31,6 @@ class QWidget;
 
 class KToggleAction;
 class KURL;
-class KTempFile;
 
 class KDiffView;
 class KDiffNavigationTree;
@@ -47,7 +46,7 @@ class MiscSettings;
 * application.
 *
 * @short Main Part
-* @author John Firebaugh <jfirebaugh@mac.com>
+* @author John Firebaugh <jfirebaugh@kde.org>
 * @version 0.1
 */
 class KDiffPart : public KParts::ReadWritePart
@@ -66,25 +65,13 @@ public:
 	virtual ~KDiffPart();
 
 	/**
-	* This is a virtual function inherited from KParts::ReadWritePart.
-	* A shell will use this to inform this Part if it should act
-	* read-only
-	*/
-	virtual void setReadWrite(bool rw);
-
-	/**
-	* Reimplemented to disable and enable Save action
-	*/
-	virtual void setModified(bool modified);
-
-	/**
 	 * Create the navigation widget. For example, this may be embedded in a dock
 	 * widget by the shell.
 	 */
 	QWidget* createNavigationWidget( QWidget* parent = 0L, const char* name = 0L );
 
-	void compare( const KURL& source, const KURL& destination );
-
+	bool askSaveChanges();
+	
 	void loadSettings(KConfig *config);
 	void saveSettings(KConfig *config);
 
@@ -98,17 +85,35 @@ public:
 		{ return m_models->modelAt( m_selectedModel ); };
 	Difference* getSelectedDifference()
 		{ return m_models->modelAt( m_selectedModel )->differenceAt( m_selectedDifference ); };
-	int appliedCount() const
-		{ return m_models->modelAt( m_selectedModel )->appliedCount(); };
-
+	int appliedCount() const { return m_models->modelAt( m_selectedModel )->appliedCount(); };
+	
+	bool isModified() const { return m_models->isModified(); };
+	
+	/** Returns the url to the open diff file, or a url to a temporary
+	    diff file if we are comparing files. */
 	KURL diffURL();
-	
+
 public slots:
-	/**
-	 * Reimplemented from ReadWritePart.
-	 */
-	bool save();
-	
+
+  /** Overridden from KPart::ReadOnlyPart. Just calls openDiff( url ). */
+	bool openURL( const KURL &url );
+
+	/** Compare source with destination */
+	void compare( const KURL& source, const KURL& destination );
+
+	/** Save the currently selected destination in a multi-file diff,
+	    or the single destination if a single file diff. */
+	bool saveDestination();
+
+	/** Save all destinations. */
+	bool saveAll();
+
+	/** Open and parse the diff file at url. */
+	bool openDiff( const KURL& url );
+
+	/** Save the results of a comparison as a diff file. */
+	void saveDiff();
+
 	void slotSetSelection( int model, int diff );
 
 signals:
@@ -117,15 +122,10 @@ signals:
 	void diffURLChanged();
 
 protected:
-	/**
-	* This must be implemented by each part
-	*/
-	virtual bool openFile();
 
-	/**
-	* This must be implemented by each read-write part
-	*/
-	virtual bool saveFile();
+	/* We handle the urls ourself */
+	bool openFile() { return true; };
+	bool saveFile() { return true; };
 
 protected slots:
 	void slotSetStatus( KDiffModelList::Status status );
@@ -137,7 +137,6 @@ protected slots:
 	void slotDifferenceMenuAboutToShow();
 	void slotGoDifferenceActivated( int item );
 	
-	void slotSaveDestination();
 	void slotSwap();
 	void slotShowDiffstats();
 	void slotApplyDifference();
@@ -153,7 +152,7 @@ private:
 	void setupActions();
 	void setupStatusbar();
 	void updateActions();
-	void showDefaultStatus();
+	void updateStatus();
 
 	static GeneralSettings*    m_generalSettings;
 	static DiffSettings*       m_diffSettings;

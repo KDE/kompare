@@ -115,6 +115,11 @@ KDiffShell::~KDiffShell()
 {
 }
 
+bool KDiffShell::queryClose()
+{
+	return m_part->askSaveChanges();
+}
+
 void KDiffShell::load(const KURL& url)
 {
 	m_part->openURL( url );
@@ -180,6 +185,11 @@ void KDiffShell::updateStatusBar()
 void KDiffShell::slotSetStatusBarText( const QString& text )
 {
 	statusBar()->changeItem( text, ID_GENERAL );
+}
+
+void KDiffShell::setCaption( const QString& caption )
+{
+	KParts::DockMainWindow::setCaption( caption, m_part->isModified() );
 }
 
 void KDiffShell::saveProperties(KConfig* /*config*/)

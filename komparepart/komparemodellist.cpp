@@ -21,6 +21,7 @@
 #include <ktempfile.h>
 #include <kio/netaccess.h>
 #include <klocale.h>
+#include <ktempfile.h>
 #include <kdebug.h>
 
 #include "diffmodel.h"
@@ -34,117 +35,56 @@
 KDiffModelList::KDiffModelList()
 	: QObject(),
 	m_mode( Compare ),
-	m_diffProcess( 0 )
+	m_diffProcess( 0 ),
+	m_diffTemp( 0 )
 {
 }
 
 KDiffModelList::~KDiffModelList()
 {
+	KIO::NetAccess::removeTempFile( m_sourceTemp );
+	KIO::NetAccess::removeTempFile( m_destinationTemp );
+	
 	delete m_diffProcess;
 }
 
-void KDiffModelList::compare( const KURL& source, const KURL& destination )
+bool KDiffModelList::compare( const KURL& source, const KURL& destination )
 {
 	m_mode = Compare;
 	m_sourceURL = source;
 	m_destinationURL = destination;
 	
 	clear();
-	
-	m_diffProcess = new KDiffProcess( source, destination );
-	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
-	         this, SLOT(slotDiffProcessFinished( bool )) );
-	
-	emit status( RunningDiff );
-	m_diffProcess->start();
-}
 
-void KDiffModelList::swap()
-{
-	compare( KURL( m_destinationURL ), KURL( m_sourceURL ) );
-}
-
-void KDiffModelList::slotDiffProcessFinished( bool success )
-{
-	if( success ) {
-		emit status( Parsing );
-		if( parseDiffs( m_diffProcess->getDiffOutput() ) != 0 ) {
-			emit error( i18n( "Could not parse diff output." ) );
-		}
-		emit status( FinishedParsing );
-	} else if( m_diffProcess->exitStatus() == 0 ) {
-		emit error( i18n( "The files are identical." ) );
-	} else {
-		emit error( m_diffProcess->getStderr() );
+	if( KIO::NetAccess::download( m_sourceURL, m_sourceTemp ) &&
+	    KIO::NetAccess::download( m_destinationURL, m_destinationTemp ) ) {
+		
+		m_diffProcess = new KDiffProcess( m_sourceTemp, m_destinationTemp );
+		connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
+		         this, SLOT(slotDiffProcessFinished( bool )) );
+		
+		emit status( RunningDiff );
+		m_diffProcess->start();
+		
+		return true;
 	}
-	
-	delete m_diffProcess;
-	m_diffProcess = 0;
+
+	return false;
 }
 
-void KDiffModelList::readDiffFile( QFile& file )
-{
-	m_mode = Diff;
-	
-	clear();
-	
-	QTextStream stream(&file);
-	QStringList list;
-	while (!stream.eof())
-		list.append(stream.readLine());
-
-	emit status( Parsing );
-	if( parseDiffs( list ) != 0 ) {
-		emit error( i18n( "Could not parse diff output." ) );
-	}
-	emit status( FinishedParsing );
-}
-
-void KDiffModelList::writeDiffFile( QString file, DiffSettings* settings )
-{
-	m_diffFile = file;
-	
-	m_diffProcess = new KDiffProcess( m_sourceURL, m_destinationURL, settings );
-	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
-	         this, SLOT(slotWriteDiffOutput( bool )) );
-	
-	emit status( RunningDiff );
-	m_diffProcess->start();
-	
-}
-
-void KDiffModelList::slotWriteDiffOutput( bool success )
-{
-	if( success ) {
-		QFile file( m_diffFile );
-		if( file.open(IO_WriteOnly) ) {
-			
-			// use QTextStream to dump the text to the file
-			QTextStream stream(&file);
-			
-			QStringList output = m_diffProcess->getDiffOutput();
-			for ( QStringList::ConstIterator it = output.begin(); it != output.end(); ++it ) {
-				stream << (*it) << "\n";
-			}
-			
-			file.close();
-			
-			emit status( FinishedWritingDiff );
-		}
-	}
-	
-	delete m_diffProcess;
-	m_diffProcess = 0;
-}
-
-void KDiffModelList::saveDestination( int index )
+bool KDiffModelList::saveDestination( int index )
 {
 	DiffModel* model = modelAt( index );
+	
+	if( !model->isModified() ) return true;
+	
 	KTempFile* temp = new KTempFile();
 	
 	if( temp->status() != 0 ) {
 		emit error( i18n( "Could not open file." ) );
-		return;
+		temp->unlink();
+		delete temp;
+		return false;
 	}
 	
 	QTextStream* stream = temp->textStream();
@@ -172,13 +112,134 @@ void KDiffModelList::saveDestination( int index )
 	temp->close();
 	if( temp->status() != 0 ) {
 		emit error( i18n( "Could not write to file." ) );
-		return;
+		temp->unlink();
+		delete temp;
+		return false;
 	}
 	
 	KIO::NetAccess::upload( temp->name(), m_destinationURL );
 	
+	model->setModified( false );
+	
 	temp->unlink();
 	delete temp;
+	
+	return true;
+}
+
+bool KDiffModelList::saveAll()
+{
+	for( uint i = 0; i < m_models.count(); ++i ) {
+		if( !saveDestination( i ) ) return false;
+	}
+	return true;
+}
+
+void KDiffModelList::slotDiffProcessFinished( bool success )
+{
+	if( success ) {
+		emit status( Parsing );
+		if( parseDiffs( m_diffProcess->getDiffOutput() ) != 0 ) {
+			emit error( i18n( "Could not parse diff output." ) );
+		}
+		emit status( FinishedParsing );
+	} else if( m_diffProcess->exitStatus() == 0 ) {
+		emit error( i18n( "The files are identical." ) );
+	} else {
+		emit error( m_diffProcess->getStderr() );
+	}
+	
+	delete m_diffProcess;
+	m_diffProcess = 0;
+}
+
+bool KDiffModelList::openDiff( const KURL& url )
+{
+	m_mode = Diff;
+	m_diffURL = url;
+	
+	clear();
+	
+	QString diffTemp;
+	
+	if( !KIO::NetAccess::download( m_diffURL, diffTemp ) ) {
+		return false;
+	}
+	
+	QFile file( diffTemp );
+	
+	if( !file.open( IO_ReadOnly ) ) {
+		KIO::NetAccess::removeTempFile( diffTemp );
+		return false;
+	}
+	
+	QTextStream stream( &file );
+	QStringList list;
+	while (!stream.eof()) {
+		list.append(stream.readLine());
+	}
+	
+	emit status( Parsing );
+	if( parseDiffs( list ) != 0 ) {
+		emit error( i18n( "Could not parse diff output." ) );
+		KIO::NetAccess::removeTempFile( diffTemp );
+		return false;
+	}
+	
+	KIO::NetAccess::removeTempFile( diffTemp );
+	emit status( FinishedParsing );
+	return true;
+}
+
+bool KDiffModelList::saveDiff( const KURL& url, DiffSettings* settings )
+{
+	m_diffURL = url;
+	
+	m_diffTemp = new KTempFile();
+	
+	if( m_diffTemp->status() != 0 ) {
+		emit error( i18n( "Could not open file." ) );
+		m_diffTemp->unlink();
+		delete m_diffTemp;
+		m_diffTemp = 0;
+		return false;
+	}
+	
+	m_diffProcess = new KDiffProcess( m_sourceTemp, m_destinationTemp, settings );
+	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
+	         this, SLOT(slotWriteDiffOutput( bool )) );
+	
+	emit status( RunningDiff );
+	return m_diffProcess->start();
+	
+}
+
+void KDiffModelList::slotWriteDiffOutput( bool success )
+{
+	if( success ) {
+		
+		QTextStream* stream = m_diffTemp->textStream();
+		
+		QStringList output = m_diffProcess->getDiffOutput();
+		for ( QStringList::ConstIterator it = output.begin(); it != output.end(); ++it ) {
+			*stream << (*it) << "\n";
+		}
+		
+		m_diffTemp->close();
+		if( m_diffTemp->status() != 0 ) {
+			emit error( i18n( "Could not write to file." ) );
+		}
+		
+		KIO::NetAccess::upload( m_diffTemp->name(), m_diffURL );
+		
+		emit status( FinishedWritingDiff );
+	}
+	
+	m_diffTemp->unlink();
+	delete m_diffTemp;
+	m_diffTemp = 0;
+	delete m_diffProcess;
+	m_diffProcess = 0;
 }
 
 int KDiffModelList::parseDiffs( const QStringList& lines )
@@ -210,4 +271,18 @@ void KDiffModelList::clear()
 {
 	m_models.clear();
 	emit modelsChanged();
+}
+
+void KDiffModelList::swap()
+{
+	compare( KURL( m_destinationURL ), KURL( m_sourceURL ) );
+}
+
+bool KDiffModelList::isModified() const
+{
+	QListIterator<DiffModel> it( m_models );
+	for( ; it.current(); ++it ) {
+		if( (*it)->isModified() ) return true;
+	}
+	return false;
 }

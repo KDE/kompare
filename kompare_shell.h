@@ -73,6 +73,8 @@ private:
 	void setupStatusBar();
 
 private:
+	KURL             m_source;
+	KURL             m_destination;
 	KDiffPart*       m_part;
 
 	KToggleAction*   m_toolbarAction;

@@ -28,7 +28,7 @@ KDiffShell::KDiffShell()
 	: KParts::MainWindow( 0L, "KDiffShell" )
 {
 	if ( !initialGeometrySet() )
-      resize( 800, 480 );
+	resize( 800, 480 );
 
 	// set the shell's ui resource file
 	setXMLFile("kdiffui.rc");
@@ -70,6 +70,13 @@ KDiffShell::KDiffShell()
 		KMessageBox::error(this, "Could not find our Part!");
 		kapp->quit();
 	}
+
+	// Read basic main-view settings, and set to autosave
+	setAutoSaveSettings( "General Options" );
+
+	m_toolbarAction->setChecked( !toolBar()->isHidden() );
+	m_statusbarAction->setChecked( !statusBar()->isHidden() );
+
 }
 
 KDiffShell::~KDiffShell()
@@ -83,6 +90,8 @@ void KDiffShell::load(const KURL& url)
 
 void KDiffShell::compare(const KURL& source,const KURL& destination )
 {
+	m_source = source;
+	m_destination = destination;
 	m_part->compare( source, destination );
 }
 
@@ -146,7 +155,7 @@ void KDiffShell::slotFileOpen()
 
 void KDiffShell::slotFileCompareFiles()
 {
-	KCompareDialog* dialog = new KCompareDialog( this );
+	KCompareDialog* dialog = new KCompareDialog( &m_source, &m_destination, this );
 	if( dialog->exec() == QDialog::Accepted ) {
 		KURL source = dialog->getSourceURL();
 		KURL destination = dialog->getDestinationURL();

@@ -4,7 +4,7 @@
 #include <kdialogbase.h>
 #include <kurl.h>
 
-class KURLCompletion;
+class KURLComboBox;
 class KURLRequester;
 class KFileDialog;
 
@@ -13,7 +13,7 @@ class KCompareDialog : public KDialogBase
 	Q_OBJECT
 
 public:
-	KCompareDialog( QWidget* parent = 0, const char* name = 0 );
+	KCompareDialog( const KURL* sourceURL = 0, const KURL* destURL = 0, QWidget* parent = 0, const char* name = 0 );
 	~KCompareDialog();
 
 	KURL getSourceURL() const;
@@ -23,6 +23,8 @@ private slots:
 	void slotEnableCompare();
 
 private:
+	KURLComboBox*      m_sourceURLComboBox;
+	KURLComboBox*      m_destinationURLComboBox;
 	KURLRequester*     m_sourceURLRequester;
 	KURLRequester*     m_destinationURLRequester;
 };

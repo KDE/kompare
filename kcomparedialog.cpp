@@ -1,12 +1,17 @@
 #include <kdialogbase.h>
 #include <kurlrequester.h>
+#include <kurlcombobox.h>
 #include <klocale.h>
+#include <kapp.h>
+#include <kconfig.h>
+#include <kdebug.h>
+
 #include <qlayout.h>
 #include <qgroupbox.h>
 
 #include "kcomparedialog.h"
 
-KCompareDialog::KCompareDialog( QWidget *parent, const char *name )
+KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationURL, QWidget *parent, const char *name )
     :   KDialogBase( Plain, i18n("Compare Files"), Ok|Cancel, Ok, parent, name )
 {
 	QVBoxLayout* topLayout = new QVBoxLayout( plainPage(), 0,
@@ -20,7 +25,18 @@ KCompareDialog::KCompareDialog( QWidget *parent, const char *name )
 	sourceGBLayout->setAlignment( Qt::AlignVCenter );
 	sourceGBLayout->setSpacing( 6 );
 	sourceGBLayout->setMargin( 11 );
-	m_sourceURLRequester = new KURLRequester( QString::null, sourceGB );
+
+	m_sourceURLComboBox = new KURLComboBox( KURLComboBox::Files, true );
+	if( sourceURL ) {
+		kdDebug() << sourceURL->url() << endl;
+		m_sourceURLComboBox->setURL( *sourceURL );
+	}
+
+	KConfig* config = kapp->config();
+	config->setGroup( "Recent Files" );
+	m_sourceURLComboBox->setURLs( config->readListEntry( "Recent Sources" ) );
+
+	m_sourceURLRequester = new KURLRequester( m_sourceURLComboBox, sourceGB );
 	m_sourceURLRequester->setFocus();
 	sourceGBLayout->addWidget( m_sourceURLRequester );
 	topLayout->addWidget( sourceGB );
@@ -33,7 +49,16 @@ KCompareDialog::KCompareDialog( QWidget *parent, const char *name )
 	destinationGBLayout->setAlignment( Qt::AlignVCenter );
 	destinationGBLayout->setSpacing( 6 );
 	destinationGBLayout->setMargin( 11 );
-	m_destinationURLRequester = new KURLRequester( QString::null, destinationGB );
+
+	m_destinationURLComboBox = new KURLComboBox( KURLComboBox::Files, true );
+	if( destinationURL ) {
+		kdDebug() << destinationURL->url() << endl;
+		m_destinationURLComboBox->setURL( *destinationURL );
+	}
+
+	m_destinationURLComboBox->setURLs( config->readListEntry( "Recent Destinations" ) );
+
+	m_destinationURLRequester = new KURLRequester( m_destinationURLComboBox, destinationGB );
 	destinationGBLayout->addWidget( m_destinationURLRequester );
 	topLayout->addWidget( destinationGB );
 
@@ -49,6 +74,10 @@ KCompareDialog::KCompareDialog( QWidget *parent, const char *name )
 
 KCompareDialog::~KCompareDialog()
 {
+	KConfig* config = kapp->config();
+	config->setGroup( "Recent Files" );
+	config->writeEntry( "Recent Sources", m_sourceURLComboBox->urls() );
+	config->writeEntry( "Recent Destinations", m_destinationURLComboBox->urls() );
 }
 
 void KCompareDialog::slotEnableCompare()

@@ -1,11 +1,13 @@
 # KDE Config File
 [Desktop Entry]
 Type=Application
-Exec=kdiff -caption "%c" %i %m  
-Icon=kdiff
-DocPath=kdiff/index.html
+Name=KDiff
+Name[eo]=Diferenco
+Name[ro]=Diferenţe
 Comment=
 Comment[ro]= Sfaturi utile despre KDE
+MimeType=text/x-diff;
+Exec=kdiff -caption "%c" %i %m
+Icon=kdiff
+DocPath=kdiff/index.html
 Terminal=0
-Name=KDiff
-Name[ro]=Diferenţe

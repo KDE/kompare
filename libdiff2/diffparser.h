@@ -2,7 +2,7 @@
 **                              diffparser.h
 **                              -----------------
 **      begin                   : Sun Aug  4 15:05:35 2002
-**      copyright               : (C) 2002-2003 by Otto Bruggeman
+**      copyright               : (C) 2002-2004 Otto Bruggeman
 **      email                   : otto.bruggeman@home.nl
 **
 ***************************************************************************/
@@ -26,7 +26,7 @@ namespace Diff2
 class DiffParser : public ParserBase
 {
 public:
-	DiffParser( const QStringList& diff );
+	DiffParser( const KompareModelList* list, const QStringList& diff );
 	virtual ~DiffParser();
 
 protected:

@@ -286,28 +286,42 @@ void DiffModel::applyDifference( bool apply )
 	else if ( !apply && m_selectedDifference->applied() )
 		m_appliedCount--;
 
-	if ( m_appliedCount == 0 )
-		m_modified = false;
-	else
-		m_modified = true;
+	bool modified;
 
-	emit setModified( m_modified );
+	// Not setting the m_modified yet so i can still query the current
+	// modified status from the slot that is connected to the signal
+	if ( m_appliedCount == 0 )
+		modified = false;
+	else
+		modified = true;
+
+	emit setModified( modified );
+
+	m_modified = modified;
 
 	m_selectedDifference->apply( apply );
 }
 
 void DiffModel::applyAllDifferences( bool apply )
 {
+	bool modified;
+
+	// Not setting the m_modified yet so i can still query the current
+	// modified status from the slot that is connected to the signal
 	if ( apply )
 	{
 		m_appliedCount = m_differences.count();
-		m_modified = true;
+		modified = true;
 	}
 	else
 	{
 		m_appliedCount = 0;
-		m_modified = false;
+		modified = false;
 	}
+
+	emit setModified( modified );
+
+	m_modified = modified;
 
 	Difference* difference = m_differences.first();
 	while ( difference )
@@ -319,11 +333,11 @@ void DiffModel::applyAllDifferences( bool apply )
 
 void DiffModel::slotSetModified( bool modified )
 {
+	// Not setting the m_modified yet so i can still query the current
+	// modified status from the slot that is connected to the signal
+	emit setModified( modified );
+
 	m_modified = modified;
-	if ( modified )
-		emit setModified( true );
-	else
-		emit setModified( false );
 }
 
 bool DiffModel::setSelectedDifference( Difference* diff )

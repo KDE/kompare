@@ -2,7 +2,7 @@
 **                              diffparser.cpp
 **                              --------------
 **      begin                   : Sun Aug  4 15:05:35 2002
-**      copyright               : (C) 2002-2003 by Otto Bruggeman
+**      copyright               : (C) 2002-2004 Otto Bruggeman
 **      email                   : otto.bruggeman@home.nl
 **
 ***************************************************************************/
@@ -23,7 +23,7 @@
 
 using namespace Diff2;
 
-DiffParser::DiffParser( const QStringList& diff ) : ParserBase( diff )
+DiffParser::DiffParser( const KompareModelList* list, const QStringList& diff ) : ParserBase( list, diff )
 {
 	// The regexps needed for context cvs diff parsing, the rest is the same as in parserbase.cpp
 	m_contextDiffHeader1.setPattern( "^\\*\\*\\* ([^\\t]+)\\t([^\\t]+)$" );

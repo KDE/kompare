@@ -2,7 +2,7 @@
 **                             parser.cpp
 **                              -------------------
 **      begin                   : Sun Aug  4 15:05:35 2002
-**      copyright               : (C) 2002-2003 by Otto Bruggeman
+**      copyright               : (C) 2002-2004 Otto Bruggeman
 **      email                   : otto.bruggeman@home.nl
 **
 ***************************************************************************/
@@ -25,7 +25,8 @@
 
 using namespace Diff2;
 
-Parser::Parser()
+Parser::Parser( const KompareModelList* list ) :
+	m_list( list )
 {
 }
 
@@ -36,7 +37,7 @@ Parser::~Parser()
 DiffModelList* Parser::parse( const QString& diff )
 {
 //	kdDebug(8101) << "DiffOutput: " << diff << endl;
-	/* Just split the QString and call the other static parse method */
+	/* Just split the QString and call the other parse method */
 	return Parser::parse( QStringList::split( diff, "\n" ) );
 }
 
@@ -53,15 +54,15 @@ DiffModelList* Parser::parse( const QStringList& diff )
 	{
 	case Kompare::CVSDiff :
 		kdDebug(8101) << "It is a CVS generated diff..." << endl;
-		parser = new CVSDiffParser( diff );
+		parser = new CVSDiffParser( m_list, diff );
 		break;
 	case Kompare::Diff :
 		kdDebug(8101) << "It is a diff generated diff..." << endl;
-		parser = new DiffParser( diff );
+		parser = new DiffParser( m_list, diff );
 		break;
 	case Kompare::Perforce :
 		kdDebug(8101) << "It is a Perforce generated diff..." << endl;
-		parser = new PerforceParser( diff );
+		parser = new PerforceParser( m_list, diff );
 		break;
 	default:
 		// Nothing to delete, just leave...

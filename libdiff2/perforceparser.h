@@ -2,7 +2,7 @@
 **                             perforceparser.h
 **                              -------------------
 **      begin                   : Sun Sep  8 20:58:59 2002
-**      copyright               : (c) 2002-2003 by Otto Bruggeman
+**      copyright               : (c) 2002-2004 Otto Bruggeman
 **      email                   : otto.bruggeman@home.nl
 **
 ***************************************************************************/
@@ -26,7 +26,7 @@ namespace Diff2
 class PerforceParser : public ParserBase
 {
 public:
-	PerforceParser( const QStringList& diff );
+	PerforceParser( const KompareModelList* list, const QStringList& diff );
 	virtual ~PerforceParser();
 
 protected:

@@ -2,7 +2,7 @@
 **                             parserbase.h
 **                              -------------------
 **      begin                   : Tue Jul 30 23:53:52 2002
-**      copyright               : (C) 2002-2003 by Otto Bruggeman
+**      copyright               : (C) 2002-2004 Otto Bruggeman
 **      email                   : otto.bruggeman@home.nl
 **
 ***************************************************************************/
@@ -30,10 +30,12 @@ class QString;
 namespace Diff2
 {
 
+class KompareModelList;
+
 class ParserBase
 {
 public:
-	ParserBase( const QStringList& diff );
+	ParserBase( const KompareModelList* list, const QStringList& diff );
 	virtual ~ParserBase();
 
 public:
@@ -118,6 +120,9 @@ protected:
 	QStringList::ConstIterator m_diffIterator;
 
 	bool                       m_singleFileDiff;
+
+protected:
+	const KompareModelList* m_list;
 };
 
 } // End of namespace Diff2

@@ -2,7 +2,7 @@
 **                              parser.h
 **                              --------
 **      begin                   : Tue Jul 30 23:53:52 2002
-**      copyright               : (C) 2002-2003 by Otto Bruggeman
+**      copyright               : (C) 2002-2004 Otto Bruggeman
 **      email                   : otto.bruggeman@home.nl
 **
 ***************************************************************************/
@@ -25,11 +25,12 @@ namespace Diff2
 {
 
 class DiffModel;
+class KompareModelList;
 
 class Parser
 {
 public:
-	Parser();
+	Parser( const KompareModelList* list );
 	~Parser();
 
 public:
@@ -46,6 +47,8 @@ private:
 private:
 	enum Kompare::Generator m_generator;
 	enum Kompare::Format    m_format;
+
+	const KompareModelList* m_list;
 };
 
 } // End of namespace Diff2

@@ -46,11 +46,11 @@ public:
 	~KompareModelList();
 
 public:
-	/* Comparing methods */
-	bool compare( const QString& source, const QString& destination );
-
 	// Swap source with destination and show differences
 	void swap();
+
+	/* Comparing methods */
+	bool compare( const QString& source, const QString& destination );
 
 	bool compareFiles( const QString& source, const QString& destination );
 	bool compareDirs( const QString& source, const QString& destination );
@@ -65,6 +65,10 @@ public:
 public:
 	bool saveDiff( const QString& url, QString directory, DiffSettings* diffSettings );
 	bool saveAll();
+
+	/** Save the currently selected destination in a multi-file diff,
+	    or the single destination if a single file diff. */
+	void slotSaveDestination();
 
 	bool saveDestination( const DiffModel* model );
 
@@ -196,6 +200,8 @@ private:
 	KAction*              m_nextFile;
 	KAction*              m_previousDifference;
 	KAction*              m_nextDifference;
+
+	KAction*              m_save;
 };
 
 } // End of namespace Diff2

@@ -2,7 +2,7 @@
 **                             parserbase.cpp
 **                              -------------------
 **      begin                   : Sun Aug  4 15:05:35 2002
-**      copyright               : (C) 2002-2003 by Otto Bruggeman
+**      copyright               : (C) 2002-2004 Otto Bruggeman
 **      email                   : otto.bruggeman@home.nl
 **
 ***************************************************************************/
@@ -15,22 +15,26 @@
 **
 ***************************************************************************/
 
+#include <qobject.h>
+
 #include <kdebug.h>
 
 #include "diffmodel.h"
 #include "diffhunk.h"
 #include "difference.h"
+#include "komparemodellist.h"
 
 #include "parserbase.h"
 
 using namespace Diff2;
 
-ParserBase::ParserBase( const QStringList& diff ) :
+ParserBase::ParserBase( const KompareModelList* list, const QStringList& diff ) :
     m_diffLines( diff ),
     m_currentModel( 0 ),
     m_models( 0 ),
     m_diffIterator( m_diffLines.begin() ),
-    m_singleFileDiff( false )
+    m_singleFileDiff( false ),
+    m_list( list )
 {
 //	kdDebug(8101) << diff << endl;
 //	kdDebug(8101) << m_diffLines << endl;
@@ -116,6 +120,7 @@ bool ParserBase::parseContextDiffHeader()
 //			kdDebug(8101) << "Matched string Header2 = " << m_contextDiffHeader2.cap( 0 ) << endl;
 
 			m_currentModel = new DiffModel( m_contextDiffHeader1.cap( 1 ), m_contextDiffHeader2.cap( 1 ) );
+			QObject::connect( m_currentModel, SIGNAL( setModified( bool ) ), m_list, SLOT( slotSetModified( bool ) ) );
 			m_currentModel->setSourceTimestamp     ( m_contextDiffHeader1.cap( 2 ) );
 			m_currentModel->setSourceRevision      ( m_contextDiffHeader1.cap( 4 ) );
 			m_currentModel->setDestinationTimestamp( m_contextDiffHeader2.cap( 2 ) );
@@ -157,6 +162,7 @@ bool ParserBase::parseNormalDiffHeader()
 //			kdDebug(8101) << "Matched string Header = " << m_normalDiffHeader.cap( 0 ) << endl;
 
 			m_currentModel = new DiffModel();
+			QObject::connect( m_currentModel, SIGNAL( setModified( bool ) ), m_list, SLOT( slotSetModified( bool ) ) );
 			m_currentModel->setSourceFile          ( m_normalDiffHeader.cap( 1 ) );
 			m_currentModel->setDestinationFile     ( m_normalDiffHeader.cap( 2 ) );
 
@@ -177,6 +183,7 @@ bool ParserBase::parseNormalDiffHeader()
 		// Set this to the first line again and hope it is a single file diff
 		m_diffIterator = m_diffLines.begin();
 		m_currentModel = new DiffModel();
+		QObject::connect( m_currentModel, SIGNAL( setModified( bool ) ), m_list, SLOT( slotSetModified( bool ) ) );
 		m_singleFileDiff = true;
 	}
 
@@ -206,6 +213,7 @@ bool ParserBase::parseUnifiedDiffHeader()
 		if ( m_diffIterator != m_diffLines.end() && m_unifiedDiffHeader2.exactMatch( *m_diffIterator ) )
 		{
 			m_currentModel = new DiffModel( m_unifiedDiffHeader1.cap( 1 ), m_unifiedDiffHeader2.cap( 1 ) );
+			QObject::connect( m_currentModel, SIGNAL( setModified( bool ) ), m_list, SLOT( slotSetModified( bool ) ) );
 			m_currentModel->setSourceTimestamp( m_unifiedDiffHeader1.cap( 2 ) );
 			m_currentModel->setSourceRevision( m_unifiedDiffHeader1.cap( 4 ) );
 			m_currentModel->setDestinationTimestamp( m_unifiedDiffHeader2.cap( 2 ) );

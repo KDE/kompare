@@ -210,6 +210,14 @@ void DiffPrefs::slotExcludeFileToggled( bool on )
 		m_excludeFileURLRequester->setEnabled( true );
 	}
 }
+#else
+void DiffPrefs::slotExcludeFilePatternToggled( bool )
+{
+}
+
+void DiffPrefs::slotExcludeFileToggled( bool )
+{
+}
 #endif
 
 void DiffPrefs::addDiffTab()

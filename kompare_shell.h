@@ -26,7 +26,7 @@
 #endif
 */
 
-#include <kapp.h>
+#include <kapplication.h>
 #include <kparts/dockmainwindow.h>
 
 #include "kompare.h"

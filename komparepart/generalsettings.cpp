@@ -53,9 +53,10 @@ QColor GeneralSettings::getColorForDifferenceType( Difference::Type type, bool s
 {
 	QColor color;
 	switch( type ) {
-		case Difference::Change: color = m_changeColor; break;
-		case Difference::Insert: color = m_addColor; break;
-		case Difference::Delete: color = m_removeColor; break;
+		case Difference::Unchanged: color = white; break;
+		case Difference::Change:    color = m_changeColor; break;
+		case Difference::Insert:    color = m_addColor; break;
+		case Difference::Delete:    color = m_removeColor; break;
 		default: break;
 	}
 

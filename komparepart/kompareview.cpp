@@ -62,8 +62,8 @@ KDiffView::KDiffView( GeneralSettings* settings, QWidget *parent, const char *na
 	Frame2Layout->addWidget( revlabel2 );
 	pairlayout->addWidget( Frame2, 0, 2 );
 
-	diff1 = new DiffView( m_settings, false, true, false, this);
-	diff2 = new DiffView( m_settings, true, true, false, this);
+	diff1 = new DiffView( m_settings, false, true, this);
+	diff2 = new DiffView( m_settings, true, true, this);
 	pairlayout->addWidget(diff1, 1, 0);
 	pairlayout->addWidget(diff2, 1, 2);
 	diff1->setPartner(diff2);

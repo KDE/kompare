@@ -5,7 +5,7 @@
 INCLUDES = $(all_includes)
 
 noinst_HEADERS =  kdiff_part.h kdiff_actions.h \
-        kdiffview.h diffview.h misc.h prefsbase.h \
+        kdiffview.h diffview.h prefsbase.h \
         kdiffprocess.h diffprefs.h diffsettings.h generalprefs.h \
         generalsettings.h kdiffprefdlg.h miscprefs.h miscsettings.h \
         settingsbase.h diffmodel.h difference.h diffhunk.h
@@ -18,7 +18,7 @@ kde_module_LTLIBRARIES = libkdiffpart.la
 # the Part's source, library search path, and link libraries
 libkdiffpart_la_SOURCES = kdiff_part.cpp kdiff_actions.cpp \
         diffmodel.cpp difference.cpp diffhunk.cpp kdiffview.cpp diffview.cpp \
-        misc.cpp diffsettings.cpp kdiffprocess.cpp settingsbase.cpp \
+        diffsettings.cpp kdiffprocess.cpp settingsbase.cpp \
         miscsettings.cpp generalsettings.cpp kdiffprefdlg.cpp \
         diffprefs.cpp miscprefs.cpp generalprefs.cpp prefsbase.cpp
 libkdiffpart_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)

@@ -250,23 +250,11 @@ bool KDiffPart::openFile()
 
 	DiffModel* model = new DiffModel();
 
-	if ( m_format != DiffModel::Unknown ) // The format is given on the command line or otherwise indicated
+	if ( model->parseDiff( list ) != 0 )
 	{
-		if ( model->parseDiff( list, m_format ) != 0 )
-		{
-			KMessageBox::error( widget(), i18n( "Could not parse diff file." ) );
-			delete model;
-			return false;
-		}
-	}
-	else
-	{
-		if ( model->parseDiff( list ) != 0 )
-		{
-			KMessageBox::error( widget(), i18n( "Could not parse diff file." ) );
-			delete model;
-			return false;
-		}
+		KMessageBox::error( widget(), i18n( "Could not parse diff file." ) );
+		delete model;
+		return false;
 	}
 
 	m_diffmodels.append( model );

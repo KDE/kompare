@@ -69,9 +69,6 @@ int DiffModel::parseContextDiff( const QStringList& list )
 	int pos, len;
 	int nolinesA, nolinesB;
 	int linenoA, linenoB;
-	int i;
-
-	enum Difference::Type type;
 
 	kdDebug() << "Context diff parsing:" << endl;
 

@@ -185,7 +185,7 @@ bool KDiffProcess::start()
 }
 
 /** No descriptions */
-void KDiffProcess::processExited( KProcess* proc )
+void KDiffProcess::processExited( KProcess* /* proc */ )
 {
 	// exit status of 0: no differences
 	//                1: some differences

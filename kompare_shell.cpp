@@ -19,6 +19,7 @@
 #include "kdiff_part.h"
 #include "kdiffview.h"
 #include "diffmodel.h"
+#include "kcomparedialog.h"
 
 #define ID_N_OF_N      1
 #define ID_GENERAL     2
@@ -135,12 +136,25 @@ void KDiffShell::readProperties(KConfig* /*config*/)
 
 void KDiffShell::slotFileOpen()
 {
-	load( KFileDialog::getOpenURL( QString::null, QString::null, this ) );
+	KURL url = KFileDialog::getOpenURL( QString::null, "*.diff *.patch|Difference files", this );
+	if( !url.isEmpty() ) {
+		KDiffShell* shell = new KDiffShell();
+		shell->show();
+		shell->load( url );
+	}
 }
 
 void KDiffShell::slotFileCompareFiles()
 {
-
+	KCompareDialog* dialog = new KCompareDialog( this );
+	if( dialog->exec() == QDialog::Accepted ) {
+		KURL source = dialog->getSourceURL();
+		KURL destination = dialog->getDestinationURL();
+		KDiffShell* shell = new KDiffShell();
+		shell->show();
+		shell->compare( source, destination );
+	}
+	delete dialog;
 }
 
 void KDiffShell::optionsShowToolbar()

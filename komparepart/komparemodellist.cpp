@@ -435,6 +435,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 				{
 					kdDebug() << "Trouble, file parsing failed with result = " << result << endl;
 					kdDebug() << file->join( "\n" ) << endl;
+					delete model;
 				}
 				file->clear();
 			}
@@ -464,6 +465,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 			{
 				kdDebug() << "Trouble, file parsing failed with result = " << result << endl;
 				kdDebug() << file->join( "\n" ) << endl;
+				delete model;
 			}
 			file->clear();
 		}
@@ -500,6 +502,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 				{
 					kdDebug() << "Trouble, file parsing failed with result = " << result << endl;
 					kdDebug() << file->join( "\n" ) << endl;
+					delete model;
 				}
 				file->clear();
 			}
@@ -528,6 +531,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 			{
 				kdDebug() << "Trouble, file parsing failed with result = " << result << endl;
 				kdDebug() << file->join( "\n" ) << endl;
+				delete model;
 			}
 			file->clear();
 		}

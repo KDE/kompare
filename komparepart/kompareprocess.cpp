@@ -148,13 +148,13 @@ KompareProcess::~KompareProcess()
 void KompareProcess::receivedStdout( KProcess* /* process */, char* buffer, int length )
 {
 	// add all output to m_stdout
-	m_stdout += QString::fromLatin1( buffer, length );
+	m_stdout += QString::fromLocal8Bit( buffer, length );
 }
 
 void KompareProcess::receivedStderr( KProcess* /* process */, char* buffer, int length )
 {
 	// add all output to m_stderr
-	m_stderr += QString::fromLatin1( buffer, length );
+	m_stderr += QString::fromLocal8Bit( buffer, length );
 }
 
 bool KompareProcess::start()

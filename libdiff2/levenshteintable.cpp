@@ -183,7 +183,7 @@ void LevenshteinTable::createListsOfCommands()
 	unsigned int x = m_width-1;
 	unsigned int y = m_height-1;
 
-	Diff2::Command* c;
+	Diff2::Command* c = 0;
 
 	int n, nw, w, direction, currentValue;
 	while ( x > 0 && y > 0 )
@@ -204,6 +204,9 @@ void LevenshteinTable::createListsOfCommands()
 
 			if ( !m_destination->commandsList().isEmpty() )
 				c = m_destination->commandsList().first();
+			else
+				c = 0;
+
 			if ( c && c->m_type == Command::End )
 			{
 //				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
@@ -226,6 +229,9 @@ void LevenshteinTable::createListsOfCommands()
 
 			if ( !m_destination->commandsList().isEmpty() )
 				c = m_destination->commandsList().first();
+			else
+				c = 0;
+
 			if ( c && c->m_type == Command::End )
 			{
 //				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
@@ -242,6 +248,9 @@ void LevenshteinTable::createListsOfCommands()
 
 			if ( !m_destination->commandsList().isEmpty() )
 				c = m_source->commandsList().first();
+			else
+				c = 0;
+
 			if ( c && c->m_type == Command::End )
 			{
 //				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
@@ -265,6 +274,9 @@ void LevenshteinTable::createListsOfCommands()
 
 			if ( !m_destination->commandsList().isEmpty() )
 				c = m_source->commandsList().first();
+			else
+				c = 0;
+
 			if ( c && c->m_type == Command::End )
 			{
 //				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;

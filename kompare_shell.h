@@ -35,8 +35,6 @@ class KToggleAction;
 
 class KomparePart;
 class KompareNavTreePart;
-class Difference;
-class DiffModel;
 
 /**
 * This is the application "Shell".  It has a menubar, toolbar, and
@@ -101,7 +99,7 @@ private slots:
 	void slotShowTextView();
 	void optionsConfigureKeys();
 	void optionsConfigureToolbars();
-	void updateStatusBar( const DiffModel* model, const Difference* diff);
+	void updateStatusBar();
 	void slotDiffURLChanged();
 
 private:

@@ -17,12 +17,6 @@
 **
 ***************************************************************************/
 
-/*
-* kompareshell.cpp
-*
-* Copyright (C) 2001  <kurt@granroth.org>
-*/
-
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kstatusbar.h>
@@ -43,6 +37,8 @@
 #define ID_N_OF_N_DIFFERENCES      1
 #define ID_N_OF_N_FILES            2
 #define ID_GENERAL                 3
+
+#define kdDebug() kdDebug(8100)
 
 KompareShell::KompareShell()
 	: KParts::DockMainWindow( 0L, "KompareShell" ),
@@ -96,7 +92,7 @@ KompareShell::KompareShell()
 			setMainDockWidget( m_mainViewDock );
 
 			connect( m_viewPart, SIGNAL(selectionChanged(const DiffModel*,const Difference*)), 
-			         this, SLOT(updateStatusBar(const DiffModel, const Difference*)));
+			         this, SLOT(updateStatusBar()));
 			connect( m_viewPart, SIGNAL(appliedChanged()), 
 			         this, SLOT(updateStatusBar()));
 			// and integrate the part's GUI with the shell's
@@ -217,8 +213,10 @@ void KompareShell::setupStatusBar()
 	statusBar()->setItemAlignment( ID_GENERAL, AlignLeft );
 }
 
-void KompareShell::updateStatusBar( const DiffModel* model, const Difference* diff )
+void KompareShell::updateStatusBar()
 {
+	kdDebug() << "KompareShell::updateStatusBar()" << endl;
+	
 	QString fileStr;
 	QString diffStr;
 	int modelIndex = m_viewPart->selectedModelIndex();

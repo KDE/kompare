@@ -253,6 +253,8 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 		}
 	}
 	
+	slotSetSelection( diff );
+	
 	connect( model, SIGNAL(appliedChanged( const Difference* )),
 	         this, SLOT(slotAppliedChanged( const Difference* )) );
 }

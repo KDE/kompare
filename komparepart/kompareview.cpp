@@ -37,7 +37,6 @@
 KompareView::KompareView( GeneralSettings* settings, QWidget *parent, const char *name )
 	: QFrame(parent, name),
 	m_selectedModel( 0 ),
-	m_selectedDifference( 0 ),
 	m_settings( settings )
 {
 	setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
@@ -118,10 +117,10 @@ KompareView::~KompareView()
 
 void KompareView::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
+	kdDebug() << "KompareView::slotSetSelection( model, diff )" << endl;
 	if( model )
 	{
 		m_selectedModel = model;
-		m_selectedDifference = diff;
 		m_revlabel1->setText( model->srcFile() );
 		m_revlabel2->setText( model->destFile() );
 		if( !model->sourceRevision().isEmpty() )
@@ -132,16 +131,19 @@ void KompareView::slotSetSelection( const DiffModel* model, const Difference* di
 		m_revlabel1->setText( QString::null );
 		m_revlabel2->setText( QString::null );
 	}
-// These get called directly from modellist now...
-//	m_diff1->slotSetSelection( model, diff );
-//	m_diff2->slotSetSelection( model, diff );
-//	m_zoom->slotSetSelection( model, diff );
-//	updateScrollBars();
+	m_diff1->slotSetSelection( model, diff );
+	m_diff2->slotSetSelection( model, diff );
+	m_zoom->slotSetSelection( model, diff );
+	updateScrollBars();
 }
 
 void KompareView::slotSetSelection( const Difference* diff )
 {
-	m_selectedDifference = diff; // dunno, maybe not even needed...
+	kdDebug() << "KompareView::slotSetSelection( diff )" << endl;
+	m_diff1->slotSetSelection( diff );
+	m_diff2->slotSetSelection( diff );
+	m_zoom->slotSetSelection( diff );
+	updateScrollBars();
 }
 
 void KompareView::scrollToId( int id )

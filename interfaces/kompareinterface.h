@@ -5,6 +5,7 @@
 #define _KOMPARE_INTERFACE_H
 
 #include <qstring.h>
+#include <qstringlist.h>
 
 class KConfig;
 class KURL;
@@ -31,6 +32,11 @@ public:
 	 * Open and parse the supplied diff output
 	 */
 	virtual bool openDiff( const QString& diffOutput ) = 0;
+
+	/**
+	 * Open and parse the supplied diff output
+	 */
+	virtual bool openDiff( const QStringList& diffOutput ) = 0;
 
 	/**
 	 * Open and parse the diff3 file at url.

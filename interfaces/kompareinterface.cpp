@@ -28,6 +28,7 @@ KompareInterfacePrivate::KompareInterfacePrivate( const KompareInterfacePrivate&
 
 KompareInterfacePrivate& KompareInterfacePrivate::operator=(const KompareInterfacePrivate& /*kip*/ )
 {
+	return *this;
 }
 
 KompareInterface::KompareInterface()
@@ -48,4 +49,5 @@ KompareInterface::KompareInterface( const KompareInterface& ki )
 KompareInterface& KompareInterface::operator=( const KompareInterface& ki )
 {
 	d = ki.d;
+	return *this;
 }

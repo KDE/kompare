@@ -39,6 +39,7 @@ public:
 	bool m_useContextDiff;
 	bool m_useNormalDiff;
 	bool m_useRCSDiff;
+	bool m_useEdDiff;
 	bool m_largeFiles;
 	bool m_ignoreWhiteSpace;
 	bool m_ignoreEmptyLines;

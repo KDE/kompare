@@ -134,10 +134,19 @@ void KDiffPart::compare( const KURL& source, const KURL& destination, DiffSettin
 
 void KDiffPart::slotDiffProcessFinished( bool success )
 {
+	DiffModel::DiffFormat type;
 	if( success ) {
 		kdDebug() << "diff process finished" << endl;
 		DiffModel* model = new DiffModel();
-		model->parseDiff( m_diffProcess->getDiffOutput(), DiffModel::Unified ); // XXX Fixme
+
+		if      ( m_diffSettings->m_useContextDiff ) type = DiffModel::Context;
+		else if ( m_diffSettings->m_useEdDiff )      type = DiffModel::Ed;
+		else if ( m_diffSettings->m_useNormalDiff )  type = DiffModel::Normal;
+		else if ( m_diffSettings->m_useRCSDiff )     type = DiffModel::RCS;
+		else if ( m_diffSettings->m_useUnifiedDiff ) type = DiffModel::Unified;
+		else                                         type = DiffModel::Unknown;
+		
+		model->parseDiff( m_diffProcess->getDiffOutput(), type ); // XXX Fixme
 		m_diffView->setModel( model, true );
 	} else if( m_diffProcess->m_diffProcess->exitStatus() == 0 ) {
 		KMessageBox::information( widget(), i18n( "The files are identical." ) );

@@ -87,6 +87,8 @@ int DiffModel::parseContextDiff( const QStringList& list )
 
 	enum Difference::Type type;
 
+	kdDebug() << "Context diff parsing:" << endl;
+
 	QStringList::ConstIterator it = list.begin();
 
 	if ( it == list.end() ) return 0; // no differences
@@ -100,6 +102,7 @@ int DiffModel::parseContextDiff( const QStringList& list )
 	// Figure out the filename and date of old file
 	if ( ( pos = QRegExp( "^\\*\\*\\*" ).match( line, 0, &len ) ) < 0 ) return 1; // invalid context format
 	line.replace( QRegExp( "^\\*\\*\\* " ), "" ); // remove leading '*** '
+	kdDebug() << line << endl;
 	// read name of old file until \t
 	if ( ( pos = QRegExp( "\\t" ).match( line, 0, &len ) ) < 0 ) return 1; // invalid context format
 	filenameA = line.mid( 0, pos );
@@ -116,9 +119,10 @@ int DiffModel::parseContextDiff( const QStringList& list )
 	// read name of new file until \t
 	if ( ( pos = QRegExp( "\\t" ).match( line, 0, &len ) ) < 0 ) return 1; // invalid context format
 	filenameB = line.mid( 0, pos );
-	kdDebug() << "filenameB: " << filenameA << endl;
+	kdDebug() << "filenameB: " << filenameB << endl;
 	// get date if necessary
 
+	kdDebug() << "Start parsing the file..." << endl;
 	// Start processing the hunks in the diff
 	while ( it != list.end() )
 	{
@@ -128,15 +132,23 @@ int DiffModel::parseContextDiff( const QStringList& list )
 		// actual start of the hunks
 		if ( ( pos = QRegExp( "^\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*" ).match( line, 0, &len ) ) < 0 ) return 1; // weirdness has happened
 		// ok we found a hunk...
+		kdDebug() << "We found the start of a hunk" << endl;
 		// create DiffHunk
 		DiffHunk* hunk = new DiffHunk();
 		hunks.append( hunk );
+
+		++it;
+		line = (*it);
+		kdDebug() << line << endl;
+
 		while ( it != list.end() )
 		{
 			// ok old looks like '*** number,number ****'
 			// WARNING: after old new can come immediately to indicate only added lines
+			kdDebug() << "Extracting line numbers:" << endl;
 			if ( ( pos = QRegExp( "^\\*\\*\\* " ).match( line, 0, &len ) ) < 0 ) return 1;
 			line.replace( QRegExp( "^\\*\\*\\* "), "" );
+			kdDebug() << "After replace ***: " << line << endl;
 			// get starting line of old file
 			if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
 			linenoA = hunk->lineStartA = line.mid( pos, len ).toInt();
@@ -148,23 +160,67 @@ int DiffModel::parseContextDiff( const QStringList& list )
 
 			++it;
 			line = (*it);
-			kdDebug() << line << endl;
+			kdDebug() << "Line before --- check: " << line << endl;
 
-			while ( QRegExp( "^--- " ).match( line, 0, &len ) < 0 )
+			// do while not start of "new" part of hunk
+			while ( (it != list.end()) && (QRegExp( "^---" ).match( line, 0, &len ) < 0) )
 			{
+				Difference* difference = new Difference( linenoA, 0 ); // no idea what to fill in...
+				hunk->add( difference );
+
+				kdDebug() << "Searching in old part of hunk" << endl;
+
 				// Assume it's still a valid diff file
-				if ( line.find( QRegExp( "^+ " ), 0 ) == 0 )
+				// btw it cant start with anything else than '- ', '  ' or '! '
+				if ( line.find( QRegExp( "^- " ), 0 ) == 0 )
 				{
+					difference->type = Difference::Delete;
+					while ( (it != list.end()) && (line.find( QRegExp( "^- " ), 0 ) == 0) )
+					{
+						// keep adding it...
+						kdDebug() << "Found a '-':" << line << endl;
+						++it;
+						line = (*it);
+					}
 				}
-				++it;
-				line = (*it);
-				kdDebug() << line << endl;
+				else if ( line.find( QRegExp( "^  " ), 0 ) == 0 )
+				{
+					difference->type = Difference::Unchanged;
+					while ( (it != list.end()) && (line.find( QRegExp( "^  " ), 0 ) == 0) )
+					{
+						// keep adding it...
+						kdDebug() << "Found a ' ':" << line << endl;
+						++it;
+						line = (*it);
+					}
+				}
+				else if ( line.find( QRegExp( "^! " ), 0 ) == 0 )
+				{
+					difference->type = Difference::Change;
+					while ( (it != list.end()) && (line.find( QRegExp( "^! " ), 0 ) == 0) )
+					{
+						// keep adding it...
+						kdDebug() << "Found a '!':" << line << endl;
+						++it;
+						line = (*it);
+					}
+				}
+				else
+				{
+					kdDebug() << "Old part of hunk: " << endl;
+					kdDebug() << "Wow, something is fucked in this file..." << endl;
+					kdDebug() << "Line that gave the error: " << line << endl;
+					return 1; // wrong start of line...
+				}
 			}
+
+			kdDebug() << "Whoops we found the new part of the hunk" << endl;
 
 			// ok new looks like '--- number,number ----'
 			// WARNING: after new a new hunk can come immediately to indicate only removed lines
 			if ( ( pos = QRegExp( "^--- " ).match( line, 0, &len ) ) < 0 ) return 1;
 			line.replace( QRegExp( "^--- "), "" );
+			kdDebug() << "After replace ---: " << line << endl;
 			// get starting line of old file
 			if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
 			linenoB = hunk->lineStartB = line.mid( pos, len ).toInt();
@@ -174,6 +230,73 @@ int DiffModel::parseContextDiff( const QStringList& list )
 			nolinesB = line.mid( pos, len ).toInt() - linenoB + 1;
 			kdDebug() << "NolinesB: " << nolinesB << endl;
 
+			++it;
+			line = (*it);
+			kdDebug() << line << endl;
+
+			// do while not next hunk
+			while ( (it != list.end()) && (QRegExp( "^\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*" ).match( line, 0, &len ) < 0) )
+			{
+				kdDebug() << "Searching in new part of hunk" << endl;
+				Difference* difference = new Difference( 0, 0 ); // no idea what to fill in...
+				hunk->add( difference );
+
+				// Assume it's still a valid diff file
+				// btw it cant start with anything else than '+ ', '  ' or '! '
+				if ( line.find( QRegExp( "^\\+ " ), 0 ) == 0 )
+				{
+					difference->type = Difference::Insert;
+					while ( (it != list.end()) && (line.find( QRegExp( "^\\+ " ), 0 ) == 0) )
+					{
+						// keep adding it...
+						kdDebug() << "Found a '+':" << line << endl;
+						++it;
+						line = (*it);
+					}
+				}
+				else if ( line.find( QRegExp( "^  " ), 0 ) == 0 )
+				{
+					difference->type = Difference::Unchanged;
+					while ( (it != list.end()) && (line.find( QRegExp( "^  " ), 0 ) == 0) )
+					{
+						// keep adding it...
+						kdDebug() << "Found a ' ':" << line << endl;
+						++it;
+						line = (*it);
+					}
+				}
+				else if ( line.find( QRegExp( "^! " ), 0 ) == 0 )
+				{
+					difference->type = Difference::Change;
+					while ( (it != list.end()) && (line.find( QRegExp( "^! " ), 0 ) == 0) )
+					{
+						// keep adding it...
+						kdDebug() << "Found a '!':" << line << endl;
+						++it;
+						line = (*it);
+					}
+				}
+				else
+				{
+					kdDebug() << "New part of hunk: " << endl;
+					kdDebug() << "Wow, something is fucked in this file..." << endl;
+					kdDebug() << "Line that gave the error: " << line << endl;
+					return 1; // wrong start of line...
+				}
+			}
+
+			if ( it == list.end() )
+			{
+				kdDebug() << "End of diff found..." << endl;
+				break;
+			}
+			else
+			{
+				kdDebug() << "New hunk separator found" << endl;
+				++it;
+				line = (*it);
+			}
+
 		}
 	}
 	return 0;
@@ -182,6 +305,8 @@ int DiffModel::parseContextDiff( const QStringList& list )
 /**  */
 int DiffModel::parseEdDiff( const QStringList& /*list*/ )
 {
+	kdDebug() << "Ed diff parsing:" << endl;
+
 	return 0;
 };
 
@@ -195,6 +320,8 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 	int i;
 
 	enum Difference::Type type;
+
+	kdDebug() << "Normal  diff parsing:" << endl;
 
 	// first attempt to get normal diff working
 	QStringList::ConstIterator it = list.begin();
@@ -317,6 +444,8 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 /**  */
 int DiffModel::parseRCSDiff( const QStringList& /*list*/ )
 {
+	kdDebug() << "RCS  diff parsing:" << endl;
+
 	return 0;
 };
 
@@ -326,6 +455,8 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 	QString line;
 	int pos, len;
 	int linenoA, linenoB;
+
+	kdDebug() << "Unified  diff parsing:" << endl;
 
 	QStringList::ConstIterator it = list.begin();
 

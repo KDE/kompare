@@ -48,10 +48,11 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent )
 	layout->addWidget( m_modeButtonGroup );
 	m_modeButtonGroup->setMargin( KDialog::marginHint() );	
 
-	radioButton = new QRadioButton( i18n( "Unified" ), m_modeButtonGroup );
 	radioButton = new QRadioButton( i18n( "Context" ), m_modeButtonGroup );
-	radioButton = new QRadioButton( i18n( "Normal" ), m_modeButtonGroup );
-	radioButton = new QRadioButton( i18n( "Other" ), m_modeButtonGroup );
+	radioButton = new QRadioButton( i18n( "Ed" ),      m_modeButtonGroup );
+	radioButton = new QRadioButton( i18n( "Normal" ),  m_modeButtonGroup );
+	radioButton = new QRadioButton( i18n( "RCS" ),     m_modeButtonGroup );
+	radioButton = new QRadioButton( i18n( "Unified" ), m_modeButtonGroup );
 
 	// #lines of context (loc)
 	locGroupBox = new QHGroupBox( i18n( "Lines of context" ), page );
@@ -115,11 +116,11 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 
 	if ( m_settings->m_useUnifiedDiff )
 	{
-		m_modeButtonGroup->setButton( 0 );
+		m_modeButtonGroup->setButton( 4 );
 	}
 	else if ( m_settings->m_useContextDiff )
 	{
-		m_modeButtonGroup->setButton( 1 );
+		m_modeButtonGroup->setButton( 0 );
 	}
 	else if ( m_settings->m_useNormalDiff )
 	{
@@ -128,6 +129,10 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 	else if ( m_settings->m_useRCSDiff )
 	{
 		m_modeButtonGroup->setButton( 3 );
+	}
+	else if ( m_settings->m_useEdDiff )
+	{
+		m_modeButtonGroup->setButton( 1 );
 	}
 	else
 	{
@@ -161,16 +166,18 @@ void DiffPrefs::apply()
 
 	if ( ((QRadioButton*)m_modeButtonGroup->find(0))->isChecked() )
 	{
-		setts->m_useUnifiedDiff = true;
-		setts->m_useContextDiff = false;
+		setts->m_useUnifiedDiff = false;
+		setts->m_useContextDiff = true;
 		setts->m_useNormalDiff = false;
+		setts->m_useEdDiff = false;
 		setts->m_useRCSDiff = false;
 	}
 	else if ( ((QRadioButton*)m_modeButtonGroup->find(1))->isChecked() )
 	{
 		setts->m_useUnifiedDiff = false;
-		setts->m_useContextDiff = true;
-		setts->m_useNormalDiff = true;
+		setts->m_useContextDiff = false;
+		setts->m_useNormalDiff = false;
+		setts->m_useEdDiff = true;
 		setts->m_useRCSDiff = false;
 	}
 	else if ( ((QRadioButton*)m_modeButtonGroup->find(2))->isChecked() )
@@ -178,6 +185,7 @@ void DiffPrefs::apply()
 		setts->m_useUnifiedDiff = false;
 		setts->m_useContextDiff = false;
 		setts->m_useNormalDiff = true;
+		setts->m_useEdDiff = false;
 		setts->m_useRCSDiff = false;
 	}
 	else if ( ((QRadioButton*)m_modeButtonGroup->find(3))->isChecked() )
@@ -185,7 +193,16 @@ void DiffPrefs::apply()
 		setts->m_useUnifiedDiff = false;
 		setts->m_useContextDiff = false;
 		setts->m_useNormalDiff = false;
+		setts->m_useEdDiff = false;
 		setts->m_useRCSDiff = true;
+	}
+	else if ( ((QRadioButton*)m_modeButtonGroup->find(4))->isChecked() )
+	{
+		setts->m_useUnifiedDiff = true;
+		setts->m_useContextDiff = false;
+		setts->m_useNormalDiff = false;
+		setts->m_useEdDiff = false;
+		setts->m_useRCSDiff = false;
 	}
 	else
 	{
@@ -204,6 +221,6 @@ void DiffPrefs::setDefaults()
 	
 	m_locSpinButton->setValue( 3 );
 	
-	m_modeButtonGroup->setButton( 0 );
+	m_modeButtonGroup->setButton( 4 ); // unified
 };
 

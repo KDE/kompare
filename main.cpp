@@ -34,7 +34,7 @@ static const char *version = "v2.0";
 
 static KCmdLineOptions options[] =
 {
-	{ "+[URL [URL2]]", I18N_NOOP( "Document to open. If only one url is given\nit is considered a .diff file. If 2 files are given\nkompare will compare them." ), 0 },
+	{ "+[URL [URL2]]", I18N_NOOP( "Document to open. If only one URL is given,\nit is considered to be a .diff file. If 2 files are given,\nKompare will compare them." ), 0 },
 	{ 0, 0, 0 }
 };
 
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 			widget->compare( args->url( 0 ), args->url( 1 ) );
 			break;
 		default: // error
-			KMessageBox::error( NULL, i18n( "Sorry you gave too many arguments, dont know what to do with them..." ) );
+			KMessageBox::error( NULL, i18n( "Sorry you gave too many arguments, I don't know what to do with them..." ) );
 			return 0;
 			break;
 		}

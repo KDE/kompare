@@ -438,7 +438,7 @@ QStringList KomparePart::readFile()
 	QFile file( m_file );
 	file.open(  IO_ReadOnly );
 	QTextStream stream( &file );
-	stream.setEncoding( QTextStream::Latin1 );
+//	stream.setEncoding( QTextStream::Latin1 );
 
 	kdDebug(8103) << "Reading from m_file = " << m_file << endl;
 	while ( !stream.eof() )

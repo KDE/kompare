@@ -104,7 +104,7 @@ void KDiffShell::updateStatusBar()
 {
 	QString str;
 	int markedItem = m_part->diffView()->getSelectedItem();
-	int count = m_part->diffView()->getModel()->getDifferenceCount();
+	int count = m_part->diffView()->getModel()->getDifferences().count();
 	if (markedItem >= 0)
 		str = i18n(" %1 of %2 differences ").arg(markedItem+1).arg(count);
 	else

@@ -6,7 +6,7 @@ noinst_HEADERS =  kdiff_shell.h kdiff_part.h kdiff_actions.h \
 	kdiffview.h diffview.h misc.h kdiffapp.h prefsbase.h \
 	kdiffprocess.h diffprefs.h diffsettings.h generalprefs.h \
 	generalsettings.h kdiffprefdlg.h miscprefs.h miscsettings.h \
-	settingsbase.h diffmodel.h difference.h
+	settingsbase.h diffmodel.h difference.h diffhunk.h
 
 # let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
@@ -44,8 +44,8 @@ kde_module_LTLIBRARIES = libkdiffpart.la
 
 # the Part's source, library search path, and link libraries
 libkdiffpart_la_SOURCES = kdiff_part.cpp kdiff_actions.cpp \
-	diffmodel.cpp difference.cpp kdiffview.cpp diffview.cpp misc.cpp \
-	diffsettings.cpp kdiffprocess.cpp settingsbase.cpp
+	diffmodel.cpp difference.cpp diffhunk.cpp kdiffview.cpp diffview.cpp \
+	misc.cpp diffsettings.cpp kdiffprocess.cpp settingsbase.cpp
 libkdiffpart_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
 libkdiffpart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE)
 

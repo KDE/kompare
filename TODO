@@ -1,4 +1,7 @@
 In descending order of importance:
+* crash when clicking apply from the menu
+* clicking on difference in komparelistview does not update the listviews yet
+* selecting from the menu does not update the listviews either
 * use version numbers when available
 * use function names when available
 * fix some drawing bugs in the connection widget
@@ -11,7 +14,8 @@ In descending order of importance:
 * clicking in the connect widget should select a difference
 * add support for incremental patch saving (i'll explain if anyone wants to know)
 * Add support for diff3 (that is comparing 3 files at once)
-* Add a kompare manual/document
+* Add a kompare manual/document (partially done)
+Special requests:
 Puetzk:
 * Allow a directory to be magically patched with a diff file and show the full differences
 * Editing the TO pane

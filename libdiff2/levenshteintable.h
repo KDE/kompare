@@ -64,6 +64,6 @@ private:
 	DifferenceString* m_destination;
 };
 
-}; // namespace Diff2
+} // namespace Diff2
 
 #endif // _LEVENSHTEIN_H

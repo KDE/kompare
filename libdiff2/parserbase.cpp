@@ -390,7 +390,7 @@ bool ParserBase::parseContextHunkBody()
 			// Dont add this diff with addDiff to the model... no unchanged differences allowed in there...
 			diff->setType( Difference::Unchanged );
 			hunk->add( diff );
-			while( ( oldIt != oldLines.end() && m_contextHunkBodyContext.exactMatch( *oldIt ) ) &&
+			while( ( oldIt != oldLines.end() && m_contextHunkBodyContext.exactMatch( *oldIt ) ) ||
 			       ( newIt != newLines.end() && m_contextHunkBodyContext.exactMatch( *newIt ) ) )
 			{
 				QString l;

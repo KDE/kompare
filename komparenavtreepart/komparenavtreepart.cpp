@@ -233,17 +233,17 @@ KChangeLVI::KChangeLVI( KListView* parent, Difference* diff ) : KListViewItem( p
 	QString text = "";
 	switch( diff->type() ) {
 	case Difference::Change:
-		text = i18n( "Changed %n line", "Changed %n lines",
+		text = i18n( "Changed line", "Changed lines",
 		             QMAX( diff->sourceLineCount(),
 		             diff->destinationLineCount() ) );
 			break;
 	case Difference::Insert:
-		text = i18n( "Inserted %n line", "Inserted %n lines",
+		text = i18n( "Inserted line", "Inserted lines",
 		             diff->destinationLineCount() );
 			break;
 	case Difference::Delete:
 	default:
-		text = i18n( "Deleted %n line", "Deleted %n lines",
+		text = i18n( "Deleted line", "Deleted lines",
 		             diff->sourceLineCount() );
 			break;
 	}

@@ -139,8 +139,9 @@ void KDiffShell::setupActions()
 
 void KDiffShell::setupStatusBar()
 {
-	statusBar()->insertItem( i18n(" 0 of 0 differences "), ID_N_OF_N_DIFFERENCES );
-	statusBar()->insertItem( i18n(" 0 of 0 files "), ID_N_OF_N_FILES );
+	// Made these entries permanent so they will appear on the right side
+	statusBar()->insertItem( i18n(" 0 of 0 differences "), ID_N_OF_N_DIFFERENCES, 0, true );
+	statusBar()->insertItem( i18n(" 0 of 0 files "), ID_N_OF_N_FILES, 0, true );
 	statusBar()->insertItem( "", ID_GENERAL, 1 );
 }
 

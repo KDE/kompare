@@ -33,15 +33,15 @@ KomparePrefDlg::KomparePrefDlg( GeneralSettings* genSets, DiffSettings* diffSets
 	setIconListAllVisible(true);
 
 	QVBox* frame;
-	frame = addVBoxPage( i18n( "General" ), i18n( "General settings of the Kompare program" ), UserIcon( "diff_general" ) );
+	frame = addVBoxPage( i18n( "General" ), i18n( "General Settings" ), UserIcon( "diff_general" ) );
 	m_generalPage = new GeneralPrefs( frame );
 	m_generalPage->setSettings( genSets );
 
-	frame = addVBoxPage( i18n( "Diff" ), i18n( "Settings specific to the underlying diff program" ), UserIcon( "diff_specific" ) );
+	frame = addVBoxPage( i18n( "Diff" ), i18n( "Diff Settings" ), UserIcon( "diff_specific" ) );
 	m_diffPage = new DiffPrefs( frame );
 	m_diffPage->setSettings( diffSets );
 
-	frame = addVBoxPage( i18n( "Misc" ), i18n( "Miscellaneous settings" ), DesktopIcon( "misc" ) );
+	frame = addVBoxPage( i18n( "Misc" ), i18n( "Miscellaneous Settings" ), DesktopIcon( "misc" ) );
 	m_miscPage = new MiscPrefs( frame );
 	m_miscPage->setSettings( miscSets );
 

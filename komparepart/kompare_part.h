@@ -70,7 +70,6 @@ protected:
 	virtual bool saveFile();
 
 protected:
-	void setBusy(bool busy);
 	void updateActions();
 
 protected slots:

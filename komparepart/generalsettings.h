@@ -27,6 +27,10 @@ class GeneralSettings : public SettingsBase
 {
 Q_OBJECT
 public:
+	static const QColor default_removeColor;
+	static const QColor default_changeColor;
+	static const QColor default_addColor;
+
 	GeneralSettings( QWidget* parent );
 	~GeneralSettings();
 public:

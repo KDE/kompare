@@ -19,6 +19,10 @@
 
 #include "generalsettings.moc"
 
+const QColor GeneralSettings::default_removeColor(190, 237, 190);
+const QColor GeneralSettings::default_changeColor(237, 190, 190);
+const QColor GeneralSettings::default_addColor(190, 190, 237);
+
 GeneralSettings::GeneralSettings( QWidget* parent ) : SettingsBase( parent )
 {
 
@@ -31,9 +35,9 @@ GeneralSettings::~GeneralSettings()
 
 void GeneralSettings::loadSettings( KConfig* config )
 {
-	m_removeColor = config->readColorEntry( "RemoveColor", new QColor(190, 237, 190) );
-	m_changeColor = config->readColorEntry( "ChangeColor", new QColor(237, 190, 190) );
-	m_addColor = config->readColorEntry( "AddColor", new QColor(190, 190, 237) );
+	m_removeColor = config->readColorEntry( "RemoveColor", &default_removeColor );
+	m_changeColor = config->readColorEntry( "ChangeColor", &default_changeColor );
+	m_addColor = config->readColorEntry( "AddColor", &default_addColor );
 };
 
 void GeneralSettings::saveSettings( KConfig* config )

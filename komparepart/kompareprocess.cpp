@@ -170,6 +170,12 @@ bool KDiffProcess::start()
 	if ( m_leftURL && m_rightURL )
 	{
 		*m_diffProcess << "--" << m_leftURL->path() << m_rightURL->path();
+		QString cmdLine;
+		for( QStrListIterator i( *m_diffProcess->args() ); i.current(); ++i ) {
+			cmdLine += i.current();
+			cmdLine += " ";
+		}
+		kdDebug() << cmdLine << endl;
 		return( m_diffProcess->start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
 	}
 	else

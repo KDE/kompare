@@ -189,10 +189,9 @@ void KDiffPart::loadSettings(KConfig *config)
 {
 	config->setGroup( "General" );
 	m_synchronizeScrollBars->setChecked(config->readBoolEntry("Synchronize Scroll Bars",true));
-	m_diffView->setFont(config->readFontEntry("Font"));
-	m_diffView->setTabWidth(config->readUnsignedNumEntry("Tab Width",8));
+//	m_diffView->setFont(config->readFontEntry("Font"));
+//	m_diffView->setTabWidth(config->readUnsignedNumEntry("Tab Width",8));
 
-	config->setGroup( "GeneralSettings" );
 	m_generalSettings->loadSettings( config );
 	config->setGroup( "DiffSettings" );
 	m_diffSettings->loadSettings( config );
@@ -207,7 +206,6 @@ void KDiffPart::saveSettings(KConfig *config)
 //	config->writeEntry("Font", m_diffView->getFont());
 //	config->writeEntry("Tab Width", m_diffView->getTabWidth());
 
-	config->setGroup( "GeneralSettings" );
 	m_generalSettings->saveSettings( config );
 	config->setGroup( "DiffSettings" );
 	m_diffSettings->saveSettings( config );
@@ -277,27 +275,17 @@ void KDiffPart::optionsPreferences()
 	
 	if ( pref->exec() )
 	{
-		// does something need to be done here ?
+		KConfig* config = instance()->config();
+		saveSettings( config );
+		config->sync();
 	}
+	kdDebug() << m_diffSettings->m_linesOfContext << endl;
+
 };
 
 void KDiffPart::toggleSynchronize()
 {
 	m_diffView->setSynchronizeScrollBars( m_synchronizeScrollBars->isChecked() );
-}
-
-void KDiffPart::setBusy(bool /*busy*/)
-{
-/*
-	static bool Busy = FALSE;
-	if (busy != Busy) {
-		if (busy == TRUE)
-			widget()->setCursor(QCursor(waitCursor));
-		else
-			widget()->setCursor(QCursor(arrowCursor));
-		Busy = busy;
-	}
-*/
 }
 
 // It's usually safe to leave the factory code alone.. with the

@@ -100,7 +100,7 @@ void GeneralPrefs::apply()
 
 void GeneralPrefs::setDefaults()
 {
-	m_addedColorButton->color().setRgb( 0x00, 0xFF, 0x00 );
-	m_changedColorButton->color().setRgb( 0xFF, 0xFF, 0x00 );
-	m_removedColorButton->color().setRgb( 0xFF, 0x00, 0x00 );
+	m_addedColorButton->setColor( GeneralSettings::default_addColor );
+	m_changedColorButton->setColor( GeneralSettings::default_changeColor );
+	m_removedColorButton->setColor( GeneralSettings::default_removeColor );
 };

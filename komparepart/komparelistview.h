@@ -77,9 +77,6 @@ public slots:
 	void slotApplyAllDifferences( bool apply );
 	void slotApplyDifference( const Diff2::Difference* diff, bool apply );
 
-protected slots:
-	void slotDelayedScrollToId();
-
 signals:
 	void differenceClicked( const Diff2::Difference* diff );
 	void applyDifference( bool apply );

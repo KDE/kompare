@@ -268,6 +268,17 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 {
 	kdDebug(8104) << "KompareListView::setSelectedDifference(" << diff << ", " << scroll << ")" << endl;
 
+	// When something other than a click causes this function to be called,
+	// it'll only get called once, and all is simple.
+	//
+	// When the user clicks on a diff, this function will get called once when
+	// komparesplitter::slotDifferenceClicked runs, and again when the
+	// setSelection signal from the modelcontroller arrives.
+	//
+	// the first call (which will always be from the splitter) will have
+	// scroll==false, and the the second call will bail out here.
+	// Which is why clicking on a difference does not cause the listviews to
+	// scroll.
 	if ( m_selectedDifference == diff )
 		return;
 
@@ -278,21 +289,11 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 		kdDebug(8104) << "KompareListView::slotSetSelection(): couldn't find our selection!" << endl;
 		return;
 	}
-	// Only scroll to item if it isn't selected. This is so that
-	// clicking an item doesn't scroll to it. KompareView sets the
-	// selection manually in that case.
-	if( scroll )
-	{
-		m_idToScrollTo = item->scrollId();
-		kdDebug(8104) << "Triggering a singleshot timer... should scroll to ID : " << m_idToScrollTo << endl;
-		QTimer::singleShot( 0, this, SLOT( slotDelayedScrollToId() ) );
-	}
-	setSelected( item, true );
-}
 
-void KompareListView::slotDelayedScrollToId()
-{
-	scrollToId( m_idToScrollTo );
+	// why does this not happen when the user clicks on a diff? see the comment above.
+	if( scroll )
+		scrollToId(item->scrollId());
+	setSelected( item, true );
 }
 
 void KompareListView::slotSetSelection( const Difference* diff )

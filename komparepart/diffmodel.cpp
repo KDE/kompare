@@ -197,48 +197,34 @@ int DiffModel::parseContextDiff( const QStringList& list )
 			// Now we have the lines nicely grouped in old- and newLines, categorize them now...
 			if ( oldLines.count() == 0 )
 			{ // Only added lines -> make difference from newLines and type Insert
-				diff = new Difference( linenoA, linenoB );
-				diff->type = Difference::Insert;
+//				diff = new Difference( linenoA, linenoB );
+//				diff->type = Difference::Insert;
 				for( QStringList::ConstIterator newIt = newLines.begin(); newIt != newLines.end(); ++newIt)
 				{
 					QString line = (*newIt);
-					if ( !line.find( QRegExp( "^\\+ " ), 0 ) == 0 )
+					if ( line.find( QRegExp( "^  " ), 0 ) == 0 )
 					{
-						diff->addSourceLine( line.replace( 0, 2, "" ) );
-						diff->addDestinationLine( line );
-					}
-					else
-					{
-						diff->addDestinationLine( line.replace( 0, 2, "" ) );
+						oldLines.append( line );
 					}
 				}
-				differences.append( diff );
-				hunk->add( diff );
+//				differences.append( diff );
+//				hunk->add( diff );
 			}
-			else if ( newLines.count() == 0 )
+			if ( newLines.count() == 0 )
 			{ // Only removed lines -> make difference from oldLines and type Delete
-				diff = new Difference( linenoA, linenoB );
-				diff->type = Difference::Delete;
 				for( QStringList::ConstIterator oldIt = oldLines.begin(); oldIt != oldLines.end(); ++oldIt)
 				{
 					QString line = (*oldIt);
-					if ( !line.find( QRegExp( "^- " ), 0 ) == 0 )
+					if ( line.find( QRegExp( "^  " ), 0 ) == 0 )
 					{
-						diff->addSourceLine( line.replace( 0, 2, "" ) );
-						diff->addDestinationLine( line );
-					}
-					else
-					{
-						diff->addSourceLine( line.replace( 0, 2, "" ) );
+						newLines.append( line );
 					}
 				}
-				differences.append( diff );
-				hunk->add( diff );
 			}
 //			else if ( oldLines.count() == newLines.count() )
 //			{ // only changed i hope... could be as much as added as deleted in the same piece though...
 //			}
-			else
+//			else
 			{ // added &| removed &| changed lines, figure it out...
 				QStringList::ConstIterator oldIt = oldLines.begin();
 				QStringList::ConstIterator newIt = newLines.begin();
@@ -267,9 +253,7 @@ int DiffModel::parseContextDiff( const QStringList& list )
 							else
 								break; // leave this while
 						}
-						// differences contains only changes, not unchanged Differences, don't add it
-//						differences.append( diff );
-						// hunk contains all Differences, including unchanged
+						differences.append( diff );
 						hunk->add( diff );
 					}
 					else if ( ((*oldIt).find( QRegExp( "^! " ), 0 ) == 0) && (((*newIt).find( QRegExp( "^! " ), 0 ) == 0)) )

@@ -263,7 +263,7 @@ const QString KomparePart::fetchURL( const KURL& url )
 	{
 		if ( ! KIO::NetAccess::download( url, tempFileName, widget() ) )
 		{
-			slotShowError( QString( "<qt>" ) + i18n( "The URL <b>%1</b> cannot be downloaded." ).arg( url.prettyURL() ) );
+			slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>" ).arg( url.prettyURL() ) );
 			tempFileName = "";
 			return tempFileName;
 		}
@@ -277,7 +277,7 @@ const QString KomparePart::fetchURL( const KURL& url )
 			return url.path();
 		else
 		{
-			slotShowError( QString( "<qt>" ) + i18n( "The URL <b>%1</b> does not exist on your system." ).arg( url.prettyURL() ) );
+			slotShowError( i18n( "<qt>The URL <b>%1</b> does not exist on your system.</qt>" ).arg( url.prettyURL() ) );
 			return tempFileName;
 		}
 	}

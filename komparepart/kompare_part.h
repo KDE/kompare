@@ -131,12 +131,12 @@ protected slots:
 	void slotSwap();
 	void slotShowDiffstats();
 	void optionsPreferences();
+	void updateActions();
+	void updateStatus();
 
 private:
 	void setupActions();
 	void setupStatusbar();
-	void updateActions();
-	void updateStatus();
 
 	static GeneralSettings* m_generalSettings;
 	static DiffSettings*    m_diffSettings;

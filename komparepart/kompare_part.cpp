@@ -67,6 +67,10 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	         this, SLOT(slotSetStatus( Kompare::Status )) );
 	connect( m_models, SIGNAL(error( QString )),
 	         this, SLOT(slotShowError( QString )) );
+	connect( m_models, SIGNAL(applyAllDifferences( bool )),
+	         this, SLOT(updateActions()) );
+	connect( m_models, SIGNAL(applyDifference( bool )),
+	         this, SLOT(updateActions()) );
 //	connect( m_models, SIGNAL(modelsChanged( const QPtrList<DiffModel>* )),
 //	         this, SLOT(slotModelsChanged( const QPtrList<DiffModel>* )) );
 

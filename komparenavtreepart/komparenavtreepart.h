@@ -2,8 +2,8 @@
                                 komparenavtreepart.h  -  description
                                 -------------------
         begin                   : Mon Feb 26 2002
-        copyright               : (C) 2002-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/

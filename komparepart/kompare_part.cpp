@@ -268,7 +268,8 @@ void KDiffPart::slotSetStatus( KDiffModelList::Status status )
 		break;
 	case KDiffModelList::FinishedParsing:
 		updateStatus();
-		slotSetSelection( 0, 0 );
+		if( m_models->modelCount() > 0 && m_models->modelAt( 0 )->differenceCount() > 0 )
+			slotSetSelection( 0, 0 );
 		break;
 	case KDiffModelList::FinishedWritingDiff:
 		updateStatus();

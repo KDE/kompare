@@ -153,6 +153,18 @@ void KDiffSaveOptionsWidget::updateCommandLine()
 //		cmdLine += " -w";
 //	}
 	
+	if ( m_RecursiveCB->isChecked() ) {
+		options += "r";
+	}
+	
+	if( m_NewFilesCB->isChecked() ) {
+		options += "N";
+	}
+	
+	if( m_AllTextCB->isChecked() ) {
+		options += "a";
+	}
+	
 	if( options.length() > 0 ) {
 		cmdLine += " -" + options;
 	}
@@ -174,9 +186,9 @@ void KDiffSaveOptionsWidget::loadOptions()
 	m_IgnoreEmptyLinesCB->setChecked( m_settings->m_ignoreEmptyLines );
 	m_IgnoreWhiteSpaceCB->setChecked( m_settings->m_ignoreWhiteSpace );
 	m_FunctionNamesCB->setChecked( m_settings->m_showCFunctionChange );
-//	m_RecursiveCB->setChecked( m_settings->m_recursive );
-//	m_NewFilesCB->setChecked( m_settings->m_newFiles );
-//	m_AllTextCB->setChecked( m_settings->m_allText );
+	m_RecursiveCB->setChecked( m_settings->m_recursive );
+	m_NewFilesCB->setChecked( m_settings->m_newFiles );
+	m_AllTextCB->setChecked( m_settings->m_allText );
 	
 	m_ContextLinesSB->setValue( m_settings->m_linesOfContext );
 
@@ -194,9 +206,9 @@ void KDiffSaveOptionsWidget::saveOptions()
 	m_settings->m_ignoreEmptyLines = m_IgnoreEmptyLinesCB->isChecked();
 	m_settings->m_ignoreWhiteSpace = m_IgnoreWhiteSpaceCB->isChecked();
 	m_settings->m_showCFunctionChange = m_FunctionNamesCB->isChecked();
-//	m_settings->m_recursive = m_RecursiveCB->isChecked();
-//	m_settings->m_newFiles = m_NewFilesCB->isChecked();
-//	m_settings->m_allText = m_AllTextCB->isChecked();
+	m_settings->m_recursive = m_RecursiveCB->isChecked();
+	m_settings->m_newFiles = m_NewFilesCB->isChecked();
+	m_settings->m_allText = m_AllTextCB->isChecked();
 	
 	m_settings->m_linesOfContext = m_ContextLinesSB->value();
 

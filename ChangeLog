@@ -1,3 +1,8 @@
+july   29, 2001 : John Firebaugh
+	Add some tests.
+	Add the qregexp3 backport.
+	Use qregexp3 for diff parsing -- soooo much cleaner.
+	All the diff options work.
 july   28, 2001 : John Firebaugh
 	Directories can be selected in the compare dialog
 	New base clase KDiff, holds some common stuff

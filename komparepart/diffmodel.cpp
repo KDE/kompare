@@ -26,6 +26,7 @@
 #include "diffmodel.h"
 #include "diffhunk.h"
 #include "kdiffmodellist.h"
+#include "qregexp3.h"
 
 /**  */
 DiffModel::DiffModel()
@@ -83,275 +84,162 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 	// '***************' start of hunk (15 *)
 	// '*** number,number ****' start of old file
 	// '--- number,number ----' start of new file
-	QString line;
-	QString filenameA, filenameB;
-	int pos, len;
-	int nolinesA, nolinesB;
 	int linenoA, linenoB;
 
 	kdDebug() << "Context diff parsing:" << endl;
 
 	if ( it == list.end() ) return 0; // no differences
-	line = (*it);
-	kdDebug() << line << endl;
 
-	nolinesA = 0;
-	nolinesB = 0;
-	kdDebug() << line << endl;
-
-	// Figure out the filename and date of old file
-	if ( ( pos = QRegExp( "^\\*\\*\\*" ).match( line, 0, &len ) ) < 0 ) return 1; // invalid context format
-	line.replace( QRegExp( "^\\*\\*\\* " ), "" ); // remove leading '*** '
-	kdDebug() << line << endl;
-	// read name of old file until \t
-	if ( ( pos = QRegExp( "\\t" ).match( line, 0, &len ) ) < 0 ) return 1; // invalid context format
-	m_sourceFile = line.mid( 0, pos );
-	kdDebug() << m_sourceFile << endl;
-	// get date if necessary
-
+	QRegExp3 source( "^\\*\\*\\* ([^\\t]+)\\t([^\\t]+)\\t?(.*)$" );
+	if( !source.exactMatch( *it ) ) return 1;
+	
+	m_sourceFile = source.cap( 1 );
+	m_sourceTimestamp = source.cap( 2 );
+	m_sourceRevision = source.cap( 3 );
+	
+	kdDebug() << " source: " << m_sourceFile << endl;
+	kdDebug() << "   time: " << m_sourceTimestamp << endl;
+	kdDebug() << "    rev: " << m_sourceRevision << endl;
+	
+	if( ++it == list.end() ) return 1;
+	
+	QRegExp3 dest( "^--- ([^\\t]+)\\t([^\\t]+)\\t?(.*)$" );
+	if( !dest.exactMatch( *it ) ) return 1;
+	
+	m_destinationFile = dest.cap( 1 );
+	m_destinationTimestamp = dest.cap( 2 );
+	m_destinationRevision = dest.cap( 3 );
+	
+	kdDebug() << "   dest: " << m_destinationFile << endl;
+	kdDebug() << "   time: " << m_destinationTimestamp << endl;
+	kdDebug() << "    rev: " << m_destinationRevision << endl;
+	
 	++it;
-	line = (*it);
-	kdDebug() << line << endl;
-
-	// Figure out the filename and date of new file
-	if ( ( pos = QRegExp( "^---" ).match( line, 0, &len ) ) < 0 ) return 1; // invalid context format
-	line.replace( QRegExp( "^--- " ), "" ); // remove leading '--- '
-	// read name of new file until \t
-	if ( ( pos = QRegExp( "\\t" ).match( line, 0, &len ) ) < 0 ) return 1; // invalid context format
-	m_destinationFile = line.mid( 0, pos );
-	kdDebug() << m_destinationFile << endl;
-	// get date if necessary
-
-	kdDebug() << "Start parsing the file..." << endl;
-	// Start processing the hunks in the diff
-	while ( it != list.end() )
-	{
+	
+	QRegExp3 head1( "^\\*{15} ?(.*)$" );
+	QRegExp3 headS( "^\\*{3} ([0-9]+),([0-9]+) \\*{4}$" );
+	QRegExp3 headD( "^-{3} ([0-9]+),([0-9]+) -{4}$" );
+	QRegExp3 line( "^([-!+ ]) (.*)$" );
+	QRegExp3 unchanged( "^  (.*)$" );
+	QRegExp3 changed(    "^! (.*)$" );
+	QRegExp3 removed(   "^- (.*)$" );
+	QRegExp3 added(     "^\\+ (.*)$" );
+	
+	while ( it != list.end() ) {
+		
+		if( !head1.exactMatch( *it ) ) return 1;
+		
 		++it;
-		line = (*it);
-		kdDebug() << line << endl;
-		// actual start of the hunks
-		if ( ( pos = QRegExp( "^\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*" ).match( line, 0, &len ) ) < 0 ) return 1; // weirdness has happened
-		// ok we found a hunk...
-		kdDebug() << "We found the start of a hunk" << endl;
-
+		
+		if( !headS.exactMatch( *it ) ) return 1;
+		
+		linenoA = headS.cap( 1 ).toInt();
+		
 		++it;
-
-		while ( it != list.end() )
-		{
-			line = (*it);
-			kdDebug() << line << endl;
-			// ok old looks like '*** number,number ****'
-			// WARNING: after old new can come immediately to indicate only added lines
-			kdDebug() << "Extracting line numbers:" << line << endl;
-			if ( ( pos = QRegExp( "^\\*\\*\\* " ).match( line, 0, &len ) ) < 0 ) return 1;
-			line.replace( QRegExp( "^\\*\\*\\* "), "" );
-			kdDebug() << "After replace ***: " << line << endl;
-			// get starting line of old file
-			if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-			linenoA = line.mid( pos, len ).toInt();
-			kdDebug() << "LinenoA: " << linenoA << endl;
-			line.replace( QRegExp( "^[0-9]+,"), "" );
-			if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-			nolinesA = line.mid( pos, len ).toInt() - linenoA + 1;
-			kdDebug() << "NolinesA: " << nolinesA << endl;
-
-			++it;
-			line = (*it);
-			kdDebug() << "Line before --- check: " << line << endl;
-			QStringList oldLines;
-			QStringList newLines;
-
-			// do while not start of "new" part of hunk
-			while ( (it != list.end()) && (QRegExp( "^---" ).match( line, 0, &len ) < 0) )
-			{
-				kdDebug() << "Searching in old part of hunk" << endl;
-				kdDebug() << "Added this line to oldLines: " << line << endl;
-				oldLines.append(line);
-				++it;
-				line = (*it);
-			}
-
-			kdDebug() << "Whoops we found the new part of the hunk" << endl;
-
-			// ok new looks like '--- number,number ----'
-			// WARNING: after new a new hunk can come immediately to indicate only removed lines
-			if ( ( pos = QRegExp( "^--- " ).match( line, 0, &len ) ) < 0 ) return 1;
-			line.replace( QRegExp( "^--- "), "" );
-			kdDebug() << "After replace ---: " << line << endl;
-			// get starting line of old file
-			if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-			linenoB = line.mid( pos, len ).toInt();
-			kdDebug() << "LinenoB: " << linenoB << endl;
-			line.replace( QRegExp( "^[0-9]+,"), "" );
-			if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-			nolinesB = line.mid( pos, len ).toInt() - linenoB + 1;
-			kdDebug() << "NolinesB: " << nolinesB << endl;
-
-			++it;
-			line = (*it);
-			kdDebug() << line << endl;
-
-			// do while not next hunk
-			while ( (it != list.end()) && (QRegExp( "^\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*" ).match( line, 0, &len ) < 0) )
-			{
-				kdDebug() << "Searching in new part of hunk" << endl;
-				kdDebug() << "Added this line to newLines: " << line << endl;
-				newLines.append(line);
-				++it;
-				line = (*it);
-			}
-
-			kdDebug() << "We found the start of a hunk or eof: " << line << endl;
-
-			DiffHunk* hunk = new DiffHunk();
-			hunk->lineStartA = linenoA;
-			hunk->lineStartB = linenoB;
-
-			Difference* diff;
-
-			// Now we have the lines nicely grouped in old- and newLines, categorize them now...
-			if ( oldLines.count() == 0 )
-			{ // Only added lines -> make difference from newLines and type Insert
-//				diff = new Difference( linenoA, linenoB );
-//				diff->setType( Difference::Insert );
-				for( QStringList::ConstIterator newIt = newLines.begin(); newIt != newLines.end(); ++newIt)
-				{
-					QString line = (*newIt);
-					if ( line.find( QRegExp( "^  " ), 0 ) == 0 )
-					{
-						oldLines.append( line );
-					}
-				}
-//				m_differences.append( diff );
-//				hunk->add( diff );
-			}
-			if ( newLines.count() == 0 )
-			{ // Only removed lines -> make difference from oldLines and type Delete
-				for( QStringList::ConstIterator oldIt = oldLines.begin(); oldIt != oldLines.end(); ++oldIt)
-				{
-					QString line = (*oldIt);
-					if ( line.find( QRegExp( "^  " ), 0 ) == 0 )
-					{
-						newLines.append( line );
-					}
+		
+		QStringList oldLines;
+		for( ; it != list.end() && line.exactMatch( *it ); ++it ) {
+			oldLines.append( line.cap( 0 ) );
+		}
+		
+		if( !headD.exactMatch( *it ) ) return 1;
+		
+		linenoB = headD.cap( 1 ).toInt();
+		
+		++it;
+		
+		QStringList newLines;
+		for( ; it != list.end() && line.exactMatch( *it ); ++it ) {
+			newLines.append( line.cap( 0 ) );
+		}
+		
+		DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
+		m_hunks.append( hunk );
+		
+		QStringList::Iterator oldIt = oldLines.begin();
+		QStringList::Iterator newIt = newLines.begin();
+		
+		Difference* diff;
+		while( oldIt != oldLines.end() || newIt != newLines.end() ) {
+			
+			if( oldIt != oldLines.end() && removed.exactMatch( *oldIt ) ) {
+				kdDebug() << "Delete: " << endl;
+				diff = new Difference( linenoA, linenoB );
+				diff->setType( Difference::Delete );
+				m_differences.append( diff );
+				hunk->add( diff );
+				for( ; oldIt != oldLines.end() && removed.exactMatch( *oldIt ); ++oldIt ) {
+					kdDebug() << " " << removed.cap( 1 ) << endl;
+					diff->addSourceLine( removed.cap( 1 ) );
+					linenoA++;
 				}
 			}
-//			else if ( oldLines.count() == newLines.count() )
-//			{ // only changed i hope... could be as much as added as deleted in the same piece though...
-//			}
-//			else
-			{ // added &| removed &| changed lines, figure it out...
-				QStringList::ConstIterator oldIt = oldLines.begin();
-				QStringList::ConstIterator newIt = newLines.begin();
-				while( (oldIt != oldLines.end()) && (newIt != newLines.end()) )
-				{
-					if ( ((*oldIt).find( QRegExp( "^  " ), 0 ) == 0) && ((*newIt).find( QRegExp( "^  " ), 0 ) == 0) )
-					{
-						diff = new Difference( linenoA, linenoB );
-						diff->setType( Difference::Unchanged );
-						kdDebug() << "Type is: Unchanged" << endl;
-						while( (oldIt != oldLines.end()) && (newIt != newLines.end()))
-						{
-							if ( ((*oldIt).find( QRegExp( "^  " ), 0 ) == 0) && ((*newIt).find( QRegExp( "^  " ), 0 ) == 0) )
-							{
-								QString line = (*oldIt);
-								kdDebug() << "'^  ' Found in old: " << line << endl;
-								diff->addSourceLine( line.replace( 0, 2, "" ) );
-								line = (*newIt);
-								kdDebug() << "'^  ' Found in new: " << line << endl;
-								diff->addDestinationLine( line.replace( 0, 2, "" ) );
-								linenoA++;
-								linenoB++;
-								++oldIt;
-								++newIt;
-							}
-							else
-								break; // leave this while
-						}
-						// don't add unchanged to differences
-						hunk->add( diff );
-					}
-					else if ( ((*oldIt).find( QRegExp( "^! " ), 0 ) == 0) && (((*newIt).find( QRegExp( "^! " ), 0 ) == 0)) )
-					{
-						diff = new Difference( linenoA, linenoB );
-						diff->setType( Difference::Change );
-						kdDebug() << "Type is: Change" << endl;
-						while ( (oldIt != oldLines.end()) && (*oldIt).find( QRegExp( "^! " ), 0 ) == 0 )
-						{
-							QString line = (*oldIt);
-							kdDebug() << "'^! ' Found in old: " << line << endl;
-							diff->addSourceLine( line.replace( 0, 2, "" ) );
-							linenoA++;
-							++oldIt;
-						}
-						while( (newIt != newLines.end()) && ((*newIt).find( QRegExp( "^! " ), 0 ) == 0) )
-						{
-							QString line = (*newIt);
-							kdDebug() << "'^! ' Found in new: " << line << endl;
-							diff->addDestinationLine( line.replace( 0, 2, "" ) );
-							linenoB++;
-							++newIt;
-						}
-						m_differences.append( diff );
-						hunk->add( diff );
-					}
-					else if ( (*oldIt).find( QRegExp( "^- " ), 0 ) == 0 )
-					{
-						diff = new Difference( linenoA, linenoB );
-						diff->setType( Difference::Delete );
-						kdDebug() << "Type is: Delete" << endl;
-						while( ( oldIt != oldLines.end() ) && ( (*oldIt).find( QRegExp( "^- " ), 0 ) == 0 ) )
-						{
-							QString line = (*oldIt);
-							kdDebug() << "'^- ' Found in old: " << line << endl;
-							diff->addSourceLine( line.replace( 0, 2, "" ) );
-							linenoA++;
-							++oldIt;
-						}
-						m_differences.append( diff );
-						hunk->add( diff );
-					}
-					else if ( (*newIt).find( QRegExp( "^\\+ " ), 0 ) == 0 )
-					{
-						diff = new Difference( linenoA, linenoB );
-						diff->setType( Difference::Insert );
-						kdDebug() << "Type is: Insert" << endl;
-						while( ( newIt != newLines.end() ) && ( (*newIt).find( QRegExp( "^\\+ " ), 0 ) == 0 ) )
-						{
-							QString line = (*newIt);
-							kdDebug() << "'^+ ' Found in new: " << line << endl;
-							diff->addDestinationLine( line.replace( 0, 2, "" ) );
-							linenoB++;
-							++newIt;
-						}
-						m_differences.append( diff );
-						hunk->add( diff );
-					}
-					else
-					{
-						kdDebug() << "Some nasty error occurred in line: " << endl;
-						kdDebug() << "Old line is: " << (*oldIt) << endl;
-						kdDebug() << "New line is: " << (*newIt) << endl;
-					}
-					kdDebug() << "Next type" << endl;
+			
+			else if( newIt != newLines.end() && added.exactMatch( *newIt ) ) {
+				kdDebug() << "Insert: " << endl;
+				diff = new Difference( linenoA, linenoB );
+				diff->setType( Difference::Insert );
+				m_differences.append( diff );
+				hunk->add( diff );
+				for( ; newIt != newLines.end() && added.exactMatch( *newIt ); ++newIt ) {
+					kdDebug() << " " << added.cap( 1 ) << endl;
+					diff->addDestinationLine( added.cap( 1 ) );
+					linenoB++;
 				}
 			}
-
-			m_hunks.append( hunk );
-
-			if ( it == list.end() )
-			{
-				kdDebug() << "End of diff found..." << endl;
-				break;
+			
+			else if( (oldIt != oldLines.end() && unchanged.exactMatch( *oldIt ) ) ||
+			    (newIt != newLines.end() && unchanged.exactMatch( *newIt ) ) ) {
+				kdDebug() << "Unchanged: " << endl;
+				diff = new Difference( linenoA, linenoB );
+				diff->setType( Difference::Unchanged );
+				hunk->add( diff );
+				while( (oldIt != oldLines.end() && unchanged.exactMatch( *oldIt ) ) ||
+				       (newIt != newLines.end() && unchanged.exactMatch( *newIt ) ) ) {
+					QString l;
+					if( oldIt != oldLines.end() ) {
+						l = unchanged.cap( 1 );
+						kdDebug() << " " << l << endl;
+						++oldIt;
+					}
+					if( newIt != newLines.end() ) {
+						l = unchanged.cap( 1 );
+						kdDebug() << " " << l << endl;
+						++newIt;
+					}
+					diff->addSourceLine( l );
+					diff->addDestinationLine( l );
+					linenoA++;
+					linenoB++;
+				}
 			}
-			else
-			{
-				kdDebug() << "New hunk separator found" << endl;
-				++it;
-				line = (*it);
+			
+			else if( (oldIt != oldLines.end() && changed.exactMatch( *oldIt ) ) ||
+			    (newIt != newLines.end() && changed.exactMatch( *newIt ) ) ) {
+				kdDebug() << "Changed: " << endl;
+				diff = new Difference( linenoA, linenoB );
+				diff->setType( Difference::Change );
+				m_differences.append( diff );
+				hunk->add( diff );
+				while( oldIt != oldLines.end() && changed.exactMatch( *oldIt ) ) {
+					kdDebug() << " " << changed.cap( 1 ) << endl;
+					diff->addSourceLine( changed.cap( 1 ) );
+					linenoA++;
+					++oldIt;
+				}
+				while( newIt != newLines.end() && changed.exactMatch( *newIt ) ) {
+					kdDebug() << " " << changed.cap( 1 ) << endl;
+					diff->addDestinationLine( changed.cap( 1 ) );
+					linenoB++;
+					++newIt;
+				}
 			}
+			
+			else return 1;
+			
 		}
 	}
+	
 	return 0;
 };
 
@@ -434,130 +322,50 @@ int DiffModel::parseEdDiff( const QStringList& list, QStringList::ConstIterator&
 /**  */
 int DiffModel::parseNormalDiff( const QStringList& list, QStringList::ConstIterator& it )
 {
-	QString line;
-	int pos, len;
-	int nolinesA, nolinesB;
 	int linenoA, linenoB;
-	int i;
-
-	enum Difference::Type type;
-
-	kdDebug() << "Normal  diff parsing:" << endl;
-
-	// first attempt to get normal diff working
-
-	if( it == list.end() ) return 0; // no differences
-	line = (*it);
-	kdDebug() << line << endl;
-
-// needed for multifile diff
-//	if ( line.find( QRegExp( "diff" ), 0 ) < 0 ) return 1;
-//	line.replace( QRegExp( "diff" ) );
-
-	while ( it != list.end() )
-	{
-		nolinesA = 0;
-		nolinesB = 0;
-		kdDebug() << line << endl;
-
-		if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-		linenoA = line.mid( pos, len ).toInt();
-		kdDebug() << "LinenoA: " << linenoA << endl;
-		line.replace( QRegExp( "^[0-9]+" ), "" );
-
-		if ( line.find( QRegExp( "^," ), 0 ) == 0 )
-		{
-			line.replace( QRegExp( "^," ), "" );
-			kdDebug() << line << endl;
-			if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-			nolinesA = line.mid( pos, len ).toInt() - linenoA + 1;
-			kdDebug() << "NolinesA: " << nolinesA << endl;
-			line.replace( QRegExp( "^[0-9]+" ), "" );
-		}
-		else
-		{
-			nolinesA = 1;
-		}
-
-		if ( line.find( QRegExp( "^a" ), 0 ) == 0 ) {
-			type = Difference::Insert;
-		} else if ( line.find( QRegExp( "^c" ), 0 ) == 0 ) {
-			type = Difference::Change;
-		} else if ( line.find( QRegExp( "^d" ), 0 ) == 0 ) {
-			type = Difference::Delete;
-		} else return 1;
-
-		line.replace( QRegExp( "^[acd]" ), "" );
-
-		if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-		linenoB = line.mid( pos, len ).toInt();
-		kdDebug() << "LinenoB: " << linenoB << endl;
-		line.replace( QRegExp( "^[0-9]+" ), "" );
-
-		// Too bad... the number of hunks == the number of differences
-		// so in this case it would unnecessary to have a hunk as well
+	
+	kdDebug() << "Normal diff parsing:" << endl;
+	
+	while ( it != list.end() ) {
+		
+		QRegExp3 head( "^([0-9]+)([acd]?)([0-9]*),([0-9]+)([acd]?)([0-9]*)$" );
+		if( !head.exactMatch( *it ) ) return 1;
+		
+		linenoA = head.cap( 1 ).toInt();
+		linenoB = head.cap( 4 ).toInt();
+		
 		DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
 		m_hunks.append( hunk );
-
-		hunk->lineStartA = linenoA;
-		hunk->lineStartB = linenoB;
-
+		
 		Difference* diff = new Difference( linenoA, linenoB );
 		hunk->add( diff );
-
 		m_differences.append( diff );
-
-		diff->setType( type );
-
-		if ( line.find( QRegExp( "^," ), 0 ) == 0 )
-		{
-			line.replace( QRegExp( "^," ), "" );
-			kdDebug() << line << endl;
-			if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-			nolinesB = line.mid( pos, len ).toInt() - linenoB + 1;
-			kdDebug() << "nolinesB: " << nolinesB << endl;
-			line.replace( QRegExp( "^[0-9]+" ), "" );
-			kdDebug() << line << endl;
+		
+		if( head.cap( 2 ) == "a" ) {
+			diff->setType( Difference::Insert );
+		} else if ( head.cap( 2 ) == "c" ) {
+			diff->setType( Difference::Change );
+		} else if ( head.cap( 5 ) == "d" ) {
+			diff->setType( Difference::Delete );
+		} else return 1;
+		
+		QRegExp3 source( "< (.*)$" );
+		QRegExp3 dest( "> (.*)$" );
+		QRegExp3 div( "^---$" );
+		
+		it++;
+		
+		for( ; it != list.end() && source.exactMatch( *it ); ++it ) {
+			diff->addSourceLine( source.cap( 1 ) );
 		}
-		else
-		{
-			nolinesB = 1;
+		if( it != list.end() && div.exactMatch( *it ) ) {
+			++it;
 		}
-
-		kdDebug() << "nolinesA: " << nolinesA << endl;
-		// no of lines is known now...
-		if ( diff->type() != Difference::Insert )
-			for ( i = 0; i < nolinesA; i++ )
-			{
-				++it;
-				line = (*it);
-				kdDebug() << "Aline " << i << ": " << line << endl;
-				line.replace( QRegExp( "^< " ), "" ); // hope this works out ok...
-				diff->addSourceLine( line );
-			}
-
-		if ( diff->type() == Difference::Change )
-			++it; // this should be the --- line
-
-		kdDebug() << "nolinesB: " << nolinesB << endl;
-		if ( diff->type() != Difference::Delete )
-			for ( i = 0; i < nolinesB; i++ )
-			{
-				++it;
-				line = (*it);
-				kdDebug() << "Bline " << i << ": " << line << endl;
-				line.replace( QRegExp( "^> " ), "" ); // hope this works out ok...
-				diff->addDestinationLine( line );
-			}
-
-		// TODO some checks to see if it worked
-		// like comparing the count with the number of source and dest lines
-
-		// next line
-		++it;
-		line = (*it);
-
-	} // end of while
+		for( ; it != list.end() && dest.exactMatch( *it ); ++it ) {
+			diff->addDestinationLine( dest.cap( 1 ) );
+		}
+	}
+	
 	return 0;
 };
 
@@ -669,99 +477,76 @@ int DiffModel::parseRCSDiff( const QStringList& list, QStringList::ConstIterator
 /**  */
 int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIterator& it )
 {
-	QString line;
-	int pos, len;
 	int linenoA, linenoB;
 
-	kdDebug() << "Unified  diff parsing:" << endl;
-
+	kdDebug() << "Unified diff parsing:" << endl;
+	
 	if( it == list.end() ) return 0; // no differences
-	line = (*it);
-	kdDebug() << line << endl;
-	if( line.find( QRegExp( "^--- " ), 0 ) < 0 ) return 1;
-	line.replace( QRegExp( "^--- " ), "" );
-	if ( ( pos = QRegExp( "^[^\\t]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-	KURL url;
-	url.setPath( line.mid(pos, len) );
-	m_sourceFile = url.fileName();
-	kdDebug() << m_sourceFile << endl;
-	line.replace( QRegExp( "^[^\\t]+\\t" ), "" );
-	m_sourceTimestamp = line;
-	kdDebug() << m_sourceTimestamp << endl;
-
+	
+	QRegExp3 source( "^--- ([^\\t]+)\\t([^\\t]+)\\t?(.*)$" );
+	if( !source.exactMatch( *it ) ) return 1;
+	
+	m_sourceFile = source.cap( 1 );
+	m_sourceTimestamp = source.cap( 2 );
+	m_sourceRevision = source.cap( 3 );
+	
+	kdDebug() << " source: " << m_sourceFile << endl;
+	kdDebug() << "   time: " << m_sourceTimestamp << endl;
+	kdDebug() << "    rev: " << m_sourceRevision << endl;
+	
 	if( ++it == list.end() ) return 1;
-	line = (*it);
-	if( line.find( QRegExp( "^\\+\\+\\+ " ), 0 ) < 0 ) return 1;
-	line.replace( QRegExp( "^\\+\\+\\+ " ), "" );
-	if ( ( pos = QRegExp( "^[^\\t]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-	url.setPath( line.mid(pos, len) );
-	m_destinationFile = url.fileName();
-	kdDebug() << m_destinationFile << endl;
-	line.replace( QRegExp( "^[^\\t]+\\t" ), "" );
-	m_destinationTimestamp = line;
-	kdDebug() << m_destinationTimestamp << endl;
+	
+	QRegExp3 dest( "^\\+\\+\\+ ([^\\t]+)\\t([^\\t]+)\\t?(.*)$" );
+	if( !dest.exactMatch( *it ) ) return 1;
+	
+	m_destinationFile = dest.cap( 1 );
+	m_destinationTimestamp = dest.cap( 2 );
+	m_destinationRevision = dest.cap( 3 );
+	
+	kdDebug() << "   dest: " << m_destinationFile << endl;
+	kdDebug() << "   time: " << m_destinationTimestamp << endl;
+	kdDebug() << "    rev: " << m_destinationRevision << endl;
 
 	++it;
-	while( it != list.end() )
-	{
-		line = (*it);
-
-		if ( line.find( QRegExp( "^@@ -" ), 0 ) < 0 ) return 1;
-
-		// strip off the begin of the hunk header
-		line.replace( QRegExp( "^@@ -" ), "" );
-
-		// get the start line number for first file
-		if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-		linenoA = line.mid(pos, len).toInt();
-		line.replace( QRegExp( "^[0-9]+," ), "" );
-
-		// length for first file
-		if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-		line.replace( QRegExp( "^[0-9]+ \\+" ), "" );
-
-		// start line for second file
-		if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-		linenoB = line.mid(pos, len).toInt();
-		line.replace( QRegExp( "^[0-9]+," ), "" );
-
-		if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-
+	while( it != list.end() ) {
+		
+		QRegExp3 head( "^@@ -([0-9]+),([0-9]+) \\+([0-9]+),([0-9]+) @@(.*)$" );
+		if( !head.exactMatch( *it ) ) return 1;
+		
+		linenoA = head.cap( 1 ).toInt();
+		linenoB = head.cap( 3 ).toInt();
+		
+		kdDebug() << " hunk: " << linenoA << " " << linenoB << endl;
+		
 		DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
 		m_hunks.append( hunk );
-
+		
 		++it;
-		while( it != list.end() && ((*it).find( QRegExp( "^[ \\-+]" ), 0 ) == 0) )
-		{
-			// read differences until we come to a new hunk
-			line = (*it);
-
+		
+		QRegExp3 line( "^([ \\-+])(.*)$" );
+		QRegExp3 unchanged( "^ (.*)$" );
+		QRegExp3 removed(   "^-(.*)$" );
+		QRegExp3 added(     "^\\+(.*)$" );
+		while( it != list.end() && line.exactMatch( *it ) ) {
+			
 			Difference* diff = new Difference( linenoA, linenoB );
 			hunk->add( diff );
-
-			if( line.find( QRegExp( "^ " ), 0 ) == 0 ) {
+			
+			if( line.cap( 1 ) == " " ) {
 				diff->setType( Difference::Unchanged );
-				for( ; it != list.end() && ((*it).find( QRegExp( "^ " ), 0 ) == 0); ++it ) {
-					line = (*it);
-					line.replace( 0, 1, "" );
-					diff->addSourceLine( line );
-					diff->addDestinationLine( line );
+				for( ; it != list.end() && unchanged.exactMatch( *it ); ++it ) {
+					diff->addSourceLine( unchanged.cap( 1 ) );
+					diff->addDestinationLine( unchanged.cap( 1 ) );
 					linenoA++;
 					linenoB++;
 				}
-			} else if ( line.find( QRegExp( "^[-+]" ), 0 ) == 0 ) {
-				for( ; it != list.end() && ((*it).find( QRegExp( "^-" ), 0 ) == 0); ++it )
-				{
-					line = (*it);
-					line.replace( 0, 1, "" );
-					diff->addSourceLine( line );
+			} else {
+				for( ; it != list.end() && removed.exactMatch( *it ); ++it ) {
+					diff->addSourceLine( removed.cap( 1 ) );
 					linenoA++;
 				}
-				for( ; it != list.end() && ((*it).find( QRegExp( "^\\+" ), 0 ) == 0); ++it )
-				{
-					line = (*it);
-					line.replace( 0, 1, "" );
-					diff->addDestinationLine( line );
+				for( ; it != list.end() && added.exactMatch( *it ); ++it ) {
+					diff->addDestinationLine( added.cap( 1 ) );
 					linenoB++;
 				}
 				if      ( diff->sourceLineCount() == 0 )      diff->setType( Difference::Insert );

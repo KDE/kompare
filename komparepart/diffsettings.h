@@ -47,6 +47,9 @@ public:
 	bool m_showCFunctionChange;
 	bool m_convertTabsToSpaces;
 	bool m_ignoreWhitespaceComparingLines;
+	bool m_recursive;
+	bool m_newFiles;
+	bool m_allText;
 };
 
 #endif

@@ -41,6 +41,9 @@ void DiffSettings::loadSettings( KConfig* config )
 	m_createSmallerDiff = config->readBoolEntry( "CreateSmallerDiff", true );
 	m_convertTabsToSpaces = config->readBoolEntry( "ConvertTabsToSpaces", false );
 	m_showCFunctionChange = config->readBoolEntry( "ShowCFunctionChange", false );
+	m_recursive = config->readBoolEntry( "CompareRecursively", true );
+	m_newFiles = config->readBoolEntry( "NewFiles", true );
+	m_allText = config->readBoolEntry( "TreatAllFilesAsText", true );
 };
 
 void DiffSettings::saveSettings( KConfig* config )
@@ -55,4 +58,7 @@ void DiffSettings::saveSettings( KConfig* config )
 	config->writeEntry( "CreateSmallerDiff", m_createSmallerDiff );
 	config->writeEntry( "ConvertTabsToSpaces", m_convertTabsToSpaces );
 	config->writeEntry( "ShowCFunctionChange", m_showCFunctionChange );
+	config->writeEntry( "CompareRecursively", m_recursive );
+	config->writeEntry( "NewFiles", m_newFiles );
+	config->writeEntry( "TreatAllFilesAsText", m_allText );
 };

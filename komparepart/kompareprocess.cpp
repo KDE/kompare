@@ -60,7 +60,7 @@ KDiffProcess::KDiffProcess( QString source, QString destination, QString dir, Di
 
 void KDiffProcess::writeDefaultCommandLine()
 {
-	*this << "diff" << "-U65535" << "-d";
+	*this << "diff" << "-U65535" << "-dr";
 }
 
 void KDiffProcess::writeCommandLine( DiffSettings* diffSettings )
@@ -128,6 +128,21 @@ void KDiffProcess::writeCommandLine( DiffSettings* diffSettings )
 	if ( diffSettings->m_ignoreWhitespaceComparingLines )
 	{
 		*this << "-w";
+	}
+	
+	if ( diffSettings->m_recursive )
+	{
+		*this << "-r";
+	}
+	
+	if ( diffSettings->m_newFiles )
+	{
+		*this << "-N";
+	}
+	
+	if ( diffSettings->m_allText )
+	{
+		*this << "-a";
 	}
 }
 

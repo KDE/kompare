@@ -35,14 +35,16 @@ public:
 
 	QString asString() const;
 	const QList<Difference>& getDifferences() const { return differences; };
-
+	const QString getFunction() const { return function; };
+	
 	void add( Difference* diff );
 	
 	int lineStartA;
 	int lineStartB;
 
-//private:
+private:
 	QList<Difference> differences;
+	QString           function;
 };
 
 #endif

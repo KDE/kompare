@@ -103,7 +103,7 @@ KompareShell::KompareShell()
 	}
 
 	offers.clear();
-	offers = KTrader::self()->query( "Kompare/NavigationPart", QString::null, QString::null/*, QString::null*/ );
+	offers = KTrader::self()->query( "text/x-diff", "'Kompare/NavigationPart' in ServiceTypes", QString::null/*, QString::null*/ );
 	if ( offers.count() == 0 )
 	{
 		KMessageBox::error(this, i18n( "Could not find our KompareNavigationPart!" ) );

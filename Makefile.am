@@ -1,30 +1,66 @@
 SUBDIRS = pics
 
-bin_PROGRAMS = kdiff
-kdiff_SOURCES = miscsettings.cpp miscprefs.cpp kdiffprefdlg.cpp \
-	generalsettings.cpp generalprefs.cpp diffsettings.cpp \
-	diffprefs.cpp kdiffprocess.cpp kmaindiffview.cpp \
-	kdiffview.cpp main.cpp kdiffapp.cpp prefsbase.cpp settingsbase.cpp \
-	diffmodel.cpp difference.cpp
-	
 INCLUDES= $(all_includes)
-kdiff_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kdiff_LDADD = $(LIB_KDEUI) $(LIB_KHTML) $(LIB_KFILE)
 
-noinst_HEADERS = kdiffapp.h kdiffview.h kmaindiffview.h prefsbase.h \
+noinst_HEADERS =  kdiff_shell.h kdiff_part.h kdiff_actions.h \
+	kdiffview.h diffview.h misc.h kdiffapp.h prefsbase.h \
 	kdiffprocess.h diffprefs.h diffsettings.h generalprefs.h \
 	generalsettings.h kdiffprefdlg.h miscprefs.h miscsettings.h \
 	settingsbase.h diffmodel.h difference.h
-	
+
+# let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
 
-kdelnk_DATA = kdiff.desktop
-kdelnkdir = $(kde_appsdir)/Utilities
-
-rcdir = $(kde_datadir)/kdiff
-rc_DATA = kdiffui.rc
+messages: rc.cpp
+	$(XGETTEXT) -C *.cpp *.h -o $(podir)/kdiff.pot
 
 KDE_ICON = AUTO
+
+# this Makefile creates both a KPart application and a KPart
+#########################################################################
+# APPLICATION SECTION
+#########################################################################
+# this is the program that gets installed.  it's name is used for all
+# of the other Makefile.am variables
+bin_PROGRAMS = kdiff
+
+# the application source, library search path, and link libraries
+kdiff_SOURCES = main.cpp kdiffapp.cpp kdiff_shell.cpp
+kdiff_LDFLAGS = $(KDE_RPATH) $(all_libraries)
+kdiff_LDADD   = $(LIB_KPARTS) libkdiffpart.la
+
+# this is where the desktop file will go
+shelldesktopdir   = $(kde_appsdir)/Utilities
+shelldesktop_DATA = kdiff.desktop
+
+# this is where the shell's XML-GUI resource file goes
+shellrcdir   = $(kde_datadir)/kdiff
+shellrc_DATA = kdiffui.rc
+
+#########################################################################
+# KPART SECTION
+#########################################################################
+kde_module_LTLIBRARIES = libkdiffpart.la
+
+# the Part's source, library search path, and link libraries
+libkdiffpart_la_SOURCES = kdiff_part.cpp kdiff_actions.cpp \
+	diffmodel.cpp difference.cpp kdiffview.cpp diffview.cpp misc.cpp
+libkdiffpart_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
+libkdiffpart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE)
+
+# this is where the desktop file will go
+partdesktopdir   = $(kde_servicesdir)
+partdesktop_DATA = kdiff_part.desktop
+
+# this is where the part's XML-GUI resource file goes
+partrcdir   = $(kde_datadir)/kdiffpart
+partrc_DATA = kdiffpartui.rc
+
+#bin_PROGRAMS = kdiff
+#kdiff_SOURCES = miscsettings.cpp miscprefs.cpp kdiffprefdlg.cpp \
+#	generalsettings.cpp generalprefs.cpp diffsettings.cpp \
+#	diffprefs.cpp kdiffprocess.cpp kmaindiffview.cpp \
+#	kdiffview.cpp prefsbase.cpp settingsbase.cpp
 
 unifiedgrammar.cpp: unifiedgrammar.y
 	bison -o unifiedgrammar.cpp unifiedgrammar.y
@@ -34,9 +70,6 @@ unifiedgrammar.h: unifiedgrammar.y
 
 unifiedlexer.cpp: unifiedlexer.l
 	flex -+ -ounifiedlexer.cpp unifiedlexer.l
-
-messages: rc.cpp
-	$(XGETTEXT) -C *.cpp *.h -o $(podir)/kdiff.pot
 
 rc.cpp:
 	$(EXTRACTRC) *.rc > rc.cpp

@@ -1,3 +1,7 @@
+april  10, 2001 : John Firebaugh
+	use new model/view architecture (not completely implemented yet)
+	NOTE: it will (should) compile, but you won't see any differences... a
+	work in progress
 april  5th, 2001 : Otto Bruggeman
 	Implemented the ability to move from chuck to chunk in the htmlview
 	Cleaned up the preferences, squashed a few bugs

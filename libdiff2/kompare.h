@@ -36,8 +36,9 @@ public:
 	};
 	
 	enum Mode {
-		Compare,
-		Diff
+		ComparingFiles,
+		ComparingDirs,
+		ShowingDiff
 	};
 
 	enum Status {

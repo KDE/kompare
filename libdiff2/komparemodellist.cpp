@@ -36,7 +36,7 @@ KompareModelList::KompareModelList()
 	: QObject(),
 	m_diffProcess( 0 ),
 	m_diffTemp( 0 ),
-	m_mode( Compare ),
+	m_mode( ComparingFiles ),
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 ),
 	m_modelIt( 0 ),
@@ -76,7 +76,7 @@ bool KompareModelList::compare( const KURL& source, const KURL& destination )
 		if ( m_sourceURL.protocol() == "file" && m_destinationURL.protocol() == "file" )
 		{
 			// proceed
-			m_mode = Compare;
+			m_mode = ComparingDirs;
 			m_type = MultiFileDiff;
 
 			m_diffProcess = new KompareProcess( m_sourceURL.path(), m_destinationURL.path() );
@@ -91,7 +91,7 @@ bool KompareModelList::compare( const KURL& source, const KURL& destination )
 	else if ( !sourceIsDirectory && !destinationIsDirectory )
 	{
 		// dealing with files... proceed even if both are remote
-		m_mode = Compare;
+		m_mode = ComparingFiles;
 		m_type = SingleFileDiff;
 
 		if( m_type == SingleFileDiff && !KIO::NetAccess::download( m_sourceURL, m_sourceTemp ) ) {
@@ -170,7 +170,15 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 		return false;
 	}
 
-	KIO::NetAccess::upload( temp->name(), m_destinationURL );
+	if ( m_mode == Kompare::ComparingDirs )
+	{
+		QString destination = model->destPath() + model->destFile();
+		KIO::NetAccess::upload( temp->name(), destination );
+	}
+	else
+	{
+		KIO::NetAccess::upload( temp->name(), m_destinationURL );
+	}
 
 	model->setModified( false );
 
@@ -274,7 +282,7 @@ bool KompareModelList::openDiff( const KURL& url )
 		KIO::NetAccess::removeTempFile( diffTemp );
 	}
 
-	m_mode = Diff;
+	m_mode = ShowingDiff;
 	emit status( FinishedParsing );
 
 	return true;

@@ -176,8 +176,8 @@ void KomparePart::setupActions()
 void KomparePart::updateActions()
 {
 	m_saveAll->setEnabled  ( m_models->isModified() );
-	m_saveDiff->setEnabled ( m_models->mode() == Kompare::Compare );
-	m_swap->setEnabled     ( m_models->mode() == Kompare::Compare );
+	m_saveDiff->setEnabled ( m_models->mode() == Kompare::ComparingFiles || m_models->mode() == Kompare::ComparingDirs );
+	m_swap->setEnabled     ( m_models->mode() == Kompare::ComparingFiles || m_models->mode() == Kompare::ComparingDirs );
 	m_diffStats->setEnabled( m_models->modelCount() > 0 );
 
 	const DiffModel* model = m_models->selectedModel();
@@ -282,7 +282,7 @@ void KomparePart::slotSetStatus( enum Kompare::Status status )
 
 void KomparePart::updateStatus()
 {
-	if( m_models->mode() == Kompare::Compare )
+	if( m_models->mode() == Kompare::ComparingFiles || m_models->mode() == Kompare::ComparingDirs )
 	{
 		if( modelCount() > 1 )
 		{

@@ -241,15 +241,21 @@ void KompareShell::saveProperties(KConfig* config)
 	// The 'config' object points to the session managed
 	// config file.  Anything you write here will be available
 	// later when this app is restored
-	if ( m_mode == Kompare::Compare )
+	if ( m_mode == Kompare::ComparingFiles )
 	{
-		config->writeEntry( "Mode", "Compare" );
+		config->writeEntry( "Mode", "ComparingFiles" );
 		config->writeEntry( "SourceUrl", m_sourceURL.url() );
 		config->writeEntry( "DestinationUrl", m_destinationURL.url() );
 	}
-	else if ( m_mode == Kompare::Diff )
+	else if ( m_mode == Kompare::ComparingDirs )
 	{
-		config->writeEntry( "Mode", "Diff" );
+		config->writeEntry( "Mode", "ComparingDirs" );
+		config->writeEntry( "SourceUrl", m_sourceURL.url() );
+		config->writeEntry( "DestinationUrl", m_destinationURL.url() );
+	}
+	else if ( m_mode == Kompare::ShowingDiff )
+	{
+		config->writeEntry( "Mode", "ShowingDiff" );
 		config->writeEntry( "DiffUrl", m_diffURL.url() );
 	}
 
@@ -263,10 +269,10 @@ void KompareShell::readProperties(KConfig* config)
 	// the app is being restored. Read in here whatever you wrote
 	// in 'saveProperties'
 
-	QString mode = config->readEntry( "Mode", "Compare" );
-	if ( mode == "Compare" )
+	QString mode = config->readEntry( "Mode", "ComparingFiles" );
+	if ( mode == "ComparingFiles" )
 	{
-		m_mode  = Kompare::Compare;
+		m_mode  = Kompare::ComparingFiles;
 		m_sourceURL  = config->readEntry( "SourceUrl", "" );
 		m_destinationURL = config->readEntry( "DestinationFile", "" );
 
@@ -274,9 +280,19 @@ void KompareShell::readProperties(KConfig* config)
 
 		m_viewPart->compare( m_sourceURL, m_destinationURL );
 	}
-	else if ( mode == "Diff" )
+	else if ( mode == "ComparingDirs" )
 	{
-		m_mode = Kompare::Diff;
+		m_mode  = Kompare::ComparingDirs;
+		m_sourceURL  = config->readEntry( "SourceUrl", "" );
+		m_destinationURL = config->readEntry( "DestinationFile", "" );
+
+		m_viewPart->loadSettings( config );
+
+		m_viewPart->compare( m_sourceURL, m_destinationURL );
+	}
+	else if ( mode == "ShowingDiff" )
+	{
+		m_mode = Kompare::ShowingDiff;
 		m_diffURL = config->readEntry( "DiffUrl", "" );
 
 		m_viewPart->loadSettings( config );

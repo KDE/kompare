@@ -1,3 +1,13 @@
+June   29, 2003 : Otto Bruggeman
+	* Fixed remaining part of bug 57774 (the context format parsing one)
+	* Fixed bug 58144 by adding a check for comparing dirs, in that case
+	  destinationURL is a directory and not a file name so we need to 
+	  recreate the filename. This involved changing some code to use a 
+	  different enum value, so i hope i did it the right way, session 
+	  management may be broken now when the session was stored with 3.1.2
+	  and restarted with 3.1.3. But that is unfortunately unfixable with a
+	  kconf_update script.
+
 May     3, 2003 : Otto Bruggeman
 	* Fixed accel conflict
 	* Moved Open Diff to the top of the menu

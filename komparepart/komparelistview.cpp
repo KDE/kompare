@@ -331,9 +331,9 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 		hunk = *hunkIt;
 
 		if( item )
-			item = new KompareListViewHunkItem( this, item, hunk, model->m_blended );
+			item = new KompareListViewHunkItem( this, item, hunk, model->isBlended() );
 		else
-			item = new KompareListViewHunkItem( this, hunk, model->m_blended );
+			item = new KompareListViewHunkItem( this, hunk, model->isBlended() );
 
 		DifferenceListConstIterator diffIt = hunk->differences().begin();
 		DifferenceListConstIterator dEnd   = hunk->differences().end();

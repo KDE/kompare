@@ -103,6 +103,7 @@ public:
 
 	int localeAwareCompareSource( const DiffModel* model );
 
+	bool isBlended() const { return m_blended; }
 	void setBlended( bool blended ) { m_blended = blended; }
 
 signals:

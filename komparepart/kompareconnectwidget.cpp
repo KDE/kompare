@@ -27,6 +27,8 @@
 
 #include "kompareconnectwidget.h"
 
+#define kdDebug() kdDebug(8106)
+
 KompareConnectWidget::KompareConnectWidget( KompareListView* left, KompareListView* right,
       GeneralSettings* settings, KompareView* parent, const char* name )
 	: QWidget(parent, name),

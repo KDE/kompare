@@ -634,6 +634,7 @@ void KompareListViewLineItem::paintText( QPainter * p, const QColorGroup& /*cg*/
 		{
 			// Still have to draw some string without changes
 			textChunk = m_text->string().mid( prevValue, kMax( ( unsigned int )1, m_text->string().length() - prevValue ) );
+			textChunk.replace( QRegExp( "\\t" ), kompareListView()->spaces() );
 //			kdDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
 			QFont font( p->font() );
 			font.setBold( false );

@@ -83,7 +83,6 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget * parent,
 
 	// init stuff
 	slotUpdateScrollBars();
-	emit configChanged();
 }
 
 KompareSplitter::~KompareSplitter(){};

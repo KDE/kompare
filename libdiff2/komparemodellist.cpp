@@ -622,7 +622,7 @@ DiffModel* KompareModelList::prevModel()
 	}
 	else
 	{
-		m_selectedModel = firstModel();
+		m_selectedModel = 0;
 		m_modelIndex = 0;
 		kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
 	}

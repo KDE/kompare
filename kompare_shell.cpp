@@ -25,7 +25,7 @@
 #include <kstdaction.h>
 #include <kmessagebox.h>
 #include <kfiledialog.h>
-#include <ktrader.h>
+#include <kuserprofile.h>
 #include <kdebug.h>
 
 #include "kompare_part.h"
@@ -58,20 +58,8 @@ KompareShell::KompareShell()
 	// and a status bar
 	statusBar()->show();
 
-	KTrader::OfferList offers = KTrader::self()->query( "text/x-diff",
-	    "KompareViewPart", QString::null, QString::null );
-#ifdef NDEBUG
-	for( int i = 0; i < offers.count(); i++ )
-	{
-		kdDebug() << "one kservicetype checked..." << endl;
-		KService::Ptr ptr2 = *(offers.at( i ));
-		QStringList list = ptr2->serviceTypes();
-		for ( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 )
-			kdDebug() << *it2 << endl;
-	}
-#endif
-	KService::Ptr ptr = offers.first();
-	if ( offers.count() == 0 )
+	KService::Ptr ptr = KServiceTypeProfile::preferredService( "text/x-diff", "Kompare/ViewPart" );
+	if ( ptr == 0 || !ptr->isValid() )
 	{
 		KMessageBox::error(this, i18n( "Could not find our Part!" ) );
 		exit(1);
@@ -107,10 +95,8 @@ KompareShell::KompareShell()
 		exit(2);
 	}
 
-	offers = KTrader::self()->query( "text/x-diff",
-	    "KompareNavigationPart", QString::null, QString::null );
-	ptr = offers.first();
-	if ( offers.count() == 0 )
+	ptr = KServiceTypeProfile::preferredService( "text/x-diff", "Kompare/NavigationPart" );
+	if ( ptr == 0 || !ptr->isValid() )
 	{
 		KMessageBox::error(this, i18n( "Could not find our Part!" ) );
 		exit(3);
@@ -350,9 +336,9 @@ void KompareShell::slotShowTextView()
 {
 	if( !m_textViewWidget ) {
 
-		KTrader::OfferList offers = KTrader::self()->query( "text/plain",
-		    "KParts/ReadOnlyPart", QString::null, QString::null );
-		KService::Ptr ptr = offers.first();
+		KService::Ptr ptr = KServiceTypeProfile::preferredService( "text/plain", "KParts/ReadOnlyPart" );
+		if ( ptr == 0 || !ptr->isValid() )
+			return;
 		KLibFactory* factory = KLibLoader::self()->factory( ptr->library().ascii() );
 
 		m_textViewWidget = createDockWidget( i18n("Text View"), ptr->pixmap( KIcon::Small ) );

@@ -37,3 +37,5 @@ shelldesktop_DATA = kompare.desktop
 shellrcdir   = $(kde_datadir)/kompare
 shellrc_DATA = kompareui.rc
 
+kompareservicedir = $(kde_servicetypesdir)
+kompareservice_DATA = komparenavigationpart.desktop kompareviewpart.desktop

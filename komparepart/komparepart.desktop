@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KomparePart
-Name[af]=k-vergelyk-deel
+Name[af]=K-vergelyk-deel
 Name[de]=Einbettungsfähiges Kompare-Programm
 Name[eo]=Komparo-parto
 Name[fr]=Composant de comparaison de fichiers
@@ -10,12 +10,12 @@ Name[lv]=SalīdzinātDaļu
 Name[pl]=Moduł Kompare
 Name[pt_BR]=Parte do Kompare
 Name[ro]=Componentă Kompare
+Name[ru]=Компонент утилиты сравнения файлов
 Name[sv]=Kompare-del
 Name[th]=ส่วนเปรียบเทียบ
-Name[xx]=xx
 Name[zu]=Ingxenye yeKompare
 MimeType=text/x-diff
-ServiceTypes=KParts/ReadOnlyPart,KParts/ReadWritePart,KompareViewPart
+ServiceTypes=KParts/ReadOnlyPart,KParts/ReadWritePart,Kompare/ViewPart
 X-KDE-Library=libkomparepart
 Type=Service
 Icon=kompare

@@ -60,7 +60,8 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 	destinationGBLayout->addWidget( m_destinationURLRequester );
 	topLayout->addWidget( destinationGB );
 
-	m_sourceURLRequester->setMinimumWidth( m_sourceURLRequester->sizeHint().width()*3 );
+	m_sourceURLRequester->setMinimumWidth( 400 );
+	m_destinationURLRequester->setMinimumWidth( 400 );
 	setButtonOKText( i18n( "Compare" ), i18n( "Compare these files" ) );
 
 	connect( m_sourceURLRequester, SIGNAL( textChanged( const QString& ) ),

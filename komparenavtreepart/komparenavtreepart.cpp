@@ -97,6 +97,10 @@ void KompareNavTreePart::slotModelsChanged( const QPtrList<DiffModel>* modelList
 	if ( modelList )
 	{
 		m_modelList = modelList;
+		m_srcDirTree->clear();
+		m_destDirTree->clear();
+		m_fileList->clear();
+		m_changesList->clear();
 		buildTreeInMemory();
 	}
 	else

@@ -257,14 +257,33 @@ void KompareView::resizeEvent( QResizeEvent* e )
 void KompareView::wheelEvent( QWheelEvent* e )
 {
 	// scroll lines...
-	if ( e->delta() < 0 ) // scroll back into file
+	if ( e->orientation() == Qt::Vertical )
 	{
-		m_vScroll->addLine();
+		if ( e->state() & Qt::ControlButton )
+			if ( e->delta() < 0 ) // scroll page down
+				m_vScroll->addPage();
+			else // scroll page up
+				m_vScroll->subtractPage();
+		else
+			if ( e->delta() < 0 ) // scroll line down
+				m_vScroll->addLine();
+			else // scroll line up
+				m_vScroll->subtractLine();
 	}
-	else // scroll forward into file
+	else
 	{
-		m_vScroll->subtractLine();
+		if ( e->state() & Qt::ControlButton )
+			if ( e->delta() < 0 ) // scroll page left
+				m_hScroll->addPage();
+			else // scroll page right
+				m_hScroll->subtractPage();
+		else
+			if ( e->delta() < 0 ) // scroll line left
+				m_hScroll->addLine();
+			else // scroll line right
+				m_hScroll->subtractLine();
 	}
+	e->accept();
 	m_zoom->repaint();
 }
 

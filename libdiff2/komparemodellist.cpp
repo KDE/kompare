@@ -369,9 +369,12 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 		if ( parseDiffOutput( m_diffProcess->diffOutput() ) != 0 ) {
 			emit error( i18n( "Could not parse diff output." ) );
 		}
-		blendOriginalIntoModelList( m_info->localSource );
-		updateModelListActions();
-		show();
+		else
+		{
+			blendOriginalIntoModelList( m_info->localSource );
+			updateModelListActions();
+			show();
+		}
 		emit status( Kompare::FinishedParsing );
 	} else if ( m_diffProcess->exitStatus() == 0 ) {
 		emit error( i18n( "The files are identical." ) );

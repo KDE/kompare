@@ -192,7 +192,7 @@ int DiffModel::parseContextDiff( const QStringList& list )
 				}
 			}
 
-			else if( (oldIt != oldLines.end() && unchanged.exactMatch( *oldIt ) ) ||
+			else if( (oldIt != oldLines.end() && unchanged.exactMatch( *oldIt ) ) &&
 			    (newIt != newLines.end() && unchanged.exactMatch( *newIt ) ) ) {
 //				kdDebug() << "Unchanged: " << endl;
 				diff = new Difference( linenoA, linenoB );

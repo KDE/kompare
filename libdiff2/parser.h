@@ -18,8 +18,7 @@
 #ifndef _DIFF2_PARSER_H
 #define _DIFF2_PARSER_H
 
-#include <qptrlist.h>
-
+#include "diffmodellist.h"
 #include "kompare.h"
 
 namespace Diff2
@@ -34,8 +33,8 @@ public:
 	~Parser();
 
 public:
-	QPtrList<DiffModel>* parse( const QString& diff );
-	QPtrList<DiffModel>* parse( const QStringList& diff );
+	DiffModelList* parse( const QString& diff );
+	DiffModelList* parse( const QStringList& diff );
 
 	enum Kompare::Generator generator() const { return m_generator; };
 	enum Kompare::Format    format() const    { return m_format; };

@@ -22,7 +22,7 @@
 
 #include "kompare.h"
 #include "difference.h"
-#include "diffmodel.h"
+#include "diffmodellist.h"
 
 class QStringList;
 class QString;
@@ -38,7 +38,7 @@ public:
 
 public:
 	enum Kompare::Format format() { return determineFormat(); };
-	QPtrList<DiffModel>* parse();
+	DiffModelList* parse();
 
 protected:
 	virtual bool parseContextDiffHeader();
@@ -59,11 +59,11 @@ protected:
 	virtual bool parseRCSHunkBody();
 	virtual bool parseUnifiedHunkBody();
 
-	virtual QPtrList<DiffModel>* parseContext();
-	virtual QPtrList<DiffModel>* parseEd();
-	virtual QPtrList<DiffModel>* parseNormal();
-	virtual QPtrList<DiffModel>* parseRCS();
-	virtual QPtrList<DiffModel>* parseUnified();
+	virtual DiffModelList* parseContext();
+	virtual DiffModelList* parseEd();
+	virtual DiffModelList* parseNormal();
+	virtual DiffModelList* parseRCS();
+	virtual DiffModelList* parseUnified();
 
 protected:
 	/** What is format of the diff */
@@ -114,7 +114,7 @@ protected:
 protected:
 	const QStringList&         m_diffLines;
 	DiffModel*                 m_currentModel;
-	QPtrList<DiffModel>*       m_models;
+	DiffModelList*             m_models;
 	QStringList::ConstIterator m_diffIterator;
 
 	bool                       m_singleFileDiff;

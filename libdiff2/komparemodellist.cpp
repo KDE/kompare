@@ -359,9 +359,11 @@ bool KompareModelList::saveAll()
 
 void KompareModelList::slotDiffProcessFinished( bool success )
 {
-	if ( success ) {
+	if ( success )
+	{
 		emit status( Kompare::Parsing );
-		if ( parseDiffOutput( m_diffProcess->diffOutput() ) != 0 ) {
+		if ( parseDiffOutput( m_diffProcess->diffOutput() ) != 0 )
+		{
 			emit error( i18n( "Could not parse diff output." ) );
 		}
 		else
@@ -372,9 +374,13 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 			show();
 		}
 		emit status( Kompare::FinishedParsing );
-	} else if ( m_diffProcess->exitStatus() == 0 ) {
+	}
+	else if ( m_diffProcess->exitStatus() == 0 )
+	{
 		emit error( i18n( "The files are identical." ) );
-	} else {
+	}
+	else
+	{
 		emit error( m_diffProcess->stdErr() );
 	}
 
@@ -769,8 +775,8 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 	DiffModel* model;
 	QFile file;
 
-	QPtrList<DiffModel>* models = m_models;
-	m_models = new QPtrList<DiffModel>();
+	DiffModelList* models = m_models;
+	m_models = new DiffModelList();
 	if ( fi.isDir() )
 	{ // is a dir
 		QDir dir( localURL, QString::null, QDir::Name|QDir::DirsFirst, QDir::All );
@@ -900,7 +906,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 			{
 				// FIXME: Leave that diff out for now
 				// We'll have to do all sorts of nice things to get this working properly
-				// Like trying offsets and or fuzzy matching
+				// Like trying offsets and or fuzzy matching or check for tabs that were converted into spaces by diff
 				kdDebug(8101) << "Unchanged: Wow, conflict... what should we do now ???" << endl;
 				diffList.next();
 			}
@@ -999,7 +1005,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 
 	m_models->remove( model );
 	delete model;
-	m_models->append( newModel );
+	m_models->inSort( newModel );
 
 	m_selectedModel = firstModel();
 

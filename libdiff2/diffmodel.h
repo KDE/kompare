@@ -94,6 +94,8 @@ public:
 
 	DiffModel& operator=( const DiffModel& model );
 
+	int localeAwareCompareSource( const DiffModel* model );
+
 signals:
 	void setModified( bool modified );
 

@@ -34,7 +34,7 @@ ParserBase::ParserBase( const QStringList& diff ) :
 {
 //	kdDebug(8101) << diff << endl;
 //	kdDebug(8101) << m_diffLines << endl;
-	m_models = new QPtrList<DiffModel>;
+	m_models = new DiffModelList();
 
 	// used in contexthunkheader
 	m_contextHunkHeader1.setPattern( "^\\*{15} ?(.*)$" ); // capture is for function name
@@ -78,7 +78,7 @@ enum Kompare::Format ParserBase::determineFormat()
 	return Kompare::UnknownFormat;
 }
 
-QPtrList<DiffModel>* ParserBase::parse()
+DiffModelList* ParserBase::parse()
 {
 	switch( determineFormat() )
 	{
@@ -568,14 +568,14 @@ bool ParserBase::parseUnifiedHunkBody()
 	return true;
 }
 
-QPtrList<DiffModel>* ParserBase::parseContext()
+DiffModelList* ParserBase::parseContext()
 {
 	while ( parseContextDiffHeader() )
 	{
 		while ( parseContextHunkHeader() )
 			parseContextHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->append( m_currentModel );
+			m_models->inSort( m_currentModel );
 	}
 
 	if ( m_models->count() > 0 )
@@ -589,14 +589,14 @@ QPtrList<DiffModel>* ParserBase::parseContext()
 	}
 }
 
-QPtrList<DiffModel>* ParserBase::parseEd()
+DiffModelList* ParserBase::parseEd()
 {
 	while ( parseEdDiffHeader() )
 	{
 		while ( parseEdHunkHeader() )
 			parseEdHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->append( m_currentModel );
+			m_models->inSort( m_currentModel );
 	}
 
 	if ( m_models->count() > 0 )
@@ -610,14 +610,14 @@ QPtrList<DiffModel>* ParserBase::parseEd()
 	}
 }
 
-QPtrList<DiffModel>* ParserBase::parseNormal()
+DiffModelList* ParserBase::parseNormal()
 {
 	while ( parseNormalDiffHeader() )
 	{
 		while ( parseNormalHunkHeader() )
 			parseNormalHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->append( m_currentModel );
+			m_models->inSort( m_currentModel );
 	}
 
 	if ( m_singleFileDiff )
@@ -625,7 +625,7 @@ QPtrList<DiffModel>* ParserBase::parseNormal()
 		while ( parseNormalHunkHeader() )
 			parseNormalHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->append( m_currentModel );
+			m_models->inSort( m_currentModel );
 	}
 
 	if ( m_models->count() > 0 )
@@ -639,14 +639,14 @@ QPtrList<DiffModel>* ParserBase::parseNormal()
 	}
 }
 
-QPtrList<DiffModel>* ParserBase::parseRCS()
+DiffModelList* ParserBase::parseRCS()
 {
 	while ( parseRCSDiffHeader() )
 	{
 		while ( parseRCSHunkHeader() )
 			parseRCSHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->append( m_currentModel );
+			m_models->inSort( m_currentModel );
 	}
 
 	if ( m_models->count() > 0 )
@@ -660,7 +660,7 @@ QPtrList<DiffModel>* ParserBase::parseRCS()
 	}
 }
 
-QPtrList<DiffModel>* ParserBase::parseUnified()
+DiffModelList* ParserBase::parseUnified()
 {
 	while ( parseUnifiedDiffHeader() )
 	{
@@ -669,7 +669,7 @@ QPtrList<DiffModel>* ParserBase::parseUnified()
 //		kdDebug(8101) << "New model ready to be analyzed..." << endl;
 //		kdDebug(8101) << " differenceCount() == " << m_currentModel->differenceCount() << endl;
 		if ( m_currentModel->differenceCount() > 0 )
-			m_models->append( m_currentModel );
+			m_models->inSort( m_currentModel );
 	}
 
 	if ( m_models->count() > 0 )

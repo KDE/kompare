@@ -126,6 +126,16 @@ DiffModel& DiffModel::operator=( const DiffModel& model )
 	return *this;
 }
 
+int DiffModel::localeAwareCompareSource( const DiffModel* model )
+{
+	int result = m_sourcePath.localeAwareCompare( model->m_sourcePath );
+
+	if ( result == 0 )
+		return m_sourceFile.localeAwareCompare( model->m_sourceFile );
+
+	return result;
+}
+
 const QPtrList<Difference>& DiffModel::allDifferences()
 {
 	if ( m_hunks.count() != 0 )

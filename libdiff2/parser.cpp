@@ -33,14 +33,14 @@ Parser::~Parser()
 {
 }
 
-QPtrList<DiffModel>* Parser::parse( const QString& diff )
+DiffModelList* Parser::parse( const QString& diff )
 {
 //	kdDebug(8101) << "DiffOutput: " << diff << endl;
 	/* Just split the QString and call the other static parse method */
 	return Parser::parse( QStringList::split( diff, "\n" ) );
 }
 
-QPtrList<DiffModel>* Parser::parse( const QStringList& diff )
+DiffModelList* Parser::parse( const QStringList& diff )
 {
 //	kdDebug(8101) << "DiffOutput: " << diff.join("\n") << endl;
 
@@ -69,7 +69,7 @@ QPtrList<DiffModel>* Parser::parse( const QStringList& diff )
 	}
 
 	m_format = parser->format();
-	QPtrList<DiffModel>* modelList = parser->parse();
+	DiffModelList* modelList = parser->parse();
 	if ( modelList )
 	{
 		kdDebug(8101) << "Modelcount: " << modelList->count() << endl;

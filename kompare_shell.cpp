@@ -145,7 +145,7 @@ void KDiffShell::readProperties(KConfig* /*config*/)
 
 void KDiffShell::slotFileOpen()
 {
-	KURL url = KFileDialog::getOpenURL( QString::null, "*.diff *.patch|Difference files", this );
+	KURL url = KFileDialog::getOpenURL( QString::null, "text/x-diff", this );
 	if( !url.isEmpty() ) {
 		KDiffShell* shell = new KDiffShell();
 		shell->show();

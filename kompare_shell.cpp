@@ -83,7 +83,8 @@ void KDiffShell::compare(const KURL& source,const KURL& destination )
 
 void KDiffShell::setupActions()
 {
-	KStdAction::openNew(this, SLOT(fileNew()), actionCollection());
+	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_O, this, SLOT(compareFiles()),
+	              actionCollection(), "file_compare_files" );
 	KStdAction::quit(kapp, SLOT(quit()), actionCollection());
 
 	m_toolbarAction = KStdAction::showToolbar(this, SLOT(optionsShowToolbar()), actionCollection());
@@ -126,16 +127,10 @@ void KDiffShell::readProperties(KConfig* /*config*/)
 	// in 'saveProperties'
 }
 
-void KDiffShell::fileNew()
+void KDiffShell::compareFiles()
 {
-	// this slot is called whenever the File->New menu is selected,
-	// the New shortcut is pressed (usually CTRL+N) or the New toolbar
-	// button is clicked
 
-	// create a new window
-	(new KDiffShell)->show();
 }
-
 
 void KDiffShell::optionsShowToolbar()
 {

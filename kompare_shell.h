@@ -59,7 +59,7 @@ protected:
 	void readProperties(KConfig *);
 
 private slots:
-	void fileNew();
+	void compareFiles();
 	void optionsShowToolbar();
 	void optionsShowStatusbar();
 	void optionsConfigureKeys();

@@ -44,7 +44,8 @@ kde_module_LTLIBRARIES = libkdiffpart.la
 
 # the Part's source, library search path, and link libraries
 libkdiffpart_la_SOURCES = kdiff_part.cpp kdiff_actions.cpp \
-	diffmodel.cpp difference.cpp kdiffview.cpp diffview.cpp misc.cpp
+	diffmodel.cpp difference.cpp kdiffview.cpp diffview.cpp misc.cpp \
+	diffsettings.cpp kdiffprocess.cpp settingsbase.cpp
 libkdiffpart_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
 libkdiffpart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE)
 
@@ -58,9 +59,9 @@ partrc_DATA = kdiffpartui.rc
 
 #bin_PROGRAMS = kdiff
 #kdiff_SOURCES = miscsettings.cpp miscprefs.cpp kdiffprefdlg.cpp \
-#	generalsettings.cpp generalprefs.cpp diffsettings.cpp \
-#	diffprefs.cpp kdiffprocess.cpp kmaindiffview.cpp \
-#	kdiffview.cpp prefsbase.cpp settingsbase.cpp
+#	generalsettings.cpp generalprefs.cpp \
+#	diffprefs.cpp kmaindiffview.cpp \
+#	kdiffview.cpp prefsbase.cpp
 
 unifiedgrammar.cpp: unifiedgrammar.y
 	bison -o unifiedgrammar.cpp unifiedgrammar.y

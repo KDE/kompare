@@ -264,8 +264,9 @@ const QString& KomparePart::fetchURL( const KURL& url )
 	QString* tempFile = new QString( "" );
 	if ( !url.isLocalFile() )
 	{
-		if ( ! KIO::NetAccess::download( url, *tempFile, ( QWidget* )parent() ) )
+		if ( ! KIO::NetAccess::download( url, *tempFile, widget() ) )
 		{
+			// FIXME: %1 should be bold
 			slotShowError( i18n( "The url %1 can not be downloaded." ).arg( url.prettyURL() ) );
 			*tempFile = "";
 			return *tempFile;
@@ -283,6 +284,7 @@ const QString& KomparePart::fetchURL( const KURL& url )
 		}
 		else
 		{
+			// FIXME: %1 should be bold
 			slotShowError( i18n( "The url %1 does not exist on your system." ).arg( url.prettyURL() ) );
 			return *tempFile;
 		}
@@ -575,6 +577,36 @@ void KomparePart::slotShowError( QString error )
 
 void KomparePart::slotSwap()
 {
+	if ( m_modelList->isModified() )
+	{
+		int query = KMessageBox::warningYesNoCancel
+		            (
+		                widget(),
+		                i18n( "You have made changes to the destination.\n"
+		                      "Would you like to save them?" ),
+		                i18n(  "Save Changes?" ),
+		                i18n(  "Save" ),
+		                i18n(  "Discard" )
+		            );
+
+		if ( query == KMessageBox::Yes )
+			m_modelList->saveAll();
+		if ( query == KMessageBox::Cancel )
+			return; // Abort prematurely so no swapping
+	}
+
+	// Swap the info in the Kompare::Info struct
+	KURL url = m_info.source;
+	m_info.source = m_info.destination;
+	m_info.destination = url;
+
+	QString string = m_info.localSource;
+	m_info.localSource = m_info.localDestination;
+	m_info.localDestination = string;
+
+	// Update window caption and statusbar text
+	updateStatus();
+
 	m_modelList->swap();
 }
 
@@ -666,14 +698,17 @@ void KomparePart::slotShowDiffstats( void )
 
 bool KomparePart::queryClose()
 {
-	if( !isModified() ) return true;
+	if( !m_modelList->isModified() ) return true;
 
-	int query = KMessageBox::warningYesNoCancel( widget(),
-	    i18n("You have made changes to the destination.\n"
-	         "Would you like to save them?" ),
-	         i18n( "Save Changes?" ),
-	         i18n( "Save" ),
-	         i18n( "Discard" ) );
+	int query = KMessageBox::warningYesNoCancel
+	            (
+	                widget(),
+	                i18n("You have made changes to the destination.\n"
+	                     "Would you like to save them?" ),
+	                i18n( "Save Changes?" ),
+	                i18n( "Save" ),
+	                i18n( "Discard" )
+	            );
 
 	if( query == KMessageBox::Cancel ) return false;
 	if( query == KMessageBox::Yes )    return m_modelList->saveAll();

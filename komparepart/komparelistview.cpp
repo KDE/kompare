@@ -360,8 +360,7 @@ void KompareListViewDiffItem::setup()
 
 void KompareListViewDiffItem::setVisibility()
 {
-	m_sourceItem->setVisible( m_difference->type() == Difference::Unchanged ||
-	                          kompareListView()->isSource() || m_difference->applied() );
+	m_sourceItem->setVisible( kompareListView()->isSource() || m_difference->applied() );
 	m_destItem->setVisible( !m_sourceItem->isVisible() );
 }
 

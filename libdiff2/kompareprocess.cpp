@@ -177,8 +177,8 @@ void KompareProcess::processExited( KProcess* /* proc */ )
 {
 	// exit status of 0: no differences
 	//                1: some differences
-	//                2: error
-	emit diffHasFinished( normalExit() && exitStatus() == 1 );
+	//                2: error(s) and differences
+	emit diffHasFinished( normalExit() && exitStatus() != 0 );
 }
 
 const QStringList KompareProcess::diffOutput()

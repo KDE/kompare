@@ -491,10 +491,10 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 			kdDebug() << "Added line found." << endl;
 			int len, pos;
 			line.replace( 0, 1, "" ); // Strip the 'a'
-			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
+			if ( (pos = QRegExp( "^[0-9]+" ).search( line, 0 ) ) < 0 ) return 1;
 			linenoB = line.mid(pos, len).toInt();
 			line.replace( pos, len+1, "" ); // Also strip the extra ' '
-			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
+			if ( (pos = QRegExp( "^[0-9]+" ).search( line, 0 ) ) < 0 ) return 1;
 			nolinesB = line.mid(pos, len).toInt();
 
 			DiffHunk* hunk = new DiffHunk( 0, linenoB );
@@ -526,10 +526,10 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 			// This will be a big problem in the viewerclass...
 			int len, pos;
 			line.replace( 0, 1, "" ); // Strip the 'd'
-			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
+			if ( (pos = QRegExp( "^[0-9]+" ).search( line, 0 ) ) < 0 ) return 1;
 			linenoA = line.mid(pos, len).toInt();
 			line.replace( pos, len+1, "" ); // Also strip the extra ' '
-			if ( (pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
+			if ( (pos = QRegExp( "^[0-9]+" ).search( line, 0 ) ) < 0 ) return 1;
 			nolinesA = line.mid(pos, len).toInt();
 
 // Next lines are commented out because in delete the lines are not here
@@ -619,12 +619,17 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 			return 5; // invalid head line
 		}
 
+		for ( int i = 0; i < 7; i++ )
+		{
+			kdDebug() << "Capture " << i << ": " << head.cap( i ) << endl;
+		}
+
 		linenoA = head.cap( 1 ).toInt();
 		linenoB = head.cap( 3 ).toInt();
 
 //		kdDebug() << " hunk: " << linenoA << " " << linenoB << endl;
 
-		DiffHunk* hunk = new DiffHunk( linenoA, linenoB, head.cap( 5 ) );
+		DiffHunk* hunk = new DiffHunk( linenoA, linenoB, head.cap( 6 ) );
 		m_hunks.append( hunk );
 
 		++it;

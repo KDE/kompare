@@ -305,8 +305,8 @@ void KomparePart::updateStatus()
 	}
 	else
 	{
-		emit setStatusBarText( i18n( "Viewing %1" ).arg( url().prettyURL() ) );
-		emit setWindowCaption( url().filename() );
+		emit setStatusBarText( i18n( "Viewing %1" ).arg( m_models->diffURL().prettyURL() ) );
+		emit setWindowCaption( m_models->diffURL().filename() );
 	}
 }
 

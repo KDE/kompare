@@ -272,6 +272,7 @@ bool KompareModelList::openDiff( const KURL& url )
 		KIO::NetAccess::removeTempFile( diffTemp );
 	}
 
+	m_mode = Diff;
 	emit status( FinishedParsing );
 
 	return true;

@@ -564,7 +564,6 @@ void KomparePart::optionsPreferences()
 // It's usually safe to leave the factory code alone.. with the
 // notable exception of the KAboutData data
 #include <kaboutdata.h>
-#include <klocale.h>
 
 KInstance*  KomparePartFactory::s_instance = 0L;
 KAboutData* KomparePartFactory::s_about = 0L;

@@ -7,7 +7,7 @@
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -76,7 +76,7 @@ public slots:
 
 protected:
 	virtual bool queryClose();
-	
+
 	/**
 	* This method is called when it is time for the app to save its
 	* properties for session management purposes.
@@ -101,6 +101,7 @@ private slots:
 	void optionsConfigureToolbars();
 	void updateStatusBar();
 	void slotDiffURLChanged();
+	void newToolbarConfig();
 
 private:
 	void setupAccel();
@@ -111,7 +112,7 @@ private:
 	KURL                  m_sourceURL;
 	KURL                  m_destinationURL;
 	KURL                  m_diffURL;
-	
+
 	KomparePart*          m_viewPart;
 	KompareNavTreePart*   m_navTreePart;
 	KParts::ReadOnlyPart* m_textViewPart;
@@ -123,7 +124,7 @@ private:
 	KToggleAction*        m_toolbarAction;
 	KToggleAction*        m_statusbarAction;
 	KToggleAction*        m_showTextView;
-	
+
 	enum Kompare::Mode    m_mode;
 };
 

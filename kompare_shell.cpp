@@ -79,9 +79,9 @@ KompareShell::KompareShell()
 			setView( m_mainViewDock );
 			setMainDockWidget( m_mainViewDock );
 
-			connect( m_viewPart, SIGNAL(selectionChanged(const DiffModel*,const Difference*)), 
+			connect( m_viewPart, SIGNAL(selectionChanged(const DiffModel*,const Difference*)),
 			         this, SLOT(updateStatusBar()));
-			connect( m_viewPart, SIGNAL(appliedChanged()), 
+			connect( m_viewPart, SIGNAL(appliedChanged()),
 			         this, SLOT(updateStatusBar()));
 			// and integrate the part's GUI with the shell's
 			createGUI(m_viewPart);
@@ -113,7 +113,7 @@ KompareShell::KompareShell()
 		{
 			m_navTreeDock->setWidget( m_navTreePart->widget() );
 			m_navTreeDock->manualDock( m_mainViewDock, KDockWidget::DockTop, 20 );
-			
+
 			connect( m_viewPart->model(), SIGNAL( modelsChanged(const QPtrList<DiffModel>*) ),
 			         m_navTreePart, SLOT( slotModelsChanged( const QPtrList<DiffModel>*) ) );
 			// still need to connect the setSelection signals and the slotSelectionChanged slots in this part
@@ -202,7 +202,7 @@ void KompareShell::setupStatusBar()
 void KompareShell::updateStatusBar()
 {
 	kdDebug() << "KompareShell::updateStatusBar()" << endl;
-	
+
 	QString fileStr;
 	QString diffStr;
 	int modelIndex = m_viewPart->selectedModelIndex();
@@ -371,13 +371,16 @@ void KompareShell::optionsConfigureKeys()
 
 void KompareShell::optionsConfigureToolbars()
 {
+	saveMainWindowSettings( KGlobal::config(), autoSaveGroup() );
 	// use the standard toolbar editor
-	KEditToolbar dlg(actionCollection());
-	if (dlg.exec())
-	{
-		// recreate our GUI
-		createGUI(m_viewPart);
-	}
+	KEditToolbar dlg(factory());
+        connect(&dlg,SIGNAL(newToolbarConfig()),this,SLOT(newToolbarConfig()));
+	dlg.exec();
+}
+
+void KompareShell::newToolbarConfig()
+{
+	applyMainWindowSettings( KGlobal::config(), autoSaveGroup() );
 }
 
 #include "kompare_shell.moc"

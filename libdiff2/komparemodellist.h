@@ -115,6 +115,7 @@ protected:
 
 signals:
 	void status( Kompare::Status status );
+	void setStatusBarModelInfo( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
 	void error( QString error );
 	void modelsChanged( const QPtrList<Diff2::DiffModel>* models );
 	void setSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );

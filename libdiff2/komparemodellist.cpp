@@ -2,8 +2,8 @@
                           komparemodellist.cpp  -  description
                              -------------------
     begin                : Tue Jun 26 2001
-    copyright            : (C) 2001-2003 by John Firebaugh
-                           and Otto Bruggeman
+    copyright            : (C) 2001-2004 Otto Bruggeman
+                           (C) 2001-2003 John Firebaugh
     email                : jfirebaugh@kde.org
                            otto.bruggeman@home.nl
  ***************************************************************************/
@@ -543,6 +543,8 @@ void KompareModelList::slotSelectionChanged( const Diff2::DiffModel* model, cons
 	}
 
 	emit setSelection( model, diff );
+	emit setStatusBarModelInfo( findModel( m_selectedModel ), m_selectedModel->findDifference( m_selectedDifference ), modelCount(), differenceCount(), m_selectedModel->appliedCount() );
+
 	updateModelListActions();
 }
 
@@ -578,6 +580,7 @@ void KompareModelList::slotPreviousModel()
 	}
 
 	emit setSelection( m_selectedModel, m_selectedDifference );
+	emit setStatusBarModelInfo( findModel( m_selectedModel ), m_selectedModel->findDifference( m_selectedDifference ), modelCount(), differenceCount(), m_selectedModel->appliedCount() );
 	updateModelListActions();
 }
 
@@ -594,6 +597,7 @@ void KompareModelList::slotNextModel()
 	}
 
 	emit setSelection( m_selectedModel, m_selectedDifference );
+	emit setStatusBarModelInfo( findModel( m_selectedModel ), m_selectedModel->findDifference( m_selectedDifference ), modelCount(), differenceCount(), m_selectedModel->appliedCount() );
 	updateModelListActions();
 }
 
@@ -661,6 +665,7 @@ void KompareModelList::slotPreviousDifference()
 	if ( ( m_selectedDifference = m_selectedModel->prevDifference() ) != 0 )
 	{
 		emit setSelection( m_selectedDifference );
+		emit setStatusBarModelInfo( findModel( m_selectedModel ), m_selectedModel->findDifference( m_selectedDifference ), modelCount(), differenceCount(), m_selectedModel->appliedCount() );
 		updateModelListActions();
 		return;
 	}
@@ -672,6 +677,7 @@ void KompareModelList::slotPreviousDifference()
 		m_selectedDifference = m_selectedModel->lastDifference();
 
 		emit setSelection( m_selectedModel, m_selectedDifference );
+		emit setStatusBarModelInfo( findModel( m_selectedModel ), m_selectedModel->findDifference( m_selectedDifference ), modelCount(), differenceCount(), m_selectedModel->appliedCount() );
 		updateModelListActions();
 		return;
 	}
@@ -684,6 +690,7 @@ void KompareModelList::slotPreviousDifference()
 	m_selectedDifference = m_selectedModel->firstDifference();
 
 	emit setSelection( m_selectedModel, m_selectedDifference );
+	emit setStatusBarModelInfo( findModel( m_selectedModel ), m_selectedModel->findDifference( m_selectedDifference ), modelCount(), differenceCount(), m_selectedModel->appliedCount() );
 	updateModelListActions();
 }
 
@@ -693,6 +700,7 @@ void KompareModelList::slotNextDifference()
 	if ( ( m_selectedDifference = m_selectedModel->nextDifference() ) != 0 )
 	{
 		emit setSelection( m_selectedDifference );
+		emit setStatusBarModelInfo( findModel( m_selectedModel ), m_selectedModel->findDifference( m_selectedDifference ), modelCount(), differenceCount(), m_selectedModel->appliedCount() );
 		updateModelListActions();
 		return;
 	}
@@ -704,6 +712,7 @@ void KompareModelList::slotNextDifference()
 		m_selectedDifference = m_selectedModel->firstDifference();
 
 		emit setSelection( m_selectedModel, m_selectedDifference );
+		emit setStatusBarModelInfo( findModel( m_selectedModel ), m_selectedModel->findDifference( m_selectedDifference ), modelCount(), differenceCount(), m_selectedModel->appliedCount() );
 		updateModelListActions();
 		return;
 	}
@@ -715,6 +724,7 @@ void KompareModelList::slotNextDifference()
 	m_selectedDifference = m_selectedModel->lastDifference();
 
 	emit setSelection( m_selectedModel, m_selectedDifference );
+	emit setStatusBarModelInfo( findModel( m_selectedModel ), m_selectedModel->findDifference( m_selectedDifference ), modelCount(), differenceCount(), m_selectedModel->appliedCount() );
 	updateModelListActions();
 }
 
@@ -747,6 +757,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 		m_selectedModel = firstModel();
 		kdDebug(8101) << "Ok there are differences..." << endl;
 		m_selectedDifference = m_selectedModel->firstDifference();
+		emit setStatusBarModelInfo( 0, 0, modelCount(), differenceCount(), 0);
 	}
 	else
 	{

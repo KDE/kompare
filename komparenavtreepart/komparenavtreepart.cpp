@@ -2,8 +2,8 @@
                                 KompareNavTreePart.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
@@ -356,7 +356,7 @@ void KompareNavTreePart::slotFileListSelectionChanged( QListViewItem* item )
 	file->fillChangesList( m_changesList, &m_diffToChangeItemDict );
 	m_changesList->blockSignals( false );
 
-	m_selectedDifference = (static_cast<KChangeLVI*>(m_changesList->selectedItem()))->difference();
+		m_selectedDifference = (static_cast<KChangeLVI*>(m_changesList->selectedItem()))->difference();
 
 	emit selectionChanged( m_selectedModel, m_selectedDifference );
 }
@@ -373,20 +373,52 @@ void KompareNavTreePart::slotChangesListSelectionChanged( QListViewItem* item )
 
 void KompareNavTreePart::slotApplyDifference( bool /*apply*/ )
 {
-	// this applies to the currently selected difference
-	// setItemText( m_differenceToItemDict[(void*)d], d );
+	KChangeLVI* clvi = m_diffToChangeItemDict[(void*)m_selectedDifference];
+	if ( clvi )
+		clvi->setDifferenceText();
 }
 
 void KompareNavTreePart::slotApplyAllDifferences( bool /*apply*/ )
 {
-	// this applies to the currently selected model
-	// setItemText( m_differenceToItemDict[(void*)d], d );
+	QPtrDictIterator<KChangeLVI> it( m_diffToChangeItemDict );
+
+	for ( ; it.current(); ++it )
+	{
+		it.current()->setDifferenceText();
+	}
 }
 
-void KompareNavTreePart::slotApplyDifference( const Diff2::Difference* /*diff*/, bool /*apply*/ )
+void KompareNavTreePart::slotApplyDifference( const Diff2::Difference* diff, bool /*apply*/ )
 {
 	// this applies to the currently selected difference
-	// setItemText( m_differenceToItemDict[(void*)d], d );
+	KChangeLVI* clvi = m_diffToChangeItemDict[(void*)diff];
+	if ( clvi )
+		clvi->setDifferenceText();
+}
+
+void KChangeLVI::setDifferenceText()
+{
+	QString text;
+	switch( m_difference->type() ) {
+	case Diff2::Difference::Change:
+		// Shouldn't this simply be diff->sourceLineCount() ?
+		// because you change the _number of lines_ lines in source, not in dest
+			text = i18n( "Changed %n line", "Changed %n lines",
+			             m_difference->sourceLineCount() );
+		break;
+	case Diff2::Difference::Insert:
+			text = i18n( "Inserted %n line", "Inserted %n lines",
+			             m_difference->destinationLineCount() );
+		break;
+	case Diff2::Difference::Delete:
+			text = i18n( "Deleted %n line", "Deleted %n lines",
+			             m_difference->sourceLineCount() );
+		break;
+	default:
+		kdDebug(8105) << "Unknown or Unchanged enum value when checking for diff->type() in KChangeLVI's constructor" << endl;
+	}
+
+	setText( 2, text );
 }
 
 KChangeLVI::KChangeLVI( KListView* parent, Diff2::Difference* diff ) : KListViewItem( parent )
@@ -396,32 +428,7 @@ KChangeLVI::KChangeLVI( KListView* parent, Diff2::Difference* diff ) : KListView
 	setText( 0, i18n( "%1" ).arg( diff->sourceLineNumber() ) );
 	setText( 1, i18n( "%1" ).arg( diff->destinationLineNumber() ) );
 
-	QString text = QString::null;
-	switch( diff->type() ) {
-	case Diff2::Difference::Change:
-		// Shouldn't this simply be diff->sourceLineCount() ?
-		// because you change the _number of lines_ lines in source, not in dest
-		text = i18n( "Changed %n line", "Changed %n lines",
-		             QMAX( diff->sourceLineCount(),
-		             diff->destinationLineCount() ) );
-		break;
-	case Diff2::Difference::Insert:
-		text = i18n( "Inserted %n line", "Inserted %n lines",
-		             diff->destinationLineCount() );
-		break;
-	case Diff2::Difference::Delete:
-		text = i18n( "Deleted %n line", "Deleted %n lines",
-		             diff->sourceLineCount() );
-		break;
-	default:
-		kdDebug(8105) << "Unknown or Unchanged enum value when checking for diff->type() in KChangeLVI's constructor" << endl;
-	}
-
-	if( diff->applied() ) {
-			text = i18n( "Applied: %1" ).arg( text );
-	}
-
-	setText( 2, text );
+	setDifferenceText();
 }
 
 int KChangeLVI::compare( QListViewItem* item, int column, bool ascending ) const

@@ -2,8 +2,8 @@
                                 kompare_part.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
@@ -167,7 +167,7 @@ signals:
 	void appliedChanged();
 	void diffURLChanged();
 	void kompareInfo( Kompare::Info* info );
-	void setStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
+	void setStatusBarModelInfo( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
 //	void setStatusBarText( const QString& text );
 
 protected:

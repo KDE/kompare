@@ -44,7 +44,7 @@ class KompareModelList : public QObject
 {
 	Q_OBJECT
 public:
-	KompareModelList( DiffSettings* diffSettings, ViewSettings* viewSettings, QObject* parent = 0, char* name = 0 );
+	KompareModelList( DiffSettings* diffSettings, ViewSettings* viewSettings, QObject* parent = 0, const char* name = 0 );
 	~KompareModelList();
 
 	bool compareFiles( const KURL& source, const KURL& destination );

@@ -279,37 +279,37 @@ void LevenshteinTable::createListsOfCommands()
 		}
 	}
 
-	kdDebug(8101) << "Source string: " << m_source->string() << endl;
-	c = m_source->commandsList()->first();
-	QStringList list;
-	unsigned int prevValue = 0;
-	for ( ; c; c = m_source->commandsList()->next() )
-	{
-		kdDebug(8101) << "Source Command Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
-		list.append( m_source->string().mid( prevValue, c->offset() - prevValue ) );
-		prevValue = c->offset();
-	}
-	if ( prevValue < m_source->string().length() - 1 )
-	{
-		list.append( m_source->string().mid( prevValue, m_source->string().length() - prevValue ) );
-	}
-	kdDebug(8101) << "Source Resulting stringlist : " << list.join("\n") << endl;
+//	kdDebug(8101) << "Source string: " << m_source->string() << endl;
+//	c = m_source->commandsList()->first();
+//	QStringList list;
+//	unsigned int prevValue = 0;
+//	for ( ; c; c = m_source->commandsList()->next() )
+//	{
+//		kdDebug(8101) << "Source Command Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
+//		list.append( m_source->string().mid( prevValue, c->offset() - prevValue ) );
+//		prevValue = c->offset();
+//	}
+//	if ( prevValue < m_source->string().length() - 1 )
+//	{
+//		list.append( m_source->string().mid( prevValue, m_source->string().length() - prevValue ) );
+//	}
+//	kdDebug(8101) << "Source Resulting stringlist : " << list.join("\n") << endl;
 
-	list.clear();
-	prevValue = 0;
+//	list.clear();
+//	prevValue = 0;
 
-	kdDebug(8101) << "Destination string: " << m_destination->string() << endl;
-	for ( ; c; c = m_destination->commandsList()->next() )
-	{
-		kdDebug(8101) << "Destination Command Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
-		list.append( m_destination->string().mid( prevValue, c->offset() - prevValue ) );
-		prevValue = c->offset();
-	}
-	if ( prevValue < m_destination->string().length() - 1 )
-	{
-		list.append( m_destination->string().mid( prevValue, m_destination->string().length() - prevValue ) );
-	}
-	kdDebug(8101) << "Destination Resulting string : " << list.join("\n") << endl;
+//	kdDebug(8101) << "Destination string: " << m_destination->string() << endl;
+//	for ( ; c; c = m_destination->commandsList()->next() )
+//	{
+//		kdDebug(8101) << "Destination Command Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
+//		list.append( m_destination->string().mid( prevValue, c->offset() - prevValue ) );
+//		prevValue = c->offset();
+//	}
+//	if ( prevValue < m_destination->string().length() - 1 )
+//	{
+//		list.append( m_destination->string().mid( prevValue, m_destination->string().length() - prevValue ) );
+//	}
+//	kdDebug(8101) << "Destination Resulting string : " << list.join("\n") << endl;
 }
 
 #endif // INLINE_DIFFERENCES

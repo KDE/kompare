@@ -25,6 +25,7 @@
 #include <qwidget.h>
 
 #include <kaction.h>
+#include <kapplication.h>
 #include <kdebug.h>
 #include <kfiletreeview.h>
 #include <kfiledialog.h>
@@ -71,7 +72,7 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 		m_diffSettings = new DiffSettings( 0 );
 	}
 
-	readProperties( instance()->config() );
+	readProperties( kapp->config() );
 
 	// This creates the "Model creator" and connects the signals and slots
 	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_info, this, "komparemodellist" );

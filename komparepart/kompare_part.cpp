@@ -179,6 +179,7 @@ void KDiffPart::updateActions()
 	m_previousDifference->setEnabled( diff > 0 || model > 0 );
 	m_nextDifference->setEnabled( diff < getSelectedModel()->differenceCount() - 1 ||
 	                              model < m_models->modelCount() - 1 );
+	m_diffStats->setEnabled( m_models->modelCount() > 0 );
 }
 
 void KDiffPart::setReadWrite(bool rw)
@@ -345,30 +346,40 @@ void KDiffPart::slotShowDiffstats( void )
 	noOfHunks = getSelectedModel() ? getSelectedModel()->hunkCount() : 0;
 	noOfDiffs = getSelectedModel() ? getSelectedModel()->differenceCount() : 0;
 
-	if ( modelCount() == 0 ){ // no diff loaded yet
-		KMessageBox::information( 0L, i18n("Sorry, no diff file or no 2 files have been diffed, so there are no stats available."), i18n("Diff statistics"), QString::null, false );
+	if ( modelCount() == 0 ) { // no diff loaded yet
+		KMessageBox::information( 0L, i18n(
+		    "Sorry, no diff file or no 2 files have been diffed, "
+		    "so there are no stats available."),
+		    i18n("Diff statistics"), QString::null, false );
 	}
-	else if ( modelCount() == 1 ){ // 1 file in diff, or 2 files compared
-		KMessageBox::information( 0L, i18n("Statistics:\n
-\n
-Old file : %1\n
-New file : %2\n
-\n
-Format : %3\n
-Number of hunks : %4\n
-Number of differences : %5").arg(oldFile).arg(newFile).arg(diffFormat).arg(noOfHunks).arg(noOfDiffs), i18n("Diff statistics"), QString::null, false );
-	}
-	else { // more than 1 file in diff, or 1 or more directories compared (not yet possible afaik))
-		KMessageBox::information( 0L, i18n("Statistics:\n
-\n
-Number of files in diff file: %1\n
-Format           : %2\n
-\n
-Current old file : %3\n
-Current new file : %4\n
-\n
-Number of hunks : %5\n
-Number of differences : %6").arg(filesInDiff).arg(diffFormat).arg(oldFile).arg(newFile).arg(noOfHunks).arg(noOfDiffs), i18n("Diff statistics"), QString::null, false );
+	else if ( modelCount() == 1 ) { // 1 file in diff, or 2 files compared
+		KMessageBox::information( 0L, i18n(
+		    "Statistics:\n"
+		    "\n"
+		    "Old file : %1\n"
+		    "New file : %2\n"
+		    "\n"
+		    "Format : %3\n"
+		    "Number of hunks : %4\n"
+		    "Number of differences : %5")
+		    .arg(oldFile).arg(newFile).arg(diffFormat)
+		    .arg(noOfHunks).arg(noOfDiffs),
+		    i18n("Diff statistics"), QString::null, false );
+	} else { // more than 1 file in diff, or 1 or more directories compared (not yet possible afaik))
+		KMessageBox::information( 0L, i18n(
+		    "Statistics:\n"
+		    "\n"
+		    "Number of files in diff file: %1\n"
+		    "Format : %2\n"
+		    "\n"
+		    "Current old file : %3\n"
+		    "Current new file : %4\n"
+		    "\n"
+		    "Number of hunks : %5\n"
+		    "Number of differences : %6")
+		    .arg(filesInDiff).arg(diffFormat).arg(oldFile)
+		    .arg(newFile).arg(noOfHunks).arg(noOfDiffs),
+		    i18n("Diff statistics"), QString::null, false );
 	}
 }
 

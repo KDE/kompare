@@ -150,6 +150,7 @@ void ViewPrefs::setDefaults()
 	m_removedColorButton->setColor( ViewSettings::default_removeColor );
 	m_appliedColorButton->setColor( ViewSettings::default_appliedColor );
 	m_snolSpinBox->setValue       ( 3 );
+        m_tabSpinBox->setValue( 4 );
 }
 
 #include "viewprefs.moc"

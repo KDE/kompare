@@ -31,6 +31,7 @@ class Difference;
 class GeneralSettings;
 class KompareListViewItem;
 class KompareListViewDiffItem;
+class KompareListViewLineContainerItem;
 class KompareModelList;
 
 class KompareListView : public KListView
@@ -66,15 +67,11 @@ signals:
 	void selectionChanged( const Difference* diff );
 
 protected:
-	void resizeEvent( QResizeEvent* e );
 	void wheelEvent( QWheelEvent* e );
 	void contentsMousePressEvent ( QMouseEvent * e );
 	void contentsMouseDoubleClickEvent ( QMouseEvent* ) {};
 	void contentsMouseReleaseEvent ( QMouseEvent * ) {};
 	void contentsMouseMoveEvent ( QMouseEvent * ) {};
-
-protected slots:
-	void updateMainColumnWidth();
 
 private:
 	QPtrList<KompareListViewDiffItem>  m_items;
@@ -91,16 +88,20 @@ private:
 class KompareListViewItem : public QListViewItem
 {
 public:
-	KompareListViewItem( QListView* parent );
-	KompareListViewItem( QListView* parent, KompareListViewItem* after );
+	KompareListViewItem( KompareListView* parent );
+	KompareListViewItem( KompareListView* parent, KompareListViewItem* after );
+	KompareListViewItem( KompareListViewItem* parent );
+	KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* after );
 	
 	void paintFocus( QPainter* p, const QColorGroup& cg, const QRect& r );
 	int scrollId() { return m_scrollId; };
 	
 	virtual int maxHeight() = 0;
 	
+	KompareListView* kompareListView() const;
+	
 private:
-	int m_scrollId;
+	int               m_scrollId;
 };
 
 class KompareListViewDiffItem : public KompareListViewItem
@@ -110,21 +111,59 @@ public:
 	KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Difference* difference );
 	
 	void setup();
-	void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );
-	
+	void setSelected( bool b );
+	void applyDifference( bool apply );
+
 	Difference* difference() { return m_difference; };
 	
 	int maxHeight();
-	int maxMainWidth() const;
 	
-	void applyDifference( bool apply );
-
 private:
-	bool isSource() const { return m_listView->isSource(); };
-	int lineCount() const;
+	void init();
+	void setVisibility();
+	
+	Difference* m_difference;
+	KompareListViewLineContainerItem* m_sourceItem;
+	KompareListViewLineContainerItem* m_destItem;
+};
 
-	KompareListView* m_listView;
-	Difference*      m_difference;
+class KompareListViewLineContainerItem : public KompareListViewItem
+{
+public:
+	KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource );
+	
+	void setup();
+	int maxHeight() { return 0; }
+	KompareListViewDiffItem* diffItemParent() const;
+	
+private:
+	int lineCount() const;
+	int lineNumber() const;
+	QString lineAt( int i ) const;
+	
+	bool m_isSource;
+};
+
+class KompareListViewLineItem : public KompareListViewItem
+{
+public:
+	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, const QString& text );
+	
+	void paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align );
+	virtual void paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align );
+	
+	int maxHeight() { return 0; }
+	
+	KompareListViewDiffItem* diffItemParent() const;
+};
+
+class KompareListViewBlankLineItem : public KompareListViewLineItem
+{
+public:
+	KompareListViewBlankLineItem( KompareListViewLineContainerItem* parent );
+	
+	void paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align );
+	void setup();
 };
 
 class KompareListViewHunkItem : public KompareListViewItem

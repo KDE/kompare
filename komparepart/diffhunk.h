@@ -27,24 +27,19 @@ class Difference;
 class DiffHunk
 {
 public:
-	// We need a constructor without arguments for contextdiff
-	DiffHunk();
-	// This constructor can be used for the other formats
-	DiffHunk( int lineStartA, int lineStartB );
+	DiffHunk( int sourceLine, int destinationLine, QString function = QString::null );
 	~DiffHunk();
 
-	QString asString() const;
-	const QList<Difference>& getDifferences() const { return differences; };
-	const QString getFunction() const { return function; };
+	const QList<Difference>& getDifferences() const { return m_differences; };
+	const QString getFunction() const { return m_function; };
 	
 	void add( Difference* diff );
 	
-	int lineStartA;
-	int lineStartB;
-
 private:
-	QList<Difference> differences;
-	QString           function;
+	int               m_sourceLine;
+	int               m_destinationLine;
+	QList<Difference> m_differences;
+	QString           m_function;
 };
 
 #endif

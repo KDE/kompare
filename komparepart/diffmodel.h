@@ -61,6 +61,8 @@ public:
 	QString destinationFile();
 	QString sourceTimestamp() { return m_sourceTimestamp; };
 	QString destinationTimestamp() { return m_destinationTimestamp; };
+	QString sourceRevision() { return m_sourceRevision; };
+	QString destinationRevision() { return m_destinationRevision; };
 
 	Format getFormat() { return m_format; };
 	bool isModified() const { return m_modified; };

@@ -437,17 +437,25 @@ KDiffListViewHunkItem::KDiffListViewHunkItem( KDiffListView* parent, KDiffListVi
 
 int KDiffListViewHunkItem::maxHeight()
 {
-	return 5;
+	if( m_hunk->getFunction().isEmpty() ) {
+		return 5;
+	} else {
+		return listView()->fontMetrics().lineSpacing();
+	}
 }
 
 void KDiffListViewHunkItem::setup()
 {
 	QListViewItem::setup();
 	
-	setHeight( 5 );
+	setHeight( maxHeight() );
 }
 
-void KDiffListViewHunkItem::paintCell( QPainter * p, const QColorGroup & cg, int /* column */, int width, int /* align */ )
+void KDiffListViewHunkItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align )
 {
 	p->fillRect( 0, 0, width, height(), cg.mid() );
+	if( column == COL_MAIN ) {
+		p->drawText( listView()->itemMargin(), 0, width - listView()->itemMargin(), height(),
+		             align, m_hunk->getFunction() );
+	}
 }

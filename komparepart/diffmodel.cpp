@@ -90,12 +90,12 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 
 	if ( it == list.end() ) return 0; // no differences
 
-	QRegExp3 source( "^\\*\\*\\* ([^\\t]+)\\t([^\\t]+)\\t?(.*)$" );
+	QRegExp3 source( "^\\*\\*\\* ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
 	if( !source.exactMatch( *it ) ) return 1;
 	
 	m_sourceFile = source.cap( 1 );
 	m_sourceTimestamp = source.cap( 2 );
-	m_sourceRevision = source.cap( 3 );
+	m_sourceRevision = source.cap( 4 );
 	
 	kdDebug() << " source: " << m_sourceFile << endl;
 	kdDebug() << "   time: " << m_sourceTimestamp << endl;
@@ -103,12 +103,12 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 	
 	if( ++it == list.end() ) return 1;
 	
-	QRegExp3 dest( "^--- ([^\\t]+)\\t([^\\t]+)\\t?(.*)$" );
+	QRegExp3 dest( "^--- ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
 	if( !dest.exactMatch( *it ) ) return 1;
 	
 	m_destinationFile = dest.cap( 1 );
 	m_destinationTimestamp = dest.cap( 2 );
-	m_destinationRevision = dest.cap( 3 );
+	m_destinationRevision = dest.cap( 4 );
 	
 	kdDebug() << "   dest: " << m_destinationFile << endl;
 	kdDebug() << "   time: " << m_destinationTimestamp << endl;
@@ -116,7 +116,7 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 	
 	++it;
 	
-	QRegExp3 head1( "^\\*{15} ?(.*)$" );
+	QRegExp3 head1( "^\\*{15}( ?)(.*)$" );
 	QRegExp3 headS( "^\\*{3} ([0-9]+),([0-9]+) \\*{4}$" );
 	QRegExp3 headD( "^-{3} ([0-9]+),([0-9]+) -{4}$" );
 	QRegExp3 line( "^([-!+ ]) (.*)$" );
@@ -153,7 +153,7 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 			newLines.append( line.cap( 0 ) );
 		}
 		
-		DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
+		DiffHunk* hunk = new DiffHunk( linenoA, linenoB, head1.cap( 2 )  );
 		m_hunks.append( hunk );
 		
 		QStringList::Iterator oldIt = oldLines.begin();
@@ -483,12 +483,12 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 	
 	if( it == list.end() ) return 0; // no differences
 	
-	QRegExp3 source( "^--- ([^\\t]+)\\t([^\\t]+)\\t?(.*)$" );
+	QRegExp3 source( "^--- ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
 	if( !source.exactMatch( *it ) ) return 1;
 	
 	m_sourceFile = source.cap( 1 );
 	m_sourceTimestamp = source.cap( 2 );
-	m_sourceRevision = source.cap( 3 );
+	m_sourceRevision = source.cap( 4 );
 	
 	kdDebug() << " source: " << m_sourceFile << endl;
 	kdDebug() << "   time: " << m_sourceTimestamp << endl;
@@ -496,12 +496,12 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 	
 	if( ++it == list.end() ) return 1;
 	
-	QRegExp3 dest( "^\\+\\+\\+ ([^\\t]+)\\t([^\\t]+)\\t?(.*)$" );
+	QRegExp3 dest( "^\\+\\+\\+ ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
 	if( !dest.exactMatch( *it ) ) return 1;
 	
 	m_destinationFile = dest.cap( 1 );
 	m_destinationTimestamp = dest.cap( 2 );
-	m_destinationRevision = dest.cap( 3 );
+	m_destinationRevision = dest.cap( 4 );
 	
 	kdDebug() << "   dest: " << m_destinationFile << endl;
 	kdDebug() << "   time: " << m_destinationTimestamp << endl;
@@ -510,7 +510,7 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 	++it;
 	while( it != list.end() ) {
 		
-		QRegExp3 head( "^@@ -([0-9]+),([0-9]+) \\+([0-9]+),([0-9]+) @@(.*)$" );
+		QRegExp3 head( "^@@ -([0-9]+),([0-9]+) \\+([0-9]+),([0-9]+) @@( ?)(.*)$" );
 		if( !head.exactMatch( *it ) ) return 1;
 		
 		linenoA = head.cap( 1 ).toInt();
@@ -518,7 +518,7 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 		
 		kdDebug() << " hunk: " << linenoA << " " << linenoB << endl;
 		
-		DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
+		DiffHunk* hunk = new DiffHunk( linenoA, linenoB, head.cap( 6 ) );
 		m_hunks.append( hunk );
 		
 		++it;

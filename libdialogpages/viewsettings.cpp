@@ -82,9 +82,11 @@ QColor ViewSettings::colorForDifferenceType( int type, bool selected, bool appli
 {
 	// FIXME: does not belong here
 	QColor color;
-	if( applied ) {
+	if( applied )
 		color = m_appliedColor;
-	} else {
+	else
+	{
+		type = type & 0xFFFFFFEF; // remove the AppliedByBlend
 		switch( type ) {
 			case Difference::Unchanged: color = white; break;
 			case Difference::Change:    color = m_changeColor; break;
@@ -94,7 +96,8 @@ QColor ViewSettings::colorForDifferenceType( int type, bool selected, bool appli
 		}
 	}
 
-	if( selected ) {
+	if( selected )
+	{
 		color = color.light( 105 );
 	}
 

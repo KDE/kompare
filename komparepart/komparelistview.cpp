@@ -318,8 +318,8 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 
 	m_itemDict.resize(model->differenceCount());
 
-	DiffHunkListConstIterator hunkIt = model->hunks().begin();
-	DiffHunkListConstIterator hEnd   = model->hunks().end();
+	DiffHunkListConstIterator hunkIt = model->hunks()->begin();
+	DiffHunkListConstIterator hEnd   = model->hunks()->end();
 
 	KompareListViewItem* item = 0;
 	Difference* tmpdiff = 0;
@@ -344,7 +344,11 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 
 			item = new KompareListViewDiffItem( this, item, tmpdiff );
 
-			if ( tmpdiff->type() != Difference::Unchanged )
+			int type = tmpdiff->type();
+
+			type &= 0xFFFFFFEF; // Remove the AppliedByBlend
+
+			if ( type != Difference::Unchanged )
 			{
 				m_items.append( (KompareListViewDiffItem*)item );
 				m_itemDict.insert( tmpdiff, (KompareListViewDiffItem*)item );

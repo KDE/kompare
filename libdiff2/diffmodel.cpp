@@ -44,7 +44,8 @@ DiffModel::DiffModel( const QString& source, const QString& destination ) :
 	m_appliedCount( 0 ),
 	m_modified( false ),
 	m_diffIndex( 0 ),
-	m_selectedDifference( 0 )
+	m_selectedDifference( 0 ),
+	m_blended( false )
 {
 	splitSourceInPathAndFileName();
 	splitDestinationInPathAndFileName();
@@ -64,7 +65,8 @@ DiffModel::DiffModel() :
 	m_appliedCount( 0 ),
 	m_modified( false ),
 	m_diffIndex( 0 ),
-	m_selectedDifference( 0 )
+	m_selectedDifference( 0 ),
+	m_blended( false )
 {
 }
 

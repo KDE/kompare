@@ -103,6 +103,8 @@ public:
 
 	int localeAwareCompareSource( const DiffModel* model );
 
+	bool m_blended;
+
 signals:
 	void setModified( bool modified );
 

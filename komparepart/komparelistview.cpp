@@ -331,9 +331,9 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 		hunk = *hunkIt;
 
 		if( item )
-			item = new KompareListViewHunkItem( this, item, hunk );
+			item = new KompareListViewHunkItem( this, item, hunk, model->m_blended );
 		else
-			item = new KompareListViewHunkItem( this, hunk );
+			item = new KompareListViewHunkItem( this, hunk, model->m_blended );
 
 		DifferenceListConstIterator diffIt = hunk->differences().begin();
 		DifferenceListConstIterator dEnd   = hunk->differences().end();
@@ -345,8 +345,6 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 			item = new KompareListViewDiffItem( this, item, tmpdiff );
 
 			int type = tmpdiff->type();
-
-			type &= 0xFFFFFFEF; // Remove the AppliedByBlend
 
 			if ( type != Difference::Unchanged )
 			{
@@ -741,15 +739,17 @@ void KompareListViewBlankLineItem::paintText( QPainter* p, const QColor& bg, int
 	}
 }
 
-KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, DiffHunk* hunk )
+KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, DiffHunk* hunk, bool zeroHeight )
 	: KompareListViewItem( parent ),
+	m_zeroHeight( zeroHeight ),
 	m_hunk( hunk )
 {
 	setSelectable( false );
 }
 
-KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, DiffHunk* hunk )
+KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, DiffHunk* hunk,  bool zeroHeight )
 	: KompareListViewItem( parent, after ),
+	m_zeroHeight( zeroHeight ),
 	m_hunk( hunk )
 {
 	setSelectable( false );
@@ -757,7 +757,9 @@ KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, Kompa
 
 int KompareListViewHunkItem::maxHeight()
 {
-	if( m_hunk->function().isEmpty() ) {
+	if( m_zeroHeight ) {
+		return 0;
+	} else if( m_hunk->function().isEmpty() ) {
 		return HUNK_LINE_HEIGHT;
 	} else {
 		return listView()->fontMetrics().lineSpacing();

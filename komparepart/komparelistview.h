@@ -213,8 +213,8 @@ public:
 class KompareListViewHunkItem : public KompareListViewItem
 {
 public:
-	KompareListViewHunkItem( KompareListView* parent, Diff2::DiffHunk* hunk );
-	KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, Diff2::DiffHunk* hunk );
+	KompareListViewHunkItem( KompareListView* parent, Diff2::DiffHunk* hunk, bool zeroHeight = false );
+	KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, Diff2::DiffHunk* hunk, bool zeroHeight= false );
 
 	void setup();
 	void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );
@@ -222,6 +222,7 @@ public:
 	int maxHeight();
 
 private:
+	bool             m_zeroHeight;
 	Diff2::DiffHunk* m_hunk;
 };
 

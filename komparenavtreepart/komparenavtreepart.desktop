@@ -1,6 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KompareNavTreePart
+Name[fr]=Composant de comparaison de fichiers
+Name[pt_BR]=Componente da árvore do Kompare
+Name[sv]=Kompare-navigeringsträdsdel
 MimeType=text/x-diff
 ServiceTypes=KompareNavigationPart
 X-KDE-Library=libkomparenavtreepart

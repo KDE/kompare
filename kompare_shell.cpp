@@ -2,7 +2,7 @@
                                 kompare_shell.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
@@ -23,22 +23,22 @@
 #include <kkeydialog.h>
 #include <kedittoolbar.h>
 #include <kstdaction.h>
+#include <ksqueezedtextlabel.h>
 #include <kmessagebox.h>
 #include <kfiledialog.h>
 #include <kuserprofile.h>
 #include <kdebug.h>
+#include <ktrader.h>
 
 #include "kompare_part.h"
 #include "komparenavtreepart.h"
-#include "kcomparedialog.h"
+#include "kompareurldialog.h"
 
 #include "kompare_shell.h"
 
 #define ID_N_OF_N_DIFFERENCES      1
 #define ID_N_OF_N_FILES            2
 #define ID_GENERAL                 3
-
-#define kdDebug() kdDebug(8100)
 
 KompareShell::KompareShell()
 	: KParts::DockMainWindow( 0L, "KompareShell" ),
@@ -55,17 +55,31 @@ KompareShell::KompareShell()
 	setupActions();
 	setupStatusBar();
 
-	KService::Ptr ptr = KServiceTypeProfile::preferredService( "text/x-diff", "Kompare/ViewPart" );
-	if ( ptr == 0 || !ptr->isValid() )
+	KTrader::OfferList offers = KTrader::self()->query( "text/x-diff",
+	    "Kompare/ViewPart", QString::null, QString::null );
+#ifdef NDEBUG
+	for( int i = 0; i < offers.count(); i++ )
 	{
-		KMessageBox::error(this, i18n( "Could not find our Part!" ) );
+		kdDebug(8102) << "One kservicetype checked..." << endl;
+		KService::Ptr ptr2 = *(offers.at( i ));
+		QStringList list = ptr2->serviceTypes();
+		for ( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 )
+			kdDebug(8102) << *it2 << endl;
+	}
+#endif
+	if ( offers.count() == 0 )
+	{
+		KMessageBox::error(this, i18n( "Could not find our KompareViewPart!" ) );
 		exit(1);
 	}
+
+	KService::Ptr ptr = offers.first();
+
 	KLibFactory *mainViewFactory = KLibLoader::self()->factory( ptr->library().ascii() );
 	if (mainViewFactory)
 	{
-		m_mainViewDock = createDockWidget( "Kompare", kapp->icon() );
-		// now that the Part is loaded, we cast it to a Part to get
+		m_mainViewDock = createDockWidget( "View", kapp->icon() );
+		// now that the Part is loaded, we cast it to a KomparePart to get
 		// our hands on it
 		m_viewPart = static_cast<KomparePart*>(mainViewFactory->create(m_mainViewDock,
 		              "kompare_part", "KParts::ReadWritePart" ));
@@ -76,32 +90,33 @@ KompareShell::KompareShell()
 			setView( m_mainViewDock );
 			setMainDockWidget( m_mainViewDock );
 
-			connect( m_viewPart, SIGNAL(selectionChanged(const DiffModel*,const Difference*)),
-			         this, SLOT(updateStatusBar()));
-			connect( m_viewPart, SIGNAL(appliedChanged()),
-			         this, SLOT(updateStatusBar()));
 			// and integrate the part's GUI with the shell's
 			createGUI(m_viewPart);
 		}
 	}
 	else
 	{
-		// if we couldn't find our Part, we exit since the Shell by
+		// if we couldn't load our Part, we exit since the Shell by
 		// itself can't do anything useful
-		KMessageBox::error(this, i18n( "Could not find our Part!" ) );
+		KMessageBox::error(this, i18n( "Could not load our KompareViewPart!" ) );
 		exit(2);
 	}
 
-	ptr = KServiceTypeProfile::preferredService( "text/x-diff", "Kompare/NavigationPart" );
-	if ( ptr == 0 || !ptr->isValid() )
+	offers.clear();
+	offers = KTrader::self()->query( "text/x-diff",
+	    "'Kompare/NavigationPart' in ServiceTypes", QString::null/*, QString::null*/ );
+	if ( offers.count() == 0 )
 	{
-		KMessageBox::error(this, i18n( "Could not find our Part!" ) );
+		KMessageBox::error(this, i18n( "Could not find our KompareNavigationPart!" ) );
 		exit(3);
 	}
+
+	ptr = offers.first();
+
 	KLibFactory *navTreeFactory = KLibLoader::self()->factory( ptr->library().ascii() );
 	if (navTreeFactory)
 	{
-		m_navTreeDock = createDockWidget( "Differences", kapp->icon() );
+		m_navTreeDock = createDockWidget( "Navigation", kapp->icon() );
 
 		m_navTreePart = static_cast<KompareNavTreePart*>(navTreeFactory->create(m_navTreeDock,
 		                 "komparenavtreepart", "KParts::ReadOnlyPart" ));
@@ -110,35 +125,48 @@ KompareShell::KompareShell()
 		{
 			m_navTreeDock->setWidget( m_navTreePart->widget() );
 			m_navTreeDock->manualDock( m_mainViewDock, KDockWidget::DockTop, 20 );
-
-			connect( m_viewPart->model(), SIGNAL( modelsChanged(const QPtrList<DiffModel>*) ),
-			         m_navTreePart, SLOT( slotModelsChanged( const QPtrList<DiffModel>*) ) );
-			// still need to connect the setSelection signals and the slotSelectionChanged slots in this part
-			connect( m_navTreePart, SIGNAL( selectionChanged(const DiffModel*, const Difference*) ),
-			         m_viewPart->model(), SLOT( slotSelectionChanged(const DiffModel*, const Difference*) ) );
-			connect( m_viewPart->model(), SIGNAL( setSelection(const DiffModel*, const Difference*) ),
-			         m_navTreePart, SLOT( slotSetSelection(const DiffModel*, const Difference*) ) );
-
-			connect( m_navTreePart, SIGNAL( selectionChanged(const Difference*) ),
-			         m_viewPart->model(), SLOT( slotSelectionChanged(const Difference*) ) );
-			connect( m_viewPart->model(), SIGNAL( setSelection(const Difference*) ),
-			         m_navTreePart, SLOT( slotSetSelection(const Difference*) ) );
-			// connect the apply signals...
-			connect( m_viewPart->model(), SIGNAL(applyDifference(bool)),
-			         m_navTreePart, SLOT(slotApplyDifference(bool)) );
-			connect( m_viewPart->model(), SIGNAL(applyAllDifferences(bool)),
-			         m_navTreePart, SLOT(slotApplyAllDifferences(bool)) );
-			connect( m_viewPart->model(), SIGNAL(applyDifference(const Difference*, bool)),
-			         m_navTreePart, SLOT(slotApplyDifference(const Difference*, bool)) );
 		}
 	}
 	else
 	{
-		// if we couldn't find our Part, we exit since the Shell by
+		// if we couldn't load our Part, we exit since the Shell by
 		// itself can't do anything useful
-		KMessageBox::error(this, i18n( "Could not find our Part!" ) );
+		KMessageBox::error(this, i18n( "Could not load our KompareNavigationPart!" ) );
 		exit(4);
 	}
+
+	// Hook up the inter part communication
+	connect( m_viewPart, SIGNAL( modelsChanged(const QPtrList<Diff2::DiffModel>*) ),
+	         m_navTreePart, SLOT( slotModelsChanged( const QPtrList<Diff2::DiffModel>*) ) );
+
+	connect( m_navTreePart, SIGNAL( selectionChanged(const Diff2::DiffModel*, const Diff2::Difference*) ),
+	         m_viewPart, SIGNAL( selectionChanged(const Diff2::DiffModel*, const Diff2::Difference*) ) );
+	connect( m_viewPart, SIGNAL( setSelection(const Diff2::DiffModel*, const Diff2::Difference*) ),
+	         m_navTreePart, SLOT( slotSetSelection(const Diff2::DiffModel*, const Diff2::Difference*) ) );
+
+	connect( m_navTreePart, SIGNAL( selectionChanged(const Diff2::Difference*) ),
+	         m_viewPart, SIGNAL( selectionChanged(const Diff2::Difference*) ) );
+	connect( m_viewPart, SIGNAL( setSelection(const Diff2::Difference*) ),
+	         m_navTreePart, SLOT( slotSetSelection(const Diff2::Difference*) ) );
+
+	// This is the interpart interface, it is signal and slot based so no "real" nterface here
+	// All you have to do is connect the parts from your application.
+	// These just point to the method with the same name in the KompareModelList or get called
+	// from the method with the same name in KompareModelList.
+
+	// There is currently no applying possible from the navtreepart to the viewpart
+	connect( m_viewPart, SIGNAL(applyDifference(bool)),
+	         m_navTreePart, SLOT(slotApplyDifference(bool)) );
+	connect( m_viewPart, SIGNAL(applyAllDifferences(bool)),
+	         m_navTreePart, SLOT(slotApplyAllDifferences(bool)) );
+	connect( m_viewPart, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
+	         m_navTreePart, SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
+
+	// Hook up the KomparePart -> KompareShell communication
+	connect( m_viewPart, SIGNAL( setStatusBar( int, int, int, int, int ) ),
+	         this, SLOT( slotUpdateStatusBar( int, int, int, int, int ) ) );
+	connect( m_viewPart, SIGNAL( setStatusBarText(const QString&) ),
+	         this, SLOT( slotSetStatusBarText(const QString&) ) );
 
 	// Read basic main-view settings, and set to autosave
 	setAutoSaveSettings( "General Options" );
@@ -150,34 +178,89 @@ KompareShell::~KompareShell()
 
 bool KompareShell::queryClose()
 {
-	return m_viewPart->askSaveChanges();
+	return m_viewPart->queryClose();
 }
 
-void KompareShell::load(const KURL& url)
+void KompareShell::open(const KURL& url)
 {
+	kdDebug(8102) << "Url = " << url << endl;
 	m_diffURL = url;
-	m_viewPart->openURL( url );
+	m_viewPart->openDiff( url );
 }
 
 void KompareShell::compare(const KURL& source,const KURL& destination )
 {
 	m_sourceURL = source;
 	m_destinationURL = destination;
-	m_viewPart->compare( source, destination );
+
+	bool sourceIsDirectory = false;
+	bool destinationIsDirectory = false;
+
+	// determine if urls are local and if so if they are dirs or files...
+	if ( m_sourceURL.isLocalFile() )
+	{
+		QFileInfo fi( m_sourceURL.path());
+		if ( fi.isDir() )
+		{
+			sourceIsDirectory = true;
+			kdDebug(8102) << "Source : " << source.url() << " is a directory !!! Yippie " << endl;
+		}
+	}
+
+	if ( m_destinationURL.isLocalFile() )
+	{
+		QFileInfo fi( m_destinationURL.path());
+		if ( fi.isDir() )
+		{
+			destinationIsDirectory = true;
+			kdDebug(8102) << "Destination : " << destination.url() << " is a directory !!! Yippie " << endl;
+		}
+	}
+
+	if ( sourceIsDirectory && destinationIsDirectory )
+	{
+		return m_viewPart->compareDirs( source, destination );
+	}
+	else if ( !sourceIsDirectory && !destinationIsDirectory )
+	{
+		return m_viewPart->compareFiles( source, destination );
+	}
+	else
+	{
+		if ( sourceIsDirectory )
+		{
+			return m_viewPart->openDirAndDiff( source, destination );
+		}
+		else
+		{ // destinationIsDirectory
+			return m_viewPart->openDirAndDiff( destination, source );
+		}
+	}
+}
+
+void KompareShell::blend( const KURL& url1, const KURL& diff )
+{
+	m_sourceURL = url1;
+	m_destinationURL = diff;
+
+	m_viewPart->openDirAndDiff( url1, diff );
 }
 
 void KompareShell::setupActions()
 {
-	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_O,
+	KAction* open = KStdAction::open(this, SLOT(slotFileOpen()), actionCollection());
+	open->setText( i18n( "&Open Diff..." ) );
+	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_C,
 	              this, SLOT(slotFileCompareFiles()),
 	              actionCollection(), "file_compare_files" );
-	KStdAction::open(this, SLOT(slotFileOpen()), actionCollection());
+	new KAction( i18n("&Blend URL With Diff..."), "fileblend", Qt::CTRL + Qt::Key_B,
+	              this, SLOT(slotFileBlendURLAndDiff()),
+	              actionCollection(), "file_blend_url" );
 	KStdAction::quit(kapp, SLOT(quit()), actionCollection());
 
 	createStandardStatusBarAction();
 	setStandardToolBarMenuEnabled(true);
-    
-	m_showTextView = new KToggleAction( i18n("Show &Text View"), 0, this, SLOT(slotShowTextView()),
+	m_showTextView = new KToggleAction( i18n("Show T&ext View"), 0, this, SLOT(slotShowTextView()),
 	                                  actionCollection(), "options_show_text_view" );
 
 	KStdAction::keyBindings(this, SLOT(optionsConfigureKeys()), actionCollection());
@@ -189,38 +272,37 @@ void KompareShell::setupStatusBar()
 	// Made these entries permanent so they will appear on the right side
 	statusBar()->insertItem( i18n(" 0 of 0 differences "), ID_N_OF_N_DIFFERENCES, 0, true );
 	statusBar()->insertItem( i18n(" 0 of 0 files "), ID_N_OF_N_FILES, 0, true );
-	statusBar()->insertItem( "", ID_GENERAL, 1 );
-	statusBar()->setItemAlignment( ID_GENERAL, AlignLeft );
+
+	m_generalLabel = new KSqueezedTextLabel( "", 0, "general_statusbar_label" );
+	statusBar()->addWidget( m_generalLabel, 1, false );
+	m_generalLabel->setAlignment( Qt::AlignLeft );
 }
 
-void KompareShell::updateStatusBar()
+void KompareShell::slotUpdateStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount )
 {
-	kdDebug() << "KompareShell::updateStatusBar()" << endl;
+	kdDebug(8102) << "KompareShell::updateStatusBar()" << endl;
 
 	QString fileStr;
 	QString diffStr;
-	int modelIndex = m_viewPart->selectedModelIndex();
-	int modelCount = m_viewPart->modelCount();
-	if (modelIndex >= 0) {
-		fileStr = i18n( " %1 of %n file ", " %1 of %n files ", modelCount ).arg(modelIndex+1);
-		int diffIndex = m_viewPart->selectedDifferenceIndex();
-		int diffCount = m_viewPart->differenceCount();
-		int appliedCount = m_viewPart->appliedCount();
-		if (diffIndex >= 0)
-			diffStr = i18n(" %1 of %n difference, %2 applied ", " %1 of %n differences, %2 applied ", diffCount )
-			          .arg(diffIndex+1).arg(appliedCount);
-		else
-			diffStr = i18n(" %n difference ", " %n differences ", diffCount );
-	} else {
+
+	if ( modelIndex >= 0 )
+		fileStr = i18n( " %1 of %n file ", " %1 of %n files ", modelCount ).arg( modelIndex + 1 );
+	else
 		fileStr = i18n( " %n file ", " %n files ", modelCount );
-	}
+
+	if ( differenceIndex >= 0 )
+		diffStr = i18n( " %1 of %n difference, %2 applied ", " %1 of %n differences, %2 applied ", differenceCount )
+		          .arg( differenceIndex + 1 ).arg( appliedCount );
+	else
+		diffStr = i18n( " %n difference ", " %n differences ", differenceCount );
+
 	statusBar()->changeItem( fileStr, ID_N_OF_N_FILES );
 	statusBar()->changeItem( diffStr, ID_N_OF_N_DIFFERENCES );
 }
 
 void KompareShell::slotSetStatusBarText( const QString& text )
 {
-	statusBar()->changeItem( text, ID_GENERAL );
+	m_generalLabel->setText( text );
 }
 
 void KompareShell::setCaption( const QString& caption )
@@ -233,28 +315,19 @@ void KompareShell::saveProperties(KConfig* config)
 	// The 'config' object points to the session managed
 	// config file.  Anything you write here will be available
 	// later when this app is restored
-	if ( m_mode == Kompare::Compare )
+	if ( m_mode == Kompare::ComparingFiles )
 	{
-		config->writeEntry( "Mode", "Compare" );
-#if KDE_IS_VERSION(3,1,3)
+		config->writeEntry( "Mode", "ComparingFiles" );
 		config->writePathEntry( "SourceUrl", m_sourceURL.url() );
 		config->writePathEntry( "DestinationUrl", m_destinationURL.url() );
-#else
-		config->writeEntry( "SourceUrl", m_sourceURL.url() );
-		config->writeEntry( "DestinationUrl", m_destinationURL.url() );
-#endif
 	}
-	else if ( m_mode == Kompare::Diff )
+	else if ( m_mode == Kompare::ShowingDiff )
 	{
-		config->writeEntry( "Mode", "Diff" );
-#if KDE_IS_VERSION(3,1,3)
+		config->writeEntry( "Mode", "ShowingDiff" );
 		config->writePathEntry( "DiffUrl", m_diffURL.url() );
-#else
-		config->writeEntry( "DiffUrl", m_diffURL.url() );
-#endif
 	}
 
-	m_viewPart->saveSettings( config );
+	m_viewPart->saveProperties( config );
 }
 
 void KompareShell::readProperties(KConfig* config)
@@ -264,29 +337,31 @@ void KompareShell::readProperties(KConfig* config)
 	// the app is being restored. Read in here whatever you wrote
 	// in 'saveProperties'
 
-	QString mode = config->readEntry( "Mode", "Compare" );
-	if ( mode == "Compare" )
+	QString mode = config->readEntry( "Mode", "ComparingFiles" );
+	if ( mode == "ComparingFiles" )
 	{
-		m_mode  = Kompare::Compare;
-		m_sourceURL  = config->readPathEntry( "SourceUrl" );
-		m_destinationURL = config->readPathEntry( "DestinationFile" );
+		m_mode  = Kompare::ComparingFiles;
+		m_sourceURL  = config->readPathEntry( "SourceUrl", "" );
+		m_destinationURL = config->readPathEntry( "DestinationFile", "" );
 
-		m_viewPart->loadSettings( config );
+		m_viewPart->readProperties( config );
 
-		m_viewPart->compare( m_sourceURL, m_destinationURL );
+		m_viewPart->compareFiles( m_sourceURL, m_destinationURL );
 	}
-	else if ( mode == "Diff" )
+	else if ( mode == "ShowingDiff" )
 	{
-		m_mode = Kompare::Diff;
-		m_diffURL = config->readPathEntry( "DiffUrl" );
+		m_mode = Kompare::ShowingDiff;
+		m_diffURL = config->readPathEntry( "DiffUrl", "" );
 
-		m_viewPart->loadSettings( config );
+		m_viewPart->readProperties( config );
 
 		m_viewPart->openURL( m_diffURL );
 	}
 	else
 	{ // just in case something weird has happened, dont restore the diff then
-		m_viewPart->loadSettings( config );
+	  // Bruggie: or when some idiot like me changes the possible values for mode
+	  // IOW, a nice candidate for a kconf_update thingy :)
+		m_viewPart->readProperties( config );
 	}
 }
 
@@ -296,23 +371,60 @@ void KompareShell::slotFileOpen()
 	if( !url.isEmpty() ) {
 		KompareShell* shell = new KompareShell();
 		shell->show();
-		shell->load( url );
+		shell->open( url );
 	}
+}
+
+void KompareShell::slotFileBlendURLAndDiff()
+{
+	KompareURLDialog* dialog = new KompareURLDialog( &m_sourceURL, &m_destinationURL, this );
+
+	dialog->setCaption( i18n( "Blend File/Directory With diff Output" ) );
+	dialog->setFirstGroupBoxTitle( i18n( "File/Directory" ) );
+	dialog->setSecondGroupBoxTitle( i18n( "Diff Output" ) );
+
+	dialog->setButtonOKText( i18n( "Blend" ), i18n( "Blend this file or directory with the diff output" ), i18n( "If you have entered a file or directoryname and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the directory are mixed with the diff output. " ) );
+
+	dialog->setGroup( "Recent Blend Files" );
+
+	dialog->setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+	// diff output can not be a directory
+	dialog->setSecondURLRequesterMode( KFile::File|KFile::ExistingOnly );
+	if ( dialog->exec() == QDialog::Accepted )
+	{
+		m_sourceURL = dialog->getFirstURL();
+		m_destinationURL = dialog->getSecondURL();
+		KompareShell* shell = new KompareShell();
+		shell->show();
+		shell->blend( m_sourceURL, m_destinationURL );
+	}
+	delete dialog;
 }
 
 void KompareShell::slotFileCompareFiles()
 {
-	KCompareDialog* dialog = new KCompareDialog( &m_sourceURL, &m_destinationURL, this );
-	if( dialog->exec() == QDialog::Accepted ) {
-		KURL m_sourceURL = dialog->getSourceURL();
-		KURL m_destinationURL = dialog->getDestinationURL();
+	KompareURLDialog* dialog = new KompareURLDialog( &m_sourceURL, &m_destinationURL, this );
+
+	dialog->setCaption( i18n( "Compare Files or Directories" ) );
+	dialog->setFirstGroupBoxTitle( i18n( "Source" ) );
+	dialog->setSecondGroupBoxTitle( i18n( "Destination" ) );
+
+	dialog->setButtonOKText( i18n( "Compare" ), i18n( "Compare these files or directories" ), i18n( "If you have entered 2 filenames or 2 directories in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or directories. " ) );
+
+	dialog->setGroup( "Recent Compare Files" );
+
+	dialog->setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+	dialog->setSecondURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+
+	if ( dialog->exec() == QDialog::Accepted )
+	{
+		m_sourceURL = dialog->getFirstURL();
+		m_destinationURL = dialog->getSecondURL();
 		KompareShell* shell = new KompareShell();
 		shell->show();
 		shell->compare( m_sourceURL, m_destinationURL );
 	}
-	kdDebug() << "Deleting dialog" << endl;
 	delete dialog;
-	kdDebug() << "Dialog deleted" << endl;
 }
 
 void KompareShell::slotShowTextView()
@@ -332,7 +444,7 @@ void KompareShell::slotShowTextView()
 
 		if( m_textViewPart ) {
 			m_textViewWidget->setWidget( m_textViewPart->widget() );
-			m_textViewPart->openURL( m_viewPart->diffURL() );
+			m_textViewPart->openURL( m_viewPart->url() );
 			connect( m_viewPart, SIGNAL( diffURLChanged() ), SLOT( slotDiffURLChanged() ) );
 		}
 	}
@@ -343,7 +455,7 @@ void KompareShell::slotShowTextView()
 void KompareShell::slotDiffURLChanged()
 {
 	if( m_textViewPart ) {
-		m_textViewPart->openURL( m_viewPart->diffURL() );
+		m_textViewPart->openURL( m_viewPart->url() );
 	}
 }
 
@@ -363,7 +475,7 @@ void KompareShell::optionsConfigureToolbars()
 	saveMainWindowSettings( KGlobal::config(), autoSaveGroup() );
 	// use the standard toolbar editor
 	KEditToolbar dlg(factory());
-        connect(&dlg,SIGNAL(newToolbarConfig()),this,SLOT(newToolbarConfig()));
+	connect(&dlg,SIGNAL(newToolbarConfig()),this,SLOT(newToolbarConfig()));
 	dlg.exec();
 }
 

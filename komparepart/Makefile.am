@@ -2,7 +2,7 @@
 # KPART SECTION
 #########################################################################
 
-INCLUDES = -I$(top_srcdir)/kompare/libdiff2 $(all_includes)
+INCLUDES = -I$(top_srcdir)/kompare/libdiff2 -I$(top_srcdir)/kompare/interfaces $(all_includes)
 
 noinst_HEADERS = \
 	kompare_part.h \
@@ -11,8 +11,8 @@ noinst_HEADERS = \
 	prefsbase.h \
 	diffprefs.h \
 	diffsettings.h \
-	generalprefs.h \
-	generalsettings.h \
+	viewprefs.h \
+	viewsettings.h \
 	kompareprefdlg.h \
 	miscprefs.h \
 	miscsettings.h \
@@ -36,18 +36,20 @@ libkomparepart_la_SOURCES = \
 	komparelistview.cpp \
 	settingsbase.cpp \
 	diffsettings.cpp \
-	generalsettings.cpp \
+	viewsettings.cpp \
 	miscsettings.cpp \
 	kompareprefdlg.cpp \
 	prefsbase.cpp \
 	diffprefs.cpp \
-	generalprefs.cpp \
+	viewprefs.cpp \
 	miscprefs.cpp \
 	komparesaveoptionsbase.ui \
 	komparesaveoptionswidget.cpp
 
 libkomparepart_la_LDFLAGS = $(KDE_PLUGIN) $(all_libraries)
-libkomparepart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KIO) ../libdiff2/libdiff2.la
+libkomparepart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE) \
+	../libdiff2/libdiff2.la \
+	../interfaces/libkompareinterface.la
 
 # this is where the desktop file will go
 partdesktopdir   = $(kde_servicesdir)

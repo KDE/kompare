@@ -2,12 +2,12 @@
                                 kompareprefdlg.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -23,20 +23,18 @@
 #include <kdialogbase.h>
 
 #include "diffprefs.h"
-#include "generalprefs.h"
-#include "miscprefs.h"
+#include "viewprefs.h"
 
 class KomparePrefDlg : public KDialogBase
 {
 Q_OBJECT
 public:
-	KomparePrefDlg( GeneralSettings*, DiffSettings*, MiscSettings* );
+	KomparePrefDlg( ViewSettings*, DiffSettings* );
 	~KomparePrefDlg();
 
 public:
-	GeneralPrefs*	m_generalPage;
+	ViewPrefs*	m_viewPage;
 	DiffPrefs*	m_diffPage;
-//	MiscPrefs*	m_miscPage;
 
 protected slots:
 	/** No descriptions */

@@ -2,8 +2,10 @@
                           komparemodellist.cpp  -  description
                              -------------------
     begin                : Tue Jun 26 2001
-    copyright            : (C) 2001 by John Firebaugh
+    copyright            : (C) 2001-2003 by John Firebaugh
+                           and Otto Bruggeman
     email                : jfirebaugh@kde.org
+                           otto.bruggeman@home.nl
  ***************************************************************************/
 
 /***************************************************************************
@@ -16,9 +18,11 @@
  ***************************************************************************/
 
 #include <qfile.h>
+#include <qdir.h>
 #include <qregexp.h>
 
 #include <kdebug.h>
+#include <kdirwatch.h>
 #include <kio/netaccess.h>
 #include <klocale.h>
 #include <ktempfile.h>
@@ -29,18 +33,23 @@
 #include "kompareprocess.h"
 
 #include "komparemodellist.h"
+#include "parser.h"
 
-#define kdDebug() kdDebug(8101)
+using namespace Diff2;
 
-KompareModelList::KompareModelList()
-	: QObject(),
+KompareModelList::KompareModelList( DiffSettings* diffSettings, ViewSettings* viewSettings, QObject* parent, char* name )
+	: QObject( parent, name ),
 	m_diffProcess( 0 ),
+	m_diffSettings( diffSettings ),
+	m_viewSettings( viewSettings ),
+	m_models( 0 ),
 	m_diffTemp( 0 ),
-	m_mode( Compare ),
+	m_mode( Kompare::ShowingDiff ),
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 ),
 	m_modelIt( 0 ),
-	m_diffIt( 0 )
+	m_diffIt( 0 ),
+	m_noOfModified( 0 )
 {
 }
 
@@ -48,79 +57,78 @@ KompareModelList::~KompareModelList()
 {
 	KIO::NetAccess::removeTempFile( m_sourceTemp );
 	KIO::NetAccess::removeTempFile( m_destinationTemp );
-	
+
 	delete m_modelIt;
 
 	delete m_diffProcess;
 }
 
-bool KompareModelList::compare( const KURL& source, const KURL& destination )
+bool KompareModelList::compareFiles( const KURL& source, const KURL& destination )
 {
 	m_sourceURL = source;
 	m_destinationURL = destination;
 
-	bool sourceIsDirectory = false;
-	bool destinationIsDirectory = false;
+	clear(); // Destroy the old models...
 
-	clear();
+	m_mode = Kompare::ComparingFiles;
+	m_type = Kompare::SingleFileDiff;
 
-	// determine if files are dirs...
-	if ( m_sourceURL.directory(false,false) == m_sourceURL.url() )
-		sourceIsDirectory = true;
-	if ( m_destinationURL.directory(false,false) == m_destinationURL.url() )
-		destinationIsDirectory = true;
-
-	if ( sourceIsDirectory && destinationIsDirectory )
-	{
-		// dealing with dirs... if dirs are local proceed else abort
-		if ( m_sourceURL.protocol() == "file" && m_destinationURL.protocol() == "file" )
-		{
-			// proceed
-			m_mode = Compare;
-			m_type = MultiFileDiff;
-
-			m_diffProcess = new KompareProcess( m_sourceURL.path(), m_destinationURL.path() );
-		}
-		else
-		{
-			// abort, we cant handle remote dirs (yet)
-			emit error( i18n("Kompare can't handle remote directories (yet)") );
-			return false;
-		}
-	}
-	else if ( !sourceIsDirectory && !destinationIsDirectory )
-	{
-		// dealing with files... proceed even if both are remote
-		m_mode = Compare;
-		m_type = SingleFileDiff;
-
-		if( m_type == SingleFileDiff && !KIO::NetAccess::download( m_sourceURL, m_sourceTemp ) ) {
-			emit error( KIO::NetAccess::lastErrorString() );
-			return false;
-		}
-
-		if( m_type == SingleFileDiff && !KIO::NetAccess::download( m_destinationURL, m_destinationTemp ) ) {
-			emit error( KIO::NetAccess::lastErrorString() );
-			return false;
-		}
-
-		m_diffProcess = new KompareProcess( m_sourceTemp, m_destinationTemp );
-	}
-	else
-	{
-		// one of them is a directory and the other a file... cant
-		// compare such a monster
-		// FIXME:
-		// Wishlist item from puetzk: in this case (file and dir)
-		// (make a temp dir, apply the patch (the file) and compare the dir with the temp dir)
-		emit error( i18n("You can not compare a directory with a file") );
+	if( !KIO::NetAccess::download( m_sourceURL, m_sourceTemp ) ) {
+		emit error( KIO::NetAccess::lastErrorString() );
 		return false;
 	}
+
+	if( !KIO::NetAccess::download( m_destinationURL, m_destinationTemp ) ) {
+		emit error( KIO::NetAccess::lastErrorString() );
+		return false;
+	}
+
+	m_fileWatch = new KDirWatch( this, "filewatch" );
+	m_fileWatch->addFile( m_sourceURL.path() );
+	m_fileWatch->addFile( m_destinationURL.path() );
+
+	connect( m_fileWatch, SIGNAL( dirty( const QString& ) ), this, SLOT( slotFileChanged( const QString& ) ) );
+	connect( m_fileWatch, SIGNAL( created( const QString& ) ), this, SLOT( slotFileChanged( const QString& ) ) );
+	connect( m_fileWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotFileChanged( const QString& ) ) );
+
+	m_fileWatch->startScan();
+	m_diffProcess = new KompareProcess( m_diffSettings, m_viewSettings, Kompare::Default, m_sourceTemp, m_destinationTemp );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotDiffProcessFinished( bool )) );
 
-	emit status( RunningDiff );
+	emit status( Kompare::RunningDiff );
+	m_diffProcess->start();
+
+	return true;
+}
+
+bool KompareModelList::compareDirs( const KURL& source, const KURL& destination )
+{
+	m_sourceURL = source;
+	m_destinationURL = destination;
+
+	clear(); // Destroy the old models...
+
+	m_mode = Kompare::ComparingDirs;
+	m_type = Kompare::MultiFileDiff;
+
+	m_dirWatch = new KDirWatch( this, "dirwatch" );
+	// Watch files in the dirs and watch the dirs recursively
+	m_dirWatch->addDir( m_sourceURL.path(), true, true );
+	m_dirWatch->addDir( m_destinationURL.path(), true, true );
+
+	connect( m_dirWatch, SIGNAL( dirty  ( const QString& ) ), this, SLOT( slotDirectoryChanged( const QString& ) ) );
+	connect( m_dirWatch, SIGNAL( created( const QString& ) ), this, SLOT( slotDirectoryChanged( const QString& ) ) );
+	connect( m_dirWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotDirectoryChanged( const QString& ) ) );
+
+	m_dirWatch->startScan();
+	m_diffProcess = new KompareProcess( m_diffSettings, m_viewSettings, Kompare::Default, m_sourceURL.path(), m_destinationURL.path() );
+
+	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
+	         this, SLOT(slotDiffProcessFinished( bool )) );
+
+	emit status( Kompare::RunningDiff );
 	m_diffProcess->start();
 
 	return true;
@@ -128,13 +136,15 @@ bool KompareModelList::compare( const KURL& source, const KURL& destination )
 
 bool KompareModelList::saveDestination( const DiffModel* model_ )
 {
+	kdDebug() << "KompareModelList::saveDestination: " << endl;
+
 	DiffModel* model = const_cast<DiffModel*>( model_ );
 	if( !model->isModified() ) return true;
 
 	KTempFile* temp = new KTempFile();
 
 	if( temp->status() != 0 ) {
-		emit error( i18n( "Could not open file." ) );
+		emit error( i18n( "Could not open a temporary file." ) );
 		temp->unlink();
 		delete temp;
 		return false;
@@ -148,9 +158,9 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 
 		QPtrListIterator<Difference> diffIt(hunk->differences());
 
-		for( ; diffIt.current(); ++diffIt ) {
-			Difference* diff = diffIt.current();
-
+		Difference* diff;
+		for( ; (diff = diffIt.current()); ++diffIt )
+		{
 			QStringList list;
 			if( !diff->applied() )
 				list = diff->destinationLines();
@@ -164,25 +174,53 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 
 	temp->close();
 	if( temp->status() != 0 ) {
-		emit error( i18n( "Could not write to file." ) );
+		emit error( i18n( "Could not write to the temporary file." ) );
 		temp->unlink();
 		delete temp;
 		return false;
 	}
 
-	KIO::NetAccess::upload( temp->name(), m_destinationURL );
+	QString destination = model->destinationPath() + model->destinationFile();
+	kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
+	kdDebug(8101) << "DestinationURL : " << destination << endl;
 
-	model->setModified( false );
+	bool result = false;
 
-	temp->unlink();
-	delete temp;
+	if ( m_mode == Kompare::ComparingDirs )
+	{
+		QString destination = model->destinationPath() + model->destinationFile();
+		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
+		kdDebug(8101) << "DestinationURL : " << destination << endl;
+		result = KIO::NetAccess::upload( temp->name(), destination );
+	}
+	else
+	{
+		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
+		kdDebug(8101) << "DestinationURL : " << m_destinationURL << endl;
+		result = KIO::NetAccess::upload( temp->name(), m_destinationURL );
+	}
+
+	if ( !result )
+	{
+		emit error( i18n( "Could not upload the temporary file to the destination location. (Yes this string needs fixing). The temporary file is still available under: %1. You can manually copy it to the right place." ).arg( temp->name() ) );
+	}
+	else
+	{
+		model->slotSetModified( false );
+		temp->unlink();
+		delete temp;
+	}
+
 
 	return true;
 }
 
 bool KompareModelList::saveAll()
 {
-	QPtrListIterator<DiffModel> it( m_models );
+	if ( !m_models )
+		return false;
+
+	QPtrListIterator<DiffModel> it( *m_models );
 	while ( it.current() )
 	{
 		if( !saveDestination( *it ) ) return false;
@@ -193,13 +231,13 @@ bool KompareModelList::saveAll()
 
 void KompareModelList::slotDiffProcessFinished( bool success )
 {
-	if( success ) {
-		emit status( Parsing );
-		if( parseDiffOutput( m_diffProcess->diffOutput() ) != 0 ) {
+	if ( success ) {
+		emit status( Kompare::Parsing );
+		if ( parseDiffOutput( m_diffProcess->diffOutput() ) != 0 ) {
 			emit error( i18n( "Could not parse diff output." ) );
 		}
-		emit status( FinishedParsing );
-	} else if( m_diffProcess->exitStatus() == 0 ) {
+		emit status( Kompare::FinishedParsing );
+	} else if ( m_diffProcess->exitStatus() == 0 ) {
 		emit error( i18n( "The files are identical." ) );
 	} else {
 		emit error( m_diffProcess->stdErr() );
@@ -209,119 +247,133 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 	m_diffProcess = 0;
 }
 
+void KompareModelList::slotDirectoryChanged( const QString& /*dir*/ )
+{
+	// some debug output to see if watching works properly
+	kdDebug(8101) << "Yippie directories are being watched !!! :)" << endl;
+	if ( m_diffProcess )
+	{
+		emit status( Kompare::ReRunningDiff );
+		m_diffProcess->start();
+	}
+}
+
+void KompareModelList::slotFileChanged( const QString& /*file*/ )
+{
+	// some debug output to see if watching works properly
+	kdDebug(8101) << "Yippie files are being watched !!! :)" << endl;
+	if ( m_diffProcess )
+	{
+		emit status( Kompare::ReRunningDiff );
+		m_diffProcess->start();
+	}
+}
+
 bool KompareModelList::openDiff( const KURL& url )
 {
-	// determine whether it is a multifile or singlefile diff and whether cvs diff or diff is used
-	m_diffURL = url;
-	bool isLocal = false;
+	kdDebug(8101) << "Fucking Url = " << url << endl;
 
-	m_models.clear();
-
-	kdDebug() << "URL.fileName() = " << url.fileName( false ) << endl;
-
-	if ( url.protocol() == "file" ) {
-		isLocal = true;
-	}
+	if ( !url.isEmpty() )
+		m_diffURL = url;
+	else
+		return false;
 
 	QString diffTemp;
-
-	if( !isLocal && !KIO::NetAccess::download( m_diffURL, diffTemp ) ) {
-		return false;
-	}
-
 	QFile file;
 
-	if( isLocal ) {
-		if ( url.fileName( false ) == "-" ) {
-			kdDebug() << "Using stdin to read the diff" << endl;
-			file.open( IO_ReadOnly, stdin );
-		}
-		else
-		{
-			kdDebug() << "Reading from file " << url.url() << endl;
-			file.setName( url.path() );
-			file.open( IO_ReadOnly );
-		}
+	QString a = url.prettyURL();
+	if ( a == "-" )
+	{
+		kdDebug(8101) << "Using stdin to read the diff" << endl;
+		file.open( IO_ReadOnly, stdin );
 	}
 	else
 	{
+		kdDebug(8101) << "Reading from file " << m_diffURL.url() << endl;
+		if( !KIO::NetAccess::download( m_diffURL, diffTemp ) )
+ 		{
+			kdDebug() << "Download of url " << m_diffURL << " failed..." << endl;
+			return false;
+		}
 		file.setName( diffTemp );
 		file.open( IO_ReadOnly );
 	}
 
-	if( !isLocal && !file.open( IO_ReadOnly ) ) {
-		KIO::NetAccess::removeTempFile( diffTemp );
-		return false;
-	}
-
 	QTextStream stream( &file );
-	QStringList list;
+	QStringList lines;
 	QString line;
+
 	while (!stream.eof()) {
-		list.append( stream.readLine() );
+		lines.append( stream.readLine() );
 	}
 
-	emit status( Parsing );
-	if ( parseDiffOutput( list ) != 0 ) {
+	clear(); // Clear the current models
+
+	emit status( Kompare::Parsing );
+
+	if ( parseDiffOutput( lines ) != 0 )
+	{
 		emit error( i18n( "Could not parse diff output." ) );
-		if ( !isLocal ) {
-			KIO::NetAccess::removeTempFile( diffTemp );
-		}
+		KIO::NetAccess::removeTempFile( diffTemp );
 		return false;
 	}
 
-	if ( !isLocal ) {
-		KIO::NetAccess::removeTempFile( diffTemp );
-	}
+	KIO::NetAccess::removeTempFile( diffTemp );
 
-	m_mode = Diff;
-	emit status( FinishedParsing );
+	m_mode = Kompare::ShowingDiff;
+
+	emit status( Kompare::FinishedParsing );
+
+	m_diffURL = url;
 
 	return true;
 }
 
-bool KompareModelList::saveDiff( const KURL& url, QString directory, DiffSettings* settings )
+bool KompareModelList::saveDiff( const KURL& url, QString directory, DiffSettings* diffSettings, ViewSettings* viewSettings )
 {
+	kdDebug() << "KompareModelList::saveDiff: " << endl;
 	m_diffURL = url;
 
 	m_diffTemp = new KTempFile();
 
 	if( m_diffTemp->status() != 0 ) {
-		emit error( i18n( "Could not open file." ) );
+		emit error( i18n( "Could not open a temporary file." ) );
 		m_diffTemp->unlink();
 		delete m_diffTemp;
 		m_diffTemp = 0;
 		return false;
 	}
 
-	m_diffProcess = new KompareProcess( m_sourceTemp, m_destinationTemp, directory, settings );
+	m_diffProcess = new KompareProcess( diffSettings, viewSettings, Kompare::Custom, m_sourceTemp, m_destinationTemp, directory );
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
 	         this, SLOT(slotWriteDiffOutput( bool )) );
 
-	emit status( RunningDiff );
+	emit status( Kompare::RunningDiff );
 	return m_diffProcess->start();
 
 }
 
 void KompareModelList::slotWriteDiffOutput( bool success )
 {
-	if( success ) {
-
+	if( success )
+	{
 		QTextStream* stream = m_diffTemp->textStream();
 
 		QStringList output = m_diffProcess->diffOutput();
-		for ( QStringList::ConstIterator it = output.begin(); it != output.end(); ++it ) {
+		for ( QStringList::ConstIterator it = output.begin(); it != output.end(); ++it )
+		{
 			*stream << (*it) << "\n";
 		}
 
 		m_diffTemp->close();
-		if( m_diffTemp->status() != 0 ) {
+		if( m_diffTemp->status() != 0 )
+		{
 			emit error( i18n( "Could not write to file." ) );
 		}
 
 		KIO::NetAccess::upload( m_diffTemp->name(), m_diffURL );
 
-		emit status( FinishedWritingDiff );
+		emit status( Kompare::FinishedWritingDiff );
 	}
 
 	m_diffTemp->unlink();
@@ -333,11 +385,12 @@ void KompareModelList::slotWriteDiffOutput( bool success )
 	m_diffProcess = 0;
 }
 
-void KompareModelList::slotSelectionChanged( const DiffModel* model, const Difference* diff )
+void KompareModelList::slotSelectionChanged( const Diff2::DiffModel* model, const Diff2::Difference* diff )
 {
 // This method will signal all the other objects about a change in selection,
 // it will emit setSelection( const DiffModel*, const Difference* ) to all who are connected
-	kdDebug() << "Caught me a model and a diff signal " << endl;
+	kdDebug(8101) << "Caught me a model and a diff signal " << endl;
+//	kdDebug(8101) << kdBacktrace() << endl;
 
 	m_selectedModel = const_cast<DiffModel*>(model);
 	m_selectedDifference = const_cast<Difference*>(diff);
@@ -351,7 +404,7 @@ void KompareModelList::slotSelectionChanged( const DiffModel* model, const Diffe
 	}
 
 	if ( m_modelIt->atLast() && model != *(*m_modelIt) )
-		kdDebug() << "Big fat trouble, no model found" << endl;
+		kdDebug(8101) << "Big fat trouble, no model found" << endl;
 
 	delete m_diffIt;
 	m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
@@ -363,16 +416,16 @@ void KompareModelList::slotSelectionChanged( const DiffModel* model, const Diffe
 	}
 
 	if ( m_diffIt->atLast() && diff != *(*m_diffIt) )
-		kdDebug() << "Big fat trouble, no diff found" << endl;
+		kdDebug(8101) << "Big fat trouble, no diff found" << endl;
 
 	emit setSelection( model, diff );
 }
 
-void KompareModelList::slotSelectionChanged( const Difference* diff )
+void KompareModelList::slotSelectionChanged( const Diff2::Difference* diff )
 {
 // This method will emit setSelection( const Difference* ) to whomever is listening
 // when for instance in kompareview the selection has changed
-	kdDebug() << "Caught me a signal, yihaa" << endl;
+	kdDebug(8101) << "Caught me a signal, yihaa" << endl;
 
 	m_selectedDifference = const_cast<Difference*>(diff);
 	m_selectedModel->setSelectedDifference( m_selectedDifference );
@@ -384,7 +437,7 @@ void KompareModelList::slotSelectionChanged( const Difference* diff )
 	}
 
 	if ( m_diffIt->atLast() && diff != *(*m_diffIt) )
-		kdDebug() << "Big fat trouble, no diff found" << endl;
+		kdDebug(8101) << "Big fat trouble, no diff found" << endl;
 
 	emit setSelection( diff );
 }
@@ -395,13 +448,13 @@ void KompareModelList::slotPreviousModel()
 	if ( !m_modelIt->atFirst() )
 	{
 		m_selectedModel = --(*m_modelIt);
-		
+
 		delete m_diffIt;
 		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
 
 		m_selectedDifference = m_diffIt->toFirst();
 		m_selectedModel->setSelectedDifference( m_selectedDifference );
-		
+
 		emit setSelection( m_selectedModel, m_selectedDifference );
 	}
 }
@@ -455,7 +508,7 @@ void KompareModelList::slotNextDifference()
 
 		emit setSelection( m_selectedDifference );
 	}
-	else if ( ( m_selectedDifference->index() == ( m_selectedModel->differenceCount() - 1 ) ) && ( m_selectedModel->index() < ( m_models.count() - 1 ) ) )
+	else if ( ( m_selectedDifference->index() == ( m_selectedModel->differenceCount() - 1 ) ) && ( m_selectedModel->index() < ( m_models->count() - 1 ) ) )
 	{
 		m_selectedModel = ++(*m_modelIt);
 
@@ -483,280 +536,299 @@ void KompareModelList::slotApplyAllDifferences( bool apply )
 	emit applyAllDifferences( apply );
 }
 
-int KompareModelList::determineDiffFormat( const QStringList& lines )
-{
-	QStringList::ConstIterator it = lines.begin();
-
-	while( it != lines.end() )
-	{
-		if( (*it).find( QRegExp( "^[0-9]+[0-9,]*[acd][0-9]+[0-9,]*$" ), 0 ) == 0 ) {
-			m_format = Normal;
-			return 0;
-		}
-		// this one works for cvs diff generated unified diffs
-		else if( (*it).find( QRegExp( "^--- [^\\t]+\\t" ), 0 ) == 0 ) {
-			m_format = Unified;
-			return 0;
-		}
-		// this one should work for diff generated unified diffs ->
-		// trouble is context diff has a second line with '^--- ' as well...
-		else if( (*it).find( QRegExp( "^--- " ), 0 ) == 0 ) {
-			m_format = Unified;
-			return 0;
-		}
-		// This one works for cvs diff generated context diffs
-		else if( (*it).find( QRegExp( "^\\*\\*\\* [^\\t]+\\t" ), 0 ) == 0 ) {
-			m_format = Context;
-			return 0;
-		}
-		// This one works for diff generated context diffs
-		else if( (*it).find( QRegExp( "^\\+\\+\\+ " ), 0 ) == 0 ) {
-			m_format = Context;
-			return 0;
-		}
-		else if( (*it).find( QRegExp( "^[acd][0-9]+ [0-9]+" ), 0 ) == 0 ) {
-			m_format = RCS;
-			return 0;
-		}
-		else if( (*it).find( QRegExp( "^[0-9]+[0-9,]*[acd]" ), 0 ) == 0 ) {
-			m_format = Ed;
-			return 0;
-		}
-		++it;
-	}
-	return -1;
-}
-
-int KompareModelList::createModel( QStringList* file, int* modelIndex )
-{
-	DiffModel* model = new DiffModel();
-	int result = model->parseDiff( m_format, *file );
-	if ( result == 0 )
-	{
-		kdDebug() << "One file parsed" << endl;
-		model->setIndex( (*modelIndex)++ );
-		m_models.append( model );
-	}
-	else
-	{
-		kdDebug() << "Trouble, file parsing failed with result = " << result << endl;
-		kdDebug() << file->join( "\n" ) << endl;
-		delete model;
-	}
-	file->clear();
-}
-
 int KompareModelList::parseDiffOutput( const QStringList& lines )
 {
-	// FIXME: remove code duplication
-	if( lines.count() == 0 ) return -1;
+	kdDebug(8101) << "KompareModelList::parseDiffOutput" << endl;
+	Parser* parser = new Parser();
+	m_models = parser->parse( lines );
 
-	bool cvsdiff = false;
-
-	if ( determineDiffFormat( lines ) == -1 ) // format is stored in this class
-		return -2;
-
-	// determine if cvs diff or plain diff
-	QStringList::ConstIterator it = lines.begin();
-	while( it != lines.end() )
-	{
-		if ( (*it).startsWith( "Index: " ) )
-		{
-			cvsdiff = true;
-			// needed so the splitter wont split the first
-			// "diff " or "Index: " line into a diff
-			kdDebug() << "File is a CVSDiff" << endl;
-			++it;
-			break;
-		}
-		else if ( (*it).startsWith( "diff " ) )
-		{
-			cvsdiff = false;
-			// needed so the splitter wont split the first
-			// "diff " or "Index: " line into a diff
-			kdDebug() << "File is a regular Diff" << endl;
-			++it;
-			break;
-		}
-		++it;
-	}
-
-	QStringList* file = new QStringList();
-
-	if ( it == lines.end() )
-	{
-		// no "diff " or "Index: " found :( ->
-		// problem... either not a valid diff file
-		// or some other weird shit, we'll let the
-		// parser decide and leave the default
-		// cvsdiff = false; (single file diff does
-		// not have a "diff " line, so it could work)
-		kdDebug() << "Assuming single file diff" << endl;
-		it = lines.begin();
-	}
-
-	int modelIndex = 0;
-	// FIXME: lots of duplicate code... needs to be refactored into a switch case
-	if ( cvsdiff )
-	{
-		// cvs diff
-		while( it != lines.end() )
-		{
-//			kdDebug() << (*it) << endl;
-			// FIXME:
-			// not completely correct, diff and Index: have to be outside of
-			// an ed/rcs hunk to be a valid new file, else it could be that
-			// a line in the file starts with "diff " or "Index: "
-			if ( (*it).startsWith( "Index: " ) )
-			{
-				createModel( file, &modelIndex );
-				// add the line for normal, ed and rcs so they can get
-				// the filenames from, it they have no other way of knowing
-				file->append( *it );
-			}
-			else if ( (*it).startsWith( "Only in " ) )
-			{
-				// skip...
-				kdDebug() << "Skipping : " << (*it) << endl;
-			}
-			else if ( (*it).startsWith( "Binary files" ) )
-			{
-				// skip...
-				kdDebug() << "Skipping : " << (*it) << endl;
-			}
-			else if ( (*it).startsWith( "\\ No newline" ) )
-			{
-				// skip...
-				kdDebug() << "Skipping : " << (*it) << endl;
-			}
-			else if ( (*it).startsWith( "Common subdirectories" ) )
-			{
-				// skip...
-				kdDebug() << "Skipping : " << (*it) << endl;
-			}
-			else
-			{
-				file->append( *it );
-			}
-			++it;
-		}
-
-		// if file is not empty then there was another file, doing this seperately out of the loop
-		if ( file->count() > 0 )
-		{
-			createModel( file, &modelIndex );
-		}
-
-		if ( m_models.count() > 1 ) {
-			kdDebug() << "MultiFileCVSDiff" << endl;
-			m_type = MultiFileCVSDiff;
-		} else {
-			kdDebug() << "SingleFileCVSDiff" << endl;
-			m_type = SingleFileCVSDiff;
-		}
-	} // end if cvsdiff
-	else
-	{
-		// diff
-		while ( it != lines.end() )
-		{
-//			kdDebug() << (*it) << endl;
-			// FIXME
-			// not completely correct, diff and Index: have to be outside of
-			// an ed/rcs hunk to be a valid new file, else it could be that
-			// a line in the file starts with "diff -" or "Index: "
-			if ( (*it).startsWith( "diff " ) )
-			{
-				createModel( file, &modelIndex );
-				// add the line for normal, ed and rcs so they can get
-				// the filenames from, it they have no other way of knowing
-				file->append( *it );
-			}
-			else if ( (*it).startsWith( "Only in " ) )
-			{
-				// skip...
-				kdDebug() << "Skipping : " << (*it) << endl;
-			}
-			else if ( (*it).startsWith( "Binary files" ) )
-			{
-				// skip...
-				kdDebug() << "Skipping : " << (*it) << endl;
-			}
-			else if ( (*it).startsWith( "\\ No newline" ) )
-			{
-				// skip...
-				kdDebug() << "Skipping : " << (*it) << endl;
-			}
-			else if ( (*it).startsWith( "Common subdirectories" ) )
-			{
-				// skip...
-				kdDebug() << "Skipping : " << (*it) << endl;
-			}
-			else
-			{
-				file->append( *it );
-			}
-			++it;
-		}
-
-		if ( file->count() > 0 )
-		{
-			createModel( file, &modelIndex );
-		}
-
-		if ( m_models.count() > 1 ) {
-			kdDebug() << "MultiFileDiff" << endl;
-			m_type = MultiFileDiff;
-		} else {
-			kdDebug() << "SingleFileDiff" << endl;
-			m_type = SingleFileDiff;
-		}
-	}
-	// delete old one and construct a new one
-	if ( m_models.count() != 0 )
+	if ( m_models && m_models->count() != 0 )
 	{
 		delete m_modelIt;
-		m_modelIt = new QPtrListIterator<DiffModel>( m_models );
+		m_modelIt = new QPtrListIterator<DiffModel>( *m_models );
 		m_selectedModel = m_modelIt->toFirst();
 		if ( m_selectedModel->differences().count() != 0 )
 		{
+			kdDebug(8101) << "Ok there are differences..." << endl;
 			delete m_diffIt;
 			m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
 			m_selectedDifference = m_diffIt->toFirst();
-		} else {
+		}
+		else
+		{
 			// Wow trouble, no differences in the model, abort
-			return 2;
+			kdDebug(8101) << "Damn there are no differences but there are models... WTF ???" << endl;
+			return -1;
 		}
 	}
 	else
 	{
 		// Wow trouble, no models, so no differences...
-		return 1;
+		kdDebug(8101) << "Now i'll be damned, there should be models here !!!" << endl;
+		return -2;
 	}
 
-	emit modelsChanged( &m_models );
-	emit setSelection( m_selectedModel, m_selectedDifference );
+	show();
 
-	return 0; // FIXME better error handling
+	return 0;
+}
+
+bool KompareModelList::blendOriginalIntoModelList( QString localURL )
+{
+	QFileInfo fi( localURL );
+	if ( !fi.exists() )
+	{
+		kdDebug(8101) << "KML::blendOriginalIntoModelList : localURL \"" << localURL << "\" does not exist !" << endl;
+		return false;
+	}
+
+	bool result = false;
+	DiffModel* model;
+	QFile file;
+
+	QPtrList<DiffModel>* models = m_models;
+	m_models = new QPtrList<DiffModel>();
+	if ( fi.isDir() )
+	{ // is a dir
+		QDir dir( localURL, QString::null, QDir::Name|QDir::DirsFirst, QDir::All );
+		QPtrListIterator<DiffModel> it( *models );
+		for ( ; it.current() != 0; ++it )
+		{
+			model = (*it);
+			kdDebug(8101) << "Model : " << model << endl;
+			QString filename = model->sourcePath() + model->sourceFile();
+			QFileInfo fi2( localURL + filename );
+			if ( fi2.exists() )
+			{
+				file.setName( localURL + filename );
+				file.open( IO_ReadOnly );
+				QTextStream stream( &file );
+				QStringList lines;
+				while ( !stream.eof() )
+				{
+					lines.append( stream.readLine() );
+				}
+				file.close();
+				result = blendFile( model, lines );
+			}
+			else
+			{
+				kdDebug(8101) << "File " << localURL + filename << " does not exist !" << endl;
+			}
+		}
+	}
+	else if ( fi.isFile() )
+	{ // is a file
+		QFile file( localURL );
+		file.open( IO_ReadOnly );
+		QTextStream stream( &file );
+		QStringList lines;
+		while ( !stream.eof() )
+		{
+			lines.append( stream.readLine() );
+		}
+
+		result = blendFile( modelAt( 0 ), lines );
+	}
+
+	delete models; // Hope it does not delete the models, just the container
+
+	return result;
+
+}
+
+bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
+{
+	if ( !model )
+		return false;
+
+	Difference* newDiff;
+	DiffModel* newModel = new DiffModel();
+	// This is not a full copy so dont use newModel = new DiffModel( model );
+	*newModel = *model;
+
+	DiffHunk* newHunk   = new DiffHunk( 1,1 );
+
+	newModel->addHunk( newHunk );
+
+	int srcLineNo = 1, destLineNo = 1;
+
+	QStringList::ConstIterator it = lines.begin();
+
+	QPtrList<Difference> diffList = model->allDifferences();
+	Difference* diff;
+
+	for ( diff = diffList.first(); diff; diff = diffList.next() )
+	{
+		newDiff = new Difference( srcLineNo, destLineNo );
+		newHunk->add( newDiff );
+		kdDebug(8101) << "SrcLineNo " << srcLineNo << " should be smaller than " << diff->sourceLineNumber() << endl;
+		while ( srcLineNo < diff->sourceLineNumber() && it != lines.end() )
+		{
+			newDiff->addSourceLine( *it );
+			newDiff->addDestinationLine( *it );
+			kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
+			srcLineNo++;
+			destLineNo++;
+			++it;
+		}
+		// Now i've got to add the difference (and check if the difference
+		// is appliable)
+		switch ( diff->type() )
+		{
+		case Difference::Unchanged:
+			newDiff = new Difference( srcLineNo, destLineNo, Difference::Unchanged );
+			kdDebug(8101) << "newDiff = new Difference( " << srcLineNo << ", " << destLineNo << ", Difference::Unchanged );" << endl;
+			newHunk->add( newDiff );
+			for ( int i = 0; i < diff->sourceLineCount(); i++ )
+			{
+				kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
+				kdDebug(8101) << "Contxt: Fileline:     " << *it << endl;
+				kdDebug(8101) << "Contxt: ContextLine : " << diff->sourceLineAt( i ) << endl;
+				if ( it != lines.end() && *it == diff->sourceLineAt( i ) )
+				{
+					// Context matches, so we are on the right track
+					newDiff->addSourceLine( *it );
+					newDiff->addDestinationLine( *it );
+					kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
+					++it;
+					srcLineNo++;
+					destLineNo++;
+				}
+			}
+			break;
+		case Difference::Change:
+			newDiff = new Difference( srcLineNo, destLineNo, Difference::Change );
+			newHunk->add( newDiff );
+			newModel->addDiff( newDiff );
+			for ( int i = 0; i < diff->sourceLineCount(); i++ )
+			{
+				kdDebug(8101) << "Change: Fileline   : " << *it << endl;
+				kdDebug(8101) << "Change: SourceLine : " << diff->sourceLineAt( i ) << endl;
+				if ( it != lines.end() && *it == diff->sourceLineAt( i ) )
+				{
+					newDiff->addSourceLine( *it );
+//					kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
+					srcLineNo++;
+				}
+				else
+				{
+					kdDebug(8101) << "Oops sourceLine does not match deleted line" << endl;
+				}
+				++it;
+			}
+			for ( int i = 0; i < diff->destinationLineCount(); i++ )
+			{
+				newDiff->addDestinationLine( diff->destinationLineAt( i ) );
+				kdDebug(8101) << "DestLine " << destLineNo << " : " << diff->destinationLineAt( i ) << endl;
+				destLineNo++;
+			}
+			break;
+		case Difference::Insert:
+			kdDebug(8101) << "Are we even getting in here ?" << endl;
+			newDiff = new Difference( srcLineNo, destLineNo, Difference::Insert );
+			newHunk->add( newDiff );
+			newModel->addDiff( newDiff );
+			for ( int i = 0; it != lines.end() && i < diff->destinationLineCount(); i++ )
+			{
+				newDiff->addDestinationLine( diff->destinationLineAt( i ) );
+				kdDebug(8101) << "DestLine " << destLineNo << " : " << diff->destinationLineAt( i ) << endl;
+				destLineNo++;
+			}
+			break;
+		case Difference::Delete:
+			newDiff = new Difference( srcLineNo, destLineNo, Difference::Delete );
+			newHunk->add( newDiff );
+			newModel->addDiff( newDiff );
+			for ( int i = 0; it != lines.end() && i < diff->sourceLineCount(); i++ )
+			{
+				kdDebug(8101) << "Delete: Fileline:    " << *it << endl;
+				kdDebug(8101) << "Delete: SourceLine : " << diff->sourceLineAt( i ) << endl;
+				if ( *it == diff->sourceLineAt( i ) )
+				{
+					newDiff->addSourceLine( *it );
+					kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
+					srcLineNo++;
+				}
+				else
+				{
+					// deleted sourcelines dont match with fileline
+					kdDebug(8101) << "Deleted line does not match sourceline" << endl;
+				}
+			}
+			break;
+		}
+	}
+
+	newDiff = new Difference( srcLineNo, destLineNo, Difference::Unchanged );
+	newHunk->add( newDiff );
+
+	while ( it != lines.end() )
+	{
+		newDiff->addSourceLine( *it );
+		newDiff->addDestinationLine( *it );
+		kdDebug(8101) << "Contxt: Fileline:     " << *it << endl;
+		++it;
+	}
+/*
+	diffList = newModel->differences();
+
+	diff = diffList.first();
+	kdDebug(8101) << "Count = " << diffList.count() << endl;
+	for ( diff = diffList.first(); diff; diff = diffList.next() )
+	{
+		kdDebug(8101) << "sourcelinenumber = " << diff->sourceLineNumber() << endl;
+	}
+*/
+	m_models->append( newModel );
+
+	delete m_modelIt;
+	m_modelIt = new QPtrListIterator<DiffModel>( *m_models );
+	m_selectedModel = m_modelIt->toFirst();
+
+	if ( m_selectedModel->differences().count() != 0 )
+	{
+		kdDebug(8101) << "Ok there are differences : " << m_selectedModel->differences().count() << endl;
+		delete m_diffIt;
+		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
+		m_selectedDifference = m_diffIt->toFirst();
+	}
+	else
+	{
+		// Wow trouble, no differences in the model, abort
+		kdDebug(8101) << "Damn there are no differences but there are models... WTF ???" << endl;
+		return -1;
+	}
+
+	return true;
+}
+
+void KompareModelList::show()
+{
+	emit modelsChanged( m_models );
+	emit setSelection( m_selectedModel, m_selectedDifference );
 }
 
 void KompareModelList::clear()
 {
-	m_models.clear();
-	emit modelsChanged( &m_models );
+	if ( m_models )
+		m_models->clear();
+
+	emit modelsChanged( m_models );
 }
 
 void KompareModelList::swap()
 {
-	compare( KURL( m_destinationURL ), KURL( m_sourceURL ) );
+	if ( m_mode == Kompare::ComparingFiles )
+		compareFiles( KURL( m_destinationURL ), KURL( m_sourceURL ) );
+	else if ( m_mode == Kompare::ComparingDirs )
+		compareDirs( KURL( m_destinationURL ), KURL( m_sourceURL ) );
 }
 
 bool KompareModelList::isModified() const
 {
-	QPtrListIterator<DiffModel> it( m_models );
-	for( ; it.current(); ++it ) {
-		if( (*it)->isModified() ) return true;
-	}
+	if ( m_noOfModified > 0 )
+		return true;
 	return false;
 }
 
@@ -778,7 +850,44 @@ KURL KompareModelList::destinationBaseURL() const
 	}
 }
 
+int KompareModelList::modelCount() const
+{
+	return m_models ? m_models->count() : 0;
+}
+
+int KompareModelList::differenceCount() const
+{
+	return m_selectedModel ? m_selectedModel->differenceCount() : -1;
+}
+
+int KompareModelList::appliedCount() const
+{
+	return m_selectedModel ? m_selectedModel->appliedCount() : -1;
+}
+
+void KompareModelList::slotSetModified( bool modified )
+{
+	kdDebug(8101) << "m_noOfModified = " << m_noOfModified << endl;
+
+	if ( modified )
+		m_noOfModified++;
+	else
+		m_noOfModified--;
+
+	if ( m_noOfModified < 0 )
+	{
+		kdDebug(8101) << "Wow something is fucked up..." << endl;
+	}
+	else if ( m_noOfModified == 0 )
+	{
+		emit setModified( false );
+	}
+	else // > 0 :-)
+	{
+		emit setModified( true );
+	}
+}
+
 #include "komparemodellist.moc"
 
 /* vim: set ts=4 sw=4 noet: */
-

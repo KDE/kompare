@@ -1,13 +1,13 @@
 /***************************************************************************
-                                kcomparedialog.h  -  description
+                                generalprefs.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2002 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -17,38 +17,45 @@
 **
 ***************************************************************************/
 
-#ifndef KCOMPAREDIALOG_H
-#define KCOMPAREDIALOG_H
+#ifndef VIEWPREFS_H
+#define VIEWPREFS_H
 
-#include <kdialogbase.h>
-#include <kurl.h>
+#include "prefsbase.h"
 
-class KFileDialog;
-class KURLComboBox;
-class KURLRequester;
+class QCheckBox;
+class KColorButton;
+class QSpinBox;
 
-class KCompareDialog : public KDialogBase
+class ViewSettings;
+
+class ViewPrefs : public PrefsBase
 {
-	Q_OBJECT
+Q_OBJECT
+public:
+	ViewPrefs( QWidget* );
+	~ViewPrefs();
 
 public:
-	KCompareDialog( const KURL* sourceURL = 0, const KURL* destURL = 0, QWidget* parent = 0, const char* name = 0 );
-	~KCompareDialog();
+	void setSettings( ViewSettings* );
+	ViewSettings* settings( void );
 
-	KURL getSourceURL() const;
-	KURL getDestinationURL() const;
+public:
+	ViewSettings* m_settings;
 
-protected slots:
-	virtual void slotOk();
+public:
+	virtual void restore();
+	virtual void apply();
+	virtual void setDefaults();
 
-private slots:
-	void slotEnableCompare();
-
-private:
-	KURLComboBox*      m_sourceURLComboBox;
-	KURLComboBox*      m_destinationURLComboBox;
-	KURLRequester*     m_sourceURLRequester;
-	KURLRequester*     m_destinationURLRequester;
+public:
+	KColorButton* m_removedColorButton;
+	KColorButton* m_changedColorButton;
+	KColorButton* m_addedColorButton;
+	KColorButton* m_appliedColorButton;
+	QCheckBox*    m_showEntireFile;
+	// snol == scroll number of lines
+	QSpinBox*     m_snolSpinBox;
+	QSpinBox*     m_tabSpinBox;
 };
 
 #endif

@@ -2,8 +2,10 @@
                           kompareconnectwidget.cpp  -  description
                              -------------------
     begin                : Tue Jun 26 2001
-    copyright            : (C) 2001 by John Firebaugh
+    copyright            : (C) 2001-2003 by John Firebaugh
+                           and Otto Bruggeman
     email                : jfirebaugh@kde.org
+                           otto.bruggeman@home.nl
  ***************************************************************************/
 
 /***************************************************************************
@@ -21,16 +23,17 @@
 
 #include <kdebug.h>
 
-#include "generalsettings.h"
+#include "viewsettings.h"
+#include "komparemodellist.h"
 #include "komparelistview.h"
 #include "kompareview.h"
 
 #include "kompareconnectwidget.h"
 
-#define kdDebug() kdDebug(8106)
+using namespace Diff2;
 
 KompareConnectWidget::KompareConnectWidget( KompareListView* left, KompareListView* right,
-      GeneralSettings* settings, KompareView* parent, const char* name )
+      ViewSettings* settings, KompareView* parent, const char* name )
 	: QWidget(parent, name),
 	m_settings( settings ),
 	m_diffView( parent ),
@@ -78,12 +81,12 @@ void KompareConnectWidget::slotSetSelection( const Difference* diff )
 
 QSize KompareConnectWidget::sizeHint() const
 {
-	return QSize(50, style().pixelMetric(QStyle::PM_ScrollBarExtent));
+	return QSize(50, style().pixelMetric( QStyle::PM_ScrollBarExtent ) );
 }
 
 void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 {
-	kdDebug() << "KompareConnectWidget::paintEvent()" << endl;
+	kdDebug(8106) << "KompareConnectWidget::paintEvent()" << endl;
 
 	QPixmap pixbuf(size());
 	QPainter paint(&pixbuf, this);
@@ -101,9 +104,9 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 		int first = firstL < 0 ? firstR : QMIN( firstL, firstR );
 		int last = lastL < 0 ? lastR : QMAX( lastL, lastR );
 
-		kdDebug() << "    left: " << firstL << " - " << lastL << endl;
-		kdDebug() << "   right: " << firstR << " - " << lastR << endl;
-		kdDebug() << " drawing: " << first << " - " << last << endl;
+		kdDebug(8106) << "    left: " << firstL << " - " << lastL << endl;
+		kdDebug(8106) << "   right: " << firstR << " - " << lastR << endl;
+		kdDebug(8106) << " drawing: " << first << " - " << last << endl;
 		if( first >= 0 && last >= 0 && first <= last )
 		{
 			QPtrListIterator<Difference> diffIt =
@@ -121,7 +124,7 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 				int bl = leftRect.bottom();
 				int br = rightRect.bottom();
 
-//				kdDebug() << "drawing: " << tl << " " << tr << " " << bl << " " << br << endl;
+//				kdDebug(8106) << "drawing: " << tl << " " << tr << " " << bl << " " << br << endl;
 				QPointArray topBezier = makeTopBezier( tl, tr );
 				QPointArray bottomBezier = makeBottomBezier( bl, br );
 

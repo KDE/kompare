@@ -2,7 +2,7 @@
                                 komparelistview.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
@@ -19,13 +19,14 @@
 
 #include <qheader.h>
 #include <qpainter.h>
+#include <qregexp.h>
 
 #include <kdebug.h>
 
 #include "diffmodel.h"
 #include "diffhunk.h"
 #include "difference.h"
-#include "generalsettings.h"
+#include "viewsettings.h"
 #include "komparemodellist.h"
 
 #include "komparelistview.h"
@@ -36,10 +37,10 @@
 #define BLANK_LINE_HEIGHT 3
 #define HUNK_LINE_HEIGHT  5
 
-#define kdDebug() kdDebug(8104)
+using namespace Diff2;
 
 KompareListView::KompareListView( bool isSource,
-                                  GeneralSettings* settings,
+                                  ViewSettings* settings,
                                   QWidget* parent, const char* name ) :
 	KListView( parent, name ),
 	m_isSource( isSource ),
@@ -77,7 +78,7 @@ int KompareListView::firstVisibleDifference()
 {
 	QListViewItem* item = itemAt( QPoint( 0, 0 ) );
 	if( item == 0 ) {
-		kdDebug() << "no item at (0,0)" << endl;
+		kdDebug(8104) << "no item at (0,0)" << endl;
 	}
 
 	while( item ) {
@@ -98,7 +99,7 @@ int KompareListView::lastVisibleDifference()
 {
 	QListViewItem* item = itemAt( QPoint( 0, visibleHeight() - 1 ) );
 	if( item == 0 ) {
-		kdDebug() << "no item at (0," << visibleHeight() - 1 << ")" << endl;
+		kdDebug(8104) << "no item at (0," << visibleHeight() - 1 << ")" << endl;
 		item = lastItem();
 	}
 
@@ -138,11 +139,16 @@ int KompareListView::maxScrollId()
 
 void KompareListView::setXOffset( int x )
 {
+	kdDebug(8104) << "SetXOffset : Scroll to x position: " << x << endl;
 	setContentsPos( x, contentsY() );
 }
 
 void KompareListView::scrollToId( int id )
 {
+	kdDebug(8104) << "ScrollToID : Scroll to id : " << id << endl;
+	setContentsPos( contentsX(), id );
+	m_scrollId = id;
+	return;
 	KompareListViewItem* item = (KompareListViewItem*)firstChild();
 	while( item && item->nextSibling() ) {
 		if( ((KompareListViewItem*)item->nextSibling())->scrollId() > id )
@@ -152,18 +158,15 @@ void KompareListView::scrollToId( int id )
 
 	if( item ) {
 		int pos = item->itemPos();
-		int itemId = item->scrollId();
-		int height = item->totalHeight();
-		double r = (double)( id - itemId ) / (double) item->maxHeight();
-		int y = pos + (int)(r * (double)height) - minScrollId();
-//		kdDebug() << "scrollToID: " << endl;
-//		kdDebug() << "     id = " << id << endl;
-//		kdDebug() << "    pos = " << pos << endl;
-//		kdDebug() << " itemId = " << itemId << endl;
-//		kdDebug() << "      r = " << r << endl;
-//		kdDebug() << " height = " << height << endl;
-//		kdDebug() << "  minID = " << minScrollId() << endl;
-//		kdDebug() << "      y = " << y << endl;
+		int y = pos + ( id - item->scrollId() ) * item->height() / item->maxHeight() - minScrollId();
+//		kdDebug(8104) << "scrollToID: " << endl;
+//		kdDebug(8104) << "     id = " << id << endl;
+//		kdDebug(8104) << "    pos = " << pos << endl;
+//		kdDebug(8104) << " itemId = " << itemId << endl;
+//		kdDebug(8104) << "      r = " << r << endl;
+//		kdDebug(8104) << " height = " << height << endl;
+//		kdDebug(8104) << "  minID = " << minScrollId() << endl;
+//		kdDebug(8104) << "      y = " << y << endl;
 		setContentsPos( contentsX(), y );
 	}
 
@@ -181,14 +184,14 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 {
 	if ( m_selectedDifference == diff )
 		return;
-	
-	kdDebug() << "KompareListView::setSelectedDifference()" << endl;
-	
+
+	kdDebug(8104) << "KompareListView::setSelectedDifference()" << endl;
+
 	m_selectedDifference = diff;
-	
+
 	KompareListViewItem* item = m_itemDict[ (void*)diff ];
 	if( !item ) {
-		kdDebug() << "KompareListView::slotSetSelection(): couldn't find our selection!" << endl;
+		kdDebug(8104) << "KompareListView::slotSetSelection(): couldn't find our selection!" << endl;
 		return;
 	}
 	// Only scroll to item if it isn't selected. This is so that
@@ -202,15 +205,15 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 
 void KompareListView::slotSetSelection( const Difference* diff )
 {
-	kdDebug() << "KompareListView::slotSetSelection( const Difference* diff )" << endl;
-	
+	kdDebug(8104) << "KompareListView::slotSetSelection( const Difference* diff )" << endl;
+
 	setSelectedDifference( diff, true );
 }
 
 void KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
-	kdDebug() << "KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )" << endl;
-	
+	kdDebug(8104) << "KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )" << endl;
+
 	if( m_selectedModel && m_selectedModel == model ) {
 		slotSetSelection( diff );
 		return;
@@ -250,7 +253,7 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 			m_maxScrollId = item->scrollId() + item->height() - 1;
 		}
 	}
-	
+
 	slotSetSelection( diff );
 }
 
@@ -284,6 +287,15 @@ void KompareListView::slotApplyDifference( const Difference* diff, bool apply )
 	m_itemDict[ (void*)diff ]->applyDifference( apply );
 }
 
+void KompareListView::slotConfigChanged()
+{
+	m_spaces = "";
+	kdDebug( 8104 ) << "tabToNumberOfSpaces: " << settings()->m_tabToNumberOfSpaces << endl;
+	for ( int i = 0; i < settings()->m_tabToNumberOfSpaces; i++ )
+		m_spaces += " ";
+	triggerUpdate();
+}
+
 void KompareListView::wheelEvent( QWheelEvent* e )
 {
 	e->ignore(); // we want the parent to catch wheel events
@@ -293,14 +305,14 @@ KompareListViewItem::KompareListViewItem( KompareListView* parent )
 	: QListViewItem( parent )
 	, m_scrollId( 0 )
 {
-//	kdDebug() << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
+//	kdDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListViewItem* after )
 	: QListViewItem( parent, after )
 	, m_scrollId( after->scrollId() + after->maxHeight() )
 {
-//	kdDebug() << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
+//	kdDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListViewItem* parent )
@@ -360,14 +372,13 @@ void KompareListViewDiffItem::setup()
 
 void KompareListViewDiffItem::setVisibility()
 {
-	m_sourceItem->setVisible( m_difference->type() == Difference::Unchanged ||
-	                          kompareListView()->isSource() || m_difference->applied() );
+	m_sourceItem->setVisible( kompareListView()->isSource() || m_difference->applied() );
 	m_destItem->setVisible( !m_sourceItem->isVisible() );
 }
 
 void KompareListViewDiffItem::applyDifference( bool apply )
 {
-	kdDebug() << "KompareListViewDiffItem::applyDifference( " << apply << " )" << endl;
+	kdDebug(8104) << "KompareListViewDiffItem::applyDifference( " << apply << " )" << endl;
 	setVisibility();
 	setup();
 	repaint();
@@ -384,7 +395,7 @@ int KompareListViewDiffItem::maxHeight()
 
 void KompareListViewDiffItem::setSelected( bool b )
 {
-//	kdDebug() << "KompareListViewDiffItem::setSelected( " << b << " )" << endl;
+//	kdDebug(8104) << "KompareListViewDiffItem::setSelected( " << b << " )" << endl;
 	KompareListViewItem::setSelected( b );
 	QListViewItem* item = m_sourceItem->isVisible() ?
 	                      m_sourceItem->firstChild() :
@@ -399,17 +410,18 @@ KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListV
 	: KompareListViewItem( parent )
 	, m_isSource( isSource )
 {
+	kdDebug(8104) << "isSource ? " << (isSource ? " Yes!" : " No!") << endl;
 	setExpandable( true );
 	setOpen( true );
-	
+
 	int lines = lineCount();
 	int line = lineNumber() + lines - 1;
-	
+	kdDebug(8104) << "LineNumber : " << lineNumber() << endl;
 	if( lines == 0 ) {
 		new KompareListViewBlankLineItem( this );
 		return;
 	}
-	
+
 	for( int i = lines - 1; i >= 0; i--, line-- ) {
 		new KompareListViewLineItem( this, line, lineAt( i ) );
 	}
@@ -479,15 +491,26 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, i
 		if( nextSibling() == 0 )
 			p->drawLine( 0, height() - 1, width, height() - 1 );
 	}
-	
+
 	paintText( p, cg, column, width, align );
 }
 
 void KompareListViewLineItem::paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align )
 {
-	p->drawText( listView()->itemMargin(), 0,
-	             width - listView()->itemMargin(), height(),
-	             align, text( column ) );
+	if ( column == COL_MAIN )
+	{
+		QString adjustedText = text( column );
+		adjustedText.replace( QRegExp( "\\t" ), kompareListView()->spaces() );
+		p->drawText( listView()->itemMargin(), 0,
+		             width - listView()->itemMargin(), height(),
+		             align, adjustedText );
+	}
+	else
+	{
+		p->drawText( listView()->itemMargin(), 0,
+		             width - listView()->itemMargin(), height(),
+		             align, text( column ) );
+	}
 }
 
 KompareListViewDiffItem* KompareListViewLineItem::diffItemParent() const

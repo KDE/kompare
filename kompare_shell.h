@@ -2,7 +2,7 @@
                                 kompare_shell.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
@@ -33,6 +33,7 @@
 
 class KToggleAction;
 
+class KSqueezedTextLabel;
 class KomparePart;
 class KompareNavTreePart;
 
@@ -47,7 +48,7 @@ class KompareNavTreePart;
 * @author Otto Bruggeman <bruggie@bruggie.dnsalias.org>
 * @version 0.2
 */
-class KompareShell : public KParts::DockMainWindow, Kompare
+class KompareShell : public KParts::DockMainWindow
 {
 	Q_OBJECT
 public:
@@ -64,14 +65,20 @@ public:
 	/**
 	* Use this method to load whatever file/URL you have
 	*/
-	void load(const KURL& url);
+	void open( const KURL& url );
 
 	/**
-	 *
+	 * Use this method to compare 2 URLs (files or directories)
 	 */
-	void compare(const KURL& source,const KURL& destination );
+	void compare( const KURL& source, const KURL& destination );
+
+	/**
+	 * Use this method to blend diff into url1 (file or directory)
+	 */
+	void blend( const KURL& url1, const KURL& diff );
 
 public slots:
+	void slotUpdateStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
 	void setCaption( const QString& caption );
 
 protected:
@@ -92,12 +99,12 @@ protected:
 
 private slots:
 	void slotSetStatusBarText( const QString& text );
-	void slotFileCompareFiles();
 	void slotFileOpen();
+	void slotFileCompareFiles();
+	void slotFileBlendURLAndDiff();
 	void slotShowTextView();
 	void optionsConfigureKeys();
 	void optionsConfigureToolbars();
-	void updateStatusBar();
 	void slotDiffURLChanged();
 	void newToolbarConfig();
 
@@ -122,6 +129,8 @@ private:
 	KToggleAction*        m_showTextView;
 
 	enum Kompare::Mode    m_mode;
+	// This is the statusbarwidget for displaying the general stuff
+	KSqueezedTextLabel*   m_generalLabel;
 };
 
 #endif // KOMPARE_H

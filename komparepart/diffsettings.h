@@ -2,12 +2,12 @@
                                 diffsettings.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -20,6 +20,7 @@
 #ifndef DIFFSETTINGS_H
 #define DIFFSETTINGS_H
 
+#include <qstringlist.h>
 #include <qwidget.h>
 
 #include "kompare.h"
@@ -37,8 +38,9 @@ public:
 	virtual void saveSettings( KConfig* config );
 
 public:
+	QString m_diffProgram;
 	int m_linesOfContext;
-	Format m_format;
+	Kompare::Format m_format;
 	bool m_largeFiles;                         // -H
 	bool m_ignoreWhiteSpace;                   // -b
 	bool m_ignoreEmptyLines;                   // -B
@@ -47,6 +49,9 @@ public:
 	bool m_showCFunctionChange;                // -p
 	bool m_convertTabsToSpaces;                // -t
 	bool m_ignoreWhitespaceComparingLines;     // -w
+	bool m_ignoreRegExp;                       // -I
+	QString m_ignoreRegExpText;                // the RE for -I
+	QStringList m_ignoreRegExpTextHistory;
 	bool m_recursive;                          // -r
 	bool m_newFiles;                           // -N
 	bool m_allText;                            // -a

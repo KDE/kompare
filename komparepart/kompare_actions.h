@@ -2,7 +2,7 @@
                                 kompare_action.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
@@ -23,13 +23,13 @@
 #include <qptrlist.h>
 
 #include <kaction.h>
-#include <kparts/part.h>
+#include "kompare_part.h"
 
 class QPopupMenu;
 class QWidget;
 
-class DiffModel;
-class Difference;
+class Diff2::DiffModel;
+class Diff2::Difference;
 
 class DifferencesAction;
 
@@ -37,15 +37,15 @@ class KompareActions : public QObject
 {
 	Q_OBJECT
 public:
-	KompareActions( KParts::ReadOnlyPart* parent, const char* name );
+	KompareActions( KomparePart* parent, const char* name );
 	~KompareActions();
 
 public slots:
-	void slotModelsChanged( const QPtrList<DiffModel>* modelList );
-	void slotSetSelection( const DiffModel* model, const Difference* diff );
-	void slotSetSelection( const Difference* diff );
-	
-	void slotActivated( const Difference* diff );
+	void slotModelsChanged( const QPtrList<Diff2::DiffModel>* modelList );
+	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
+	void slotSetSelection( const Diff2::Difference* diff );
+
+	void slotActivated( const Diff2::Difference* diff );
 
 protected slots:
 	void slotApplyDifference();
@@ -55,14 +55,14 @@ protected slots:
 	void slotNextFile();
 	void slotPreviousDifference();
 	void slotNextDifference();
-	void slotDifferenceActivated( const Difference* diff );
+	void slotDifferenceActivated( const Diff2::Difference* diff );
 
 private:
 	void updateActions();
 
 signals:
-	void selectionChanged( const DiffModel* model, const Difference* diff );
-	void selectionChanged( const Difference* diff );
+	void selectionChanged( const Diff2::DiffModel* model, const Diff2::Difference* diff );
+	void selectionChanged( const Diff2::Difference* diff );
 	// apply: true is apply, false is undo...
 	void applyDifference( bool apply );
 	void applyAllDifferences( bool apply );
@@ -73,16 +73,16 @@ signals:
 	void previousDifference();
 
 private:
-	const QPtrList<DiffModel>*  m_modelList;
-	const DiffModel*            m_selectedModel;
-	const Difference*           m_selectedDifference;
-	KAction*                    m_applyDifference;
-	KAction*                    m_applyAll;
-	KAction*                    m_unapplyAll;
-	KAction*                    m_previousFile;
-	KAction*                    m_nextFile;
-	KAction*                    m_previousDifference;
-	KAction*                    m_nextDifference;
+	const QPtrList<Diff2::DiffModel>*  m_modelList;
+	const Diff2::DiffModel*            m_selectedModel;
+	const Diff2::Difference*           m_selectedDifference;
+	KAction*                           m_applyDifference;
+	KAction*                           m_applyAll;
+	KAction*                           m_unapplyAll;
+	KAction*                           m_previousFile;
+	KAction*                           m_nextFile;
+	KAction*                           m_previousDifference;
+	KAction*                           m_nextDifference;
 };
 
 #endif

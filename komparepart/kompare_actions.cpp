@@ -2,12 +2,12 @@
                                 kompare_actions.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -27,7 +27,7 @@
 
 #include "kompare_actions.h"
 
-KompareActions::KompareActions( KParts::ReadOnlyPart* parent, const char* name )
+KompareActions::KompareActions( KomparePart* parent, const char* name )
 	: QObject( parent, name ),
 	m_modelList( 0L ),
 	m_selectedModel( 0L ),
@@ -39,7 +39,7 @@ KompareActions::KompareActions( KParts::ReadOnlyPart* parent, const char* name )
 	m_applyAll        = new KAction( i18n("App&ly All"), "2rightarrow", Qt::CTRL + Qt::Key_A,
 	                                 this, SLOT(slotApplyAllDifferences()),
 	                                 parent->actionCollection(), "difference_applyall" );
-	m_unapplyAll      = new KAction( i18n("U&napply All"), "2leftarrow", Qt::CTRL + Qt::Key_U,
+	m_unapplyAll      = new KAction( i18n("&Unapply All"), "2leftarrow", Qt::CTRL + Qt::Key_U,
 	                                 this, SLOT(slotUnapplyAllDifferences()),
 	                                 parent->actionCollection(), "difference_unapplyall" );
 	m_previousFile    = new KAction( i18n("P&revious File"), "2uparrow", Qt::CTRL + Qt::Key_PageUp,
@@ -56,13 +56,15 @@ KompareActions::KompareActions( KParts::ReadOnlyPart* parent, const char* name )
 	                                 this, SLOT(slotNextDifference()),
 	                                 parent->actionCollection(), "difference_next" );
 	m_nextDifference->setEnabled( false );
+
+	updateActions();
 }
 
 KompareActions::~KompareActions()
 {
 }
 
-void KompareActions::slotModelsChanged( const QPtrList<DiffModel>* modelList )
+void KompareActions::slotModelsChanged( const QPtrList<Diff2::DiffModel>* modelList )
 {
 	m_modelList = modelList;
 	// these will be set by the following signal, setSelected();
@@ -72,7 +74,7 @@ void KompareActions::slotModelsChanged( const QPtrList<DiffModel>* modelList )
 	updateActions();
 }
 
-void KompareActions::slotSetSelection( const DiffModel* model, const Difference* diff )
+void KompareActions::slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff )
 {
 	m_selectedModel = model;
 	m_selectedDifference = diff;
@@ -80,14 +82,14 @@ void KompareActions::slotSetSelection( const DiffModel* model, const Difference*
 	updateActions();
 }
 
-void KompareActions::slotSetSelection( const Difference* diff )
+void KompareActions::slotSetSelection( const Diff2::Difference* diff )
 {
 	m_selectedDifference = diff;
 
 	updateActions();
 }
 
-void KompareActions::slotActivated( const Difference* diff )
+void KompareActions::slotActivated( const Diff2::Difference* diff )
 {
 	emit selectionChanged( diff );
 }
@@ -96,22 +98,31 @@ void KompareActions::updateActions()
 {
 	if( m_modelList && m_selectedModel && m_selectedDifference )
 	{
-		m_applyDifference->setEnabled( true );
-		m_applyAll->setEnabled( true );
-		m_unapplyAll->setEnabled( true );
-		if( m_selectedDifference->applied() )
+		if ( ( ( KomparePart* )parent() )->isReadWrite() )
 		{
-			m_applyDifference->setText( i18n( "Un&apply Difference" ) );
-			m_applyDifference->setIcon( "1leftarrow" );
+			m_applyDifference->setEnabled( true );
+			m_applyAll->setEnabled( true );
+			m_unapplyAll->setEnabled( true );
+			if( m_selectedDifference->applied() )
+			{
+				m_applyDifference->setText( i18n( "Un&apply Difference" ) );
+				m_applyDifference->setIcon( "1leftarrow" );
+			}
+			else
+			{
+				m_applyDifference->setText( i18n( "&Apply Difference" ) );
+				m_applyDifference->setIcon( "1rightarrow" );
+			}
 		}
 		else
 		{
-			m_applyDifference->setText( i18n( "&Apply Difference" ) );
-			m_applyDifference->setIcon( "1rightarrow" );
+			m_applyDifference->setEnabled( false );
+			m_applyAll->setEnabled( false );
+			m_unapplyAll->setEnabled( false );
 		}
 
 		int modelIndex = m_selectedModel->index();
-		int diffIndex  = m_selectedModel->findDifference( const_cast<Difference*>(m_selectedDifference) );
+		int diffIndex  = m_selectedModel->findDifference( const_cast<Diff2::Difference*>(m_selectedDifference) );
 
 		m_previousFile->setEnabled      ( modelIndex > 0 );
 		m_nextFile->setEnabled          ( modelIndex < m_modelList->count() - 1 );
@@ -133,7 +144,7 @@ void KompareActions::updateActions()
 
 }
 
-void KompareActions::slotDifferenceActivated( const Difference* diff )
+void KompareActions::slotDifferenceActivated( const Diff2::Difference* diff )
 {
 // totally unnecessary
 	emit selectionChanged( diff );
@@ -153,28 +164,14 @@ void KompareActions::slotApplyDifference()
 
 void KompareActions::slotApplyAllDifferences()
 {
-// FIXME: this should only happen in modellist... everything else uses const objects
-//	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(m_selectedModel->differences());
-//	int i = 0;
-//	while ( it.current() ) {
-//		if( !(*it)->applied() )
-//			m_selectedModel->toggleApplied( i );
-//		i++; ++it;
-//	}
 	emit applyAllDifferences( true );
+	updateActions();
 }
 
 void KompareActions::slotUnapplyAllDifferences()
 {
-// FIXME: this should only happen in modellist... everything else uses const objects
-//	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(m_selectedModel->differences());
-//	int i = 0;
-//	while ( it.current() ) {
-//		if( (*it)->applied() )
-//			m_selectedModel->toggleApplied( i );
-//		i++; ++it;
-//	}
 	emit applyAllDifferences( false );
+	updateActions();
 }
 
 void KompareActions::slotPreviousFile()

@@ -1,6 +1,10 @@
 /*
  *  Copyright (C) 1999-2001 Bernd Gehrmann
  *                          bernd@physik.hu-berlin.de
+ *                2001-2003 Otto Bruggeman
+ *                          otto.bruggeman@home.nl
+ *                2001-2002 John Firebaugh
+ *                          jfire@kde.org
  *
  * This program may be distributed under the terms of the Q Public
  * License as defined by Trolltech AS of Norway and appearing in the
@@ -25,30 +29,30 @@ class QFile;
 class QLabel;
 class QScrollBar;
 
-class DiffModel;
-class GeneralSettings;
+class Diff2::DiffModel;
+class ViewSettings;
 class KompareConnectWidget;
 class KompareListView;
 
 class KompareView : public QFrame
 {
 	Q_OBJECT
-	
+
 public:
-	KompareView( GeneralSettings* settings, QWidget *parent=0, const char *name=0 );
+	KompareView( ViewSettings* settings, QWidget *parent=0, const char *name=0 );
 	~KompareView();
-	
+
 public:
 	const KompareListView*      srcLV()      { return m_diff1; };
 	const KompareListView*      destLV()     { return m_diff2; };
 	const KompareConnectWidget* zoomWidget() { return m_zoom; };
 
 public slots:
-	void slotSetSelection( const DiffModel* model, const Difference* diff );
-	void slotSetSelection( const Difference* diff );
+	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
+	void slotSetSelection( const Diff2::Difference* diff );
 
 signals:
-	void selectionChanged( const Difference* diff );
+	void selectionChanged( const Diff2::Difference* diff );
 
 protected:
 	void resizeEvent( QResizeEvent* e );
@@ -57,14 +61,14 @@ protected:
 
 protected slots:
 	void scrollToId( int id );
-	void slotDifferenceClicked( const Difference* diff );
+	void slotDifferenceClicked( const Diff2::Difference* diff );
 
 private:
-	const DiffModel*          m_selectedModel;
-	const Difference*         m_selectedDifference;
-	
-	GeneralSettings*          m_settings;
-	
+	const Diff2::DiffModel*   m_selectedModel;
+	const Diff2::Difference*  m_selectedDifference;
+
+	ViewSettings*          m_settings;
+
 	QLabel*                   m_revlabel1;
 	QLabel*                   m_revlabel2;
 	KompareListView*          m_diff1;

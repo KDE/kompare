@@ -2,7 +2,7 @@
                                 komparenavtreepart.h  -  description
                                 -------------------
         begin                   : Mon Feb 26 2002
-        copyright               : (C) 2002 by Otto Bruggeman
+        copyright               : (C) 2002-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
@@ -31,8 +31,8 @@
 class KompareModelList;
 class KomparePart;
 class KListView;
-class DiffModel;
-class Difference;
+class Diff2::DiffModel;
+class Diff2::Difference;
 
 class KDirLVI;
 class KFileLVI;
@@ -50,13 +50,13 @@ public:
 	virtual bool openFile() { return false; };
 
 public slots:
-	void slotSetSelection( const DiffModel* model, const Difference* diff );
-	void slotSetSelection( const Difference* diff );
-	void slotModelsChanged( const QPtrList<DiffModel>* modelList );
+	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
+	void slotSetSelection( const Diff2::Difference* diff );
+	void slotModelsChanged( const QPtrList<Diff2::DiffModel>* modelList );
 
 signals:
-	void selectionChanged( const DiffModel* model, const Difference* diff );
-	void selectionChanged( const Difference* diff );
+	void selectionChanged( const Diff2::DiffModel* model, const Diff2::Difference* diff );
+	void selectionChanged( const Diff2::Difference* diff );
 
 private slots:
 	void slotSrcDirTreeSelectionChanged ( QListViewItem* item );
@@ -66,14 +66,14 @@ private slots:
 
 	void slotApplyDifference( bool apply );
 	void slotApplyAllDifferences( bool apply );
-	void slotApplyDifference( const Difference* diff, bool apply );
+	void slotApplyDifference( const Diff2::Difference* diff, bool apply );
 
 	void buildTreeInMemory();
 
 private:
-	void setSelectedDir( const DiffModel* model );
-	void setSelectedFile( const DiffModel* model );
-	void setSelectedDifference( const Difference* diff );
+	void setSelectedDir( const Diff2::DiffModel* model );
+	void setSelectedFile( const Diff2::DiffModel* model );
+	void setSelectedDifference( const Diff2::Difference* diff );
 
 	void buildDirectoryTree();
 
@@ -86,61 +86,61 @@ private:
 //	KListViewItem* lastItem();
 
 private:
-	QSplitter*                  m_splitter;
-	const QPtrList<DiffModel>*  m_modelList;
+	QSplitter*                         m_splitter;
+	const QPtrList<Diff2::DiffModel>*  m_modelList;
 
-	QPtrDict<KChangeLVI>        m_diffToChangeItemDict;
-	QPtrDict<KFileLVI>          m_modelToFileItemDict;
-	QPtrDict<KDirLVI>           m_modelToSrcDirItemDict;
-	QPtrDict<KDirLVI>           m_modelToDestDirItemDict;
+	QPtrDict<KChangeLVI>               m_diffToChangeItemDict;
+	QPtrDict<KFileLVI>                 m_modelToFileItemDict;
+	QPtrDict<KDirLVI>                  m_modelToSrcDirItemDict;
+	QPtrDict<KDirLVI>                  m_modelToDestDirItemDict;
 
-	KListView*                  m_srcDirTree;
-	KListView*                  m_destDirTree;
-	KListView*                  m_fileList;
-	KListView*                  m_changesList;
+	KListView*                         m_srcDirTree;
+	KListView*                         m_destDirTree;
+	KListView*                         m_fileList;
+	KListView*                         m_changesList;
 
-	KDirLVI*                    m_srcRootItem;
-	KDirLVI*                    m_destRootItem;
+	KDirLVI*                           m_srcRootItem;
+	KDirLVI*                           m_destRootItem;
 
-	const DiffModel*            m_selectedModel;
-	const Difference*           m_selectedDifference;
+	const Diff2::DiffModel*            m_selectedModel;
+	const Diff2::Difference*           m_selectedDifference;
 };
 
 // These 3 classes are need to store the models into a tree so it is easier
 // to extract the info we need for the navigation widgets
 
-class KChangeLVI : public KListViewItem, private Kompare
+class KChangeLVI : public KListViewItem
 {
 public:
-	KChangeLVI( KListView* parent, Difference* diff );
+	KChangeLVI( KListView* parent, Diff2::Difference* diff );
 	~KChangeLVI();
 public:
-	Difference* difference() { return m_difference; };
+	Diff2::Difference* difference() { return m_difference; };
 	virtual int compare( QListViewItem* item, int column, bool ascending ) const;
 private:
-	Difference* m_difference;
+	Diff2::Difference* m_difference;
 };
 
-class KFileLVI : public KListViewItem, private Kompare
+class KFileLVI : public KListViewItem
 {
 public:
-	KFileLVI( KListView* parent, DiffModel* model );
+	KFileLVI( KListView* parent, Diff2::DiffModel* model );
 	~KFileLVI();
 public:
-	DiffModel* model() { return m_model; };
+	Diff2::DiffModel* model() { return m_model; };
 	void fillChangesList( KListView* changesList, QPtrDict<KChangeLVI>* diffToChangeItemDict );
 private:
-	DiffModel* m_model;
+	Diff2::DiffModel* m_model;
 };
 
-class KDirLVI : public KListViewItem, private Kompare
+class KDirLVI : public KListViewItem
 {
 public:
 	KDirLVI( KDirLVI* parent, QString& dir );
 	KDirLVI( KListView* parent, QString& dir );
 	~KDirLVI();
 public:
-	void addModel( QString& dir, DiffModel* model, QPtrDict<KDirLVI>* modelToDirItemDict );
+	void addModel( QString& dir, Diff2::DiffModel* model, QPtrDict<KDirLVI>* modelToDirItemDict );
 	QString& dirName() { return m_dirName; };
 	QString fullPath( QString& path );
 	KDirLVI* setSelected( QString dir );
@@ -149,7 +149,7 @@ public:
 private:
 	KDirLVI* findChild( QString dir );
 private:
-	QPtrList<DiffModel> m_modelList;
+	QPtrList<Diff2::DiffModel> m_modelList;
 	QString m_dirName;
 	bool m_rootItem;
 };

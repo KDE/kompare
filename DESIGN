@@ -1,3 +1,28 @@
+Kompare General design:
+
+Kompare is split up into 4 parts:
+- A shell around the parts
+- A library with the modellist and the parser
+- The navigation tree which uses the library
+- The view part that also uses the library
+
+The diffmodel is comparable to a document and the view part is comparable
+to the view and the komparemodellist is comparable to a documentmanager. 
+The navtree can be viewed as a document view manager.
+The model is fully separated from the view and all communication goes 
+through signals and slots. The view gets a model that contains all differences
+for the compared files A and B. The view gets this model from the modellist,
+the central entity in the part.
+
+There is an interface to the komparepart that can be used in other programs, 
+simply link to the libkompareinterface.la and call its methods after you have 
+instanciated a komparepart. There is also a "hidden" signal and slot interface 
+that can be connected to from the shell app to get some information, and an 
+interface for communication between the navigation part and the komparepart.
+
+There is no need to use the interface for the communication between the 
+navigation and kompare parts in the shell app.
+
 Kompare has some debug areas:
 
 8100        kompare

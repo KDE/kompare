@@ -28,7 +28,7 @@
 
 #include "kompare.h"
 
-class SettingsBase : public QObject, public Kompare
+class SettingsBase : public QObject
 {
 Q_OBJECT
 public:

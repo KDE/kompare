@@ -2,8 +2,10 @@
                           kompareconnectwidget.h  -  description
                              -------------------
     begin                : Tue Jun 26 2001
-    copyright            : (C) 2001 by John Firebaugh
+    copyright            : (C) 2001-2003 by John Firebaugh
+                           and Otto Bruggeman
     email                : jfirebaugh@kde.org
+                           otto.bruggeman@home.nl
  ***************************************************************************/
 
 /***************************************************************************
@@ -20,8 +22,8 @@
 
 #include <qwidget.h>
 
-class DiffModel;
-class GeneralSettings;
+class Diff2::DiffModel;
+class ViewSettings;
 class KompareListView;
 class KompareView;
 
@@ -31,17 +33,17 @@ class KompareConnectWidget : public QWidget
 
 public:
 	KompareConnectWidget( KompareListView* left, KompareListView* right,
-	      GeneralSettings* settings, KompareView* parent, const char* name=0);
+	      ViewSettings* settings, KompareView* parent, const char* name=0);
 	~KompareConnectWidget();
 
 	QSize sizeHint() const;
 
 public slots:
-	void slotSetSelection( const DiffModel* model, const Difference* diff );
-	void slotSetSelection( const Difference* diff );
+	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
+	void slotSetSelection( const Diff2::Difference* diff );
 
 signals:
-	void selectionChanged(const Difference* diff);
+	void selectionChanged(const Diff2::Difference* diff);
 
 protected:
 	void paintEvent( QPaintEvent* e );
@@ -50,14 +52,14 @@ protected:
 	QPointArray makeConnectPoly( const QPointArray& topBezier, const QPointArray& bottomBezier );
 
 private:
-	GeneralSettings*   m_settings;
+	ViewSettings*             m_settings;
 
-	KompareView*       m_diffView;
-	KompareListView*   m_leftView;
-	KompareListView*   m_rightView;
+	KompareView*              m_diffView;
+	KompareListView*          m_leftView;
+	KompareListView*          m_rightView;
 
-	const DiffModel*   m_selectedModel;
-	const Difference*  m_selectedDifference;
+	const Diff2::DiffModel*   m_selectedModel;
+	const Diff2::Difference*  m_selectedDifference;
 };
 
 #endif

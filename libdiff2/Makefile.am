@@ -19,8 +19,13 @@ libdiff2_la_SOURCES = \
 	komparemodellist.cpp \
 	diffmodel.cpp \
 	difference.cpp \
-	diffhunk.cpp
+	diffhunk.cpp \
+	parser.cpp \
+	parserbase.cpp \
+	cvsdiffparser.cpp \
+	diffparser.cpp \
+	perforceparser.cpp
 
 libdiff2_la_LDFLAGS = $(all_libraries)
-libdiff2_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE)
+libdiff2_la_LIBADD  = $(LIB_KFILE)
 

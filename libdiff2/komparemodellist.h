@@ -2,8 +2,10 @@
                           komparemodellist.h  -  description
                              -------------------
     begin                : Tue Jun 26 2001
-    copyright            : (C) 2001 by John Firebaugh
+    copyright            : (C) 2001-2003 by John Firebaugh
+                           and Otto Bruggeman
     email                : jfirebaugh@kde.org
+                           otto.bruggeman@home.nl
  ***************************************************************************/
 
 /***************************************************************************
@@ -28,40 +30,51 @@
 
 class QFile;
 
+class KDirWatch;
 class KTempFile;
 
 class DiffSettings;
+class ViewSettings;
 class KompareProcess;
 
-class KompareModelList : public QObject, Kompare
+namespace Diff2
+{
+
+class KompareModelList : public QObject
 {
 	Q_OBJECT
-
 public:
-	KompareModelList();
+	KompareModelList( DiffSettings* diffSettings, ViewSettings* viewSettings, QObject* parent = 0, char* name = 0 );
 	~KompareModelList();
 
-	bool compare( const KURL& source, const KURL& destination );
+	bool compareFiles( const KURL& source, const KURL& destination );
+	bool compareDirs( const KURL& source, const KURL& destination );
 	bool saveDestination( const DiffModel* model );
 
 	bool openDiff( const KURL& url );
-	bool saveDiff( const KURL& url, QString directory, DiffSettings* settings );
+	bool saveDiff( const KURL& url, QString directory, DiffSettings* diffSettings, ViewSettings* viewSettings );
 	bool saveAll();
 
+	// This parses the difflines and creates new models
+	int parseDiffOutput( const QStringList& lines );
+	// Call this to emit the signals to the rest of the "world" to show the diff
+	void show();
+	// This will blend the original URL (dir or file) into the diffmodel,
+	// this is like patching but with a twist
+	bool blendOriginalIntoModelList( QString localURL );
+	// Swap source with destination and show differences
 	void swap();
 
-	enum Kompare::Mode          mode() const
-	    { return m_mode; };
-	enum Kompare::Format        format() const
-	    { return m_format; };
-	const QPtrList<DiffModel>&  models() const
-	    { return m_models; };
-	int                         modelCount() const
-	    { return m_models.count(); };
-	DiffModel*                  modelAt( int i ) const
-	    { return const_cast<KompareModelList*>(this)->m_models.at( i ); };
-	int                         findModel( DiffModel* model ) const
-	    { return const_cast<KompareModelList*>(this)->m_models.find( model ); };
+	enum Kompare::Mode          mode()   const { return m_mode; };
+	enum Kompare::Format        format() const { return m_format; };
+	const QPtrList<DiffModel>*  models() const { return m_models; };
+
+	int                         modelCount() const;
+	int                         differenceCount() const;
+	int                         appliedCount() const;
+
+	DiffModel*                  modelAt( int i ) const { return const_cast<KompareModelList*>(this)->m_models->at( i ); };
+	int                         findModel( DiffModel* model ) const { return const_cast<KompareModelList*>(this)->m_models->find( model ); };
 
 	QString                     sourceTemp() const      { return m_sourceTemp; };
 	QString                     destinationTemp() const { return m_destinationTemp; };
@@ -72,24 +85,34 @@ public:
 
 	bool                        isModified() const;
 
-	int selectedModelIndex()      { return m_selectedModel ? m_selectedModel->index() : -1; };
-	int selectedDifferenceIndex() { return m_selectedModel ? m_selectedModel->findDifference( m_selectedDifference ) : -1; };
+	int currentModel() const      { return const_cast<KompareModelList*>(this)->m_models->find( m_selectedModel ); };
+	int currentDifference() const { return m_selectedModel ? m_selectedModel->findDifference( m_selectedDifference ) : -1; };
 
 	const DiffModel* selectedModel() const       { return m_selectedModel; };
 	const Difference* selectedDifference() const { return m_selectedDifference; };
+
+	// clear the models (needs to be public if the part is reused)
+	void clear();
+
+protected:
+	bool blendFile( DiffModel* model, const QStringList& lines );
+
 signals:
 	void status( Kompare::Status status );
 	void error( QString error );
-	void modelsChanged( const QPtrList<DiffModel>* models );
-	void setSelection( const DiffModel* model, const Difference* diff );
-	void setSelection( const Difference* diff );
+	void modelsChanged( const QPtrList<Diff2::DiffModel>* models );
+	void setSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
+	void setSelection( const Diff2::Difference* diff );
 	void applyDifference( bool apply );
 	void applyAllDifferences( bool apply );
-	void applyDifference( const Difference* diff, bool apply );
+	void applyDifference( const Diff2::Difference* diff, bool apply );
+
+	// Emits true when m_noOfModified > 0, false when m_noOfModified == 0
+	void setModified( bool modified );
 
 public slots:
-	void slotSelectionChanged( const DiffModel* model, const Difference* diff );
-	void slotSelectionChanged( const Difference* diff );
+	void slotSelectionChanged( const Diff2::DiffModel* model, const Diff2::Difference* diff );
+	void slotSelectionChanged( const Diff2::Difference* diff );
 
 	void slotApplyDifference( bool apply );
 	void slotApplyAllDifferences( bool apply );
@@ -98,22 +121,24 @@ public slots:
 	void slotPreviousDifference();
 	void slotNextDifference();
 
+	// This slot is called by the diffmodels whenever their status changes to modified or unmodified
+	void slotSetModified( bool modified );
 
 protected slots:
 	void slotDiffProcessFinished( bool success );
 	void slotWriteDiffOutput( bool success );
 
-private:
-	int parseDiffOutput    ( const QStringList& lines );
-	int determineDiffFormat( const QStringList& lines );
-	int determineType      ( const QStringList& lines, enum Kompare::Format format );
-	QPtrList<DiffModel> splitFiles( const QStringList& lines, bool split );
-	void clear();
-	int createModel( QStringList* file, int* modelIndex );
+private slots:
+	void slotDirectoryChanged( const QString& );
+	void slotFileChanged( const QString& );
 
 private:
 	KompareProcess*      m_diffProcess;
-	QPtrList<DiffModel>  m_models;
+
+	DiffSettings*        m_diffSettings;
+	ViewSettings*        m_viewSettings;
+
+	QPtrList<DiffModel>* m_models;
 
 	KURL                 m_sourceURL;
 	KURL                 m_destinationURL;
@@ -125,13 +150,20 @@ private:
 
 	enum Kompare::Format m_format;
 	enum Kompare::Mode   m_mode; // reading from a DiffFile or Comparing in Kompare
-	enum Kompare::Type   m_type; // single, multi and diff or cvsdiff
+	enum Kompare::Type   m_type; // single or multi
 
 	DiffModel*     m_selectedModel;
 	Difference*    m_selectedDifference;
-	
+
 	QPtrListIterator<DiffModel>*  m_modelIt;
 	QPtrListIterator<Difference>* m_diffIt;
+
+	KDirWatch* m_dirWatch;
+	KDirWatch* m_fileWatch;
+
+	int m_noOfModified;
 };
+
+} // End of namespace Diff2
 
 #endif

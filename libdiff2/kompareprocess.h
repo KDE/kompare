@@ -2,12 +2,12 @@
                                 kompareprocess.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -25,36 +25,40 @@
 #include "kompare.h"
 
 class DiffSettings;
+class ViewSettings;
 
-class KompareProcess : public KProcess, Kompare
+class KompareProcess : public KProcess, public KompareFunctions
 {
 	Q_OBJECT
-	
+
 public:
-	KompareProcess( QString source, QString destination, QString directory = QString::null, DiffSettings* settings = 0 );
+	KompareProcess( DiffSettings* diffSettings, ViewSettings* viewSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString directory = QString::null );
 	~KompareProcess();
-	
+
 	bool start();
-	
+
 	const QStringList  diffOutput();
 	QString            stdOut()       { return m_stdout; };
 	QString            stdErr()       { return m_stderr; };
-	
+
 signals:
 	void diffHasFinished( bool finishedNormally );
-	
+
 protected:
 	void writeDefaultCommandLine();
-	void writeCommandLine( DiffSettings* settings );
-	
+	void writeCommandLine();
+
 protected slots:
-	void receivedStdout( KProcess*, char*, int );
-	void receivedStderr( KProcess*, char*, int );
-	void processExited( KProcess* proc );
-	
+	void slotReceivedStdout( KProcess*, char*, int );
+	void slotReceivedStderr( KProcess*, char*, int );
+	void slotProcessExited( KProcess* proc );
+
 private:
-	QString      m_stdout;
-	QString      m_stderr;
+	DiffSettings*          m_diffSettings;
+	ViewSettings*          m_viewSettings;
+	enum Kompare::DiffMode m_mode;
+	QString                m_stdout;
+	QString                m_stderr;
 };
 
 #endif

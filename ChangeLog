@@ -1,12 +1,106 @@
+Aug    22, 2003 : Otto Bruggeman
+	* Fixed converting tabs to spaces in the view, i totally screwed up
+	* View settings now get applied to the view after pressing ok.
+	  (Maybe i should make them apply on APlly instead of OK)
+
+Aug    13, 2003 : Otto Bruggeman
+	* Komkommertijd :) InitialPreference=10 for kompare.desktop as
+	  requested
+
+Aug    10, 2003 : Otto Bruggeman
+	* Backported Helge Deller's changes from head to make_it_cool
+	  (kompare_shell.cpp 1.33 -> 1.34). This is about roaming user fixes.
+	  Thanks Helge !
+
+July   19, 2003 : Otto Bruggeman
+	* Backported Ingo Klocker's changes from head to make_it_cool
+	  (kompare_shell.cpp 1.34 -> 1.35). This is about being able to
+	  configure the shortcuts from kompare_part as well. Thanks Ingo !
+1
+June   29, 2003 : Otto Bruggeman
+        * Fixed bug 58144 by adding a check for comparing dirs, in that case
+          destinationURL is a directory and not a file name so we need to
+          recreate the filename. This involved changing some code to use a
+          different enum value, so i hope i did it the right way, session
+          management may be broken now when the session was stored with 3.1.2
+          and restarted with 3.1.3. But that is unfortunately unfixable with a
+          kconf_update script.
+
+June   29, 2003 : Otto Bruggeman
+	* Removed a lot of commented code since it is no longer used and will
+	  never be used again.
+	* Added 2 methods to the interface: openDiff3(KURL) and 
+	  openDiff3(QStringList)
+	* Fixed context diff parsing as indicated in bugreport 57774
+	  (the example works now, hope there are no regressions)
+	* Removed all references to MiscSettings and MiscPrefs.
+	  These classes will disappear RSN.
+	* Fixed the history saving of the urls in the kompare dialog
+	* Parser is no longer a static class but one that needs to be
+	  instanciated
+	* Added ViewSettings to KompareProcess, maybe it is better to merge the
+	  diff and view settings into one class.
+
+May     3, 2003 : Otto Bruggeman
+	* Implemented support for -I in the regular diff options (the one in
+	  the kompare options dialog)
+	* Fixed the braindamage i created in main.cpp so that kompare no
+	  longer stalls because of a missing mainwindow
+	* Made the kcomparedialog more generic and renamed it to
+	  kompareurldialog so i can reuse it for blending too
+	* Removed some braindamage in the kompare/Makefile.am
+	* Some compile fixes because of changes to the CXXFLAGS
+	  (QRegExp::match cant be used anymore, and some other old style stuff)
+	* Added an action to the menu for blending
+	* moved Open file (or in this case Open Diff) to the top of the file
+	  menu
+	* Fixed the accel conflict in the file menu between open diff and
+	  compare files
+
+Apr    30, 2003 : Otto Bruggeman
+	* Implemented blending of a diff file with the original file
+	* Renamed General* View* (more appropriate)
+	* Renamed m_models into m_modelList since it is more appropriate in komparepart
+	* Small fixes to the view, but they break more than they fix :(
+	* Added commandline options for comparing, opening a diff file and
+	  blending
+
+Apr    20, 2003 : Otto Bruggeman
+	* Fixed bug 54264 with a statusbar that gets too wide when long
+	  filenames are used
+	* Fixed the missing endline problem in the parser (bug 56552)
+	* Fixed all copyright years (probably too many but hey i'll change
+	  those files some time this year so it will be valid :P)
+	* Added support for using a different diff program (Bug 55573)
+	* Added support for using a different tabsize in the viewer (Bug 38776)
+	* The interface is now final i guess so this fixes bug 42849, not
+	  every method is implemented but i'll get to them eventually.
+
+Apr    19, 2003 : Otto Bruggeman
+	* Fixed bug 56322 where openURL did not clear the models when called
+	  again with a new diff
+
+Aug     9, 2002 : Otto Bruggeman
+	* Fixed the whatsthis text for the compare button in the compare dialog
+	* Fixed the history of the comboboxes in the compare dialog
+	* Put the komparemodellist and all needed classes in a Diff2 namespace
+	* Implemented a better parser design (see parser.cpp/h)
+	* Removed the need to directly link to the komparepart for the shellapp
+	* Removed the need to link directly to the komparepart for the navigationpart
+	* Added support for perforce diffs in the new Parser classes
+	* Added a push design for the modified status instead of a pull design
+	* Added an interface to the Komparepart so people can use that to
+	  reuse the komparepart
+
 Jul    15, 2002 : Otto Bruggeman
 	* Fixed normal diff a bit more, filenames dont work yet
 	* Removed some code duplication
 	* Fixed diff output parsing with Common subdirectories in it
-	* Fixed Copyright years (thanks Carsten Niehaus)
+	* Fixed Copyright years in the about box (thanks Carsten Niehaus)
 	* Removed the KShellProcess and replaced it with a KProcess
 
 Feb    18, 2002 : Otto Bruggeman
-	* Fixed scrolling with a wheel mouse in the kompare(list)view and 
+	* Fixed scrolling with a wheel mouse in the kompare(list)view and
 	  connectwidget and added a config option for the number of lines
 	  that is scrolled per wheelscroll.
 	* Fixed the history somehow in the compare dialog.
@@ -22,7 +116,7 @@ Jan    10, 2002 : Otto Bruggeman
 	Known bug here is that directories need a trailing slash :(
 
 Oct    07, 2001 : Otto Bruggeman
-	Fix crash when part is not found, basically dont use kapp->quit() 
+	Fix crash when part is not found, basically dont use kapp->quit()
 	but use exit(int). Would be interested to know why it crashes though,
 	the bt gave nothing meaningful here. I should have compiled kompare with
 	debug code.
@@ -55,7 +149,7 @@ Jul    28, 2001 : John Firebaugh
 	Save all.
 
 Jul    25, 2001 : John Firebaugh
-	Promt to save changes on close
+	Prompt to save changes on close
 	Show [modified] caption
 	Clean up internal save mechanism
 
@@ -134,7 +228,7 @@ Apr    04, 2001 : Otto Bruggeman
 	Normal format works as well
 
 Apr    04, 2001 : Otto Bruggeman
-	Finally implemented the preferences menu... i still lack some nice 
+	Finally implemented the preferences menu... i still lack some nice
 	icons for it but that will be solved in the near future...
 
 Mar    25, 2001 : Otto Bruggeman

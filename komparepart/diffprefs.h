@@ -2,12 +2,12 @@
                                 diffprefs.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -25,6 +25,8 @@
 #include <qvbuttongroup.h>
 #include <qwidget.h>
 
+#include <kurlrequester.h>
+
 #include "diffsettings.h"
 #include "prefsbase.h"
 #include "settingsbase.h"
@@ -37,9 +39,6 @@ public:
 	~DiffPrefs();
 
 public:
-	DiffSettings* m_settings;
-
-public:
 	void setSettings( DiffSettings* );
 	DiffSettings* settings( void );
 
@@ -48,18 +47,31 @@ public:
 	virtual void apply();
 	virtual void setDefaults();
 
-public:
-	// loc == lines of context
-	QSpinBox* m_locSpinBox;
+protected slots:
+	void slotShowRegExpEditor();
 
-	QCheckBox* m_smallerCheckBox;
-	QCheckBox* m_largerCheckBox;
-	QCheckBox* m_tabsCheckBox;
-	QCheckBox* m_caseCheckBox;
-	QCheckBox* m_linesCheckBox;
-	QCheckBox* m_whitespaceCheckBox;
+public:
+	DiffSettings* m_settings;
+
+	KURLRequester* m_urlRequester;
+
+	QCheckBox*   m_smallerCheckBox;
+	QCheckBox*   m_largerCheckBox;
+	QCheckBox*   m_tabsCheckBox;
+	QCheckBox*   m_caseCheckBox;
+	QCheckBox*   m_linesCheckBox;
+	QCheckBox*   m_whitespaceCheckBox;
+
+	QCheckBox*   m_ignoreRegExpCheckBox;
+	KLineEdit*   m_ignoreRegExpEdit;
+	QStringList* m_ignoreRegExpEditHistory;
+	QDialog*     m_ignoreRegExpDialog;
+
+	// loc == lines of context
+	QSpinBox*  m_locSpinBox;
 
 	QVButtonGroup* m_modeButtonGroup;
+	QVButtonGroup* m_diffProgramGroup;
 };
 
 #endif

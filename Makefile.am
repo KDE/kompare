@@ -1,12 +1,8 @@
-SUBDIRS = libdiff2 komparenavtreepart komparepart pics
+SUBDIRS = interfaces libdiff2 komparenavtreepart komparepart pics
 
-INCLUDES= \
-	-I$(srcdir)/libdiff2 \
-	-I$(srcdir)/komparenavtreepart \
-	-I$(srcdir)/komparepart \
-	$(all_includes)
+INCLUDES = -I$(srcdir)/libdiff2 -I$(srcdir)/komparenavtreepart -I$(srcdir)/komparepart -I$(srcdir)/interfaces $(all_includes)
 
-noinst_HEADERS =  kompare_shell.h
+noinst_HEADERS =  kompare_shell.h kompareurldialog.h
 
 # let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
@@ -25,16 +21,16 @@ KDE_ICON = AUTO
 bin_PROGRAMS = kompare
 
 # the application source, library search path, and link libraries
-kompare_SOURCES = main.cpp kompare_shell.cpp kcomparedialog.cpp
+kompare_SOURCES = main.cpp kompare_shell.cpp kompareurldialog.cpp
 kompare_LDFLAGS = $(all_libraries)
 kompare_LDADD   = $(LIB_KPARTS) komparepart/libkomparepart.la
 
 # this is where the desktop file will go
-shelldesktopdir   = $(kde_appsdir)/Development
+shelldesktopdir = $(kde_appsdir)/Development
 shelldesktop_DATA = kompare.desktop
 
 # this is where the shell's XML-GUI resource file goes
-shellrcdir   = $(kde_datadir)/kompare
+shellrcdir = $(kde_datadir)/kompare
 shellrc_DATA = kompareui.rc
 
 kompareservicedir = $(kde_servicetypesdir)

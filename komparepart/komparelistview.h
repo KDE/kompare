@@ -2,7 +2,7 @@
                                 komparelistview.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
@@ -25,47 +25,50 @@
 
 #include <klistview.h>
 
-class DiffModel;
-class DiffHunk;
-class Difference;
-class GeneralSettings;
+class Diff2::DiffModel;
+class Diff2::DiffHunk;
+class Diff2::Difference;
+class ViewSettings;
 class KompareListViewItem;
 class KompareListViewDiffItem;
 class KompareListViewLineContainerItem;
-class KompareModelList;
+class Diff2::KompareModelList;
 
 class KompareListView : public KListView
 {
 	Q_OBJECT
 
 public:
-	KompareListView( bool isSource, GeneralSettings* settings, QWidget* parent, const char* name = 0 );
+	KompareListView( bool isSource, ViewSettings* settings, QWidget* parent, const char* name = 0 );
 	virtual ~KompareListView();
-	
+
 	KompareListViewItem* itemAtIndex( int i );
 	int                  firstVisibleDifference();
 	int                  lastVisibleDifference();
 	QRect                itemRect( int i );
 	int                  minScrollId();
 	int                  maxScrollId();
-	
+
 	bool                 isSource() const { return m_isSource; };
-	GeneralSettings*     settings() const { return m_settings; };
-	
-	void setSelectedDifference( const Difference* diff, bool scroll );
-	
+	ViewSettings*        settings() const { return m_settings; };
+
+	void setSelectedDifference( const Diff2::Difference* diff, bool scroll );
+
+	const QString& spaces() const { return m_spaces; };
+
 public slots:
-	void slotSetSelection( const DiffModel* model, const Difference* diff );
-	void slotSetSelection( const Difference* diff );
+	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
+	void slotSetSelection( const Diff2::Difference* diff );
 	void setXOffset( int x );
 	void scrollToId( int id );
 	int  scrollId();
 	void slotApplyDifference( bool apply );
 	void slotApplyAllDifferences( bool apply );
-	void slotApplyDifference( const Difference* diff, bool apply );
+	void slotApplyDifference( const Diff2::Difference* diff, bool apply );
+	void slotConfigChanged();
 
 signals:
-	void differenceClicked( const Difference* diff );
+	void differenceClicked( const Diff2::Difference* diff );
 
 protected:
 	void wheelEvent( QWheelEvent* e );
@@ -78,12 +81,13 @@ private:
 	QPtrList<KompareListViewDiffItem>  m_items;
 	QPtrDict<KompareListViewDiffItem>  m_itemDict;
 	bool                               m_isSource;
-	GeneralSettings*                   m_settings;
+	ViewSettings*                      m_settings;
 	int                                m_maxScrollId;
 	int                                m_scrollId;
 	int                                m_maxMainWidth;
-	const DiffModel*                   m_selectedModel;
-	const Difference*                  m_selectedDifference;
+	const Diff2::DiffModel*            m_selectedModel;
+	const Diff2::Difference*           m_selectedDifference;
+	QString                            m_spaces;
 };
 
 class KompareListViewItem : public QListViewItem
@@ -93,37 +97,37 @@ public:
 	KompareListViewItem( KompareListView* parent, KompareListViewItem* after );
 	KompareListViewItem( KompareListViewItem* parent );
 	KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* after );
-	
+
 	void paintFocus( QPainter* p, const QColorGroup& cg, const QRect& r );
 	int scrollId() { return m_scrollId; };
-	
+
 	virtual int maxHeight() = 0;
-	
+
 	KompareListView* kompareListView() const;
-	
+
 private:
-	int               m_scrollId;
+	int     m_scrollId;
 };
 
 class KompareListViewDiffItem : public KompareListViewItem
 {
 public:
-	KompareListViewDiffItem( KompareListView* parent, Difference* difference );
-	KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Difference* difference );
-	
+	KompareListViewDiffItem( KompareListView* parent, Diff2::Difference* difference );
+	KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Diff2::Difference* difference );
+
 	void setup();
 	void setSelected( bool b );
 	void applyDifference( bool apply );
 
-	Difference* difference() { return m_difference; };
-	
+	Diff2::Difference* difference() { return m_difference; };
+
 	int maxHeight();
-	
+
 private:
 	void init();
 	void setVisibility();
-	
-	Difference* m_difference;
+
+	Diff2::Difference* m_difference;
 	KompareListViewLineContainerItem* m_sourceItem;
 	KompareListViewLineContainerItem* m_destItem;
 };
@@ -132,16 +136,16 @@ class KompareListViewLineContainerItem : public KompareListViewItem
 {
 public:
 	KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource );
-	
+
 	void setup();
 	int maxHeight() { return 0; }
 	KompareListViewDiffItem* diffItemParent() const;
-	
+
 private:
 	int lineCount() const;
 	int lineNumber() const;
 	QString lineAt( int i ) const;
-	
+
 	bool m_isSource;
 };
 
@@ -149,13 +153,13 @@ class KompareListViewLineItem : public KompareListViewItem
 {
 public:
 	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, const QString& text );
-	
+
 	virtual void setup();
 	int maxHeight() { return 0; }
-	
+
 	virtual void paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align );
 	virtual void paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align );
-	
+
 	KompareListViewDiffItem* diffItemParent() const;
 };
 
@@ -163,25 +167,25 @@ class KompareListViewBlankLineItem : public KompareListViewLineItem
 {
 public:
 	KompareListViewBlankLineItem( KompareListViewLineContainerItem* parent );
-	
+
 	void setup();
-	
+
 	void paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align );
 };
 
 class KompareListViewHunkItem : public KompareListViewItem
 {
 public:
-	KompareListViewHunkItem( KompareListView* parent, DiffHunk* hunk );
-	KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, DiffHunk* hunk );
-	
+	KompareListViewHunkItem( KompareListView* parent, Diff2::DiffHunk* hunk );
+	KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, Diff2::DiffHunk* hunk );
+
 	void setup();
 	void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );
-	
+
 	int maxHeight();
-	
-private:	
-	DiffHunk* m_hunk;
+
+private:
+	Diff2::DiffHunk* m_hunk;
 };
 
 #endif

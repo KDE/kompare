@@ -2,12 +2,12 @@
                                 kompareprefdlg.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -27,23 +27,19 @@
 
 // implementation
 
-KomparePrefDlg::KomparePrefDlg( GeneralSettings* genSets, DiffSettings* diffSets, MiscSettings* miscSets ) : KDialogBase( IconList, i18n( "Preferences" ), Help|Default|Ok|Apply|Cancel, Ok, 0, 0, true, true )
+KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets ) : KDialogBase( IconList, i18n( "Preferences" ), Help|Default|Ok|Apply|Cancel, Ok, 0, 0, true, true )
 {
 	// ok i need some stuff in that pref dlg...
 	setIconListAllVisible(true);
 
 	QVBox* frame;
-	frame = addVBoxPage( i18n( "General" ), i18n( "General Settings" ), UserIcon( "diff_general" ) );
-	m_generalPage = new GeneralPrefs( frame );
-	m_generalPage->setSettings( genSets );
+	frame = addVBoxPage( i18n( "View" ), i18n( "View Settings" ), UserIcon( "diff_view" ) );
+	m_viewPage = new ViewPrefs( frame );
+	m_viewPage->setSettings( viewSets );
 
 	frame = addVBoxPage( i18n( "Diff" ), i18n( "Diff Settings" ), UserIcon( "diff_specific" ) );
 	m_diffPage = new DiffPrefs( frame );
 	m_diffPage->setSettings( diffSets );
-
-//	frame = addVBoxPage( i18n( "Misc" ), i18n( "Miscellaneous Settings" ), DesktopIcon( "misc" ) );
-//	m_miscPage = new MiscPrefs( frame );
-//	m_miscPage->setSettings( miscSets );
 
 //	frame = addVBoxPage( i18n( "" ), i18n( "" ), UserIcon( "" ) );
 
@@ -58,11 +54,10 @@ KomparePrefDlg::~KomparePrefDlg()
 /** No descriptions */
 void KomparePrefDlg::slotDefault()
 {
-	kdDebug() << "SlotDefault called -> Settings should be restored to defaults..." << endl;
+	kdDebug(8103) << "SlotDefault called -> Settings should be restored to defaults..." << endl;
 	// restore all defaults in the options...
-	m_generalPage->setDefaults();
+	m_viewPage->setDefaults();
 	m_diffPage->setDefaults();
-//	m_miscPage->setDefaults();
 }
 
 /** No descriptions */
@@ -76,21 +71,19 @@ void KomparePrefDlg::slotHelp()
 /** No descriptions */
 void KomparePrefDlg::slotApply()
 {
-	kdDebug() << "SlotApply called -> Settings should be applied..." << endl;
+	kdDebug(8103) << "SlotApply called -> Settings should be applied..." << endl;
 	// well apply the settings that are currently selected
-	m_generalPage->apply();
+	m_viewPage->apply();
 	m_diffPage->apply();
-//	m_miscPage->apply();
 }
 
 /** No descriptions */
 void KomparePrefDlg::slotOk()
 {
-	kdDebug() << "SlotOk called -> Settings should be applied..." << endl;
+	kdDebug(8103) << "SlotOk called -> Settings should be applied..." << endl;
 	// Apply the settings that are currently selected
-	m_generalPage->apply();
+	m_viewPage->apply();
 	m_diffPage->apply();
-//	m_miscPage->apply();
 
 	KDialogBase::slotOk();
 }
@@ -99,9 +92,8 @@ void KomparePrefDlg::slotOk()
 void KomparePrefDlg::slotCancel()
 {
 	// discard the current settings and use the present ones
-	m_generalPage->restore();
+	m_viewPage->restore();
 	m_diffPage->restore();
-//	m_miscPage->restore();
 
 	KDialogBase::slotCancel();
 }

@@ -1,18 +1,39 @@
+!!! Must do before a merge back into HEAD !!!
+* Write a kconfupdate script to convert the kconfigfile
+  * the diff options now have their own group
+  * the view options now have their own group
+  * the Recent Files group has been renamed to Recent Compare Files
+
+Extremely important:
+* Fix the state of the actions when there are multiple files in the modellist!
+
+Very important:
+* Make sure unified and context actually work again !
+* Implement the rest of the interface (compare3 etc.)
+* Make sure the rest works too ! Still some problems parsing some files
+* Other various things that need to be fixed asap (before 3.2 is released)
+
 In descending order of importance:
-* fix some drawing bugs in the connection widget
-* patch functionality (including blending)
-* intra-line diffing
-* add support for handediting conflicts or is this what you meant with blending?
-* session management
-* implement ed and rcs format
+* fix some drawing bugs in the connection widget (still some left, damn it)
+* in-line diffing
+* add support for handediting conflicts
+* session management (should almost work)
+* implement normal, ed and rcs format (normal got busted)
 * merge text view GUI
-* clicking in the connect widget should select a difference
+* clicking in the connect widget should select a difference (tricky!)
 * add support for incremental patch saving (i'll explain if anyone wants to know)
 * Add support for diff3 (that is comparing 3 files at once)
-* Add a kompare manual/document (partially done)
+* Add a kompare manual/document
+
 Special requests:
 Puetzk:
-* Allow a directory to be magically patched with a diff file and show the full differences
 * Editing the TO pane
 Falk:
 * Allow only part of a change to be applied to the other file
+Harlekin:
+* Add search functionality, either in source, dest or both at the same time
+HarryF:
+* emit clicked() signal when on a diff with line number
+aseigo:
+* merge from dest to source instead of only from source to dest
+(Workaround: swap source with destination and then apply the differences)

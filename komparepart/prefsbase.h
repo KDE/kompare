@@ -28,7 +28,7 @@
 
 #include "kompare.h"
 
-class PrefsBase : public KTabCtl, public Kompare
+class PrefsBase : public KTabCtl
 {
 Q_OBJECT
 public: 

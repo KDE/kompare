@@ -2,12 +2,12 @@
                                 difference.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -19,8 +19,10 @@
 
 #include "difference.h"
 
-Difference::Difference( int sourceLineNo, int destinationLineNo ) :
-	m_type( Unchanged ),
+using namespace Diff2;
+
+Difference::Difference( int sourceLineNo, int destinationLineNo, enum Difference::Type type ) :
+	m_type( type ),
 	m_sourceLineNo( sourceLineNo ),
 	m_destinationLineNo( destinationLineNo ),
 	m_applied( false )

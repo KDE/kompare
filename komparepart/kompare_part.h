@@ -2,12 +2,12 @@
                                 kompare_part.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -27,32 +27,37 @@
 #include "kompare.h"
 #include "komparemodellist.h"
 
+#include "kompareinterface.h"
+
 class QWidget;
 
 class KToggleAction;
 class KURL;
 
-class Difference;
+class Diff2::Difference;
 class DiffSettings;
-class GeneralSettings;
+class ViewSettings;
 class KFileTreeView;
 class KompareView;
 class KompareNavigationTree;
 class DifferencesAction;
+class Diff2::KompareModelList;
 class KompareProcess;
 class KompareStatsDlg;
 class KompareActions;
 class MiscSettings;
 
 /**
-* This is a "Part".  It that does all the real work in a KPart
-* application.
-*
-* @short Main Part
-* @author John Firebaugh <jfirebaugh@kde.org>
-* @version 0.1
-*/
-class KomparePart : public KParts::ReadWritePart, Kompare
+ * This is a "Part".  It does all the real work in a KPart
+ * application.
+ *
+ * @short Main Part
+ * @author John Firebaugh <jfirebaugh@kde.org>
+ * @author Otto Bruggeman <bruggie@home.nl>
+ * @version 0.2
+ */
+class KomparePart : public KParts::ReadWritePart,
+                    public KompareInterface
 {
 	Q_OBJECT
 public:
@@ -60,40 +65,88 @@ public:
 	* Default constructor
 	*/
 	KomparePart( QWidget *parentWidget, const char *widgetName,
-	           QObject *parent, const char *name);
+	             QObject *parent, const char *name);
 
 	/**
 	* Destructor
 	*/
 	virtual ~KomparePart();
 
-	bool askSaveChanges();
-	
-	int selectedDifferenceIndex();
-	int selectedModelIndex();
-	int differenceCount();
-	int appliedCount();
+	// Sessionmanagement stuff, added to the kompare iface
+	// because they are not in the Part class where they belong
+	// Should be added when bic changes are allowed again (kde 4.0)
+	virtual int readProperties( KConfig *config );
+	virtual int saveProperties( KConfig *config );
+	// this one is called when the shell_app is about to close.
+	// we need it now to save the properties of the part  when apps dont (can't)
+	// use the readProperties and saveProperties methods
+	virtual bool queryClose();
 
-	void loadSettings(KConfig *config);
-	void saveSettings(KConfig *config);
-
-	int modelCount() const
-		{ return m_models->modelCount(); };
-
-	bool isModified() const { return m_models->isModified(); };
-	const KompareModelList* model() const { return m_models; };
+	// bool isModified() const { return m_modelList->isModified(); };
+	// Do we really want to expose this ???
+	const Diff2::KompareModelList* model() const { return m_modelList; };
 	/** Returns the url to the open diff file, or a url to a temporary
 	    diff file if we are comparing files. */
-	KURL diffURL();
+	KURL diffURL(); // why ? url() from the ReadOnlyPart does the same...
 
+public:
+	// Reimplemented from the KompareInterface
+	/**
+	 * Open and parse the diff file at diffUrl.
+	 */
+	virtual bool openDiff( const KURL& diffUrl );
+
+	/** Added on request of Harald Fernengel */
+	virtual bool openDiff( const QString& diffOutput );
+
+	/** Open and parse the diff3 file at diff3Url */
+	virtual bool openDiff3( const KURL& diff3URL );
+
+	/** Open and parse the file diff3Output with the output of diff3 */
+	virtual bool openDiff3( const QString& diff3Output );
+
+	/** Compare, with diff, source with destination */
+	virtual void compareFiles( const KURL& sourceFile, const KURL& destinationFile );
+
+	/** Compare, with diff, source with destination */
+	virtual void compareDirs ( const KURL& sourceDir, const KURL& destinationDir );
+
+	/** Compare, with diff3, originalFile with changedFile1 and changedFile2 */
+	virtual void compare3Files( const KURL& originalFile, const KURL& changedFile1, const KURL& changedFile2 );
+
+	/** This will show the file and the file with the diff applied */
+	virtual void openFileAndDiff( const KURL& file, const KURL& diffFile );
+
+	/** This will show the directory and the directory with the diff applied */
+	virtual void openDirAndDiff ( const KURL& dir,  const KURL& diffFile );
+
+	// This is the interpart interface, it is signal and slot based so no "real" nterface here
+	// All you have to do is connect the parts from your application.
+	// These just point to their namesake in the KompareModelList or get called from their
+	// namesake in KompareModelList.
+signals:
+	void modelsChanged( const QPtrList<Diff2::DiffModel>* models );
+
+	void setSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
+	void setSelection( const Diff2::Difference* diff );
+
+	void selectionChanged( const Diff2::DiffModel* model, const Diff2::Difference* diff );
+	void selectionChanged( const Diff2::Difference* diff );
+
+	void applyDifference( bool apply );
+	void applyAllDifferences( bool apply );
+	void applyDifference( const Diff2::Difference*, bool apply );
+
+	void configChanged();
+
+	/*
+	** This is emitted when a difference is clicked in the kompare view. You can connect to
+	** it so you can use it to jump to this particular line in the editor in your app.
+	*/
+	void differenceClicked( int lineNumber );
+
+	// Stuff that can probably be removed by putting it in the part where it belongs in my opinion
 public slots:
-
-  /** Overridden from KPart::ReadOnlyPart. Just calls openDiff( url ). */
-	bool openURL( const KURL &url );
-
-	/** Compare source with destination */
-	void compare( const KURL& source, const KURL& destination );
-
 	/** Save the currently selected destination in a multi-file diff,
 	    or the single destination if a single file diff. */
 	bool saveDestination();
@@ -101,32 +154,36 @@ public slots:
 	/** Save all destinations. */
 	bool saveAll();
 
-	/** Open and parse the diff file at url. */
-	bool openDiff( const KURL& url );
-
 	/** Save the results of a comparison as a diff file. */
 	void saveDiff();
 
-//	void slotSetSelection( const DiffModel* model, const Difference* diff );
+	/** This slot is connected to the setModifed( bool ) signal from the KompareModelList */
+	void slotSetModified( bool modified );
 
 signals:
-	void selectionChanged( const DiffModel* model, const Difference* diff );
 	void appliedChanged();
 	void diffURLChanged();
+	void setStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
+//	void setStatusBarText( const QString& text );
 
 protected:
+	/**
+	 * This is the method that gets called when the file is opened,
+	 * when using openURL( const KURL& ) or in our case also openDiff( const KURL& );
+	 * return true when everything went ok, false if there were problems
+	 */
+	virtual bool openFile();
+	virtual bool saveFile() { return true; };
+	// This will read the m_file file and return the lines
+	QStringList& readFile();
 
-	/* We handle the urls ourself */
-	bool openFile() { return true; };
-	bool saveFile() { return true; };
+	// patchFile
+	bool patchFile(KURL&);
+	bool patchDir();
 
 protected slots:
 	void slotSetStatus( Kompare::Status status );
 	void slotShowError( QString error );
-//	void slotModelsChanged( const QPtrList<DiffModel>* );
-
-//	void slotSelectionChanged( int model, int diff );
-//	void slotAppliedChanged( const Difference* d );
 
 	void slotSwap();
 	void slotShowDiffstats();
@@ -136,32 +193,29 @@ protected slots:
 
 private:
 	void setupActions();
-	void setupStatusbar();
 
-	static GeneralSettings* m_generalSettings;
-	static DiffSettings*    m_diffSettings;
-	static MiscSettings*    m_miscSettings;
+private:
+	// Uhm why were these static again ???
+	// Ah yes, so multiple instances of kompare use the
+	// same settings after one of them changes them
+	static ViewSettings* m_viewSettings;
+	static DiffSettings* m_diffSettings;
+	static MiscSettings* m_miscSettings;
 
-	KompareModelList*       m_models;
+	Diff2::KompareModelList* m_modelList;
 
-//	const DiffModel*        m_selectedModel;
-//	const Difference*       m_selectedDifference;
+	KompareView*             m_diffView;
 
-//	int                     m_selectedModelIndex;
-//	int                     m_selectedDifferenceIndex;
+//	KompareNavigationTree*   m_navigationTree;
 
-	KompareView*            m_diffView;
+	KAction*                 m_save;
+	KAction*                 m_saveAll;
+	KAction*                 m_saveDiff;
+	KAction*                 m_swap;
+	KAction*                 m_diffStats;
+	KompareActions*          m_kompareActions;
 
-	KompareNavigationTree*  m_navigationTree;
-
-	KAction*                m_save;
-	KAction*                m_saveAll;
-	KAction*                m_saveDiff;
-	KAction*                m_swap;
-	KAction*                m_diffStats;
-	KompareActions*         m_kompareActions;
-
-	KTempFile*              m_tempDiff;
+	KTempFile*               m_tempDiff;
 };
 
 class KInstance;

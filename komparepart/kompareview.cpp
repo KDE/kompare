@@ -2,7 +2,7 @@
                                 kompareview.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
@@ -28,15 +28,17 @@
 #include "difference.h"
 #include "diffhunk.h"
 #include "diffmodel.h"
-#include "generalsettings.h"
+#include "viewsettings.h"
 #include "kompareconnectwidget.h"
+#include "komparemodellist.h"
 #include "komparelistview.h"
+
 
 #include "kompareview.h"
 
-#define kdDebug() kdDebug(8103)
+using namespace Diff2;
 
-KompareView::KompareView( GeneralSettings* settings, QWidget *parent, const char *name )
+KompareView::KompareView( ViewSettings* settings, QWidget *parent, const char *name )
 	: QFrame(parent, name),
 	m_selectedModel( 0 ),
 	m_settings( settings )
@@ -109,10 +111,10 @@ KompareView::KompareView( GeneralSettings* settings, QWidget *parent, const char
 	connect( m_hScroll, SIGNAL(valueChanged(int)), m_diff2, SLOT(setXOffset(int)) );
 	connect( m_hScroll, SIGNAL(sliderMoved(int)), m_diff1, SLOT(setXOffset(int)) );
 	connect( m_hScroll, SIGNAL(sliderMoved(int)), m_diff2, SLOT(setXOffset(int)) );
-	connect( m_diff1, SIGNAL(differenceClicked(const Difference*)),
-	         this, SLOT(slotDifferenceClicked(const Difference*)) );
-	connect( m_diff2, SIGNAL(differenceClicked(const Difference*)),
-	         this, SLOT(slotDifferenceClicked(const Difference*)) );
+	connect( m_diff1, SIGNAL(differenceClicked(const Diff2::Difference*)),
+	         this, SLOT(slotDifferenceClicked(const Diff2::Difference*)) );
+	connect( m_diff2, SIGNAL(differenceClicked(const Diff2::Difference*)),
+	         this, SLOT(slotDifferenceClicked(const Diff2::Difference*)) );
 	updateScrollBars();
 }
 
@@ -129,16 +131,16 @@ void KompareView::slotDifferenceClicked( const Difference* diff )
 
 void KompareView::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
-	kdDebug() << "KompareView::slotSetSelection( model, diff )" << endl;
+	kdDebug(8104) << "KompareView::slotSetSelection( model, diff )" << endl;
 	if( model )
 	{
 		m_selectedModel = model;
-		m_revlabel1->setText( model->srcFile() );
-		m_revlabel2->setText( model->destFile() );
+		m_revlabel1->setText( model->sourceFile() );
+		m_revlabel2->setText( model->destinationFile() );
 		if( !model->sourceRevision().isEmpty() )
-			m_revlabel1->setText( model->srcFile() + " (" + model->sourceRevision() + ")" );
+			m_revlabel1->setText( model->sourceFile() + " (" + model->sourceRevision() + ")" );
 		if( !model->destinationRevision().isEmpty() )
-			m_revlabel1->setText( model->destFile() + " (" + model->destinationRevision() + ")" );
+			m_revlabel1->setText( model->destinationFile() + " (" + model->destinationRevision() + ")" );
 	} else {
 		m_revlabel1->setText( QString::null );
 		m_revlabel2->setText( QString::null );
@@ -151,7 +153,7 @@ void KompareView::slotSetSelection( const DiffModel* model, const Difference* di
 
 void KompareView::slotSetSelection( const Difference* diff )
 {
-	kdDebug() << "KompareView::slotSetSelection( diff )" << endl;
+	kdDebug(8104) << "KompareView::slotSetSelection( diff )" << endl;
 	m_diff1->slotSetSelection( diff );
 	m_diff2->slotSetSelection( diff );
 	m_zoom->slotSetSelection( diff );
@@ -177,8 +179,7 @@ void KompareView::updateScrollBars()
 		}
 
 		m_vScroll->blockSignals( true );
-		m_vScroll->setRange( QMIN( m_diff1->minScrollId(), m_diff2->minScrollId() ),
-		                   QMAX( m_diff1->maxScrollId(), m_diff2->maxScrollId() ) );
+		m_vScroll->setRange( 0, QMAX( m_diff1->maxScrollId(), m_diff2->maxScrollId() ) );
 		m_vScroll->setValue( m_diff1->scrollId() );
 		m_vScroll->setSteps( 7, m_diff1->visibleHeight() - 14 );
 		m_vScroll->blockSignals( false );
@@ -211,15 +212,13 @@ void KompareView::resizeEvent( QResizeEvent* e )
 void KompareView::wheelEvent( QWheelEvent* e )
 {
 	// scroll lines...
-	int pos = m_vScroll->value();
-	int height = m_diff1->itemRect( 0 ).height();
 	if ( e->delta() < 0 ) // scroll back into file
 	{
-		m_vScroll->setValue( pos + m_settings->m_scrollNoOfLines*height );
+		m_vScroll->addLine();
 	}
 	else // scroll forward into file
 	{
-		m_vScroll->setValue( pos - m_settings->m_scrollNoOfLines*height );
+		m_vScroll->subtractLine();
 	}
 	m_zoom->repaint();
 }

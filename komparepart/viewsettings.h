@@ -2,12 +2,12 @@
                                 generalsettings.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -17,8 +17,8 @@
 **
 ***************************************************************************/
 
-#ifndef GENERALSETTINGS_H
-#define GENERALSETTINGS_H
+#ifndef VIEWSETTINGS_H
+#define VIEWSETTINGS_H
 
 #include <qcolor.h>
 #include <qwidget.h>
@@ -26,7 +26,7 @@
 #include "difference.h"
 #include "settingsbase.h"
 
-class GeneralSettings : public SettingsBase
+class ViewSettings : public SettingsBase
 {
 Q_OBJECT
 public:
@@ -34,14 +34,14 @@ public:
 	static const QColor default_changeColor;
 	static const QColor default_addColor;
 	static const QColor default_appliedColor;
-	
-	GeneralSettings( QWidget* parent );
-	~GeneralSettings();
+
+	ViewSettings( QWidget* parent );
+	~ViewSettings();
 public:
 	// some virtual functions that will be overloaded from the base class
 	virtual void loadSettings( KConfig* config );
 	virtual void saveSettings( KConfig* config );
-	QColor colorForDifferenceType( Difference::Type type, bool selected = false, bool applied = false );
+	QColor colorForDifferenceType( Diff2::Difference::Type type, bool selected = false, bool applied = false );
 
 public:
 	bool   m_showEntireFile;
@@ -49,7 +49,12 @@ public:
 	QColor m_changeColor;
 	QColor m_addColor;
 	QColor m_appliedColor;
+	QColor m_selectedRemoveColor;
+	QColor m_selectedChangeColor;
+	QColor m_selectedAddColor;
+	QColor m_selectedAppliedColor;
 	int    m_scrollNoOfLines;
+	int    m_tabToNumberOfSpaces;
 };
 
-#endif
+#endif // VIEWSETTINGS_H

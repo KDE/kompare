@@ -2,12 +2,12 @@
                                 diffhunk.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -20,6 +20,8 @@
 
 #include "difference.h"
 #include "diffhunk.h"
+
+using namespace Diff2;
 
 DiffHunk::DiffHunk( int sourceLine, int destinationLine, QString function ) :
 	m_sourceLine( sourceLine ),

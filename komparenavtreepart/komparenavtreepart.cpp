@@ -517,7 +517,10 @@ void KDirLVI::addModel( QString& path, Diff2::DiffModel* model, QPtrDict<KDirLVI
 //	kdDebug(8105) << "KDirLVI::addModel called with path = " << path << " from KDirLVI with m_dirName = " << m_dirName << endl;
 
 	if ( !m_dirName.isEmpty() )
-		path = path.remove( 0, m_dirName.length() );
+	{
+		if ( path.find( m_dirName ) > -1 )
+			path = path.replace( path.find( m_dirName ), m_dirName.length(), "" );
+	}
 
 //	kdDebug(8105) << "Path after removal of own dir (\"" << m_dirName << "\") = " << path << endl;
 

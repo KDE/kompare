@@ -215,6 +215,8 @@ bool KompareModelList::openDiff( const KURL& url )
 	m_diffURL = url;
 	bool isLocal = false;
 
+	m_models.clear();
+
 	kdDebug() << "URL.fileName() = " << url.fileName( false ) << endl;
 
 	if ( url.protocol() == "file" ) {

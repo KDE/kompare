@@ -778,7 +778,7 @@ void KompareModelList::slotPreviousDifference()
 		return;
 	}
 
-	kdDebug(8101) << "Fuck no previous difference... ok lets find the previous model..." << endl;
+	kdDebug(8101) << "**** no previous difference... ok lets find the previous model..." << endl;
 
 	if ( ( m_selectedModel = prevModel() ) != 0 )
 	{
@@ -791,7 +791,7 @@ void KompareModelList::slotPreviousDifference()
 	}
 
 
-	kdDebug(8101) << "Crap !!! No previous model, ok backup plan activated..." << endl;
+	kdDebug(8101) << "**** !!! No previous model, ok backup plan activated..." << endl;
 
 	// Backup plan
 	m_selectedModel = firstModel();
@@ -813,7 +813,7 @@ void KompareModelList::slotNextDifference()
 		return;
 	}
 
-	kdDebug(8101) << "Fuck no next difference... ok lets find the next model..." << endl;
+	kdDebug(8101) << "**** no next difference... ok lets find the next model..." << endl;
 
 	if ( ( m_selectedModel = nextModel() ) != 0 )
 	{
@@ -825,7 +825,7 @@ void KompareModelList::slotNextDifference()
 		return;
 	}
 
-	kdDebug(8101) << "Crap !!! No next model, ok backup plan activated..." << endl;
+	kdDebug(8101) << "**** !!! No next model, ok backup plan activated..." << endl;
 
 	// Backup plan
 	m_selectedModel = lastModel();
@@ -936,7 +936,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 {
 	if ( !model )
 	{
-		kdDebug() << "Crap model is null :(" << endl;
+		kdDebug() << "**** model is null :(" << endl;
 		return false;
 	}
 
@@ -1141,7 +1141,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 				newModel->addDiff( diff );
 				break;
 			default:
-				kdDebug(8101) << "Crap, some diff type we dont know about ???" << endl;
+				kdDebug(8101) << "****, some diff type we dont know about ???" << endl;
 			}
 		}
 	}

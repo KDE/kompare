@@ -61,9 +61,7 @@ private:
 	void addDiffTab();
 	void addFormatTab();
 	void addOptionsTab();
-#if EXCLUDE_DIFF_OPTION
 	void addExcludeTab();
-#endif
 
 public:
 	DiffSettings*  m_settings;
@@ -82,14 +80,12 @@ public:
 	QStringList*   m_ignoreRegExpEditHistory;
 	QDialog*       m_ignoreRegExpDialog;
 
-#if EXCLUDE_DIFF_OPTION
 	QCheckBox*     m_excludeFilePatternCheckBox;
 	KComboBox*     m_excludeFilePatternComboBox;
 	
 	QCheckBox*     m_excludeFileCheckBox;
 	KURLComboBox*  m_excludeFileURLComboBox;
 	KURLRequester* m_excludeFileURLRequester;
-#endif
 
 	// loc == lines of context
 	QSpinBox*      m_locSpinBox;

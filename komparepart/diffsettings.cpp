@@ -48,7 +48,6 @@ void DiffSettings::loadSettings( KConfig* config )
 
 	m_format = static_cast<Kompare::Format>( config->readNumEntry( "Format", Kompare::Unified ) );
 
-#if EXCLUDE_DIFF_OPTION
 	config->setGroup( "Exclude File Options" );
 	m_excludeFilePattern             = config->readBoolEntry( "Pattern", false );
 	m_excludeFilePatternText         = config->readEntry( "PatternText", "" );
@@ -56,7 +55,6 @@ void DiffSettings::loadSettings( KConfig* config )
 	m_excludeFilesFile               = config->readBoolEntry( "File", false );
 	m_excludeFilesFileURL            = config->readEntry( "FileURL", "" );
 	m_excludeFilesFileHistoryList    = config->readListEntry( "FileHistoryList" );
-#endif
 }
 
 void DiffSettings::saveSettings( KConfig* config )
@@ -80,7 +78,6 @@ void DiffSettings::saveSettings( KConfig* config )
 	config->writeEntry( "NewFiles",                       m_newFiles );
 //	config->writeEntry( "TreatAllFilesAsText",            m_allText );
 
-#if EXCLUDE_DIFF_OPTION
 	config->setGroup( "Exclude File Options" );
 	config->writeEntry( "Pattern",            m_excludeFilePattern );
 	config->writeEntry( "PatternText",        m_excludeFilePatternText );
@@ -88,7 +85,6 @@ void DiffSettings::saveSettings( KConfig* config )
 	config->writeEntry( "File",               m_excludeFilesFile );
 	config->writeEntry( "FileURL",            m_excludeFilesFileURL );
 	config->writeEntry( "FileHistoryList",    m_excludeFilesFileHistoryList );
-#endif
 }
 
 #include "diffsettings.moc"

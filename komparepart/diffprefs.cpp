@@ -47,9 +47,7 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent ),
 
 	addOptionsTab();
 
-#if EXCLUDE_DIFF_OPTION
 	addExcludeTab();
-#endif
 }
 
 DiffPrefs::~DiffPrefs()
@@ -63,12 +61,12 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 
 	m_diffURLRequester->setURL( m_settings->m_diffProgram );
 
-	m_smallerCheckBox->setChecked   ( m_settings->m_createSmallerDiff );
-	m_largerCheckBox->setChecked    ( m_settings->m_largeFiles );
-	m_tabsCheckBox->setChecked      ( m_settings->m_convertTabsToSpaces );
-	m_caseCheckBox->setChecked      ( m_settings->m_ignoreChangesInCase );
-	m_linesCheckBox->setChecked     ( m_settings->m_ignoreEmptyLines );
-	m_whitespaceCheckBox->setChecked( m_settings->m_ignoreWhiteSpace );
+	m_smallerCheckBox->setChecked           ( m_settings->m_createSmallerDiff );
+	m_largerCheckBox->setChecked            ( m_settings->m_largeFiles );
+	m_tabsCheckBox->setChecked              ( m_settings->m_convertTabsToSpaces );
+	m_caseCheckBox->setChecked              ( m_settings->m_ignoreChangesInCase );
+	m_linesCheckBox->setChecked             ( m_settings->m_ignoreEmptyLines );
+	m_whitespaceCheckBox->setChecked        ( m_settings->m_ignoreWhiteSpace );
 
 	m_ignoreRegExpCheckBox->setChecked   ( m_settings->m_ignoreRegExp );
 	m_ignoreRegExpEdit->setCompletedItems( m_settings->m_ignoreRegExpTextHistory );
@@ -78,7 +76,6 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 
 	m_modeButtonGroup->setButton( m_settings->m_format );
 
-#if EXCLUDE_DIFF_OPTION
 	m_excludeFilePatternCheckBox->setChecked       ( m_settings->m_excludeFilePattern );
 	slotExcludeFilePatternToggled                  ( m_settings->m_excludeFilePattern );
 	m_excludeFilePatternComboBox->setCompletedItems( m_settings->m_excludeFilePatternHistoryList );
@@ -88,7 +85,6 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 	slotExcludeFileToggled           ( m_settings->m_excludeFilesFile );
 	m_excludeFileURLComboBox->setURLs( m_settings->m_excludeFilesFileHistoryList );
 	m_excludeFileURLComboBox->setURL ( m_settings->m_excludeFilesFileURL );
-#endif
 }
 
 DiffSettings* DiffPrefs::settings( void )
@@ -123,7 +119,6 @@ void DiffPrefs::apply()
 
 	setts->m_format = static_cast<Kompare::Format>( m_modeButtonGroup->selectedId() );
 
-#if EXCLUDE_DIFF_OPTION
 	setts->m_excludeFilePattern            = m_excludeFilePatternCheckBox->isChecked();
 	setts->m_excludeFilePatternText        = m_excludeFilePatternComboBox->currentText();
 	setts->m_excludeFilePatternHistoryList.clear();
@@ -140,7 +135,6 @@ void DiffPrefs::apply()
 	setts->m_excludeFilesFile            = m_excludeFileCheckBox->isChecked();
 	setts->m_excludeFilesFileURL         = m_excludeFileURLComboBox->currentText();
 	setts->m_excludeFilesFileHistoryList = m_excludeFileURLComboBox->urls();
-#endif
 }
 
 void DiffPrefs::setDefaults()
@@ -160,11 +154,9 @@ void DiffPrefs::setDefaults()
 
 	m_modeButtonGroup->setButton( Kompare::Unified );
 
-#if EXCLUDE_DIFF_OPTION
 	m_excludeFilePatternCheckBox->setChecked( false );
 
 	m_excludeFileCheckBox->setChecked( false );
-#endif
 }
 
 void DiffPrefs::slotShowRegExpEditor()
@@ -184,7 +176,6 @@ void DiffPrefs::slotShowRegExpEditor()
 		m_ignoreRegExpEdit->setText( iface->regExp() );
 }
 
-#if EXCLUDE_DIFF_OPTION
 void DiffPrefs::slotExcludeFilePatternToggled( bool on )
 {
 	if ( !on )
@@ -210,15 +201,6 @@ void DiffPrefs::slotExcludeFileToggled( bool on )
 		m_excludeFileURLRequester->setEnabled( true );
 	}
 }
-#else
-void DiffPrefs::slotExcludeFilePatternToggled( bool )
-{
-}
-
-void DiffPrefs::slotExcludeFileToggled( bool )
-{
-}
-#endif
 
 void DiffPrefs::addDiffTab()
 {
@@ -322,7 +304,6 @@ void DiffPrefs::addOptionsTab()
 	addTab( page, i18n( "O&ptions" ) );
 }
 
-#if EXCLUDE_DIFF_OPTION
 void DiffPrefs::addExcludeTab()
 {
 	QWidget* page = new QWidget( this );
@@ -330,16 +311,14 @@ void DiffPrefs::addExcludeTab()
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
 
-	// FIXME: restore the i18n() call, dunno how smart the extraction script is and i dont want to cause fuzzies
-	QHGroupBox* excludeFilePatternGroupBox = new QHGroupBox( "File pattern to exclude", page );
+	QHGroupBox* excludeFilePatternGroupBox = new QHGroupBox( i18n( "File pattern to exclude" ), page );
 	m_excludeFilePatternCheckBox = new QCheckBox( "", excludeFilePatternGroupBox );
 	m_excludeFilePatternComboBox = new KComboBox( true, excludeFilePatternGroupBox, "exclude_file_pattern_combobox" );
 	layout->addWidget( excludeFilePatternGroupBox );
 
 	connect( m_excludeFilePatternCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFilePatternToggled(bool)));
 
-	// FIXME: restore the i18n() call, dunno how smart the extraction script is and i dont want to cause fuzzies
-	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( "File with filenames to exclude", page );
+	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( i18n( "File with filenames to exclude" ), page );
 	m_excludeFileCheckBox     = new QCheckBox( "", excludeFileNameGroupBox );
 	m_excludeFileURLComboBox  = new KURLComboBox( KURLComboBox::Files, true, excludeFileNameGroupBox, "exclude_file_urlcombo" );
 	m_excludeFileURLRequester = new KURLRequester( m_excludeFileURLComboBox, excludeFileNameGroupBox, "exclude_file_name_urlrequester" );
@@ -353,6 +332,5 @@ void DiffPrefs::addExcludeTab()
 	// FIXME: restore the i18n() call, dunno how smart the extraction script is and i dont want to cause fuzzies
 	addTab( page, "&Exclude" );
 }
-#endif
 
 #include "diffprefs.moc"

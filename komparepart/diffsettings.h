@@ -55,14 +55,12 @@ public:
 	bool m_recursive;                            // -r
 	bool m_newFiles;                             // -N
 //	bool m_allText;                              // -a
-#if EXCLUDE_DIFF_OPTION
 	bool m_excludeFilePattern;                   // -x
 	QString m_excludeFilePatternText;            // The pattern to -x
 	QStringList m_excludeFilePatternHistoryList; // The history list of patterns
 	bool m_excludeFilesFile;                     // -X
 	QString m_excludeFilesFileURL;               // The filename to -X
 	QStringList m_excludeFilesFileHistoryList;   // The history list of filenames
-#endif
 };
 
 #endif

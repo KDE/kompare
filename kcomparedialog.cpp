@@ -21,6 +21,7 @@ KCompareDialog::KCompareDialog( QWidget *parent, const char *name )
 	sourceGBLayout->setSpacing( 6 );
 	sourceGBLayout->setMargin( 11 );
 	m_sourceURLRequester = new KURLRequester( QString::null, sourceGB );
+	m_sourceURLRequester->setFocus();
 	sourceGBLayout->addWidget( m_sourceURLRequester );
 	topLayout->addWidget( sourceGB );
 

@@ -127,7 +127,7 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 
 	p->fillRect( 0, 0, pixbuf.width(), pixbuf.height(), white );
 
-	if( m_selectedModel )
+	if ( m_selectedModel )
 	{
 		int firstL = m_leftView->firstVisibleDifference();
 		int firstR = m_rightView->firstVisibleDifference();
@@ -140,17 +140,18 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 //		kdDebug(8106) << "    left: " << firstL << " - " << lastL << endl;
 //		kdDebug(8106) << "   right: " << firstR << " - " << lastR << endl;
 //		kdDebug(8106) << " drawing: " << first << " - " << last << endl;
-		if( first >= 0 && last >= 0 && first <= last )
+		if ( first >= 0 && last >= 0 && first <= last )
 		{
-			DifferenceListConstIterator diffIt = m_selectedModel->differences().at( first );
-			DifferenceListConstIterator dEnd   = m_selectedModel->differences().at( last );
+			const DifferenceList* differences  = const_cast<DiffModel*>(m_selectedModel)->differences();
+			DifferenceListConstIterator diffIt = differences->at( first );
+			DifferenceListConstIterator dEnd   = differences->at( last + 1 );
 
 			QRect leftRect, rightRect;
 
-			for( int i = first; i <= last; ++diffIt, ++i )
+			for ( int i = first; i <= last; ++diffIt, ++i )
 			{
 				Difference* diff = *diffIt;
-				bool selected = (diff == m_selectedDifference);
+				bool selected = ( diff == m_selectedDifference );
 
 				if ( QApplication::reverseLayout() )
 				{
@@ -178,11 +179,12 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 				QPointArray topBezier = makeTopBezier( tl, tr );
 				QPointArray bottomBezier = makeBottomBezier( bl, br );
 
-				p->setPen( m_settings->colorForDifferenceType( diff->type(), selected, diff->applied() ) );
-				p->setBrush( m_settings->colorForDifferenceType( diff->type(), selected, diff->applied() ) );
+				QColor color = m_settings->colorForDifferenceType( diff->type(), selected, diff->applied() );
+				p->setPen( color );
+				p->setBrush( color );
 				p->drawPolygon ( makeConnectPoly( topBezier, bottomBezier ) );
 
-				if( selected )
+				if ( selected )
 				{
 					p->setPen( black );
 					p->drawPolyline( topBezier );

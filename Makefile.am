@@ -6,6 +6,7 @@ INCLUDES = \
 	-I$(srcdir)/komparenavtreepart \
 	-I$(srcdir)/komparepart \
 	-I$(srcdir)/interfaces \
+	-I$(includedir)/ktexteditor \
 	$(all_includes)
 
 noinst_HEADERS =  kompare_shell.h kompareurldialog.h
@@ -31,7 +32,8 @@ kompare_SOURCES = main.cpp kompare_shell.cpp kompareurldialog.cpp
 kompare_LDFLAGS = $(all_libraries)
 kompare_LDADD   = $(LIB_KPARTS) \
 	$(top_builddir)/kompare/interfaces/libkompareinterface.la \
-	$(top_builddir)/kompare/libdialogpages/libdialogpages.la
+	$(top_builddir)/kompare/libdialogpages/libdialogpages.la \
+	-lktexteditor
 
 # this is where the desktop file will go
 xdg_apps_DATA = kompare.desktop

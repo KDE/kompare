@@ -31,6 +31,12 @@ class KSqueezedTextLabel;
 class KomparePart;
 class KompareNavTreePart;
 
+namespace KTextEditor {
+	class Document;
+	class EditInterface;
+	class View;
+}
+
 /**
 * This is the application "Shell".  It has a menubar, toolbar, and
 * statusbar but relies on the "Part" to do all the real work.
@@ -123,9 +129,11 @@ private:
 	KURL                  m_destinationURL;
 	KURL                  m_diffURL;
 
-	KomparePart*          m_viewPart;
-	KompareNavTreePart*   m_navTreePart;
-	KParts::ReadOnlyPart* m_textViewPart;
+	KomparePart*           m_viewPart;
+	KompareNavTreePart*    m_navTreePart;
+	KTextEditor::Document* m_textViewPart;
+	KTextEditor::View*     m_textView;
+	KTextEditor::EditInterface* m_textEditIface;
 
 	KDockWidget*          m_textViewWidget;
 	KDockWidget*          m_mainViewDock;

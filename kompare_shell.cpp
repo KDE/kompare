@@ -17,11 +17,15 @@
 **
 ***************************************************************************/
 
+#include <document.h>
+#include <editinterface.h>
+#include <view.h>
 #include <kdebug.h>
 #include <kedittoolbar.h>
 #include <kencodingfiledialog.h>
 #include <kiconloader.h>
 #include <kkeydialog.h>
+#include <klibloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kparts/componentfactory.h>
@@ -430,19 +434,20 @@ void KompareShell::slotFileClose()
 
 void KompareShell::slotShowTextView()
 {
-	if( !m_textViewWidget ) {
+	if ( !m_textViewWidget )
+	{
+		int errCode;
 
-		KService::Ptr ptr = KServiceTypeProfile::preferredService( "text/plain", "KParts/ReadOnlyPart" );
-		if ( ptr == 0 || !ptr->isValid() )
-			return;
-
-		m_textViewWidget = createDockWidget( i18n("Text View"), ptr->pixmap( KIcon::Small ) );
-		m_textViewPart = KParts::ComponentFactory::createInstanceFromService<KParts::ReadOnlyPart>(
-				 ptr, m_textViewWidget );
-		if( m_textViewPart ) {
-			m_textViewWidget->setWidget( m_textViewPart->widget() );
-			m_textViewPart->openURL( m_viewPart->url() );
-			connect( m_viewPart, SIGNAL( diffURLChanged() ), SLOT( slotDiffURLChanged() ) );
+		// FIXME: proper error checking
+		m_textViewWidget = createDockWidget( i18n("Text View"), SmallIcon( "text") );
+		m_textViewPart = KParts::ComponentFactory::createPartInstanceFromQuery<KTextEditor::Document>(
+		                 QString::fromLatin1("KTextEditor/Document"),
+		                 QString::null, (QWidget*)this, 0, (QWidget*)this, 0, QStringList(), &errCode );
+		if ( m_textViewPart )
+		{
+			m_textView = m_textViewPart->createView( this, 0 );
+			m_textViewWidget->setWidget( static_cast<QWidget*>(m_textView) );
+			m_textEditIface = editInterface( m_textViewPart );
 		}
 	}
 
@@ -451,9 +456,8 @@ void KompareShell::slotShowTextView()
 
 void KompareShell::slotDiffURLChanged()
 {
-	if( m_textViewPart ) {
+	if ( m_textViewPart )
 		m_textViewPart->openURL( m_viewPart->url() );
-	}
 }
 
 void KompareShell::optionsConfigureKeys()
@@ -462,7 +466,7 @@ void KompareShell::optionsConfigureKeys()
 
 	dlg.insert( actionCollection() );
 	if ( m_viewPart )
-	  dlg.insert( m_viewPart->actionCollection() );
+		dlg.insert( m_viewPart->actionCollection() );
 
 	dlg.configure();
 }

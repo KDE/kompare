@@ -202,7 +202,7 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 
 	if ( !result )
 	{
-		emit error( i18n( "Could not upload the temporary file to the destination location. (Yes this string needs fixing). The temporary file is still available under: %1. You can manually copy it to the right place." ).arg( temp->name() ) );
+		emit error( i18n( "Could not upload the temporary file to the destination location %2. The temporary file is still available under: %1. You can manually copy it to the right place." ).arg( temp->name() ).arg( m_destinationURL.url() ) );
 	}
 	else
 	{

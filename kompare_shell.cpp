@@ -175,10 +175,10 @@ void KompareShell::compare(const KURL& source,const KURL& destination )
 
 void KompareShell::setupActions()
 {
-	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_O,
+	KStdAction::open(this, SLOT(slotFileOpen()), actionCollection());
+	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_C,
 	              this, SLOT(slotFileCompareFiles()),
 	              actionCollection(), "file_compare_files" );
-	KStdAction::open(this, SLOT(slotFileOpen()), actionCollection());
 	KStdAction::quit(kapp, SLOT(quit()), actionCollection());
 
 	m_toolbarAction = KStdAction::showToolbar(this, SLOT(optionsShowToolbar()), actionCollection());

@@ -116,7 +116,7 @@ private slots:
 	void slotFileClose();
 	void optionsConfigureKeys();
 	void optionsConfigureToolbars();
-	void slotDiffURLChanged();
+	void slotSetDiffString( const QString& diffString );
 	void newToolbarConfig();
 
 private:
@@ -125,25 +125,25 @@ private:
 	void setupStatusBar();
 
 private:
-	KURL                  m_sourceURL;
-	KURL                  m_destinationURL;
-	KURL                  m_diffURL;
+	KURL                        m_sourceURL;
+	KURL                        m_destinationURL;
+	KURL                        m_diffURL;
 
-	KomparePart*           m_viewPart;
-	KompareNavTreePart*    m_navTreePart;
-	KTextEditor::Document* m_textViewPart;
-	KTextEditor::View*     m_textView;
+	KomparePart*                m_viewPart;
+	KompareNavTreePart*         m_navTreePart;
+	KTextEditor::Document*      m_textViewPart;
+	KTextEditor::View*          m_textView;
 	KTextEditor::EditInterface* m_textEditIface;
 
-	KDockWidget*          m_textViewWidget;
-	KDockWidget*          m_mainViewDock;
-	KDockWidget*          m_navTreeDock;
+	KDockWidget*                m_textViewWidget;
+	KDockWidget*                m_mainViewDock;
+	KDockWidget*                m_navTreeDock;
 
-	KToggleAction*        m_showTextView;
+	KToggleAction*              m_showTextView;
 
-	enum Kompare::Mode    m_mode;
+	enum Kompare::Mode          m_mode;
 	// This is the statusbarwidget for displaying the general stuff
-	KSqueezedTextLabel*   m_generalLabel;
+	KSqueezedTextLabel*         m_generalLabel;
 };
 
 #endif // KOMPARE_H

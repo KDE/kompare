@@ -448,16 +448,18 @@ void KompareShell::slotShowTextView()
 			m_textView = m_textViewPart->createView( this, 0 );
 			m_textViewWidget->setWidget( static_cast<QWidget*>(m_textView) );
 			m_textEditIface = editInterface( m_textViewPart );
+			connect( m_viewPart, SIGNAL(diffString(const QString&)),
+			         this, SLOT(slotSetDiffString(const QString&)) );
 		}
 	}
 
 	m_textViewWidget->manualDock( m_mainViewDock, KDockWidget:: DockCenter );
 }
 
-void KompareShell::slotDiffURLChanged()
+void KompareShell::slotSetDiffString( const QString& diffString )
 {
-	if ( m_textViewPart )
-		m_textViewPart->openURL( m_viewPart->url() );
+	if ( m_textEditIface )
+		m_textEditIface->setText( diffString );
 }
 
 void KompareShell::optionsConfigureKeys()

@@ -77,20 +77,19 @@ KompareListViewItem* KompareListView::itemAtIndex( int i )
 int KompareListView::firstVisibleDifference()
 {
 	QListViewItem* item = itemAt( QPoint( 0, 0 ) );
-	if( item == 0 ) {
-		kdDebug(8104) << "no item at (0,0)" << endl;
-	}
 
-	while( item ) {
+	if( item == 0 )
+		kdDebug(8104) << "no item at viewport coordinates (0,0)" << endl;
+
+	while( item && item->isVisible() ) {
 		KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>(item);
 		if( lineItem && lineItem->diffItemParent()->difference()->type() != Difference::Unchanged )
 			break;
 		item = item->itemBelow();
 	}
 
-	if( item ) {
+	if( item )
 		return m_items.findRef( ((KompareListViewLineItem*)item)->diffItemParent() );
-	}
 
 	return -1;
 }
@@ -98,21 +97,20 @@ int KompareListView::firstVisibleDifference()
 int KompareListView::lastVisibleDifference()
 {
 	QListViewItem* item = itemAt( QPoint( 0, visibleHeight() - 1 ) );
-	if( item == 0 ) {
-		kdDebug(8104) << "no item at (0," << visibleHeight() - 1 << ")" << endl;
-		item = lastItem();
-	}
 
-	while( item ) {
+	if( item == 0 )
+		kdDebug(8104) << "no item at viewport coordinates (0," << visibleHeight() - 1 << ")" << endl;
+		item = lastItem();
+
+	while( item && item->isVisible() ) {
 		KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>(item);
 		if( lineItem && lineItem->diffItemParent()->difference()->type() != Difference::Unchanged )
 			break;
 		item = item->itemAbove();
 	}
 
-	if( item ) {
+	if( item )
 		return m_items.findRef( ((KompareListViewLineItem*)item)->diffItemParent() );
-	}
 
 	return -1;
 }
@@ -134,7 +132,16 @@ int KompareListView::minScrollId()
 
 int KompareListView::maxScrollId()
 {
-	return contentsHeight() - minScrollId();
+	int maxId = 0, id = 0;
+	KompareListViewItem* item = (KompareListViewItem*)firstChild();
+	while( item && item->nextSibling() ) {
+		if( ( id = ((KompareListViewItem*)item->nextSibling())->scrollId() ) > maxId )
+			maxId = id;
+		item = (KompareListViewItem*)item->nextSibling();
+	}
+	maxId += item->maxHeight();
+	kdDebug(8104) << "Max ID = " << maxId << endl;
+	return maxId - minScrollId();
 }
 
 void KompareListView::setXOffset( int x )
@@ -145,7 +152,7 @@ void KompareListView::setXOffset( int x )
 
 void KompareListView::scrollToId( int id )
 {
-	kdDebug(8104) << "ScrollToID : Scroll to id : " << id << endl;
+//	kdDebug(8104) << "ScrollToID : Scroll to id : " << id << endl;
 	KompareListViewItem* item = (KompareListViewItem*)firstChild();
 	while( item && item->nextSibling() ) {
 		if( ((KompareListViewItem*)item->nextSibling())->scrollId() > id )
@@ -157,16 +164,19 @@ void KompareListView::scrollToId( int id )
 		int pos = item->itemPos();
 		int itemId = item->scrollId();
 		int height = item->totalHeight();
-		double r = ( double )(  id - itemId ) / ( double ) item->maxHeight();
-		int y = pos + ( int )( r * ( double )height ) - minScrollId();
+		double r = (double)( id - itemId ) / (double)item->maxHeight();
+		int y = pos + (int)( r * (double)height ) - minScrollId();
 //		kdDebug(8104) << "scrollToID: " << endl;
-//		kdDebug(8104) << "     id = " << id << endl;
-//		kdDebug(8104) << "    pos = " << pos << endl;
-//		kdDebug(8104) << " itemId = " << itemId << endl;
-//		kdDebug(8104) << "      r = " << r << endl;
-//		kdDebug(8104) << " height = " << height << endl;
-//		kdDebug(8104) << "  minID = " << minScrollId() << endl;
-//		kdDebug(8104) << "      y = " << y << endl;
+//		kdDebug(8104) << "            id = " << id << endl;
+//		kdDebug(8104) << "      id after = " << ( item->nextSibling() ? QString::number( ((KompareListViewItem*)item->nextSibling())->scrollId() ) : "no such sibling..." ) << endl;
+//		kdDebug(8104) << "           pos = " << pos << endl;
+//		kdDebug(8104) << "        itemId = " << itemId << endl;
+//		kdDebug(8104) << "             r = " << r << endl;
+//		kdDebug(8104) << "        height = " << height << endl;
+//		kdDebug(8104) << "         minID = " << minScrollId() << endl;
+//		kdDebug(8104) << "             y = " << y << endl;
+//		kdDebug(8104) << "contentsHeight = " << contentsHeight() << endl;
+//		kdDebug(8104) << "         c - y = " << contentsHeight() - y << endl;
 		setContentsPos( contentsX(), y );
 	}
 

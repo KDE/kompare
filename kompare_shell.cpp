@@ -100,7 +100,7 @@ KompareShell::KompareShell()
 		// if we couldn't find our Part, we exit since the Shell by
 		// itself can't do anything useful
 		KMessageBox::error(this, "Could not find our Part!");
-		kapp->quit();
+		exit(1);
 	}
 
 	// Read basic main-view settings, and set to autosave

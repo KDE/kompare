@@ -4,6 +4,5 @@ In descending order of importance:
 * add support to load a diff and apply it and save the modified file
 * the tree view should show directory structure
 * add support for incremental patch saving (i'll explain if anyone wants to know)
-* network transparency (support comparison of non-local files)
 * add icons for most menu options (almost done, using standard icons now for most)
 * Add support for diff3 (that is comparing 3 files at once)

@@ -16,12 +16,13 @@
 **   (at your option) any later version.
 **
 ***************************************************************************/
+
 #include <qstringlist.h>
 
+#include <kio/netaccess.h>
 #include <kdebug.h>
 
 #include "kdiffprocess.h"
-
 #include "kdiffprocess.moc"
 
 KDiffProcess::KDiffProcess( DiffSettings* diffSettings, const KURL& source, const KURL& destination )
@@ -158,18 +159,24 @@ void KDiffProcess::receivedStderr( KProcess* /* process */, char* buffer, int le
 
 bool KDiffProcess::start()
 {
-	*m_diffProcess << "--" << m_leftURL.path() << m_rightURL.path();
-	QString cmdLine;
-	for( QStrListIterator i( *m_diffProcess->args() ); i.current(); ++i ) {
-		cmdLine += i.current();
-		cmdLine += " ";
+	if( KIO::NetAccess::download( m_leftURL, m_leftTemp ) &&
+	    KIO::NetAccess::download( m_rightURL, m_rightTemp ) ) {
+		*m_diffProcess << "--" << m_leftTemp << m_rightTemp;
+		QString cmdLine;
+		for( QStrListIterator i( *m_diffProcess->args() ); i.current(); ++i ) {
+			cmdLine += i.current();
+			cmdLine += " ";
+		}
+		kdDebug() << cmdLine << endl;
+		return( m_diffProcess->start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
 	}
-	kdDebug() << cmdLine << endl;
-	return( m_diffProcess->start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
+	return false;
 }
 
 void KDiffProcess::processExited( KProcess* /* proc */ )
 {
+	KIO::NetAccess::removeTempFile( m_leftTemp );
+	KIO::NetAccess::removeTempFile( m_rightTemp );
 	// exit status of 0: no differences
 	//                1: some differences
 	//                2: error

@@ -55,7 +55,9 @@ public: // variables
 
 	KURL m_leftURL;
 	KURL m_rightURL;
-
+	QString m_leftTemp;
+	QString m_rightTemp;
+	
 public slots:	// slots
 	void receivedStdout( KProcess*, char*, int );
 	void receivedStderr( KProcess*, char*, int );

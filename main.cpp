@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "kompare", I18N_NOOP("Kompare"), version, description,
 	                      KAboutData::License_GPL,
-	                      I18N_NOOP("(c) 2001-2003, John Firebaugh and Otto Bruggeman"), 0, "http://bruggie.dnsalias.org" );
+	                      I18N_NOOP("(c) 2001-2003, John Firebaugh and Otto Bruggeman"), 0, "http://bruggie.dnsalias.org/kompare/" );
 	aboutData.addAuthor( "John Firebaugh", I18N_NOOP("Author"), "jfirebaugh@kde.org" );
 	aboutData.addAuthor( "Otto Bruggeman", I18N_NOOP("Author"), "otto.bruggeman@home.nl" );
 	aboutData.addCredit( "Malte Starostik", I18N_NOOP("A lot of good advice"), "malte@kde.org" );

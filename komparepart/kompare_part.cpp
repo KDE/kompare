@@ -62,8 +62,8 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	}
 
 	m_models = new KompareModelList();
-	connect( m_models, SIGNAL(status( Kompare::Status )),
-	         this, SLOT(slotSetStatus( Kompare::Status )) );
+	connect( m_models, SIGNAL(status( enum Kompare::Status )),
+	         this, SLOT(slotSetStatus( enum Kompare::Status )) );
 	connect( m_models, SIGNAL(error( QString )),
 	         this, SLOT(slotShowError( QString )) );
 	connect( m_models, SIGNAL(modelsChanged()),
@@ -259,7 +259,7 @@ KURL KomparePart::diffURL()
 	return m_models->diffURL();
 }
 
-void KomparePart::slotSetStatus( KompareModelList::Status status )
+void KomparePart::slotSetStatus( enum Kompare::Status status )
 {
 	updateActions();
 	switch( status ) {

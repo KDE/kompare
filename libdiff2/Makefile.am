@@ -26,7 +26,3 @@ libdiff2_la_LDFLAGS = -module -avoid-version -no-undefined \
 	$(all_libraries)
 libdiff2_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE)
 
-# this is where the desktop file will go
-desktopdir   = $(kde_datadir)/kompare
-desktop_DATA = libdiff2.desktop
-

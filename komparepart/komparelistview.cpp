@@ -262,8 +262,7 @@ void KompareListView::contentsMousePressEvent( QMouseEvent* e )
 		return;
 	KompareListViewDiffItem* diffItem = lineItem->diffItemParent();
 	if( diffItem->difference()->type() != Difference::Unchanged ) {
-		setSelectedDifference( diffItem->difference(), false );
-		emit selectionChanged( diffItem->difference() );
+		emit differenceClicked( diffItem->difference() );
 	}
 }
 

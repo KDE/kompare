@@ -52,6 +52,8 @@ public:
 	bool                 isSource() const { return m_isSource; };
 	GeneralSettings*     settings() const { return m_settings; };
 	
+	void setSelectedDifference( const Difference* diff, bool scroll );
+	
 public slots:
 	void slotSetSelection( const DiffModel* model, const Difference* diff );
 	void slotSetSelection( const Difference* diff );
@@ -63,10 +65,9 @@ public slots:
 	void slotApplyDifference( const Difference* diff, bool apply );
 
 signals:
-	void selectionChanged( const Difference* diff );
+	void differenceClicked( const Difference* diff );
 
 protected:
-	void setSelectedDifference( const Difference* diff, bool scroll );
 	void wheelEvent( QWheelEvent* e );
 	void contentsMousePressEvent ( QMouseEvent * e );
 	void contentsMouseDoubleClickEvent ( QMouseEvent* ) {};

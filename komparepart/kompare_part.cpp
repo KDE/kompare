@@ -87,10 +87,10 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	         m_diffView, SLOT(slotSetSelection(const DiffModel*, const Difference*)) );
 	connect( m_models, SIGNAL(setSelection(const Difference*)),
 	         m_diffView, SLOT(slotSetSelection(const Difference*)) );
+	connect( m_diffView, SIGNAL(selectionChanged(const Difference*)),
+	         m_models, SLOT(slotSelectionChanged(const Difference*)) );
 	
 	// left view (source)
-	connect( m_diffView->srcLV(), SIGNAL(selectionChanged(const Difference*)),
-	         m_models, SLOT(slotSelectionChanged(const Difference*)) );
 	connect( m_models, SIGNAL(applyDifference(bool)),
 	         m_diffView->srcLV(), SLOT(slotApplyDifference(bool)) );
 	connect( m_models, SIGNAL(applyAllDifferences(bool)),
@@ -98,18 +98,12 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	connect( m_models, SIGNAL(applyDifference(const Difference*, bool)),
 	         m_diffView->srcLV(), SLOT(slotApplyDifference(const Difference*, bool)) );
 	// right view (destination)
-	connect( m_diffView->destLV(), SIGNAL(selectionChanged(const Difference*)),
-	         m_models, SLOT(slotSelectionChanged(const Difference*)) );
 	connect( m_models, SIGNAL(applyDifference(bool)),
 	         m_diffView->destLV(), SLOT(slotApplyDifference(bool)) );
 	connect( m_models, SIGNAL(applyAllDifferences(bool)),
 	         m_diffView->destLV(), SLOT(slotApplyAllDifferences(bool)) );
 	connect( m_models, SIGNAL(applyDifference(const Difference*, bool)),
 	         m_diffView->destLV(), SLOT(slotApplyDifference(const Difference*, bool)) );
-	// middle (zoomwidget)
-	// not yet used because this widget cannot set selection yet...
-	connect( m_diffView->zoomWidget(), SIGNAL(selectionChanged(const Difference*)),
-	         m_models, SLOT(slotSelectionChanged(const Difference*)) );
 
 	// kompareactions
 	m_kompareActions = new KompareActions( this, "KompareActions" );

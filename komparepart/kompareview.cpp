@@ -109,12 +109,22 @@ KompareView::KompareView( GeneralSettings* settings, QWidget *parent, const char
 	connect( m_hScroll, SIGNAL(valueChanged(int)), m_diff2, SLOT(setXOffset(int)) );
 	connect( m_hScroll, SIGNAL(sliderMoved(int)), m_diff1, SLOT(setXOffset(int)) );
 	connect( m_hScroll, SIGNAL(sliderMoved(int)), m_diff2, SLOT(setXOffset(int)) );
-
+	connect( m_diff1, SIGNAL(differenceClicked(const Difference*)),
+	         this, SLOT(slotDifferenceClicked(const Difference*)) );
+	connect( m_diff2, SIGNAL(differenceClicked(const Difference*)),
+	         this, SLOT(slotDifferenceClicked(const Difference*)) );
 	updateScrollBars();
 }
 
 KompareView::~KompareView()
 {
+}
+
+void KompareView::slotDifferenceClicked( const Difference* diff )
+{
+	m_diff1->setSelectedDifference( diff, false );
+	m_diff2->setSelectedDifference( diff, false );
+	emit selectionChanged( diff );
 }
 
 void KompareView::slotSetSelection( const DiffModel* model, const Difference* diff )

@@ -57,6 +57,7 @@ protected:
 
 protected slots:
 	void scrollToId( int id );
+	void slotDifferenceClicked( const Difference* diff );
 
 private:
 	const DiffModel*          m_selectedModel;

@@ -149,18 +149,20 @@ void FilesPage::setDefaults()
 
 void FilesPage::setFirstURL( const QString &url )
 {
+	QString _url = url;
 	if ( !m_URLChanged )
 	{
-		m_firstURLRequester->setURL( url );
+		m_firstURLRequester->setURL( _url.remove( url.section( '/', -1 ) ) );
 		m_URLChanged = true;
 	}
 }
 
 void FilesPage::setSecondURL( const QString &url )
 {
+	QString _url = url;
 	if ( !m_URLChanged )
 	{
-		m_secondURLRequester->setURL( url );
+		m_secondURLRequester->setURL( _url.remove( url.section( '/', -1 ) ) );
 		m_URLChanged = true;
 	}
 }

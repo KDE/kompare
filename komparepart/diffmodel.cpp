@@ -384,7 +384,7 @@ int DiffModel::parseRCSDiff( const QStringList& list, QStringList::ConstIterator
 	/* dLINENUMBER NUMBEROFLINES -> deleted in NUMBEROFLINES in oldfile at LINENUMBER */
 
 	QString line;
-	int linenoA, linenoB, nolinesA, nolinesB;
+	int linenoA = 0, linenoB = 0, nolinesA, nolinesB;
 
 	if ( it == list.end() )
 		return 0; // No lines to parse

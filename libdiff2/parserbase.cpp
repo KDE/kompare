@@ -321,6 +321,7 @@ bool ParserBase::parseContextHunkBody()
 	// Storing the src part of the hunk for later use
 	QStringList oldLines;
 	for( ; m_diffIterator != m_diffLines.end() && m_contextHunkBodyLine.exactMatch( *m_diffIterator ); ++m_diffIterator ) {
+//		kdDebug(8101) << "Added old line: " << *m_diffIterator << endl;
 		oldLines.append( *m_diffIterator );
 	}
 
@@ -332,15 +333,16 @@ bool ParserBase::parseContextHunkBody()
 	// Storing the dest part of the hunk for later use
 	QStringList newLines;
 	for( ; m_diffIterator != m_diffLines.end() && m_contextHunkBodyLine.exactMatch( *m_diffIterator ); ++m_diffIterator ) {
+//		kdDebug(8101) << "Added new line: " << *m_diffIterator << endl;
 		newLines.append( *m_diffIterator );
 	}
 
 	QString function = m_contextHunkHeader1.cap( 1 );
-//	kdDebug() << "Captured function: " << function << endl;
+//	kdDebug(8101) << "Captured function: " << function << endl;
 	int linenoA      = m_contextHunkHeader2.cap( 1 ).toInt();
-//	kdDebug() << "Source line number: " << linenoA << endl;
+//	kdDebug(8101) << "Source line number: " << linenoA << endl;
 	int linenoB      = m_contextHunkHeader3.cap( 1 ).toInt();
-//	kdDebug() << "Dest   line number: " << linenoB << endl;
+//	kdDebug(8101) << "Dest   line number: " << linenoB << endl;
 
 	DiffHunk* hunk = new DiffHunk( linenoA, linenoB, function );
 

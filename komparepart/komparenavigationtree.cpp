@@ -19,6 +19,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
+#include <kiconloader.h>
 #include <kmimetype.h>
 
 #include "difference.h"

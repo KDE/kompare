@@ -23,6 +23,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kstdaction.h>
+#include <kinstance.h>
 
 #include "diffmodel.h"
 #include "diffsettings.h"

@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 
-
+#include <qfile.h>
 #include <kdebug.h>
 #include <kio/netaccess.h>
 #include <klocale.h>

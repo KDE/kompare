@@ -25,6 +25,9 @@
 
 #include "kompare_shell.h"
 
+#include <klocale.h>
+#include <kiconloader.h>
+#include <kstatusbar.h>
 #include <kkeydialog.h>
 #include <kedittoolbar.h>
 #include <kstdaction.h>

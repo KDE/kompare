@@ -118,6 +118,7 @@ enum Kompare::Generator Parser::determineGenerator( const QStringList& diffLines
 
 	for (  ; it != diffLinesEnd; ++it )
 	{
+		kdDebug(8101) << "Line: \"" << *it << "\""  << endl;
 		if ( ( *it ).startsWith( cvsDiff ) )
 		{
 			kdDebug(8101) << "Diff is a CVSDiff" << endl;

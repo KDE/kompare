@@ -28,7 +28,14 @@ const QColor ViewSettings::default_changeColor (237, 190, 190);
 const QColor ViewSettings::default_addColor    (190, 190, 237);
 const QColor ViewSettings::default_appliedColor(237, 237, 190);
 
-ViewSettings::ViewSettings( QWidget* parent ) : SettingsBase( parent )
+ViewSettings::ViewSettings( QWidget* parent )
+	: SettingsBase( parent ),
+	m_removeColor( 0, 0, 0 ),
+	m_changeColor( 0, 0, 0),
+	m_addColor( 0, 0, 0),
+	m_appliedColor( 0, 0, 0),
+	m_scrollNoOfLines( 0 ),
+	m_tabToNumberOfSpaces( 0 )
 {
 }
 

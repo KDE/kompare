@@ -998,7 +998,11 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 #endif
 				{
 					kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *it << endl;
+#if INLINE_DIFFERENCES
+					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+#else
 					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i ) << endl;
+#endif
 					conflict = true;
 					break;
 				}
@@ -1043,7 +1047,11 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 #endif
 				{
 					kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *it << endl;
+#if INLINE_DIFFERENCES
+					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+#else
 					kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i ) << endl;
+#endif
 					conflict = true;
 					break;
 				}

@@ -594,7 +594,6 @@ void KompareListViewLineItem::paintText( QPainter * p, const QColorGroup& /*cg*/
 	{
 	case COL_MAIN:
 #if INLINE_DIFFERENCES
-		Command* c = m_text->commandsList()->first();
 		QString textChunk;
 		int offset = listView()->itemMargin();
 		unsigned int prevValue = 0;
@@ -610,36 +609,40 @@ void KompareListViewLineItem::paintText( QPainter * p, const QColorGroup& /*cg*/
 		}
 
 		p->fillRect( 0, 0, offset, height(), normalBrush );
-		for ( ; c; c = m_text->commandsList()->next() )
+		if ( !m_text->commandsList().isEmpty() )
 		{
-			textChunk = m_text->string().mid( prevValue, c->offset() - prevValue );
-//			kdDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
-//			kdDebug(8104) << "c->offset() = " << c->offset() << endl;
-//			kdDebug(8104) << "prevValue   = " << prevValue << endl;
-			textChunk.replace( QRegExp( "\\t" ), kompareListView()->spaces() );
-			prevValue = c->offset();
-			if ( c->type() == Command::End )
+			Command* c = m_text->commandsList()->first();
+			for ( ; c; c = m_text->commandsList()->next() )
 			{
-				QFont font( p->font() );
-				font.setBold( true );
-				p->setFont( font );
-//				p->setPen( Qt::blue );
-				brush = changeBrush;
+				textChunk = m_text->string().mid( prevValue, c->offset() - prevValue );
+//				kdDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
+//				kdDebug(8104) << "c->offset() = " << c->offset() << endl;
+//				kdDebug(8104) << "prevValue   = " << prevValue << endl;
+				textChunk.replace( QRegExp( "\\t" ), kompareListView()->spaces() );
+				prevValue = c->offset();
+				if ( c->type() == Command::End )
+				{
+					QFont font( p->font() );
+					font.setBold( true );
+					p->setFont( font );
+//					p->setPen( Qt::blue );
+					brush = changeBrush;
+				}
+				else
+				{
+					QFont font( p->font() );
+					font.setBold( false );
+					p->setFont( font );
+//					p->setPen( Qt::black );
+					brush = normalBrush;
+				}
+				chunkWidth = p->fontMetrics().width( textChunk );
+				p->fillRect( offset, 0, chunkWidth, height(), brush );
+				p->drawText( offset, 0,
+				             chunkWidth, height(),
+				             align, textChunk );
+				offset += chunkWidth;
 			}
-			else
-			{
-				QFont font( p->font() );
-				font.setBold( false );
-				p->setFont( font );
-//				p->setPen( Qt::black );
-				brush = normalBrush;
-			}
-			chunkWidth = p->fontMetrics().width( textChunk );
-			p->fillRect( offset, 0, chunkWidth, height(), brush );
-			p->drawText( offset, 0,
-			             chunkWidth, height(),
-			             align, textChunk );
-			offset += chunkWidth;
 		}
 		if ( prevValue < m_text->string().length() )
 		{

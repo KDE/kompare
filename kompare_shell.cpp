@@ -46,7 +46,7 @@ KompareShell::KompareShell()
 	m_textViewWidget( 0 )
 {
 	if ( !initialGeometrySet() )
-	resize( 800, 480 );
+	resize( 700, 480 );
 
 	// set the shell's ui resource file
 	setXMLFile("kompareui.rc");

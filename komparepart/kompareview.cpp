@@ -132,6 +132,7 @@ void KDiffView::setModel( DiffModel* model, bool ownsModel )
 	}
 	revlabel1->setText( model->getSourceFilename() );
 	revlabel2->setText( model->getDestinationFilename() );
+	setSelectedItem( 0 );
 	zoom->repaint();
 	emit itemsChanged();
 }

@@ -260,19 +260,16 @@ void KDiffPart::updateActions()
 {
 	int selected = m_diffView->getSelectedItem();
 	int count = m_diffView->getModel()->getDifferences().count();
-	m_previousDifference->setEnabled( selected != -1 );
-	m_nextDifference->setEnabled( selected != -2 && count );
+	m_previousDifference->setEnabled( selected > 0 );
+	m_nextDifference->setEnabled( selected < count - 1 );
 }
 
 void KDiffPart::slotPreviousDifference()
 {
 	int newitem;
 	int markeditem = m_diffView->getSelectedItem();
-	int count = m_diffView->getModel()->getDifferences().count();
-	if (markeditem == -1)
+	if (markeditem == 0)
 		return; // internal error (button not disabled)
-	else if (markeditem == -2) // past end
-		newitem = count-1;
 	else
 		newitem = markeditem-1;
 	m_diffView->setSelectedItem(newitem);
@@ -283,10 +280,8 @@ void KDiffPart::slotNextDifference()
 	int newitem;
 	int markeditem = m_diffView->getSelectedItem();
 	int count = m_diffView->getModel()->getDifferences().count();
-	if (markeditem == -2 || (markeditem == -1 && !count))
+	if (markeditem == count - 1)
 		return; // internal error (button not disabled)
-	else if (markeditem+1 == count) // past end
-		newitem = -2;
 	else
 		newitem = markeditem+1;
 	m_diffView->setSelectedItem(newitem);

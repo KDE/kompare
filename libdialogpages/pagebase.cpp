@@ -20,20 +20,20 @@
 #include <qlayout.h>
 #include <qobjectlist.h>
 
-#include "prefsbase.h"
+#include "pagebase.h"
 
-PrefsBase::PrefsBase( QWidget* parent ) : KTabCtl( parent )
+PageBase::PageBase( QWidget* parent ) : KTabCtl( parent )
 {
 
 }
 
-PrefsBase::~PrefsBase()
+PageBase::~PageBase()
 {
 
 }
 
 /** No descriptions */
-QSize PrefsBase::sizeHintForWidget( QWidget* widget )
+QSize PageBase::sizeHintForWidget( QWidget* widget )
 {
 	//
 	// The size is computed by adding the sizeHint().height() of all
@@ -84,21 +84,21 @@ QSize PrefsBase::sizeHintForWidget( QWidget* widget )
 }
 
 /** No descriptions */
-void PrefsBase::apply()
+void PageBase::apply()
 {
 
 }
 
 /** No descriptions */
-void PrefsBase::restore()
+void PageBase::restore()
 {
 
 }
 
 /** No descriptions */
-void PrefsBase::setDefaults()
+void PageBase::setDefaults()
 {
 
 }
 
-#include "prefsbase.moc"
+#include "pagebase.moc"

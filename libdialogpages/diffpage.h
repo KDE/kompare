@@ -17,10 +17,10 @@
 **
 ***************************************************************************/
 
-#ifndef DIFFPREFS_H
-#define DIFFPREFS_H
+#ifndef DIFFPAGE_H
+#define DIFFPAGE_H
 
-#include "prefsbase.h"
+#include "pagebase.h"
 
 class QCheckBox;
 class QDialog;
@@ -37,12 +37,12 @@ class KURLRequester;
 
 class DiffSettings;
 
-class DiffPrefs : public PrefsBase
+class DiffPage : public PageBase
 {
 Q_OBJECT
 public:
-	DiffPrefs( QWidget* );
-	~DiffPrefs();
+	DiffPage( QWidget* );
+	~DiffPage();
 
 public:
 	void setSettings( DiffSettings* );

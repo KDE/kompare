@@ -17,116 +17,76 @@
 **
 ***************************************************************************/
 
-#include <qgroupbox.h>
-#include <qlabel.h>
-#include <qlayout.h>
+#include <qvbox.h>
 
 #include <kapplication.h>
-#include <kconfig.h>
-#include <kdebug.h>
-#include <kcharsets.h>
 #include <klocale.h>
-#include <kurlcombobox.h>
 #include <kurlrequester.h>
+
+#include "diffpage.h"
+#include "diffsettings.h"
+#include "filespage.h"
+#include "filessettings.h"
+#include "viewpage.h"
+#include "viewsettings.h"
 
 #include "kompareurldialog.h"
 
 KompareURLDialog::KompareURLDialog( const KURL* firstURL, const KURL* secondURL,
                                     QWidget *parent, const char *name )
-        : KDialogBase( Plain, "", Ok|Cancel, Ok, parent, name ),
-		m_config( 0 )
+        : KDialogBase( IconList, "", Ok|Cancel, Ok, parent, name )
 {
-	QVBoxLayout* topLayout = new QVBoxLayout( plainPage(), 0,
-	          spacingHint() );
+	setIconListAllVisible(true);
 
-	m_firstGB = new QGroupBox( "You have to set this moron :)", plainPage() );
-	m_firstGB->setColumnLayout(0, Qt::Vertical );
-	m_firstGB->layout()->setSpacing( 0 );
-	m_firstGB->layout()->setMargin( 0 );
-	QHBoxLayout* firstGBLayout = new QHBoxLayout( m_firstGB->layout() );
-	firstGBLayout->setAlignment( Qt::AlignVCenter );
-	firstGBLayout->setSpacing( 6 );
-	firstGBLayout->setMargin( 11 );
+	QVBox* filesPage = addVBoxPage( i18n( "Files" ), i18n( "Enter here the files you want to compare." ) );
+	m_filesPage = new FilesPage( filesPage );
+	m_filesSettings = new FilesSettings( this );
 
-	m_firstURLComboBox = new KURLComboBox( KURLComboBox::Both, true, this, "SourceURLComboBox" );
+	QVBox* diffPage  = addVBoxPage( i18n( "Diff" ), i18n( "Here you can change the options for comparing the files." ) );
+	DiffPage* dp = new DiffPage( diffPage );
+	DiffSettings* ds = new DiffSettings( this );
+	ds->loadSettings( kapp->config() );
+	dp->setSettings( ds );
 
-	if( firstURL ) {
-		m_firstURLComboBox->setURL( *firstURL );
-	}
+	QVBox* viewPage  = addVBoxPage( i18n( "Appearance" ), i18n( "Here you can change the options for the view." ) );
+	ViewPage* vp = new ViewPage( viewPage );
+	ViewSettings* vs = new ViewSettings( this );
+	vs->loadSettings( kapp->config() );
+	vp->setSettings( vs );
 
-	m_firstURLRequester = new KURLRequester( m_firstURLComboBox, m_firstGB );
-	m_firstURLRequester->setFocus();
-
-	firstGBLayout->addWidget( m_firstURLRequester );
-	topLayout->addWidget( m_firstGB );
-
-	m_secondGB = new QGroupBox( "This too moron !", plainPage() );
-	m_secondGB->setColumnLayout(0, Qt::Vertical );
-	m_secondGB->layout()->setSpacing( 0 );
-	m_secondGB->layout()->setMargin( 0 );
-	QHBoxLayout* secondGBLayout = new QHBoxLayout( m_secondGB->layout() );
-	secondGBLayout->setAlignment( Qt::AlignVCenter );
-	secondGBLayout->setSpacing( 6 );
-	secondGBLayout->setMargin( 11 );
-
-	m_secondURLComboBox = new KURLComboBox( KURLComboBox::Both, true, this, "DestURLComboBox" );
-
-	if( secondURL ) {
-		m_secondURLComboBox->setURL( *secondURL );
-	}
-
-	m_secondURLRequester = new KURLRequester( m_secondURLComboBox, m_secondGB );
-
-	secondGBLayout->addWidget( m_secondURLRequester );
-	topLayout->addWidget( m_secondGB );
-
-	m_firstURLRequester->setMinimumWidth( 400 );
-	m_secondURLRequester->setMinimumWidth( 400 );
-
-	connect( m_firstURLRequester, SIGNAL( textChanged( const QString& ) ),
-	         this, SLOT( slotEnableOk() ) );
-	connect( m_secondURLRequester, SIGNAL( textChanged( const QString& ) ),
-	         this, SLOT( slotEnableOk() ) );
+	adjustSize();
 
 	enableButtonSeparator( true );
+
+	connect( m_filesPage->firstURLRequester(), SIGNAL( textChanged( const QString& ) ),
+	         this, SLOT( slotEnableOk() ) );
+	connect( m_filesPage->secondURLRequester(), SIGNAL( textChanged( const QString& ) ),
+	         this, SLOT( slotEnableOk() ) );
 
 	slotEnableOk();
 }
 
 KompareURLDialog::~KompareURLDialog()
 {
-	if ( !m_config )
-		m_config = kapp->config();
-
-	m_config->setGroup( m_configGroupName );
-//	kdDebug(8100) << "Recent Sources     : " << m_firstURLComboBox->urls().join( " " ) << endl;
-//	kdDebug(8100) << "Recent Destinations: " << m_secondURLComboBox->urls().join( " " ) << endl;
-	// Keeping these names so i wont have to write more kconfupdate scripts
-	m_config->writeEntry( "Recent Sources", m_firstURLComboBox->urls() );
-	m_config->writeEntry( "Recent Destinations", m_secondURLComboBox->urls() );
-	m_config->writeEntry( "LastChosenSourceListEntry", m_firstURLComboBox->currentText() );
-	m_config->writeEntry( "LastChosenDestinationListEntry", m_secondURLComboBox->currentText() );
-	m_config->sync();
 }
 
 void KompareURLDialog::slotOk()
 {
-	m_firstURLComboBox->setURL( KURL( m_firstURLComboBox->currentText() ) );
-	m_secondURLComboBox->setURL( KURL( m_secondURLComboBox->currentText() ) );
+	m_filesPage->setURLsInComboBoxes();
 
 	KDialogBase::slotOk();
 }
 
 void KompareURLDialog::slotEnableOk()
 {
-	enableButtonOK( !m_firstURLRequester->url().isEmpty() &&
-	                !m_secondURLRequester->url().isEmpty() );
+	enableButtonOK( !m_filesPage->firstURLRequester()->url().isEmpty() &&
+	                !m_filesPage->secondURLRequester()->url().isEmpty() );
 }
 
 KURL KompareURLDialog::getFirstURL() const
 {
 	if ( result() == QDialog::Accepted )
-		return KURL( m_firstURLRequester->url() );
+		return KURL( m_filesPage->firstURLRequester()->url() );
 	else
 		return KURL();
 }
@@ -134,57 +94,44 @@ KURL KompareURLDialog::getFirstURL() const
 KURL KompareURLDialog::getSecondURL() const
 {
 	if ( result() == QDialog::Accepted )
-		return KURL( m_secondURLRequester->url() );
+		return KURL( m_filesPage->secondURLRequester()->url() );
 	else
 		return KURL();
 }
 
+QString KompareURLDialog::encoding() const
+{
+	if ( result() == QDialog::Accepted )
+		return m_filesPage->encoding();
+		return QString( "default" );
+}
+
 void KompareURLDialog::setFirstGroupBoxTitle( const QString& title )
 {
-	m_firstGB->setTitle( title );
+	m_filesPage->setFirstGroupBoxTitle( title );
 }
 
 void KompareURLDialog::setSecondGroupBoxTitle( const QString& title )
 {
-	m_secondGB->setTitle( title );
+	m_filesPage->setSecondGroupBoxTitle( title );
 }
 
 void KompareURLDialog::setGroup( const QString& groupName )
 {
-	QStringList urlList;
-	QString lastChosenEntry;
-
-	if ( !m_config )
-		m_config = kapp->config();
-
-	m_configGroupName = groupName;
-
-	kdDebug() << "Groupname: " << groupName << endl;
-	m_config->setGroup( groupName );
-
-	urlList = m_config->readListEntry( "Recent Sources" );
-	lastChosenEntry = m_config->readEntry( "LastChosenSourceListEntry", "" );
-	kdDebug() << "Recent Sources: " << urlList.join("\n") << endl;
-	kdDebug() << "LastChosenSourceListEntry: " << lastChosenEntry << endl;
-	m_firstURLComboBox->setURLs( urlList );
-	m_firstURLComboBox->setURL( KURL( lastChosenEntry ) );
-
-	urlList = m_config->readListEntry( "Recent Destinations" );
-	lastChosenEntry = m_config->readEntry( "LastChosenDestinationListEntry", "" );
-	kdDebug() << "Recent Destinations: " << urlList.join("\n") << endl;
-	kdDebug() << "LastChosenDestinationListEntry: " << lastChosenEntry << endl;
-	m_secondURLComboBox->setURLs( urlList );
-	m_secondURLComboBox->setURL( KURL( lastChosenEntry ) );
+	m_filesSettings->setGroup( groupName );
+	m_filesSettings->loadSettings( kapp->config() );
+	m_filesPage->setSettings( m_filesSettings );
 }
 
 void KompareURLDialog::setFirstURLRequesterMode( unsigned int mode )
 {
-	m_firstURLRequester->setMode( mode );
+	m_filesPage->setFirstURLRequesterMode( mode );
 }
 
 void KompareURLDialog::setSecondURLRequesterMode( unsigned int mode )
 {
-	m_secondURLRequester->setMode( mode );
+	m_filesPage->setSecondURLRequesterMode( mode );
 }
 
 #include "kompareurldialog.moc"
+

@@ -39,9 +39,9 @@
 
 #include "diffsettings.h"
 
-#include "diffprefs.h"
+#include "diffpage.h"
 
-DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent ),
+DiffPage::DiffPage( QWidget* parent ) : PageBase( parent ),
 	m_ignoreRegExpDialog( 0 )
 {
 	addDiffTab();
@@ -53,12 +53,12 @@ DiffPrefs::DiffPrefs( QWidget* parent ) : PrefsBase( parent ),
 	addExcludeTab();
 }
 
-DiffPrefs::~DiffPrefs()
+DiffPage::~DiffPage()
 {
-	m_settings = NULL;
+	m_settings = 0;
 }
 
-void DiffPrefs::setSettings( DiffSettings* setts )
+void DiffPage::setSettings( DiffSettings* setts )
 {
 	m_settings = setts;
 
@@ -91,49 +91,46 @@ void DiffPrefs::setSettings( DiffSettings* setts )
 	m_excludeFileURLComboBox->setURL ( KURL( m_settings->m_excludeFilesFileURL ) );
 }
 
-DiffSettings* DiffPrefs::settings( void )
+DiffSettings* DiffPage::settings( void )
 {
 	return m_settings;
 }
 
-void DiffPrefs::restore()
+void DiffPage::restore()
 {
 	// this shouldn't do a thing...
 }
 
-void DiffPrefs::apply()
+void DiffPage::apply()
 {
-	DiffSettings* setts;
-	setts = (DiffSettings*)settings();
+	m_settings->m_diffProgram                    = m_diffURLRequester->url();
 
-	setts->m_diffProgram                    = m_diffURLRequester->url();
+	m_settings->m_largeFiles                     = m_largerCheckBox->isChecked();
+	m_settings->m_createSmallerDiff              = m_smallerCheckBox->isChecked();
+	m_settings->m_convertTabsToSpaces            = m_tabsCheckBox->isChecked();
+	m_settings->m_ignoreChangesInCase            = m_caseCheckBox->isChecked();
+	m_settings->m_ignoreEmptyLines               = m_linesCheckBox->isChecked();
+	m_settings->m_ignoreWhiteSpace               = m_whitespaceCheckBox->isChecked();
+	m_settings->m_ignoreAllWhiteSpace            = m_allWhitespaceCheckBox->isChecked();
+	m_settings->m_ignoreChangesDueToTabExpansion = m_ignoreTabExpansionCheckBox->isChecked();
 
-	setts->m_largeFiles                     = m_largerCheckBox->isChecked();
-	setts->m_createSmallerDiff              = m_smallerCheckBox->isChecked();
-	setts->m_convertTabsToSpaces            = m_tabsCheckBox->isChecked();
-	setts->m_ignoreChangesInCase            = m_caseCheckBox->isChecked();
-	setts->m_ignoreEmptyLines               = m_linesCheckBox->isChecked();
-	setts->m_ignoreWhiteSpace               = m_whitespaceCheckBox->isChecked();
-	setts->m_ignoreAllWhiteSpace            = m_allWhitespaceCheckBox->isChecked();
-	setts->m_ignoreChangesDueToTabExpansion = m_ignoreTabExpansionCheckBox->isChecked();
+	m_settings->m_ignoreRegExp                   = m_ignoreRegExpCheckBox->isChecked();
+	m_settings->m_ignoreRegExpText               = m_ignoreRegExpEdit->text();
+	m_settings->m_ignoreRegExpTextHistory        = m_ignoreRegExpEdit->completionObject()->items();
 
-	setts->m_ignoreRegExp                   = m_ignoreRegExpCheckBox->isChecked();
-	setts->m_ignoreRegExpText               = m_ignoreRegExpEdit->text();
-	setts->m_ignoreRegExpTextHistory        = m_ignoreRegExpEdit->completionObject()->items();
+	m_settings->m_linesOfContext                 = m_locSpinBox->value();
 
-	setts->m_linesOfContext                 = m_locSpinBox->value();
+	m_settings->m_format = static_cast<Kompare::Format>( m_modeButtonGroup->selectedId() );
 
-	setts->m_format = static_cast<Kompare::Format>( m_modeButtonGroup->selectedId() );
+	m_settings->m_excludeFilePattern             = m_excludeFilePatternCheckBox->isChecked();
+	m_settings->m_excludeFilePatternList         = m_excludeFilePatternEditListBox->items();
 
-	setts->m_excludeFilePattern             = m_excludeFilePatternCheckBox->isChecked();
-	setts->m_excludeFilePatternList         = m_excludeFilePatternEditListBox->items();
-
-	setts->m_excludeFilesFile               = m_excludeFileCheckBox->isChecked();
-	setts->m_excludeFilesFileURL            = m_excludeFileURLComboBox->currentText();
-	setts->m_excludeFilesFileHistoryList    = m_excludeFileURLComboBox->urls();
+	m_settings->m_excludeFilesFile               = m_excludeFileCheckBox->isChecked();
+	m_settings->m_excludeFilesFileURL            = m_excludeFileURLComboBox->currentText();
+	m_settings->m_excludeFilesFileHistoryList    = m_excludeFileURLComboBox->urls();
 }
 
-void DiffPrefs::setDefaults()
+void DiffPage::setDefaults()
 {
 	m_diffURLRequester->setURL( "diff" );
 	m_smallerCheckBox->setChecked( true );
@@ -157,7 +154,7 @@ void DiffPrefs::setDefaults()
 	m_excludeFileCheckBox->setChecked( false );
 }
 
-void DiffPrefs::slotShowRegExpEditor()
+void DiffPage::slotShowRegExpEditor()
 {
 	if ( ! m_ignoreRegExpDialog )
 		m_ignoreRegExpDialog = KParts::ComponentFactory::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor", QString::null, this );
@@ -174,7 +171,7 @@ void DiffPrefs::slotShowRegExpEditor()
 		m_ignoreRegExpEdit->setText( iface->regExp() );
 }
 
-void DiffPrefs::slotExcludeFilePatternToggled( bool on )
+void DiffPage::slotExcludeFilePatternToggled( bool on )
 {
 	if ( !on )
 	{
@@ -186,7 +183,7 @@ void DiffPrefs::slotExcludeFilePatternToggled( bool on )
 	}
 }
 
-void DiffPrefs::slotExcludeFileToggled( bool on )
+void DiffPage::slotExcludeFileToggled( bool on )
 {
 	if ( !on )
 	{
@@ -200,7 +197,7 @@ void DiffPrefs::slotExcludeFileToggled( bool on )
 	}
 }
 
-void DiffPrefs::addDiffTab()
+void DiffPage::addDiffTab()
 {
 	QWidget* page   = new QWidget( this );
 	QVBoxLayout* layout = new QVBoxLayout( page );
@@ -221,7 +218,7 @@ void DiffPrefs::addDiffTab()
 	addTab( page, i18n( "&Diff" ) );
 }
 
-void DiffPrefs::addFormatTab()
+void DiffPage::addFormatTab()
 {
 	QWidget* page   = new QWidget( this );
 	QVBoxLayout* layout = new QVBoxLayout( page );
@@ -259,7 +256,7 @@ void DiffPrefs::addFormatTab()
 	addTab( page, i18n( "&Format" ) );
 }
 
-void DiffPrefs::addOptionsTab()
+void DiffPage::addOptionsTab()
 {
 	QWidget* page   = new QWidget( this );
 	QVBoxLayout* layout = new QVBoxLayout( page );
@@ -318,7 +315,7 @@ void DiffPrefs::addOptionsTab()
 	addTab( page, i18n( "O&ptions" ) );
 }
 
-void DiffPrefs::addExcludeTab()
+void DiffPage::addExcludeTab()
 {
 	QWidget* page = new QWidget( this );
 	QVBoxLayout* layout = new QVBoxLayout( page );
@@ -349,8 +346,7 @@ void DiffPrefs::addExcludeTab()
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	// FIXME: restore the i18n() call, dunno how smart the extraction script is and i dont want to cause fuzzies
-	addTab( page, "&Exclude" );
+	addTab( page, i18n( "&Exclude" ) );
 }
 
-#include "diffprefs.moc"
+#include "diffpage.moc"

@@ -31,7 +31,7 @@ class DiffSettings : public SettingsBase
 Q_OBJECT
 public:
 	DiffSettings( QWidget* parent );
-	~DiffSettings();
+	virtual ~DiffSettings();
 public:
 	// some virtual functions that will be overloaded from the base class
 	virtual void loadSettings( KConfig* config );

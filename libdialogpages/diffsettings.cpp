@@ -69,7 +69,7 @@ void DiffSettings::loadSettings( KConfig* config )
 	m_excludeFilePattern             = config->readBoolEntry( "Pattern", false );
 	m_excludeFilePatternList         = config->readListEntry( "PatternList" );
 	m_excludeFilesFile               = config->readBoolEntry( "File", false );
-	m_excludeFilesFileURL            = config->readEntry( "FileURL", "" );
+	m_excludeFilesFileURL            = config->readEntry    ( "FileURL", "" );
 	m_excludeFilesFileHistoryList    = config->readListEntry( "FileHistoryList" );
 }
 

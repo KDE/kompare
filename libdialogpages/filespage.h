@@ -17,52 +17,59 @@
 **
 ***************************************************************************/
 
-#ifndef KOMPAREURLDIALOG_H
-#define KOMPAREURLDIALOG_H
+#ifndef FILESPAGE_H
+#define FILESPAGE_H
 
-#include <kdialogbase.h>
-#include <kurl.h>
+#include "pagebase.h"
 
 class QGroupBox;
 
+class QComboBox;
 class KComboBox;
 class KConfig;
 class KFileDialog;
 class KURLComboBox;
 class KURLRequester;
 
-class FilesPage;
 class FilesSettings;
 
-class KompareURLDialog : public KDialogBase
+class FilesPage : PageBase
 {
-	Q_OBJECT
+public:
+	FilesPage( QWidget* parent );
+	virtual ~FilesPage();
 
 public:
-	KompareURLDialog( const KURL* firstURL = 0, const KURL* secondURL = 0, QWidget* parent = 0, const char* name = 0 );
-	~KompareURLDialog();
+	KURLRequester* firstURLRequester() const;
+	KURLRequester* secondURLRequester() const;
 
-	KURL getFirstURL() const;
-	KURL getSecondURL() const;
 	QString encoding() const;
 
 	void setFirstGroupBoxTitle ( const QString& title );
 	void setSecondGroupBoxTitle( const QString& title );
 
-	void setGroup( const QString& groupName );
+	void setURLsInComboBoxes();
 
-	void setFirstURLRequesterMode ( unsigned int mode );
+	void setFirstURLRequesterMode( unsigned int mode );
 	void setSecondURLRequesterMode( unsigned int mode );
 
-protected slots:
-	virtual void slotOk();
-
-private slots:
-	void slotEnableOk();
+public:
+	virtual void setSettings( FilesSettings* settings );
+	virtual void restore();
+	virtual void apply();
+	virtual void setDefaults();
 
 private:
-	FilesPage*     m_filesPage;
-	FilesSettings* m_filesSettings;
+	QGroupBox*     m_firstGB;
+	QGroupBox*     m_secondGB;
+	QGroupBox*     m_thirdGB;
+	KURLComboBox*  m_firstURLComboBox;
+	KURLComboBox*  m_secondURLComboBox;
+	KURLRequester* m_firstURLRequester;
+	KURLRequester* m_secondURLRequester;
+	QComboBox*     m_encodingComboBox;
+
+	FilesSettings* m_settings;
 };
 
 #endif

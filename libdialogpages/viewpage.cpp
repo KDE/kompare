@@ -28,10 +28,10 @@
 #include <kdialog.h>
 #include <klocale.h>
 
-#include "viewprefs.h"
+#include "viewpage.h"
 #include "viewsettings.h"
 
-ViewPrefs::ViewPrefs( QWidget* parent ) : PrefsBase( parent )
+ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 {
 	QWidget*     page;
 	QVBoxLayout* layout;
@@ -95,12 +95,12 @@ ViewPrefs::ViewPrefs( QWidget* parent ) : PrefsBase( parent )
 	addTab( page, i18n( "A&ppearance" ) );
 }
 
-ViewPrefs::~ViewPrefs()
+ViewPage::~ViewPage()
 {
 
 }
 
-void ViewPrefs::setSettings( ViewSettings* setts )
+void ViewPage::setSettings( ViewSettings* setts )
 {
 	m_settings = setts;
 
@@ -112,16 +112,16 @@ void ViewPrefs::setSettings( ViewSettings* setts )
 	m_tabSpinBox->setValue        ( m_settings->m_tabToNumberOfSpaces );
 }
 
-ViewSettings* ViewPrefs::settings( void )
+ViewSettings* ViewPage::settings( void )
 {
 	return m_settings;
 }
 
-void ViewPrefs::restore()
+void ViewPage::restore()
 {
 }
 
-void ViewPrefs::apply()
+void ViewPage::apply()
 {
 	ViewSettings* setts;
 	setts = settings();
@@ -136,7 +136,7 @@ void ViewPrefs::apply()
 	setts->emitSettingsChanged();
 }
 
-void ViewPrefs::setDefaults()
+void ViewPage::setDefaults()
 {
 	m_addedColorButton->setColor  ( ViewSettings::default_addColor );
 	m_changedColorButton->setColor( ViewSettings::default_changeColor );
@@ -146,4 +146,4 @@ void ViewPrefs::setDefaults()
         m_tabSpinBox->setValue( 4 );
 }
 
-#include "viewprefs.moc"
+#include "viewpage.moc"

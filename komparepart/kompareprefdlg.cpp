@@ -23,8 +23,8 @@
 #include <kiconloader.h>
 #include <klocale.h>
 
-#include "diffprefs.h"
-#include "viewprefs.h"
+#include "diffpage.h"
+#include "viewpage.h"
 
 #include "kompareprefdlg.h"
 
@@ -37,11 +37,11 @@ KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets )
 
 	QVBox* frame;
 	frame = addVBoxPage( i18n( "View" ), i18n( "View Settings" ), UserIcon( "diff_view" ) );
-	m_viewPage = new ViewPrefs( frame );
+	m_viewPage = new ViewPage( frame );
 	m_viewPage->setSettings( viewSets );
 
 	frame = addVBoxPage( i18n( "Diff" ), i18n( "Diff Settings" ), UserIcon( "diff_specific" ) );
-	m_diffPage = new DiffPrefs( frame );
+	m_diffPage = new DiffPage( frame );
 	m_diffPage->setSettings( diffSets );
 
 //	frame = addVBoxPage( i18n( "" ), i18n( "" ), UserIcon( "" ) );

@@ -1,4 +1,7 @@
-INCLUDES = -I$(top_srcdir)/kompare/komparepart -I$(top_srcdir)/kompare/interfaces $(all_includes)
+INCLUDES = \
+	-I$(top_srcdir)/kompare/libdialogpages \
+	-I$(top_srcdir)/kompare/komparepart \
+	-I$(top_srcdir)/kompare/interfaces $(all_includes)
 
 noinst_HEADERS = \
 	levenshteintable.h \

@@ -1,13 +1,13 @@
 /***************************************************************************
-                                generalprefs.h  -  description
+                                prefsbase.h  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
+        copyright               : (C) 2001 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
-
+ 
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -17,44 +17,33 @@
 **
 ***************************************************************************/
 
-#ifndef VIEWPREFS_H
-#define VIEWPREFS_H
+#ifndef PAGEBASE_H
+#define PAGEBASE_H
 
-#include "prefsbase.h"
+#include <qsize.h>
+#include <qwidget.h>
 
-class QCheckBox;
-class KColorButton;
-class QSpinBox;
+#include <kconfig.h>
+#include <ktabctl.h>
 
-class ViewSettings;
+#include "kompare.h"
 
-class ViewPrefs : public PrefsBase
+class PageBase : public KTabCtl
 {
 Q_OBJECT
-public:
-	ViewPrefs( QWidget* );
-	~ViewPrefs();
+public: 
+	PageBase( QWidget* );
+	~PageBase();
 
 public:
-	void setSettings( ViewSettings* );
-	ViewSettings* settings( void );
-
-public:
-	ViewSettings* m_settings;
-
-public:
+	/** No descriptions */
+	QSize        sizeHintForWidget( QWidget* widget );
+	/** No descriptions */
 	virtual void restore();
+	/** No descriptions */
 	virtual void apply();
+	/** No descriptions */
 	virtual void setDefaults();
-
-public:
-	KColorButton* m_removedColorButton;
-	KColorButton* m_changedColorButton;
-	KColorButton* m_addedColorButton;
-	KColorButton* m_appliedColorButton;
-	// snol == scroll number of lines
-	QSpinBox*     m_snolSpinBox;
-	QSpinBox*     m_tabSpinBox;
 };
 
 #endif

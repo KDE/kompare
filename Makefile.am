@@ -1,6 +1,12 @@
-SUBDIRS = interfaces libdiff2 komparenavtreepart komparepart pics
+SUBDIRS = interfaces libdiff2 libdialogpages komparenavtreepart komparepart pics
 
-INCLUDES = -I$(srcdir)/libdiff2 -I$(srcdir)/komparenavtreepart -I$(srcdir)/komparepart -I$(srcdir)/interfaces $(all_includes)
+INCLUDES = \
+	-I$(srcdir)/libdiff2 \
+	-I$(srcdir)/libdialogpages \
+	-I$(srcdir)/komparenavtreepart \
+	-I$(srcdir)/komparepart \
+	-I$(srcdir)/interfaces \
+	$(all_includes)
 
 noinst_HEADERS =  kompare_shell.h kompareurldialog.h
 
@@ -23,7 +29,9 @@ bin_PROGRAMS = kompare
 # the application source, library search path, and link libraries
 kompare_SOURCES = main.cpp kompare_shell.cpp kompareurldialog.cpp
 kompare_LDFLAGS = $(all_libraries)
-kompare_LDADD   = $(LIB_KPARTS) interfaces/libkompareinterface.la
+kompare_LDADD   = $(LIB_KPARTS) \
+	$(top_builddir)/kompare/interfaces/libkompareinterface.la \
+	$(top_builddir)/kompare/libdialogpages/libdialogpages.la
 
 # this is where the desktop file will go
 xdg_apps_DATA = kompare.desktop

@@ -2,18 +2,16 @@
 # KPART SECTION
 #########################################################################
 
-INCLUDES = -I$(top_srcdir)/kompare/libdiff2 -I$(top_srcdir)/kompare/interfaces $(all_includes)
+INCLUDES = \
+	-I$(top_srcdir)/kompare/libdialogpages \
+	-I$(top_srcdir)/kompare/libdiff2 \
+	-I$(top_srcdir)/kompare/interfaces \
+	$(all_includes)
 
 noinst_HEADERS = \
 	kompare_part.h \
 	komparesplitter.h \
-	prefsbase.h \
-	diffprefs.h \
-	diffsettings.h \
-	viewprefs.h \
-	viewsettings.h \
 	kompareprefdlg.h \
-	settingsbase.h \
 	komparelistview.h \
 	kompareconnectwidget.h \
 	komparesaveoptionsbase.h \
@@ -31,18 +29,13 @@ libkomparepart_la_SOURCES = \
 	kompareconnectwidget.cpp \
 	komparesplitter.cpp \
 	komparelistview.cpp \
-	settingsbase.cpp \
-	diffsettings.cpp \
-	viewsettings.cpp \
 	kompareprefdlg.cpp \
-	prefsbase.cpp \
-	diffprefs.cpp \
-	viewprefs.cpp \
 	komparesaveoptionsbase.ui \
 	komparesaveoptionswidget.cpp
 
 libkomparepart_la_LDFLAGS = $(KDE_PLUGIN) $(all_libraries)
 libkomparepart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE) \
+	../libdialogpages/libdialogpages.la \
 	../libdiff2/libdiff2.la \
 	../interfaces/libkompareinterface.la
 

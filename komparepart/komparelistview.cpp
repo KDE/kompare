@@ -92,7 +92,7 @@ int KompareListView::lastVisibleDifference()
 	QListViewItem* item = itemAt( QPoint( 0, visibleHeight() - 1 ) );
 	if( item == 0 ) {
 		kdDebug() << "no item at (0," << visibleHeight() - 1 << ")" << endl;
-		item = m_items.last();
+		item = lastItem();
 	}
 
 	while( item ) {
@@ -239,8 +239,7 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 			m_maxScrollId = item->scrollId() + item->height() - 1;
 		}
 	}
-
-
+	
 	connect( model, SIGNAL(appliedChanged( const Difference* )),
 	         this, SLOT(slotAppliedChanged( const Difference* )) );
 }
@@ -366,8 +365,9 @@ void KompareListViewDiffItem::setVisibility()
 		m_destItem->setVisible( !m_sourceItem->isVisible() );
 }
 
-void KompareListViewDiffItem::applyDifference( bool /*apply*/ )
+void KompareListViewDiffItem::applyDifference( bool apply )
 {
+	kdDebug() << "KompareListViewDiffItem::applyDifference( " << apply << " )" << endl;
 	setVisibility();
 	setup();
 	repaint();

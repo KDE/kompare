@@ -90,6 +90,8 @@ KCompareDialog::KCompareDialog( const KURL* sourceURL, const KURL* destinationUR
 	m_destinationURLRequester->setMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
 
 	// FIXME: qwhatsthis is screwed... still mentions OK there...
+	// This cannot be fixed without introducing a new string so not allowed in the stable 3_0 branch :(
+	// This is fixed in the 3.1 branch ! :)
 	setButtonOKText( i18n( "Compare" ), i18n( "Compare these files or directories" ) );
 
 	connect( m_sourceURLRequester, SIGNAL( textChanged( const QString& ) ),
@@ -115,6 +117,15 @@ void KCompareDialog::slotEnableCompare()
 {
 	enableButtonOK( !m_sourceURLRequester->url().isEmpty() &&
 	                !m_destinationURLRequester->url().isEmpty() );
+}
+
+void KCompareDialog::slotOk()
+{
+	m_sourceURLComboBox->setURL(  m_sourceURLComboBox->currentText() );
+	m_destinationURLComboBox->setURL(  m_destinationURLComboBox->currentText() );
+
+	// Dunno what it does but i'll call it anyway since i only need this additionally
+	KDialogBase::slotOk();
 }
 
 KURL KCompareDialog::getSourceURL() const

@@ -38,6 +38,9 @@ public:
 	KURL getSourceURL() const;
 	KURL getDestinationURL() const;
 
+protected slots:
+	virtual void slotOk();
+
 private slots:
 	void slotEnableCompare();
 

@@ -6,7 +6,6 @@ INCLUDES = \
 	-I$(srcdir)/komparenavtreepart \
 	-I$(srcdir)/komparepart \
 	-I$(srcdir)/interfaces \
-	-I$(includedir)/ktexteditor \
 	$(all_includes)
 
 noinst_HEADERS =  kompare_shell.h kompareurldialog.h

@@ -14,8 +14,6 @@ noinst_HEADERS = \
 	viewprefs.h \
 	viewsettings.h \
 	kompareprefdlg.h \
-	miscprefs.h \
-	miscsettings.h \
 	settingsbase.h \
 	komparelistview.h \
 	kompareconnectwidget.h \
@@ -37,12 +35,10 @@ libkomparepart_la_SOURCES = \
 	settingsbase.cpp \
 	diffsettings.cpp \
 	viewsettings.cpp \
-	miscsettings.cpp \
 	kompareprefdlg.cpp \
 	prefsbase.cpp \
 	diffprefs.cpp \
 	viewprefs.cpp \
-	miscprefs.cpp \
 	komparesaveoptionsbase.ui \
 	komparesaveoptionswidget.cpp
 

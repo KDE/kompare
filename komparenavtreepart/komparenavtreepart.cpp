@@ -243,7 +243,9 @@ void KompareNavTreePart::setSelectedDir( const DiffModel* model )
 	m_destDirTree->ensureItemVisible( currentDir );
 	m_destDirTree->blockSignals( false );
 
+	m_fileList->blockSignals( true );
 	currentDir->fillFileList( m_fileList, &m_modelToFileItemDict );
+	m_fileList->blockSignals( false );
 }
 
 void KompareNavTreePart::setSelectedFile( const DiffModel* model )

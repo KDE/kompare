@@ -188,6 +188,7 @@ void KompareShell::openDiff(const KURL& url)
 {
 	kdDebug(8102) << "Url = " << url.prettyURL() << endl;
 	m_diffURL = url;
+	m_viewPart->setEncoding( "Default" );
 	m_viewPart->openDiff( url );
 }
 
@@ -202,6 +203,7 @@ void KompareShell::openStdin()
 
 	file.close();
 
+	m_viewPart->setEncoding( "Default" );
 	m_viewPart->openDiff( diff );
 
 }
@@ -211,6 +213,7 @@ void KompareShell::compare(const KURL& source,const KURL& destination )
 	m_sourceURL = source;
 	m_destinationURL = destination;
 
+	m_viewPart->setEncoding( "Default" );
 	m_viewPart->compare( source, destination );
 }
 
@@ -219,6 +222,7 @@ void KompareShell::blend( const KURL& url1, const KURL& diff )
 	m_sourceURL = url1;
 	m_destinationURL = diff;
 
+	m_viewPart->setEncoding( "Default" );
 	m_viewPart->openDirAndDiff( url1, diff );
 }
 

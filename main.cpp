@@ -39,6 +39,7 @@ static KCmdLineOptions options[] =
 	{ "o", I18N_NOOP( "This will open URL1 and expect it to be diff output. URL1 can also be a '-' and then it will read from standard input. Can be used for instance for cvs diff | kompare -o -. Kompare will do a check to see if it can find the original file(s) and then blend the original file(s) into the diffoutput and show that in the viewer. -n disables the check." ), 0 },
 	{ "b", I18N_NOOP( "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 the file or folder that the diffoutput needs to be blended into. " ), 0 },
 	{ "n", I18N_NOOP( "Disables the check for automatically finding the original file(s) when using '-' as URL with the -o option." ), 0 },
+	{ "e", I18N_NOOP( "Use this to specify the encoding when calling it from the command line. It will default to the local encoding if not specified." ), 0 },
 	{ "+[URL1 [URL2]]",0 , 0 },
 	{ "+-", 0, 0 },
 //	{ "", I18N_NOOP( "" ), 0 },
@@ -137,6 +138,11 @@ int main(int argc, char *argv[])
 				ks->blend( url0, url1 );
 				difault = false;
 			}
+		}
+		else if ( args->isSet( "e" ) )
+		{
+			// Encoding given...
+			// FIXME: Need to implement this...
 		}
 		else if ( args->count() == 1 )
 		{

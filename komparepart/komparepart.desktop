@@ -16,7 +16,6 @@ Name[sv]=Kompare-del
 Name[ta]=கோம்பெர் உறுப்பு
 Name[tg]=Қисмати утилитҳои баробаркунии файлҳо
 Name[th]=ส่วนเปรียบเทียบ
-Name[xx]=xxKomparePartxx
 Name[zu]=Ingxenye yeKompare
 MimeType=text/x-diff
 ServiceTypes=Kompare/ViewPart,KParts/ReadWritePart,KParts/ReadOnlyPart

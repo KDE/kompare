@@ -103,6 +103,7 @@ QString KompareURLDialog::encoding() const
 {
 	if ( result() == QDialog::Accepted )
 		return m_filesPage->encoding();
+	else
 		return QString( "default" );
 }
 

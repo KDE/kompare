@@ -34,7 +34,11 @@ KompareModelList::KompareModelList()
 	: QObject(),
 	m_diffProcess( 0 ),
 	m_diffTemp( 0 ),
-	m_mode( Compare )
+	m_mode( Compare ),
+	m_selectedModel( 0 ),
+	m_selectedDifference( 0 ),
+	m_modelIt( 0 ),
+	m_diffIt( 0 )
 {
 }
 
@@ -42,6 +46,8 @@ KompareModelList::~KompareModelList()
 {
 	KIO::NetAccess::removeTempFile( m_sourceTemp );
 	KIO::NetAccess::removeTempFile( m_destinationTemp );
+	
+	delete m_modelIt;
 
 	delete m_diffProcess;
 }
@@ -118,10 +124,9 @@ bool KompareModelList::compare( const KURL& source, const KURL& destination )
 	return true;
 }
 
-bool KompareModelList::saveDestination( int index )
+bool KompareModelList::saveDestination( const DiffModel* model_ )
 {
-	DiffModel* model = modelAt( index );
-
+	DiffModel* model = const_cast<DiffModel*>( model_ );
 	if( !model->isModified() ) return true;
 
 	KTempFile* temp = new KTempFile();
@@ -175,8 +180,11 @@ bool KompareModelList::saveDestination( int index )
 
 bool KompareModelList::saveAll()
 {
-	for( uint i = 0; i < m_models.count(); ++i ) {
-		if( !saveDestination( i ) ) return false;
+	QPtrListIterator<DiffModel> it( m_models );
+	while ( it.current() )
+	{
+		if( !saveDestination( *it ) ) return false;
+		++it;
 	}
 	return true;
 }
@@ -320,6 +328,156 @@ void KompareModelList::slotWriteDiffOutput( bool success )
 	m_diffProcess = 0;
 }
 
+void KompareModelList::slotSelectionChanged( const DiffModel* model, const Difference* diff )
+{
+// This method will signal all the other objects about a change in selection,
+// it will emit setSelection( const DiffModel*, const Difference* ) to all who are connected
+	kdDebug() << "Caught me a model and a diff signal " << endl;
+
+	m_selectedModel = const_cast<DiffModel*>(model);
+	m_selectedDifference = const_cast<Difference*>(diff);
+
+	m_selectedModel->setSelectedDifference( m_selectedDifference );
+
+	for( m_modelIt->toFirst(); !m_modelIt->atLast(); ++(*m_modelIt) )
+	{
+		if ( model == *(*m_modelIt) )
+			break;
+	}
+
+	if ( m_modelIt->atLast() && model != *(*m_modelIt) )
+		kdDebug() << "Big fat trouble, no model found" << endl;
+
+	delete m_diffIt;
+	m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
+
+	for( m_diffIt->toFirst(); !m_diffIt->atLast(); ++(*m_diffIt) )
+	{
+		if ( diff == *(*m_diffIt) )
+			break;
+	}
+
+	if ( m_diffIt->atLast() && diff != *(*m_diffIt) )
+		kdDebug() << "Big fat trouble, no diff found" << endl;
+
+	emit setSelection( model, diff );
+}
+
+void KompareModelList::slotSelectionChanged( const Difference* diff )
+{
+// This method will emit setSelection( const Difference* ) to whomever is listening
+// when for instance in kompareview the selection has changed
+	kdDebug() << "Caught me a signal, yihaa" << endl;
+
+	m_selectedDifference = const_cast<Difference*>(diff);
+	m_selectedModel->setSelectedDifference( m_selectedDifference );
+
+	for( m_diffIt->toFirst(); !m_diffIt->atLast(); ++(*m_diffIt) )
+	{
+		if ( diff == *(*m_diffIt) )
+			break;
+	}
+
+	if ( m_diffIt->atLast() && diff != *(*m_diffIt) )
+		kdDebug() << "Big fat trouble, no diff found" << endl;
+
+	emit setSelection( diff );
+}
+
+void KompareModelList::slotPreviousModel()
+{
+	// cannot get below 1
+	if ( !m_modelIt->atFirst() )
+	{
+		m_selectedModel = --(*m_modelIt);
+		
+		delete m_diffIt;
+		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
+
+		m_selectedDifference = m_diffIt->toFirst();
+		m_selectedModel->setSelectedDifference( m_selectedDifference );
+		
+		emit setSelection( m_selectedModel, m_selectedDifference );
+	}
+}
+
+void KompareModelList::slotNextModel()
+{
+	if ( !m_modelIt->atLast() )
+	{
+		m_selectedModel = ++(*m_modelIt);
+
+		delete m_diffIt;
+		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
+
+		m_selectedDifference = m_diffIt->toFirst();
+		m_selectedModel->setSelectedDifference( m_selectedDifference );
+
+		emit setSelection( m_selectedModel, m_selectedDifference );
+	}
+}
+
+void KompareModelList::slotPreviousDifference()
+{
+	if ( m_selectedDifference->index() > 0 )
+	{
+		m_selectedDifference = --(*m_diffIt);
+		m_selectedModel->setSelectedDifference( m_selectedDifference );
+
+		emit setSelection( m_selectedDifference );
+	}
+	else if ( m_selectedDifference->index() == 0 && m_selectedModel->index() > 0 )
+	{
+		m_selectedModel = --(*m_modelIt);
+
+		delete m_diffIt;
+		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
+
+		m_selectedDifference = m_diffIt->toLast();
+		m_selectedModel->setSelectedDifference( m_selectedDifference );
+
+		emit setSelection( m_selectedModel, m_selectedDifference );
+	}
+	// no previous difference (should not happen)
+}
+
+void KompareModelList::slotNextDifference()
+{
+	if ( m_selectedDifference->index() < ( m_selectedModel->differenceCount() - 1 ) )
+	{
+		m_selectedDifference = ++(*m_diffIt);
+		m_selectedModel->setSelectedDifference( m_selectedDifference );
+
+		emit setSelection( m_selectedDifference );
+	}
+	else if ( ( m_selectedDifference->index() == ( m_selectedModel->differenceCount() - 1 ) ) && ( m_selectedModel->index() < ( m_models.count() - 1 ) ) )
+	{
+		m_selectedModel = ++(*m_modelIt);
+
+		delete m_diffIt;
+		m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
+
+		m_selectedDifference = m_diffIt->toFirst();
+		m_selectedModel->setSelectedDifference( m_selectedDifference );
+
+		emit setSelection( m_selectedModel, m_selectedDifference );
+	}
+	// no next difference (should not happen)
+}
+
+void KompareModelList::slotApplyDifference( bool apply )
+{
+	m_selectedModel->applyDifference( apply );
+	emit applyDifference( apply );
+}
+
+void KompareModelList::slotApplyAllDifferences( bool apply )
+{
+	// FIXME: we need to use hunks here as well
+	m_selectedModel->applyAllDifferences( apply );
+	emit applyAllDifferences( apply );
+}
+
 int KompareModelList::determineDiffFormat( const QStringList& lines )
 {
 	QStringList::ConstIterator it = lines.begin();
@@ -366,6 +524,7 @@ int KompareModelList::determineDiffFormat( const QStringList& lines )
 
 int KompareModelList::parseDiffOutput( const QStringList& lines )
 {
+	// FIXME: remove code duplication
 	if( lines.count() == 0 ) return -1;
 
 	bool cvsdiff = false;
@@ -412,6 +571,8 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 		it = lines.begin();
 	}
 
+	int modelIndex = 0;
+	// FIXME: lots of duplicate code... needs to be refactored into a switch case
 	if ( cvsdiff )
 	{
 		// cvs diff
@@ -429,6 +590,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 				if ( result == 0 )
 				{
 					kdDebug() << "One file parsed" << endl;
+					model->setIndex( modelIndex++ );
 					m_models.append( model );
 				}
 				else
@@ -459,6 +621,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 			if ( result == 0 )
 			{
 				kdDebug() << "One file parsed" << endl;
+				model->setIndex( modelIndex++ );
 				m_models.append( model );
 			}
 			else
@@ -496,6 +659,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 				if ( result == 0 )
 				{
 					kdDebug() << "One file parsed" << endl;
+					model->setIndex( modelIndex++ );
 					m_models.append( model );
 				}
 				else
@@ -525,6 +689,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 			if ( result == 0 )
 			{
 				kdDebug() << "One file parsed" << endl;
+				model->setIndex( modelIndex++ );
 				m_models.append( model );
 			}
 			else
@@ -545,8 +710,16 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 			m_type = SingleFileDiff;
 		}
 	}
+	// delete old one and contruct a new one
+	delete m_modelIt;
+	m_modelIt = new QPtrListIterator<DiffModel>( m_models );
+	m_selectedModel = m_modelIt->toFirst();
+	delete m_diffIt;
+	m_diffIt = new QPtrListIterator<Difference>( m_selectedModel->differences() );
+	m_selectedDifference = m_diffIt->toFirst();
 
-	emit modelsChanged();
+	emit modelsChanged( &m_models );
+	emit setSelection( m_selectedModel, m_selectedDifference );
 
 	return 0; // FIXME better error handling
 };
@@ -554,7 +727,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 void KompareModelList::clear()
 {
 	m_models.clear();
-	emit modelsChanged();
+	emit modelsChanged( &m_models );
 }
 
 void KompareModelList::swap()

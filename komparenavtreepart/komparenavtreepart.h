@@ -1,8 +1,8 @@
 /***************************************************************************
-                                komparenavigationtree.h  -  description
+                                komparenavtreepart.h  -  description
                                 -------------------
-        begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001 by Otto Bruggeman
+        begin                   : Mon Feb 26 2002
+        copyright               : (C) 2002 by Otto Bruggeman
                                   and John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
@@ -17,49 +17,64 @@
 **
 ***************************************************************************/
 
-#ifndef KOMPARENAVIGATIONTREE_H
-#define KOMPARENAVIGATIONTREE_H
+#ifndef KOMPARENAVTREEPART_H
+#define KOMPARENAVTREEPART_H
 
 #include <qptrdict.h>
+#include <qptrlist.h>
 #include <qsplitter.h>
 #include <qlistview.h>
 
+#include <kparts/factory.h>
+#include <kparts/part.h>
 
 class KompareModelList;
 class KomparePart;
 class KListView;
+class DiffModel;
+class Difference;
 
 class KDirLVI;
+class KFileLVI;
+class KChangeLVI;
 
-class KompareNavigationTree : public QSplitter
+class KompareNavTreePart : public KParts::ReadOnlyPart
 {
 	Q_OBJECT
 
 public:
-	KompareNavigationTree( KompareModelList* models, QWidget* parent = 0L, const char* name = 0L );
-	virtual ~KompareNavigationTree();
+	KompareNavTreePart( QWidget* parent = 0L, const char* name = 0L );
+	virtual ~KompareNavTreePart();
+
+public:
+	virtual bool openFile() { return false; };
 
 public slots:
-	void slotSetSelection( int model, int diff );
+	void slotSetSelection( const DiffModel* model, const Difference* diff );
+	void slotSetSelection( const Difference* diff );
+	void slotModelsChanged( const QPtrList<DiffModel>* modelList );
 
 signals:
-	void selectionChanged( int model, int diff );
+	void selectionChanged( const DiffModel* model, const Difference* diff );
+	void selectionChanged( const Difference* diff );
 
 private slots:
-	void slotSrcDirTreeSelectionChanged( QListViewItem* item );
+	void slotSrcDirTreeSelectionChanged ( QListViewItem* item );
 	void slotDestDirTreeSelectionChanged( QListViewItem* item );
-	void slotFileListSelectionChanged( QListViewItem* item );
+	void slotFileListSelectionChanged   ( QListViewItem* item );
 	void slotChangesListSelectionChanged( QListViewItem* item );
 
-	void slotAppliedChanged( const Difference* d );
+	void slotApplyDifference( bool apply );
+	void slotApplyAllDifferences( bool apply );
 
-private slots:
 	void buildTreeInMemory();
 
 private:
+	void setSelectedDir( const DiffModel* model );
+	void setSelectedFile( const DiffModel* model );
+	void setSelectedDifference( const Difference* diff );
+
 	void buildDirectoryTree();
-//	void buildFileList( const QString& dir );
-//	void buildChangesList( int change );
 
 	QString compareFromEndAndReturnSame( const QString& string1, const QString& string2 );
 	void addDirToTreeView( enum Kompare::Target, const QString& filename );
@@ -70,22 +85,28 @@ private:
 //	KListViewItem* lastItem();
 
 private:
-	KompareModelList*        m_models;
+	QSplitter*                  m_splitter;
+	const QPtrList<DiffModel>*  m_modelList;
 
-	QPtrDict<KListViewItem>  m_differenceToItemDict;
+	QPtrDict<KChangeLVI>        m_diffToChangeItemDict;
+	QPtrDict<KFileLVI>          m_modelToFileItemDict;
+	QPtrDict<KDirLVI>           m_modelToSrcDirItemDict;
+	QPtrDict<KDirLVI>           m_modelToDestDirItemDict;
 
-	KListView*               m_srcDirTree;
-	KListView*               m_destDirTree;
-	KListView*               m_fileList;
-	KListView*               m_changesList;
+	KListView*                  m_srcDirTree;
+	KListView*                  m_destDirTree;
+	KListView*                  m_fileList;
+	KListView*                  m_changesList;
 
-	KDirLVI*                 m_srcRootItem;
-	KDirLVI*                 m_destRootItem;
+	KDirLVI*                    m_srcRootItem;
+	KDirLVI*                    m_destRootItem;
+
+	const DiffModel*            m_selectedModel;
+	const Difference*           m_selectedDifference;
 };
 
-// These 4 classes are need to store the models into a tree so it is easier
+// These 3 classes are need to store the models into a tree so it is easier
 // to extract the info we need for the navigation widgets
-class Difference;
 
 class KChangeLVI : public KListViewItem, private Kompare
 {
@@ -99,8 +120,6 @@ private:
 	Difference* m_difference;
 };
 
-class DiffModel;
-
 class KFileLVI : public KListViewItem, private Kompare
 {
 public:
@@ -108,7 +127,7 @@ public:
 	~KFileLVI();
 public:
 	DiffModel* model() { return m_model; };
-	void fillChangesList( KListView* changesList );
+	void fillChangesList( KListView* changesList, QPtrDict<KChangeLVI>* diffToChangeItemDict );
 private:
 	DiffModel* m_model;
 };
@@ -120,18 +139,38 @@ public:
 	KDirLVI( KListView* parent, QString& dir );
 	~KDirLVI();
 public:
-	void addModel( QString& dir, DiffModel* model );
+	void addModel( QString& dir, DiffModel* model, QPtrDict<KDirLVI>* modelToDirItemDict );
 	QString& dirName() { return m_dirName; };
 	QString fullPath( QString& path );
 	KDirLVI* setSelected( QString dir );
-	void fillFileList( KListView* fileList );
-	bool isRootItem() { return m_bRootItem; };
+	void fillFileList( KListView* fileList, QPtrDict<KFileLVI>* modelToFileItemDict );
+	bool isRootItem() { return m_rootItem; };
 private:
 	KDirLVI* findChild( QString dir );
 private:
 	QPtrList<DiffModel> m_modelList;
 	QString m_dirName;
-	bool m_bRootItem;
+	bool m_rootItem;
+};
+
+// part stuff
+class KInstance;
+class KAboutData;
+
+class KompareNavTreePartFactory : public KParts::Factory
+{
+	Q_OBJECT
+public:
+	KompareNavTreePartFactory();
+	virtual ~KompareNavTreePartFactory();
+	virtual KParts::Part* createPartObject( QWidget *parentWidget, const char *widgetName,
+	                                        QObject *parent, const char *name,
+	                                        const char *classname, const QStringList &args );
+	static KInstance* instance();
+
+private:
+	static KInstance* s_instance;
+	static KAboutData* s_about;
 };
 
 #endif

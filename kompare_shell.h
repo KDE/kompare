@@ -20,26 +20,36 @@
 #ifndef KOMPARESHELL_H
 #define KOMPARESHELL_H
 
+/* there is no config.h used yet, so disabling
 #ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif 
+#endif
+*/
 
 #include <kapp.h>
 #include <kparts/dockmainwindow.h>
 
+#include "kompare.h"
+
 class KToggleAction;
 
 class KomparePart;
+class KompareNavTreePart;
+class Difference;
+class DiffModel;
 
 /**
 * This is the application "Shell".  It has a menubar, toolbar, and
 * statusbar but relies on the "Part" to do all the real work.
 *
+* Adapted the shell a bit so it now handles seperate view and navigation parts
+*
 * @short Application Shell
 * @author John Firebaugh <jfirebaugh@kde.org>
-* @version 0.1
+* @author Otto Bruggeman <bruggie@bruggie.dnsalias.org>
+* @version 0.2
 */
-class KompareShell : public KParts::DockMainWindow
+class KompareShell : public KParts::DockMainWindow, Kompare
 {
 	Q_OBJECT
 public:
@@ -91,7 +101,7 @@ private slots:
 	void slotShowTextView();
 	void optionsConfigureKeys();
 	void optionsConfigureToolbars();
-	void updateStatusBar();
+	void updateStatusBar( const DiffModel* model, const Difference* diff);
 	void slotDiffURLChanged();
 
 private:
@@ -100,15 +110,23 @@ private:
 	void setupStatusBar();
 
 private:
-	KURL             m_source;
-	KURL             m_destination;
-	KomparePart*     m_part;
-	KDockWidget*     m_textViewWidget;
-	KParts::ReadOnlyPart* m_textViewPart;
+	KURL                  m_sourceURL;
+	KURL                  m_destinationURL;
+	KURL                  m_diffURL;
 	
-	KToggleAction*   m_toolbarAction;
-	KToggleAction*   m_statusbarAction;
-	KToggleAction*   m_showTextView;
+	KomparePart*          m_viewPart;
+	KompareNavTreePart*   m_navTreePart;
+	KParts::ReadOnlyPart* m_textViewPart;
+
+	KDockWidget*          m_textViewWidget;
+	KDockWidget*          m_mainViewDock;
+	KDockWidget*          m_navTreeDock;
+
+	KToggleAction*        m_toolbarAction;
+	KToggleAction*        m_statusbarAction;
+	KToggleAction*        m_showTextView;
+	
+	enum Kompare::Mode    m_mode;
 };
 
 #endif // KOMPARE_H

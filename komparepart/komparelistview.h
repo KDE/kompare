@@ -38,31 +38,33 @@ class KompareListView : public KListView
 	Q_OBJECT
 
 public:
-	KompareListView( KompareModelList* models, bool isSource, GeneralSettings* settings, QWidget* parent, const char* name = 0 );
+	KompareListView( bool isSource, GeneralSettings* settings, QWidget* parent, const char* name = 0 );
 	virtual ~KompareListView();
 
-	void setSelectedModel( int model );
-	void setSelectedDifference( int diff, bool scroll = true );
+	void setSelectedDifference( const Difference* diff, bool scroll = true );
 	
 	KompareListViewItem* itemAtIndex( int i );
-	int                firstVisibleDifference();
-	int                lastVisibleDifference();
-	QRect              itemRect( int i );
-	int                minScrollId();
-	int                maxScrollId();
+	int                  firstVisibleDifference();
+	int                  lastVisibleDifference();
+	QRect                itemRect( int i );
+	int                  minScrollId();
+	int                  maxScrollId();
 	
-	bool               isSource() const { return m_isSource; };
-	GeneralSettings*   settings() const { return m_settings; };
+	bool                 isSource() const { return m_isSource; };
+	GeneralSettings*     settings() const { return m_settings; };
 	
 public slots:
-	void slotSetSelection( int model, int diff );
+	void slotSetSelection( const DiffModel* model, const Difference* diff );
+	void slotSetSelection( const Difference* diff );
 	void setXOffset( int x );
 	void scrollToId( int id );
 	int  scrollId();
-	
+	void slotApplyDifference( bool apply );
+	void slotApplyAllDifferences( bool apply );
+
 signals:
-	void selectionChanged( int model, int diff );
-	
+	void selectionChanged( const Difference* diff );
+
 protected:
 	void resizeEvent( QResizeEvent* e );
 	void wheelEvent( QWheelEvent* e );
@@ -70,22 +72,20 @@ protected:
 	void contentsMouseDoubleClickEvent ( QMouseEvent* ) {};
 	void contentsMouseReleaseEvent ( QMouseEvent * ) {};
 	void contentsMouseMoveEvent ( QMouseEvent * ) {};
-	
+
 protected slots:
-	void slotAppliedChanged( const Difference* d );
-	
 	void updateMainColumnWidth();
-	
+
 private:
-	KompareModelList*                  m_models;
 	QPtrList<KompareListViewDiffItem>  m_items;
 	QPtrDict<KompareListViewDiffItem>  m_itemDict;
-	bool                             m_isSource;
-	int                              m_selectedModel;
-	GeneralSettings*                 m_settings;
-	int                              m_maxScrollId;
-	int                              m_scrollId;
-	int                              m_maxMainWidth;
+	bool                               m_isSource;
+	GeneralSettings*                   m_settings;
+	int                                m_maxScrollId;
+	int                                m_scrollId;
+	int                                m_maxMainWidth;
+	const DiffModel*                   m_selectedModel;
+	const Difference*                  m_selectedDifference;
 };
 
 class KompareListViewItem : public QListViewItem
@@ -117,8 +117,8 @@ public:
 	int maxHeight();
 	int maxMainWidth() const;
 	
-	void appliedChanged();
-	
+	void applyDifference( bool apply );
+
 private:
 	bool isSource() const { return m_listView->isSource(); };
 	int lineCount() const;

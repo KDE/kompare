@@ -27,11 +27,14 @@
 #include "diffmodel.h"
 
 /**  */
-DiffModel::DiffModel() :
+DiffModel::DiffModel( KURL srcBaseURL, KURL destBaseURL ) :
+	m_srcBaseURL( srcBaseURL ),
+	m_destBaseURL( destBaseURL ),
 	m_sourceFile( "" ),
 	m_destinationFile( "" ),
 	m_appliedCount( 0 ),
-	m_modified( false )
+	m_modified( false ),
+	m_index( 0 )
 {
 };
 
@@ -88,9 +91,9 @@ int DiffModel::parseContextDiff( const QStringList& list )
 	m_sourceTimestamp = source.cap( 2 );
 	m_sourceRevision = source.cap( 4 );
 
-	kdDebug() << " source: " << m_sourceFile << endl;
-	kdDebug() << "   time: " << m_sourceTimestamp << endl;
-	kdDebug() << "    rev: " << m_sourceRevision << endl;
+//	kdDebug() << " source: " << m_sourceFile << endl;
+//	kdDebug() << "   time: " << m_sourceTimestamp << endl;
+//	kdDebug() << "    rev: " << m_sourceRevision << endl;
 
 	if( ++it == list.end() )
 		return 3;
@@ -103,9 +106,9 @@ int DiffModel::parseContextDiff( const QStringList& list )
 	m_destinationTimestamp = dest.cap( 2 );
 	m_destinationRevision = dest.cap( 4 );
 
-	kdDebug() << "   dest: " << m_destinationFile << endl;
-	kdDebug() << "   time: " << m_destinationTimestamp << endl;
-	kdDebug() << "    rev: " << m_destinationRevision << endl;
+//	kdDebug() << "   dest: " << m_destinationFile << endl;
+//	kdDebug() << "   time: " << m_destinationTimestamp << endl;
+//	kdDebug() << "    rev: " << m_destinationRevision << endl;
 
 	++it;
 
@@ -118,6 +121,7 @@ int DiffModel::parseContextDiff( const QStringList& list )
 	QRegExp removed  ( "^- (.*)$" );
 	QRegExp added    ( "^\\+ (.*)$" );
 
+	int diffIndex = 0;
 	while ( it != list.end() ) {
 
 		if( !head1.exactMatch( *it ) )
@@ -159,9 +163,10 @@ int DiffModel::parseContextDiff( const QStringList& list )
 		while( oldIt != oldLines.end() || newIt != newLines.end() ) {
 
 			if( oldIt != oldLines.end() && removed.exactMatch( *oldIt ) ) {
-				kdDebug() << "Delete: " << endl;
+//				kdDebug() << "Delete: " << endl;
 				diff = new Difference( linenoA, linenoB );
 				diff->setType( Difference::Delete );
+				diff->setIndex( diffIndex++ );
 				m_differences.append( diff );
 				hunk->add( diff );
 				for( ; oldIt != oldLines.end() && removed.exactMatch( *oldIt ); ++oldIt ) {
@@ -172,9 +177,10 @@ int DiffModel::parseContextDiff( const QStringList& list )
 			}
 
 			else if( newIt != newLines.end() && added.exactMatch( *newIt ) ) {
-				kdDebug() << "Insert: " << endl;
+//				kdDebug() << "Insert: " << endl;
 				diff = new Difference( linenoA, linenoB );
 				diff->setType( Difference::Insert );
+				diff->setIndex( diffIndex++ );
 				m_differences.append( diff );
 				hunk->add( diff );
 				for( ; newIt != newLines.end() && added.exactMatch( *newIt ); ++newIt ) {
@@ -186,7 +192,7 @@ int DiffModel::parseContextDiff( const QStringList& list )
 
 			else if( (oldIt != oldLines.end() && unchanged.exactMatch( *oldIt ) ) ||
 			    (newIt != newLines.end() && unchanged.exactMatch( *newIt ) ) ) {
-				kdDebug() << "Unchanged: " << endl;
+//				kdDebug() << "Unchanged: " << endl;
 				diff = new Difference( linenoA, linenoB );
 				diff->setType( Difference::Unchanged );
 				hunk->add( diff );
@@ -212,9 +218,10 @@ int DiffModel::parseContextDiff( const QStringList& list )
 
 			else if( (oldIt != oldLines.end() && changed.exactMatch( *oldIt ) ) ||
 			    (newIt != newLines.end() && changed.exactMatch( *newIt ) ) ) {
-				kdDebug() << "Changed: " << endl;
+//				kdDebug() << "Changed: " << endl;
 				diff = new Difference( linenoA, linenoB );
 				diff->setType( Difference::Change );
+				diff->setIndex( diffIndex++ );
 				m_differences.append( diff );
 				hunk->add( diff );
 				while( oldIt != oldLines.end() && changed.exactMatch( *oldIt ) ) {
@@ -243,13 +250,14 @@ int DiffModel::parseContextDiff( const QStringList& list )
 /**  */
 int DiffModel::parseEdDiff( const QStringList& list )
 {
+	// FIXME:
 	// Somehow we have to ask the user what file this is a diff against,
 	// if this is a single file diff. If (s)he can't help us with that
 	// we are fucked...
 	kdDebug() << "Ed diff parsing:" << endl;
 
 	QString line;
-	Difference* diff;
+	Difference* diff = 0L;
 	QStringList::ConstIterator it = list.begin();
 
 	if ( it == list.end() )
@@ -259,6 +267,7 @@ int DiffModel::parseEdDiff( const QStringList& list )
 	QRegExp head1	( "^(\\d+)([acd])" );		// number[acd]
 	QRegExp head2	( "^(\\d+),(\\d+)[acd]" );	// number,number[acd]
 
+	int diffIndex = 0;
 	while ( it != list.end() )
 	{
 		kdDebug() << "Line is:" << line << endl;
@@ -277,14 +286,17 @@ int DiffModel::parseEdDiff( const QStringList& list )
 			case 'a' :
 				diff = new Difference( ln, 0 );
 				diff->setType( Difference::Insert );
+				diff->setIndex( diffIndex++ );
 				break;
 			case 'c' :
 				diff = new Difference( 0, 0 );
 				diff->setType( Difference::Change );
+				diff->setIndex( diffIndex++ );
 				break;
 			case 'd' :
 				diff = new Difference( 0, ln );
 				diff->setType( Difference::Delete );
+				diff->setIndex( diffIndex++ );
 				break;
 			default	:
 				break;	// something is fucked here...
@@ -371,6 +383,7 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 	if ( it == list.end() )
 		return 2; //
 
+	int diffIndex = 0;
 	while ( it != list.end() )
 	{
 		if( !head.exactMatch( *it ) ) return 1;
@@ -382,6 +395,7 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 		m_hunks.append( hunk );
 
 		Difference* diff = new Difference( linenoA, linenoB );
+		diff->setIndex( diffIndex++ );
 		hunk->add( diff );
 		m_differences.append( diff );
 
@@ -414,6 +428,7 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 {
 	kdDebug() << "RCS  diff parsing:" << endl;
 
+	// FIXME: does not work...
 	/* A rcs diff has one or 2 lines describing the changes */
 	/* Unfortunately there is no char that indicates the textlines */
 	/* from the difftype + linenos lines */
@@ -437,6 +452,7 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 	DiffHunk* hunk = new DiffHunk( linenoA, linenoB );
 	m_hunks.append( hunk );
 
+	int diffIndex = 0;
 	while( it != list.end() )
 	{
 		line = (*it);
@@ -458,6 +474,7 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 
 			Difference* diff = new Difference( 0, linenoB ); // A is unknown
 			diff->setType( Difference::Insert );
+			diff->setIndex( diffIndex++ );
 
 			++it;
 			line = (*it);
@@ -497,6 +514,7 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 
 //			Difference diff = new Difference( linenoA, 0 );
 //			diff->setType( Difference::Delete );
+//			diff->setIndex( diffIndex++ );
 
 			// We should now add the source lines, unfortunately there are none...
 
@@ -547,9 +565,9 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 	m_sourceTimestamp = source.cap( 2 );
 	m_sourceRevision  = source.cap( 4 );
 
-	kdDebug() << " source: " << m_sourceFile << endl;
-	kdDebug() << "   time: " << m_sourceTimestamp << endl;
-	kdDebug() << "    rev: " << m_sourceRevision << endl;
+//	kdDebug() << " source: " << m_sourceFile << endl;
+//	kdDebug() << "   time: " << m_sourceTimestamp << endl;
+//	kdDebug() << "    rev: " << m_sourceRevision << endl;
 
 	if( ++it == list.end() ) return 3; // no next line
 
@@ -559,11 +577,12 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 	m_destinationTimestamp = dest.cap( 2 );
 	m_destinationRevision  = dest.cap( 4 );
 
-	kdDebug() << "   dest: " << m_destinationFile << endl;
-	kdDebug() << "   time: " << m_destinationTimestamp << endl;
-	kdDebug() << "    rev: " << m_destinationRevision << endl;
+//	kdDebug() << "   dest: " << m_destinationFile << endl;
+//	kdDebug() << "   time: " << m_destinationTimestamp << endl;
+//	kdDebug() << "    rev: " << m_destinationRevision << endl;
 
 	++it;
+	int diffIndex = 0;
 	while( it != list.end() )
 	{
 		if( !head.exactMatch( *it ) ) {
@@ -574,19 +593,20 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 		linenoA = head.cap( 1 ).toInt();
 		linenoB = head.cap( 3 ).toInt();
 
-		kdDebug() << " hunk: " << linenoA << " " << linenoB << endl;
+//		kdDebug() << " hunk: " << linenoA << " " << linenoB << endl;
 
 		DiffHunk* hunk = new DiffHunk( linenoA, linenoB, head.cap( 6 ) );
 		m_hunks.append( hunk );
 
 		++it;
 
-		while( it != list.end() && line.exactMatch( *it ) ) {
-
+		while( it != list.end() && line.exactMatch( *it ) )
+		{
 			Difference* diff = new Difference( linenoA, linenoB );
 			hunk->add( diff );
 
-			if( line.cap( 1 ) == " " ) {
+			if( line.cap( 1 ) == " " )
+			{	// context crap
 				diff->setType( Difference::Unchanged );
 				for( ; it != list.end() && unchanged.exactMatch( *it ); ++it ) {
 					diff->addSourceLine( unchanged.cap( 1 ) );
@@ -594,7 +614,9 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 					linenoA++;
 					linenoB++;
 				}
-			} else {
+			}
+			else
+			{	// This is a real difference, not context crap
 				for( ; it != list.end() && removed.exactMatch( *it ); ++it ) {
 					diff->addSourceLine( removed.cap( 1 ) );
 					linenoA++;
@@ -603,9 +625,19 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 					diff->addDestinationLine( added.cap( 1 ) );
 					linenoB++;
 				}
-				if      ( diff->sourceLineCount() == 0 )      diff->setType( Difference::Insert );
-				else if ( diff->destinationLineCount() == 0 ) diff->setType( Difference::Delete );
-				else                                          diff->setType( Difference::Change );
+				if ( diff->sourceLineCount() == 0 )
+				{
+					diff->setType( Difference::Insert );
+				}
+				else if ( diff->destinationLineCount() == 0 )
+				{
+					diff->setType( Difference::Delete );
+				}
+				else
+				{
+					diff->setType( Difference::Change );
+				}
+				diff->setIndex( diffIndex++ );
 				m_differences.append( diff );
 			}
 		}
@@ -613,7 +645,7 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 	return 0; // everything went ok
 }
 
-QString DiffModel::sourceFile()
+const QString DiffModel::srcFile() const
 {
 	int i = m_sourceFile.findRev( "/" );
 	if( i >= 0 )
@@ -622,7 +654,7 @@ QString DiffModel::sourceFile()
 		return m_sourceFile;
 }
 
-QString DiffModel::destinationFile()
+const QString DiffModel::destFile() const
 {
 	int i = m_destinationFile.findRev( "/" );
 	if( i >= 0 )
@@ -631,7 +663,7 @@ QString DiffModel::destinationFile()
 		return m_destinationFile;
 }
 
-QString DiffModel::srcPath()
+const QString DiffModel::srcPath() const
 {
 	int pos = m_sourceFile.findRev( "/" );
 	if( pos >= 0 )
@@ -640,7 +672,7 @@ QString DiffModel::srcPath()
 		return QString( "" );
 }
 
-QString DiffModel::destPath()
+const QString DiffModel::destPath() const
 {
 	int pos = m_destinationFile.findRev( "/" );
 	if( pos >= 0 )
@@ -649,22 +681,48 @@ QString DiffModel::destPath()
 		return QString( "" );
 }
 
-void DiffModel::toggleApplied( int diffIndex )
+void DiffModel::applyDifference( bool apply )
 {
-	Difference* d = m_differences.at( diffIndex );
-	if( d->applied() )
-		m_appliedCount--;
-	else
+	if ( apply && !m_selectedDifference->applied() )
 		m_appliedCount++;
-	d->toggleApplied();
+	else if ( !apply && m_selectedDifference->applied() )
+		m_appliedCount--;
 
-	setModified( true );
-	emit appliedChanged( d );
+	if ( m_appliedCount == 0 )
+		m_modified = false;
+	else
+		m_modified = true;
+
+	m_selectedDifference->apply( apply );
+}
+
+void DiffModel::applyAllDifferences( bool apply )
+{
+	if ( apply )
+	{
+		m_appliedCount = m_differences.count();
+		m_modified = true;
+	}
+	else
+	{
+		m_appliedCount = 0;
+		m_modified = false;
+	}
+
+	QPtrListIterator<Difference> it( m_differences );
+	for ( ;it.current(); ++it )
+		(*it)->apply( apply );
 }
 
 void DiffModel::setModified( bool modified )
 {
 	m_modified = modified;
+}
+
+void DiffModel::setSelectedDifference( Difference* diff )
+{
+	if ( diff != m_selectedDifference )
+		m_selectedDifference = diff;
 }
 
 #include "diffmodel.moc"

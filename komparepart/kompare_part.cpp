@@ -33,7 +33,10 @@
 #include "generalsettings.h"
 #include "kompare_actions.h"
 #include "kompare_part.h"
-#include "komparenavigationtree.h"
+//#include "komparenavigationtree.h"
+// needed for the connect so it knows KompareConnectWidget and KompareListView are QObjects..
+#include "komparelistview.h"
+#include "kompareconnectwidget.h"
 #include "kompareprefdlg.h"
 #include "komparesaveoptionswidget.h"
 #include "kompareview.h"
@@ -47,8 +50,6 @@ MiscSettings*    KomparePart::m_miscSettings    = 0L;
 KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
                       QObject *parent, const char *name ) :
 	KParts::ReadWritePart(parent, name),
-	m_selectedModel( -1 ),
-	m_selectedDifference( -1 ),
 	m_navigationTree( 0 ),
 	m_tempDiff( 0 )
 {
@@ -62,19 +63,64 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	}
 
 	m_models = new KompareModelList();
-	connect( m_models, SIGNAL(status( enum Kompare::Status )),
-	         this, SLOT(slotSetStatus( enum Kompare::Status )) );
+	connect( m_models, SIGNAL(status( Kompare::Status )),
+	         this, SLOT(slotSetStatus( Kompare::Status )) );
 	connect( m_models, SIGNAL(error( QString )),
 	         this, SLOT(slotShowError( QString )) );
-	connect( m_models, SIGNAL(modelsChanged()),
-	         this, SLOT(slotModelsChanged()) );
+//	connect( m_models, SIGNAL(modelsChanged( const QPtrList<DiffModel>* )),
+//	         this, SLOT(slotModelsChanged( const QPtrList<DiffModel>* )) );
 
 	// this should be your custom internal widget
-	m_diffView = new KompareView( m_models, m_generalSettings, parentWidget, widgetName );
-	connect( this, SIGNAL(selectionChanged(int,int)),
-	         m_diffView, SLOT(slotSetSelection(int,int)) );
-	connect( m_diffView, SIGNAL(selectionChanged(int,int)),
-	         this, SLOT(slotSetSelection(int,int)) );
+	m_diffView = new KompareView( m_generalSettings, parentWidget, widgetName );
+	connect( m_models, SIGNAL(setSelection(const DiffModel*, const Difference*)),
+	         m_diffView, SLOT(slotSetSelection(const DiffModel*, const Difference*)) );
+	// left view (source)
+	connect( m_models, SIGNAL(setSelection(const DiffModel*, const Difference*)),
+	         m_diffView->srcLV(), SLOT(slotSetSelection(const DiffModel*, const Difference*)) );
+	connect( m_models, SIGNAL(setSelection(const Difference*)),
+	         m_diffView->srcLV(), SLOT(slotSetSelection(const Difference*)) );
+	connect( m_diffView->srcLV(), SIGNAL(selectionChanged(const Difference*)),
+	         m_models, SLOT(slotSelectionChanged(const Difference*)) );
+	// right view (destination)
+	connect( m_models, SIGNAL(setSelection(const DiffModel*, const Difference*)),
+	         m_diffView->destLV(), SLOT(slotSetSelection(const DiffModel*, const Difference*)) );
+	connect( m_models, SIGNAL(setSelection(const Difference*)),
+	         m_diffView->destLV(), SLOT(slotSetSelection(const Difference*)) );
+	connect( m_diffView->destLV(), SIGNAL(selectionChanged(const Difference*)),
+	         m_models, SLOT(slotSelectionChanged(const Difference*)) );
+	// middle (zoomwidget)
+	connect( m_models, SIGNAL(setSelection(const DiffModel*, const Difference*)),
+	         m_diffView->zoomWidget(), SLOT(slotSetSelection(const DiffModel*, const Difference*)) );
+	connect( m_models, SIGNAL(setSelection(const Difference*)),
+	         m_diffView->zoomWidget(), SLOT(slotSetSelection(const Difference*)) );
+	// not yet used because this widget cannot set selection yet...
+	connect( m_diffView->zoomWidget(), SIGNAL(selectionChanged(const Difference*)),
+	         m_models, SLOT(slotSelectionChanged(const Difference*)) );
+
+	// kompareactions
+	m_kompareActions = new KompareActions( this, "KompareActions" );
+	connect( m_models, SIGNAL(setSelection(const DiffModel*, const Difference*)),
+	         m_kompareActions, SLOT(slotSetSelection(const DiffModel*, const Difference*)) );
+	connect( m_models, SIGNAL(setSelection(const Difference*)),
+	         m_kompareActions, SLOT(slotSetSelection(const Difference*)) );
+	connect( m_kompareActions, SIGNAL(selectionChanged(const DiffModel*, const Difference*)),
+	         m_models, SLOT(slotSelectionChanged(const DiffModel*, const Difference*)) );
+	connect( m_kompareActions, SIGNAL(selectionChanged(const Difference*)),
+	         m_models, SLOT(slotSelectionChanged(const Difference*)) );
+	connect( m_models, SIGNAL(modelsChanged(const QPtrList<DiffModel>*)),
+	         m_kompareActions, SLOT(slotModelsChanged(const QPtrList<DiffModel>*)) );
+	connect( m_kompareActions, SIGNAL(applyDifference( bool)),
+	         m_models, SLOT(slotApplyDifference( bool)) );
+	connect( m_kompareActions, SIGNAL(applyAllDifferences( bool)),
+	         m_models, SLOT(slotApplyAllDifferences( bool)) );
+	connect( m_kompareActions, SIGNAL(previousModel()),
+	         m_models, SLOT(slotPreviousModel()) );
+	connect( m_kompareActions, SIGNAL(nextModel()),
+	         m_models, SLOT(slotNextModel()) );
+	connect( m_kompareActions, SIGNAL(previousDifference()),
+	         m_models, SLOT(slotPreviousDifference()) );
+	connect( m_kompareActions, SIGNAL(nextDifference()),
+	         m_models, SLOT(slotNextDifference()) );
 
 	// notify the part that this is our internal widget
 	setWidget(m_diffView);
@@ -92,26 +138,12 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	// we are not modified since we haven't done anything yet
 	setModified(false);
 
-	connect( this, SIGNAL(selectionChanged(int,int)),
-	         this, SLOT(slotSelectionChanged(int,int)) );
+//	connect( this, SIGNAL(selectionChanged(const DiffModel*,const Difference*)),
+//	         this, SLOT(slotSelectionChanged(const DiffModel*,const Difference*)) );
 }
 
 KomparePart::~KomparePart()
 {
-}
-
-QWidget* KomparePart::createNavigationWidget( QWidget* parent, const char* name )
-{
-	if( !m_navigationTree ) {
-		m_navigationTree = new KompareNavigationTree( m_models, parent, name );
-
-		connect( this, SIGNAL( selectionChanged( int, int ) ),
-		         m_navigationTree, SLOT( slotSetSelection( int, int ) ) );
-		connect( m_navigationTree, SIGNAL( selectionChanged( int, int ) ),
-		         this, SLOT( slotSetSelection( int, int ) ) );
-		return m_navigationTree;
-	}
-	return 0L;
 }
 
 void KomparePart::setupActions()
@@ -131,32 +163,6 @@ void KomparePart::setupActions()
 	m_diffStats       = new KAction( i18n( "Show Statistics" ), 0,
 	                                 this, SLOT(slotShowDiffstats()),
 	                                 actionCollection(), "file_diffstats" );
-	m_applyDifference = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
-	                                 this, SLOT(slotApplyDifference()),
-	                                 actionCollection(), "difference_apply" );
-	m_applyAll        = new KAction( i18n("App&ly All"), "2rightarrow", Qt::CTRL + Qt::Key_A,
-	                                 this, SLOT(slotApplyAllDifferences()),
-	                                 actionCollection(), "difference_applyall" );
-	m_unapplyAll      = new KAction( i18n("U&napply All"), "2leftarrow", Qt::CTRL + Qt::Key_U,
-	                                 this, SLOT(slotUnapplyAllDifferences()),
-	                                 actionCollection(), "difference_unapplyall" );
-	m_previousFile    = new KAction( i18n("P&revious File"), "2uparrow", Qt::CTRL + Qt::Key_PageUp,
-	                                 this, SLOT(slotPreviousFile()),
-	                                 actionCollection(), "difference_previousfile" );
-	m_nextFile        = new KAction( i18n("N&ext File"), "2downarrow", Qt::CTRL + Qt::Key_PageDown,
-	                                 this, SLOT(slotNextFile()),
-	                                 actionCollection(), "difference_nextfile" );
-	m_previousDifference = new KAction( i18n("&Previous Difference"), "1uparrow", Qt::CTRL + Qt::Key_Up,
-	                                 this, SLOT(slotPreviousDifference()),
-	                                 actionCollection(), "difference_previous" );
-	m_previousDifference->setEnabled( false );
-	m_nextDifference  = new KAction( i18n("&Next Difference"), "1downarrow", Qt::CTRL + Qt::Key_Down,
-	                                 this, SLOT(slotNextDifference()),
-	                                 actionCollection(), "difference_next" );
-	m_nextDifference->setEnabled( false );
-	m_differences     = new DifferencesAction( i18n("Differences"), actionCollection(), "difference_differences" );
-	connect( m_differences, SIGNAL( menuAboutToShow() ), this, SLOT( slotDifferenceMenuAboutToShow() ) );
-	connect( m_differences, SIGNAL( activated( int ) ), this, SLOT( slotGoDifferenceActivated( int ) ) );
 
 	KStdAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
 }
@@ -168,32 +174,11 @@ void KomparePart::updateActions()
 	m_swap->setEnabled     ( m_models->mode() == Kompare::Compare );
 	m_diffStats->setEnabled( m_models->modelCount() > 0 );
 
-	int model = selectedModelIndex();
-	int diff  = selectedDifferenceIndex();
-	if( model >= 0 && diff >= 0 ) {
-		m_save->setEnabled( selectedModel()->isModified() );
-		m_applyDifference->setEnabled( true );
-		m_applyAll->setEnabled( true );
-		m_unapplyAll->setEnabled( true );
-		const Difference* d = selectedDifference();
-		if( d->applied() ) {
-			m_applyDifference->setText( i18n( "Un&apply Difference" ) );
-			m_applyDifference->setIcon( "1leftarrow" );
-		} else {
-			m_applyDifference->setText( i18n( "&Apply Difference" ) );
-			m_applyDifference->setIcon( "1rightarrow" );
-		}
-	} else {
+	const DiffModel* model = m_models->selectedModel();
+	if ( model )
+		m_save->setEnabled( model->isModified() );
+	else
 		m_save->setEnabled( false );
-		m_applyDifference->setEnabled( false );
-		m_applyAll->setEnabled( false );
-		m_unapplyAll->setEnabled( false );
-	}
-	m_previousFile->setEnabled      ( model > 0 );
-	m_nextFile->setEnabled          ( model < m_models->modelCount() - 1 );
-	m_previousDifference->setEnabled( diff > 0 || model > 0 );
-	m_nextDifference->setEnabled    ( model >= 0 &&
-	    ( diff < selectedModel()->differenceCount() - 1 || model < m_models->modelCount() - 1 ) );
 }
 
 bool KomparePart::openURL( const KURL& url )
@@ -208,10 +193,18 @@ void KomparePart::compare( const KURL& source, const KURL& destination )
 
 bool KomparePart::saveDestination()
 {
-	bool result = m_models->saveDestination( m_selectedModel );
-	updateActions();
-	updateStatus();
-	return result;
+	const DiffModel* model = m_models->selectedModel();
+	if ( model )
+	{
+		bool result = m_models->saveDestination( model );
+		updateActions();
+		updateStatus();
+		return result;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool KomparePart::saveAll()
@@ -229,9 +222,9 @@ bool KomparePart::openDiff( const KURL& url )
 
 void KomparePart::saveDiff()
 {
-	KDialogBase* dlg          = new KDialogBase( widget(), "save options",
-	                                             true /* modal */, i18n("Diff Options"),
-	                                             KDialogBase::Ok|KDialogBase::Cancel );
+	KDialogBase* dlg = new KDialogBase( widget(), "save options",
+	                                    true /* modal */, i18n("Diff Options"),
+	                                    KDialogBase::Ok|KDialogBase::Cancel );
 	KompareSaveOptionsWidget* w = new KompareSaveOptionsWidget(
 	                                             m_models->sourceTemp(),
 	                                             m_models->destinationTemp(),
@@ -271,8 +264,6 @@ void KomparePart::slotSetStatus( enum Kompare::Status status )
 		break;
 	case Kompare::FinishedParsing:
 		updateStatus();
-		if( m_models->modelCount() > 0 && m_models->modelAt( 0 )->differenceCount() > 0 )
-			slotSetSelection( 0, 0 );
 		break;
 	case Kompare::FinishedWritingDiff:
 		updateStatus();
@@ -285,23 +276,29 @@ void KomparePart::slotSetStatus( enum Kompare::Status status )
 
 void KomparePart::updateStatus()
 {
-	if( m_models->mode() == Kompare::Compare ) {
-		if( modelCount() > 1 ) {
+	if( m_models->mode() == Kompare::Compare )
+	{
+		if( modelCount() > 1 )
+		{
 			emit setStatusBarText( i18n( "Comparing files in %1 with files in %2" )
 			   .arg( m_models->sourceBaseURL().prettyURL() )
 			   .arg( m_models->destinationBaseURL().prettyURL() ) );
 			emit setWindowCaption( m_models->sourceBaseURL().prettyURL()
 			   + " : " + m_models->destinationBaseURL().prettyURL() );
-		} else if ( modelCount() == 1 ) {
+		}
+		else if ( modelCount() == 1 )
+		{
 			emit setStatusBarText( i18n( "Comparing %1 with %2" )
 			   .arg( m_models->sourceBaseURL().prettyURL( 1 )
-			   + m_models->modelAt( 0 )->sourceFile() )
+			   + m_models->modelAt( 0 )->srcFile() )
 			   .arg( m_models->destinationBaseURL().prettyURL( 1 )
-			   + m_models->modelAt( 0 )->destinationFile() ) );
-			emit setWindowCaption(  m_models->modelAt( 0 )->sourceFile()
-			   + " : " + m_models->modelAt( 0 )->destinationFile() );
+			   + m_models->modelAt( 0 )->destFile() ) );
+			emit setWindowCaption(  m_models->modelAt( 0 )->srcFile()
+			   + " : " + m_models->modelAt( 0 )->destFile() );
 		}
-	} else {
+	}
+	else
+	{
 		emit setStatusBarText( i18n( "Viewing %1" ).arg( url().prettyURL() ) );
 		emit setWindowCaption( url().filename() );
 	}
@@ -312,11 +309,13 @@ void KomparePart::slotShowError( QString error )
 	KMessageBox::error( widget(), error );
 }
 
-void KomparePart::slotModelsChanged()
+/*
+void KomparePart::slotModelsChanged( const QPtrList<DiffModel>* models )
 {
-	if( m_selectedModel > modelCount() - 1 )
-		slotSetSelection( -1, -1 );
+	m_selectedModel = 0;
+	m_selectedDifference = 0;
 }
+*/
 
 void KomparePart::slotSwap()
 {
@@ -335,9 +334,9 @@ void KomparePart::slotShowDiffstats( void )
 	int noOfHunks;
 	int noOfDiffs;
 
-	oldFile = selectedModel() ? selectedModel()->sourceFile()      : QString::null;
-	newFile = selectedModel() ? selectedModel()->destinationFile() : QString::null;
-	if ( selectedModel() )
+	oldFile = m_models->selectedModel() ? m_models->selectedModel()->srcFile()  : QString::null;
+	newFile = m_models->selectedModel() ? m_models->selectedModel()->destFile() : QString::null;
+	if ( m_models->selectedModel() )
 	{
 		switch( m_models->format() ) {
 		case Kompare::Unified :
@@ -368,8 +367,8 @@ void KomparePart::slotShowDiffstats( void )
 
 	filesInDiff = modelCount();
 
-	noOfHunks = selectedModel() ? selectedModel()->hunkCount() : 0;
-	noOfDiffs = selectedModel() ? selectedModel()->differenceCount() : 0;
+	noOfHunks = m_models->selectedModel() ? m_models->selectedModel()->hunkCount() : 0;
+	noOfDiffs = m_models->selectedModel() ? m_models->selectedModel()->differenceCount() : 0;
 
 	if ( modelCount() == 0 ) { // no diff loaded yet
 		KMessageBox::information( 0L, i18n(
@@ -424,6 +423,34 @@ bool KomparePart::askSaveChanges()
 	return true;
 }
 
+int KomparePart::selectedModelIndex()
+{
+	return m_models->selectedModelIndex();
+}
+
+int KomparePart::selectedDifferenceIndex()
+{
+	return m_models->selectedDifferenceIndex();
+}
+
+int KomparePart::differenceCount()
+{
+	const DiffModel* model = m_models->selectedModel();
+	if ( model )
+		return model->differenceCount();
+	else
+		return -1;
+}
+
+int KomparePart::appliedCount()
+{
+	const DiffModel* model = m_models->selectedModel();
+	if ( model )
+		return model->appliedCount();
+	else
+		return -1;
+}
+
 void KomparePart::loadSettings(KConfig *config)
 {
 	config->setGroup( "General" );
@@ -444,110 +471,43 @@ void KomparePart::saveSettings(KConfig *config)
 	m_miscSettings->saveSettings   ( config );
 }
 
-void KomparePart::slotSetSelection( int model, int diff )
+/*
+void KomparePart::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
 	if( model == m_selectedModel && diff == m_selectedDifference )
 		return;
 
-	if( m_selectedModel >= 0 ) {
-		disconnect( selectedModel(), SIGNAL(appliedChanged( const Difference* )),
+	if( m_selectedModel ) {
+		disconnect( m_selectedModel, SIGNAL(appliedChanged( const Difference* )),
 		            this, SLOT(slotAppliedChanged( const Difference* )) );
 	}
 
 	m_selectedModel = model;
 	m_selectedDifference = diff;
 
-	if( m_selectedModel >= 0 ) {
-		connect( selectedModel(), SIGNAL(appliedChanged( const Difference* )),
-		            this, SLOT(slotAppliedChanged( const Difference* )) );
+	if( m_selectedModel ) {
+		connect( m_selectedModel, SIGNAL(appliedChanged( const Difference* )),
+		         this, SLOT(slotAppliedChanged( const Difference* )) );
 	}
 
 	emit selectionChanged( model, diff );
 }
+*/
 
-void KomparePart::slotSelectionChanged( int /* model */, int /* diff */ )
+/*
+void KomparePart::slotSelectionChanged( int model, int diff )
 {
 	updateActions();
 }
+*/
 
-void KomparePart::slotAppliedChanged( const Difference* /* d */ )
+/*
+void KomparePart::slotAppliedChanged( const Difference* diff )
 {
 	updateActions();
 	updateStatus();
 }
-
-void KomparePart::slotDifferenceMenuAboutToShow()
-{
-	m_differences->fillDifferenceMenu( selectedModel(), selectedDifferenceIndex() );
-}
-
-void KomparePart::slotGoDifferenceActivated( int item )
-{
-	slotSetSelection( selectedModelIndex(), item );
-}
-
-void KomparePart::slotApplyDifference()
-{
-	selectedModel()->toggleApplied( selectedDifferenceIndex() );
-	if( m_nextDifference->isEnabled() )
-		slotNextDifference();
-}
-
-void KomparePart::slotApplyAllDifferences()
-{
-	DiffModel* model = selectedModel();
-	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(model->differences());
-	int i = 0;
-	while ( it.current() ) {
-		if( !(*it)->applied() )
-			model->toggleApplied( i );
-		i++; ++it;
-	}
-}
-
-void KomparePart::slotUnapplyAllDifferences()
-{
-	DiffModel* model = selectedModel();
-	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(model->differences());
-	int i = 0;
-	while ( it.current() ) {
-		if( (*it)->applied() )
-			model->toggleApplied( i );
-		i++; ++it;
-	}
-}
-
-void KomparePart::slotPreviousFile()
-{
-	int modelIndex = selectedModelIndex();
-	slotSetSelection( modelIndex - 1, 0 );
-}
-
-void KomparePart::slotNextFile()
-{
-	int modelIndex = selectedModelIndex();
-	slotSetSelection( modelIndex + 1, 0 );
-}
-
-void KomparePart::slotPreviousDifference()
-{
-	int modelIndex = selectedModelIndex();
-	int diffIndex = selectedDifferenceIndex();
-	if( diffIndex > 0 )
-		slotSetSelection( modelIndex, diffIndex - 1 );
-	else
-		slotSetSelection( modelIndex - 1, m_models->modelAt( modelIndex - 1 )->differenceCount() - 1 );
-}
-
-void KomparePart::slotNextDifference()
-{
-	int modelIndex = selectedModelIndex();
-	int diffIndex = selectedDifferenceIndex();
-	if( diffIndex < selectedModel()->differenceCount() - 1 )
-		slotSetSelection( selectedModelIndex(), selectedDifferenceIndex() + 1 );
-	else
-		slotSetSelection( modelIndex + 1, 0 );
-}
+*/
 
 void KomparePart::optionsPreferences()
 {

@@ -30,15 +30,19 @@ class KompareConnectWidget : public QWidget
 	Q_OBJECT
 
 public:
-	KompareConnectWidget( KompareModelList* models, KompareListView* left, KompareListView* right,
+	KompareConnectWidget( KompareListView* left, KompareListView* right,
 	      GeneralSettings* settings, KompareView* parent, const char* name=0);
 	~KompareConnectWidget();
 
 	QSize sizeHint() const;
 
 public slots:
-	void slotSetSelection( int model, int diff );
-	
+	void slotSetSelection( const DiffModel* model, const Difference* diff );
+	void slotSetSelection( const Difference* diff );
+
+signals:
+	void selectionChanged(const Difference* diff);
+
 protected:
 	void paintEvent( QPaintEvent* e );
 	QPointArray makeTopBezier( int tl, int tr );
@@ -46,14 +50,14 @@ protected:
 	QPointArray makeConnectPoly( const QPointArray& topBezier, const QPointArray& bottomBezier );
 
 private:
-	KompareModelList*  m_models;
 	GeneralSettings*   m_settings;
+
 	KompareView*       m_diffView;
 	KompareListView*   m_leftView;
 	KompareListView*   m_rightView;
-	int                m_selectedModel;
-	int                m_selectedDiff;
 
+	const DiffModel*   m_selectedModel;
+	const Difference*  m_selectedDifference;
 };
 
 #endif

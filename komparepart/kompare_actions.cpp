@@ -17,68 +17,184 @@
 **
 ***************************************************************************/
 
-#include "kompare_actions.h"
-
 #include <qpopupmenu.h>
 
 #include <kdebug.h>
+#include <klocale.h>
 
 #include "difference.h"
 #include "diffmodel.h"
 
-DifferencesAction::DifferencesAction ( const QString & text, QObject* parent, const char* name ) :
-	KAction( text, 0, parent, name )
+#include "kompare_actions.h"
+
+KompareActions::KompareActions( KParts::ReadOnlyPart* parent, const char* name )
+	: QObject( parent, name ),
+	m_modelList( 0L ),
+	m_selectedModel( 0L ),
+	m_selectedDifference( 0L )
 {
-	kdDebug() << "DifferencesAction::DifferencesAction" << endl;
-	m_firstIndex = 0;
-	m_differenceMenu = 0L;
+	m_applyDifference = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
+	                                 this, SLOT(slotApplyDifference()),
+	                                 parent->actionCollection(), "difference_apply" );
+	m_applyAll        = new KAction( i18n("App&ly All"), "2rightarrow", Qt::CTRL + Qt::Key_A,
+	                                 this, SLOT(slotApplyAllDifferences()),
+	                                 parent->actionCollection(), "difference_applyall" );
+	m_unapplyAll      = new KAction( i18n("U&napply All"), "2leftarrow", Qt::CTRL + Qt::Key_U,
+	                                 this, SLOT(slotUnapplyAllDifferences()),
+	                                 parent->actionCollection(), "difference_unapplyall" );
+	m_previousFile    = new KAction( i18n("P&revious File"), "2uparrow", Qt::CTRL + Qt::Key_PageUp,
+	                                 this, SLOT(slotPreviousFile()),
+	                                 parent->actionCollection(), "difference_previousfile" );
+	m_nextFile        = new KAction( i18n("N&ext File"), "2downarrow", Qt::CTRL + Qt::Key_PageDown,
+	                                 this, SLOT(slotNextFile()),
+	                                 parent->actionCollection(), "difference_nextfile" );
+	m_previousDifference = new KAction( i18n("&Previous Difference"), "1uparrow", Qt::CTRL + Qt::Key_Up,
+	                                 this, SLOT(slotPreviousDifference()),
+	                                 parent->actionCollection(), "difference_previous" );
+	m_previousDifference->setEnabled( false );
+	m_nextDifference  = new KAction( i18n("&Next Difference"), "1downarrow", Qt::CTRL + Qt::Key_Down,
+	                                 this, SLOT(slotNextDifference()),
+	                                 parent->actionCollection(), "difference_next" );
+	m_nextDifference->setEnabled( false );
 }
 
-int DifferencesAction::plug( QWidget *widget, int index )
+KompareActions::~KompareActions()
 {
-	kdDebug() << "DifferencesAction::plug" << endl;
-	// Go menu
-	if ( widget->inherits("QPopupMenu") ) {
-		m_differenceMenu = (QPopupMenu*)widget;
-		// Forward signal (to main view)
-		connect( m_differenceMenu, SIGNAL( aboutToShow() ),
-		         this, SIGNAL( menuAboutToShow() ) );
-		connect( m_differenceMenu, SIGNAL( activated( int ) ),
-		         this, SLOT( slotActivated( int ) ) );
-
-		// Store how many items the menu already contains.
-		// This means, the DifferencesAction has to be plugged LAST in a menu !
-		m_firstIndex = m_differenceMenu->count();
-		return m_differenceMenu->count(); // hmmm, what should this be ?
-	}
-	return KAction::plug( widget, index );
 }
 
-void DifferencesAction::fillDifferenceMenu( const DiffModel* diffModel, int current )
+void KompareActions::slotModelsChanged( const QPtrList<DiffModel>* modelList )
 {
-	kdDebug() << "DifferencesAction::fillDifferenceMenu" << endl;
-
-	if ( m_firstIndex == 0 ) // should never happen since done in plug
-		m_firstIndex = m_differenceMenu->count();
-	else { // Clean up old differences (from the end, to avoid shifts)
-		for ( uint i = m_differenceMenu->count()-1 ; i >= m_firstIndex; i-- )
-			m_differenceMenu->removeItemAt( i );
-	}
-
-	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(diffModel->differences());
-	int i = 0;
-	while ( it.current() ) {
-		int id = m_differenceMenu->insertItem( it.current()->asString() );
-		if ( i == current )
-			m_differenceMenu->setItemChecked( id, true );
-		i++; ++it;
-	}
+	m_modelList = modelList;
+	// these will be set by the following signal, setSelected();
+	m_selectedModel = 0L;
+	m_selectedDifference = 0L;
+	// updating the actions
+	updateActions();
 }
 
-void DifferencesAction::slotActivated( int id )
+void KompareActions::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
-	int index = m_differenceMenu->indexOf(id) - m_firstIndex;
-	emit activated( index );
+	m_selectedModel = model;
+	m_selectedDifference = diff;
+
+	updateActions();
+}
+
+void KompareActions::slotSetSelection( const Difference* diff )
+{
+	m_selectedDifference = diff;
+
+	updateActions();
+}
+
+void KompareActions::slotActivated( const Difference* diff )
+{
+	emit selectionChanged( diff );
+}
+
+void KompareActions::updateActions()
+{
+	if( m_modelList && m_selectedModel && m_selectedDifference )
+	{
+		m_applyDifference->setEnabled( true );
+		m_applyAll->setEnabled( true );
+		m_unapplyAll->setEnabled( true );
+		if( m_selectedDifference->applied() )
+		{
+			m_applyDifference->setText( i18n( "Un&apply Difference" ) );
+			m_applyDifference->setIcon( "1leftarrow" );
+		}
+		else
+		{
+			m_applyDifference->setText( i18n( "&Apply Difference" ) );
+			m_applyDifference->setIcon( "1rightarrow" );
+		}
+
+		int modelIndex = m_selectedModel->index();
+		int diffIndex  = m_selectedModel->findDifference( const_cast<Difference*>(m_selectedDifference) );
+
+		m_previousFile->setEnabled      ( modelIndex > 0 );
+		m_nextFile->setEnabled          ( modelIndex < m_modelList->count() - 1 );
+		m_previousDifference->setEnabled( diffIndex  > 0 || modelIndex > 0 );
+		m_nextDifference->setEnabled    ( modelIndex >= 0 &&
+		    ( diffIndex < m_selectedModel->differenceCount() - 1 || modelIndex < m_modelList->count() - 1 ) );
+	}
+	else
+	{
+		m_applyDifference->setEnabled( false );
+		m_applyAll->setEnabled( false );
+		m_unapplyAll->setEnabled( false );
+
+		m_previousFile->setEnabled      ( false );
+		m_nextFile->setEnabled          ( false );
+		m_previousDifference->setEnabled( false );
+		m_nextDifference->setEnabled    ( false );
+	}
+
+}
+
+void KompareActions::slotDifferenceActivated( const Difference* diff )
+{
+// totally unnecessary
+	emit selectionChanged( diff );
+}
+
+void KompareActions::slotApplyDifference()
+{
+	// Warning hasn't been tested thouroughly...
+	bool apply = true;
+	if ( m_selectedDifference->applied() )
+		apply = false;
+	emit applyDifference( apply );
+
+	if( m_nextDifference->isEnabled() )
+		slotNextDifference();
+}
+
+void KompareActions::slotApplyAllDifferences()
+{
+// FIXME: this should only happen in modellist... everything else uses const objects
+//	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(m_selectedModel->differences());
+//	int i = 0;
+//	while ( it.current() ) {
+//		if( !(*it)->applied() )
+//			m_selectedModel->toggleApplied( i );
+//		i++; ++it;
+//	}
+	emit applyAllDifferences( true );
+}
+
+void KompareActions::slotUnapplyAllDifferences()
+{
+// FIXME: this should only happen in modellist... everything else uses const objects
+//	QPtrListIterator<Difference> it = QPtrListIterator<Difference>(m_selectedModel->differences());
+//	int i = 0;
+//	while ( it.current() ) {
+//		if( (*it)->applied() )
+//			m_selectedModel->toggleApplied( i );
+//		i++; ++it;
+//	}
+	emit applyAllDifferences( false );
+}
+
+void KompareActions::slotPreviousFile()
+{
+	emit previousModel();
+}
+
+void KompareActions::slotNextFile()
+{
+	emit nextModel();
+}
+
+void KompareActions::slotPreviousDifference()
+{
+	emit previousDifference();
+}
+
+void KompareActions::slotNextDifference()
+{
+	emit nextDifference();
 }
 
 #include "kompare_actions.moc"

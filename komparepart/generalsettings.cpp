@@ -41,7 +41,7 @@ void GeneralSettings::loadSettings( KConfig* config )
 	m_changeColor     = config->readColorEntry( "ChangeColor",     &default_changeColor );
 	m_addColor        = config->readColorEntry( "AddColor",        &default_addColor );
 	m_appliedColor    = config->readColorEntry( "AppliedColor",    &default_appliedColor );
-	m_scrollNoOfLines = config->readNumEntry     ( "ScrollNoOfLines", 3 );
+	m_scrollNoOfLines = config->readNumEntry  ( "ScrollNoOfLines", 3 );
 
 	SettingsBase::loadSettings( config );
 };
@@ -60,6 +60,7 @@ void GeneralSettings::saveSettings( KConfig* config )
 
 QColor GeneralSettings::colorForDifferenceType( Difference::Type type, bool selected, bool applied )
 {
+	// FIXME: does not belong here
 	QColor color;
 	if( applied ) {
 		color = m_appliedColor;
@@ -72,7 +73,7 @@ QColor GeneralSettings::colorForDifferenceType( Difference::Type type, bool sele
 			default: break;
 		}
 	}
-	
+
 	if( selected ) {
 		color = color.light( 105 );
 	}

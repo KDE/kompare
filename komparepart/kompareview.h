@@ -35,15 +35,21 @@ class KompareView : public QFrame
 	Q_OBJECT
 	
 public:
-	KompareView( KompareModelList* models, GeneralSettings* settings, QWidget *parent=0, const char *name=0 );
+	KompareView( GeneralSettings* settings, QWidget *parent=0, const char *name=0 );
 	~KompareView();
 	
+public:
+	const KompareListView*      srcLV()      { return m_diff1; };
+	const KompareListView*      destLV()     { return m_diff2; };
+	const KompareConnectWidget* zoomWidget() { return m_zoom; };
+
 public slots:
-	void slotSetSelection( int model, int diff );
-	
+	void slotSetSelection( const DiffModel* model, const Difference* diff );
+	void slotSetSelection( const Difference* diff );
+
 signals:
-	void selectionChanged( int model, int diff );
-	
+	void selectionChanged( const Difference* diff );
+
 protected:
 	void resizeEvent( QResizeEvent* e );
 	void wheelEvent( QWheelEvent* e );
@@ -51,20 +57,20 @@ protected:
 
 protected slots:
 	void scrollToId( int id );
-	void slotSelectionChanged( int model, int diff );
 
 private:
-	KompareModelList*         m_models;
-	int                       m_selectedModel;
-	int                       m_selectedDifference;
+	const DiffModel*          m_selectedModel;
+	const Difference*         m_selectedDifference;
+	
 	GeneralSettings*          m_settings;
-	QLabel*                   revlabel1;
-	QLabel*                   revlabel2;
-	KompareListView*          diff1;
-	KompareListView*          diff2;
-	KompareConnectWidget*     zoom;
-	QScrollBar*               vScroll;
-	QScrollBar*               hScroll;
+	
+	QLabel*                   m_revlabel1;
+	QLabel*                   m_revlabel2;
+	KompareListView*          m_diff1;
+	KompareListView*          m_diff2;
+	KompareConnectWidget*     m_zoom;
+	QScrollBar*               m_vScroll;
+	QScrollBar*               m_hScroll;
 };
 
 #endif

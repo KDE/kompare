@@ -33,17 +33,17 @@
 #define COL_LINE_NO      0
 #define COL_MAIN         1
 
-KompareListView::KompareListView( KompareModelList* models, bool isSource,
-                              GeneralSettings* settings,
-                              QWidget* parent, const char* name ) :
+KompareListView::KompareListView( bool isSource,
+                                  GeneralSettings* settings,
+                                  QWidget* parent, const char* name ) :
 	KListView( parent, name ),
-	m_models( models ),
 	m_isSource( isSource ),
-	m_selectedModel( -1 ),
 	m_settings( settings ),
 	m_maxScrollId( 0 ),
 	m_scrollId( -1 ),
-	m_maxMainWidth( 0 )
+	m_maxMainWidth( 0 ),
+	m_selectedModel( 0 ),
+	m_selectedDifference( 0 )
 {
 	header()->hide();
 	addColumn( "Line Number", 40 );
@@ -169,31 +169,47 @@ int KompareListView::scrollId()
 	return m_scrollId;
 }
 
-void KompareListView::slotSetSelection( int model, int diff )
+void KompareListView::slotSetSelection( const Difference* diff )
 {
-	setSelectedModel( model );
-	setSelectedDifference( diff );
+	if ( m_selectedDifference == diff )
+		return;
+
+	m_selectedDifference = diff;
+	QListViewItem* item = static_cast<QListViewItem*>(m_itemDict[ (void*)diff ]);
+	setSelected( item, true );
+	ensureItemVisible( item );
+	repaint();
+	return;
 }
 
-void KompareListView::setSelectedModel( int index )
+void KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
-	DiffModel* model = 0;
-	if( index >= 0 )
-		model = m_models->modelAt( index );
+	if( m_selectedModel && m_selectedModel == model )
+	{
+		if ( m_selectedDifference == diff )
+			return;
 
-	if( index == m_selectedModel ) return;
+		m_selectedDifference = diff;
+		QListViewItem* item = static_cast<QListViewItem*>(m_itemDict[ (void*)diff ]);
+		setSelected( item, true );
+		ensureItemVisible( item );
+		viewport()->repaint();
+		return;
+	}
+
+	// new model, so disconnect from old one...
+	if ( m_selectedModel )
+	{
+		disconnect( m_selectedModel, SIGNAL(appliedChanged( const Difference* )),
+		            this, SLOT(slotAppliedChanged( const Difference* )) );
+	}
 
 	clear();
 	m_items.clear();
 	m_itemDict.clear();
 	m_maxScrollId = 0;
 	m_maxMainWidth = 0;
-	disconnect( m_models->modelAt( index ), SIGNAL(appliedChanged( const Difference* )),
-	            this, SLOT(slotAppliedChanged( const Difference* )) );
-
-	m_selectedModel = index;
-
-	if( model == 0 ) return;
+	m_selectedModel = model;
 
 	m_itemDict.resize(model->differenceCount());
 
@@ -225,20 +241,24 @@ void KompareListView::setSelectedModel( int index )
 		}
 	}
 
+
 	connect( model, SIGNAL(appliedChanged( const Difference* )),
 	         this, SLOT(slotAppliedChanged( const Difference* )) );
+
 	updateMainColumnWidth();
 }
 
-void KompareListView::setSelectedDifference( int index, bool scroll )
+void KompareListView::setSelectedDifference( const Difference* diff, bool scroll )
 {
-	KompareListViewItem* item = itemAtIndex( index );
+	KompareListViewItem* item = m_itemDict[ (void*)diff ];
 	// Only scroll to item if it isn't selected. This is so that
 	// clicking an item doesn't scroll to to it. KompareView sets the
 	// selection manually in that case.
 	if( item != selectedItem() && scroll ) {
-		scrollToId( item->scrollId() );
+//		scrollToId( item->scrollId() );
+		ensureItemVisible( static_cast<QListViewItem*>(item) );
 	}
+
 	setSelected( item, true );
 }
 
@@ -262,14 +282,22 @@ void KompareListView::contentsMousePressEvent( QMouseEvent* e )
 	QPoint vp = contentsToViewport( e->pos() );
 	KompareListViewDiffItem* item = dynamic_cast<KompareListViewDiffItem*>( itemAt( vp ) );
 	if( item && item->difference()->type() != Difference::Unchanged ) {
-		setSelected( item, true );
-		emit selectionChanged( m_selectedModel, m_items.findRef( item ) );
+//		setSelected( item, true ); // let the slot handle this...
+		emit selectionChanged( item->difference() );
 	}
 }
 
-void KompareListView::slotAppliedChanged( const Difference* d )
+void KompareListView::slotApplyDifference( bool apply )
 {
-	m_itemDict[(void*)d]->appliedChanged();
+	m_itemDict[ (void*)m_selectedDifference ]->applyDifference( apply );
+}
+
+void KompareListView::slotApplyAllDifferences( bool apply )
+{
+	QPtrDictIterator<KompareListViewDiffItem> it ( m_itemDict );
+	for( ; it.current(); ++it )
+		it.current()->applyDifference( apply );
+	repaint();
 }
 
 void KompareListView::wheelEvent( QWheelEvent* e )
@@ -422,9 +450,10 @@ void KompareListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, i
 	}
 }
 
-void KompareListViewDiffItem::appliedChanged()
+void KompareListViewDiffItem::applyDifference( bool /*apply*/ )
 {
 	setup();
+	repaint();
 }
 
 KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, DiffHunk* hunk )

@@ -1,6 +1,10 @@
-SUBDIRS = komparepart pics
+SUBDIRS = libdiff2 komparenavtreepart komparepart pics
 
-INCLUDES= -I$(top_srcdir)/kompare/komparepart $(all_includes)
+INCLUDES= \
+	-I$(srcdir)/libdiff2 \
+	-I$(srcdir)/komparenavtreepart \
+	-I$(srcdir)/komparepart \
+	$(all_includes)
 
 noinst_HEADERS =  kompare_shell.h
 
@@ -22,7 +26,7 @@ bin_PROGRAMS = kompare
 
 # the application source, library search path, and link libraries
 kompare_SOURCES = main.cpp kompare_shell.cpp kcomparedialog.cpp
-kompare_LDFLAGS = $(KDE_RPATH) $(all_libraries)
+kompare_LDFLAGS = $(KDE_RPATH) $(all_libraries) -lvmon
 kompare_LDADD   = $(LIB_KPARTS) $(top_builddir)/kompare/komparepart/libkomparepart.la
 
 # this is where the desktop file will go

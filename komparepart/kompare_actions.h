@@ -7,7 +7,7 @@
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -20,38 +20,69 @@
 #ifndef _KOMPARE_ACTIONS_H
 #define _KOMPARE_ACTIONS_H
 
+#include <qptrlist.h>
+
 #include <kaction.h>
+#include <kparts/part.h>
 
 class QPopupMenu;
 class QWidget;
 
 class DiffModel;
+class Difference;
 
-class DifferencesAction : public KAction
+class DifferencesAction;
+
+class KompareActions : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 public:
-    DifferencesAction( const QString & text, QObject* parent = 0, const char* name = 0 );
+	KompareActions( KParts::ReadOnlyPart* parent, const char* name );
+	~KompareActions();
 
-    virtual ~DifferencesAction() {};
-
-    virtual int plug( QWidget *widget, int index = -1 );
-    //virtual void unplug( QWidget *widget );
-
-    void fillDifferenceMenu( const DiffModel* model, int current );
+public slots:
+	void slotModelsChanged( const QPtrList<DiffModel>* modelList );
+	void slotSetSelection( const DiffModel* model, const Difference* diff );
+	void slotSetSelection( const Difference* diff );
+	
+	void slotActivated( const Difference* diff );
 
 protected slots:
-    void slotActivated( int );
+	void slotApplyDifference();
+	void slotApplyAllDifferences();
+	void slotUnapplyAllDifferences();
+	void slotPreviousFile();
+	void slotNextFile();
+	void slotPreviousDifference();
+	void slotNextDifference();
+	void slotDifferenceActivated( const Difference* diff );
+
+private:
+	void updateActions();
 
 signals:
-    void menuAboutToShow();
-    // -1 for one step back, 0 for don't move, +1 for one step forward, etc.
-    void activated( int );
+	void selectionChanged( const DiffModel* model, const Difference* diff );
+	void selectionChanged( const Difference* diff );
+	// apply: true is apply, false is undo...
+	void applyDifference( bool apply );
+	void applyAllDifferences( bool apply );
+
+	void nextModel();
+	void previousModel();
+	void nextDifference();
+	void previousDifference();
+
 private:
-    uint m_firstIndex; // first index in the Go menu
-    int m_startPos;
-    int m_currentPos; // == history.at()
-    QPopupMenu *m_differenceMenu; // hack
+	const QPtrList<DiffModel>*  m_modelList;
+	const DiffModel*            m_selectedModel;
+	const Difference*           m_selectedDifference;
+	KAction*                    m_applyDifference;
+	KAction*                    m_applyAll;
+	KAction*                    m_unapplyAll;
+	KAction*                    m_previousFile;
+	KAction*                    m_nextFile;
+	KAction*                    m_previousDifference;
+	KAction*                    m_nextDifference;
 };
 
 #endif

@@ -42,7 +42,7 @@ public:
 	~KompareModelList();
 
 	bool compare( const KURL& source, const KURL& destination );
-	bool saveDestination( int index );
+	bool saveDestination( const DiffModel* model );
 
 	bool openDiff( const KURL& url );
 	bool saveDiff( const KURL& url, QString directory, DiffSettings* settings );
@@ -50,18 +50,18 @@ public:
 
 	void swap();
 
-	enum Kompare::Mode          mode()
+	enum Kompare::Mode          mode() const
 	    { return m_mode; };
-	enum Kompare::Format        format()
+	enum Kompare::Format        format() const
 	    { return m_format; };
-	const QPtrList<DiffModel>&  models()
+	const QPtrList<DiffModel>&  models() const
 	    { return m_models; };
-	int                         modelCount()
+	int                         modelCount() const
 	    { return m_models.count(); };
-	DiffModel*                  modelAt( int i )
-	    { return m_models.at( i ); };
-	int                         findModel( DiffModel* model )
-	    { return m_models.find( model ); };
+	DiffModel*                  modelAt( int i ) const
+	    { return const_cast<KompareModelList*>(this)->m_models.at( i ); };
+	int                         findModel( DiffModel* model ) const
+	    { return const_cast<KompareModelList*>(this)->m_models.find( model ); };
 
 	QString                     sourceTemp() const      { return m_sourceTemp; };
 	QString                     destinationTemp() const { return m_destinationTemp; };
@@ -72,10 +72,31 @@ public:
 
 	bool                        isModified() const;
 
+	int selectedModelIndex()      { return m_selectedModel ? m_selectedModel->index() : -1; };
+	int selectedDifferenceIndex() { return m_selectedModel ? m_selectedModel->findDifference( m_selectedDifference ) : -1; };
+
+	const DiffModel* selectedModel() const       { return m_selectedModel; };
+	const Difference* selectedDifference() const { return m_selectedDifference; };
 signals:
-	void status( Kompare::Status );
+	void status( Kompare::Status status );
 	void error( QString error );
-	void modelsChanged();
+	void modelsChanged( const QPtrList<DiffModel>* models );
+	void setSelection( const DiffModel* model, const Difference* diff );
+	void setSelection( const Difference* diff );
+	void applyDifference( bool apply );
+	void applyAllDifferences( bool apply );
+
+public slots:
+	void slotSelectionChanged( const DiffModel* model, const Difference* diff );
+	void slotSelectionChanged( const Difference* diff );
+
+	void slotApplyDifference( bool apply );
+	void slotApplyAllDifferences( bool apply );
+	void slotPreviousModel();
+	void slotNextModel();
+	void slotPreviousDifference();
+	void slotNextDifference();
+
 
 protected slots:
 	void slotDiffProcessFinished( bool success );
@@ -103,6 +124,12 @@ private:
 	enum Kompare::Format m_format;
 	enum Kompare::Mode   m_mode; // reading from a DiffFile or Comparing in Kompare
 	enum Kompare::Type   m_type; // single, multi and diff or cvsdiff
+
+	DiffModel*     m_selectedModel;
+	Difference*    m_selectedDifference;
+	
+	QPtrListIterator<DiffModel>*  m_modelIt;
+	QPtrListIterator<Difference>* m_diffIt;
 };
 
 #endif

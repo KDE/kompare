@@ -51,9 +51,9 @@ int Difference::destinationLineCount() const
 	return m_destinationLines.count();
 }
 
-void Difference::toggleApplied()
+void Difference::apply( bool apply )
 {
-	m_applied = !m_applied;
+	m_applied = apply;
 }
 
 QString Difference::asString() const

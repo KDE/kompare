@@ -27,6 +27,8 @@
 #include "kompare_shell.h"
 #include "kcomparedialog.h"
 
+#include "vmon.h"
+
 static const char *description =
 	I18N_NOOP("A program to view the differences between files and optionally generate a diff." );
 
@@ -40,6 +42,7 @@ static KCmdLineOptions options[] =
 
 int main(int argc, char *argv[])
 {
+	vmon_begin();
 	KAboutData aboutData( "kompare", I18N_NOOP("Kompare"), version, description,
 	                      KAboutData::License_GPL,
 	                      "(c) 2001, John Firebaugh and Otto Bruggeman", 0, 0, "jfirebaugh@kde.org");
@@ -99,6 +102,7 @@ int main(int argc, char *argv[])
 	}
 
 	return kapp->exec();
+	vmon_done();
 }
 
 /* vim: set ts=4 sw=4 noet: */

@@ -2,16 +2,13 @@
 # KPART SECTION
 #########################################################################
 
-INCLUDES = $(all_includes)
+INCLUDES = -I$(top_srcdir)/kompare/libdiff2 $(all_includes)
 
 noinst_HEADERS = \
 	kompare_part.h \
 	kompare_actions.h \
-	komparenavigationtree.h \
-	komparemodellist.h \
 	kompareview.h \
 	prefsbase.h \
-	kompareprocess.h \
 	diffprefs.h \
 	diffsettings.h \
 	generalprefs.h \
@@ -20,14 +17,10 @@ noinst_HEADERS = \
 	miscprefs.h \
 	miscsettings.h \
 	settingsbase.h \
-	diffmodel.h \
-	difference.h \
-	diffhunk.h \
 	komparelistview.h \
 	kompareconnectwidget.h \
 	komparesaveoptionsbase.h \
-	komparesaveoptionswidget.h \
-	kompare.h
+	komparesaveoptionswidget.h
 
 # let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
@@ -38,15 +31,9 @@ kde_module_LTLIBRARIES = libkomparepart.la
 libkomparepart_la_SOURCES = \
 	kompare_part.cpp \
 	kompare_actions.cpp \
-	komparenavigationtree.cpp \
 	kompareconnectwidget.cpp \
 	kompareview.cpp \
 	komparelistview.cpp \
-	komparemodellist.cpp \
-	diffmodel.cpp \
-	difference.cpp \
-	diffhunk.cpp \
-	kompareprocess.cpp \
 	settingsbase.cpp \
 	diffsettings.cpp \
 	generalsettings.cpp \
@@ -60,7 +47,8 @@ libkomparepart_la_SOURCES = \
 	komparesaveoptionswidget.cpp
 
 libkomparepart_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
-libkomparepart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE)
+libkomparepart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE) \
+	$(top_builddir)/kompare/libdiff2/libdiff2.la
 
 # this is where the desktop file will go
 partdesktopdir   = $(kde_servicesdir)

@@ -27,16 +27,15 @@
 
 #include "kompareconnectwidget.h"
 
-KompareConnectWidget::KompareConnectWidget( KompareModelList* models, KompareListView* left, KompareListView* right,
+KompareConnectWidget::KompareConnectWidget( KompareListView* left, KompareListView* right,
       GeneralSettings* settings, KompareView* parent, const char* name )
 	: QWidget(parent, name),
-	m_models( models ),
 	m_settings( settings ),
 	m_diffView( parent ),
 	m_leftView( left ),
 	m_rightView( right ),
-	m_selectedModel( -1 ),
-	m_selectedDiff( -1 )
+	m_selectedModel( 0 ),
+	m_selectedDifference( 0 )
 {
 	connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( repaint() ) );
 	setBackgroundMode( NoBackground );
@@ -47,23 +46,40 @@ KompareConnectWidget::~KompareConnectWidget()
 {
 }
 
-void KompareConnectWidget::slotSetSelection( int model, int diff ) {
-	if( m_selectedModel == model && m_selectedDiff == diff )
+void KompareConnectWidget::slotSetSelection( const DiffModel* model, const Difference* diff )
+{
+	if( m_selectedModel == model && m_selectedDifference == diff )
 		return;
-	
-	if( m_selectedModel >= 0 ) {
-		disconnect( m_models->modelAt( m_selectedModel ), SIGNAL( appliedChanged( const Difference* ) ),
+
+	if ( m_selectedModel == model && m_selectedDifference != diff )
+	{
+		m_selectedDifference = diff;
+		repaint();
+		return;
+	}
+
+	if( m_selectedModel != model )
+	{
+		disconnect( m_selectedModel, SIGNAL( appliedChanged( const Difference* ) ),
 		            this, SLOT( repaint() ) );
 	}
-	
+
 	m_selectedModel = model;
-	m_selectedDiff = diff;
-	
-	if( m_selectedModel >= 0 ) {
-		connect( m_models->modelAt( m_selectedModel ), SIGNAL( appliedChanged( const Difference* ) ),
-		            this, SLOT( repaint() ) );
-	}
-	
+	m_selectedDifference = diff;
+
+	connect( m_selectedModel, SIGNAL( appliedChanged(const Difference*) ),
+	         this, SLOT( repaint() ) );
+
+	repaint();
+}
+
+void KompareConnectWidget::slotSetSelection( const Difference* diff )
+{
+	if ( m_selectedDifference == diff )
+		return;
+
+	m_selectedDifference = diff;
+
 	repaint();
 }
 
@@ -75,38 +91,35 @@ QSize KompareConnectWidget::sizeHint() const
 void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 {
 	kdDebug() << "KompareConnectWidget::paintEvent()" << endl;
-	
+
 	QPixmap pixbuf(size());
 	QPainter paint(&pixbuf, this);
 	QPainter* p = &paint;
 
 	p->fillRect( 0, 0, pixbuf.width(), pixbuf.height(), white );
 
-	if( m_selectedModel >= 0 ) {
-
-		DiffModel* selectedModel = m_models->modelAt( m_selectedModel );
-		const Difference* selectedDiff = selectedModel->differenceAt( m_selectedDiff );
-		
+	if( m_selectedModel )
+	{
 		int firstL = m_leftView->firstVisibleDifference();
 		int firstR = m_rightView->firstVisibleDifference();
 		int lastL = m_leftView->lastVisibleDifference();
 		int lastR = m_rightView->lastVisibleDifference();
-		
+
 		int first = firstL < 0 ? firstR : QMIN( firstL, firstR );
 		int last = lastL < 0 ? lastR : QMAX( lastL, lastR );
-		
+
 		kdDebug() << "    left: " << firstL << " - " << lastL << endl;
 		kdDebug() << "   right: " << firstR << " - " << lastR << endl;
 		kdDebug() << " drawing: " << first << " - " << last << endl;
-		if( first >= 0 && last >= 0 && first <= last ) {
-			
+		if( first >= 0 && last >= 0 && first <= last )
+		{
 			QPtrListIterator<Difference> diffIt =
-			     QPtrListIterator<Difference>( selectedModel->differences() );
+			     QPtrListIterator<Difference>( m_selectedModel->differences() );
 			diffIt += first;
-			for( int i = first; diffIt.current() && i <= last; ++diffIt, ++i ) {
-
-				const Difference* d = diffIt.current();
-				bool selected = (d == selectedDiff);
+			for( int i = first; diffIt.current() && i <= last; ++diffIt, ++i )
+			{
+				const Difference* diff = diffIt.current();
+				bool selected = (diff == m_selectedDifference);
 
 				QRect leftRect = m_leftView->itemRect( i );
 				QRect rightRect = m_rightView->itemRect( i );
@@ -119,18 +132,19 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 				QPointArray topBezier = makeTopBezier( tl, tr );
 				QPointArray bottomBezier = makeBottomBezier( bl, br );
 
-				p->setPen( m_settings->colorForDifferenceType( d->type(), selected, d->applied() ) );
-				p->setBrush( m_settings->colorForDifferenceType( d->type(), selected, d->applied() ) );
+				p->setPen( m_settings->colorForDifferenceType( diff->type(), selected, diff->applied() ) );
+				p->setBrush( m_settings->colorForDifferenceType( diff->type(), selected, diff->applied() ) );
 				p->drawPolygon ( makeConnectPoly( topBezier, bottomBezier ) );
 
-				if( selected ) {
+				if( selected )
+				{
 					p->setPen( black );
 					p->drawPolyline( topBezier );
 					p->drawPolyline( bottomBezier );
 				}
-				
+
 			}
-			
+
 		}
 	}
 
@@ -147,8 +161,17 @@ QPointArray KompareConnectWidget::makeTopBezier( int tl, int tr )
 	int l = 0;
 	int r = width();
 	QPointArray controlPoints;
-	controlPoints.setPoints( 4, l,tl, 20,tl, r-20,tr, r,tr );
-	return controlPoints.cubicBezier();
+
+	if ( true )
+	{
+		controlPoints.setPoints( 4, l,tl, 20,tl, r-20,tr, r,tr );
+		return controlPoints.cubicBezier();
+	}
+	else
+	{
+		controlPoints.setPoints( 2, l,tl, r,tr );
+		return controlPoints;
+	}
 }
 
 QPointArray KompareConnectWidget::makeBottomBezier( int bl, int br )
@@ -156,8 +179,17 @@ QPointArray KompareConnectWidget::makeBottomBezier( int bl, int br )
 	int l = 0;
 	int r = width();
 	QPointArray controlPoints;
-	controlPoints.setPoints( 4, r,br, r-20,br, 20,bl, l,bl );
-	return controlPoints.cubicBezier();
+
+	if ( true )
+	{
+		controlPoints.setPoints( 4, r,br, r-20,br, 20,bl, l,bl );
+		return controlPoints.cubicBezier();
+	}
+	else
+	{
+		controlPoints.setPoints( 2, r,br, l,bl );
+		return controlPoints;
+	}
 }
 
 QPointArray KompareConnectWidget::makeConnectPoly( const QPointArray& topBezier, const QPointArray& bottomBezier )

@@ -27,11 +27,13 @@ class QString;
 class Difference
 {
 public:
-	enum Type { Change, Insert, Delete, Unchanged };
-
 	Difference( int soureLineNo, int destinationLineNo );
 	~Difference();
 
+public:
+	enum Type { Change, Insert, Delete, Unchanged };
+
+public:
 	QString asString() const;
 	Type type() const { return m_type; };
 	int sourceLineNumber() const { return m_sourceLineNo; };
@@ -43,13 +45,16 @@ public:
 	const QStringList sourceLines() const { return m_sourceLines; };
 	const QStringList destinationLines() const { return m_destinationLines; };
 	bool applied() const { return m_applied; };
-	
+
 	void setType( Type type ) { m_type = type; };
 	void addSourceLine( QString line );
 	void addDestinationLine( QString line );
-	
-	void toggleApplied();
-	
+
+	void apply( bool apply );
+
+	const int index() const    { return m_index; };
+	void setIndex( int index ) { m_index = index; };
+
 private:
 	Type             m_type;
 	int              m_sourceLineNo;
@@ -58,6 +63,7 @@ private:
 	QStringList      m_destinationLines;
 	bool             m_applied;
 
+	int              m_index;
 };
 
 #endif

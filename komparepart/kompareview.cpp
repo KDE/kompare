@@ -34,11 +34,10 @@
 
 #include "kompareview.h"
 
-KompareView::KompareView( KompareModelList* models, GeneralSettings* settings, QWidget *parent, const char *name )
+KompareView::KompareView( GeneralSettings* settings, QWidget *parent, const char *name )
 	: QFrame(parent, name),
-	m_models( models ),
-	m_selectedModel( -1 ),
-	m_selectedDifference( -1 ),
+	m_selectedModel( 0 ),
+	m_selectedDifference( 0 ),
 	m_settings( settings )
 {
 	setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
@@ -61,8 +60,8 @@ KompareView::KompareView( KompareModelList* models, GeneralSettings* settings, Q
 	QVBoxLayout* Frame1Layout = new QVBoxLayout( Frame1 );
 	Frame1Layout->setSpacing( 0 );
 	Frame1Layout->setMargin( 3 );
-	revlabel1 = new QLabel( i18n( "Source" ), Frame1);
-	Frame1Layout->addWidget( revlabel1 );
+	m_revlabel1 = new QLabel( i18n( "Source" ), Frame1);
+	Frame1Layout->addWidget( m_revlabel1 );
 	pairlayout->addWidget(Frame1, 0, 0);
 
 	QFrame* Frame3 = new QFrame( this, "Frame3" );
@@ -77,41 +76,38 @@ KompareView::KompareView( KompareModelList* models, GeneralSettings* settings, Q
 	QVBoxLayout* Frame2Layout = new QVBoxLayout( Frame2 );
 	Frame2Layout->setSpacing( 0 );
 	Frame2Layout->setMargin( 3 );
-	revlabel2 = new QLabel( i18n( "Destination" ), Frame2 );
-	Frame2Layout->addWidget( revlabel2 );
+	m_revlabel2 = new QLabel( i18n( "Destination" ), Frame2 );
+	Frame2Layout->addWidget( m_revlabel2 );
 	pairlayout->addMultiCellWidget( Frame2, 0,0, 2,3 );
 
-	diff1 = new KompareListView( models, true, m_settings, this );
-	diff2 = new KompareListView( models, false, m_settings, this );
-	diff1->setFrameStyle( QFrame::NoFrame );
-	diff2->setFrameStyle( QFrame::NoFrame );
-	diff1->setVScrollBarMode( QScrollView::AlwaysOff );
-	diff2->setVScrollBarMode( QScrollView::AlwaysOff );
-	diff1->setHScrollBarMode( QScrollView::AlwaysOff );
-	diff2->setHScrollBarMode( QScrollView::AlwaysOff );
-	diff1->setFont( KGlobalSettings::fixedFont() );
-	diff2->setFont( KGlobalSettings::fixedFont() );
-	pairlayout->addWidget(diff1, 1, 0);
-	pairlayout->addWidget(diff2, 1, 2);
+	m_diff1 = new KompareListView( true, m_settings, this );
+	m_diff2 = new KompareListView( false, m_settings, this );
+	m_diff1->setFrameStyle( QFrame::NoFrame );
+	m_diff2->setFrameStyle( QFrame::NoFrame );
+	m_diff1->setVScrollBarMode( QScrollView::AlwaysOff );
+	m_diff2->setVScrollBarMode( QScrollView::AlwaysOff );
+	m_diff1->setHScrollBarMode( QScrollView::AlwaysOff );
+	m_diff2->setHScrollBarMode( QScrollView::AlwaysOff );
+	m_diff1->setFont( KGlobalSettings::fixedFont() );
+	m_diff2->setFont( KGlobalSettings::fixedFont() );
+	pairlayout->addWidget(m_diff1, 1, 0);
+	pairlayout->addWidget(m_diff2, 1, 2);
 
-	zoom = new KompareConnectWidget( models, diff1, diff2, m_settings, this );
-	pairlayout->addWidget( zoom,  1, 1);
+	m_zoom = new KompareConnectWidget( m_diff1, m_diff2, m_settings, this );
+	pairlayout->addWidget( m_zoom,  1, 1);
 
-	vScroll = new QScrollBar( QScrollBar::Vertical, this );
-	pairlayout->addWidget( vScroll, 1, 3 );
+	m_vScroll = new QScrollBar( QScrollBar::Vertical, this );
+	pairlayout->addWidget( m_vScroll, 1, 3 );
 
-	hScroll = new QScrollBar( QScrollBar::Horizontal, this );
-	pairlayout->addMultiCellWidget( hScroll, 2,2, 0,2 );
+	m_hScroll = new QScrollBar( QScrollBar::Horizontal, this );
+	pairlayout->addMultiCellWidget( m_hScroll, 2,2, 0,2 );
 
-	connect( diff1, SIGNAL(selectionChanged(int,int)), SLOT(slotSelectionChanged(int,int)) );
-	connect( diff2, SIGNAL(selectionChanged(int,int)), SLOT(slotSelectionChanged(int,int)) );
-
-	connect( vScroll, SIGNAL(valueChanged(int)), SLOT(scrollToId(int)) );
-	connect( vScroll, SIGNAL(sliderMoved(int)), SLOT(scrollToId(int)) );
-	connect( hScroll, SIGNAL(valueChanged(int)), diff1, SLOT(setXOffset(int)) );
-	connect( hScroll, SIGNAL(valueChanged(int)), diff2, SLOT(setXOffset(int)) );
-	connect( hScroll, SIGNAL(sliderMoved(int)), diff1, SLOT(setXOffset(int)) );
-	connect( hScroll, SIGNAL(sliderMoved(int)), diff2, SLOT(setXOffset(int)) );
+	connect( m_vScroll, SIGNAL(valueChanged(int)), SLOT(scrollToId(int)) );
+	connect( m_vScroll, SIGNAL(sliderMoved(int)), SLOT(scrollToId(int)) );
+	connect( m_hScroll, SIGNAL(valueChanged(int)), m_diff1, SLOT(setXOffset(int)) );
+	connect( m_hScroll, SIGNAL(valueChanged(int)), m_diff2, SLOT(setXOffset(int)) );
+	connect( m_hScroll, SIGNAL(sliderMoved(int)), m_diff1, SLOT(setXOffset(int)) );
+	connect( m_hScroll, SIGNAL(sliderMoved(int)), m_diff2, SLOT(setXOffset(int)) );
 
 	updateScrollBars();
 }
@@ -120,74 +116,77 @@ KompareView::~KompareView()
 {
 }
 
-void KompareView::slotSelectionChanged( int model, int diff )
+void KompareView::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
-	diff1->setSelectedDifference( diff, false /* don't scroll */ );
-	diff2->setSelectedDifference( diff, false /* don't scroll */ );
-	emit selectionChanged( model, diff );
+	if( model )
+	{
+		m_selectedModel = model;
+		m_selectedDifference = diff;
+		m_revlabel1->setText( model->srcFile() );
+		m_revlabel2->setText( model->destFile() );
+		if( !model->sourceRevision().isEmpty() )
+			m_revlabel1->setText( model->srcFile() + " (" + model->sourceRevision() + ")" );
+		if( !model->destinationRevision().isEmpty() )
+			m_revlabel1->setText( model->destFile() + " (" + model->destinationRevision() + ")" );
+	} else {
+		m_revlabel1->setText( QString::null );
+		m_revlabel2->setText( QString::null );
+	}
+// These get called directly from modellist now...
+//	m_diff1->slotSetSelection( model, diff );
+//	m_diff2->slotSetSelection( model, diff );
+//	m_zoom->slotSetSelection( model, diff );
+//	updateScrollBars();
 }
 
-void KompareView::slotSetSelection( int model, int diff )
+void KompareView::slotSetSelection( const Difference* diff )
 {
-	if( model >= 0 ) {
-		DiffModel* m = m_models->modelAt( model );
-		revlabel1->setText( m->sourceFile() );
-		revlabel2->setText( m->destinationFile() );
-		if( !m->sourceRevision().isEmpty() )
-			revlabel1->setText( m->sourceFile() + " (" + m->sourceRevision() + ")" );
-		if( !m->destinationRevision().isEmpty() )
-			revlabel1->setText( m->destinationFile() + " (" + m->destinationRevision() + ")" );
-	} else {
-		revlabel1->setText( QString::null );
-		revlabel2->setText( QString::null );
-	}
-	diff1->slotSetSelection( model, diff );
-	diff2->slotSetSelection( model, diff );
-	zoom->slotSetSelection( model, diff );
-	updateScrollBars();
+	m_selectedDifference = diff; // dunno, maybe not even needed...
 }
 
 void KompareView::scrollToId( int id )
 {
-	diff1->scrollToId( id );
-	diff2->scrollToId( id );
-	zoom->repaint();
+	m_diff1->scrollToId( id );
+	m_diff1->repaint();
+	m_diff2->scrollToId( id );
+	m_diff2->repaint();
+	m_zoom->repaint();
 }
 
 void KompareView::updateScrollBars()
 {
-	if( diff1->contentsHeight() <= diff1->visibleHeight() &&
-	    diff2->contentsHeight() <= diff2->visibleHeight() ) {
-		if( vScroll->isVisible() )
-			vScroll->hide();
+	if( m_diff1->contentsHeight() <= m_diff1->visibleHeight() &&
+	    m_diff2->contentsHeight() <= m_diff2->visibleHeight() ) {
+		if( m_vScroll->isVisible() )
+			m_vScroll->hide();
 	} else {
-		if( !vScroll->isVisible() ) {
-			vScroll->show();
+		if( !m_vScroll->isVisible() ) {
+			m_vScroll->show();
 		}
 
-		vScroll->blockSignals( true );
-		vScroll->setRange( QMIN( diff1->minScrollId(), diff2->minScrollId() ),
-		                   QMAX( diff1->maxScrollId(), diff2->maxScrollId() ) );
-		vScroll->setValue( diff1->scrollId() );
-		vScroll->setSteps( 7, diff1->visibleHeight() - 14 );
-		vScroll->blockSignals( false );
+		m_vScroll->blockSignals( true );
+		m_vScroll->setRange( QMIN( m_diff1->minScrollId(), m_diff2->minScrollId() ),
+		                   QMAX( m_diff1->maxScrollId(), m_diff2->maxScrollId() ) );
+		m_vScroll->setValue( m_diff1->scrollId() );
+		m_vScroll->setSteps( 7, m_diff1->visibleHeight() - 14 );
+		m_vScroll->blockSignals( false );
 	}
 
-	if( diff1->contentsWidth() <= diff1->visibleWidth() &&
-	    diff2->contentsWidth() <= diff2->visibleWidth() ) {
-		if( hScroll->isVisible() )
-			hScroll->hide();
+	if( m_diff1->contentsWidth() <= m_diff1->visibleWidth() &&
+	    m_diff2->contentsWidth() <= m_diff2->visibleWidth() ) {
+		if( m_hScroll->isVisible() )
+			m_hScroll->hide();
 	} else {
-		if( !hScroll->isVisible() ) {
-			hScroll->show();
+		if( !m_hScroll->isVisible() ) {
+			m_hScroll->show();
 		}
 
-		hScroll->blockSignals( true );
-		hScroll->setRange( 0, QMAX( diff1->contentsWidth() - diff1->visibleWidth(),
-		                            diff2->contentsWidth() - diff2->visibleWidth() ) );
-		hScroll->setValue( QMAX( diff1->contentsX(), diff2->contentsX() ) );
-		hScroll->setSteps( 10, diff1->visibleWidth() - 10 );
-		hScroll->blockSignals( false );
+		m_hScroll->blockSignals( true );
+		m_hScroll->setRange( 0, QMAX( m_diff1->contentsWidth() - m_diff1->visibleWidth(),
+		                            m_diff2->contentsWidth() - m_diff2->visibleWidth() ) );
+		m_hScroll->setValue( QMAX( m_diff1->contentsX(), m_diff2->contentsX() ) );
+		m_hScroll->setSteps( 10, m_diff1->visibleWidth() - 10 );
+		m_hScroll->blockSignals( false );
 	}
 }
 
@@ -200,17 +199,17 @@ void KompareView::resizeEvent( QResizeEvent* e )
 void KompareView::wheelEvent( QWheelEvent* e )
 {
 	// scroll lines...
-	int pos = vScroll->value();
-	int height = diff1->itemRect( 0 ).height();
+	int pos = m_vScroll->value();
+	int height = m_diff1->itemRect( 0 ).height();
 	if ( e->delta() < 0 ) // scroll back into file
 	{
-		vScroll->setValue( pos + m_settings->m_scrollNoOfLines*height );
+		m_vScroll->setValue( pos + m_settings->m_scrollNoOfLines*height );
 	}
 	else // scroll forward into file
 	{
-		vScroll->setValue( pos - m_settings->m_scrollNoOfLines*height );
+		m_vScroll->setValue( pos - m_settings->m_scrollNoOfLines*height );
 	}
-	zoom->repaint();
+	m_zoom->repaint();
 }
 
 #include "kompareview.moc"

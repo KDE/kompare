@@ -32,6 +32,7 @@ class QWidget;
 class KToggleAction;
 class KURL;
 
+class Difference;
 class DiffSettings;
 class GeneralSettings;
 class KFileTreeView;
@@ -40,6 +41,7 @@ class KompareNavigationTree;
 class DifferencesAction;
 class KompareProcess;
 class KompareStatsDlg;
+class KompareActions;
 class MiscSettings;
 
 /**
@@ -65,31 +67,21 @@ public:
 	*/
 	virtual ~KomparePart();
 
-	/**
-	 * Create the navigation widget. For example, this may be embedded in a dock
-	 * widget by the shell.
-	 */
-	QWidget* createNavigationWidget( QWidget* parent = 0L, const char* name = 0L );
-
 	bool askSaveChanges();
 	
+	int selectedDifferenceIndex();
+	int selectedModelIndex();
+	int differenceCount();
+	int appliedCount();
+
 	void loadSettings(KConfig *config);
 	void saveSettings(KConfig *config);
 
 	int modelCount() const
 		{ return m_models->modelCount(); };
-	int selectedModelIndex() const
-		{ return m_selectedModel; };
-	int selectedDifferenceIndex() const
-		{ return m_selectedDifference; };
-	DiffModel* selectedModel()
-		{ return m_models->modelAt( m_selectedModel ); };
-	Difference* selectedDifference()
-		{ return m_models->modelAt( m_selectedModel )->differenceAt( m_selectedDifference ); };
-	int appliedCount() const { return m_models->modelAt( m_selectedModel )->appliedCount(); };
-	
+
 	bool isModified() const { return m_models->isModified(); };
-	
+	const KompareModelList* model() const { return m_models; };
 	/** Returns the url to the open diff file, or a url to a temporary
 	    diff file if we are comparing files. */
 	KURL diffURL();
@@ -115,10 +107,10 @@ public slots:
 	/** Save the results of a comparison as a diff file. */
 	void saveDiff();
 
-	void slotSetSelection( int model, int diff );
+//	void slotSetSelection( const DiffModel* model, const Difference* diff );
 
 signals:
-	void selectionChanged( int model, int diff );
+	void selectionChanged( const DiffModel* model, const Difference* diff );
 	void appliedChanged();
 	void diffURLChanged();
 
@@ -131,22 +123,13 @@ protected:
 protected slots:
 	void slotSetStatus( Kompare::Status status );
 	void slotShowError( QString error );
-	void slotModelsChanged();
+//	void slotModelsChanged( const QPtrList<DiffModel>* );
 
-	void slotSelectionChanged( int model, int diff );
-	void slotAppliedChanged( const Difference* d );
-	void slotDifferenceMenuAboutToShow();
-	void slotGoDifferenceActivated( int item );
+//	void slotSelectionChanged( int model, int diff );
+//	void slotAppliedChanged( const Difference* d );
 
 	void slotSwap();
 	void slotShowDiffstats();
-	void slotApplyDifference();
-	void slotApplyAllDifferences();
-	void slotUnapplyAllDifferences();
-	void slotPreviousFile();
-	void slotNextFile();
-	void slotPreviousDifference();
-	void slotNextDifference();
 	void optionsPreferences();
 
 private:
@@ -160,8 +143,12 @@ private:
 	static MiscSettings*    m_miscSettings;
 
 	KompareModelList*       m_models;
-	int                     m_selectedModel;
-	int                     m_selectedDifference;
+
+//	const DiffModel*        m_selectedModel;
+//	const Difference*       m_selectedDifference;
+
+//	int                     m_selectedModelIndex;
+//	int                     m_selectedDifferenceIndex;
 
 	KompareView*            m_diffView;
 
@@ -172,14 +159,7 @@ private:
 	KAction*                m_saveDiff;
 	KAction*                m_swap;
 	KAction*                m_diffStats;
-	KAction*                m_applyDifference;
-	KAction*                m_applyAll;
-	KAction*                m_unapplyAll;
-	KAction*                m_previousFile;
-	KAction*                m_nextFile;
-	KAction*                m_previousDifference;
-	KAction*                m_nextDifference;
-	DifferencesAction*      m_differences;
+	KompareActions*         m_kompareActions;
 
 	KTempFile*              m_tempDiff;
 };

@@ -97,9 +97,7 @@ QColor ViewSettings::colorForDifferenceType( int type, bool selected, bool appli
 	}
 
 	if( selected )
-	{
-		color = color.light( 105 );
-	}
+		color = color.light( 110 );
 
 	return color;
 }

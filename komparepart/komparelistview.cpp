@@ -56,21 +56,16 @@ KompareListViewFrame::KompareListViewFrame( bool isSource,
 {
 	setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored) );
 	m_label.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
-	QFrame *frame1 = new QFrame(this), *frame2 = new QFrame(this);
-	frame1->setFrameShape(QFrame::HLine);
-	frame1->setFrameShadow ( QFrame::Plain );
-	frame1->setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
-	frame1->setFixedHeight(1);
-	frame2->setFrameShape(QFrame::HLine);
-	frame2->setFrameShadow ( QFrame::Plain );
-	frame2->setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
-	frame2->setFixedHeight(1);
+	QFrame *bottomLine = new QFrame(this);
+	bottomLine->setFrameShape(QFrame::HLine);
+	bottomLine->setFrameShadow ( QFrame::Plain );
+	bottomLine->setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
+	bottomLine->setFixedHeight(1);
 	m_label.setMargin(3);
 	m_layout.setSpacing(0);
 	m_layout.setMargin(0);
-	m_layout.addWidget(frame1);
 	m_layout.addWidget(&m_label);
-	m_layout.addWidget(frame2);
+	m_layout.addWidget(bottomLine);
 	m_layout.addWidget(&m_view);
 
 	connect( &m_view, SIGNAL(differenceClicked(const Diff2::Difference*)),
@@ -620,6 +615,7 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, i
 
 	if ( diffItemParent()->isSelected() )
 	{
+		p->setPen( bg.dark(135) );
 		if ( this == parent()->firstChild() )
 			p->drawLine( 0, 0, width, 0 );
 		if ( nextSibling() == 0 )

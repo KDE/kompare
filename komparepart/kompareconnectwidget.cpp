@@ -48,12 +48,16 @@ KompareConnectWidgetFrame::KompareConnectWidgetFrame( KompareListView* left,
 	setSizePolicy ( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Ignored) );
 	m_wid.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored) );
 	m_label.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
-	m_label.setFrameShape( QFrame::StyledPanel );
-	m_label.setFrameShadow ( QFrame::Plain );
 	m_label.setMargin(3);
+	QFrame* bottomLine = new QFrame(this);
+	bottomLine->setFrameShape(QFrame::HLine);
+	bottomLine->setFrameShadow ( QFrame::Plain );
+	bottomLine->setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
+	bottomLine->setFixedHeight(1);
 	m_layout.setSpacing(0);
 	m_layout.setMargin(0);
 	m_layout.addWidget(&m_label);
+	m_layout.addWidget(bottomLine);
 	m_layout.addWidget(&m_wid);
 }
 
@@ -125,7 +129,7 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 	QPainter paint(&pixbuf, this);
 	QPainter* p = &paint;
 
-	p->fillRect( 0, 0, pixbuf.width(), pixbuf.height(), white );
+	p->fillRect( 0, 0, pixbuf.width(), pixbuf.height(), white.dark(110) );
 
 	if ( m_selectedModel )
 	{
@@ -179,24 +183,20 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 				QPointArray topBezier = makeTopBezier( tl, tr );
 				QPointArray bottomBezier = makeBottomBezier( bl, br );
 
-				QColor color = m_settings->colorForDifferenceType( diff->type(), selected, diff->applied() );
+				QColor color = m_settings->colorForDifferenceType( diff->type(), selected, diff->applied() ).dark(110);
 				p->setPen( color );
 				p->setBrush( color );
 				p->drawPolygon ( makeConnectPoly( topBezier, bottomBezier ) );
 
 				if ( selected )
 				{
-					p->setPen( black );
+					p->setPen( color.dark(135) );
 					p->drawPolyline( topBezier );
 					p->drawPolyline( bottomBezier );
 				}
 			}
 		}
 	}
-
-	p->setPen( black );
-	p->drawLine( 0,0, 0,pixbuf.height() );
-	p->drawLine( pixbuf.width()-1,0, pixbuf.width()-1,pixbuf.height() );
 
 	p->flush();
 	bitBlt(this, 0, 0, &pixbuf);

@@ -48,3 +48,20 @@ void GeneralSettings::saveSettings( KConfig* config )
 	config->writeEntry( "AddColor", m_addColor );
 	SettingsBase::saveSettings( config );
 };
+
+QColor GeneralSettings::getColorForDifferenceType( Difference::Type type, bool selected )
+{
+	QColor color;
+	switch( type ) {
+		case Difference::Change: color = m_changeColor; break;
+		case Difference::Insert: color = m_addColor; break;
+		case Difference::Delete: color = m_removeColor; break;
+		default: break;
+	}
+
+	if( selected ) {
+		color = color.dark( 105 );
+	}
+
+	return color;
+}

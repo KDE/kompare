@@ -22,6 +22,7 @@
 #include <qwidget.h>
 
 #include "settingsbase.h"
+#include "difference.h"
 
 class GeneralSettings : public SettingsBase
 {
@@ -37,6 +38,7 @@ public:
 	// some virtual functions that will be overloaded from the base class
 	virtual void loadSettings( KConfig* config );
 	virtual void saveSettings( KConfig* config );
+	QColor getColorForDifferenceType( Difference::Type type, bool selected = false );
 
 public:
 	QColor m_removeColor;

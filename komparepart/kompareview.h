@@ -24,7 +24,7 @@ class QFile;
 
 class DiffModel;
 class DiffView;
-class DiffZoomWidget;
+class DiffConnectWidget;
 class GeneralSettings;
 
 class KDiffView : public QWidget
@@ -53,7 +53,7 @@ private:
 
 	QLabel *revlabel1, *revlabel2;
 	DiffView *diff1, *diff2;
-	DiffZoomWidget* zoom;
+	DiffConnectWidget* zoom;
 	DiffModel* model;
 	int markeditem;
 	bool ownsModel;

@@ -21,6 +21,10 @@ KDiffView::KDiffView( GeneralSettings* settings, QWidget *parent, const char *na
 {
 	m_settings = settings;
 
+	markeditem = -1;
+	model = new DiffModel();
+	ownsModel = true;
+
 	QGridLayout *pairlayout = new QGridLayout(this, 2, 3, 10);
 	pairlayout->setSpacing( 0 );
 	pairlayout->setMargin( 0 );
@@ -58,27 +62,16 @@ KDiffView::KDiffView( GeneralSettings* settings, QWidget *parent, const char *na
 	Frame2Layout->addWidget( revlabel2 );
 	pairlayout->addWidget( Frame2, 0, 2 );
 
-	diff1 = new DiffView( m_settings, true, false, this);
-	diff2 = new DiffView( m_settings, true, true, this);
+	diff1 = new DiffView( m_settings, false, true, false, this);
+	diff2 = new DiffView( m_settings, true, true, false, this);
 	pairlayout->addWidget(diff1, 1, 0);
 	pairlayout->addWidget(diff2, 1, 2);
 	diff1->setPartner(diff2);
 	diff2->setPartner(diff1);
 
-	QFrame* Frame6 = new QFrame( this, "Frame6" );
-	Frame6->setFrameShape( QFrame::StyledPanel );
-	Frame6->setFrameShadow( QFrame::Sunken );
-	QVBoxLayout* Frame6Layout = new QVBoxLayout( Frame6 );
-	Frame6Layout->setSpacing( 0 );
-	Frame6Layout->setMargin( 1 );
-	zoom = new DiffZoomWidget( m_settings, Frame6 );
-	zoom->setDiffView(diff2);
-	Frame6Layout->addWidget( zoom );
-	pairlayout->addWidget(Frame6,  1, 1);
-
-	markeditem = -1;
-	model = new DiffModel();
-	ownsModel = true;
+	zoom = new DiffConnectWidget( model, m_settings, this );
+	zoom->setDiffViews( diff1, diff2 );
+	pairlayout->addWidget( zoom,  1, 1);
 }
 
 KDiffView::~KDiffView()
@@ -96,10 +89,12 @@ void KDiffView::setModel( DiffModel* model, bool ownsModel )
 	this->model = model;
 	this->ownsModel = ownsModel;
 	QListIterator<DiffHunk> it = QListIterator<DiffHunk>( model->getHunks() );
+	int linenoA = 1;
+	int linenoB = 1;
 	for( ; it.current(); ++it ) {
 		const DiffHunk* h = it.current();
-		int linenoA = h->lineStartA;
-		int linenoB = h->lineStartB;
+		linenoA = h->lineStartA;
+		linenoB = h->lineStartB;
 		diff1->addLine( i18n( "%1: Line %1" ).arg( model->getSourceFilename() ).arg( linenoA ), Difference::Separator);
 		diff2->addLine( i18n( "%1: Line %1" ).arg( model->getDestinationFilename() ).arg( linenoB ), Difference::Separator);
 		QListIterator<Difference> differences = QListIterator<Difference>( h->getDifferences() );
@@ -111,32 +106,35 @@ void KDiffView::setModel( DiffModel* model, bool ownsModel )
 			QStringList::ConstIterator itB = linesB.begin();
 			if( d->type == Difference::Unchanged ) {
 				for ( ; itA != linesA.end(); ++itA ) {
-					diff1->addLine((*itA), Difference::Unchanged,linenoA++);
-					diff2->addLine((*itA), Difference::Unchanged,linenoB++);
+					diff1->addLine((*itA), Difference::Unchanged,linenoA,linenoB);
+					diff2->addLine((*itA), Difference::Unchanged,linenoB,linenoA);
+					linenoA++;
+					linenoB++;
 				}
 			} else {
 				while( itA != linesA.end() || itB != linesB.end() ) {
 					if (itA != linesA.end()) {
-						diff1->addLine((*itA), Difference::Neutral,linenoA++);
+						diff1->addLine((*itA), d->type,linenoA,linenoB);
 						++itA;
 						if (itB != linesB.end()) {
-							diff2->addLine((*itB), Difference::Change,linenoB++);
+							diff2->addLine((*itB), Difference::Change,linenoB++,linenoA);
 							++itB;
-						} else
-							diff2->addLine("", Difference::Delete);
+						}
+						linenoA++;
 					} else {
-						diff1->addLine("", Difference::Neutral);
-						diff2->addLine((*itB), Difference::Insert,linenoB++);
+						diff2->addLine((*itB), Difference::Insert,linenoB++,linenoA);
 						++itB;
 					}
 				}
 			}
 		}
 	}
+	diff1->addLine( "", Difference::Unchanged, linenoA );
+	diff2->addLine( "", Difference::Unchanged, linenoB );
 	revlabel1->setText( model->getSourceFilename() );
 	revlabel2->setText( model->getDestinationFilename() );
 	setSelectedItem( 0 );
-	zoom->repaint();
+	zoom->setModel( model );
 	emit itemsChanged();
 }
 
@@ -186,6 +184,7 @@ void KDiffView::setSelectedItem( int newitem )
 	}
 	diff1->repaint();
 	diff2->repaint();
+	zoom->repaint();
 
 	emit selectionChanged();
 }

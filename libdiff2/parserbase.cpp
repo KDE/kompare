@@ -41,35 +41,35 @@ ParserBase::ParserBase( const KompareModelList* list, const QStringList& diff ) 
 	m_models = new DiffModelList();
 
 	// used in contexthunkheader
-	m_contextHunkHeader1.setPattern( "^\\*{15} ?(.*)$" ); // capture is for function name
-	m_contextHunkHeader2.setPattern( "^\\*\\*\\* ([0-9]+),([0-9]+) \\*\\*\\*\\*$" );
+	m_contextHunkHeader1.setPattern( "^\\*{15} ?(.*)\\n$" ); // capture is for function name
+	m_contextHunkHeader2.setPattern( "^\\*\\*\\* ([0-9]+),([0-9]+) \\*\\*\\*\\*\\n$" );
 	// used in contexthunkbody
-	m_contextHunkHeader3.setPattern( "^--- ([0-9]+),([0-9]+) ----$" );
+	m_contextHunkHeader3.setPattern( "^--- ([0-9]+),([0-9]+) ----\\n$" );
 
-	m_contextHunkBodyRemoved.setPattern( "^- (.*)$" );
-	m_contextHunkBodyAdded.setPattern  ( "^\\+ (.*)$" );
-	m_contextHunkBodyChanged.setPattern( "^! (.*)$" );
-	m_contextHunkBodyContext.setPattern( "^  (.*)$" );
-	m_contextHunkBodyLine.setPattern   ( "^[-\\+! ] (.*)$" );
+	m_contextHunkBodyRemoved.setPattern( "^- (.*)\\n$" );
+	m_contextHunkBodyAdded.setPattern  ( "^\\+ (.*)\\n$" );
+	m_contextHunkBodyChanged.setPattern( "^! (.*)\\n$" );
+	m_contextHunkBodyContext.setPattern( "^  (.*)\\n$" );
+	m_contextHunkBodyLine.setPattern   ( "^[-\\+! ] (.*)\\n$" );
 
 	// This regexp sucks... i'll see what happens
-	m_normalDiffHeader.setPattern( "^diff (?:(?:-|--)[a-zA-Z0-9=\\\"]+ )*(?:|-- +)(.*) +(.*)$" );
+	m_normalDiffHeader.setPattern( "^diff (?:(?:-|--)[a-zA-Z0-9=\\\"]+ )*(?:|-- +)(.*) +(.*)\\n$" );
 
-	m_normalHunkHeaderAdded.setPattern  ( "^([0-9]+)a([0-9]+)(|,[0-9]+)(.*)$" );
-	m_normalHunkHeaderRemoved.setPattern( "^([0-9]+)(|,[0-9]+)d([0-9]+)(.*)$" );
-	m_normalHunkHeaderChanged.setPattern( "^([0-9]+)(|,[0-9]+)c([0-9]+)(|,[0-9]+)(.*)$" );
+	m_normalHunkHeaderAdded.setPattern  ( "^([0-9]+)a([0-9]+)(|,[0-9]+)(.*)\\n$" );
+	m_normalHunkHeaderRemoved.setPattern( "^([0-9]+)(|,[0-9]+)d([0-9]+)(.*)\\n$" );
+	m_normalHunkHeaderChanged.setPattern( "^([0-9]+)(|,[0-9]+)c([0-9]+)(|,[0-9]+)(.*)\\n$" );
 
-	m_normalHunkBodyRemoved.setPattern  ( "^< (.*)$" );
-	m_normalHunkBodyAdded.setPattern    ( "^> (.*)$" );
-	m_normalHunkBodyDivider.setPattern  ( "^---$" );
+	m_normalHunkBodyRemoved.setPattern  ( "^< (.*)\\n$" );
+	m_normalHunkBodyAdded.setPattern    ( "^> (.*)\\n$" );
+	m_normalHunkBodyDivider.setPattern  ( "^---\\n$" );
 
-	m_unifiedDiffHeader1.setPattern    ( "^--- ([^\\t]+)\\t([^\\t]+)(?:\\t?)(.*)$" );
-	m_unifiedDiffHeader2.setPattern    ( "^\\+\\+\\+ ([^\\t]+)\\t([^\\t]+)(?:\\t?)(.*)$" );
-	m_unifiedHunkHeader.setPattern     ( "^@@ -([0-9]+)(|,([0-9]+)) \\+([0-9]+)(|,([0-9]+)) @@(?: ?)(.*)$" );
-	m_unifiedHunkBodyAdded.setPattern  ( "^\\+(.*)$" );
-	m_unifiedHunkBodyRemoved.setPattern( "^-(.*)$" );
-	m_unifiedHunkBodyContext.setPattern( "^ (.*)$" );
-	m_unifiedHunkBodyLine.setPattern   ( "^([-+ ])(.*)$" );
+	m_unifiedDiffHeader1.setPattern    ( "^--- ([^\\t]+)\\t([^\\t]+)(?:\\t?)(.*)\\n$" );
+	m_unifiedDiffHeader2.setPattern    ( "^\\+\\+\\+ ([^\\t]+)\\t([^\\t]+)(?:\\t?)(.*)\\n$" );
+	m_unifiedHunkHeader.setPattern     ( "^@@ -([0-9]+)(|,([0-9]+)) \\+([0-9]+)(|,([0-9]+)) @@(?: ?)(.*)\\n$" );
+	m_unifiedHunkBodyAdded.setPattern  ( "^\\+(.*)\\n$" );
+	m_unifiedHunkBodyRemoved.setPattern( "^-(.*)\\n$" );
+	m_unifiedHunkBodyContext.setPattern( "^ (.*)\\n$" );
+	m_unifiedHunkBodyLine.setPattern   ( "^([-+ ])(.*)\\n$" );
 }
 
 ParserBase::~ParserBase()
@@ -388,8 +388,9 @@ bool ParserBase::parseContextHunkBody()
 			// Dont add this diff with addDiff to the model... no unchanged differences allowed in there...
 			diff->setType( Difference::Unchanged );
 			hunk->add( diff );
-			while( ( oldIt != oldLines.end() && m_contextHunkBodyContext.exactMatch( *oldIt ) ) &&
-			       ( newIt != newLines.end() && m_contextHunkBodyContext.exactMatch( *newIt ) ) )
+			while( ( oldIt == oldLines.end() || m_contextHunkBodyContext.exactMatch( *oldIt ) ) &&
+			       ( newIt == newLines.end() || m_contextHunkBodyContext.exactMatch( *newIt ) ) &&
+			       ( oldIt != oldLines.end() || newIt != newLines.end() ) )
 			{
 				QString l;
 				if( oldIt != oldLines.end() )

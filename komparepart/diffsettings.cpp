@@ -35,7 +35,7 @@ DiffSettings::DiffSettings( QWidget* parent )
 	m_recursive( false ),
 	m_newFiles( false ),
 	m_excludeFilePattern( false ),
-	m_excludeFilesFile( false ),
+	m_excludeFilesFile( false )
 {
 }
 

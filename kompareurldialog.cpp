@@ -37,22 +37,23 @@ KompareURLDialog::KompareURLDialog( QWidget *parent, const char *name )
 {
 	setIconListAllVisible(true);
 
+	KConfig* cfg = kapp->config();
 	QVBox* filesBox = addVBoxPage( i18n( "Files" ), i18n( "Here you can enter the files you want to compare." ) );
 	m_filesPage = new FilesPage( filesBox );
 	m_filesSettings = new FilesSettings( this );
-	m_filesSettings->loadSettings( kapp->config() );
+	m_filesSettings->loadSettings( cfg );
 	m_filesPage->setSettings( m_filesSettings );
 
 	QVBox* diffBox = addVBoxPage( i18n( "Diff" ), i18n( "Here you can change the options for comparing the files." ) );
 	m_diffPage = new DiffPage( diffBox );
 	m_diffSettings = new DiffSettings( this );
-	m_diffSettings->loadSettings( kapp->config() );
+	m_diffSettings->loadSettings( cfg );
 	m_diffPage->setSettings( m_diffSettings );
 
 	QVBox* viewBox = addVBoxPage( i18n( "Appearance" ), i18n( "Here you can change the options for the view." ) );
 	m_viewPage = new ViewPage( viewBox );
 	m_viewSettings = new ViewSettings( this );
-	m_viewSettings->loadSettings( kapp->config() );
+	m_viewSettings->loadSettings( cfg );
 	m_viewPage->setSettings( m_viewSettings );
 
 	adjustSize();

@@ -109,7 +109,7 @@ KompareConnectWidget::KompareConnectWidget( KompareListView* left, KompareListVi
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 )
 {
-	connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( slotDelayedRepaint() ) );
+//	connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( slotDelayedRepaint() ) );
 	setBackgroundMode( NoBackground );
 	setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum ) );
 }

@@ -687,11 +687,18 @@ void KompareListViewBlankLineItem::setup()
 }
 
 #if INLINE_DIFFERENCES
-void KompareListViewBlankLineItem::paintText( QPainter*, const QColor&, int, int, int )
+void KompareListViewBlankLineItem::paintText( QPainter* p, const QColor& bg, int column, int width, int )
 #else
 void KompareListViewBlankLineItem::paintText( QPainter*, const QColorGroup&, int, int, int )
 #endif
 {
+#if INLINE_DIFFERENCES
+	if ( column == COL_MAIN )
+	{
+		QBrush normalBrush( bg, SolidPattern );
+		p->fillRect( 0, 0, width, height(), normalBrush );
+	}
+#endif
 }
 
 KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, DiffHunk* hunk )

@@ -51,19 +51,22 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::
 	m_modelIndex( 0 ),
 	m_info( info )
 {
-	m_applyDifference = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
+	m_applyDifference    = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
 	                                 this, SLOT(slotActionApplyDifference()),
 	                                 (( KomparePart* )parent)->actionCollection(), "difference_apply" );
-	m_applyAll        = new KAction( i18n("App&ly All"), "2rightarrow", Qt::CTRL + Qt::Key_A,
+	m_unApplyDifference  = new KAction( i18n("Un&apply Difference"), "1leftarrow", Qt::Key_BackSpace,
+	                                 this, SLOT(slotActionUnApplyDifference()),
+	                                 (( KomparePart* )parent)->actionCollection(), "difference_unapply" );
+	m_applyAll           = new KAction( i18n("App&ly All"), "2rightarrow", Qt::CTRL + Qt::Key_A,
 	                                 this, SLOT(slotActionApplyAllDifferences()),
 	                                 (( KomparePart* )parent)->actionCollection(), "difference_applyall" );
-	m_unapplyAll      = new KAction( i18n("&Unapply All"), "2leftarrow", Qt::CTRL + Qt::Key_U,
+	m_unapplyAll         = new KAction( i18n("&Unapply All"), "2leftarrow", Qt::CTRL + Qt::Key_U,
 	                                 this, SLOT(slotActionUnapplyAllDifferences()),
 	                                 (( KomparePart* )parent)->actionCollection(), "difference_unapplyall" );
-	m_previousFile    = new KAction( i18n("P&revious File"), "2uparrow", Qt::CTRL + Qt::Key_PageUp,
+	m_previousFile       = new KAction( i18n("P&revious File"), "2uparrow", Qt::CTRL + Qt::Key_PageUp,
 	                                 this, SLOT(slotPreviousModel()),
 	                                 (( KomparePart* )parent)->actionCollection(), "difference_previousfile" );
-	m_nextFile        = new KAction( i18n("N&ext File"), "2downarrow", Qt::CTRL + Qt::Key_PageDown,
+	m_nextFile           = new KAction( i18n("N&ext File"), "2downarrow", Qt::CTRL + Qt::Key_PageDown,
 	                                 this, SLOT(slotNextModel()),
 	                                 (( KomparePart* )parent)->actionCollection(), "difference_nextfile" );
 	m_previousDifference = new KAction( i18n("&Previous Difference"), "1uparrow", Qt::CTRL + Qt::Key_Up,
@@ -716,7 +719,6 @@ void KompareModelList::slotApplyDifference( bool apply )
 	m_selectedModel->applyDifference( apply );
 	emit applyDifference( apply );
 	emit setModified( m_selectedModel->isModified() );
-	slotNextDifference();
 }
 
 void KompareModelList::slotApplyAllDifferences( bool apply )
@@ -1091,7 +1093,7 @@ bool KompareModelList::setSelectedModel( DiffModel* model )
 
 void KompareModelList::updateModelListActions()
 {
-	if( m_models && m_selectedModel && m_selectedDifference )
+	if ( m_models && m_selectedModel && m_selectedDifference )
 	{
 		if ( ( ( KomparePart* )parent() )->isReadWrite() )
 		{
@@ -1106,21 +1108,12 @@ void KompareModelList::updateModelListActions()
 				m_unapplyAll->setEnabled( false );
 
 			m_applyDifference->setEnabled( true );
-
-			if( m_selectedDifference->applied() )
-			{
-				m_applyDifference->setText( i18n( "Un&apply Difference" ) );
-				m_applyDifference->setIcon( "1leftarrow" );
-			}
-			else
-			{
-				m_applyDifference->setText( i18n( "&Apply Difference" ) );
-				m_applyDifference->setIcon( "1rightarrow" );
-			}
+			m_unApplyDifference->setEnabled( true );
 		}
 		else
 		{
 			m_applyDifference->setEnabled( false );
+			m_unApplyDifference->setEnabled( false );
 			m_applyAll->setEnabled( false );
 			m_unapplyAll->setEnabled( false );
 		}
@@ -1133,6 +1126,7 @@ void KompareModelList::updateModelListActions()
 	else
 	{
 		m_applyDifference->setEnabled( false );
+		m_unApplyDifference->setEnabled( false );
 		m_applyAll->setEnabled( false );
 		m_unapplyAll->setEnabled( false );
 
@@ -1141,7 +1135,6 @@ void KompareModelList::updateModelListActions()
 		m_previousDifference->setEnabled( false );
 		m_nextDifference->setEnabled    ( false );
 	}
-
 }
 
 bool KompareModelList::hasPrevModel()
@@ -1219,7 +1212,17 @@ bool KompareModelList::hasNextDiff()
 
 void KompareModelList::slotActionApplyDifference()
 {
-	slotApplyDifference( !m_selectedDifference->applied() );
+	if ( !m_selectedDifference->applied() )
+		slotApplyDifference( true );
+	slotNextDifference();
+	updateModelListActions();
+}
+
+void KompareModelList::slotActionUnApplyDifference()
+{
+	if ( m_selectedDifference->applied() )
+		slotApplyDifference( false );
+	slotPreviousDifference();
 	updateModelListActions();
 }
 

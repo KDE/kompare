@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kompare_part" version="4">
+<kpartgui name="kompare_part" version="5">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_save"/>
@@ -11,17 +11,16 @@
     <Action name="file_diffstats"/>
   </Menu>
   <Menu name="difference"><text>&amp;Difference</text>
+    <Action name="difference_unapplyall"/>
+    <Action name="difference_unapply"/>
     <Action name="difference_apply"/>
     <Action name="difference_applyall"/>
-    <Action name="difference_unapplyall"/>
     <Separator/>
     <Action name="difference_previousfile"/>
     <Action name="difference_nextfile"/>
     <Separator/>
     <Action name="difference_previous"/>
     <Action name="difference_next"/>
-    <Separator/>
-    <Action name="difference_differences"/>
   </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
     <Action name="options_configure"/>
@@ -37,8 +36,9 @@
   <Action name="difference_previous"/>
   <Action name="difference_next"/>
   <Separator/>
-  <Action name="difference_apply"/>
   <Action name="difference_unapplyall"/>
+  <Action name="difference_unapply"/>
+  <Action name="difference_apply"/>
   <Action name="difference_applyall"/>
 </ToolBar>
 </kpartgui>

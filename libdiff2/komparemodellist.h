@@ -145,6 +145,7 @@ protected slots:
 	void slotWriteDiffOutput( bool success );
 
 	void slotActionApplyDifference();
+	void slotActionUnApplyDifference();
 	void slotActionApplyAllDifferences();
 	void slotActionUnapplyAllDifferences();
 
@@ -187,6 +188,7 @@ private:
 	struct Kompare::Info* m_info;
 
 	KAction*              m_applyDifference;
+	KAction*              m_unApplyDifference;
 	KAction*              m_applyAll;
 	KAction*              m_unapplyAll;
 	KAction*              m_previousFile;

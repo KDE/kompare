@@ -94,8 +94,6 @@ private slots:
 	void slotSetStatusBarText( const QString& text );
 	void slotFileCompareFiles();
 	void slotFileOpen();
-	void optionsShowToolbar();
-	void optionsShowStatusbar();
 	void slotShowTextView();
 	void optionsConfigureKeys();
 	void optionsConfigureToolbars();
@@ -121,8 +119,6 @@ private:
 	KDockWidget*          m_mainViewDock;
 	KDockWidget*          m_navTreeDock;
 
-	KToggleAction*        m_toolbarAction;
-	KToggleAction*        m_statusbarAction;
 	KToggleAction*        m_showTextView;
 
 	enum Kompare::Mode    m_mode;

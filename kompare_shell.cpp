@@ -55,9 +55,6 @@ KompareShell::KompareShell()
 	setupActions();
 	setupStatusBar();
 
-	// and a status bar
-	statusBar()->show();
-
 	KService::Ptr ptr = KServiceTypeProfile::preferredService( "text/x-diff", "Kompare/ViewPart" );
 	if ( ptr == 0 || !ptr->isValid() )
 	{
@@ -145,10 +142,6 @@ KompareShell::KompareShell()
 
 	// Read basic main-view settings, and set to autosave
 	setAutoSaveSettings( "General Options" );
-
-	m_toolbarAction->setChecked( !toolBar()->isHidden() );
-	m_statusbarAction->setChecked( !statusBar()->isHidden() );
-
 }
 
 KompareShell::~KompareShell()
@@ -181,8 +174,9 @@ void KompareShell::setupActions()
 	KStdAction::open(this, SLOT(slotFileOpen()), actionCollection());
 	KStdAction::quit(kapp, SLOT(quit()), actionCollection());
 
-	m_toolbarAction = KStdAction::showToolbar(this, SLOT(optionsShowToolbar()), actionCollection());
-	m_statusbarAction = KStdAction::showStatusbar(this, SLOT(optionsShowStatusbar()), actionCollection());
+	createStandardStatusBarAction();
+	setStandardToolBarMenuEnabled(true);
+    
 	m_showTextView = new KToggleAction( i18n("Show &Text View"), 0, this, SLOT(slotShowTextView()),
 	                                  actionCollection(), "options_show_text_view" );
 
@@ -310,26 +304,6 @@ void KompareShell::slotFileCompareFiles()
 	kdDebug() << "Deleting dialog" << endl;
 	delete dialog;
 	kdDebug() << "Dialog deleted" << endl;
-}
-
-void KompareShell::optionsShowToolbar()
-{
-	// this is all very cut and paste code for showing/hiding the
-	// toolbar
-	if (m_toolbarAction->isChecked())
-		toolBar()->show();
-	else
-		toolBar()->hide();
-}
-
-void KompareShell::optionsShowStatusbar()
-{
-	// this is all very cut and paste code for showing/hiding the
-	// statusbar
-	if (m_statusbarAction->isChecked())
-		statusBar()->show();
-	else
-		statusBar()->hide();
 }
 
 void KompareShell::slotShowTextView()

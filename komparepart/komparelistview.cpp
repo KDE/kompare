@@ -146,9 +146,6 @@ void KompareListView::setXOffset( int x )
 void KompareListView::scrollToId( int id )
 {
 	kdDebug(8104) << "ScrollToID : Scroll to id : " << id << endl;
-	setContentsPos( contentsX(), id );
-	m_scrollId = id;
-	return;
 	KompareListViewItem* item = (KompareListViewItem*)firstChild();
 	while( item && item->nextSibling() ) {
 		if( ((KompareListViewItem*)item->nextSibling())->scrollId() > id )
@@ -302,28 +299,28 @@ void KompareListView::wheelEvent( QWheelEvent* e )
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent )
-	: QListViewItem( parent )
-	, m_scrollId( 0 )
+	: QListViewItem( parent ),
+	m_scrollId( 0 )
 {
 //	kdDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListViewItem* after )
-	: QListViewItem( parent, after )
-	, m_scrollId( after->scrollId() + after->maxHeight() )
+	: QListViewItem( parent, after ),
+	m_scrollId( after->scrollId() + after->maxHeight() )
 {
 //	kdDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListViewItem* parent )
-	: QListViewItem( parent )
-	, m_scrollId( 0 )
+	: QListViewItem( parent ),
+	m_scrollId( 0 )
 {
 }
 
 KompareListViewItem::KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* after )
-	: QListViewItem( parent )
-	, m_scrollId( 0 )
+	: QListViewItem( parent ),
+	m_scrollId( 0 )
 {
 }
 
@@ -338,19 +335,19 @@ void KompareListViewItem::paintFocus( QPainter* /* p */, const QColorGroup& /* c
 }
 
 KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, Difference* difference )
-	: KompareListViewItem( parent )
-	, m_difference( difference )
-	, m_sourceItem( 0L )
-	, m_destItem( 0L )
+	: KompareListViewItem( parent ),
+	m_difference( difference ),
+	m_sourceItem( 0L ),
+	m_destItem( 0L )
 {
 	init();
 }
 
 KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Difference* difference )
-	: KompareListViewItem( parent, after )
-	, m_difference( difference )
-	, m_sourceItem( 0L )
-	, m_destItem( 0L )
+	: KompareListViewItem( parent, after ),
+	m_difference( difference ),
+	m_sourceItem( 0L ),
+	m_destItem( 0L )
 {
 	init();
 }
@@ -407,8 +404,8 @@ void KompareListViewDiffItem::setSelected( bool b )
 }
 
 KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource )
-	: KompareListViewItem( parent )
-	, m_isSource( isSource )
+	: KompareListViewItem( parent ),
+	m_isSource( isSource )
 {
 //	kdDebug(8104) << "isSource ? " << (isSource ? " Yes!" : " No!") << endl;
 	setExpandable( true );

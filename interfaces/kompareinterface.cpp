@@ -1,5 +1,5 @@
 // Blah blah standard LGPL license
-// Copyright 2002-2003, Otto Bruggeman <otto.bruggeman@home.nl>
+// Copyright 2002-2004, Otto Bruggeman <otto.bruggeman@home.nl>
 
 #include "kompareinterface.h"
 
@@ -10,8 +10,9 @@ public:
 	~KompareInterfacePrivate();
 	KompareInterfacePrivate( const KompareInterfacePrivate& );
 	KompareInterfacePrivate& operator=( const KompareInterfacePrivate& );
-private:
-	// Add all variables for the KompareInterface class here and access them through the d pointer
+
+protected:
+	// Add all variables for the KompareInterface class here and access them through the kip pointer
 };
 
 KompareInterfacePrivate::KompareInterfacePrivate()
@@ -33,21 +34,27 @@ KompareInterfacePrivate& KompareInterfacePrivate::operator=(const KompareInterfa
 
 KompareInterface::KompareInterface()
 {
-	d = new KompareInterfacePrivate();
+	kip = new KompareInterfacePrivate();
 }
 
 KompareInterface::~KompareInterface()
 {
-	delete d;
+	delete kip;
 }
 
 KompareInterface::KompareInterface( const KompareInterface& ki )
 {
-	d = new KompareInterfacePrivate( *(ki.d) );
+	kip = new KompareInterfacePrivate( *(ki.kip) );
 }
 
 KompareInterface& KompareInterface::operator=( const KompareInterface& ki )
 {
-	d = ki.d;
+	kip = ki.kip;
 	return *this;
 }
+
+void KompareInterface::setEncoding( const QString& encoding )
+{
+	m_encoding = encoding;
+}
+

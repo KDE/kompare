@@ -32,27 +32,28 @@
 
 #include "kompareurldialog.h"
 
-KompareURLDialog::KompareURLDialog( const KURL* firstURL, const KURL* secondURL,
-                                    QWidget *parent, const char *name )
+KompareURLDialog::KompareURLDialog( QWidget *parent, const char *name )
         : KDialogBase( IconList, "", Ok|Cancel, Ok, parent, name )
 {
 	setIconListAllVisible(true);
 
-	QVBox* filesPage = addVBoxPage( i18n( "Files" ), i18n( "Enter here the files you want to compare." ) );
-	m_filesPage = new FilesPage( filesPage );
+	QVBox* filesBox = addVBoxPage( i18n( "Files" ), i18n( "Here you can enter the files you want to compare." ) );
+	m_filesPage = new FilesPage( filesBox );
 	m_filesSettings = new FilesSettings( this );
+	m_filesSettings->loadSettings( kapp->config() );
+	m_filesPage->setSettings( m_filesSettings );
 
-	QVBox* diffPage  = addVBoxPage( i18n( "Diff" ), i18n( "Here you can change the options for comparing the files." ) );
-	DiffPage* dp = new DiffPage( diffPage );
-	DiffSettings* ds = new DiffSettings( this );
-	ds->loadSettings( kapp->config() );
-	dp->setSettings( ds );
+	QVBox* diffBox = addVBoxPage( i18n( "Diff" ), i18n( "Here you can change the options for comparing the files." ) );
+	m_diffPage = new DiffPage( diffBox );
+	m_diffSettings = new DiffSettings( this );
+	m_diffSettings->loadSettings( kapp->config() );
+	m_diffPage->setSettings( m_diffSettings );
 
-	QVBox* viewPage  = addVBoxPage( i18n( "Appearance" ), i18n( "Here you can change the options for the view." ) );
-	ViewPage* vp = new ViewPage( viewPage );
-	ViewSettings* vs = new ViewSettings( this );
-	vs->loadSettings( kapp->config() );
-	vp->setSettings( vs );
+	QVBox* viewBox = addVBoxPage( i18n( "Appearance" ), i18n( "Here you can change the options for the view." ) );
+	m_viewPage = new ViewPage( viewBox );
+	m_viewSettings = new ViewSettings( this );
+	m_viewSettings->loadSettings( kapp->config() );
+	m_viewPage->setSettings( m_viewSettings );
 
 	adjustSize();
 
@@ -74,6 +75,14 @@ void KompareURLDialog::slotOk()
 {
 	m_filesPage->setURLsInComboBoxes();
 
+	KConfig* cfg = kapp->config();
+
+	m_filesSettings->saveSettings( cfg );
+	m_diffSettings->saveSettings( cfg );
+	m_viewSettings->saveSettings( cfg );
+
+	cfg->sync();
+
 	KDialogBase::slotOk();
 }
 
@@ -85,26 +94,17 @@ void KompareURLDialog::slotEnableOk()
 
 KURL KompareURLDialog::getFirstURL() const
 {
-	if ( result() == QDialog::Accepted )
-		return KURL( m_filesPage->firstURLRequester()->url() );
-	else
-		return KURL();
+	return KURL( m_filesPage->firstURLRequester()->url() );
 }
 
 KURL KompareURLDialog::getSecondURL() const
 {
-	if ( result() == QDialog::Accepted )
-		return KURL( m_filesPage->secondURLRequester()->url() );
-	else
-		return KURL();
+	return KURL( m_filesPage->secondURLRequester()->url() );
 }
 
 QString KompareURLDialog::encoding() const
 {
-	if ( result() == QDialog::Accepted )
-		return m_filesPage->encoding();
-	else
-		return QString( "default" );
+	return m_filesPage->encoding();
 }
 
 void KompareURLDialog::setFirstGroupBoxTitle( const QString& title )

@@ -357,7 +357,7 @@ void KompareShell::slotFileOpen()
 
 void KompareShell::slotFileBlendURLAndDiff()
 {
-	KompareURLDialog* dialog = new KompareURLDialog( &m_sourceURL, &m_destinationURL, this );
+	KompareURLDialog* dialog = new KompareURLDialog( this );
 
 	dialog->setCaption( i18n( "Blend File/Folder With diff Output" ) );
 	dialog->setFirstGroupBoxTitle( i18n( "File/Folder" ) );
@@ -385,7 +385,7 @@ void KompareShell::slotFileBlendURLAndDiff()
 
 void KompareShell::slotFileCompareFiles()
 {
-	KompareURLDialog* dialog = new KompareURLDialog( &m_sourceURL, &m_destinationURL, this );
+	KompareURLDialog* dialog = new KompareURLDialog( this );
 
 	dialog->setCaption( i18n( "Compare Files or Folders" ) );
 	dialog->setFirstGroupBoxTitle( i18n( "Source" ) );

@@ -183,6 +183,11 @@ void KomparePart::updateActions()
 	m_diffStats->setEnabled( m_modelList->modelCount() > 0 );
 }
 
+void KomparePart::setEncoding( const QString& encoding )
+{
+	m_modelList->setEncoding( encoding );
+}
+
 bool KomparePart::openDiff( const KURL& url )
 {
 	kdDebug(8103) << "Url = " << url.url() << endl;
@@ -367,76 +372,53 @@ void KomparePart::openFileAndDiff( const KURL& file, const KURL& diffFile )
 {
 	emit kompareInfo( &m_info );
 
-	if ( ( m_info.localSource = fetchURL( file ) ).isEmpty() )
-		return;
+	m_info.source = file;
+	m_info.destination = diffFile;
 
-	if ( ( m_info.localDestination = fetchURL( diffFile ) ).isEmpty() )
-	{
-		KIO::NetAccess::removeTempFile( m_info.localSource );
-		return;
-	}
-
+	m_info.localSource = fetchURL( file );
+	m_info.localDestination = fetchURL( diffFile );
 	m_info.mode = Kompare::BlendingFile;
 
-	if ( m_modelList->openFileAndDiff( m_info.localSource, m_info.localDestination ) )
+	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
-		kdDebug(8103) << "File merged with diff output..." << endl;
-	}
-	else
-	{
-		kdDebug(8103) << "Could not merge file with diff output..." << endl;
+		m_modelList->openFileAndDiff( m_info.localSource, m_info.localDestination );
+		updateActions();
+		updateCaption();
+		updateStatus();
 	}
 
 	// Clean up after ourselves
-	KIO::NetAccess::removeTempFile( m_info.localSource );
-	KIO::NetAccess::removeTempFile( m_info.localDestination );
+	cleanUpTemporaryFiles();
 }
 
 void KomparePart::openDirAndDiff ( const KURL& dir,  const KURL& diffFile )
 {
 	emit kompareInfo( &m_info );
 
-	if ( ( m_info.localSource = fetchURL( dir ) ).isEmpty() )
-		return;
+	m_info.source = dir;
+	m_info.destination = diffFile;
 
-	if ( ( m_info.localDestination = fetchURL( diffFile ) ).isEmpty() )
-	{
-		KIO::NetAccess::removeTempFile( m_info.localSource );
-		return;
-	}
-
+	m_info.localSource = fetchURL( dir );
+	m_info.localDestination = fetchURL( diffFile );
 	m_info.mode = Kompare::BlendingDir;
 
-	// Still need to show the models even if something went wrong,
-	// kompare will then act as if openDiff was called
-	m_modelList->openDirAndDiff( m_info.localSource, m_info.localDestination );
-
-	m_modelList->show();
+	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
+	{
+		m_modelList->openDirAndDiff( m_info.localSource, m_info.localDestination );
+		updateActions();
+		updateCaption();
+		updateStatus();
+	}
 
 	// Clean up after ourselves
-	KIO::NetAccess::removeTempFile( m_info.localSource );
-	KIO::NetAccess::removeTempFile( m_info.localDestination );
-}
-
-QString KomparePart::readFile()
-{
-	QFile file( m_file );
-	file.open( IO_ReadOnly );
-	QTextStream stream( &file );
-
-	kdDebug(8103) << "Reading from m_file = " << m_file << endl;
-
-	QString contents = stream.read();
-
-	file.close();
-
-	return contents;
+	cleanUpTemporaryFiles();
 }
 
 bool KomparePart::openFile()
 {
 	// This is called from openURL
-	openDiff( readFile() );
+	// This is a little inefficient but i will do it anyway
+	openDiff( KURL( m_file ) );
 	return true;
 }
 

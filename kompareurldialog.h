@@ -33,13 +33,17 @@ class KURLRequester;
 
 class FilesPage;
 class FilesSettings;
+class DiffPage;
+class DiffSettings;
+class ViewPage;
+class ViewSettings;
 
 class KompareURLDialog : public KDialogBase
 {
 	Q_OBJECT
 
 public:
-	KompareURLDialog( const KURL* firstURL = 0, const KURL* secondURL = 0, QWidget* parent = 0, const char* name = 0 );
+	KompareURLDialog( QWidget* parent = 0, const char* name = 0 );
 	~KompareURLDialog();
 
 	KURL getFirstURL() const;
@@ -63,6 +67,10 @@ private slots:
 private:
 	FilesPage*     m_filesPage;
 	FilesSettings* m_filesSettings;
+	DiffPage*      m_diffPage;
+	DiffSettings*  m_diffSettings;
+	ViewPage*      m_viewPage;
+	ViewSettings*  m_viewSettings;
 };
 
 #endif

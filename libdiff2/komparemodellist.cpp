@@ -390,6 +390,11 @@ bool KompareModelList::saveAll()
 	return true;
 }
 
+void KompareModelList::setEncoding( const QString& encoding )
+{
+	m_encoding = encoding;
+}
+
 void KompareModelList::slotDiffProcessFinished( bool success )
 {
 	if ( success )

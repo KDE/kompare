@@ -22,6 +22,7 @@
 #include <kapplication.h>
 #include <kcharsets.h>
 #include <kconfig.h>
+#include <kdebug.h>
 #include <kdialog.h>
 #include <klocale.h>
 #include <kurlcombobox.h>
@@ -46,11 +47,6 @@ FilesPage::FilesPage( QWidget* parent ) : PageBase( parent )
 	m_secondURLComboBox = new KURLComboBox( KURLComboBox::Both, true, m_secondGB, "DestURLComboBox" );
 	m_secondURLRequester = new KURLRequester( m_secondURLComboBox, m_secondGB );
 
-	connect( m_firstURLRequester, SIGNAL( textChanged( const QString& ) ),
-	         this, SLOT( slotEnableOk() ) );
-	connect( m_secondURLRequester, SIGNAL( textChanged( const QString& ) ),
-	         this, SLOT( slotEnableOk() ) );
-
 	m_thirdGB = new QGroupBox( 1, Qt::Vertical, "Encoding", page );
 	m_encodingComboBox = new QComboBox( false, m_thirdGB, "encoding_combobox" );
 	m_encodingComboBox->insertStringList( KGlobal::charsets()->availableEncodingNames() );
@@ -63,12 +59,6 @@ FilesPage::FilesPage( QWidget* parent ) : PageBase( parent )
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
 	addTab( page, i18n( "&Files" ) );
-
-//	if( firstURL )
-//		m_firstURLComboBox->setURL( *firstURL );
-
-//	if( secondURL )
-//		m_secondURLComboBox->setURL( *secondURL );
 }
 
 FilesPage::~FilesPage()
@@ -103,6 +93,8 @@ void FilesPage::setSecondGroupBoxTitle( const QString& title )
 
 void FilesPage::setURLsInComboBoxes()
 {
+	kdDebug() << "first : " << m_firstURLComboBox->currentText() << endl;
+	kdDebug() << "second: " << m_secondURLComboBox->currentText() << endl;
 	m_firstURLComboBox->setURL( KURL( m_firstURLComboBox->currentText() ) );
 	m_secondURLComboBox->setURL( KURL( m_secondURLComboBox->currentText() ) );
 }
@@ -149,7 +141,7 @@ void FilesPage::setDefaults()
 	m_firstURLComboBox->setURL( KURL( "" ) );
 	m_secondURLComboBox->setURLs( "" );
 	m_secondURLComboBox->setURL( KURL( "" ) );
-	m_encodingComboBox->setCurrentText( "default" );
+	m_encodingComboBox->setCurrentText( "Default" );
 }
 
 

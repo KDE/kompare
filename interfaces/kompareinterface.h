@@ -46,7 +46,7 @@ public:
 	/**
 	 * Compare, with diff, source with destination, can also be used if you dont
 	 * know what source and destination are. The part will try to figure out what
-	 * they are (directory, file, diff output file, regular file) and call the
+	 * they are (directory, file, diff output file) and call the
 	 * appropriate method(s)
 	 */
 	virtual void compare( const KURL& sourceFile, const KURL& destinationFile ) = 0;
@@ -76,6 +76,11 @@ public:
 	 */
 	virtual void openDirAndDiff ( const KURL& dir,  const KURL& diffFile ) = 0;
 
+	/**
+	 * This will set the encoding to use for all files that are read or for the diffoutput
+	 */
+	virtual void setEncoding( const QString& encoding );
+
 public:
 	/**
 	 * Warning this should be in class Part in KDE 4.0, not here !
@@ -90,9 +95,10 @@ public:
 	 */
 	virtual bool queryClose() = 0;
 
-private:
-	// Add all variables to the KompareInterfacePrivate class and access them through the d pointer
-	KompareInterfacePrivate* d;
+protected:
+	// Add all variables to the KompareInterfacePrivate class and access them through the kip pointer
+	KompareInterfacePrivate* kip;
+	QString                  m_encoding;
 };
 
 #endif /* _KOMPARE_INTERFACE_H */

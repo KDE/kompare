@@ -65,6 +65,8 @@ public:
 
 	bool saveDestination( DiffModel* model );
 
+	void setEncoding( const QString& encoding );
+
 	QString recreateDiff() const;
 
 	// This parses the difflines and creates new models
@@ -201,6 +203,8 @@ private:
 	KAction*              m_nextDifference;
 
 	KAction*              m_save;
+
+	QString               m_encoding;
 };
 
 } // End of namespace Diff2

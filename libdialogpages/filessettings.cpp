@@ -45,8 +45,8 @@ void FilesSettings::saveSettings( KConfig* config )
 {
 	config->setGroup( m_configGroupName );
 	config->writeEntry( "Recent Sources", m_recentSources );
-	config->writeEntry( "Recent Destinations", m_lastChosenSourceURL );
-	config->writeEntry( "LastChosenSourceListEntry", m_recentDestinations );
+	config->writeEntry( "Recent Destinations", m_recentDestinations );
+	config->writeEntry( "LastChosenSourceListEntry", m_lastChosenSourceURL );
 	config->writeEntry( "LastChosenDestinationListEntry", m_lastChosenDestinationURL );
 	config->writeEntry( "Encoding", m_encoding );
 	config->sync();

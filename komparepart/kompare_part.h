@@ -125,6 +125,9 @@ public:
 	/** This will show the directory and the directory with the diff applied */
 	virtual void openDirAndDiff ( const KURL& dir,  const KURL& diffFile );
 
+	/** Reimplementing this because this one knows more about the real part then the interface */
+	virtual void setEncoding( const QString& encoding );
+
 	// This is the interpart interface, it is signal and slot based so no "real" interface here
 	// All you have to do is connect the parts from your application.
 	// These just point to their counterpart in the KompareModelList or get called from their
@@ -176,8 +179,6 @@ protected:
 	 */
 	virtual bool openFile();
 	virtual bool saveFile() { return true; };
-	// This will read the m_file file and return the lines
-	QString readFile();
 
 	// patchFile
 	bool patchFile(KURL&);

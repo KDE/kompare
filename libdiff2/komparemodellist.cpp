@@ -217,6 +217,7 @@ bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff
 		return false;
 	}
 
+	updateModelListActions();
 	show();
 
 	return true;
@@ -241,6 +242,9 @@ bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 		return false;
 	}
 
+	updateModelListActions();
+	show();
+
 	return true;
 }
 
@@ -261,6 +265,7 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 	}
 
 	QTextStream* stream = temp->textStream();
+	QStringList list;
 
 	QPtrListIterator<DiffHunk> hunkIt( model->hunks() );
 	for( ; hunkIt.current(); ++hunkIt ) {
@@ -271,38 +276,39 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 		Difference* diff;
 		for( ; (diff = diffIt.current()); ++diffIt )
 		{
-			QStringList list;
 			if( !diff->applied() )
-#if INLINE_DIFFERENCES
 			{
+#if INLINE_DIFFERENCES
 				DifferenceStringConstIterator it = diff->destinationLines().begin();
 				DifferenceStringConstIterator end = diff->destinationLines().end();
 				for ( ; it != end; ++it )
 				{
 					list.append( ( *it ).string() );
 				}
-			}
 #else
-				list = diff->destinationLines();
+				list += diff->destinationLines();
 #endif
+			}
 			else
-#if INLINE_DIFFERENCES
 			{
+#if INLINE_DIFFERENCES
 				QValueListConstIterator<DifferenceString> it = diff->sourceLines().begin();
 				QValueListConstIterator<DifferenceString> end = diff->sourceLines().end();
 				for ( ; it != end; ++it )
 				{
 					list.append( ( *it ).string() );
 				}
-			}
 #else
-				list = diff->sourceLines();
+				list += diff->sourceLines();
 #endif
-
-			if( list.count() > 0 )
-				*stream << list.join( "\n" ) << "\n";
+			}
 		}
 	}
+
+	kdDebug( 8101 ) << "Everything: " << endl << list.join( "\n" ) << endl;
+
+	if( list.count() > 0 )
+		*stream << list.join( "\n" ) << "\n";
 
 	temp->close();
 	if( temp->status() != 0 ) {
@@ -311,10 +317,6 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 		delete temp;
 		return false;
 	}
-
-	QString destination = model->destinationPath() + model->destinationFile();
-	kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
-	kdDebug(8101) << "DestinationURL : " << destination << endl;
 
 	bool result = false;
 
@@ -343,7 +345,6 @@ bool KompareModelList::saveDestination( const DiffModel* model_ )
 		delete temp;
 	}
 
-
 	return true;
 }
 
@@ -368,6 +369,9 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 		if ( parseDiffOutput( m_diffProcess->diffOutput() ) != 0 ) {
 			emit error( i18n( "Could not parse diff output." ) );
 		}
+		blendOriginalIntoModelList( m_info->localSource );
+		updateModelListActions();
+		show();
 		emit status( Kompare::FinishedParsing );
 	} else if ( m_diffProcess->exitStatus() == 0 ) {
 		emit error( i18n( "The files are identical." ) );
@@ -434,6 +438,9 @@ bool KompareModelList::openDiff( const QString& diffFile )
 		emit error( i18n( "Could not parse diff output." ) );
 		return false;
 	}
+
+	updateModelListActions();
+	show();
 
 	emit status( Kompare::FinishedParsing );
 
@@ -737,9 +744,6 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 		return -1;
 	}
 
-	updateModelListActions();
-	show();
-
 	return 0;
 }
 
@@ -762,13 +766,16 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 			model = (*it);
 			kdDebug(8101) << "Model : " << model << endl;
 			QString filename = model->sourcePath() + model->sourceFile();
-			QFileInfo fi2( localURL + filename );
+			if ( !filename.startsWith( localURL ) )
+				filename.prepend( localURL );
+			QFileInfo fi2( filename );
+			QStringList lines;
 			if ( fi2.exists() )
 			{
-				file.setName( localURL + filename );
+				kdDebug(8101) << "Reading from: " << filename << endl;
+				file.setName( filename );
 				file.open( IO_ReadOnly );
 				QTextStream stream( &file );
-				QStringList lines;
 				while ( !stream.eof() )
 				{
 					lines.append( stream.readLine() );
@@ -778,7 +785,9 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 			}
 			else
 			{
-				kdDebug(8101) << "File " << localURL + filename << " does not exist !" << endl;
+				kdDebug(8101) << "File " << filename << " does not exist !" << endl;
+				kdDebug(8101) << "Assume empty file !" << endl;
+				result = blendFile( model, lines );
 			}
 		}
 	}
@@ -799,7 +808,6 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 	delete models; // Hope it does not delete the models, just the container
 
 	return result;
-
 }
 
 bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
@@ -812,156 +820,159 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 
 	Difference* newDiff;
 	DiffModel* newModel = new DiffModel();
-	// This is not a full copy so dont use newModel = new DiffModel( model );
+	// We don't want a full copy so dont use newModel = new DiffModel( model );
 	*newModel = *model;
-
-	DiffHunk* newHunk   = new DiffHunk( 1,1 );
-
-	newModel->addHunk( newHunk );
 
 	int srcLineNo = 1, destLineNo = 1;
 
-	QStringList::ConstIterator it = lines.begin();
+	DiffHunk* newHunk   = new DiffHunk( srcLineNo, destLineNo );
+
+	newModel->addHunk( newHunk );
+
+	QStringList::ConstIterator it  = lines.begin();
+	QStringList::ConstIterator end = lines.end();
 
 	QPtrList<Difference> diffList = model->allDifferences();
 	Difference* diff;
 
-	for ( diff = diffList.first(); diff; diff = diffList.next() )
+	diffList.first();
+
+	while ( ( diff = diffList.current() ) )
 	{
-		newDiff = new Difference( srcLineNo, destLineNo );
-		newHunk->add( newDiff );
-		kdDebug(8101) << "SrcLineNo " << srcLineNo << " should be smaller than " << diff->sourceLineNumber() << endl;
-		while ( srcLineNo < diff->sourceLineNumber() && it != lines.end() )
+		// Check if there are lines in the original file before the difference
+		// that are not yet in the diff. If so create new Context diff
+		if ( srcLineNo < diff->sourceLineNumber() )
 		{
-			newDiff->addSourceLine( *it );
-			newDiff->addDestinationLine( *it );
-			kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
-			srcLineNo++;
-			destLineNo++;
-			++it;
+			newDiff = new Difference( srcLineNo, destLineNo );
+			newHunk->add( newDiff );
+			while ( srcLineNo < diff->sourceLineNumber() && it != end )
+			{
+				newDiff->addSourceLine( *it );
+				newDiff->addDestinationLine( *it );
+				srcLineNo++;
+				destLineNo++;
+				++it;
+			}
 		}
-		// Now i've got to add the difference (and check if the difference
-		// is appliable)
+		// Now i've got to add that diff
+		bool conflict = false;
 		switch ( diff->type() )
 		{
 		case Difference::Unchanged:
-			newDiff = new Difference( srcLineNo, destLineNo, Difference::Unchanged );
-			kdDebug(8101) << "newDiff = new Difference( " << srcLineNo << ", " << destLineNo << ", Difference::Unchanged );" << endl;
-			newHunk->add( newDiff );
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
-				kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
-				kdDebug(8101) << "Contxt: Fileline:     " << *it << endl;
 #if INLINE_DIFFERENCES
-				kdDebug(8101) << "Contxt: ContextLine : " << diff->sourceLineAt( i )->string() << endl;
-				if ( it != lines.end() && *it == diff->sourceLineAt( i )->string() )
+				if ( it != end && *it != diff->sourceLineAt( i )->string() )
 #else
-				kdDebug(8101) << "Contxt: ContextLine : " << diff->sourceLineAt( i ) << endl;
-				if ( it != lines.end() && *it == diff->sourceLineAt( i ) )
+				if ( it != end && *it != diff->sourceLineAt( i ) )
 #endif
 				{
-					// Context matches, so we are on the right track
-					newDiff->addSourceLine( *it );
-					newDiff->addDestinationLine( *it );
-					kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
-					++it;
-					srcLineNo++;
-					destLineNo++;
+					conflict = true;
+					break;
 				}
+				srcLineNo++;
+				destLineNo++;
+				++it;
+			}
+
+			if ( !conflict )
+			{
+				diffList.take();
+				newHunk->add( diff );
+			}
+			else
+			{
+				// FIXME: Leave that diff out for now
+				// We'll have to do all sorts of nice things to get this working properly
+				// Like trying offsets and or fuzzy matching
+				kdDebug(8101) << "Unchanged: Wow, conflict... what should we do now ???" << endl;
+				diffList.next();
 			}
 			break;
 		case Difference::Change:
-			newDiff = new Difference( srcLineNo, destLineNo, Difference::Change );
-			newHunk->add( newDiff );
-			newModel->addDiff( newDiff );
 			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
-				kdDebug(8101) << "Change: Fileline   : " << *it << endl;
 #if INLINE_DIFFERENCES
-				kdDebug(8101) << "Change: SourceLine : " << diff->sourceLineAt( i )->string() << endl;
-				if ( it != lines.end() && *it == diff->sourceLineAt( i )->string() )
+				if ( it != lines.end() && *it != diff->sourceLineAt( i )->string() )
 #else
-				kdDebug(8101) << "Change: SourceLine : " << diff->sourceLineAt( i ) << endl;
-				if ( it != lines.end() && *it == diff->sourceLineAt( i ) )
+				if ( it != lines.end() && *it != diff->sourceLineAt( i ) )
 #endif
 				{
-					newDiff->addSourceLine( *it );
-//					kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
-					srcLineNo++;
+					conflict = true;
+					break;
 				}
-				else
-				{
-					kdDebug(8101) << "Oops sourceLine does not match deleted line" << endl;
-				}
+				srcLineNo++;
 				++it;
 			}
-			for ( int i = 0; i < diff->destinationLineCount(); i++ )
+
+			destLineNo += diff->destinationLineCount();
+
+			if ( !conflict )
 			{
-#if INLINE_DIFFERENCES
-				newDiff->addDestinationLine( diff->destinationLineAt( i )->string() );
-				kdDebug(8101) << "DestLine " << destLineNo << " : " << diff->destinationLineAt( i )->string() << endl;
-#else
-				newDiff->addDestinationLine( diff->destinationLineAt( i ) );
-				kdDebug(8101) << "DestLine " << destLineNo << " : " << diff->destinationLineAt( i ) << endl;
-#endif
-				destLineNo++;
+				diffList.take();
+				newHunk->add( diff );
+				newModel->addDiff( diff );
+			}
+			else
+			{
+				// FIXME: Leave that diff out for now
+				// We'll have to do all sorts of nice things to get this working properly
+				// Like trying offsets and or fuzzy matching
+				kdDebug(8101) << "Change: Wow, conflict... what should we do now ???" << endl;
+				diffList.next();
 			}
 			break;
 		case Difference::Insert:
-			kdDebug(8101) << "Are we even getting in here ?" << endl;
-			newDiff = new Difference( srcLineNo, destLineNo, Difference::Insert );
-			newHunk->add( newDiff );
-			newModel->addDiff( newDiff );
-			for ( int i = 0; it != lines.end() && i < diff->destinationLineCount(); i++ )
-			{
-#if INLINE_DIFFERENCES
-				newDiff->addDestinationLine( diff->destinationLineAt( i )->string() );
-				kdDebug(8101) << "DestLine " << destLineNo << " : " << diff->destinationLineAt( i )->string() << endl;
-#else
-				newDiff->addDestinationLine( diff->destinationLineAt( i ) );
-				kdDebug(8101) << "DestLine " << destLineNo << " : " << diff->destinationLineAt( i ) << endl;
-#endif
-				destLineNo++;
-			}
+			destLineNo += diff->destinationLineCount();
+			diffList.take();
+			newHunk->add( diff );
+			newModel->addDiff( diff );
 			break;
 		case Difference::Delete:
-			newDiff = new Difference( srcLineNo, destLineNo, Difference::Delete );
-			newHunk->add( newDiff );
-			newModel->addDiff( newDiff );
-			for ( int i = 0; it != lines.end() && i < diff->sourceLineCount(); i++ )
+			for ( int i = 0; i < diff->sourceLineCount(); i++ )
 			{
-				kdDebug(8101) << "Delete: Fileline:    " << *it << endl;
 #if INLINE_DIFFERENCES
-				kdDebug(8101) << "Delete: SourceLine : " << diff->sourceLineAt( i )->string() << endl;
-				if ( *it == diff->sourceLineAt( i )->string() )
+				if ( it != end && *it != diff->sourceLineAt( i )->string() )
 #else
-				kdDebug(8101) << "Delete: SourceLine : " << diff->sourceLineAt( i ) << endl;
-				if ( *it == diff->sourceLineAt( i ) )
+				if ( it != end && *it != diff->sourceLineAt( i ) )
 #endif
 				{
-					newDiff->addSourceLine( *it );
-					kdDebug(8101) << "Line " << srcLineNo << " : " << *it << endl;
-					srcLineNo++;
+					conflict = true;
+					break;
 				}
-				else
-				{
-					// deleted sourcelines dont match with fileline
-					kdDebug(8101) << "Deleted line does not match sourceline" << endl;
-				}
+				srcLineNo++;
+				++it;
+			}
+
+			if ( !conflict )
+			{
+				diffList.take();
+				newHunk->add( diff );
+				newModel->addDiff( diff );
+			}
+			else
+			{
+				// FIXME: Leave that diff out for now
+				// We'll have to do all sorts of nice things to get this working properly
+				// Like trying offsets and or fuzzy matching
+				kdDebug(8101) << "Delete: Wow, conflict... what should we do now ???" << endl;
+				diffList.next();
 			}
 			break;
 		}
 	}
 
-	newDiff = new Difference( srcLineNo, destLineNo, Difference::Unchanged );
-	newHunk->add( newDiff );
-
-	while ( it != lines.end() )
+	if ( it != end )
 	{
-		newDiff->addSourceLine( *it );
-		newDiff->addDestinationLine( *it );
-		kdDebug(8101) << "Contxt: Fileline:     " << *it << endl;
-		++it;
+		newDiff = new Difference( srcLineNo, destLineNo, Difference::Unchanged );
+		newHunk->add( newDiff );
+
+		while ( it != end )
+		{
+			newDiff->addSourceLine( *it );
+			newDiff->addDestinationLine( *it );
+			++it;
+		}
 	}
 /*
 	diffList = newModel->differences();
@@ -973,6 +984,9 @@ bool KompareModelList::blendFile( DiffModel* model, const QStringList& lines )
 		kdDebug(8101) << "sourcelinenumber = " << diff->sourceLineNumber() << endl;
 	}
 */
+
+	m_models->remove( model );
+	delete model;
 	m_models->append( newModel );
 
 	m_selectedModel = firstModel();

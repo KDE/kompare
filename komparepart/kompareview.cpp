@@ -161,9 +161,7 @@ void KompareView::slotSetSelection( const Difference* diff )
 void KompareView::scrollToId( int id )
 {
 	m_diff1->scrollToId( id );
-	m_diff1->repaint();
 	m_diff2->scrollToId( id );
-	m_diff2->repaint();
 	m_zoom->repaint();
 }
 

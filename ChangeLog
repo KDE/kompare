@@ -1,3 +1,11 @@
+Nov    09, 2003 : Otto Bruggeman
+	* Implemented inline differences (deactivated until KDE3.2 has been branched)
+	* added support for the -x and -X options to diff (deactivated until KDE3.2 has been branched)
+	* Various other code cleanups/reindenting
+
+Nov    09, 2003 : Otto Bruggeman
+	* Code cleanups
+
 Nov    02, 2003 : Otto Bruggeman
 	* Fixed some more scrolling problems
 	  lastItem->scrollId(), add lastItem->maxHeight() and substract the minScrollId()

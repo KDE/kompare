@@ -436,8 +436,8 @@ QStringList& KomparePart::readFile()
 bool KomparePart::openFile()
 {
 	// This is called from openURL
-	kdDebug() << "Please don't use this method ! Use openDiff( url ) instead." << endl;
-	return false;
+	openDiff( readFile() );
+	return true;
 }
 
 bool KomparePart::saveDestination()

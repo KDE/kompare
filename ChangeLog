@@ -1,3 +1,24 @@
+Oct    05, 2003 : Otto Bruggeman
+	* Fixed the scrolling problems, a stupid regression i introduced, i cant simplify mathematic expressions apparently
+	* Added an implementation for double clicking a difference in the view, but it is not properly connected yet
+	  void contentsMouseDoubleClickEvent ( QMouseEvent* );
+	* Fixed embedding in Konqueror by implementing openURL()
+	* Removed m_maxScrollId, it is not necessary and only costs time, QScrollView::contentsHeight() does the same
+	* Fixed some more warnings about unused variables
+	* Fixed the initial drawing of the vertical and horizontal scrollbar
+
+Oct    04, 2003 : Otto Bruggeman
+	* Added a call to m_modelList->openDirAndDiff to openDirAndDiff
+	* Fixed some error strings by swapping the %# thingies
+	* Added some useless debug output
+	* Fixed KompareModelList::openDirAndDiff to use the right models variable (m_models instead of models)
+
+Oct    03, 2003 : Otto Bruggeman
+	* Fixed ApplyAll and UnApplyAll, stupid copy and paste error
+	* Fixed some warnings about signed and unsigned
+	* Fixed some warnings about unused variables
+	* Fixed some redrawing issues in the connection widget
+
 Sep    27, 2003 : Otto Bruggeman
 	* Fixed the redrawing problems in the connect widget with a QTimer::singleShot()
 	* Undid a stupid commit that changed the keyboard shortcuts for next and previous difference

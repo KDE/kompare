@@ -72,11 +72,12 @@ protected slots:
 
 signals:
 	void differenceClicked( const Diff2::Difference* diff );
+	void applyDifference( bool apply );
 
 protected:
 	void wheelEvent( QWheelEvent* e );
 	void contentsMousePressEvent ( QMouseEvent * e );
-	void contentsMouseDoubleClickEvent ( QMouseEvent* ) {};
+	void contentsMouseDoubleClickEvent ( QMouseEvent* );
 	void contentsMouseReleaseEvent ( QMouseEvent * ) {};
 	void contentsMouseMoveEvent ( QMouseEvent * ) {};
 
@@ -85,7 +86,6 @@ private:
 	QPtrDict<KompareListViewDiffItem> m_itemDict;
 	bool                              m_isSource;
 	ViewSettings*                     m_settings;
-	int                               m_maxScrollId;
 	int                               m_scrollId;
 	int                               m_maxMainWidth;
 	const Diff2::DiffModel*           m_selectedModel;

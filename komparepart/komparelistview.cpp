@@ -46,7 +46,6 @@ KompareListView::KompareListView( bool isSource,
 	KListView( parent, name ),
 	m_isSource( isSource ),
 	m_settings( settings ),
-	m_maxScrollId( 0 ),
 	m_scrollId( -1 ),
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 )
@@ -135,7 +134,7 @@ int KompareListView::minScrollId()
 
 int KompareListView::maxScrollId()
 {
-	return m_maxScrollId;
+	return contentsHeight() - minScrollId();
 }
 
 void KompareListView::setXOffset( int x )
@@ -156,7 +155,10 @@ void KompareListView::scrollToId( int id )
 
 	if( item ) {
 		int pos = item->itemPos();
-		int y = pos + ( id - item->scrollId() ) * item->height() / item->maxHeight() - minScrollId();
+		int itemId = item->scrollId();
+		int height = item->totalHeight();
+		double r = ( double )(  id - itemId ) / ( double ) item->maxHeight();
+		int y = pos + ( int )( r * ( double )height ) - minScrollId();
 //		kdDebug(8104) << "scrollToID: " << endl;
 //		kdDebug(8104) << "     id = " << id << endl;
 //		kdDebug(8104) << "    pos = " << pos << endl;
@@ -227,7 +229,6 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 	clear();
 	m_items.clear();
 	m_itemDict.clear();
-	m_maxScrollId = 0;
 	m_selectedModel = model;
 
 	m_itemDict.resize(model->differenceCount());
@@ -254,8 +255,6 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 				m_items.append( (KompareListViewDiffItem*)item );
 				m_itemDict.insert( diff, (KompareListViewDiffItem*)item );
 			}
-
-			m_maxScrollId = item->scrollId() + item->height() - 1;
 		}
 	}
 
@@ -271,6 +270,20 @@ void KompareListView::contentsMousePressEvent( QMouseEvent* e )
 	KompareListViewDiffItem* diffItem = lineItem->diffItemParent();
 	if( diffItem->difference()->type() != Difference::Unchanged ) {
 		emit differenceClicked( diffItem->difference() );
+	}
+}
+
+void KompareListView::contentsMouseDoubleClickEvent( QMouseEvent* e )
+{
+	QPoint vp = contentsToViewport( e->pos() );
+	KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>( itemAt( vp ) );
+	if ( !lineItem )
+		return;
+	KompareListViewDiffItem* diffItem = lineItem->diffItemParent();
+	if ( diffItem->difference()->type() != Difference::Unchanged ) {
+		// FIXME: make a new signal that does both
+		emit differenceClicked( diffItem->difference() );
+		emit applyDifference( !diffItem->difference()->applied() );
 	}
 }
 
@@ -326,7 +339,7 @@ KompareListViewItem::KompareListViewItem( KompareListViewItem* parent )
 {
 }
 
-KompareListViewItem::KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* after )
+KompareListViewItem::KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* /*after*/ )
 	: QListViewItem( parent ),
 	m_scrollId( 0 )
 {
@@ -500,7 +513,7 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, i
 	paintText( p, cg, column, width, align );
 }
 
-void KompareListViewLineItem::paintText( QPainter * p, const QColorGroup & cg, int column, int width, int align )
+void KompareListViewLineItem::paintText( QPainter * p, const QColorGroup& /*cg*/, int column, int width, int align )
 {
 	if ( column == COL_MAIN )
 	{

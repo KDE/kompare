@@ -68,12 +68,13 @@ protected:
 protected slots:
 	void scrollToId( int id );
 	void slotDifferenceClicked( const Diff2::Difference* diff );
+	void slotDelayedUpdateScrollBars();
 
 private:
 	const Diff2::DiffModel*   m_selectedModel;
 	const Diff2::Difference*  m_selectedDifference;
 
-	ViewSettings*          m_settings;
+	ViewSettings*             m_settings;
 
 	QLabel*                   m_revlabel1;
 	QLabel*                   m_revlabel2;
@@ -82,6 +83,9 @@ private:
 	KompareConnectWidget*     m_zoom;
 	QScrollBar*               m_vScroll;
 	QScrollBar*               m_hScroll;
+
+	int                       m_scrollDistance;
+	int                       m_pageSize;
 };
 
 #endif

@@ -958,7 +958,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 			hunks->insert( hunkIt, newHunk );
 
 			newDiff = new Difference( srcLineNo, destLineNo,
-			              Difference::Unchanged | Difference::AddedByBlend );
+			              Difference::Unchanged );
 
 			newHunk->add( newDiff );
 
@@ -990,7 +990,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 
 		model->addHunk( newHunk );
 
-		newDiff = new Difference( srcLineNo, destLineNo, Difference::Unchanged | Difference::AddedByBlend );
+		newDiff = new Difference( srcLineNo, destLineNo, Difference::Unchanged );
 
 		newHunk->add( newDiff );
 

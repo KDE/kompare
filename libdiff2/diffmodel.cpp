@@ -174,7 +174,8 @@ QString DiffModel::recreateDiff() const
 
 	for ( ; hunkIt != hEnd; ++hunkIt )
 	{
-		diff += (*hunkIt)->recreateHunk();
+		if ((*hunkIt)->type() != DiffHunk::AddedByBlend)
+			diff += (*hunkIt)->recreateHunk();
 	}
 
 	return diff;

@@ -81,8 +81,6 @@ QString DiffHunk::recreateHunk() const
 	{
 		switch ( (*diffIt)->type() )
 		{
-		case Difference::Unchanged|Difference::AddedByBlend:
-			continue;
 		case Difference::Unchanged:
 		case Difference::Change:
 			slc += (*diffIt)->sourceLineCount();

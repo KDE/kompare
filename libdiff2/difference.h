@@ -155,7 +155,7 @@ typedef QValueVector<DifferenceString*>::const_iterator DifferenceStringListCons
 class Difference
 {
 public:
-	enum Type { Change = 0x00, Insert = 0x01, Delete = 0x02, Unchanged = 0x03, AddedByBlend = 0x10 };
+	enum Type { Change, Insert, Delete, Unchanged };
 
 public:
 	Difference( int sourceLineNo, int destinationLineNo, int type = Difference::Unchanged );

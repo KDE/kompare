@@ -25,9 +25,12 @@ using namespace Diff2;
 
 PerforceParser::PerforceParser( const KompareModelList* list, const QStringList& diff ) : ParserBase( list, diff )
 {
-	m_contextDiffHeader1.setPattern( "==== (.*) - (.*) ====" );
-	m_rcsDiffHeader.setPattern     ( "==== (.*) - (.*) ====" );
-	m_unifiedDiffHeader1.setPattern( "==== (.*) - (.*) ====" );
+	m_contextDiffHeader1.setPattern( "==== (.*) - (.*) ====\n" );
+	m_contextDiffHeader1.setMinimal( true );
+	m_rcsDiffHeader.setPattern     ( "==== (.*) - (.*) ====\n" );
+	m_rcsDiffHeader.setMinimal     ( true );
+	m_unifiedDiffHeader1.setPattern( "==== (.*) - (.*) ====\n" );
+	m_unifiedDiffHeader1.setMinimal( true );
 }
 
 PerforceParser::~PerforceParser()
@@ -73,7 +76,9 @@ bool PerforceParser::parseContextDiffHeader()
 //	kdDebug(8101) << "ParserBase::parseContextDiffHeader()" << endl;
 	bool result = false;
 
-	while ( m_diffIterator != m_diffLines.end() )
+	QStringList::ConstIterator itEnd = m_diffLines.end();
+
+	while ( m_diffIterator != itEnd )
 	{
 		if ( m_contextDiffHeader1.exactMatch( *(m_diffIterator)++ ) )
 		{
@@ -112,6 +117,47 @@ bool PerforceParser::parseRCSDiffHeader()
 
 bool PerforceParser::parseUnifiedDiffHeader()
 {
-	return false;
+	bool result = false;
+
+	QStringList::ConstIterator itEnd = m_diffLines.end();
+
+	while ( m_diffIterator != itEnd )
+	{
+//		kdDebug(8101) << "Line = " << *m_diffIterator << endl;
+//		kdDebug(8101) << "String length  = " << (*m_diffIterator).length() << endl;
+		if ( m_unifiedDiffHeader1.exactMatch( *(m_diffIterator)++ ) )
+		{
+//			kdDebug(8101) << "Matched length Header1 = " << m_unifiedDiffHeader1.matchedLength() << endl;
+//			kdDebug(8101) << "Matched string Header1 = " << m_unifiedDiffHeader1.cap( 0 ) << endl;
+//			kdDebug(8101) << "First  capture Header1 = \"" << m_unifiedDiffHeader1.cap( 1 ) << "\"" << endl;
+//			kdDebug(8101) << "Second capture Header1 = \"" << m_unifiedDiffHeader1.cap( 2 ) << "\"" << endl;
+			
+			m_currentModel = new DiffModel();
+			QRegExp sourceFileRE     ( "(\\/\\/[^\\#]+)#(\\d+)" );
+			QRegExp destinationFileRE( "([^\\#]+)#?(.*)" );
+			sourceFileRE.exactMatch( m_unifiedDiffHeader1.cap( 1 ) );
+			destinationFileRE.exactMatch( m_unifiedDiffHeader1.cap( 2 ) );
+//			kdDebug(8101) << "Matched length = " << sourceFileRE.matchedLength() << endl;
+//			kdDebug(8101) << "Matched length = " << destinationFileRE.matchedLength() << endl;
+//			kdDebug(8101) << "Captured texts = " << sourceFileRE.capturedTexts() << endl;
+//			kdDebug(8101) << "Captured texts = " << destinationFileRE.capturedTexts() << endl;
+//			kdDebug(8101) << "Source File      : " << sourceFileRE.cap( 1 ) << endl;
+//			kdDebug(8101) << "Destination File : " << destinationFileRE.cap( 1 ) << endl;
+			m_currentModel->setSourceFile          ( sourceFileRE.cap( 1 ) );
+			m_currentModel->setSourceTimestamp     ( m_unifiedDiffHeader1.cap( 2 ) );
+			m_currentModel->setSourceRevision      ( m_unifiedDiffHeader1.cap( 4 ) );
+			m_currentModel->setDestinationFile     ( destinationFileRE.cap( 1 ) );
+			m_currentModel->setDestinationTimestamp( m_unifiedDiffHeader2.cap( 2 ) );
+			m_currentModel->setDestinationRevision ( m_unifiedDiffHeader2.cap( 4 ) );
+
+			result = true;
+
+			break;
+		}
+//		kdDebug(8101) << "Matched length = " << m_unifiedDiffHeader1.matchedLength() << endl;
+//		kdDebug(8101) << "Captured texts = " << m_unifiedDiffHeader1.capturedTexts() << endl;
+	}
+
+	return result;
 }
 

@@ -93,8 +93,8 @@ void FilesPage::setSecondGroupBoxTitle( const QString& title )
 
 void FilesPage::setURLsInComboBoxes()
 {
-	kdDebug() << "first : " << m_firstURLComboBox->currentText() << endl;
-	kdDebug() << "second: " << m_secondURLComboBox->currentText() << endl;
+//	kdDebug() << "first : " << m_firstURLComboBox->currentText() << endl;
+//	kdDebug() << "second: " << m_secondURLComboBox->currentText() << endl;
 	m_firstURLComboBox->setURL( KURL( m_firstURLComboBox->currentText() ) );
 	m_secondURLComboBox->setURL( KURL( m_secondURLComboBox->currentText() ) );
 }
@@ -129,8 +129,8 @@ void FilesPage::restore()
 void FilesPage::apply()
 {
 	m_settings->m_recentSources            = m_firstURLComboBox->urls();
-	m_settings->m_lastChosenSourceURL      = m_secondURLComboBox->currentText();
-	m_settings->m_recentDestinations       = m_firstURLComboBox->urls();
+	m_settings->m_lastChosenSourceURL      = m_firstURLComboBox->currentText();
+	m_settings->m_recentDestinations       = m_secondURLComboBox->urls();
 	m_settings->m_lastChosenDestinationURL = m_secondURLComboBox->currentText();
 	m_settings->m_encoding                 = m_encodingComboBox->currentText();
 }

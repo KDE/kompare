@@ -276,6 +276,7 @@ void KompareNavTreePart::slotSetSelection( const Difference* diff )
 	if ( m_selectedDifference != diff )
 	{
 		kdDebug() << "But sir, i am giving you all she's got" << endl;
+		m_selectedDifference = diff;
 		setSelectedDifference( diff );
 	}
 }
@@ -326,7 +327,7 @@ void KompareNavTreePart::slotFileListSelectionChanged( QListViewItem* item )
 
 //	Difference* diff = (static_cast<KChangeLVI*>(m_changesList->selectedItem()))->difference();
 
-//	emit selectionChanged( model, diff );
+	emit selectionChanged( m_selectedModel, m_selectedDifference );
 }
 
 void KompareNavTreePart::slotChangesListSelectionChanged( QListViewItem* item )
@@ -336,7 +337,7 @@ void KompareNavTreePart::slotChangesListSelectionChanged( QListViewItem* item )
 	KChangeLVI* change = static_cast<KChangeLVI*>(item);
 	m_selectedDifference = change->difference();
 
-	emit selectionChanged( m_selectedModel, m_selectedDifference );
+	emit selectionChanged( m_selectedDifference );
 }
 
 void KompareNavTreePart::slotApplyDifference( bool apply )

@@ -48,34 +48,30 @@ ViewSettings::~ViewSettings()
 
 void ViewSettings::loadSettings( KConfig* config )
 {
-	KConfigGroup* cfg = new KConfigGroup( config, "View Options" );
-	m_removeColor         = cfg->readColorEntry( "RemoveColor",         &default_removeColor );
-	m_changeColor         = cfg->readColorEntry( "ChangeColor",         &default_changeColor );
-	m_addColor            = cfg->readColorEntry( "AddColor",            &default_addColor );
-	m_appliedColor        = cfg->readColorEntry( "AppliedColor",        &default_appliedColor );
-	m_scrollNoOfLines     = cfg->readNumEntry  ( "ScrollNoOfLines",     3 );
-	m_tabToNumberOfSpaces = cfg->readNumEntry  ( "TabToNumberOfSpaces", 4 );
+	KConfigGroup cfg( config, "View Options" );
+	m_removeColor         = cfg.readColorEntry( "RemoveColor",         &default_removeColor );
+	m_changeColor         = cfg.readColorEntry( "ChangeColor",         &default_changeColor );
+	m_addColor            = cfg.readColorEntry( "AddColor",            &default_addColor );
+	m_appliedColor        = cfg.readColorEntry( "AppliedColor",        &default_appliedColor );
+	m_scrollNoOfLines     = cfg.readNumEntry  ( "ScrollNoOfLines",     3 );
+	m_tabToNumberOfSpaces = cfg.readNumEntry  ( "TabToNumberOfSpaces", 4 );
 
 	QFont stdFixed = KGlobalSettings::fixedFont();
 	stdFixed.setPointSize( 10 );
-	m_font                = cfg->readFontEntry ( "TextFont", &stdFixed );
-
-	SettingsBase::loadSettings( config );
+	m_font                = cfg.readFontEntry ( "TextFont", &stdFixed );
 }
 
 void ViewSettings::saveSettings( KConfig* config )
 {
-	KConfigGroup* cfg = new KConfigGroup( config, "View Options" );
-	cfg->writeEntry( "RemoveColor",         m_removeColor );
-	cfg->writeEntry( "ChangeColor",         m_changeColor );
-	cfg->writeEntry( "AddColor",            m_addColor );
-	cfg->writeEntry( "AppliedColor",        m_appliedColor );
-	cfg->writeEntry( "ScrollNoOfLines",     m_scrollNoOfLines );
-	cfg->writeEntry( "TabToNumberOfSpaces", m_tabToNumberOfSpaces );
+	KConfigGroup cfg( config, "View Options" );
+	cfg.writeEntry( "RemoveColor",         m_removeColor );
+	cfg.writeEntry( "ChangeColor",         m_changeColor );
+	cfg.writeEntry( "AddColor",            m_addColor );
+	cfg.writeEntry( "AppliedColor",        m_appliedColor );
+	cfg.writeEntry( "ScrollNoOfLines",     m_scrollNoOfLines );
+	cfg.writeEntry( "TabToNumberOfSpaces", m_tabToNumberOfSpaces );
 
-	cfg->writeEntry( "TextFont",            m_font );
-
-	SettingsBase::saveSettings( config );
+	cfg.writeEntry( "TextFont",            m_font );
 }
 
 QColor ViewSettings::colorForDifferenceType( int type, bool selected, bool applied )

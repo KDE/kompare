@@ -16,6 +16,7 @@
 ****************************************************************************/
 
 #include <kconfig.h>
+
 #include "diffsettings.h"
 
 DiffSettings::DiffSettings( QWidget* parent )
@@ -45,61 +46,63 @@ DiffSettings::~DiffSettings()
 
 void DiffSettings::loadSettings( KConfig* config )
 {
-	config->setGroup( "Diff Options" );
-	m_diffProgram                    = config->readEntry    ( "DiffProgram", "" );
-	m_linesOfContext                 = config->readNumEntry ( "LinesOfContext", 3 );
-	m_largeFiles                     = config->readBoolEntry( "LargeFiles", true );
-	m_ignoreWhiteSpace               = config->readBoolEntry( "IgnoreWhiteSpace", false );
-	m_ignoreAllWhiteSpace            = config->readBoolEntry( "IgnoreAllWhiteSpace", false );
-	m_ignoreEmptyLines               = config->readBoolEntry( "IgnoreEmptyLines", false );
-	m_ignoreChangesDueToTabExpansion = config->readBoolEntry( "IgnoreChangesDueToTabExpansion", false );
-	m_ignoreChangesInCase            = config->readBoolEntry( "IgnoreChangesInCase", false );
-	m_ignoreRegExp                   = config->readBoolEntry( "IgnoreRegExp", false );
-	m_ignoreRegExpText               = config->readEntry    ( "IgnoreRegExpText", "" );
-	m_ignoreRegExpTextHistory        = config->readListEntry( "IgnoreRegExpTextHistory" );
-	m_createSmallerDiff              = config->readBoolEntry( "CreateSmallerDiff", true );
-	m_convertTabsToSpaces            = config->readBoolEntry( "ConvertTabsToSpaces", false );
-	m_showCFunctionChange            = config->readBoolEntry( "ShowCFunctionChange", false );
-	m_recursive                      = config->readBoolEntry( "CompareRecursively", true );
-	m_newFiles                       = config->readBoolEntry( "NewFiles", true );
+	KConfigGroup group( config, "Diff Options" );
+	m_diffProgram                    = group.readEntry    ( "DiffProgram", "" );
+	m_linesOfContext                 = group.readNumEntry ( "LinesOfContext", 3 );
+	m_largeFiles                     = group.readBoolEntry( "LargeFiles", true );
+	m_ignoreWhiteSpace               = group.readBoolEntry( "IgnoreWhiteSpace", false );
+	m_ignoreAllWhiteSpace            = group.readBoolEntry( "IgnoreAllWhiteSpace", false );
+	m_ignoreEmptyLines               = group.readBoolEntry( "IgnoreEmptyLines", false );
+	m_ignoreChangesDueToTabExpansion = group.readBoolEntry( "IgnoreChangesDueToTabExpansion", false );
+	m_ignoreChangesInCase            = group.readBoolEntry( "IgnoreChangesInCase", false );
+	m_ignoreRegExp                   = group.readBoolEntry( "IgnoreRegExp", false );
+	m_ignoreRegExpText               = group.readEntry    ( "IgnoreRegExpText", "" );
+	m_ignoreRegExpTextHistory        = group.readListEntry( "IgnoreRegExpTextHistory" );
+	m_createSmallerDiff              = group.readBoolEntry( "CreateSmallerDiff", true );
+	m_convertTabsToSpaces            = group.readBoolEntry( "ConvertTabsToSpaces", false );
+	m_showCFunctionChange            = group.readBoolEntry( "ShowCFunctionChange", false );
+	m_recursive                      = group.readBoolEntry( "CompareRecursively", true );
+	m_newFiles                       = group.readBoolEntry( "NewFiles", true );
 
-	m_format = static_cast<Kompare::Format>( config->readNumEntry( "Format", Kompare::Unified ) );
+	m_format = static_cast<Kompare::Format>( group.readNumEntry( "Format", Kompare::Unified ) );
 
-	config->setGroup( "Exclude File Options" );
-	m_excludeFilePattern             = config->readBoolEntry( "Pattern", false );
-	m_excludeFilePatternList         = config->readListEntry( "PatternList" );
-	m_excludeFilesFile               = config->readBoolEntry( "File", false );
-	m_excludeFilesFileURL            = config->readEntry    ( "FileURL", "" );
-	m_excludeFilesFileHistoryList    = config->readListEntry( "FileHistoryList" );
+	KConfigGroup group2 ( config, "Exclude File Options" );
+	m_excludeFilePattern             = group2.readBoolEntry( "Pattern", false );
+	m_excludeFilePatternList         = group2.readListEntry( "PatternList" );
+	m_excludeFilesFile               = group2.readBoolEntry( "File", false );
+	m_excludeFilesFileURL            = group2.readEntry    ( "FileURL", "" );
+	m_excludeFilesFileHistoryList    = group2.readListEntry( "FileHistoryList" );
 }
 
 void DiffSettings::saveSettings( KConfig* config )
 {
-	config->setGroup( "Diff Options" );
-	config->writeEntry( "DiffProgram",                    m_diffProgram );
-	config->writeEntry( "LinesOfContext",                 m_linesOfContext );
-	config->writeEntry( "Format",                         m_format );
-	config->writeEntry( "LargeFiles",                     m_largeFiles );
-	config->writeEntry( "IgnoreWhiteSpace",               m_ignoreWhiteSpace );
-	config->writeEntry( "IgnoreAllWhiteSpace",            m_ignoreAllWhiteSpace );
-	config->writeEntry( "IgnoreEmptyLines",               m_ignoreEmptyLines );
-	config->writeEntry( "IgnoreChangesInCase",            m_ignoreChangesInCase );
-	config->writeEntry( "IgnoreChangesDueToTabExpansion", m_ignoreChangesDueToTabExpansion );
-	config->writeEntry( "IgnoreRegExp",                   m_ignoreRegExp );
-	config->writeEntry( "IgnoreRegExpText",               m_ignoreRegExpText );
-	config->writeEntry( "IgnoreRegExpTextHistory",        m_ignoreRegExpTextHistory );
-	config->writeEntry( "CreateSmallerDiff",              m_createSmallerDiff );
-	config->writeEntry( "ConvertTabsToSpaces",            m_convertTabsToSpaces );
-	config->writeEntry( "ShowCFunctionChange",            m_showCFunctionChange );
-	config->writeEntry( "CompareRecursively",             m_recursive );
-	config->writeEntry( "NewFiles",                       m_newFiles );
+	KConfigGroup group( config, "Diff Options" );
+	group.writeEntry( "DiffProgram",                    m_diffProgram );
+	group.writeEntry( "LinesOfContext",                 m_linesOfContext );
+	group.writeEntry( "Format",                         m_format );
+	group.writeEntry( "LargeFiles",                     m_largeFiles );
+	group.writeEntry( "IgnoreWhiteSpace",               m_ignoreWhiteSpace );
+	group.writeEntry( "IgnoreAllWhiteSpace",            m_ignoreAllWhiteSpace );
+	group.writeEntry( "IgnoreEmptyLines",               m_ignoreEmptyLines );
+	group.writeEntry( "IgnoreChangesInCase",            m_ignoreChangesInCase );
+	group.writeEntry( "IgnoreChangesDueToTabExpansion", m_ignoreChangesDueToTabExpansion );
+	group.writeEntry( "IgnoreRegExp",                   m_ignoreRegExp );
+	group.writeEntry( "IgnoreRegExpText",               m_ignoreRegExpText );
+	group.writeEntry( "IgnoreRegExpTextHistory",        m_ignoreRegExpTextHistory );
+	group.writeEntry( "CreateSmallerDiff",              m_createSmallerDiff );
+	group.writeEntry( "ConvertTabsToSpaces",            m_convertTabsToSpaces );
+	group.writeEntry( "ShowCFunctionChange",            m_showCFunctionChange );
+	group.writeEntry( "CompareRecursively",             m_recursive );
+	group.writeEntry( "NewFiles",                       m_newFiles );
+	group.setDirty( true );
 
-	config->setGroup( "Exclude File Options" );
-	config->writeEntry( "Pattern",            m_excludeFilePattern );
-	config->writeEntry( "PatternList",        m_excludeFilePatternList );
-	config->writeEntry( "File",               m_excludeFilesFile );
-	config->writeEntry( "FileURL",            m_excludeFilesFileURL );
-	config->writeEntry( "FileHistoryList",    m_excludeFilesFileHistoryList );
+	KConfigGroup group2( config, "Exclude File Options" );
+	group2.writeEntry( "Pattern",            m_excludeFilePattern );
+	group2.writeEntry( "PatternList",        m_excludeFilePatternList );
+	group2.writeEntry( "File",               m_excludeFilesFile );
+	group2.writeEntry( "FileURL",            m_excludeFilesFileURL );
+	group2.writeEntry( "FileHistoryList",    m_excludeFilesFileHistoryList );
+	group2.setDirty( true );
 }
 
 #include "diffsettings.moc"

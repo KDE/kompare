@@ -18,10 +18,8 @@
 ***************************************************************************/
 
 #include <qdir.h>
-#include <qstringlist.h>
 
 #include <kdebug.h>
-#include <kio/netaccess.h>
 
 #include "diffsettings.h"
 #include "kompareprocess.h"

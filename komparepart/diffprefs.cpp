@@ -19,7 +19,6 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qradiobutton.h>
-#include <qwidget.h>
 
 #include <kdialog.h>
 #include <klocale.h>

@@ -17,10 +17,7 @@
 **
 ***************************************************************************/
 
-#include <qgroupbox.h>
-#include <qlabel.h>
 #include <qlayout.h>
-#include <qwidget.h>
 
 #include <kdialog.h>
 #include <klocale.h>

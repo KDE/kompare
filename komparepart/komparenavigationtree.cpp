@@ -23,7 +23,6 @@
 
 #include "difference.h"
 #include "diffmodel.h"
-#include "kompare_part.h"
 #include "komparemodellist.h"
 
 #include "komparenavigationtree.h"

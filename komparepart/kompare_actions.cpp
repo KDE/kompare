@@ -20,7 +20,6 @@
 #include "kompare_actions.h"
 
 #include <qpopupmenu.h>
-#include <qwidget.h>
 
 #include <kdebug.h>
 

@@ -21,7 +21,6 @@
 #include <qpainter.h>
 
 #include <kdebug.h>
-#include <klocale.h>
 
 #include "diffmodel.h"
 #include "diffhunk.h"

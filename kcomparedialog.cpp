@@ -17,7 +17,6 @@
 **
 ***************************************************************************/
 
-#include <kdialogbase.h>
 #include <kurlrequester.h>
 #include <kurlcombobox.h>
 #include <klocale.h>

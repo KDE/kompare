@@ -17,14 +17,9 @@
 **
 ***************************************************************************/
 
-#include <qfile.h>
 
-#include <kaction.h>
 #include <kdebug.h>
-#include <kdialogbase.h>
 #include <kfiledialog.h>
-#include <kinstance.h>
-#include <klistview.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kstdaction.h>
@@ -36,7 +31,6 @@
 #include "kompare_part.h"
 #include "komparenavigationtree.h"
 #include "kompareprefdlg.h"
-#include "kompareprocess.h"
 #include "komparesaveoptionswidget.h"
 #include "kompareview.h"
 #include "miscsettings.h"

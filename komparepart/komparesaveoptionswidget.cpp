@@ -24,7 +24,6 @@
 #include <qspinbox.h>
 
 #include <kdebug.h>
-#include <kfile.h>
 #include <kfiledialog.h>
 #include <kurlrequester.h>
 

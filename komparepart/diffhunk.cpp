@@ -17,7 +17,6 @@
 **
 ***************************************************************************/
 
-#include <klocale.h>
 
 #include "difference.h"
 #include "diffhunk.h"

@@ -17,7 +17,6 @@
 **
 ***************************************************************************/
 
-#include <qcstring.h>
 
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>

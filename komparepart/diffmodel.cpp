@@ -18,16 +18,13 @@
 ***************************************************************************/
 
 #include <qregexp.h>
-#include <qtextstream.h>
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <kmessagebox.h>
 
 #include "difference.h"
 #include "diffhunk.h"
 #include "diffmodel.h"
-#include "komparemodellist.h"
 
 /**  */
 DiffModel::DiffModel() :

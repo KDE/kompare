@@ -21,7 +21,6 @@
 #include <qgroupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
-#include <qwidget.h>
 
 #include <kcolorbutton.h>
 #include <kdialog.h>

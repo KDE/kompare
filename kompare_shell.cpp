@@ -26,13 +26,8 @@
 #include "kompare_shell.h"
 
 #include <kkeydialog.h>
-#include <kconfig.h>
-#include <kurl.h>
-#include <klocale.h>
 #include <kedittoolbar.h>
-#include <kaction.h>
 #include <kstdaction.h>
-#include <klibloader.h>
 #include <kmessagebox.h>
 #include <kfiledialog.h>
 #include <ktrader.h>

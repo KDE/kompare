@@ -15,8 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qfile.h>
-#include <qtextstream.h>
 
 #include <kdebug.h>
 #include <kio/netaccess.h>

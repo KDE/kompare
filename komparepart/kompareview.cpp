@@ -19,13 +19,11 @@
 
 #include <qlabel.h>
 #include <qlayout.h>
-#include <qscrollbar.h>
 #include <qstyle.h>
 
 #include <kdebug.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
-#include <kmimetype.h>
 
 #include "difference.h"
 #include "diffhunk.h"

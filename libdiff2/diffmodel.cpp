@@ -129,26 +129,19 @@ DiffModel& DiffModel::operator=( const DiffModel& model )
 	return *this;
 }
 
-bool DiffModel::operator<( const DiffModel* model )
+bool DiffModel::operator<( const DiffModel& model )
 {
 	if ( localeAwareCompareSource( model ) < 0 )
 		return true;
 	return false;
 }
 
-bool DiffModel::operator>( const DiffModel* model )
+int DiffModel::localeAwareCompareSource( const DiffModel& model )
 {
-	if ( localeAwareCompareSource( model ) > 0 )
-		return true;
-	return false;
-}
-
-int DiffModel::localeAwareCompareSource( const DiffModel* model )
-{
-	int result = m_sourcePath.localeAwareCompare( model->m_sourcePath );
+	int result = m_sourcePath.localeAwareCompare( model.m_sourcePath );
 
 	if ( result == 0 )
-		return m_sourceFile.localeAwareCompare( model->m_sourceFile );
+		return m_sourceFile.localeAwareCompare( model.m_sourceFile );
 
 	return result;
 }

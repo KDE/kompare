@@ -40,14 +40,6 @@ public:
 	}
 
 public:
-	DiffModel* operator[]( size_type i );
-	const DiffModel* operator[]( size_type i ) const;
-	DiffModelList& operator=( const DiffModelList &list );
-
-	virtual int compareItems( QPtrCollection::Item s1, QPtrCollection::Item s2 );
-
-	void debugPrint();
-
 	virtual void sort();
 
 }; // End of class DiffModelList

@@ -98,10 +98,9 @@ public:
 	bool setSelectedDifference( Difference* diff );
 
 	DiffModel& operator=( const DiffModel& model );
-	bool operator<( const DiffModel* model );
-	bool operator>( const DiffModel* model );
+	bool operator<( const DiffModel& model );
 
-	int localeAwareCompareSource( const DiffModel* model );
+	int localeAwareCompareSource( const DiffModel& model );
 
 	bool isBlended() const { return m_blended; }
 	void setBlended( bool blended ) { m_blended = blended; }

@@ -23,25 +23,27 @@
 #include "kmaindiffview.h"
 
 static const char *description =
-	I18N_NOOP( "KDiff" );
-// INSERT A DESCRIPTION FOR YOUR APPLICATION HERE
-	
-	
+	I18N_NOOP("A program to view the differences between files.\n\n"
+	          "Many thanks go to Malte Starostik for all the help he has given me.");
+
+static const char *version = "v2.0";
+
 static KCmdLineOptions options[] =
 {
+	{ "+[URL]", I18N_NOOP( "Document to open." ), 0 },
 	{ 0, 0, 0 }
-	// INSERT YOUR COMMANDLINE OPTIONS HERE
 };
 
 int main(int argc, char *argv[])
 {
 
-	KAboutData aboutData( "kdiff", I18N_NOOP("KDiff"),
-	"2.0", I18N_NOOP( "A program to view the differences between files with.\n\n"
-	"Many thanks go to Malte Starostik for all the help he has given me." ), KAboutData::License_GPL,
-	"(c) 2001, Otto Bruggeman", 0, 0, "otto.bruggeman@home.nl");
+	KAboutData aboutData( "kdiff", I18N_NOOP("KDiff"), version, description,
+	                      KAboutData::License_GPL,
+	                      "(c) 2001, Otto Bruggeman", 0, 0, "otto.bruggeman@home.nl");
 	aboutData.addAuthor( "Otto Bruggeman", 0, "otto.bruggeman@home.nl" );
-	KCmdLineArgs::init( argc, argv, &aboutData );
+	aboutData.addAuthor( "John Firebaugh", 0, "jfirebaugh@mac.com" );
+//	about.addAuthor( ); // TODO: add cervisia author
+	KCmdLineArgs::init(argc, argv, &aboutData);
 	KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
 
 	KDiffApp* kdiffapp = new KDiffApp();

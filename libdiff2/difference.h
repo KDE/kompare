@@ -37,7 +37,6 @@ public:
 	~Difference();
 
 public:
-	QString asString() const;
 	enum Difference::Type type() const { return m_type; };
 	int sourceLineNumber() const { return m_sourceLineNo; };
 	int destinationLineNumber() const { return m_destinationLineNo; };

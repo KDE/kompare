@@ -525,8 +525,8 @@ int DiffModel::parseUnifiedDiff( const QStringList& list )
 
 	if( it == list.end() ) return 1; // no differences
 
-	QRegExp source   ( "^--- ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
-	QRegExp dest     ( "^\\+\\+\\+ ([^\\t]+)\\t([^\\t]+)(\\t?)(.*)$" );
+	QRegExp source   ( "^--- ([^\\t ]+)[\\t ]+([^\\t ]+)(\\t?)(.*)$" );
+	QRegExp dest     ( "^\\+\\+\\+ ([^\\t ]+)[\\t ]+([^\\t ]+)(\\t?)(.*)$" );
 	QRegExp line     ( "^([ \\-+])(.*)$" );
 	QRegExp unchanged( "^ (.*)$" );
 	QRegExp removed  ( "^-(.*)$" );

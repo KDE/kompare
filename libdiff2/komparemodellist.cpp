@@ -937,7 +937,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 		return false;
 	}
 
-	model->m_blended = true;
+	model->setBlended( true );
 
 	int srcLineNo = 1, destLineNo = 1;
 

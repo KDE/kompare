@@ -103,7 +103,7 @@ public:
 
 	int localeAwareCompareSource( const DiffModel* model );
 
-	bool m_blended;
+	void setBlended( bool blended ) { m_blended = blended; }
 
 signals:
 	void setModified( bool modified );
@@ -140,6 +140,8 @@ private:
 
 	unsigned int m_diffIndex;
 	Difference*  m_selectedDifference;
+
+	bool m_blended;
 };
 
 } // End of namespace Diff2

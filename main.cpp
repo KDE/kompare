@@ -128,13 +128,21 @@ int main(int argc, char *argv[])
 				difault = false;
 			}
 		}
-		else if ( args->count() == 1 && *(args->arg( 0 )) == '-' )
+		else if ( args->count() == 1 )
 		{
 			widget = new KompareShell();
 			widget->show();
 			widget->open( args->arg( 0 ) );
 			difault = false;
 		}
+		else if ( args->count() == 2 )
+		{
+			widget = new KompareShell();
+			widget->show();
+			widget->compare( args->arg( 0 ), args->arg( 1 ) );
+			difault = false;
+		}
+
 		if ( difault )
 		{
 			KompareURLDialog* dialog = new KompareURLDialog();

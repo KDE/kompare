@@ -2,9 +2,12 @@
 [Desktop Entry]
 Type=Application
 Name=Kompare
+Name[xxx]=xx
 Comment=
+Comment[xxx]=xx
 MimeType=text/x-diff;
 Exec=kompare -caption "%c" %i %m %U
 Icon=kompare
 DocPath=kompare/index.html
 Terminal=0
+X-DCOP-ServiceType=Multi

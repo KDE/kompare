@@ -86,12 +86,12 @@ GeneralPrefs::GeneralPrefs( QWidget* parent ) : PrefsBase( parent )
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
 	addTab( page, i18n( "A&ppearance" ) );
-};
+}
 
 GeneralPrefs::~GeneralPrefs()
 {
 
-};
+}
 
 void GeneralPrefs::setSettings( GeneralSettings* setts )
 {
@@ -103,16 +103,16 @@ void GeneralPrefs::setSettings( GeneralSettings* setts )
 	m_removedColorButton->setColor( m_settings->m_removeColor );
 	m_appliedColorButton->setColor( m_settings->m_appliedColor );
 	m_snolSpinBox->setValue       ( m_settings->m_scrollNoOfLines );
-};
+}
 
 GeneralSettings* GeneralPrefs::settings( void )
 {
 	return m_settings;
-};
+}
 
 void GeneralPrefs::restore()
 {
-};
+}
 
 void GeneralPrefs::apply()
 {
@@ -127,7 +127,7 @@ void GeneralPrefs::apply()
 	setts->m_scrollNoOfLines = m_snolSpinBox->value();
 
 	setts->emitSettingsChanged();
-};
+}
 
 void GeneralPrefs::setDefaults()
 {
@@ -137,6 +137,6 @@ void GeneralPrefs::setDefaults()
 	m_removedColorButton->setColor( GeneralSettings::default_removeColor );
 	m_appliedColorButton->setColor( GeneralSettings::default_appliedColor );
 	m_snolSpinBox->setValue       ( 3 );
-};
+}
 
 #include "generalprefs.moc"

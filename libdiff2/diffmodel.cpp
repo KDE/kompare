@@ -38,12 +38,12 @@ DiffModel::DiffModel( KURL srcBaseURL, KURL destBaseURL ) :
 	m_modified( false ),
 	m_index( 0 )
 {
-};
+}
 
 /**  */
 DiffModel::~DiffModel()
 {
-};
+}
 
 int DiffModel::parseDiff( enum Kompare::Format format, const QStringList& lines )
 {
@@ -247,7 +247,7 @@ int DiffModel::parseContextDiff( const QStringList& list )
 	}
 
 	return 0;
-};
+}
 
 /**  */
 int DiffModel::parseEdDiff( const QStringList& list )
@@ -355,7 +355,7 @@ int DiffModel::parseEdDiff( const QStringList& list )
 //	KMessageBox::information( 0, i18n( "Sorry not yet implemented" ) );
 //	return 1;
 	return 0;
-};
+}
 
 /**  */
 int DiffModel::parseNormalDiff( const QStringList& list )
@@ -449,7 +449,7 @@ int DiffModel::parseNormalDiff( const QStringList& list )
 	}
 
 	return 0;
-};
+}
 
 /**  */
 int DiffModel::parseRCSDiff( const QStringList& list )
@@ -559,7 +559,7 @@ int DiffModel::parseRCSDiff( const QStringList& list )
 //	KMessageBox::information( 0, i18n( "Sorry not yet implemented" ) );
 //	return 1;
 	return 0;
-};
+}
 
 /**  */
 int DiffModel::parseUnifiedDiff( const QStringList& list )

@@ -746,7 +746,7 @@ int KompareModelList::parseDiffOutput( const QStringList& lines )
 	emit setSelection( m_selectedModel, m_selectedDifference );
 
 	return 0; // FIXME better error handling
-};
+}
 
 void KompareModelList::clear()
 {

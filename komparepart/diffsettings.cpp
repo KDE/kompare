@@ -20,12 +20,12 @@
 DiffSettings::DiffSettings( QWidget* parent ) : SettingsBase( parent )
 {
 
-};
+}
 
 DiffSettings::~DiffSettings()
 {
 	
-};
+}
 
 void DiffSettings::loadSettings( KConfig* config )
 {
@@ -43,7 +43,7 @@ void DiffSettings::loadSettings( KConfig* config )
 	m_allText                        = config->readBoolEntry( "TreatAllFilesAsText", true );
 
 	m_format = static_cast<Kompare::Format>( config->readNumEntry( "Format", Kompare::Unified ) );
-};
+}
 
 void DiffSettings::saveSettings( KConfig* config )
 {
@@ -60,6 +60,6 @@ void DiffSettings::saveSettings( KConfig* config )
 	config->writeEntry( "CompareRecursively",             m_recursive );
 	config->writeEntry( "NewFiles",                       m_newFiles );
 	config->writeEntry( "TreatAllFilesAsText",            m_allText );
-};
+}
 
 #include "diffsettings.moc"

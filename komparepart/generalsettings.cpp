@@ -27,12 +27,12 @@ const QColor GeneralSettings::default_appliedColor(237, 237, 190);
 GeneralSettings::GeneralSettings( QWidget* parent ) : SettingsBase( parent )
 {
 
-};
+}
 
 GeneralSettings::~GeneralSettings()
 {
 
-};
+}
 
 void GeneralSettings::loadSettings( KConfig* config )
 {
@@ -44,7 +44,7 @@ void GeneralSettings::loadSettings( KConfig* config )
 	m_scrollNoOfLines = config->readNumEntry  ( "ScrollNoOfLines", 3 );
 
 	SettingsBase::loadSettings( config );
-};
+}
 
 void GeneralSettings::saveSettings( KConfig* config )
 {
@@ -56,7 +56,7 @@ void GeneralSettings::saveSettings( KConfig* config )
 	config->writeEntry( "ScrollNoOfLines", m_scrollNoOfLines );
 
 	SettingsBase::saveSettings( config );
-};
+}
 
 QColor GeneralSettings::colorForDifferenceType( Difference::Type type, bool selected, bool applied )
 {
@@ -79,6 +79,6 @@ QColor GeneralSettings::colorForDifferenceType( Difference::Type type, bool sele
 	}
 
 	return color;
-};
+}
 
 #include "generalsettings.moc"

@@ -22,19 +22,19 @@
 MiscSettings::MiscSettings( QWidget* parent ) : SettingsBase( parent )
 {
 
-};
+}
 
 MiscSettings::~MiscSettings()
 {
 
-};
+}
 
 void MiscSettings::loadSettings( KConfig* /*config*/ )
 {
-};
+}
 
 void MiscSettings::saveSettings( KConfig* /*config*/ )
 {
-};
+}
 
 #include "miscsettings.moc"

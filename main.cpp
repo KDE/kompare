@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 	aboutData.addAuthor( "Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
 	aboutData.addAuthor( "John Firebaugh", "Author", "jfirebaugh@mac.com" );
 	aboutData.addCredit( "Malte Starostik", "Big help :)", "malte@kde.org" );
-//	aboutData.addAuthor( ); // TODO: add cervisia author
+	aboutData.addCredit( "Bernd Gehrmann", "Cervisia diff viewer", "bernd@physik.hu-berlin.de" );
 	KCmdLineArgs::init(argc, argv, &aboutData);
 	KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
 

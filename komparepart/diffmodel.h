@@ -45,6 +45,8 @@ public:
 		{ return m_hunks.count(); };
 	int differenceCount() const
 		{ return m_differences.count(); };
+	int appliedCount() const
+		{ return m_appliedCount; };
 	DiffHunk* hunkAt( int i ) const
 		{ return const_cast<DiffModel*>(this)->m_hunks.at( i ); };
 	Difference* differenceAt( int i ) const
@@ -77,8 +79,7 @@ private:
 	QString             m_destinationTimestamp;
 	QList<DiffHunk>     m_hunks;
 	QList<Difference>   m_differences;
-
-	int m_noOfHunks;
+	int                 m_appliedCount;
 };
 
 #endif

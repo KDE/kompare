@@ -1,7 +1,11 @@
 In descending order of importance:
 * implement blending the original file in (this helps in implementing the rcs and ed)
 * implement ed and rcs format
-* add support to load a diff and apply it and save the modified file
+* patch functionality
+* better save feedback
+* session management
+* text view should work when comparing (make a temp file with current diff settings)
+* merge text view GUI
 * the tree view should show directory structure
 * add support for incremental patch saving (i'll explain if anyone wants to know)
 * add icons for most menu options (almost done, using standard icons now for most)

@@ -117,9 +117,11 @@ void KDiffPart::setupActions()
 {
 	// create our actions
 
-	m_saveDiff = KStdAction::save( this, SLOT(save()), actionCollection() );
-	m_saveDiff->setText( i18n("&Save .diff") );
-	m_diffStats = new KAction( i18n( "Show diff stats" ), "", 0,
+	m_save = KStdAction::save( this, SLOT(slotSaveDestination()), actionCollection() );
+	m_saveDiff = new KAction( i18n("Save .&diff"), 0,
+	              this, SLOT(save()),
+	              actionCollection(), "file_save_diff" );
+	m_diffStats = new KAction( i18n( "Show diff stats" ), 0,
 	              this, SLOT(slotShowDiffstats()),
 	              actionCollection(), "file_diffstats" );
 	m_applyDifference = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
@@ -156,18 +158,22 @@ void KDiffPart::updateActions()
 {
 	int model = getSelectedModelIndex();
 	int diff = getSelectedDifferenceIndex();
-	if( model >= 0 && diff >= 0 ) {
-		m_applyDifference->setEnabled( true );
-		const Difference* d = getSelectedDifference();
-		if( d->applied() ) {
-			m_applyDifference->setText( i18n( "Un&apply Difference" ) );
-			m_applyDifference->setIcon( "1leftarrow" );
-		} else {
-			m_applyDifference->setText( i18n( "&Apply Difference" ) );
-			m_applyDifference->setIcon( "1rightarrow" );
+	if( model >= 0 ) {
+		if( diff >= 0 ) {
+			m_applyDifference->setEnabled( true );
+			const Difference* d = getSelectedDifference();
+			if( d->applied() ) {
+				m_applyDifference->setText( i18n( "Un&apply Difference" ) );
+				m_applyDifference->setIcon( "1leftarrow" );
+			} else {
+				m_applyDifference->setText( i18n( "&Apply Difference" ) );
+				m_applyDifference->setIcon( "1rightarrow" );
+			}
 		}
+		setModified( appliedCount() > 0 );
 	} else {
 		m_applyDifference->setEnabled( false );
+		setModified( false );
 	}
 	m_previousFile->setEnabled( model > 0 );
 	m_nextFile->setEnabled( model < m_models->modelCount() - 1 );
@@ -186,15 +192,15 @@ void KDiffPart::setModified(bool modified)
 {
 	// get a handle on our Save action and make sure it is valid
 	// KAction *save = actionCollection()->action(KStdAction::stdName(KStdAction::Save));
-	if (!m_saveDiff)
+	if (!m_save)
 		return;
 
 	// if so, we either enable or disable it based on the current
 	// state
 	if (modified)
-		m_saveDiff->setEnabled(true);
+		m_save->setEnabled(true);
 	else
-		m_saveDiff->setEnabled(false);
+		m_save->setEnabled(false);
 
 	// in any event, we want our parent to do it's thing
 	ReadWritePart::setModified(modified);
@@ -246,12 +252,32 @@ void KDiffPart::slotSetStatus( KDiffModelList::Status status )
 {
 	switch( status ) {
 	case KDiffModelList::RunningDiff:
+		emit setStatusBarText( i18n( "Running diff..." ) );
 		break;
 	case KDiffModelList::Parsing:
+		emit setStatusBarText( i18n( "Parsing diff..." ) );
 		break;
 	case KDiffModelList::FinishedParsing:
-		if( m_models->mode() == KDiffModelList::Compare )
-			setModified( true );
+		if( m_models->mode() == KDiffModelList::Compare ) {
+			if( modelCount() > 1 ) {
+				emit setStatusBarText( i18n( "Comparing files in %1 with files in %2" )
+				   .arg( m_models->sourceBaseURL().prettyURL() )
+				   .arg( m_models->destinationBaseURL().prettyURL() ) );
+				emit setWindowCaption( m_models->sourceBaseURL().prettyURL()
+				   + " : " + m_models->destinationBaseURL().prettyURL() );
+			} else if ( modelCount() == 1 ) {
+				emit setStatusBarText( i18n( "Comparing %1 with %2" )
+				   .arg( m_models->sourceBaseURL().prettyURL( 1 )
+				   + m_models->modelAt( 0 )->sourceFile() )
+				   .arg( m_models->destinationBaseURL().prettyURL( 1 )
+				   + m_models->modelAt( 0 )->destinationFile() ) );
+				emit setWindowCaption(  m_models->modelAt( 0 )->sourceFile()
+				   + " : " + m_models->modelAt( 0 )->destinationFile() );
+			}
+			m_saveDiff->setEnabled(true);
+		} else {
+			emit setStatusBarText( i18n( "Viewing %1" ).arg( url().prettyURL() ) );
+		}
 		slotSetSelection( 0, 0 );
 		break;
 	case KDiffModelList::FinishedWritingDiff:
@@ -265,6 +291,11 @@ void KDiffPart::slotSetStatus( KDiffModelList::Status status )
 void KDiffPart::slotShowError( QString error )
 {
 	KMessageBox::error( widget(), error );
+}
+
+void KDiffPart::slotSaveDestination()
+{
+	m_models->saveDestination( m_selectedModel );
 }
 
 void KDiffPart::slotShowDiffstats( void )
@@ -339,6 +370,7 @@ void KDiffPart::slotSelectionChanged( int /* model */, int /* diff */ )
 void KDiffPart::slotAppliedChanged( const Difference* /* d */ )
 {
 	updateActions();
+	emit appliedChanged();
 }
 
 void KDiffPart::slotDifferenceMenuAboutToShow()

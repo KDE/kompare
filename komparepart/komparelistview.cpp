@@ -356,7 +356,8 @@ void KDiffListViewDiffItem::paintCell( QPainter * p, const QColorGroup & cg, int
 {
 	QColor bg = cg.base();
 	if( m_difference->type() != Difference::Unchanged ) {
-		bg = m_listView->settings()->getColorForDifferenceType( m_difference->type(), isSelected() );
+		bg = m_listView->settings()->getColorForDifferenceType(
+		        m_difference->type(), isSelected(), m_difference->applied() );
 	} else if( column == COL_LINE_NO ) {
 		bg = cg.background();
 	}

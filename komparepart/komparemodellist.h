@@ -43,6 +43,7 @@ public:
 	void compare( const KURL& source, const KURL& destination );
 	void readDiffFile( QFile& file );
 	void writeDiffFile( QString file, DiffSettings* settings );
+	void saveDestination( int index );
 	
 	int parseDiffs( const QStringList& list );
 	

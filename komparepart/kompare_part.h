@@ -97,6 +97,8 @@ public:
 		{ return m_models->modelAt( m_selectedModel ); };
 	Difference* getSelectedDifference()
 		{ return m_models->modelAt( m_selectedModel )->differenceAt( m_selectedDifference ); };
+	int appliedCount() const
+		{ return m_models->modelAt( m_selectedModel )->appliedCount(); };
 
 public slots:
 	/**
@@ -108,6 +110,7 @@ public slots:
 
 signals:
 	void selectionChanged( int model, int diff );
+	void appliedChanged();
 
 protected:
 	/**
@@ -128,6 +131,8 @@ protected slots:
 	void slotAppliedChanged( const Difference* d );
 	void slotDifferenceMenuAboutToShow();
 	void slotGoDifferenceActivated( int item );
+	
+	void slotSaveDestination();
 	void slotApplyDifference();
 	void slotApplyAllDifferences();
 	void slotUnapplyAllDifferences();
@@ -154,6 +159,7 @@ private:
 	KDiffView*             m_diffView;
 	KDiffNavigationTree*   m_navigationTree;
 	KAction*               m_diffStats;
+	KAction*               m_save;
 	KAction*               m_saveDiff;
 	KAction*               m_applyDifference;
 	KAction*               m_applyAll;
@@ -163,8 +169,6 @@ private:
 	KAction*               m_previousDifference;
 	KAction*               m_nextDifference;
 	KDifferencesAction*    m_differences;
-	KURL                   m_sourceURL;
-	KURL                   m_destinationURL;
 };
 
 class KInstance;

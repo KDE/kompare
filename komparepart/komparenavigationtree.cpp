@@ -103,31 +103,48 @@ void KDiffNavigationTree::slotAddModel( DiffModel * model )
 	
 	QListIterator<Difference> diffIt(model->getDifferences());
 
+	m_itemDict.resize( m_itemDict.size() + model->differenceCount() );
+	
 	// Go backwards so the items appear in the correct order when
 	// added to their parent.
 	for( diffIt.toLast(); diffIt.current(); --diffIt ) {
 		Difference *diff = diffIt.current();
 
-		QListViewItem* diffItem = new QListViewItem( modelItem );
-		diffItem->setText( COL_SOURCE, i18n( "Line %1" ).arg( diff->sourceLineNumber() ) );
-		diffItem->setText( COL_DESTINATION, i18n( "Line %1" ).arg( diff->destinationLineNumber() ) );
-
-		QString text = "";
-		switch( diff->type() ) {
-		case Difference::Change:
-			text = i18n( "Changed line(s)" );
-			break;
-		case Difference::Insert:
-			text = i18n( "Inserted line(s)" );
-			break;
-		case Difference::Delete:
-		default:
-			text = i18n( "Deleted line(s)" );
-			break;
-		}
-		diffItem->setText( COL_DIFFERENCE, text );
+		QListViewItem* item = new QListViewItem( modelItem );
+		
+		setItemText( item, diff );
 //			diffItem->setPixmap( );
+		
+		m_itemDict.insert( diff, item );
 	}
+	
+	connect( model, SIGNAL( appliedChanged( const Difference* ) ),
+	         this, SLOT( slotAppliedChanged( const Difference * ) ) );
+}
+
+void KDiffNavigationTree::setItemText( QListViewItem* item, const Difference* d )
+{
+	item->setText( COL_SOURCE, i18n( "Line %1" ).arg( d->sourceLineNumber() ) );
+	item->setText( COL_DESTINATION, i18n( "Line %1" ).arg( d->destinationLineNumber() ) );
+
+	QString text = "";
+	switch( d->type() ) {
+	case Difference::Change:
+		text = i18n( "Changed line", "Changed lines", QMAX( d->sourceLineCount(),
+		                                                    d->destinationLineCount() ) );
+		break;
+	case Difference::Insert:
+		text = i18n( "Inserted line", "Inserted lines", d->destinationLineCount() );
+		break;
+	case Difference::Delete:
+	default:
+		text = i18n( "Deleted line", "Deleted lines", d->sourceLineCount() );
+		break;
+	}
+	if( d->applied() ) {
+		text = i18n( "Applied: %1" ).arg( text );
+	}
+	item->setText( COL_DIFFERENCE, text );
 }
 
 QListViewItem* KDiffNavigationTree::firstItem()
@@ -151,16 +168,7 @@ QListViewItem* KDiffNavigationTree::lastItem()
 
 void KDiffNavigationTree::slotSetSelection( int model, int diff )
 {
-	QListViewItem* current;
-
-	for( current = firstItem(); model > 0; model-- ) {
-		current = current->nextSibling();
-	}
-
-	for( current = current->firstChild(); diff > 0; diff-- ) {
-		current = current->nextSibling();
-	}
-
+	QListViewItem* current = m_itemDict[ m_models->modelAt( model )->differenceAt( diff ) ];
 	setSelected( current, true );
 }
 
@@ -179,6 +187,11 @@ void KDiffNavigationTree::slotSelectionChanged( QListViewItem* item )
 	}
 
 	emit selectionChanged( model, diff );
+}
+
+void KDiffNavigationTree::slotAppliedChanged( const Difference* d )
+{
+	setItemText( m_itemDict[(void*)d], d );
 }
 
 #include "kdiffnavigationtree.moc"

@@ -78,10 +78,12 @@ protected:
 	void readProperties(KConfig *);
 
 private slots:
+	void slotSetStatusBarText( const QString& text );
 	void slotFileCompareFiles();
 	void slotFileOpen();
 	void optionsShowToolbar();
 	void optionsShowStatusbar();
+	void slotShowTextView();
 	void optionsConfigureKeys();
 	void optionsConfigureToolbars();
 	void updateStatusBar();
@@ -95,9 +97,11 @@ private:
 	KURL             m_source;
 	KURL             m_destination;
 	KDiffPart*       m_part;
-
+	KDockWidget*     m_textView;
+	
 	KToggleAction*   m_toolbarAction;
 	KToggleAction*   m_statusbarAction;
+	KToggleAction*   m_showTextView;
 };
 
 #endif // KDIFF_H

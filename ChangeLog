@@ -1,3 +1,9 @@
+july   12, 2001 : John Firebaugh
+	When comparing files, you can apply or unapply changes and save
+	the result.
+	New menu item "Show Text View" (loads the diff in embedded text viewer).
+	Better status notification.
+	Set the window caption when comparing.
 june   27, 2001 : John Firebaugh
 	Ported main view to QListView
 	Remove obsolete files

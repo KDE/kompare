@@ -24,6 +24,7 @@
 const QColor GeneralSettings::default_removeColor(190, 237, 190);
 const QColor GeneralSettings::default_changeColor(237, 190, 190);
 const QColor GeneralSettings::default_addColor(190, 190, 237);
+const QColor GeneralSettings::default_appliedColor(237, 237, 190);
 
 GeneralSettings::GeneralSettings( QWidget* parent ) : SettingsBase( parent )
 {
@@ -41,6 +42,7 @@ void GeneralSettings::loadSettings( KConfig* config )
 	m_removeColor = config->readColorEntry( "RemoveColor", &default_removeColor );
 	m_changeColor = config->readColorEntry( "ChangeColor", &default_changeColor );
 	m_addColor = config->readColorEntry( "AddColor", &default_addColor );
+	m_appliedColor = config->readColorEntry( "AppliedColor", &default_appliedColor );
 	SettingsBase::loadSettings( config );
 };
 
@@ -50,20 +52,25 @@ void GeneralSettings::saveSettings( KConfig* config )
 	config->writeEntry( "RemoveColor", m_removeColor );
 	config->writeEntry( "ChangeColor", m_changeColor );
 	config->writeEntry( "AddColor", m_addColor );
+	config->writeEntry( "AppliedColor", m_appliedColor );
 	SettingsBase::saveSettings( config );
 };
 
-QColor GeneralSettings::getColorForDifferenceType( Difference::Type type, bool selected )
+QColor GeneralSettings::getColorForDifferenceType( Difference::Type type, bool selected, bool applied )
 {
 	QColor color;
-	switch( type ) {
-		case Difference::Unchanged: color = white; break;
-		case Difference::Change:    color = m_changeColor; break;
-		case Difference::Insert:    color = m_addColor; break;
-		case Difference::Delete:    color = m_removeColor; break;
-		default: break;
+	if( applied ) {
+		color = m_appliedColor;
+	} else {
+		switch( type ) {
+			case Difference::Unchanged: color = white; break;
+			case Difference::Change:    color = m_changeColor; break;
+			case Difference::Insert:    color = m_addColor; break;
+			case Difference::Delete:    color = m_removeColor; break;
+			default: break;
+		}
 	}
-
+	
 	if( selected ) {
 		color = color.light( 105 );
 	}

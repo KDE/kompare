@@ -18,10 +18,14 @@
 #include <qfile.h>
 #include <qtextstream.h>
 
+#include <ktempfile.h>
+#include <kio/netaccess.h>
 #include <klocale.h>
 #include <kdebug.h>
 
 #include "diffmodel.h"
+#include "diffhunk.h"
+#include "difference.h"
 #include "kdiffprocess.h"
 
 #include "kdiffmodellist.h"
@@ -122,6 +126,51 @@ void KDiffModelList::slotWriteDiffOutput( bool success )
 	
 	delete m_diffProcess;
 	m_diffProcess = 0;
+}
+
+void KDiffModelList::saveDestination( int index )
+{
+	DiffModel* model = modelAt( index );
+	KTempFile* temp = new KTempFile();
+	
+	if( temp->status() != 0 ) {
+		emit error( i18n( "Could not open file." ) );
+		return;
+	}
+	
+	QTextStream* stream = temp->textStream();
+	
+	QListIterator<DiffHunk> hunkIt( model->getHunks() );
+	for( ; hunkIt.current(); ++hunkIt ) {
+		DiffHunk* hunk = hunkIt.current();
+		
+		QListIterator<Difference> diffIt(hunk->getDifferences());
+		
+		for( ; diffIt.current(); ++diffIt ) {
+			Difference* diff = diffIt.current();
+			
+			QStringList list;
+			if( !diff->applied() )
+				list = diff->destinationLines();
+			else
+				list = diff->sourceLines();
+			
+			QString lines = list.join( "\n" );
+			if( !lines.isEmpty() )
+				*stream << list.join( "\n" ) << "\n";
+		}
+	}
+	
+	temp->close();
+	if( temp->status() != 0 ) {
+		emit error( i18n( "Could not write to file." ) );
+		return;
+	}
+	
+	KIO::NetAccess::upload( temp->name(), m_destinationURL );
+	
+	temp->unlink();
+	delete temp;
 }
 
 int KDiffModelList::parseDiffs( const QStringList& lines )

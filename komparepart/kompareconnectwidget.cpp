@@ -51,8 +51,15 @@ void KDiffConnectWidget::slotSetSelection( int model, int diff ) {
 	if( m_selectedModel == model && m_selectedDiff == diff )
 		return;
 	
+	disconnect( m_models->modelAt( m_selectedModel ), SIGNAL( appliedChanged( const Difference* ) ),
+	            this, SLOT( repaint() ) );
+	
 	m_selectedModel = model;
 	m_selectedDiff = diff;
+	
+	connect( m_models->modelAt( m_selectedModel ), SIGNAL( appliedChanged( const Difference* ) ),
+	            this, SLOT( repaint() ) );
+	
 	repaint();
 }
 
@@ -108,8 +115,8 @@ void KDiffConnectWidget::paintEvent( QPaintEvent* /* e */ )
 				QPointArray topBezier = makeTopBezier( tl, tr );
 				QPointArray bottomBezier = makeBottomBezier( bl, br );
 
-				p->setPen( m_settings->getColorForDifferenceType( d->type(), selected ) );
-				p->setBrush( m_settings->getColorForDifferenceType( d->type(), selected ) );
+				p->setPen( m_settings->getColorForDifferenceType( d->type(), selected, d->applied() ) );
+				p->setBrush( m_settings->getColorForDifferenceType( d->type(), selected, d->applied() ) );
 				p->drawPolygon ( makeConnectPoly( topBezier, bottomBezier ) );
 
 				if( selected ) {

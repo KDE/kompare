@@ -35,6 +35,8 @@
 #include <klibloader.h>
 #include <kmessagebox.h>
 #include <kfiledialog.h>
+#include <ktrader.h>
+#include <kdebug.h>
 
 #include "kdiff_part.h"
 #include "kcomparedialog.h"
@@ -44,7 +46,8 @@
 #define ID_GENERAL                 3
 
 KDiffShell::KDiffShell()
-	: KParts::DockMainWindow( 0L, "KDiffShell" )
+	: KParts::DockMainWindow( 0L, "KDiffShell" ),
+	m_textView( 0 )
 {
 	if ( !initialGeometrySet() )
 	resize( 800, 480 );
@@ -85,6 +88,7 @@ KDiffShell::KDiffShell()
 			navDock->manualDock( mainDock, KDockWidget::DockTop, 20 );
 
 			connect( m_part, SIGNAL(selectionChanged(int,int)), this, SLOT(updateStatusBar()));
+			connect( m_part, SIGNAL(appliedChanged()), this, SLOT(updateStatusBar()));
 
 			// and integrate the part's GUI with the shell's
 			createGUI(m_part);
@@ -132,7 +136,9 @@ void KDiffShell::setupActions()
 
 	m_toolbarAction = KStdAction::showToolbar(this, SLOT(optionsShowToolbar()), actionCollection());
 	m_statusbarAction = KStdAction::showStatusbar(this, SLOT(optionsShowStatusbar()), actionCollection());
-
+	m_showTextView = new KToggleAction( i18n("Show &Text View"), 0, this, SLOT(slotShowTextView()),
+	                                  actionCollection(), "options_show_text_view" );
+	
 	KStdAction::keyBindings(this, SLOT(optionsConfigureKeys()), actionCollection());
 	KStdAction::configureToolbars(this, SLOT(optionsConfigureToolbars()), actionCollection());
 }
@@ -143,6 +149,7 @@ void KDiffShell::setupStatusBar()
 	statusBar()->insertItem( i18n(" 0 of 0 differences "), ID_N_OF_N_DIFFERENCES, 0, true );
 	statusBar()->insertItem( i18n(" 0 of 0 files "), ID_N_OF_N_FILES, 0, true );
 	statusBar()->insertItem( "", ID_GENERAL, 1 );
+	statusBar()->setItemAlignment( ID_GENERAL, AlignLeft );
 }
 
 void KDiffShell::updateStatusBar()
@@ -152,20 +159,26 @@ void KDiffShell::updateStatusBar()
 	int modelIndex = m_part->getSelectedModelIndex();
 	int modelCount = m_part->modelCount();
 	if (modelIndex >= 0) {
-		fileStr = i18n(" %1 of %2 %3 ").arg(modelIndex+1).arg(modelCount);
+		fileStr = i18n( " %1 of %2 file ", " %1 of %2 files ", modelCount )
+		          .arg(modelIndex+1).arg(modelCount);
 		int diffIndex = m_part->getSelectedDifferenceIndex();
 		int diffCount = m_part->getSelectedModel()->differenceCount();
+		int appliedCount = m_part->appliedCount();
 		if (diffIndex >= 0)
-			diffStr = i18n(" %1 of %2 %3 ").arg(diffIndex+1).arg(diffCount);
+			diffStr = i18n(" %1 of %2 difference, %3 applied ", " %1 of %2 differences, %3 applied ", diffCount )
+			          .arg(diffIndex+1).arg(diffCount).arg(appliedCount);
 		else
-			diffStr = i18n(" %1 %3 ").arg(diffCount);
-		diffStr = diffStr.arg( diffCount == 1 ? i18n("difference") : i18n("differences") );
+			diffStr = i18n(" %1 difference ", " %1 differences ", diffCount ).arg(diffCount);
 	} else {
-		fileStr = i18n(" %1 %3 ").arg(modelCount);
+		fileStr = i18n( " %1 file ", " %1 files ", modelCount ).arg( modelCount );
 	}
-	fileStr = fileStr.arg( modelCount == 1 ? i18n("file") : i18n("files") );
 	statusBar()->changeItem( fileStr, ID_N_OF_N_FILES );
 	statusBar()->changeItem( diffStr, ID_N_OF_N_DIFFERENCES );
+}
+
+void KDiffShell::slotSetStatusBarText( const QString& text )
+{
+	statusBar()->changeItem( text, ID_GENERAL );
 }
 
 void KDiffShell::saveProperties(KConfig* /*config*/)
@@ -224,6 +237,29 @@ void KDiffShell::optionsShowStatusbar()
 		statusBar()->show();
 	else
 		statusBar()->hide();
+}
+
+void KDiffShell::slotShowTextView()
+{
+	if( !m_textView ) {
+		
+		KTrader::OfferList offers = KTrader::self()->query( "text/plain", "KParts/ReadOnlyPart", QString::null, QString::null );
+		KService::Ptr ptr = offers.first();
+		KLibFactory* factory = KLibLoader::self()->factory( ptr->library() );
+		
+		m_textView = createDockWidget( i18n("Text View"), ptr->pixmap( KIcon::Small ) );
+		
+		KParts::ReadOnlyPart* part = 0;
+		if( factory )
+			part = static_cast<KParts::ReadOnlyPart *>(factory->create(m_textView, ptr->name(), "KParts::ReadOnlyPart"));
+		
+		if( part ) {
+			m_textView->setWidget( part->widget() );
+			part->openURL( m_part->url() );
+		}
+	}
+	
+	m_textView->manualDock( getMainDockWidget(), KDockWidget:: DockCenter );
 }
 
 void KDiffShell::optionsConfigureKeys()

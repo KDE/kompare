@@ -30,7 +30,8 @@
 /**  */
 DiffModel::DiffModel()
 	: m_sourceFile( i18n( "Source" ) ),
-	m_destinationFile( i18n( "Destination" ) )
+	m_destinationFile( i18n( "Destination" ) ),
+	m_appliedCount( 0 )
 {
 };
 
@@ -129,7 +130,6 @@ int DiffModel::parseContextDiff( const QStringList& list, QStringList::ConstIter
 		if ( ( pos = QRegExp( "^\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*" ).match( line, 0, &len ) ) < 0 ) return 1; // weirdness has happened
 		// ok we found a hunk...
 		kdDebug() << "We found the start of a hunk" << endl;
-		m_noOfHunks++;
 
 		++it;
 
@@ -458,7 +458,6 @@ int DiffModel::parseNormalDiff( const QStringList& list, QStringList::ConstItera
 		kdDebug() << line << endl;
 
 		if ( ( pos = QRegExp( "^[0-9]+" ).match( line, 0, &len ) ) < 0 ) return 1;
-		m_noOfHunks++;
 		linenoA = line.mid( pos, len ).toInt();
 		kdDebug() << "LinenoA: " << linenoA << endl;
 		line.replace( QRegExp( "^[0-9]+" ), "" );
@@ -705,7 +704,6 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 		line = (*it);
 
 		if ( line.find( QRegExp( "^@@ -" ), 0 ) < 0 ) return 1;
-		m_noOfHunks++;
 
 		// strip off the begin of the hunk header
 		line.replace( QRegExp( "^@@ -" ), "" );
@@ -776,6 +774,10 @@ int DiffModel::parseUnifiedDiff( const QStringList& list, QStringList::ConstIter
 void DiffModel::toggleApplied( int diffIndex )
 {
 	Difference* d = m_differences.at( diffIndex );
+	if( d->applied() )
+		m_appliedCount--;
+	else
+		m_appliedCount++;
 	d->toggleApplied();
 	emit appliedChanged( d );
 }

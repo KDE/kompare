@@ -33,20 +33,22 @@ public:
 	static const QColor default_removeColor;
 	static const QColor default_changeColor;
 	static const QColor default_addColor;
-
+	static const QColor default_appliedColor;
+	
 	GeneralSettings( QWidget* parent );
 	~GeneralSettings();
 public:
 	// some virtual functions that will be overloaded from the base class
 	virtual void loadSettings( KConfig* config );
 	virtual void saveSettings( KConfig* config );
-	QColor getColorForDifferenceType( Difference::Type type, bool selected = false );
+	QColor getColorForDifferenceType( Difference::Type type, bool selected = false, bool applied = false );
 
 public:
 	bool m_showEntireFile;
 	QColor m_removeColor;
 	QColor m_changeColor;
 	QColor m_addColor;
+	QColor m_appliedColor;
 };
 
 #endif

@@ -51,6 +51,7 @@ public:
 	KColorButton* m_removedColorButton;
 	KColorButton* m_changedColorButton;
 	KColorButton* m_addedColorButton;
+	KColorButton* m_appliedColorButton;
 };
 
 #endif

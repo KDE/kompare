@@ -21,6 +21,7 @@
 #define KDIFFNAVIGATIONTREE_H
 
 #include <qlist.h>
+#include <qptrdict.h>
 
 #include <klistview.h>
 
@@ -44,13 +45,16 @@ signals:
 private slots:
 	void slotSelectionChanged( QListViewItem* item );
 	void slotAddModel( DiffModel * );
-
+	void slotAppliedChanged( const Difference* d );
+	
 private:
+	void setItemText( QListViewItem* item, const Difference* d );
 	QListViewItem* firstItem();
 	QListViewItem* lastItem();
 
-	KDiffModelList*   m_models;
-	QListViewItem*    m_rootItem;
+	KDiffModelList*          m_models;
+	QListViewItem*           m_rootItem;
+	QPtrDict<QListViewItem>  m_itemDict;
 };
 
 #endif

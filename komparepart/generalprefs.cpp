@@ -54,7 +54,7 @@ GeneralPrefs::GeneralPrefs( QWidget* parent ) : PrefsBase( parent )
 	m_removedColorButton = new KColorButton( colorGroupBox );
 	label->setBuddy( m_removedColorButton );
 
-        	// add the changeColor
+	// add the changeColor
 	label = new QLabel( i18n( "Changed color:" ), colorGroupBox );
 	m_changedColorButton = new KColorButton( colorGroupBox );
 	label->setBuddy( m_changedColorButton );
@@ -63,6 +63,11 @@ GeneralPrefs::GeneralPrefs( QWidget* parent ) : PrefsBase( parent )
 	label = new QLabel( i18n( "Added color:" ), colorGroupBox );
 	m_addedColorButton = new KColorButton( colorGroupBox );
 	label->setBuddy( m_addedColorButton );
+	
+	// add the appliedColor
+	label = new QLabel( i18n( "Applied color:" ), colorGroupBox );
+	m_appliedColorButton = new KColorButton( colorGroupBox );
+	label->setBuddy( m_appliedColorButton );
 
 	m_showEntireFile = new QCheckBox( i18n( "Show entire file when comparing" ), page );
 	layout->addWidget( m_showEntireFile );
@@ -86,6 +91,7 @@ void GeneralPrefs::setSettings( GeneralSettings* setts )
 	m_addedColorButton->setColor( m_settings->m_addColor );
 	m_changedColorButton->setColor( m_settings->m_changeColor );
 	m_removedColorButton->setColor( m_settings->m_removeColor );
+	m_appliedColorButton->setColor( m_settings->m_appliedColor );
 };
 
 GeneralSettings* GeneralPrefs::getSettings( void )
@@ -106,7 +112,8 @@ void GeneralPrefs::apply()
 	setts->m_addColor = m_addedColorButton->color();
 	setts->m_changeColor = m_changedColorButton->color();
 	setts->m_removeColor = m_removedColorButton->color();
-
+	setts->m_appliedColor = m_appliedColorButton->color();
+	
 	setts->emitSettingsChanged();
 };
 
@@ -116,4 +123,5 @@ void GeneralPrefs::setDefaults()
 	m_addedColorButton->setColor( GeneralSettings::default_addColor );
 	m_changedColorButton->setColor( GeneralSettings::default_changeColor );
 	m_removedColorButton->setColor( GeneralSettings::default_removeColor );
+	m_appliedColorButton->setColor( GeneralSettings::default_appliedColor );
 };

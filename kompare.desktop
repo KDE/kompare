@@ -53,4 +53,4 @@ Icon=kompare
 DocPath=kompare/index.html
 Terminal=0
 X-DCOP-ServiceType=Multi
-Categories=QT;KDE;Development
+Categories=Qt;KDE;Development

@@ -2,8 +2,8 @@
                                 kompare_shell.cpp  -  description
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2001-2003 John Firebaugh
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
@@ -233,7 +233,6 @@ void KompareShell::setupActions()
 	              this, SLOT(slotFileBlendURLAndDiff()),
 	              actionCollection(), "file_blend_url" );
 	KStdAction::close( this, SLOT( slotFileClose() ), actionCollection() );
-	KStdAction::quit( kapp, SLOT( quit() ), actionCollection() );
 
 #if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 	createStandardStatusBarAction();
@@ -349,6 +348,7 @@ void KompareShell::slotFileOpen()
 	KURL url = KFileDialog::getOpenURL( QString::null, "text/x-diff", this );
 	if( !url.isEmpty() ) {
 		KompareShell* shell = new KompareShell();
+		kapp->ref();
 		shell->show();
 		shell->openDiff( url );
 	}
@@ -375,6 +375,7 @@ void KompareShell::slotFileBlendURLAndDiff()
 		m_sourceURL = dialog->getFirstURL();
 		m_destinationURL = dialog->getSecondURL();
 		KompareShell* shell = new KompareShell();
+		kapp->ref();
 		shell->show();
 		shell->blend( m_sourceURL, m_destinationURL );
 	}
@@ -402,6 +403,7 @@ void KompareShell::slotFileCompareFiles()
 		m_sourceURL = dialog->getFirstURL();
 		m_destinationURL = dialog->getSecondURL();
 		KompareShell* shell = new KompareShell();
+		kapp->ref();
 		shell->show();
 		shell->compare( m_sourceURL, m_destinationURL );
 	}
@@ -411,7 +413,10 @@ void KompareShell::slotFileCompareFiles()
 void KompareShell::slotFileClose()
 {
 	if ( m_viewPart->queryClose() )
+	{
 		delete this;
+		kapp->deref();
+	}
 }
 
 void KompareShell::slotShowTextView()

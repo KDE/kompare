@@ -205,14 +205,16 @@ bool KomparePart::openDiff( const KURL& url )
 
 bool KomparePart::openDiff( const QString& diffOutput )
 {
-	bool value;
+	bool value = false;
 
 	emit kompareInfo( &m_info );
 
 	m_info.mode = Kompare::ShowingDiff;
 
-	if ( (value = m_modelList->parseDiffOutput( QStringList::split( "\n", diffOutput ) ) ) )
+	if ( m_modelList->parseDiffOutput( QStringList::split( "\n", diffOutput ) ) == 0 )
 	{
+		value = true;
+		m_modelList->show();
 		updateActions();
 		updateStatus();
 	}
@@ -221,14 +223,16 @@ bool KomparePart::openDiff( const QString& diffOutput )
 
 bool KomparePart::openDiff( const QStringList& diffOutput )
 {
-	bool value;
+	bool value = false;
 
 	emit kompareInfo( &m_info );
 
 	m_info.mode = Kompare::ShowingDiff;
 
-	if ( (value = m_modelList->parseDiffOutput( diffOutput ) ) )
+	if ( m_modelList->parseDiffOutput( diffOutput ) == 0 )
 	{
+		value = true;
+		m_modelList->show();
 		updateActions();
 		updateStatus();
 	}

@@ -231,6 +231,18 @@ bool KomparePart::openDiff( const QString& diffOutput )
 	return value;
 }
 
+bool KomparePart::openDiff( const QStringList& diffOutput )
+{
+	bool value;
+
+	if ( (value = m_modelList->parseDiffOutput( diffOutput ) ) == true )
+	{
+		updateActions();
+		updateStatus();
+	}
+	return value;
+}
+
 bool KomparePart::openDiff3( const KURL& diff3Url )
 {
 	// FIXME: Implement this !!!

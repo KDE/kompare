@@ -19,8 +19,8 @@ kde_module_LTLIBRARIES = libkomparenavtreepart.la
 libkomparenavtreepart_la_SOURCES = \
 	komparenavtreepart.cpp
 
-libkomparenavtreepart_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
-libkomparenavtreepart_la_LIBADD  = $(LIB_KPARTS) $(top_builddir)/kompare/libdiff2/libdiff2.la
+libkomparenavtreepart_la_LDFLAGS = $(KDE_PLUGIN) $(all_libraries)
+libkomparenavtreepart_la_LIBADD  = $(LIB_KPARTS) ../libdiff2/libdiff2.la
 
 # this is where the desktop file will go
 partdesktopdir   = $(kde_servicesdir)

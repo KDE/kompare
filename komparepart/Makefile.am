@@ -46,9 +46,8 @@ libkomparepart_la_SOURCES = \
 	komparesaveoptionsbase.ui \
 	komparesaveoptionswidget.cpp
 
-libkomparepart_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
-libkomparepart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE) \
-	$(top_builddir)/kompare/libdiff2/libdiff2.la
+libkomparepart_la_LDFLAGS = $(KDE_PLUGIN) $(all_libraries)
+libkomparepart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KIO) ../libdiff2/libdiff2.la
 
 # this is where the desktop file will go
 partdesktopdir   = $(kde_servicesdir)

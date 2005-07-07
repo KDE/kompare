@@ -406,7 +406,7 @@ bool KomparePart::openFile()
 {
 	// This is called from openURL
 	// This is a little inefficient but i will do it anyway
-	openDiff( KURL( m_file ) );
+	openDiff( m_url );
 	return true;
 }
 

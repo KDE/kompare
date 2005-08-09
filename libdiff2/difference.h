@@ -210,7 +210,7 @@ private:
 	bool                  m_applied;
 	bool                  m_conflicts;
 
-	LevenshteinTable*     m_table;
+	LevenshteinTable*     m_tableXXX; // now unused
 };
 
 typedef QValueList<Difference*> DifferenceList;

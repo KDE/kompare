@@ -682,7 +682,7 @@ KParts::Part* KompareNavTreePartFactory::createPartObject( QWidget* parentWidget
 	// Create an instance of our Part
 	KompareNavTreePart* obj = new KompareNavTreePart( parentWidget, widgetName );
 
-	KGlobal::locale()->insertCatalogue("kompare");
+	KGlobal::locale()->insertCatalog("kompare");
 
 	return obj;
 }

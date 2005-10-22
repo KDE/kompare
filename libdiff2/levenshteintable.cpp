@@ -155,7 +155,7 @@ unsigned int LevenshteinTable::createTable( DifferenceString* source, Difference
 			west      = getContent( i-1, j ) + 1;
 			northwest = getContent( i-1, j-1 ) + cost;
 
-			setContent( i, j, kMin( north, kMin( west, northwest ) ) );
+			setContent( i, j, qMin( north, qMin( west, northwest ) ) );
 		}
 	}
 

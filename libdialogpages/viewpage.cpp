@@ -18,11 +18,13 @@
 ***************************************************************************/
 
 #include <qcheckbox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qhgroupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
 
 #include <kapplication.h>
 #include <kcolorbutton.h>
@@ -37,7 +39,7 @@ ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 {
 	QWidget*     page;
 	QVBoxLayout* layout;
-	QGroupBox*   colorGroupBox;
+	Q3GroupBox*   colorGroupBox;
 	QHGroupBox*  snolGroupBox;
 	QHGroupBox*  tabGroupBox;
 	QLabel*      label;
@@ -48,7 +50,7 @@ ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 	layout->setMargin( KDialog::marginHint() );
 
 	// add a groupbox
-	colorGroupBox = new QGroupBox( 2, Qt::Horizontal, i18n( "Colors" ), page );
+	colorGroupBox = new Q3GroupBox( 2, Qt::Horizontal, i18n( "Colors" ), page );
 	layout->addWidget( colorGroupBox );
 	colorGroupBox->setMargin( KDialog::marginHint() );
 

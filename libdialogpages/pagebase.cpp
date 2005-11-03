@@ -18,7 +18,7 @@
 ***************************************************************************/
 
 #include <qlayout.h>
-#include <qobjectlist.h>
+#include <qobject.h>
 
 #include "pagebase.h"
 
@@ -47,11 +47,13 @@ QSize PageBase::sizeHintForWidget( QWidget* widget )
 	QSize size;
 
 	int numChild = 0;
-	QObjectList *l = (QObjectList*)(widget->children());
+	QList<QObject*> l = widget->children();
 
-	for( uint i=0; i < l->count(); i++ )
+
+	
+	for( int i=0; i < l.count(); i++ )
 	{
-		QObject *o = l->at(i);
+		QObject *o = l.at(i);
 		if( o->isWidgetType() )
 		{
 			numChild += 1;

@@ -84,7 +84,7 @@ QColor ViewSettings::colorForDifferenceType( int type, bool selected, bool appli
 	{
 		type = type & 0xFFFFFFEF; // remove the AppliedByBlend
 		switch( type ) {
-			case Difference::Unchanged: color = white; break;
+				case Difference::Unchanged: color = Qt::white; break;
 			case Difference::Change:    color = m_changeColor; break;
 			case Difference::Insert:    color = m_addColor; break;
 			case Difference::Delete:    color = m_removeColor; break;

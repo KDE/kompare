@@ -22,7 +22,7 @@
 
 #include "pagebase.h"
 
-class QGroupBox;
+class Q3GroupBox;
 
 class QComboBox;
 class KComboBox;
@@ -65,9 +65,9 @@ protected slots:
 	void setSecondURL( const QString & );
 
 private:
-	QGroupBox*     m_firstGB;
-	QGroupBox*     m_secondGB;
-	QGroupBox*     m_thirdGB;
+	Q3GroupBox*     m_firstGB;
+	Q3GroupBox*     m_secondGB;
+	Q3GroupBox*     m_thirdGB;
 	KURLComboBox*  m_firstURLComboBox;
 	KURLComboBox*  m_secondURLComboBox;
 	KURLRequester* m_firstURLRequester;

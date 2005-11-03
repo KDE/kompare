@@ -26,7 +26,7 @@ class QCheckBox;
 class QDialog;
 class QSpinBox;
 class QStringList;
-class QVButtonGroup;
+class Q3VButtonGroup;
 class QWidget;
 
 class KLineEdit;
@@ -93,8 +93,8 @@ public:
 	// loc == lines of context
 	QSpinBox*      m_locSpinBox;
 
-	QVButtonGroup* m_modeButtonGroup;
-	QVButtonGroup* m_diffProgramGroup;
+	Q3VButtonGroup* m_modeButtonGroup;
+	Q3VButtonGroup* m_diffProgramGroup;
 };
 
 #endif

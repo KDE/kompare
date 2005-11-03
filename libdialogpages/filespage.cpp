@@ -17,7 +17,9 @@
 ***************************************************************************/
 
 #include <qlayout.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
 
 #include <kapplication.h>
 #include <kcharsets.h>
@@ -38,19 +40,19 @@ FilesPage::FilesPage( QWidget* parent ) : PageBase( parent ), m_URLChanged( fals
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
 
-	m_firstGB = new QGroupBox( 1, Qt::Vertical, "You have to set this moron :)", page );
+	m_firstGB = new Q3GroupBox( 1, Qt::Vertical, "You have to set this moron :)", page );
 	m_firstURLComboBox = new KURLComboBox( KURLComboBox::Both, true, m_firstGB, "SourceURLComboBox" );
 	m_firstURLRequester = new KURLRequester( m_firstURLComboBox, m_firstGB );
 	m_firstURLRequester->setFocus();
 
-	m_secondGB = new QGroupBox( 1, Qt::Vertical, "This too moron !", page );
+	m_secondGB = new Q3GroupBox( 1, Qt::Vertical, "This too moron !", page );
 	m_secondURLComboBox = new KURLComboBox( KURLComboBox::Both, true, m_secondGB, "DestURLComboBox" );
 	m_secondURLRequester = new KURLRequester( m_secondURLComboBox, m_secondGB );
 
 	connect( m_firstURLRequester, SIGNAL( urlSelected( const QString & ) ), SLOT( setSecondURL( const QString & ) ) );
 	connect( m_secondURLRequester, SIGNAL( urlSelected( const QString & ) ), SLOT( setFirstURL( const QString & ) ) );
 
-	m_thirdGB = new QGroupBox( 1, Qt::Vertical, i18n( "Encoding" ), page );
+	m_thirdGB = new Q3GroupBox( 1, Qt::Vertical, i18n( "Encoding" ), page );
 	m_encodingComboBox = new QComboBox( false, m_thirdGB, "encoding_combobox" );
 	m_encodingComboBox->insertStringList( KGlobal::charsets()->availableEncodingNames() );
 

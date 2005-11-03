@@ -20,6 +20,9 @@
 #include <qdir.h>
 #include <qstringlist.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3CString>
 
 #include <kcharsets.h>
 #include <kdebug.h>
@@ -239,7 +242,7 @@ bool KompareProcess::start()
 {
 #ifndef NDEBUG
 	QString cmdLine;
-	QValueList<QCString>::ConstIterator it = arguments.begin();
+	Q3ValueList<Q3CString>::ConstIterator it = arguments.begin();
 	for (; it != arguments.end(); ++it )
 	    cmdLine += "\"" + (*it) + "\" ";
 	kdDebug(8101) << cmdLine << endl;

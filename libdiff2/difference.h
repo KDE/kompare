@@ -20,8 +20,8 @@
 #ifndef DIFFERENCE_H
 #define DIFFERENCE_H
 
-#include <qvaluelist.h>
-#include <qvaluevector.h>
+#include <q3valuelist.h>
+#include <q3valuevector.h>
 
 #include <kdebug.h>
 
@@ -62,9 +62,9 @@ private:
 	unsigned int      m_offset;
 };
 
-typedef QValueList<Marker*> MarkerList;
-typedef QValueList<Marker*>::iterator MarkerListIterator;
-typedef QValueList<Marker*>::const_iterator MarkerListConstIterator;
+typedef Q3ValueList<Marker*> MarkerList;
+typedef Q3ValueList<Marker*>::iterator MarkerListIterator;
+typedef Q3ValueList<Marker*>::const_iterator MarkerListConstIterator;
 
 class DifferenceString
 {
@@ -148,9 +148,9 @@ private:
 	MarkerList   m_markerList;
 };
 
-typedef QValueVector<DifferenceString*> DifferenceStringList;
-typedef QValueVector<DifferenceString*>::iterator DifferenceStringListIterator;
-typedef QValueVector<DifferenceString*>::const_iterator DifferenceStringListConstIterator;
+typedef Q3ValueVector<DifferenceString*> DifferenceStringList;
+typedef Q3ValueVector<DifferenceString*>::iterator DifferenceStringListIterator;
+typedef Q3ValueVector<DifferenceString*>::const_iterator DifferenceStringListConstIterator;
 
 class Difference
 {
@@ -213,9 +213,9 @@ private:
 	LevenshteinTable*     m_table;
 };
 
-typedef QValueList<Difference*> DifferenceList;
-typedef QValueList<Difference*>::iterator DifferenceListIterator;
-typedef QValueList<Difference*>::const_iterator DifferenceListConstIterator;
+typedef Q3ValueList<Difference*> DifferenceList;
+typedef Q3ValueList<Difference*>::iterator DifferenceListIterator;
+typedef Q3ValueList<Difference*>::const_iterator DifferenceListConstIterator;
 
 } // End of namespace Diff2
 

@@ -19,21 +19,21 @@
 #ifndef DIFFMODELLIST_H
 #define DIFFMODELLIST_H
 
-#include <qvaluelist.h> // include for the base class
+#include <q3valuelist.h> // include for the base class
 
 #include "diffmodel.h"
 
 namespace Diff2
 {
 
-typedef QValueListIterator<DiffModel*> DiffModelListIterator;
-typedef QValueListConstIterator<DiffModel*> DiffModelListConstIterator;
+typedef Q3ValueListIterator<DiffModel*> DiffModelListIterator;
+typedef Q3ValueListConstIterator<DiffModel*> DiffModelListConstIterator;
 
-class DiffModelList : public QValueList<DiffModel*>
+class DiffModelList : public Q3ValueList<DiffModel*>
 {
 public:
 	DiffModelList() {}
-	DiffModelList( const DiffModelList &list ) : QValueList<DiffModel*>( list ) {}
+	DiffModelList( const DiffModelList &list ) : Q3ValueList<DiffModel*>( list ) {}
 	virtual ~DiffModelList()
 	{
 		clear();

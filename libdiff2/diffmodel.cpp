@@ -18,7 +18,7 @@
 ***************************************************************************/
 
 #include <qregexp.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 #include <kdebug.h>
 #include <klocale.h>

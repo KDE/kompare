@@ -21,7 +21,9 @@
 #include <qdir.h>
 #include <qregexp.h>
 #include <qtextcodec.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <QTextStream>
 
 #include <kaction.h>
 #include <kcharsets.h>
@@ -59,7 +61,7 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::
 	m_applyDifference    = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
 	                                 this, SLOT(slotActionApplyDifference()),
 	                                 (( KomparePart* )parent)->actionCollection(), "difference_apply" );
-	m_unApplyDifference  = new KAction( i18n("Un&apply Difference"), "1leftarrow", Qt::Key_BackSpace,
+	m_unApplyDifference  = new KAction( i18n("Un&apply Difference"), "1leftarrow", Qt::Key_Backspace,
 	                                 this, SLOT(slotActionUnApplyDifference()),
 	                                 (( KomparePart* )parent)->actionCollection(), "difference_unapply" );
 	m_applyAll           = new KAction( i18n("App&ly All"), "2rightarrow", Qt::CTRL + Qt::Key_A,
@@ -125,13 +127,13 @@ bool KompareModelList::compare( const QString& source, const QString& destinatio
 	else if ( !sourceIsDirectory && !destinationIsDirectory )
 	{
 		QFile sourceFile( source );
-		sourceFile.open( IO_ReadOnly );
+		sourceFile.open( QIODevice::ReadOnly );
 		QString sourceMimeType = ( KMimeType::findByContent( sourceFile.readAll() ) )->name();
 		sourceFile.close();
 		kdDebug(8101) << "Mimetype source     : " << sourceMimeType << endl;
 
 		QFile destinationFile( destination );
-		destinationFile.open( IO_ReadOnly );
+		destinationFile.open( QIODevice::ReadOnly );
 		QString destinationMimeType = ( KMimeType::findByContent( destinationFile.readAll() ) )->name();
 		destinationFile.close();
 		kdDebug(8101) << "Mimetype destination: " << destinationMimeType << endl;
@@ -504,7 +506,7 @@ QString KompareModelList::readFile( const QString& fileName )
 	QStringList list;
 
 	QFile file( fileName );
-	file.open( IO_ReadOnly );
+	file.open( QIODevice::ReadOnly );
 
 	QTextStream stream( &file );
 	kdDebug() << "Codec = " << m_textCodec << endl;

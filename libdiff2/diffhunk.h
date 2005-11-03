@@ -21,6 +21,8 @@
 #define DIFFHUNK_H
 
 #include "difference.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 namespace Diff2
 {
@@ -60,9 +62,9 @@ private:
 	Type           m_type;
 };
 
-typedef QValueList<DiffHunk*> DiffHunkList;
-typedef QValueList<DiffHunk*>::iterator DiffHunkListIterator;
-typedef QValueList<DiffHunk*>::const_iterator DiffHunkListConstIterator;
+typedef Q3ValueList<DiffHunk*> DiffHunkList;
+typedef Q3ValueList<DiffHunk*>::iterator DiffHunkListIterator;
+typedef Q3ValueList<DiffHunk*>::const_iterator DiffHunkListConstIterator;
 
 } // End of namespace Diff2
 

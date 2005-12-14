@@ -242,7 +242,7 @@ bool KompareProcess::start()
 {
 #ifndef NDEBUG
 	QString cmdLine;
-	Q3ValueList<Q3CString>::ConstIterator it = arguments.begin();
+	QList<QByteArray>::ConstIterator it = arguments.begin();
 	for (; it != arguments.end(); ++it )
 	    cmdLine += "\"" + (*it) + "\" ";
 	kdDebug(8101) << cmdLine << endl;

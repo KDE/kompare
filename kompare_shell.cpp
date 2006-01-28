@@ -188,7 +188,7 @@ bool KompareShell::queryClose()
 	return m_viewPart->queryClose();
 }
 
-void KompareShell::openDiff(const KURL& url)
+void KompareShell::openDiff(const KUrl& url)
 {
 	kdDebug(8102) << "Url = " << url.prettyURL() << endl;
 	m_diffURL = url;
@@ -212,7 +212,7 @@ void KompareShell::openStdin()
 
 }
 
-void KompareShell::compare(const KURL& source,const KURL& destination )
+void KompareShell::compare(const KUrl& source,const KUrl& destination )
 {
 	m_sourceURL = source;
 	m_destinationURL = destination;
@@ -221,7 +221,7 @@ void KompareShell::compare(const KURL& source,const KURL& destination )
 	m_viewPart->compare( source, destination );
 }
 
-void KompareShell::blend( const KURL& url1, const KURL& diff )
+void KompareShell::blend( const KUrl& url1, const KUrl& diff )
 {
 	m_sourceURL = url1;
 	m_destinationURL = diff;
@@ -356,7 +356,7 @@ void KompareShell::readProperties(KConfig* config)
 void KompareShell::slotFileOpen()
 {
 	// FIXME: use different filedialog which gets encoding
-	KURL url = KFileDialog::getOpenURL( QString::null, "text/x-diff", this );
+	KUrl url = KFileDialog::getOpenURL( QString::null, "text/x-diff", this );
 	if( !url.isEmpty() ) {
 		KompareShell* shell = new KompareShell();
 		kapp->ref();

@@ -46,8 +46,8 @@ public:
 	KompareURLDialog( QWidget* parent = 0, const char* name = 0 );
 	~KompareURLDialog();
 
-	KURL getFirstURL() const;
-	KURL getSecondURL() const;
+	KUrl getFirstURL() const;
+	KUrl getSecondURL() const;
 	QString encoding() const;
 
 	void setFirstGroupBoxTitle ( const QString& title );

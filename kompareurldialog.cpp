@@ -97,12 +97,12 @@ void KompareURLDialog::slotEnableOk()
 	                !m_filesPage->secondURLRequester()->url().isEmpty() );
 }
 
-KURL KompareURLDialog::getFirstURL() const
+KUrl KompareURLDialog::getFirstURL() const
 {
 	return KURL( m_filesPage->firstURLRequester()->url() );
 }
 
-KURL KompareURLDialog::getSecondURL() const
+KUrl KompareURLDialog::getSecondURL() const
 {
 	return KURL( m_filesPage->secondURLRequester()->url() );
 }

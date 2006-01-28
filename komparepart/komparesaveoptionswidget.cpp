@@ -41,13 +41,13 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 	m_directoryRequester->setMode( static_cast<KFile::Mode>(
 	    KFile::ExistingOnly | KFile::Directory | KFile::LocalOnly ) );
 
-	KURL sourceURL;
-	KURL destinationURL;
+	KUrl sourceURL;
+	KUrl destinationURL;
 	sourceURL.setPath( source );
 	destinationURL.setPath( destination );
 
 	// Find a common root.
-	KURL root( sourceURL );
+	KUrl root( sourceURL );
 	while( root.isValid() && !root.isParentOf( destinationURL ) ) {
 		root = root.upURL();
 	}

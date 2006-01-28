@@ -117,9 +117,9 @@ int main(int argc, char *argv[])
 			{
 				ks = new KompareShell();
 				ks->show();
-				KURL url0 = args->url( 0 );
+				KUrl url0 = args->url( 0 );
 				kdDebug( 8100 ) << "URL0 = " << url0.url() << endl;
-				KURL url1 = args->url( 1 );
+				KUrl url1 = args->url( 1 );
 				kdDebug( 8100 ) << "URL1 = " << url1.url() << endl;
 				ks->compare( url0, url1 );
 				difault = false;
@@ -138,9 +138,9 @@ int main(int argc, char *argv[])
 				ks = new KompareShell();
 				ks->show();
 				kdDebug( 8100 ) << "blend..." << endl;
-				KURL url0 = args->url( 0 );
+				KUrl url0 = args->url( 0 );
 				kdDebug( 8100 ) << "URL0 = " << url0.url() << endl;
-				KURL url1 = args->url( 1 );
+				KUrl url1 = args->url( 1 );
 				kdDebug( 8100 ) << "URL1 = " << url1.url() << endl;
 				ks->blend( url0, url1 );
 				difault = false;
@@ -166,9 +166,9 @@ int main(int argc, char *argv[])
 			ks = new KompareShell();
 			ks->show();
 			kdDebug( 8100 ) << "Dunno, we'll have to figure it out later, trying compare for now..." << endl;
-			KURL url0 = args->url( 0 );
+			KUrl url0 = args->url( 0 );
 			kdDebug( 8100 ) << "URL0 = " << url0.url() << endl;
-			KURL url1 = args->url( 1 );
+			KUrl url1 = args->url( 1 );
 			kdDebug( 8100 ) << "URL1 = " << url1.url() << endl;
 			ks->compare( url0, url1 );
 			difault = false;

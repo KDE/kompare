@@ -33,7 +33,8 @@ class QWidget;
 
 class KTempFile;
 class KToggleAction;
-class KURL;
+class KUrl;
+class KAboutData;
 
 namespace Diff2 {
 class Difference;
@@ -93,34 +94,34 @@ public:
 	/**
 	 * Open and parse the diff file at diffUrl.
 	 */
-	virtual bool openDiff( const KURL& diffUrl );
+	virtual bool openDiff( const KUrl& diffUrl );
 
 	/** Added on request of Harald Fernengel */
 	virtual bool openDiff( const QString& diffOutput );
 
 	/** Open and parse the diff3 file at diff3Url */
-	virtual bool openDiff3( const KURL& diff3URL );
+	virtual bool openDiff3( const KUrl& diff3URL );
 
 	/** Open and parse the file diff3Output with the output of diff3 */
 	virtual bool openDiff3( const QString& diff3Output );
 
 	/** Compare, with diff, source with destination */
-	virtual void compare( const KURL& sourceFile, const KURL& destinationFile );
+	virtual void compare( const KUrl& sourceFile, const KUrl& destinationFile );
 
 	/** Compare, with diff, source with destination */
-	virtual void compareFiles( const KURL& sourceFile, const KURL& destinationFile );
+	virtual void compareFiles( const KUrl& sourceFile, const KUrl& destinationFile );
 
 	/** Compare, with diff, source with destination */
-	virtual void compareDirs ( const KURL& sourceDir, const KURL& destinationDir );
+	virtual void compareDirs ( const KUrl& sourceDir, const KUrl& destinationDir );
 
 	/** Compare, with diff3, originalFile with changedFile1 and changedFile2 */
-	virtual void compare3Files( const KURL& originalFile, const KURL& changedFile1, const KURL& changedFile2 );
+	virtual void compare3Files( const KUrl& originalFile, const KUrl& changedFile1, const KUrl& changedFile2 );
 
 	/** This will show the file and the file with the diff applied */
-	virtual void openFileAndDiff( const KURL& file, const KURL& diffFile );
+	virtual void openFileAndDiff( const KUrl& file, const KUrl& diffFile );
 
 	/** This will show the directory and the directory with the diff applied */
-	virtual void openDirAndDiff ( const KURL& dir,  const KURL& diffFile );
+	virtual void openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile );
 
 	/** Reimplementing this because this one knows more about the real part then the interface */
 	virtual void setEncoding( const QString& encoding );
@@ -171,14 +172,14 @@ signals:
 protected:
 	/**
 	 * This is the method that gets called when the file is opened,
-	 * when using openURL( const KURL& ) or in our case also openDiff( const KURL& );
+	 * when using openURL( const KUrl& ) or in our case also openDiff( const KUrl& );
 	 * return true when everything went ok, false if there were problems
 	 */
 	virtual bool openFile();
 	virtual bool saveFile() { return true; };
 
 	// patchFile
-	bool patchFile(KURL&);
+	bool patchFile(KUrl&);
 	bool patchDir();
 
 protected slots:
@@ -196,8 +197,8 @@ private:
 	void cleanUpTemporaryFiles();
 	void setupActions();
 	bool exists( const QString& url );
-	bool isDirectory( const KURL& url );
-	const QString fetchURL( const KURL& url );
+	bool isDirectory( const KUrl& url );
+	const QString fetchURL( const KUrl& url );
 
 private:
 	// Uhm why were these static again ???

@@ -192,7 +192,7 @@ void KomparePart::setEncoding( const QString& encoding )
 	m_modelList->setEncoding( encoding );
 }
 
-bool KomparePart::openDiff( const KURL& url )
+bool KomparePart::openDiff( const KUrl& url )
 {
 	kdDebug(8103) << "Url = " << url.url() << endl;
 
@@ -238,7 +238,7 @@ bool KomparePart::openDiff( const QString& diffOutput )
 	return value;
 }
 
-bool KomparePart::openDiff3( const KURL& diff3Url )
+bool KomparePart::openDiff3( const KUrl& diff3Url )
 {
 	// FIXME: Implement this !!!
 	kdDebug(8103) << "Not implemented yet. Filename is: " << diff3Url.url() << endl;
@@ -259,7 +259,7 @@ bool KomparePart::exists( const QString& url )
 	return fi.exists();
 }
 
-const QString KomparePart::fetchURL( const KURL& url )
+const QString KomparePart::fetchURL( const KUrl& url )
 {
 	QString tempFileName( "" );
 	if ( !url.isLocalFile() )
@@ -293,7 +293,7 @@ void KomparePart::cleanUpTemporaryFiles()
 		KIO::NetAccess::removeTempFile( m_info.localDestination );
 }
 
-void KomparePart::compare( const KURL& source, const KURL& destination )
+void KomparePart::compare( const KUrl& source, const KUrl& destination )
 {
 	m_info.source = source;
 	m_info.destination = destination;
@@ -312,7 +312,7 @@ void KomparePart::compare( const KURL& source, const KURL& destination )
 	}
 }
 
-void KomparePart::compareFiles( const KURL& sourceFile, const KURL& destinationFile )
+void KomparePart::compareFiles( const KUrl& sourceFile, const KUrl& destinationFile )
 {
 	emit kompareInfo( &m_info );
 
@@ -333,7 +333,7 @@ void KomparePart::compareFiles( const KURL& sourceFile, const KURL& destinationF
 	}
 }
 
-void KomparePart::compareDirs( const KURL& sourceDirectory, const KURL& destinationDirectory )
+void KomparePart::compareDirs( const KUrl& sourceDirectory, const KUrl& destinationDirectory )
 {
 	emit kompareInfo( &m_info );
 
@@ -354,7 +354,7 @@ void KomparePart::compareDirs( const KURL& sourceDirectory, const KURL& destinat
 	}
 }
 
-void KomparePart::compare3Files( const KURL& /*originalFile*/, const KURL& /*changedFile1*/, const KURL& /*changedFile2*/ )
+void KomparePart::compare3Files( const KUrl& /*originalFile*/, const KUrl& /*changedFile1*/, const KUrl& /*changedFile2*/ )
 {
 	// FIXME: actually implement this some day :)
 	updateActions();
@@ -362,7 +362,7 @@ void KomparePart::compare3Files( const KURL& /*originalFile*/, const KURL& /*cha
 	updateStatus();
 }
 
-void KomparePart::openFileAndDiff( const KURL& file, const KURL& diffFile )
+void KomparePart::openFileAndDiff( const KUrl& file, const KUrl& diffFile )
 {
 	emit kompareInfo( &m_info );
 
@@ -382,7 +382,7 @@ void KomparePart::openFileAndDiff( const KURL& file, const KURL& diffFile )
 	}
 }
 
-void KomparePart::openDirAndDiff ( const KURL& dir,  const KURL& diffFile )
+void KomparePart::openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile )
 {
 	emit kompareInfo( &m_info );
 
@@ -439,7 +439,7 @@ void KomparePart::saveDiff()
 
 		while ( 1 )
 		{
-			KURL url = KFileDialog::getSaveURL( m_info.destination.url(),
+			KUrl url = KFileDialog::getSaveURL( m_info.destination.url(),
 			              i18n("*.diff *.dif *.patch|Patch Files"), widget(), i18n( "Save .diff" ) );
 			if ( KIO::NetAccess::exists( url, false, widget() ) )
 			{
@@ -598,7 +598,7 @@ void KomparePart::slotSwap()
 	}
 
 	// Swap the info in the Kompare::Info struct
-	KURL url = m_info.source;
+	KUrl url = m_info.source;
 	m_info.source = m_info.destination;
 	m_info.destination = url;
 

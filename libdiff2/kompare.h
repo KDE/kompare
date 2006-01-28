@@ -82,8 +82,8 @@ namespace Kompare
 			enum DiffMode _diffMode = UnknownDiffMode,
 			enum Format _format = UnknownFormat,
 			enum Generator _generator = UnknownGenerator,
-			KURL _source = KURL(),
-			KURL _destination = KURL(),
+			KUrl _source = KURL(),
+			KUrl _destination = KURL(),
 			QString _localSource = "",
 			QString _localDestination = ""
 		)
@@ -101,8 +101,8 @@ namespace Kompare
 		enum DiffMode  diffMode;
 		enum Format    format;
 		enum Generator generator;
-		KURL           source;
-		KURL           destination;
+		KUrl           source;
+		KUrl           destination;
 		QString        localSource;
 		QString        localDestination;
 	};
@@ -116,9 +116,9 @@ class KompareFunctions
 public:
 	static QString constructRelativePath( const QString& from, const QString& to )
 	{
-		KURL fromURL( from );
-		KURL toURL( to );
-		KURL root;
+		KUrl fromURL( from );
+		KUrl toURL( to );
+		KUrl root;
 		int upLevels = 0;
 
 		// Find a common root.

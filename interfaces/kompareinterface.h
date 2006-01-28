@@ -9,7 +9,7 @@
 #include <kdemacros.h>
 
 class KConfig;
-class KURL;
+class KUrl;
 
 class KompareInterfacePrivate;
 
@@ -27,7 +27,7 @@ public:
 	/**
 	 * Open and parse the diff file at url.
 	 */
-	virtual bool openDiff( const KURL& diffUrl ) = 0;
+	virtual bool openDiff( const KUrl& diffUrl ) = 0;
 
 	/**
 	 * Open and parse the supplied diff output
@@ -37,7 +37,7 @@ public:
 	/**
 	 * Open and parse the diff3 file at url.
 	 */
-	virtual bool openDiff3( const KURL& diff3Url ) = 0;
+	virtual bool openDiff3( const KUrl& diff3Url ) = 0;
 
 	/**
 	 * Open and parse the supplied diff3 output
@@ -50,32 +50,32 @@ public:
 	 * they are (directory, file, diff output file) and call the
 	 * appropriate method(s)
 	 */
-	virtual void compare( const KURL& sourceFile, const KURL& destinationFile ) = 0;
+	virtual void compare( const KUrl& sourceFile, const KUrl& destinationFile ) = 0;
 
 	/**
 	 * Compare, with diff, source with destination files
 	 */
-	virtual void compareFiles( const KURL& sourceFile, const KURL& destinationFile ) = 0;
+	virtual void compareFiles( const KUrl& sourceFile, const KUrl& destinationFile ) = 0;
 
 	/**
 	 * Compare, with diff, source with destination directories
 	 */
-	virtual void compareDirs ( const KURL& sourceDir, const KURL& destinationDir ) = 0;
+	virtual void compareDirs ( const KUrl& sourceDir, const KUrl& destinationDir ) = 0;
 
 	/**
 	 * Compare, with diff3, originalFile with changedFile1 and changedFile2
 	 */
-	virtual void compare3Files( const KURL& originalFile, const KURL& changedFile1, const KURL& changedFile2 ) = 0;
+	virtual void compare3Files( const KUrl& originalFile, const KUrl& changedFile1, const KUrl& changedFile2 ) = 0;
 
 	/**
 	 * This will show the file and the file with the diff applied
 	 */
-	virtual void openFileAndDiff( const KURL& file, const KURL& diffFile ) = 0;
+	virtual void openFileAndDiff( const KUrl& file, const KUrl& diffFile ) = 0;
 
 	/**
 	 * This will show the directory and the directory with the diff applied
 	 */
-	virtual void openDirAndDiff ( const KURL& dir,  const KURL& diffFile ) = 0;
+	virtual void openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile ) = 0;
 
 	/**
 	 * This will set the encoding to use for all files that are read or for the diffoutput

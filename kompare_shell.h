@@ -65,7 +65,7 @@ public:
 	/**
 	* Use this method to load whatever file/URL you have
 	*/
-	void openDiff( const KURL& url );
+	void openDiff( const KUrl& url );
 
 	/**
 	* Use this method to load the diff from stdin
@@ -75,12 +75,12 @@ public:
 	/**
 	 * Use this method to compare 2 URLs (files or directories)
 	 */
-	void compare( const KURL& source, const KURL& destination );
+	void compare( const KUrl& source, const KUrl& destination );
 
 	/**
 	 * Use this method to blend diff into url1 (file or directory)
 	 */
-	void blend( const KURL& url1, const KURL& diff );
+	void blend( const KUrl& url1, const KUrl& diff );
 
 public slots:
 	void slotUpdateStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
@@ -125,9 +125,9 @@ private:
 	void setupStatusBar();
 
 private:
-	KURL                        m_sourceURL;
-	KURL                        m_destinationURL;
-	KURL                        m_diffURL;
+	KUrl                        m_sourceURL;
+	KUrl                        m_destinationURL;
+	KUrl                        m_diffURL;
 
 	KomparePart*                m_viewPart;
 	KompareNavTreePart*         m_navTreePart;

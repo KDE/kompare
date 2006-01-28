@@ -28,8 +28,8 @@ class QComboBox;
 class KComboBox;
 class KConfig;
 class KFileDialog;
-class KURLComboBox;
-class KURLRequester;
+class KUrlComboBox;
+class KUrlRequester;
 
 class FilesSettings;
 
@@ -41,8 +41,8 @@ public:
 	virtual ~FilesPage();
 
 public:
-	KURLRequester* firstURLRequester() const;
-	KURLRequester* secondURLRequester() const;
+	KUrlRequester* firstURLRequester() const;
+	KUrlRequester* secondURLRequester() const;
 
 	QString encoding() const;
 
@@ -68,11 +68,11 @@ private:
 	Q3GroupBox*     m_firstGB;
 	Q3GroupBox*     m_secondGB;
 	Q3GroupBox*     m_thirdGB;
-	KURLComboBox*  m_firstURLComboBox;
-	KURLComboBox*  m_secondURLComboBox;
-	KURLRequester* m_firstURLRequester;
-	KURLRequester* m_secondURLRequester;
-	// Use this bool to lock the connection between both KURLRequesters.
+	KUrlComboBox*  m_firstURLComboBox;
+	KUrlComboBox*  m_secondURLComboBox;
+	KUrlRequester* m_firstURLRequester;
+	KUrlRequester* m_secondURLRequester;
+	// Use this bool to lock the connection between both KUrlRequesters.
 	// This prevents annoying behaviour
 	bool           m_URLChanged;
 	QComboBox*     m_encodingComboBox;

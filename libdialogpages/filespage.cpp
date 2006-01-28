@@ -41,13 +41,13 @@ FilesPage::FilesPage( QWidget* parent ) : PageBase( parent ), m_URLChanged( fals
 	layout->setMargin( KDialog::marginHint() );
 
 	m_firstGB = new Q3GroupBox( 1, Qt::Vertical, "You have to set this moron :)", page );
-	m_firstURLComboBox = new KURLComboBox( KURLComboBox::Both, true, m_firstGB, "SourceURLComboBox" );
-	m_firstURLRequester = new KURLRequester( m_firstURLComboBox, m_firstGB );
+	m_firstURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_firstGB, "SourceURLComboBox" );
+	m_firstURLRequester = new KUrlRequester( m_firstURLComboBox, m_firstGB );
 	m_firstURLRequester->setFocus();
 
 	m_secondGB = new Q3GroupBox( 1, Qt::Vertical, "This too moron !", page );
-	m_secondURLComboBox = new KURLComboBox( KURLComboBox::Both, true, m_secondGB, "DestURLComboBox" );
-	m_secondURLRequester = new KURLRequester( m_secondURLComboBox, m_secondGB );
+	m_secondURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_secondGB, "DestURLComboBox" );
+	m_secondURLRequester = new KUrlRequester( m_secondURLComboBox, m_secondGB );
 
 	connect( m_firstURLRequester, SIGNAL( urlSelected( const QString & ) ), SLOT( setSecondURL( const QString & ) ) );
 	connect( m_secondURLRequester, SIGNAL( urlSelected( const QString & ) ), SLOT( setFirstURL( const QString & ) ) );
@@ -71,12 +71,12 @@ FilesPage::~FilesPage()
 	m_settings = 0;
 }
 
-KURLRequester* FilesPage::firstURLRequester() const
+KUrlRequester* FilesPage::firstURLRequester() const
 {
 	return m_firstURLRequester;
 }
 
-KURLRequester* FilesPage::secondURLRequester() const
+KUrlRequester* FilesPage::secondURLRequester() const
 {
 	return m_secondURLRequester;
 }

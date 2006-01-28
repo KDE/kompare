@@ -32,8 +32,8 @@ class QWidget;
 class KLineEdit;
 class KComboBox;
 class KEditListBox;
-class KURLComboBox;
-class KURLRequester;
+class KUrlComboBox;
+class KUrlRequester;
 
 class DiffSettings;
 
@@ -67,7 +67,7 @@ private:
 public:
 	DiffSettings*  m_settings;
 
-	KURLRequester* m_diffURLRequester;
+	KUrlRequester* m_diffURLRequester;
 
 	QCheckBox*     m_smallerCheckBox;
 	QCheckBox*     m_largerCheckBox;
@@ -87,8 +87,8 @@ public:
 	KEditListBox*  m_excludeFilePatternEditListBox;
 	
 	QCheckBox*     m_excludeFileCheckBox;
-	KURLComboBox*  m_excludeFileURLComboBox;
-	KURLRequester* m_excludeFileURLRequester;
+	KUrlComboBox*  m_excludeFileURLComboBox;
+	KUrlRequester* m_excludeFileURLRequester;
 
 	// loc == lines of context
 	QSpinBox*      m_locSpinBox;

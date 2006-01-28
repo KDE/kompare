@@ -215,7 +215,7 @@ void DiffPage::addDiffTab()
 	layout->addWidget( m_diffProgramGroup );
 	m_diffProgramGroup->setMargin( KDialog::marginHint() );
 
-	m_diffURLRequester = new KURLRequester( m_diffProgramGroup);
+	m_diffURLRequester = new KUrlRequester( m_diffProgramGroup);
 	m_diffURLRequester->setObjectName("diffURLRequester" );
 	Q3WhatsThis::add( m_diffURLRequester, i18n( "You can select a different diff program here. On Solaris the standard diff program does not support all the options that the GNU version does. This way you can select that version." ) );
 
@@ -343,9 +343,9 @@ void DiffPage::addExcludeTab()
 	QHGroupBox* excludeFileNameGroupBox = new QHGroupBox( i18n( "File with Filenames to Exclude" ), page );
 	m_excludeFileCheckBox     = new QCheckBox( "", excludeFileNameGroupBox );
 	QToolTip::add( m_excludeFileCheckBox, i18n( "If this is checked you can enter a filename in the combo box on the right." ) );
-	m_excludeFileURLComboBox  = new KURLComboBox( KURLComboBox::Files, true, excludeFileNameGroupBox, "exclude_file_urlcombo" );
+	m_excludeFileURLComboBox  = new KUrlComboBox( KUrlComboBox::Files, true, excludeFileNameGroupBox, "exclude_file_urlcombo" );
 	QToolTip::add( m_excludeFileURLComboBox, i18n( "Here you can enter the URL of a file with shell patterns to ignore during the comparison of the folders." ) );
-	m_excludeFileURLRequester = new KURLRequester( m_excludeFileURLComboBox, excludeFileNameGroupBox);
+	m_excludeFileURLRequester = new KUrlRequester( m_excludeFileURLComboBox, excludeFileNameGroupBox);
 	m_excludeFileURLRequester->setObjectName("exclude_file_name_urlrequester" );
 	QToolTip::add( m_excludeFileURLRequester, i18n( "Any file you select in the dialog that pops up when you click it will be put in the dialog to the left of this button." ) );
 	layout->addWidget( excludeFileNameGroupBox );

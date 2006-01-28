@@ -28,8 +28,8 @@ class QGroupBox;
 class KComboBox;
 class KConfig;
 class KFileDialog;
-class KURLComboBox;
-class KURLRequester;
+class KUrlComboBox;
+class KUrlRequester;
 
 class FilesPage;
 class FilesSettings;

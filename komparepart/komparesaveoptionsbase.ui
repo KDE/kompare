@@ -50,7 +50,7 @@
                 <property name="spacing">
                     <number>6</number>
                 </property>
-                <widget class="KURLRequester">
+                <widget class="KUrlRequester">
                     <property name="name">
                         <cstring>m_directoryRequester</cstring>
                     </property>

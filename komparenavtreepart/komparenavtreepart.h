@@ -20,10 +20,10 @@
 #ifndef KOMPARENAVTREEPART_H
 #define KOMPARENAVTREEPART_H
 
-#include <qptrdict.h>
-#include <qptrlist.h>
+#include <q3ptrdict.h>
+#include <q3ptrlist.h>
 #include <qsplitter.h>
-#include <qlistview.h>
+#include <q3listview.h>
 
 #include <kparts/factory.h>
 #include <kparts/part.h>
@@ -66,10 +66,10 @@ signals:
 	void selectionChanged( const Diff2::Difference* diff );
 
 private slots:
-	void slotSrcDirTreeSelectionChanged ( QListViewItem* item );
-	void slotDestDirTreeSelectionChanged( QListViewItem* item );
-	void slotFileListSelectionChanged   ( QListViewItem* item );
-	void slotChangesListSelectionChanged( QListViewItem* item );
+	void slotSrcDirTreeSelectionChanged ( Q3ListViewItem* item );
+	void slotDestDirTreeSelectionChanged( Q3ListViewItem* item );
+	void slotFileListSelectionChanged   ( Q3ListViewItem* item );
+	void slotChangesListSelectionChanged( Q3ListViewItem* item );
 
 	void slotApplyDifference( bool apply );
 	void slotApplyAllDifferences( bool apply );
@@ -96,10 +96,10 @@ private:
 	QSplitter*                         m_splitter;
 	const Diff2::DiffModelList*        m_modelList;
 
-	QPtrDict<KChangeLVI>               m_diffToChangeItemDict;
-	QPtrDict<KFileLVI>                 m_modelToFileItemDict;
-	QPtrDict<KDirLVI>                  m_modelToSrcDirItemDict;
-	QPtrDict<KDirLVI>                  m_modelToDestDirItemDict;
+	Q3PtrDict<KChangeLVI>               m_diffToChangeItemDict;
+	Q3PtrDict<KFileLVI>                 m_modelToFileItemDict;
+	Q3PtrDict<KDirLVI>                  m_modelToSrcDirItemDict;
+	Q3PtrDict<KDirLVI>                  m_modelToDestDirItemDict;
 
 	KListView*                         m_srcDirTree;
 	KListView*                         m_destDirTree;
@@ -128,7 +128,7 @@ public:
 	~KChangeLVI();
 public:
 	Diff2::Difference* difference() { return m_difference; };
-	virtual int compare( QListViewItem* item, int column, bool ascending ) const;
+	virtual int compare( Q3ListViewItem* item, int column, bool ascending ) const;
 
 	void setDifferenceText();
 private:
@@ -142,7 +142,7 @@ public:
 	~KFileLVI();
 public:
 	Diff2::DiffModel* model() { return m_model; };
-	void fillChangesList( KListView* changesList, QPtrDict<KChangeLVI>* diffToChangeItemDict );
+	void fillChangesList( KListView* changesList, Q3PtrDict<KChangeLVI>* diffToChangeItemDict );
 private:
 	Diff2::DiffModel* m_model;
 };
@@ -154,11 +154,11 @@ public:
 	KDirLVI( KListView* parent, QString& dir );
 	~KDirLVI();
 public:
-	void addModel( QString& dir, Diff2::DiffModel* model, QPtrDict<KDirLVI>* modelToDirItemDict );
+	void addModel( QString& dir, Diff2::DiffModel* model, Q3PtrDict<KDirLVI>* modelToDirItemDict );
 	QString& dirName() { return m_dirName; };
 	QString fullPath( QString& path );
 	KDirLVI* setSelected( QString dir );
-	void fillFileList( KListView* fileList, QPtrDict<KFileLVI>* modelToFileItemDict );
+	void fillFileList( KListView* fileList, Q3PtrDict<KFileLVI>* modelToFileItemDict );
 	bool isRootItem() { return m_rootItem; };
 private:
 	KDirLVI* findChild( QString dir );

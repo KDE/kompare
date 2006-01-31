@@ -82,14 +82,14 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 	m_changesList->setRootIsDecorated( false );
 	m_changesList->setSorting( 0, true );
 
-	connect( m_srcDirTree, SIGNAL(selectionChanged( QListViewItem* )),
-	         this, SLOT(slotSrcDirTreeSelectionChanged( QListViewItem* )) );
-	connect( m_destDirTree, SIGNAL(selectionChanged( QListViewItem* )),
-	         this, SLOT(slotDestDirTreeSelectionChanged( QListViewItem* )) );
-	connect( m_fileList, SIGNAL(selectionChanged( QListViewItem* )),
-	         this, SLOT(slotFileListSelectionChanged( QListViewItem* )) );
-	connect( m_changesList, SIGNAL(selectionChanged( QListViewItem* )),
-	         this, SLOT(slotChangesListSelectionChanged( QListViewItem* )) );
+	connect( m_srcDirTree, SIGNAL(selectionChanged( Q3ListViewItem* )),
+	         this, SLOT(slotSrcDirTreeSelectionChanged( Q3ListViewItem* )) );
+	connect( m_destDirTree, SIGNAL(selectionChanged( Q3ListViewItem* )),
+	         this, SLOT(slotDestDirTreeSelectionChanged( Q3ListViewItem* )) );
+	connect( m_fileList, SIGNAL(selectionChanged( Q3ListViewItem* )),
+	         this, SLOT(slotFileListSelectionChanged( Q3ListViewItem* )) );
+	connect( m_changesList, SIGNAL(selectionChanged( Q3ListViewItem* )),
+	         this, SLOT(slotChangesListSelectionChanged( Q3ListViewItem* )) );
 }
 
 KompareNavTreePart::~KompareNavTreePart()
@@ -323,7 +323,7 @@ void KompareNavTreePart::slotSetSelection( const Difference* diff )
 	}
 }
 
-void KompareNavTreePart::slotSrcDirTreeSelectionChanged( QListViewItem* item )
+void KompareNavTreePart::slotSrcDirTreeSelectionChanged( Q3ListViewItem* item )
 {
 	kdDebug(8105) << "Sent by the sourceDirectoryTree with item = " << item << endl;
 	m_srcDirTree->ensureItemVisible( item );
@@ -341,7 +341,7 @@ void KompareNavTreePart::slotSrcDirTreeSelectionChanged( QListViewItem* item )
 	dir->fillFileList( m_fileList, &m_modelToFileItemDict );
 }
 
-void KompareNavTreePart::slotDestDirTreeSelectionChanged( QListViewItem* item )
+void KompareNavTreePart::slotDestDirTreeSelectionChanged( Q3ListViewItem* item )
 {
 	kdDebug(8105) << "Sent by the destinationDirectoryTree with item = " << item << endl;
 	m_destDirTree->ensureItemVisible( item );
@@ -359,7 +359,7 @@ void KompareNavTreePart::slotDestDirTreeSelectionChanged( QListViewItem* item )
 	dir->fillFileList( m_fileList, &m_modelToFileItemDict );
 }
 
-void KompareNavTreePart::slotFileListSelectionChanged( QListViewItem* item )
+void KompareNavTreePart::slotFileListSelectionChanged( Q3ListViewItem* item )
 {
 	kdDebug(8105) << "Sent by the fileList with item = " << item << endl;
 
@@ -378,7 +378,7 @@ void KompareNavTreePart::slotFileListSelectionChanged( QListViewItem* item )
 	emit selectionChanged( m_selectedModel, m_selectedDifference );
 }
 
-void KompareNavTreePart::slotChangesListSelectionChanged( QListViewItem* item )
+void KompareNavTreePart::slotChangesListSelectionChanged( Q3ListViewItem* item )
 {
 	kdDebug(8105) << "Sent by the changesList" << endl;
 
@@ -397,7 +397,7 @@ void KompareNavTreePart::slotApplyDifference( bool /*apply*/ )
 
 void KompareNavTreePart::slotApplyAllDifferences( bool /*apply*/ )
 {
-	QPtrDictIterator<KChangeLVI> it( m_diffToChangeItemDict );
+	Q3PtrDictIterator<KChangeLVI> it( m_diffToChangeItemDict );
 
 	kdDebug() << "m_diffToChangeItemDict.count() = " << m_diffToChangeItemDict.count() << endl;
 
@@ -463,7 +463,7 @@ KChangeLVI::KChangeLVI( KListView* parent, Difference* diff ) : KListViewItem( p
 	setDifferenceText();
 }
 
-int KChangeLVI::compare( QListViewItem* item, int column, bool ascending ) const
+int KChangeLVI::compare( Q3ListViewItem* item, int column, bool ascending ) const
 {
 	if ( ascending )
 	{
@@ -498,7 +498,7 @@ KFileLVI::KFileLVI( KListView* parent, DiffModel* model ) : KListViewItem( paren
 	setSelectable( true );
 }
 
-void KFileLVI::fillChangesList( KListView* changesList, QPtrDict<KChangeLVI>* diffToChangeItemDict )
+void KFileLVI::fillChangesList( KListView* changesList, Q3PtrDict<KChangeLVI>* diffToChangeItemDict )
 {
 	changesList->clear();
 	diffToChangeItemDict->clear();
@@ -545,7 +545,7 @@ KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : KListViewItem( parent )
 }
 
 // addModel always removes it own path from the beginning
-void KDirLVI::addModel( QString& path, DiffModel* model, QPtrDict<KDirLVI>* modelToDirItemDict )
+void KDirLVI::addModel( QString& path, DiffModel* model, Q3PtrDict<KDirLVI>* modelToDirItemDict )
 {
 //	kdDebug(8105) << "KDirLVI::addModel called with path = " << path << " from KDirLVI with m_dirName = " << m_dirName << endl;
 
@@ -592,7 +592,7 @@ KDirLVI* KDirLVI::findChild( QString dir )
 	return 0L;
 }
 
-void KDirLVI::fillFileList( KListView* fileList, QPtrDict<KFileLVI>* modelToFileItemDict )
+void KDirLVI::fillFileList( KListView* fileList, Q3PtrDict<KFileLVI>* modelToFileItemDict )
 {
 	fileList->clear();
 

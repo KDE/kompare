@@ -74,10 +74,10 @@ int main(int argc, char *argv[])
 
 		KompareShell* ks;
 
-		kdDebug( 8100 ) << "Arg Count = " << args->count() << endl;
+		kDebug( 8100 ) << "Arg Count = " << args->count() << endl;
 		for ( int i=0; i < args->count(); i++ )
 		{
-			kdDebug( 8100 ) << "Argument " << (i+1) << ": " << args->arg( i ) << endl;
+			kDebug( 8100 ) << "Argument " << (i+1) << ": " << args->arg( i ) << endl;
 		}
 
 		if ( args->isSet( "e" ) )
@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 
 		if ( args->isSet( "o" ) )
 		{
-			kdDebug( 8100 ) << "Option -o is set" << endl;
+			kDebug( 8100 ) << "Option -o is set" << endl;
 			if ( args->count() != 1 )
 			{
 				difault = true;
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 			{
 				ks = new KompareShell();
 				ks->show();
-				kdDebug( 8100 ) << "OpenDiff..." << endl;
+				kDebug( 8100 ) << "OpenDiff..." << endl;
 				if ( ( strlen( args->arg(0) ) == 1 ) && (  *(args->arg(0)) == '-' ) )
 					ks->openStdin();
 				else
@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
 		}
 		else if ( args->isSet( "c" ) )
 		{
-			kdDebug( 8100 ) << "Option -c is set" << endl;
+			kDebug( 8100 ) << "Option -c is set" << endl;
 			if ( args->count() != 2 )
 			{
 				KCmdLineArgs::usage( "kompare" );
@@ -118,16 +118,16 @@ int main(int argc, char *argv[])
 				ks = new KompareShell();
 				ks->show();
 				KUrl url0 = args->url( 0 );
-				kdDebug( 8100 ) << "URL0 = " << url0.url() << endl;
+				kDebug( 8100 ) << "URL0 = " << url0.url() << endl;
 				KUrl url1 = args->url( 1 );
-				kdDebug( 8100 ) << "URL1 = " << url1.url() << endl;
+				kDebug( 8100 ) << "URL1 = " << url1.url() << endl;
 				ks->compare( url0, url1 );
 				difault = false;
 			}
 		}
 		else if ( args->isSet( "b" ) )
 		{
-			kdDebug( 8100 ) << "Option -b is set" << endl;
+			kDebug( 8100 ) << "Option -b is set" << endl;
 			if ( args->count() != 2 )
 			{
 				KCmdLineArgs::usage( "kompare" );
@@ -137,11 +137,11 @@ int main(int argc, char *argv[])
 			{
 				ks = new KompareShell();
 				ks->show();
-				kdDebug( 8100 ) << "blend..." << endl;
+				kDebug( 8100 ) << "blend..." << endl;
 				KUrl url0 = args->url( 0 );
-				kdDebug( 8100 ) << "URL0 = " << url0.url() << endl;
+				kDebug( 8100 ) << "URL0 = " << url0.url() << endl;
 				KUrl url1 = args->url( 1 );
-				kdDebug( 8100 ) << "URL1 = " << url1.url() << endl;
+				kDebug( 8100 ) << "URL1 = " << url1.url() << endl;
 				ks->blend( url0, url1 );
 				difault = false;
 			}
@@ -151,7 +151,7 @@ int main(int argc, char *argv[])
 			ks = new KompareShell();
 			ks->show();
 
-			kdDebug( 8100 ) << "Single file. so openDiff/openStdin is only possible..." << endl;
+			kDebug( 8100 ) << "Single file. so openDiff/openStdin is only possible..." << endl;
 			if ( ( strlen( args->arg(0) ) == 1 && *(args->arg(0)) == '-' ) )
 				ks->openStdin();
 			else
@@ -165,11 +165,11 @@ int main(int argc, char *argv[])
 			// and not blending because that is almost impossible to detect
 			ks = new KompareShell();
 			ks->show();
-			kdDebug( 8100 ) << "Dunno, we'll have to figure it out later, trying compare for now..." << endl;
+			kDebug( 8100 ) << "Dunno, we'll have to figure it out later, trying compare for now..." << endl;
 			KUrl url0 = args->url( 0 );
-			kdDebug( 8100 ) << "URL0 = " << url0.url() << endl;
+			kDebug( 8100 ) << "URL0 = " << url0.url() << endl;
 			KUrl url1 = args->url( 1 );
-			kdDebug( 8100 ) << "URL1 = " << url1.url() << endl;
+			kDebug( 8100 ) << "URL1 = " << url1.url() << endl;
 			ks->compare( url0, url1 );
 			difault = false;
 		}

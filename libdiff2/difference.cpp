@@ -111,7 +111,7 @@ QString Difference::recreateDifference() const
 		// Insert but this is not possible in source
 		// Unchanged will be handled in destination
 		// since they are the same
-//			kdDebug( 8101 ) << "Go away, nothing to do for you in source..." << endl;
+//			kDebug( 8101 ) << "Go away, nothing to do for you in source..." << endl;
 			continue;
 		}
 		difference += (*stringIt)->string();
@@ -133,7 +133,7 @@ QString Difference::recreateDifference() const
 			difference += " ";
 			break;
 		default: // Delete but this is not possible in destination
-//			kdDebug( 8101 ) << "Go away, nothing to do for you in destination..." << endl;
+//			kDebug( 8101 ) << "Go away, nothing to do for you in destination..." << endl;
 			continue;
 		}
 		difference += (*stringIt)->string();

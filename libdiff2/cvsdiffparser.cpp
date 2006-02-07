@@ -41,7 +41,7 @@ CVSDiffParser::~CVSDiffParser()
 
 enum Kompare::Format CVSDiffParser::determineFormat()
 {
-//	kdDebug(8101) << "Determining the format of the CVSDiff" << endl;
+//	kDebug(8101) << "Determining the format of the CVSDiff" << endl;
 
 	QRegExp normalRE ( "[0-9]+[0-9,]*[acd][0-9]+[0-9,]*" );
 	QRegExp unifiedRE( "^--- [^\\t]+\\t" );
@@ -55,38 +55,38 @@ enum Kompare::Format CVSDiffParser::determineFormat()
 	{
 		if( (*it).find( normalRE, 0 ) == 0 )
 		{
-//			kdDebug(8101) << "Difflines are from a Normal diff..." << endl;
+//			kDebug(8101) << "Difflines are from a Normal diff..." << endl;
 			return Kompare::Normal;
 		}
 		else if( (*it).find( unifiedRE, 0 ) == 0 )
 		{
-//			kdDebug(8101) << "Difflines are from a Unified diff..." << endl;
+//			kDebug(8101) << "Difflines are from a Unified diff..." << endl;
 			return Kompare::Unified;
 		}
 		else if( (*it).find( contextRE, 0 ) == 0 )
 		{
-//			kdDebug(8101) << "Difflines are from a Context diff..." << endl;
+//			kDebug(8101) << "Difflines are from a Context diff..." << endl;
 			return Kompare::Context;
 		}
 		else if( (*it).find( rcsRE, 0 ) == 0 )
 		{
-//			kdDebug(8101) << "Difflines are from a RCS diff..." << endl;
+//			kDebug(8101) << "Difflines are from a RCS diff..." << endl;
 			return Kompare::RCS;
 		}
 		else if( (*it).find( edRE, 0 ) == 0 )
 		{
-//			kdDebug(8101) << "Difflines are from an ED diff..." << endl;
+//			kDebug(8101) << "Difflines are from an ED diff..." << endl;
 			return Kompare::Ed;
 		}
 		++it;
 	}
-//	kdDebug(8101) << "Difflines are from an unknown diff..." << endl;
+//	kDebug(8101) << "Difflines are from an unknown diff..." << endl;
 	return Kompare::UnknownFormat;
 }
 
 bool CVSDiffParser::parseNormalDiffHeader()
 {
-	kdDebug(8101) << "CVSDiffParser::parseNormalDiffHeader()" << endl;
+	kDebug(8101) << "CVSDiffParser::parseNormalDiffHeader()" << endl;
 	bool result = false;
 
 	QStringList::ConstIterator diffEnd = m_diffLines.end();
@@ -95,8 +95,8 @@ bool CVSDiffParser::parseNormalDiffHeader()
 	{
 		if ( m_normalDiffHeader.exactMatch( *m_diffIterator ) )
 		{
-			kdDebug(8101) << "Matched length Header = " << m_normalDiffHeader.matchedLength() << endl;
-			kdDebug(8101) << "Matched string Header = " << m_normalDiffHeader.cap( 0 ) << endl;
+			kDebug(8101) << "Matched length Header = " << m_normalDiffHeader.matchedLength() << endl;
+			kDebug(8101) << "Matched string Header = " << m_normalDiffHeader.cap( 0 ) << endl;
 
 			m_currentModel = new DiffModel();
 			QObject::connect( m_currentModel, SIGNAL( setModified( bool ) ), m_list, SLOT( slotSetModified( bool ) ) );
@@ -110,7 +110,7 @@ bool CVSDiffParser::parseNormalDiffHeader()
 		}
 		else
 		{
-			kdDebug(8101) << "No match for: " << ( *m_diffIterator ) << endl;
+			kDebug(8101) << "No match for: " << ( *m_diffIterator ) << endl;
 		}
 		++m_diffIterator;
 	}

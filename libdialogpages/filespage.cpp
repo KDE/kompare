@@ -98,8 +98,8 @@ void FilesPage::setSecondGroupBoxTitle( const QString& title )
 
 void FilesPage::setURLsInComboBoxes()
 {
-//	kdDebug() << "first : " << m_firstURLComboBox->currentText() << endl;
-//	kdDebug() << "second: " << m_secondURLComboBox->currentText() << endl;
+//	kDebug() << "first : " << m_firstURLComboBox->currentText() << endl;
+//	kDebug() << "second: " << m_secondURLComboBox->currentText() << endl;
 	m_firstURLComboBox->setURL( KURL( m_firstURLComboBox->currentText() ) );
 	m_secondURLComboBox->setURL( KURL( m_secondURLComboBox->currentText() ) );
 }

@@ -58,7 +58,7 @@ LevenshteinTable::~LevenshteinTable()
 
 int LevenshteinTable::getContent( unsigned int posX, unsigned int posY ) const
 {
-//	kdDebug(8101) << "Width = " << m_width << ", height = " << m_height << ", posX = " << posX << ", posY = " << posY << endl;
+//	kDebug(8101) << "Width = " << m_width << ", height = " << m_height << ", posX = " << posX << ", posY = " << posY << endl;
 	return m_table[ posY * m_width + posX ];
 }
 
@@ -164,7 +164,7 @@ unsigned int LevenshteinTable::createTable( DifferenceString* source, Difference
 
 int LevenshteinTable::chooseRoute( int c1, int c2, int c3 )
 {
-//	kdDebug(8101) << "c1 = " << c1 << ", c2 = " << c2 << ", c3 = " << c3 << endl;
+//	kDebug(8101) << "c1 = " << c1 << ", c2 = " << c2 << ", c3 = " << c3 << endl;
 	// preference order: c2, c3, c1, hopefully this will work out for me
 	if ( c2 <= c1 && c2 <= c3 )
 		return 1;
@@ -200,8 +200,8 @@ void LevenshteinTable::createListsOfMarkers()
 		switch ( direction )
 		{
 		case 0: // north
-//			kdDebug(8101) << "Picking north" << endl;
-//			kdDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
+//			kDebug(8101) << "Picking north" << endl;
+//			kDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
 
 			if ( !m_destination->markerList().isEmpty() )
 				c = m_destination->markerList().first();
@@ -210,14 +210,14 @@ void LevenshteinTable::createListsOfMarkers()
 
 			if ( c && c->type() == Marker::End )
 			{
-//				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
+//				kDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( n == currentValue )
 					m_destination->prepend( new Marker( Marker::Start, y ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
-//				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
+//				kDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( n < currentValue )
 					m_destination->prepend( new Marker( Marker::End, y ) );
 			}
@@ -225,8 +225,8 @@ void LevenshteinTable::createListsOfMarkers()
 			--y;
 			break;
 		case 1: // northwest
-//			kdDebug(8101) << "Picking northwest" << endl;
-//			kdDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
+//			kDebug(8101) << "Picking northwest" << endl;
+//			kDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
 
 			if ( !m_destination->markerList().isEmpty() )
 				c = m_destination->markerList().first();
@@ -235,14 +235,14 @@ void LevenshteinTable::createListsOfMarkers()
 
 			if ( c && c->type() == Marker::End )
 			{
-//				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
+//				kDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( nw == currentValue )
 					m_destination->prepend( new Marker( Marker::Start, y ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
-//				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
+//				kDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( nw < currentValue )
 					m_destination->prepend( new Marker( Marker::End, y ) );
 			}
@@ -254,14 +254,14 @@ void LevenshteinTable::createListsOfMarkers()
 
 			if ( c && c->type() == Marker::End )
 			{
-//				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
+//				kDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( nw == currentValue )
 					m_source->prepend( new Marker( Marker::Start, x ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
-//				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
+//				kDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( nw < currentValue )
 					m_source->prepend( new Marker( Marker::End, x ) );
 			}
@@ -270,8 +270,8 @@ void LevenshteinTable::createListsOfMarkers()
 			--x;
 			break;
 		case 2: // west
-//			kdDebug(8101) << "Picking west" << endl;
-//			kdDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
+//			kDebug(8101) << "Picking west" << endl;
+//			kDebug(8101) << "Source[" << ( x - 1 ) << "] = " << QString( source[ x-1 ] ) << ", destination[" << ( y - 1 ) << "] = " << QString( destination[ y-1 ] ) << endl;
 
 			if ( !m_source->markerList().isEmpty() )
 				c = m_source->markerList().first();
@@ -280,14 +280,14 @@ void LevenshteinTable::createListsOfMarkers()
 
 			if ( c && c->type() == Marker::End )
 			{
-//				kdDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
+//				kDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( w == currentValue )
 					m_source->prepend( new Marker( Marker::Start, x ) );
 				// else: the change continues, dont do anything
 			}
 			else
 			{
-//				kdDebug(8101) << "CurrentValue: " << currentValue << endl;
+//				kDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( w < currentValue )
 					m_source->prepend( new Marker( Marker::End, x ) );
 			}
@@ -297,13 +297,13 @@ void LevenshteinTable::createListsOfMarkers()
 		}
 	}
 
-//	kdDebug(8101) << "Source string: " << m_source->string() << endl;
+//	kDebug(8101) << "Source string: " << m_source->string() << endl;
 //	c = m_source->markerList()->first();
 //	QStringList list;
 //	unsigned int prevValue = 0;
 //	for ( ; c; c = m_source->markerList()->next() )
 //	{
-//		kdDebug(8101) << "Source Marker Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
+//		kDebug(8101) << "Source Marker Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
 //		list.append( m_source->string().mid( prevValue, c->offset() - prevValue ) );
 //		prevValue = c->offset();
 //	}
@@ -311,15 +311,15 @@ void LevenshteinTable::createListsOfMarkers()
 //	{
 //		list.append( m_source->string().mid( prevValue, m_source->string().length() - prevValue ) );
 //	}
-//	kdDebug(8101) << "Source Resulting stringlist : " << list.join("\n") << endl;
+//	kDebug(8101) << "Source Resulting stringlist : " << list.join("\n") << endl;
 
 //	list.clear();
 //	prevValue = 0;
 
-//	kdDebug(8101) << "Destination string: " << m_destination->string() << endl;
+//	kDebug(8101) << "Destination string: " << m_destination->string() << endl;
 //	for ( ; c; c = m_destination->markerList()->next() )
 //	{
-//		kdDebug(8101) << "Destination Marker Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
+//		kDebug(8101) << "Destination Marker Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
 //		list.append( m_destination->string().mid( prevValue, c->offset() - prevValue ) );
 //		prevValue = c->offset();
 //	}
@@ -327,6 +327,6 @@ void LevenshteinTable::createListsOfMarkers()
 //	{
 //		list.append( m_destination->string().mid( prevValue, m_destination->string().length() - prevValue ) );
 //	}
-//	kdDebug(8101) << "Destination Resulting string : " << list.join("\n") << endl;
+//	kDebug(8101) << "Destination Resulting string : " << list.join("\n") << endl;
 }
 

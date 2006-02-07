@@ -103,7 +103,7 @@ void KompareNavTreePart::slotKompareInfo( struct Kompare::Info* info )
 
 void KompareNavTreePart::slotModelsChanged( const DiffModelList* modelList )
 {
-	kdDebug(8105) << "Models (" << modelList << ") have changed... scanning the models... " << endl;
+	kDebug(8105) << "Models (" << modelList << ") have changed... scanning the models... " << endl;
 
 	if ( modelList )
 	{
@@ -126,17 +126,17 @@ void KompareNavTreePart::slotModelsChanged( const DiffModelList* modelList )
 
 void KompareNavTreePart::buildTreeInMemory()
 {
-	kdDebug(8105) << "BuildTreeInMemory called" << endl;
+	kDebug(8105) << "BuildTreeInMemory called" << endl;
 
 	if ( m_modelList->count() == 0 )
 	{
-		kdDebug() << "No models... weird shit..." << endl;
+		kDebug() << "No models... weird shit..." << endl;
 		return; // avoids a crash on clear()
 	}
 
 	if ( m_info == 0 )
 	{
-		kdDebug() << "No Info... weird shit..." << endl;
+		kDebug() << "No Info... weird shit..." << endl;
 		return;
 	}
 
@@ -168,11 +168,11 @@ void KompareNavTreePart::buildTreeInMemory()
 	case Kompare::BlendingFile:
 	case Kompare::BlendingDir:
 	default:
-		kdDebug(8105) << "Oops needs to implement this..." << endl;
+		kDebug(8105) << "Oops needs to implement this..." << endl;
 	}
 
-//	kdDebug(8105) << "srcBase  = " << srcBase << endl;
-//	kdDebug(8105) << "destBase = " << destBase << endl;
+//	kDebug(8105) << "srcBase  = " << srcBase << endl;
+//	kDebug(8105) << "destBase = " << destBase << endl;
 
 	m_srcRootItem  = new KDirLVI( m_srcDirTree, srcBase );
 	m_destRootItem = new KDirLVI( m_destDirTree, destBase );
@@ -190,8 +190,8 @@ void KompareNavTreePart::buildTreeInMemory()
 		srcPath  = model->sourcePath();
 		destPath = model->destinationPath();
 
-		kdDebug(8105) << "srcPath  = " << srcPath  << endl;
-		kdDebug(8105) << "destPath = " << destPath << endl;
+		kDebug(8105) << "srcPath  = " << srcPath  << endl;
+		kDebug(8105) << "destPath = " << destPath << endl;
 		m_srcRootItem->addModel( srcPath, model, &m_modelToSrcDirItemDict );
 		m_destRootItem->addModel( destPath, model, &m_modelToDestDirItemDict );
 	}
@@ -201,7 +201,7 @@ void KompareNavTreePart::buildTreeInMemory()
 void KompareNavTreePart::buildDirectoryTree()
 {
 // FIXME: afaict this can be deleted
-//	kdDebug(8105) << "BuildDirTree called" << endl;
+//	kDebug(8105) << "BuildDirTree called" << endl;
 }
 
 QString KompareNavTreePart::compareFromEndAndReturnSame(
@@ -229,7 +229,7 @@ QString KompareNavTreePart::compareFromEndAndReturnSame(
 
 void KompareNavTreePart::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
-	kdDebug(8105) << "KompareNavTreePart::slotSetSelection model = " << model << ", diff = " << diff << endl;
+	kDebug(8105) << "KompareNavTreePart::slotSetSelection model = " << model << ", diff = " << diff << endl;
 	if ( model == m_selectedModel )
 	{
 		// model is the same, so no need to update that...
@@ -268,14 +268,14 @@ void KompareNavTreePart::setSelectedDir( const DiffModel* model )
 {
 	KDirLVI* currentDir;
 	currentDir = m_modelToSrcDirItemDict[ (void*)model ];
-	kdDebug(8105) << "Manually setting selection in srcdirtree with currentDir = " << currentDir << endl;
+	kDebug(8105) << "Manually setting selection in srcdirtree with currentDir = " << currentDir << endl;
 	m_srcDirTree->blockSignals( true );
 	m_srcDirTree->setSelected( currentDir, true );
 	m_srcDirTree->ensureItemVisible( currentDir );
 	m_srcDirTree->blockSignals( false );
 
 	currentDir = m_modelToDestDirItemDict[ (void*)model ];
-	kdDebug(8105) << "Manually setting selection in destdirtree with currentDir = " << currentDir << endl;
+	kDebug(8105) << "Manually setting selection in destdirtree with currentDir = " << currentDir << endl;
 	m_destDirTree->blockSignals( true );
 	m_destDirTree->setSelected( currentDir, true );
 	m_destDirTree->ensureItemVisible( currentDir );
@@ -290,7 +290,7 @@ void KompareNavTreePart::setSelectedFile( const DiffModel* model )
 {
 	KFileLVI* currentFile;
 	currentFile = m_modelToFileItemDict[ (void*)model ];
-	kdDebug(8105) << "Manually setting selection in filelist" << endl;
+	kDebug(8105) << "Manually setting selection in filelist" << endl;
 	m_fileList->blockSignals( true );
 	m_fileList->setSelected( currentFile, true );
 	m_fileList->ensureItemVisible( currentFile );
@@ -305,7 +305,7 @@ void KompareNavTreePart::setSelectedDifference( const Difference* diff )
 {
 	KChangeLVI* currentDiff;
 	currentDiff = m_diffToChangeItemDict[ (void*)diff ];
-	kdDebug(8105) << "Manually setting selection in changeslist to " << currentDiff << endl;
+	kDebug(8105) << "Manually setting selection in changeslist to " << currentDiff << endl;
 	m_changesList->blockSignals( true );
 	m_changesList->setSelected( currentDiff, true );
 	m_changesList->ensureItemVisible( currentDiff );
@@ -314,10 +314,10 @@ void KompareNavTreePart::setSelectedDifference( const Difference* diff )
 
 void KompareNavTreePart::slotSetSelection( const Difference* diff )
 {
-//	kdDebug(8105) << "Scotty i need more power !!" << endl;
+//	kDebug(8105) << "Scotty i need more power !!" << endl;
 	if ( m_selectedDifference != diff )
 	{
-//		kdDebug(8105) << "But sir, i am giving you all she's got" << endl;
+//		kDebug(8105) << "But sir, i am giving you all she's got" << endl;
 		m_selectedDifference = diff;
 		setSelectedDifference( diff );
 	}
@@ -325,7 +325,7 @@ void KompareNavTreePart::slotSetSelection( const Difference* diff )
 
 void KompareNavTreePart::slotSrcDirTreeSelectionChanged( Q3ListViewItem* item )
 {
-	kdDebug(8105) << "Sent by the sourceDirectoryTree with item = " << item << endl;
+	kDebug(8105) << "Sent by the sourceDirectoryTree with item = " << item << endl;
 	m_srcDirTree->ensureItemVisible( item );
 	KDirLVI* dir = static_cast<KDirLVI*>(item);
 	// order the dest tree view to set its selected item to the same as here
@@ -343,7 +343,7 @@ void KompareNavTreePart::slotSrcDirTreeSelectionChanged( Q3ListViewItem* item )
 
 void KompareNavTreePart::slotDestDirTreeSelectionChanged( Q3ListViewItem* item )
 {
-	kdDebug(8105) << "Sent by the destinationDirectoryTree with item = " << item << endl;
+	kDebug(8105) << "Sent by the destinationDirectoryTree with item = " << item << endl;
 	m_destDirTree->ensureItemVisible( item );
 	KDirLVI* dir = static_cast<KDirLVI*>(item);
 	// order the src tree view to set its selected item to the same as here
@@ -361,7 +361,7 @@ void KompareNavTreePart::slotDestDirTreeSelectionChanged( Q3ListViewItem* item )
 
 void KompareNavTreePart::slotFileListSelectionChanged( Q3ListViewItem* item )
 {
-	kdDebug(8105) << "Sent by the fileList with item = " << item << endl;
+	kDebug(8105) << "Sent by the fileList with item = " << item << endl;
 
 	KFileLVI* file = static_cast<KFileLVI*>(item);
 	m_selectedModel = file->model();
@@ -380,7 +380,7 @@ void KompareNavTreePart::slotFileListSelectionChanged( Q3ListViewItem* item )
 
 void KompareNavTreePart::slotChangesListSelectionChanged( Q3ListViewItem* item )
 {
-	kdDebug(8105) << "Sent by the changesList" << endl;
+	kDebug(8105) << "Sent by the changesList" << endl;
 
 	KChangeLVI* change = static_cast<KChangeLVI*>(item);
 	m_selectedDifference = change->difference();
@@ -399,7 +399,7 @@ void KompareNavTreePart::slotApplyAllDifferences( bool /*apply*/ )
 {
 	Q3PtrDictIterator<KChangeLVI> it( m_diffToChangeItemDict );
 
-	kdDebug() << "m_diffToChangeItemDict.count() = " << m_diffToChangeItemDict.count() << endl;
+	kDebug() << "m_diffToChangeItemDict.count() = " << m_diffToChangeItemDict.count() << endl;
 
 	for ( ; it.current(); ++it )
 	{
@@ -446,7 +446,7 @@ void KChangeLVI::setDifferenceText()
 			             m_difference->sourceLineCount() );
 		break;
 	default:
-		kdDebug(8105) << "Unknown or Unchanged enum value when checking for diff->type() in KChangeLVI's constructor" << endl;
+		kDebug(8105) << "Unknown or Unchanged enum value when checking for diff->type() in KChangeLVI's constructor" << endl;
 		text = "";
 	}
 
@@ -521,7 +521,7 @@ KFileLVI::~KFileLVI()
 
 KDirLVI::KDirLVI( KListView* parent, QString& dir ) : KListViewItem( parent )
 {
-//	kdDebug(8105) << "KDirLVI (KListView) constructor called with dir = " << dir << endl;
+//	kDebug(8105) << "KDirLVI (KListView) constructor called with dir = " << dir << endl;
 	m_rootItem = true;
 	m_dirName = dir;
 	setPixmap( 0, SmallIcon( "folder" ) );
@@ -535,7 +535,7 @@ KDirLVI::KDirLVI( KListView* parent, QString& dir ) : KListViewItem( parent )
 
 KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : KListViewItem( parent )
 {
-//	kdDebug(8105) << "KDirLVI (KDirLVI) constructor called with dir = " << dir << endl;
+//	kDebug(8105) << "KDirLVI (KDirLVI) constructor called with dir = " << dir << endl;
 	m_rootItem = false;
 	m_dirName = dir;
 	setPixmap( 0, SmallIcon( "folder" ) );
@@ -547,7 +547,7 @@ KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : KListViewItem( parent )
 // addModel always removes it own path from the beginning
 void KDirLVI::addModel( QString& path, DiffModel* model, Q3PtrDict<KDirLVI>* modelToDirItemDict )
 {
-//	kdDebug(8105) << "KDirLVI::addModel called with path = " << path << " from KDirLVI with m_dirName = " << m_dirName << endl;
+//	kDebug(8105) << "KDirLVI::addModel called with path = " << path << " from KDirLVI with m_dirName = " << m_dirName << endl;
 
 	if ( !m_dirName.isEmpty() )
 	{
@@ -555,7 +555,7 @@ void KDirLVI::addModel( QString& path, DiffModel* model, Q3PtrDict<KDirLVI>* mod
 			path = path.replace( path.find( m_dirName ), m_dirName.length(), "" );
 	}
 
-//	kdDebug(8105) << "Path after removal of own dir (\"" << m_dirName << "\") = " << path << endl;
+//	kDebug(8105) << "Path after removal of own dir (\"" << m_dirName << "\") = " << path << endl;
 
 	if ( path.isEmpty() ) {
 		m_modelList.append( model );
@@ -570,7 +570,7 @@ void KDirLVI::addModel( QString& path, DiffModel* model, Q3PtrDict<KDirLVI>* mod
 	if ( !child )
 	{
 		// does not exist yet so make it
-//		kdDebug(8105) << "KDirLVI::addModel creating new KDirLVI because not found" << endl;
+//		kDebug(8105) << "KDirLVI::addModel creating new KDirLVI because not found" << endl;
 		child = new KDirLVI( this, dir );
 	}
 
@@ -579,7 +579,7 @@ void KDirLVI::addModel( QString& path, DiffModel* model, Q3PtrDict<KDirLVI>* mod
 
 KDirLVI* KDirLVI::findChild( QString dir )
 {
-//	kdDebug(8105) << "KDirLVI::findChild called with dir = " << dir << endl;
+//	kDebug(8105) << "KDirLVI::findChild called with dir = " << dir << endl;
 	KDirLVI* child;
 	if ( ( child = static_cast<KDirLVI*>(this->firstChild()) ) != 0L )
 	{ // has children, check if dir already exists, if so addModel
@@ -610,9 +610,9 @@ void KDirLVI::fillFileList( KListView* fileList, Q3PtrDict<KFileLVI>* modelToFil
 QString KDirLVI::fullPath( QString& path )
 {
 //	if ( !path.isEmpty() )
-//		kdDebug(8105) << "KDirLVI::fullPath called with path = " << path << endl;
+//		kDebug(8105) << "KDirLVI::fullPath called with path = " << path << endl;
 //	else
-//		kdDebug(8105) << "KDirLVI::fullPath called with empty path..." << endl;
+//		kDebug(8105) << "KDirLVI::fullPath called with empty path..." << endl;
 
 	if ( m_rootItem ) // dont bother adding rootItem's dir...
 		return path;
@@ -630,7 +630,7 @@ QString KDirLVI::fullPath( QString& path )
 
 KDirLVI* KDirLVI::setSelected( QString dir )
 {
-//	kdDebug(8105) << "KDirLVI::setSelected called with dir = " << dir << endl;
+//	kDebug(8105) << "KDirLVI::setSelected called with dir = " << dir << endl;
 
 	// root item's dirName is never taken into account... remember that
 	if ( !m_rootItem )

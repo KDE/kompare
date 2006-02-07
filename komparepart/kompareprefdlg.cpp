@@ -57,7 +57,7 @@ KomparePrefDlg::~KomparePrefDlg()
 /** No descriptions */
 void KomparePrefDlg::slotDefault()
 {
-	kdDebug(8103) << "SlotDefault called -> Settings should be restored to defaults..." << endl;
+	kDebug(8103) << "SlotDefault called -> Settings should be restored to defaults..." << endl;
 	// restore all defaults in the options...
 	m_viewPage->setDefaults();
 	m_diffPage->setDefaults();
@@ -74,7 +74,7 @@ void KomparePrefDlg::slotHelp()
 /** No descriptions */
 void KomparePrefDlg::slotApply()
 {
-	kdDebug(8103) << "SlotApply called -> Settings should be applied..." << endl;
+	kDebug(8103) << "SlotApply called -> Settings should be applied..." << endl;
 	// well apply the settings that are currently selected
 	m_viewPage->apply();
 	m_diffPage->apply();
@@ -85,7 +85,7 @@ void KomparePrefDlg::slotApply()
 /** No descriptions */
 void KomparePrefDlg::slotOk()
 {
-	kdDebug(8103) << "SlotOk called -> Settings should be applied..." << endl;
+	kDebug(8103) << "SlotOk called -> Settings should be applied..." << endl;
 	// Apply the settings that are currently selected
 	m_viewPage->apply();
 	m_diffPage->apply();

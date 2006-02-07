@@ -188,13 +188,13 @@ void KomparePart::updateActions()
 
 void KomparePart::setEncoding( const QString& encoding )
 {
-	kdDebug() << "Encoding: " << encoding << endl;
+	kDebug() << "Encoding: " << encoding << endl;
 	m_modelList->setEncoding( encoding );
 }
 
 bool KomparePart::openDiff( const KUrl& url )
 {
-	kdDebug(8103) << "Url = " << url.url() << endl;
+	kDebug(8103) << "Url = " << url.url() << endl;
 
 	emit kompareInfo( &m_info );
 
@@ -204,7 +204,7 @@ bool KomparePart::openDiff( const KUrl& url )
 	m_info.localSource = fetchURL( url );
 	if ( !m_info.localSource.isEmpty() )
 	{
-		kdDebug(8103) << "Download succeeded " << endl;
+		kDebug(8103) << "Download succeeded " << endl;
 		result = m_modelList->openDiff( m_info.localSource );
 		updateActions();
 		updateCaption();
@@ -212,7 +212,7 @@ bool KomparePart::openDiff( const KUrl& url )
 	}
 	else
 	{
-		kdDebug(8103) << "Download failed !" << endl;
+		kDebug(8103) << "Download failed !" << endl;
 	}
 
 	return result;
@@ -241,15 +241,15 @@ bool KomparePart::openDiff( const QString& diffOutput )
 bool KomparePart::openDiff3( const KUrl& diff3Url )
 {
 	// FIXME: Implement this !!!
-	kdDebug(8103) << "Not implemented yet. Filename is: " << diff3Url.url() << endl;
+	kDebug(8103) << "Not implemented yet. Filename is: " << diff3Url.url() << endl;
 	return false;
 }
 
 bool KomparePart::openDiff3( const QString& diff3Output )
 {
 	// FIXME: Implement this !!!
-	kdDebug(8103) << "Not implemented yet. diff3 output is: " << endl;
-	kdDebug(8103) << diff3Output << endl;
+	kDebug(8103) << "Not implemented yet. diff3 output is: " << endl;
+	kDebug(8103) << diff3Output << endl;
 	return false;
 }
 
@@ -454,9 +454,9 @@ void KomparePart::saveDiff()
 				}
 				else
 				{
-					kdDebug(8103) << "URL = " << url.prettyURL() << endl;
-					kdDebug(8103) << "Directory = " << w->directory() << endl;
-					kdDebug(8103) << "DiffSettings = " << m_diffSettings << endl;
+					kDebug(8103) << "URL = " << url.prettyURL() << endl;
+					kDebug(8103) << "Directory = " << w->directory() << endl;
+					kDebug(8103) << "DiffSettings = " << m_diffSettings << endl;
 
 					m_modelList->saveDiff( url.url(), w->directory(), m_diffSettings );
 					break;
@@ -464,9 +464,9 @@ void KomparePart::saveDiff()
 			}
 			else
 			{
-				kdDebug(8103) << "URL = " << url.prettyURL() << endl;
-				kdDebug(8103) << "Directory = " << w->directory() << endl;
-				kdDebug(8103) << "DiffSettings = " << m_diffSettings << endl;
+				kDebug(8103) << "URL = " << url.prettyURL() << endl;
+				kDebug(8103) << "Directory = " << w->directory() << endl;
+				kDebug(8103) << "DiffSettings = " << m_diffSettings << endl;
 
 				m_modelList->saveDiff( url.url(), w->directory(), m_diffSettings );
 				break;
@@ -750,7 +750,7 @@ void KomparePart::optionsPreferences()
 
 void KomparePart::slotSetModified( bool modified )
 { 
-	kdDebug() << "KomparePart::slotSetModified( " << modified << " );" << endl;
+	kDebug() << "KomparePart::slotSetModified( " << modified << " );" << endl;
 	setModified( modified );
 	updateActions();
 	updateCaption();

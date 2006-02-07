@@ -65,11 +65,11 @@ KompareShell::KompareShell()
 #ifdef NDEBUG
 	for( int i = 0; i < offers.count(); i++ )
 	{
-		kdDebug(8102) << "One kservicetype checked..." << endl;
+		kDebug(8102) << "One kservicetype checked..." << endl;
 		KService::Ptr ptr2 = *(offers.at( i ));
 		QStringList list = ptr2->serviceTypes();
 		for ( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 )
-			kdDebug(8102) << *it2 << endl;
+			kDebug(8102) << *it2 << endl;
 	}
 #endif
 	if ( offers.count() == 0 )
@@ -190,7 +190,7 @@ bool KompareShell::queryClose()
 
 void KompareShell::openDiff(const KUrl& url)
 {
-	kdDebug(8102) << "Url = " << url.prettyURL() << endl;
+	kDebug(8102) << "Url = " << url.prettyURL() << endl;
 	m_diffURL = url;
 	m_viewPart->setEncoding( "Default" );
 	m_viewPart->openDiff( url );
@@ -198,7 +198,7 @@ void KompareShell::openDiff(const KUrl& url)
 
 void KompareShell::openStdin()
 {
-	kdDebug(8102) << "Using stdin to read the diff" << endl;
+	kDebug(8102) << "Using stdin to read the diff" << endl;
 	QFile file;
 	file.open( IO_ReadOnly, stdin );
 	QTextStream stream( &file );
@@ -267,7 +267,7 @@ void KompareShell::setupStatusBar()
 
 void KompareShell::slotUpdateStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount )
 {
-	kdDebug(8102) << "KompareShell::updateStatusBar()" << endl;
+	kDebug(8102) << "KompareShell::updateStatusBar()" << endl;
 
 	QString fileStr;
 	QString diffStr;
@@ -294,7 +294,7 @@ void KompareShell::slotSetStatusBarText( const QString& text )
 
 void KompareShell::setCaption( const QString& caption )
 {
-//	kdDebug() << kdBacktrace();
+//	kDebug() << kBacktrace();
 	KParts::DockMainWindow::setCaption( caption, m_viewPart->isModified() );
 }
 
@@ -417,7 +417,7 @@ void KompareShell::slotFileCompareFiles()
 		KompareShell* shell = new KompareShell();
 		kapp->ref();
 		shell->show();
-		kdDebug() << "Damn it, i should be called !!! Oh and encoding is: " << dialog->encoding() << endl;
+		kDebug() << "Damn it, i should be called !!! Oh and encoding is: " << dialog->encoding() << endl;
 		shell->m_viewPart->setEncoding( dialog->encoding() );
 		shell->compare( m_sourceURL, m_destinationURL );
 	}

@@ -67,20 +67,20 @@ DiffModelList* Parser::parse( QStringList& diffLines )
 	m_generator = determineGenerator( diffLines );
 
 	int nol = cleanUpCrap( diffLines );
-	kdDebug(8101) << "Cleaned up " << nol << " line(s) of crap from the diff..." << endl;
+	kDebug(8101) << "Cleaned up " << nol << " line(s) of crap from the diff..." << endl;
 
 	switch( m_generator )
 	{
 	case Kompare::CVSDiff :
-		kdDebug(8101) << "It is a CVS generated diff..." << endl;
+		kDebug(8101) << "It is a CVS generated diff..." << endl;
 		parser = new CVSDiffParser( m_list, diffLines );
 		break;
 	case Kompare::Diff :
-		kdDebug(8101) << "It is a diff generated diff..." << endl;
+		kDebug(8101) << "It is a diff generated diff..." << endl;
 		parser = new DiffParser( m_list, diffLines );
 		break;
 	case Kompare::Perforce :
-		kdDebug(8101) << "It is a Perforce generated diff..." << endl;
+		kDebug(8101) << "It is a Perforce generated diff..." << endl;
 		parser = new PerforceParser( m_list, diffLines );
 		break;
 	default:
@@ -92,13 +92,13 @@ DiffModelList* Parser::parse( QStringList& diffLines )
 	DiffModelList* modelList = parser->parse();
 	if ( modelList )
 	{
-		kdDebug(8101) << "Modelcount: " << modelList->count() << endl;
+		kDebug(8101) << "Modelcount: " << modelList->count() << endl;
 		DiffModelListIterator modelIt = modelList->begin();
 		DiffModelListIterator mEnd    = modelList->end();
 		for ( ; modelIt != mEnd; ++modelIt )
 		{
-			kdDebug(8101) << "Hunkcount:  " << (*modelIt)->hunkCount() << endl;
-			kdDebug(8101) << "Diffcount:  " << (*modelIt)->differenceCount() << endl;
+			kDebug(8101) << "Hunkcount:  " << (*modelIt)->hunkCount() << endl;
+			kDebug(8101) << "Diffcount:  " << (*modelIt)->differenceCount() << endl;
 		}
 	}
 
@@ -120,18 +120,18 @@ enum Kompare::Generator Parser::determineGenerator( const QStringList& diffLines
 	{
 		if ( ( *it ).startsWith( cvsDiff ) )
 		{
-			kdDebug(8101) << "Diff is a CVSDiff" << endl;
+			kDebug(8101) << "Diff is a CVSDiff" << endl;
 			return Kompare::CVSDiff;
 		}
 		else if ( ( *it ).startsWith( perforceDiff ) )
 		{
-			kdDebug(8101) << "Diff is a Perforce Diff" << endl;
+			kDebug(8101) << "Diff is a Perforce Diff" << endl;
 			return Kompare::Perforce;
 		}
 		++it;
 	}
 
-	kdDebug(8101) << "We'll assume it is a diff Diff" << endl;
+	kDebug(8101) << "We'll assume it is a diff Diff" << endl;
 
 	// For now we'll assume it is a diff file diff, later we might
 	// try to really determine if it is a diff file diff.

@@ -90,12 +90,12 @@ void KompareProcess::writeCommandLine()
 	// load the executable into the KProcess
 	if ( m_diffSettings->m_diffProgram.isEmpty() )
 	{
-		kdDebug(8101) << "Using the first diff in the path..." << endl;
+		kDebug(8101) << "Using the first diff in the path..." << endl;
 		*this << "diff";
 	}
 	else
 	{
-		kdDebug(8101) << "Using a user specified diff, namely: " << m_diffSettings->m_diffProgram << endl;
+		kDebug(8101) << "Using a user specified diff, namely: " << m_diffSettings->m_diffProgram << endl;
 		*this << m_diffSettings->m_diffProgram;
 	}
 
@@ -214,7 +214,7 @@ void KompareProcess::setEncoding( const QString& encoding )
 		m_textDecoder = textCodec->makeDecoder();
 	else
 	{
-		kdDebug(8101) << "Using locale codec as backup..." << endl;
+		kDebug(8101) << "Using locale codec as backup..." << endl;
 		textCodec = QTextCodec::codecForLocale();
 		m_textDecoder = textCodec->makeDecoder();
 	}
@@ -226,7 +226,7 @@ void KompareProcess::slotReceivedStdout( KProcess* /* process */, char* buffer, 
 	if ( m_textDecoder )
 		m_stdout += m_textDecoder->toUnicode( buffer, length );
 	else
-		kdDebug(8101) << "KompareProcess::slotReceivedStdout : No decoder !!!" << endl;
+		kDebug(8101) << "KompareProcess::slotReceivedStdout : No decoder !!!" << endl;
 }
 
 void KompareProcess::slotReceivedStderr( KProcess* /* process */, char* buffer, int length )
@@ -235,7 +235,7 @@ void KompareProcess::slotReceivedStderr( KProcess* /* process */, char* buffer, 
 	if ( m_textDecoder )
 		m_stderr += m_textDecoder->toUnicode( buffer, length );
 	else
-		kdDebug(8101) << "KompareProcess::slotReceivedStderr : No decoder !!!" << endl;
+		kDebug(8101) << "KompareProcess::slotReceivedStderr : No decoder !!!" << endl;
 }
 
 bool KompareProcess::start()
@@ -245,7 +245,7 @@ bool KompareProcess::start()
 	QList<QByteArray>::ConstIterator it = arguments.begin();
 	for (; it != arguments.end(); ++it )
 	    cmdLine += "\"" + (*it) + "\" ";
-	kdDebug(8101) << cmdLine << endl;
+	kDebug(8101) << cmdLine << endl;
 #endif
 	return( KProcess::start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
 }
@@ -255,7 +255,7 @@ void KompareProcess::slotProcessExited( KProcess* /* proc */ )
 	// exit status of 0: no differences
 	//                1: some differences
 	//                2: error but there may be differences !
-	kdDebug(8101) << "Exited with exit status : " << exitStatus() << endl;
+	kDebug(8101) << "Exited with exit status : " << exitStatus() << endl;
 	emit diffHasFinished( normalExit() && exitStatus() != 0 );
 }
 

@@ -154,7 +154,7 @@ void KompareConnectWidget::slotSetSelection( const Difference* diff )
 
 void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 {
-//	kdDebug(8106) << "KompareConnectWidget::paintEvent()" << endl;
+//	kDebug(8106) << "KompareConnectWidget::paintEvent()" << endl;
 
 	QPixmap pixbuf(size());
 	QPainter paint(&pixbuf, this);
@@ -172,9 +172,9 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 		int first = firstL < 0 ? firstR : QMIN( firstL, firstR );
 		int last = lastL < 0 ? lastR : QMAX( lastL, lastR );
 
-//		kdDebug(8106) << "    left: " << firstL << " - " << lastL << endl;
-//		kdDebug(8106) << "   right: " << firstR << " - " << lastR << endl;
-//		kdDebug(8106) << " drawing: " << first << " - " << last << endl;
+//		kDebug(8106) << "    left: " << firstL << " - " << lastL << endl;
+//		kDebug(8106) << "   right: " << firstR << " - " << lastR << endl;
+//		kDebug(8106) << " drawing: " << first << " - " << last << endl;
 		if ( first >= 0 && last >= 0 && first <= last )
 		{
 			const DifferenceList* differences  = const_cast<DiffModel*>(m_selectedModel)->differences();
@@ -210,7 +210,7 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 				bl = bl <=  32767 ? bl :  32767;
 				br = br <=  32767 ? br :  32767;
 
-//				kdDebug(8106) << "drawing: " << tl << " " << tr << " " << bl << " " << br << endl;
+//				kDebug(8106) << "drawing: " << tl << " " << tr << " " << bl << " " << br << endl;
 				QPointArray topBezier = makeTopBezier( tl, tr );
 				QPointArray bottomBezier = makeBottomBezier( bl, br );
 

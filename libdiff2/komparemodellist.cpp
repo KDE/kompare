@@ -130,30 +130,30 @@ bool KompareModelList::compare( const QString& source, const QString& destinatio
 		sourceFile.open( QIODevice::ReadOnly );
 		QString sourceMimeType = ( KMimeType::findByContent( sourceFile.readAll() ) )->name();
 		sourceFile.close();
-		kdDebug(8101) << "Mimetype source     : " << sourceMimeType << endl;
+		kDebug(8101) << "Mimetype source     : " << sourceMimeType << endl;
 
 		QFile destinationFile( destination );
 		destinationFile.open( QIODevice::ReadOnly );
 		QString destinationMimeType = ( KMimeType::findByContent( destinationFile.readAll() ) )->name();
 		destinationFile.close();
-		kdDebug(8101) << "Mimetype destination: " << destinationMimeType << endl;
+		kDebug(8101) << "Mimetype destination: " << destinationMimeType << endl;
 
 		// Not checking if it is a text file/something diff can even compare, we'll let diff handle that
 		if ( !isDiff( sourceMimeType ) && isDiff( destinationMimeType ) )
 		{
-			kdDebug(8101) << "Blending destination into source..." << endl;
+			kDebug(8101) << "Blending destination into source..." << endl;
 			m_info.mode = Kompare::BlendingFile;
 			result = openFileAndDiff( source, destination );
 		}
 		else if ( isDiff( sourceMimeType ) && !isDiff( destinationMimeType ) )
 		{
-			kdDebug(8101) << "Blending source into destination..." << endl;
+			kDebug(8101) << "Blending source into destination..." << endl;
 			m_info.mode = Kompare::BlendingFile;
 			result = openFileAndDiff( destination, source );
 		}
 		else
 		{
-			kdDebug(8101) << "Comparing source with destination" << endl;
+			kDebug(8101) << "Comparing source with destination" << endl;
 			m_info.mode = Kompare::ComparingFiles;
 			result = compareFiles( source, destination );
 		}
@@ -242,7 +242,7 @@ bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff
 	// Do our thing :)
 	if ( !blendOriginalIntoModelList( file ) )
 	{
-		kdDebug(8101) << "Oops cant blend original file into modellist : " << file << endl;
+		kDebug(8101) << "Oops cant blend original file into modellist : " << file << endl;
 		emit( i18n( "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>.</qt>" ).arg( diff ).arg( file ) );
 		return false;
 	}
@@ -267,7 +267,7 @@ bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 	if ( !blendOriginalIntoModelList( dir ) )
 	{
 		// Trouble blending the original into the model
-		kdDebug(8101) << "Oops cant blend original dir into modellist : " << dir << endl;
+		kDebug(8101) << "Oops cant blend original dir into modellist : " << dir << endl;
 		emit error( i18n( "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</b>.</qt>" ).arg( diff ).arg( dir ) );
 		return false;
 	}
@@ -288,7 +288,7 @@ void KompareModelList::slotSaveDestination()
 
 bool KompareModelList::saveDestination( DiffModel* model )
 {
-	kdDebug() << "KompareModelList::saveDestination: " << endl;
+	kDebug() << "KompareModelList::saveDestination: " << endl;
 
 	if( !model->isModified() )
 		return true;
@@ -340,7 +340,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 		}
 	}
 
-	// kdDebug( 8101 ) << "Everything: " << endl << list.join( "\n" ) << endl;
+	// kDebug( 8101 ) << "Everything: " << endl << list.join( "\n" ) << endl;
 
 	if( list.count() > 0 )
 		*stream << list.join( "" );
@@ -358,8 +358,8 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	if ( m_info.mode == Kompare::ComparingDirs )
 	{
 		QString destination = model->destinationPath() + model->destinationFile();
-		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
-		kdDebug(8101) << "DestinationURL : " << destination << endl;
+		kDebug(8101) << "Tempfilename   : " << temp->name() << endl;
+		kDebug(8101) << "DestinationURL : " << destination << endl;
 		KIO::UDSEntry entry;
 		if ( !KIO::NetAccess::stat( KURL( destination ).path(), entry, (QWidget*)parent() ) )
 		{
@@ -373,8 +373,8 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	}
 	else
 	{
-		kdDebug(8101) << "Tempfilename   : " << temp->name() << endl;
-		kdDebug(8101) << "DestinationURL : " << m_destination << endl;
+		kDebug(8101) << "Tempfilename   : " << temp->name() << endl;
+		kDebug(8101) << "DestinationURL : " << m_destination << endl;
 		result = KIO::NetAccess::upload( temp->name(), KURL( m_destination ), (QWidget*)parent() );
 	}
 
@@ -410,12 +410,12 @@ bool KompareModelList::saveAll()
 void KompareModelList::setEncoding( const QString& encoding )
 {
 	m_encoding = encoding;
-	kdDebug() << "Encoding : " << encoding << endl;
+	kDebug() << "Encoding : " << encoding << endl;
 	m_textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
-	kdDebug() << "TextCodec: " << m_textCodec << endl;
+	kDebug() << "TextCodec: " << m_textCodec << endl;
 	if ( !m_textCodec )
 		m_textCodec = QTextCodec::codecForLocale();
-	kdDebug() << "TextCodec: " << m_textCodec << endl;
+	kDebug() << "TextCodec: " << m_textCodec << endl;
 }
 
 void KompareModelList::slotDiffProcessFinished( bool success )
@@ -431,7 +431,7 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 		{
 			if ( m_info.mode != Kompare::ShowingDiff )
 			{
-				kdDebug() << "Blend this crap please and dont gimme any conflicts..." << endl;
+				kDebug() << "Blend this crap please and dont gimme any conflicts..." << endl;
 				blendOriginalIntoModelList( m_info.localSource );
 			}
 			updateModelListActions();
@@ -455,7 +455,7 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 void KompareModelList::slotDirectoryChanged( const QString& /*dir*/ )
 {
 	// some debug output to see if watching works properly
-	kdDebug(8101) << "Yippie directories are being watched !!! :)" << endl;
+	kDebug(8101) << "Yippie directories are being watched !!! :)" << endl;
 	if ( m_diffProcess )
 	{
 		emit status( Kompare::ReRunningDiff );
@@ -466,7 +466,7 @@ void KompareModelList::slotDirectoryChanged( const QString& /*dir*/ )
 void KompareModelList::slotFileChanged( const QString& /*file*/ )
 {
 	// some debug output to see if watching works properly
-	kdDebug(8101) << "Yippie files are being watched !!! :)" << endl;
+	kDebug(8101) << "Yippie files are being watched !!! :)" << endl;
 	if ( m_diffProcess )
 	{
 		emit status( Kompare::ReRunningDiff );
@@ -509,7 +509,7 @@ QString KompareModelList::readFile( const QString& fileName )
 	file.open( QIODevice::ReadOnly );
 
 	QTextStream stream( &file );
-	kdDebug() << "Codec = " << m_textCodec << endl;
+	kDebug() << "Codec = " << m_textCodec << endl;
 
 	if (  !m_textCodec )
 		m_textCodec = QTextCodec::codecForLocale();
@@ -525,7 +525,7 @@ QString KompareModelList::readFile( const QString& fileName )
 
 bool KompareModelList::openDiff( const QString& diffFile )
 {
-	kdDebug(8101) << "Stupid :) Url = " << diffFile << endl;
+	kDebug(8101) << "Stupid :) Url = " << diffFile << endl;
 
 	if ( diffFile.isEmpty() )
 		return false;
@@ -566,7 +566,7 @@ QString KompareModelList::recreateDiff() const
 
 bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSettings* diffSettings )
 {
-	kdDebug() << "KompareModelList::saveDiff: " << endl;
+	kDebug() << "KompareModelList::saveDiff: " << endl;
 
 	m_diffTemp = new KTempFile();
 	m_diffURL = url;
@@ -591,7 +591,7 @@ bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSett
 
 void KompareModelList::slotWriteDiffOutput( bool success )
 {
-	kdDebug(8101) << "Success = " << success << endl;
+	kDebug(8101) << "Success = " << success << endl;
 
 	if( success )
 	{
@@ -625,13 +625,13 @@ void KompareModelList::slotSelectionChanged( const Diff2::DiffModel* model, cons
 {
 // This method will signal all the other objects about a change in selection,
 // it will emit setSelection( const DiffModel*, const Difference* ) to all who are connected
-	kdDebug(8101) << "KompareModelList::slotSelectionChanged( " << model << ", " << diff << " )" << endl;
-	kdDebug(8101) << "Sender is : " << sender()->className() << endl;
-//	kdDebug(8101) << kdBacktrace() << endl;
+	kDebug(8101) << "KompareModelList::slotSelectionChanged( " << model << ", " << diff << " )" << endl;
+	kDebug(8101) << "Sender is : " << sender()->className() << endl;
+//	kDebug(8101) << kBacktrace() << endl;
 
 	m_selectedModel = const_cast<DiffModel*>(model);
 	m_modelIndex = m_models->findIndex( m_selectedModel );
-	kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+	kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
 	m_selectedDifference = const_cast<Difference*>(diff);
 
 	m_selectedModel->setSelectedDifference( m_selectedDifference );
@@ -660,8 +660,8 @@ void KompareModelList::slotSelectionChanged( const Diff2::Difference* diff )
 {
 // This method will emit setSelection( const Difference* ) to whomever is listening
 // when for instance in kompareview the selection has changed
-	kdDebug(8101) << "KompareModelList::slotSelectionChanged( " << diff << " )" << endl;
-	kdDebug(8101) << "Sender is : " << sender()->className() << endl;
+	kDebug(8101) << "KompareModelList::slotSelectionChanged( " << diff << " )" << endl;
+	kDebug(8101) << "Sender is : " << sender()->className() << endl;
 
 	m_selectedDifference = const_cast<Difference*>(diff);
 
@@ -713,9 +713,9 @@ void KompareModelList::slotNextModel()
 
 DiffModel* KompareModelList::firstModel()
 {
-	kdDebug( 8101 ) << "KompareModelList::firstModel()" << endl;
+	kDebug( 8101 ) << "KompareModelList::firstModel()" << endl;
 	m_modelIndex = 0;
-	kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+	kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
 
 	m_selectedModel = m_models->first();
 
@@ -724,9 +724,9 @@ DiffModel* KompareModelList::firstModel()
 
 DiffModel* KompareModelList::lastModel()
 {
-	kdDebug( 8101 ) << "KompareModelList::lastModel()" << endl;
+	kDebug( 8101 ) << "KompareModelList::lastModel()" << endl;
 	m_modelIndex = m_models->count() - 1;
-	kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+	kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
 
 	m_selectedModel = m_models->last();
 
@@ -735,17 +735,17 @@ DiffModel* KompareModelList::lastModel()
 
 DiffModel* KompareModelList::prevModel()
 {
-	kdDebug( 8101 ) << "KompareModelList::prevModel()" << endl;
+	kDebug( 8101 ) << "KompareModelList::prevModel()" << endl;
 	if ( --m_modelIndex < m_models->count() )
 	{
-		kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+		kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
 		m_selectedModel = (*m_models)[ m_modelIndex ];
 	}
 	else
 	{
 		m_selectedModel = 0;
 		m_modelIndex = 0;
-		kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+		kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
 	}
 
 	return m_selectedModel;
@@ -753,17 +753,17 @@ DiffModel* KompareModelList::prevModel()
 
 DiffModel* KompareModelList::nextModel()
 {
-	kdDebug( 8101 ) << "KompareModelList::nextModel()" << endl;
+	kDebug( 8101 ) << "KompareModelList::nextModel()" << endl;
 	if ( ++m_modelIndex < m_models->count() )
 	{
-		kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+		kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
 		m_selectedModel = (*m_models)[ m_modelIndex ];
 	}
 	else
 	{
 		m_selectedModel = 0;
 		m_modelIndex = 0;
-		kdDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+		kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
 	}
 
 	return m_selectedModel;
@@ -771,7 +771,7 @@ DiffModel* KompareModelList::nextModel()
 
 void KompareModelList::slotPreviousDifference()
 {
-	kdDebug(8101) << "slotPreviousDifference called" << endl;
+	kDebug(8101) << "slotPreviousDifference called" << endl;
 	if ( ( m_selectedDifference = m_selectedModel->prevDifference() ) != 0 )
 	{
 		emit setSelection( m_selectedDifference );
@@ -780,7 +780,7 @@ void KompareModelList::slotPreviousDifference()
 		return;
 	}
 
-	kdDebug(8101) << "**** no previous difference... ok lets find the previous model..." << endl;
+	kDebug(8101) << "**** no previous difference... ok lets find the previous model..." << endl;
 
 	if ( ( m_selectedModel = prevModel() ) != 0 )
 	{
@@ -793,7 +793,7 @@ void KompareModelList::slotPreviousDifference()
 	}
 
 
-	kdDebug(8101) << "**** !!! No previous model, ok backup plan activated..." << endl;
+	kDebug(8101) << "**** !!! No previous model, ok backup plan activated..." << endl;
 
 	// Backup plan
 	m_selectedModel = firstModel();
@@ -806,7 +806,7 @@ void KompareModelList::slotPreviousDifference()
 
 void KompareModelList::slotNextDifference()
 {
-	kdDebug(8101) << "slotNextDifference called" << endl;
+	kDebug(8101) << "slotNextDifference called" << endl;
 	if ( ( m_selectedDifference = m_selectedModel->nextDifference() ) != 0 )
 	{
 		emit setSelection( m_selectedDifference );
@@ -815,7 +815,7 @@ void KompareModelList::slotNextDifference()
 		return;
 	}
 
-	kdDebug(8101) << "**** no next difference... ok lets find the next model..." << endl;
+	kDebug(8101) << "**** no next difference... ok lets find the next model..." << endl;
 
 	if ( ( m_selectedModel = nextModel() ) != 0 )
 	{
@@ -827,7 +827,7 @@ void KompareModelList::slotNextDifference()
 		return;
 	}
 
-	kdDebug(8101) << "**** !!! No next model, ok backup plan activated..." << endl;
+	kDebug(8101) << "**** !!! No next model, ok backup plan activated..." << endl;
 
 	// Backup plan
 	m_selectedModel = lastModel();
@@ -852,7 +852,7 @@ void KompareModelList::slotApplyAllDifferences( bool apply )
 
 int KompareModelList::parseDiffOutput( const QString& diff )
 {
-	kdDebug(8101) << "KompareModelList::parseDiffOutput" << endl;
+	kDebug(8101) << "KompareModelList::parseDiffOutput" << endl;
 
 	QStringList diffLines = split( diff );
 
@@ -867,14 +867,14 @@ int KompareModelList::parseDiffOutput( const QString& diff )
 	if ( m_models )
 	{
 		m_selectedModel = firstModel();
-		kdDebug(8101) << "Ok there are differences..." << endl;
+		kDebug(8101) << "Ok there are differences..." << endl;
 		m_selectedDifference = m_selectedModel->firstDifference();
 		emit setStatusBarModelInfo( 0, 0, modelCount(), differenceCount(), 0);
 	}
 	else
 	{
 		// Wow trouble, no models, so no differences...
-		kdDebug(8101) << "Now i'll be damned, there should be models here !!!" << endl;
+		kDebug(8101) << "Now i'll be damned, there should be models here !!!" << endl;
 		return -1;
 	}
 
@@ -883,7 +883,7 @@ int KompareModelList::parseDiffOutput( const QString& diff )
 
 bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 {
-	kdDebug() << "Hurrah we are blending..." << endl;
+	kDebug() << "Hurrah we are blending..." << endl;
 	QFileInfo fi( localURL );
 
 	bool result = false;
@@ -893,42 +893,42 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 
 	if ( fi.isDir() )
 	{ // is a dir
-		kdDebug() << "Blend Dir" << endl;
+		kDebug() << "Blend Dir" << endl;
 //		QDir dir( localURL, QString::null, QDir::Name|QDir::DirsFirst, QDir::All );
 		DiffModelListIterator modelIt = m_models->begin();
 		DiffModelListIterator mEnd    = m_models->end();
 		for ( ; modelIt != mEnd; ++modelIt )
 		{
 			model = *modelIt;
-			kdDebug(8101) << "Model : " << model << endl;
+			kDebug(8101) << "Model : " << model << endl;
 			QString filename = model->sourcePath() + model->sourceFile();
 			if ( !filename.startsWith( localURL ) )
 				filename.prepend( localURL );
 			QFileInfo fi2( filename );
 			if ( fi2.exists() )
 			{
-				kdDebug(8101) << "Reading from: " << filename << endl;
+				kDebug(8101) << "Reading from: " << filename << endl;
 				fileContents = readFile( filename );
 				result = blendFile( model, fileContents );
 			}
 			else
 			{
-				kdDebug(8101) << "File " << filename << " does not exist !" << endl;
-				kdDebug(8101) << "Assume empty file !" << endl;
+				kDebug(8101) << "File " << filename << " does not exist !" << endl;
+				kDebug(8101) << "Assume empty file !" << endl;
 				fileContents.truncate( 0 );
 				result = blendFile( model, fileContents );
 			}
 		}
-		kdDebug() << "End of Blend Dir" << endl;
+		kDebug() << "End of Blend Dir" << endl;
 	}
 	else if ( fi.isFile() )
 	{ // is a file
-		kdDebug() << "Blend File" << endl;
-		kdDebug(8101) << "Reading from: " << localURL << endl;
+		kDebug() << "Blend File" << endl;
+		kDebug(8101) << "Reading from: " << localURL << endl;
 		fileContents = readFile( localURL );
 
 		result = blendFile( (*m_models)[ 0 ], fileContents );
-		kdDebug() << "End of Blend File" << endl;
+		kDebug() << "End of Blend File" << endl;
 	}
 
 	return result;
@@ -938,7 +938,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 {
 	if ( !model )
 	{
-		kdDebug() << "**** model is null :(" << endl;
+		kDebug() << "**** model is null :(" << endl;
 		return false;
 	}
 
@@ -952,7 +952,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 	QStringList::ConstIterator lEnd    = lines.end();
 
 	DiffHunkList* hunks = model->hunks();
-	kdDebug(8101) << "Hunks in hunklist: " << hunks->count() << endl;
+	kDebug(8101) << "Hunks in hunklist: " << hunks->count() << endl;
 	DiffHunkListIterator hunkIt = hunks->begin();
 
 	DiffHunk*   newHunk = 0;
@@ -1021,7 +1021,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 		DifferenceList hunkDiffList   = (*hunkIt)->differences();
 		DifferenceListIterator diffIt = hunkDiffList.begin();
 		DifferenceListIterator dEnd   = hunkDiffList.end();
-		kdDebug() << "Number of differences in hunkDiffList = " << diffList.count() << endl;
+		kDebug() << "Number of differences in hunkDiffList = " << diffList.count() << endl;
 
 		DifferenceListIterator tempIt;
 		Difference* diff;
@@ -1029,7 +1029,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 		for ( ; diffIt != dEnd; ++diffIt )
 		{
 			diff = *diffIt;
-			kdDebug() << "*(Diff it) = " << diff << endl;
+			kDebug() << "*(Diff it) = " << diff << endl;
 			// Check if there are lines in the original file before the difference
 			// that are not yet in the diff. If so create new Unchanged diff
 			if ( srcLineNo < diff->sourceLineNumber() )
@@ -1039,7 +1039,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 				newHunk->add( newDiff );
 				while ( srcLineNo < diff->sourceLineNumber() && linesIt != lEnd )
 				{
-//					kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *linesIt << endl;
+//					kDebug(8101) << "SourceLine = " << srcLineNo << ": " << *linesIt << endl;
 					newDiff->addSourceLine( *linesIt );
 					newDiff->addDestinationLine( *linesIt );
 					srcLineNo++;
@@ -1051,20 +1051,20 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 			switch ( diff->type() )
 			{
 			case Difference::Unchanged:
-				kdDebug(8101) << "Unchanged" << endl;
+				kDebug(8101) << "Unchanged" << endl;
 				for ( int i = 0; i < diff->sourceLineCount(); i++ )
 				{
 					if ( linesIt != lEnd && *linesIt != diff->sourceLineAt( i )->string() )
 					{
-						kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
-						kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+						kDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
+						kDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 
 						// Do conflict resolution (well sort of)
 						diff->sourceLineAt( i )->setConflictString( *linesIt );
 						diff->setConflict( true );
 					}
-//					kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *linesIt << endl;
-//					kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+//					kDebug(8101) << "SourceLine = " << srcLineNo << ": " << *linesIt << endl;
+//					kDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 					srcLineNo++;
 					destLineNo++;
 					++linesIt;
@@ -1077,7 +1077,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 
 				break;
 			case Difference::Change:
-				kdDebug(8101) << "Change" << endl;
+				kDebug(8101) << "Change" << endl;
 
 				//QStringListConstIterator saveIt = linesIt;
 
@@ -1085,8 +1085,8 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 				{
 					if ( linesIt != lEnd && *linesIt != diff->sourceLineAt( i )->string() )
 					{
-						kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
-						kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+						kDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
+						kDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 
 						// Do conflict resolution (well sort of)
 						diff->sourceLineAt( i )->setConflictString( *linesIt );
@@ -1107,7 +1107,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 
 				break;
 			case Difference::Insert:
-				kdDebug(8101) << "Insert" << endl;
+				kDebug(8101) << "Insert" << endl;
 				destLineNo += diff->destinationLineCount();
 				tempIt = diffIt;
 				--diffIt;
@@ -1116,22 +1116,22 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 				newModel->addDiff( diff );
 				break;
 			case Difference::Delete:
-				kdDebug(8101) << "Delete" << endl;
-				kdDebug(8101) << "Number of lines in Delete: " << diff->sourceLineCount() << endl;
+				kDebug(8101) << "Delete" << endl;
+				kDebug(8101) << "Number of lines in Delete: " << diff->sourceLineCount() << endl;
 				for ( int i = 0; i < diff->sourceLineCount(); i++ )
 				{
 					if ( linesIt != lEnd && *linesIt != diff->sourceLineAt( i )->string() )
 					{
-						kdDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
-						kdDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+						kDebug(8101) << "Conflict: SourceLine = " << srcLineNo << ": " << *linesIt << endl;
+						kDebug(8101) << "Conflict: DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 
 						// Do conflict resolution (well sort of)
 						diff->sourceLineAt( i )->setConflictString( *linesIt );
 						diff->setConflict( true );
 					}
 
-//					kdDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
-//					kdDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
+//					kDebug(8101) << "SourceLine = " << srcLineNo << ": " << *it << endl;
+//					kDebug(8101) << "DiffLine   = " << diff->sourceLineNumber() + i << ": " << diff->sourceLineAt( i )->string() << endl;
 					srcLineNo++;
 					++linesIt;
 				}
@@ -1143,7 +1143,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 				newModel->addDiff( diff );
 				break;
 			default:
-				kdDebug(8101) << "****, some diff type we dont know about ???" << endl;
+				kDebug(8101) << "****, some diff type we dont know about ???" << endl;
 			}
 		}
 	}
@@ -1153,10 +1153,10 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 	diffList = newModel->differences();
 
 	diff = diffList.first();
-	kdDebug(8101) << "Count = " << diffList.count() << endl;
+	kDebug(8101) << "Count = " << diffList.count() << endl;
 	for ( diff = diffList.first(); diff; diff = diffList.next() )
 	{
-		kdDebug(8101) << "sourcelinenumber = " << diff->sourceLineNumber() << endl;
+		kDebug(8101) << "sourcelinenumber = " << diff->sourceLineNumber() << endl;
 	}
 */
 
@@ -1169,7 +1169,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 
 void KompareModelList::show()
 {
-	kdDebug() << "KompareModelList::Show Number of models = " << m_models->count() << endl;
+	kDebug() << "KompareModelList::Show Number of models = " << m_models->count() << endl;
 	emit modelsChanged( m_models );
 	emit setSelection( m_selectedModel, m_selectedDifference );
 }
@@ -1216,8 +1216,8 @@ int KompareModelList::appliedCount() const
 
 void KompareModelList::slotSetModified( bool modified )
 {
-	kdDebug(8101) << "KompareModelList::slotSetModified( " << modified << " );" << endl;
-	kdDebug(8101) << "Before: m_noOfModified = " << m_noOfModified << endl;
+	kDebug(8101) << "KompareModelList::slotSetModified( " << modified << " );" << endl;
+	kDebug(8101) << "Before: m_noOfModified = " << m_noOfModified << endl;
 
 	// If selectedModel emits its signal setModified it does not set the model
 	// internal m_modified bool yet, it only does that after the emit.
@@ -1226,11 +1226,11 @@ void KompareModelList::slotSetModified( bool modified )
 	else if ( !modified && m_selectedModel->isModified() )
 		m_noOfModified--;
 
-	kdDebug(8101) << "After : m_noOfModified = " << m_noOfModified << endl;
+	kDebug(8101) << "After : m_noOfModified = " << m_noOfModified << endl;
 
 	if ( m_noOfModified < 0 )
 	{
-		kdDebug(8101) << "Wow something is ****ed up..." << endl;
+		kDebug(8101) << "Wow something is ****ed up..." << endl;
 	}
 	else if ( m_noOfModified == 0 )
 	{
@@ -1244,15 +1244,15 @@ void KompareModelList::slotSetModified( bool modified )
 
 bool KompareModelList::setSelectedModel( DiffModel* model )
 {
-	kdDebug(8101) << "KompareModelList::setSelectedModel( " << model << " )" << endl;
+	kDebug(8101) << "KompareModelList::setSelectedModel( " << model << " )" << endl;
 
 	if ( model != m_selectedModel )
 	{
 		if ( m_models->findIndex( model ) == -1 )
 			return false;
-		kdDebug(8101) << "m_selectedModel (was) = " << m_selectedModel << endl;
+		kDebug(8101) << "m_selectedModel (was) = " << m_selectedModel << endl;
 		m_modelIndex = m_models->findIndex( model );
-		kdDebug(8101) << "m_selectedModel (is)  = " << m_selectedModel << endl;
+		kDebug(8101) << "m_selectedModel (is)  = " << m_selectedModel << endl;
 		m_selectedModel = model;
 	}
 
@@ -1312,73 +1312,73 @@ void KompareModelList::updateModelListActions()
 
 bool KompareModelList::hasPrevModel() const
 {
-	kdDebug(8101) << "KompareModelList::hasPrevModel()" << endl;
+	kDebug(8101) << "KompareModelList::hasPrevModel()" << endl;
 
 	if (  m_modelIndex > 0 )
 	{
-//		kdDebug(8101) << "has prev model" << endl;
+//		kDebug(8101) << "has prev model" << endl;
 		return true;
 	}
 
-//	kdDebug(8101) << "doesn't have a prev model, this is the first one..." << endl;
+//	kDebug(8101) << "doesn't have a prev model, this is the first one..." << endl;
 
 	return false;
 }
 
 bool KompareModelList::hasNextModel() const
 {
-	kdDebug(8101) << "KompareModelList::hasNextModel()" << endl;
+	kDebug(8101) << "KompareModelList::hasNextModel()" << endl;
 
 	if ( (  unsigned int )m_modelIndex < (  m_models->count() - 1 ) )
 	{
-//		kdDebug(8101) << "has next model" << endl;
+//		kDebug(8101) << "has next model" << endl;
 		return true;
 	}
 
-//	kdDebug(8101) << "doesn't have a next model, this is the last one..." << endl;
+//	kDebug(8101) << "doesn't have a next model, this is the last one..." << endl;
 	return false;
 }
 
 bool KompareModelList::hasPrevDiff() const
 {
-//	kdDebug(8101) << "KompareModelList::hasPrevDiff()" << endl;
+//	kDebug(8101) << "KompareModelList::hasPrevDiff()" << endl;
 	int index = m_selectedModel->diffIndex();
 
 	if ( index > 0 )
 	{
-//		kdDebug(8101) << "has prev difference in same model" << endl;
+//		kDebug(8101) << "has prev difference in same model" << endl;
 		return true;
 	}
 
 	if ( hasPrevModel() )
 	{
-//		kdDebug(8101) << "has prev difference but in prev model" << endl;
+//		kDebug(8101) << "has prev difference but in prev model" << endl;
 		return true;
 	}
 
-//	kdDebug(8101) << "doesn't have a prev difference, not even in the previous model because there is no previous model" << endl;
+//	kDebug(8101) << "doesn't have a prev difference, not even in the previous model because there is no previous model" << endl;
 
 	return false;
 }
 
 bool KompareModelList::hasNextDiff() const
 {
-//	kdDebug(8101) << "KompareModelList::hasNextDiff()" << endl;
+//	kDebug(8101) << "KompareModelList::hasNextDiff()" << endl;
 	int index = m_selectedModel->diffIndex();
 
 	if ( index < ( m_selectedModel->differenceCount() - 1 ) )
 	{
-//		kdDebug(8101) << "has next difference in same model" << endl;
+//		kDebug(8101) << "has next difference in same model" << endl;
 		return true;
 	}
 
 	if ( hasNextModel() )
 	{
-//		kdDebug(8101) << "has next difference but in next model" << endl;
+//		kDebug(8101) << "has next difference but in next model" << endl;
 		return true;
 	}
 
-//	kdDebug(8101) << "doesn't have a next difference, not even in next model because there is no next model" << endl;
+//	kDebug(8101) << "doesn't have a next difference, not even in next model because there is no next model" << endl;
 
 	return false;
 }

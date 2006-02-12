@@ -99,12 +99,12 @@ void KompareURLDialog::slotEnableOk()
 
 KUrl KompareURLDialog::getFirstURL() const
 {
-	return KURL( m_filesPage->firstURLRequester()->url() );
+	return KUrl( m_filesPage->firstURLRequester()->url() );
 }
 
 KUrl KompareURLDialog::getSecondURL() const
 {
-	return KURL( m_filesPage->secondURLRequester()->url() );
+	return KUrl( m_filesPage->secondURLRequester()->url() );
 }
 
 QString KompareURLDialog::encoding() const

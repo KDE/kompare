@@ -100,8 +100,8 @@ void FilesPage::setURLsInComboBoxes()
 {
 //	kDebug() << "first : " << m_firstURLComboBox->currentText() << endl;
 //	kDebug() << "second: " << m_secondURLComboBox->currentText() << endl;
-	m_firstURLComboBox->setURL( KURL( m_firstURLComboBox->currentText() ) );
-	m_secondURLComboBox->setURL( KURL( m_secondURLComboBox->currentText() ) );
+	m_firstURLComboBox->setURL( KUrl( m_firstURLComboBox->currentText() ) );
+	m_secondURLComboBox->setURL( KUrl( m_secondURLComboBox->currentText() ) );
 }
 
 
@@ -120,9 +120,9 @@ void FilesPage::setSettings( FilesSettings* settings )
 	m_settings = settings;
 
 	m_firstURLComboBox->setURLs( m_settings->m_recentSources );
-	m_firstURLComboBox->setURL( KURL( m_settings->m_lastChosenSourceURL ) );
+	m_firstURLComboBox->setURL( KUrl( m_settings->m_lastChosenSourceURL ) );
 	m_secondURLComboBox->setURLs( m_settings->m_recentDestinations );
-	m_secondURLComboBox->setURL( KURL( m_settings->m_lastChosenDestinationURL ) );
+	m_secondURLComboBox->setURL( KUrl( m_settings->m_lastChosenDestinationURL ) );
 	m_encodingComboBox->setCurrentText( m_settings->m_encoding );
 }
 
@@ -143,9 +143,9 @@ void FilesPage::apply()
 void FilesPage::setDefaults()
 {
 	m_firstURLComboBox->setURLs( "" );
-	m_firstURLComboBox->setURL( KURL( "" ) );
+	m_firstURLComboBox->setURL( KUrl( "" ) );
 	m_secondURLComboBox->setURLs( "" );
-	m_secondURLComboBox->setURL( KURL( "" ) );
+	m_secondURLComboBox->setURL( KUrl( "" ) );
 	m_encodingComboBox->setCurrentText( "Default" );
 }
 

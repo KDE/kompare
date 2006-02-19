@@ -5,6 +5,7 @@ Type=Application
 Name=Kompare
 Name[x-test]=xxKomparexx
 GenericName=Diff/Patch Frontend
+GenericName[fr]=Interface graphique pour Diff et Patch
 GenericName[x-test]=xxDiff/Patch Frontendxx
 MimeType=text/x-diff;
 Exec=kompare -caption "%c" -o %U

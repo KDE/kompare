@@ -121,7 +121,13 @@ void KompareProcess::writeCommandLine()
 		break;
 	}
 
-	if ( m_diffSettings->m_largeFiles )
+	if ( m_diffSettings->m_largeFiles 
+// default diff does not have -H on OpenBSD
+// so don't pass this option unless the user overrode the default program
+#if defined(__OpenBSD__)
+		&& !m_diffSettings->m_diffProgram.isEmpty() 
+#endif
+	   )
 	{
 		*this << "-H";
 	}

@@ -257,8 +257,8 @@ void KompareShell::setupActions()
 void KompareShell::setupStatusBar()
 {
 	// Made these entries permanent so they will appear on the right side
-	statusBar()->insertItem( i18n(" 0 of 0 differences "), ID_N_OF_N_DIFFERENCES, 0, true );
-	statusBar()->insertItem( i18n(" 0 of 0 files "), ID_N_OF_N_FILES, 0, true );
+	statusBar()->insertFixedItem( i18n(" 0 of 0 differences "), ID_N_OF_N_DIFFERENCES, 0);
+	statusBar()->insertFixedItem( i18n(" 0 of 0 files "), ID_N_OF_N_FILES, 0);
 
 	m_generalLabel = new KSqueezedTextLabel( "", 0, "general_statusbar_label" );
 	statusBar()->addWidget( m_generalLabel, 1, false );

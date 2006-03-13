@@ -21,7 +21,7 @@
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kmimetype.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <kaboutdata.h>
 
 #include "difference.h"
@@ -57,24 +57,24 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 
 	setWidget( m_splitter );
 
-	m_srcDirTree = new KListView( m_splitter );
+	m_srcDirTree = new K3ListView( m_splitter );
 	m_srcDirTree->addColumn( i18n("Source Folder") );
 	m_srcDirTree->setRootIsDecorated( false );
 	m_srcDirTree->setSorting( 0, true );
 
-	m_destDirTree = new KListView( m_splitter );
+	m_destDirTree = new K3ListView( m_splitter );
 	m_destDirTree->addColumn( i18n("Destination Folder") );
 	m_destDirTree->setRootIsDecorated( false );
 	m_destDirTree->setSorting( 0, true );
 
-	m_fileList = new KListView( m_splitter );
+	m_fileList = new K3ListView( m_splitter );
 	m_fileList->addColumn( i18n("Source File") );
 	m_fileList->addColumn( i18n("Destination File") );
 	m_fileList->setAllColumnsShowFocus( true );
 	m_fileList->setRootIsDecorated( false );
 	m_fileList->setSorting( 0, true );
 
-	m_changesList = new KListView( m_splitter );
+	m_changesList = new K3ListView( m_splitter );
 	m_changesList->addColumn( i18n("Source Line") );
 	m_changesList->addColumn( i18n("Destination Line") );
 	m_changesList->addColumn( i18n("Difference") );
@@ -453,7 +453,7 @@ void KChangeLVI::setDifferenceText()
 	setText( 2, text );
 }
 
-KChangeLVI::KChangeLVI( KListView* parent, Difference* diff ) : KListViewItem( parent )
+KChangeLVI::KChangeLVI( K3ListView* parent, Difference* diff ) : K3ListViewItem( parent )
 {
 	m_difference = diff;
 
@@ -487,7 +487,7 @@ KChangeLVI::~KChangeLVI()
 {
 }
 
-KFileLVI::KFileLVI( KListView* parent, DiffModel* model ) : KListViewItem( parent )
+KFileLVI::KFileLVI( K3ListView* parent, DiffModel* model ) : K3ListViewItem( parent )
 {
 	m_model = model;
 
@@ -498,7 +498,7 @@ KFileLVI::KFileLVI( KListView* parent, DiffModel* model ) : KListViewItem( paren
 	setSelectable( true );
 }
 
-void KFileLVI::fillChangesList( KListView* changesList, Q3PtrDict<KChangeLVI>* diffToChangeItemDict )
+void KFileLVI::fillChangesList( K3ListView* changesList, Q3PtrDict<KChangeLVI>* diffToChangeItemDict )
 {
 	changesList->clear();
 	diffToChangeItemDict->clear();
@@ -519,9 +519,9 @@ KFileLVI::~KFileLVI()
 {
 }
 
-KDirLVI::KDirLVI( KListView* parent, QString& dir ) : KListViewItem( parent )
+KDirLVI::KDirLVI( K3ListView* parent, QString& dir ) : K3ListViewItem( parent )
 {
-//	kDebug(8105) << "KDirLVI (KListView) constructor called with dir = " << dir << endl;
+//	kDebug(8105) << "KDirLVI (K3ListView) constructor called with dir = " << dir << endl;
 	m_rootItem = true;
 	m_dirName = dir;
 	setPixmap( 0, SmallIcon( "folder" ) );
@@ -533,7 +533,7 @@ KDirLVI::KDirLVI( KListView* parent, QString& dir ) : KListViewItem( parent )
 		setText( 0, m_dirName );
 }
 
-KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : KListViewItem( parent )
+KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : K3ListViewItem( parent )
 {
 //	kDebug(8105) << "KDirLVI (KDirLVI) constructor called with dir = " << dir << endl;
 	m_rootItem = false;
@@ -592,7 +592,7 @@ KDirLVI* KDirLVI::findChild( QString dir )
 	return 0L;
 }
 
-void KDirLVI::fillFileList( KListView* fileList, Q3PtrDict<KFileLVI>* modelToFileItemDict )
+void KDirLVI::fillFileList( K3ListView* fileList, Q3PtrDict<KFileLVI>* modelToFileItemDict )
 {
 	fileList->clear();
 

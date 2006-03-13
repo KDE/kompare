@@ -99,7 +99,7 @@ void KompareListViewFrame::slotSetModel( const DiffModel* model )
 KompareListView::KompareListView( bool isSource,
                                   ViewSettings* settings,
                                   QWidget* parent, const char* name ) :
-	KListView( parent, name ),
+	K3ListView( parent, name ),
 	m_isSource( isSource ),
 	m_settings( settings ),
 	m_scrollId( -1 ),
@@ -415,7 +415,7 @@ void KompareListView::wheelEvent( QWheelEvent* e )
 
 void KompareListView::resizeEvent( QResizeEvent* e )
 {
-	KListView::resizeEvent(e);
+	K3ListView::resizeEvent(e);
 	emit resized();
 	kDebug() << "resizeEvent " << endl;
 }

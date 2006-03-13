@@ -27,7 +27,7 @@
 #include <qlabel.h>
 #include <qlayout.h>
 
-#include <klistview.h>
+#include <k3listview.h>
 
 namespace Diff2 {
 class DiffModel;
@@ -43,7 +43,7 @@ class KompareListViewItem;
 class KompareListViewDiffItem;
 class KompareListViewLineContainerItem;
 
-class KompareListView : public KListView
+class KompareListView : public K3ListView
 {
 	Q_OBJECT
 

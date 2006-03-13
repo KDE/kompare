@@ -33,7 +33,7 @@
 
 class KompareModelList;
 class KomparePart;
-class KListView;
+class K3ListView;
 
 namespace Diff2 {
 class DiffModel;
@@ -87,10 +87,10 @@ private:
 	QString compareFromEndAndReturnSame( const QString& string1, const QString& string2 );
 	void addDirToTreeView( enum Kompare::Target, const QString& filename );
 
-	KListViewItem* findDirInDirTree( const KListViewItem* parent, const QString& dir );
+	K3ListViewItem* findDirInDirTree( const K3ListViewItem* parent, const QString& dir );
 
-//	KListViewItem* firstItem();
-//	KListViewItem* lastItem();
+//	K3ListViewItem* firstItem();
+//	K3ListViewItem* lastItem();
 
 private:
 	QSplitter*                         m_splitter;
@@ -101,10 +101,10 @@ private:
 	Q3PtrDict<KDirLVI>                  m_modelToSrcDirItemDict;
 	Q3PtrDict<KDirLVI>                  m_modelToDestDirItemDict;
 
-	KListView*                         m_srcDirTree;
-	KListView*                         m_destDirTree;
-	KListView*                         m_fileList;
-	KListView*                         m_changesList;
+	K3ListView*                         m_srcDirTree;
+	K3ListView*                         m_destDirTree;
+	K3ListView*                         m_fileList;
+	K3ListView*                         m_changesList;
 
 	KDirLVI*                           m_srcRootItem;
 	KDirLVI*                           m_destRootItem;
@@ -121,10 +121,10 @@ private:
 // These 3 classes are need to store the models into a tree so it is easier
 // to extract the info we need for the navigation widgets
 
-class KChangeLVI : public KListViewItem
+class KChangeLVI : public K3ListViewItem
 {
 public:
-	KChangeLVI( KListView* parent, Diff2::Difference* diff );
+	KChangeLVI( K3ListView* parent, Diff2::Difference* diff );
 	~KChangeLVI();
 public:
 	Diff2::Difference* difference() { return m_difference; };
@@ -135,30 +135,30 @@ private:
 	Diff2::Difference* m_difference;
 };
 
-class KFileLVI : public KListViewItem
+class KFileLVI : public K3ListViewItem
 {
 public:
-	KFileLVI( KListView* parent, Diff2::DiffModel* model );
+	KFileLVI( K3ListView* parent, Diff2::DiffModel* model );
 	~KFileLVI();
 public:
 	Diff2::DiffModel* model() { return m_model; };
-	void fillChangesList( KListView* changesList, Q3PtrDict<KChangeLVI>* diffToChangeItemDict );
+	void fillChangesList( K3ListView* changesList, Q3PtrDict<KChangeLVI>* diffToChangeItemDict );
 private:
 	Diff2::DiffModel* m_model;
 };
 
-class KDirLVI : public KListViewItem
+class KDirLVI : public K3ListViewItem
 {
 public:
 	KDirLVI( KDirLVI* parent, QString& dir );
-	KDirLVI( KListView* parent, QString& dir );
+	KDirLVI( K3ListView* parent, QString& dir );
 	~KDirLVI();
 public:
 	void addModel( QString& dir, Diff2::DiffModel* model, Q3PtrDict<KDirLVI>* modelToDirItemDict );
 	QString& dirName() { return m_dirName; };
 	QString fullPath( QString& path );
 	KDirLVI* setSelected( QString dir );
-	void fillFileList( KListView* fileList, Q3PtrDict<KFileLVI>* modelToFileItemDict );
+	void fillFileList( K3ListView* fileList, Q3PtrDict<KFileLVI>* modelToFileItemDict );
 	bool isRootItem() { return m_rootItem; };
 private:
 	KDirLVI* findChild( QString dir );

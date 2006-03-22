@@ -16,7 +16,7 @@
 ***************************************************************************/
 
 #include <qcheckbox.h>
-#include <qhgroupbox.h>
+#include <q3hgroupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qradiobutton.h>

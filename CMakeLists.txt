@@ -18,7 +18,7 @@ kde4_automoc(${kompare_SRCS})
 
 kde4_add_executable(kompare ${kompare_SRCS})
 
-target_link_libraries(kompare  ${QT_AND_KDECORE_LIBS} kparts kompareinterface dialogpages ktexteditor )
+target_link_libraries(kompare  ${KDE4_KDECORE_LIBS} kparts kompareinterface dialogpages ktexteditor )
 
 install_targets(/bin kompare )
 

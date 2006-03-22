@@ -13,7 +13,7 @@ kde4_add_plugin(komparenavtreepart WITH_PREFIX ${komparenavtreepart_PART_SRCS})
 
 kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} komparenavtreepart )
 
-target_link_libraries(komparenavtreepart  ${QT_AND_KDECORE_LIBS} kparts diff2 )
+target_link_libraries(komparenavtreepart  ${KDE4_KDECORE_LIBS} kparts diff2 )
 
 install_targets(${LIB_INSTALL_DIR}/kde4 komparenavtreepart )
 

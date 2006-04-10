@@ -273,15 +273,15 @@ void KompareShell::slotUpdateStatusBar( int modelIndex, int differenceIndex, int
 	QString diffStr;
 
 	if ( modelIndex >= 0 )
-		fileStr = i18n( " %1 of %n file ", " %1 of %n files ", modelCount ).arg( modelIndex + 1 );
+		fileStr = i18np( " %1 of %n file ", " %1 of %n files ", modelCount, modelIndex + 1 );
 	else
-		fileStr = i18n( " %n file ", " %n files ", modelCount );
+		fileStr = i18np( " %n file ", " %n files ", modelCount );
 
 	if ( differenceIndex >= 0 )
-		diffStr = i18n( " %1 of %n difference, %2 applied ", " %1 of %n differences, %2 applied ", differenceCount )
-		          .arg( differenceIndex + 1 ).arg( appliedCount );
+		diffStr = i18np( " %1 of %n difference, %2 applied ", " %1 of %n differences, %2 applied ", differenceCount ,
+		            differenceIndex + 1, appliedCount );
 	else
-		diffStr = i18n( " %n difference ", " %n differences ", differenceCount );
+		diffStr = i18np( " %n difference ", " %n differences ", differenceCount );
 
 	statusBar()->changeItem( fileStr, ID_N_OF_N_FILES );
 	statusBar()->changeItem( diffStr, ID_N_OF_N_DIFFERENCES );

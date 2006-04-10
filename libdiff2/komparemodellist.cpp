@@ -235,7 +235,7 @@ bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff
 
 	if ( parseDiffOutput( readFile( diff ) ) != 0 )
 	{
-		emit error( i18n( "<qt>No models or no differences, this file: <b>%1</b>, is not a valid diff file.</qt>" ).arg(  diff ) );
+		emit error( i18n( "<qt>No models or no differences, this file: <b>%1</b>, is not a valid diff file.</qt>", diff ) );
 		return false;
 	}
 
@@ -243,7 +243,7 @@ bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff
 	if ( !blendOriginalIntoModelList( file ) )
 	{
 		kDebug(8101) << "Oops cant blend original file into modellist : " << file << endl;
-		emit( i18n( "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>.</qt>" ).arg( diff ).arg( file ) );
+		emit( i18n( "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>.</qt>", diff, file ) );
 		return false;
 	}
 
@@ -259,7 +259,7 @@ bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 
 	if ( parseDiffOutput( readFile( diff ) ) != 0 )
 	{
-		emit error( i18n( "<qt>No models or no differences, this file: <b>%1</b>, is not a valid diff file.</qt>" ).arg( diff ) );
+		emit error( i18n( "<qt>No models or no differences, this file: <b>%1</b>, is not a valid diff file.</qt>", diff ) );
 		return false;
 	}
 
@@ -268,7 +268,7 @@ bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
 	{
 		// Trouble blending the original into the model
 		kDebug(8101) << "Oops cant blend original dir into modellist : " << dir << endl;
-		emit error( i18n( "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</b>.</qt>" ).arg( diff ).arg( dir ) );
+		emit error( i18n( "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</b>.</qt>", diff, dir ) );
 		return false;
 	}
 
@@ -347,7 +347,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 
 	temp->close();
 	if( temp->status() != 0 ) {
-		emit error( i18n( "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>" ).arg( temp->name() ) );
+		emit error( i18n( "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>", temp->name() ) );
 		temp->unlink();
 		delete temp;
 		return false;
@@ -365,6 +365,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 		{
 			if ( !KIO::NetAccess::mkdir( KUrl( destination ).path(), (QWidget*)parent() ) )
 			{
+				#warning i18n: Missing argument to the i18n call below
 				emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved.</qt>" ) );
 				return false;
 			}
@@ -380,7 +381,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 
 	if ( !result )
 	{
-		emit error( i18n( "<qt>Could not upload the temporary file to the destination location <b>%1</b>. The temporary file is still available under: <b>%2</b>. You can manually copy it to the right place.</qt>" ).arg( m_destination ).arg( temp->name() ) );
+		emit error( i18n( "<qt>Could not upload the temporary file to the destination location <b>%1</b>. The temporary file is still available under: <b>%2</b>. You can manually copy it to the right place.</qt>", m_destination, temp->name() ) );
 	}
 	else
 	{

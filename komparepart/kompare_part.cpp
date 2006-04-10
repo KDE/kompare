@@ -266,7 +266,7 @@ const QString KomparePart::fetchURL( const KUrl& url )
 	{
 		if ( ! KIO::NetAccess::download( url, tempFileName, widget() ) )
 		{
-			slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>" ).arg( url.prettyURL() ) );
+			slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.prettyURL() ) );
 			tempFileName = "";
 		}
 		return tempFileName;
@@ -278,7 +278,7 @@ const QString KomparePart::fetchURL( const KUrl& url )
 			return url.path();
 		else
 		{
-			slotShowError( i18n( "<qt>The URL <b>%1</b> does not exist on your system.</qt>" ).arg( url.prettyURL() ) );
+			slotShowError( i18n( "<qt>The URL <b>%1</b> does not exist on your system.</qt>", url.prettyURL() ) );
 			return tempFileName;
 		}
 	}
@@ -542,27 +542,27 @@ void KomparePart::updateStatus()
 	switch ( m_info.mode )
 	{
 	case Kompare::ComparingFiles :
-		text = i18n( "Comparing file %1 with file %2" )
-		   .arg( source )
-		   .arg( destination );
+		text = i18n( "Comparing file %1 with file %2" ,
+		     source ,
+		     destination );
 		break;
 	case Kompare::ComparingDirs :
-		text = i18n( "Comparing files in %1 with files in %2" )
-		   .arg( source )
-		   .arg( destination );
+		text = i18n( "Comparing files in %1 with files in %2" ,
+		     source ,
+		     destination );
 		break;
 	case Kompare::ShowingDiff :
-		text = i18n( "Viewing diff output from %1" ).arg( source );
+		text = i18n( "Viewing diff output from %1", source );
 		break;
 	case Kompare::BlendingFile :
-		text = i18n( "Blending diff output from %1 into file %2" )
-		    .arg( source )
-		    .arg( destination );
+		text = i18n( "Blending diff output from %1 into file %2" ,
+		      source ,
+		      destination );
 		break;
 	case Kompare::BlendingDir :
-		text = i18n( "Blending diff output from %1 into folder %2" )
-		    .arg( m_info.source.prettyURL() )
-		    .arg( m_info.destination.prettyURL() );
+		text = i18n( "Blending diff output from %1 into folder %2" ,
+		      m_info.source.prettyURL() ,
+		      m_info.destination.prettyURL() );
 		break;
 	default:
 		break;
@@ -677,12 +677,12 @@ void KomparePart::slotShowDiffstats( void )
 		    "\n"
 		    "Format: %3\n"
 		    "Number of hunks: %4\n"
-		    "Number of differences: %5")
-		    .arg(oldFile).arg(newFile).arg(diffFormat)
-		    .arg(noOfHunks).arg(noOfDiffs),
+		    "Number of differences: %5",
+		     oldFile, newFile, diffFormat,
+		     noOfHunks, noOfDiffs),
 		    i18n("Diff Statistics"), QString::null, false );
 	} else { // more than 1 file in diff, or 2 directories compared
-		KMessageBox::information( 0L, i18n(
+		KMessageBox::information( 0L, ki18n(
 		    "Statistics:\n"
 		    "\n"
 		    "Number of files in diff file: %1\n"
@@ -693,8 +693,9 @@ void KomparePart::slotShowDiffstats( void )
 		    "\n"
 		    "Number of hunks: %5\n"
 		    "Number of differences: %6")
-		    .arg(filesInDiff).arg(diffFormat).arg(oldFile)
-		    .arg(newFile).arg(noOfHunks).arg(noOfDiffs),
+		    .subs(filesInDiff).subs(diffFormat).subs(oldFile)
+		    .subs(newFile).subs(noOfHunks).subs(noOfDiffs)
+                    .toString(),
 		    i18n("Diff Statistics"), QString::null, false );
 	}
 }

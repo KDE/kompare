@@ -12,14 +12,7 @@
 <title>The &kompare; Handbook</title>
 
 <authorgroup>
-<author>
-<firstname></firstname>
-<othername></othername>
-<surname></surname>
-<affiliation>
-<address><email></email></address>
-</affiliation>
-</author>
+<author><surname>Not Known Yet</surname></author>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 
@@ -58,6 +51,7 @@ submitting your question to <ulink url="mailto:kde@kde.org">The
 &kde; User Mailing list</ulink>.</para> <para><emphasis>The &kde;
 Team</emphasis></para>
 
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 &underFDL;
 
 </chapter>

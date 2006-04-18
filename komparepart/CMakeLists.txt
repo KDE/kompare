@@ -23,7 +23,7 @@ kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} komparepart )
 
 target_link_libraries(komparepart  ${KDE4_KDECORE_LIBS} kparts dialogpages diff2 kompareinterface )
 
-install_targets(${LIB_INSTALL_DIR}/kde4 komparepart )
+install_targets(${PLUGIN_INSTALL_DIR} komparepart )
 
 
 ########### install files ###############

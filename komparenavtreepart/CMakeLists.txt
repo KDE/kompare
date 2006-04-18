@@ -15,7 +15,7 @@ kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} komparenavtreepart )
 
 target_link_libraries(komparenavtreepart  ${KDE4_KDECORE_LIBS} kparts diff2 )
 
-install_targets(${LIB_INSTALL_DIR}/kde4 komparenavtreepart )
+install_targets(${PLUGIN_INSTALL_DIR} komparenavtreepart )
 
 
 ########### install files ###############

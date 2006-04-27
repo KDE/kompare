@@ -278,8 +278,8 @@ void KompareSplitter::doMove( bool backwards, int pos, int id, int delta,
 				int dd = backwards ? pos - pick( topLeft(w) )
 				                   : pick( bottomRight(w) ) - pos + 1;
 				if ( dd > 0 || (!isCollapsed(w) && !mayCollapse) ) {
-					dd = QMAX( pick(qSmartMinSize(w)),
-					           QMIN(dd, pick(w->maximumSize())) );
+					dd = qMax( pick(qSmartMinSize(w)),
+					           qMin(dd, pick(w->maximumSize())) );
 				} else {
 					dd = 0;
 				}
@@ -410,7 +410,7 @@ void KompareSplitter::wheelEvent( QWheelEvent* e )
 	// scroll lines...
 	if ( e->orientation() == Qt::Vertical )
 	{
-		if ( e->state() & Qt::ControlButton )
+		if ( e->state() & Qt::ControlModifier )
 			if ( e->delta() < 0 ) // scroll down one page
 				m_vScroll->addPage();
 			else // scroll up one page
@@ -423,7 +423,7 @@ void KompareSplitter::wheelEvent( QWheelEvent* e )
 	}
 	else
 	{
-		if ( e->state() & Qt::ControlButton )
+		if ( e->state() & Qt::ControlModifier )
 			if ( e->delta() < 0 ) // scroll right one page
 				m_hScroll->addPage();
 			else // scroll left one page

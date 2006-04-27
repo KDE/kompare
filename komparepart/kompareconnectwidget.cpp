@@ -169,8 +169,8 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 		int lastL = m_leftView->lastVisibleDifference();
 		int lastR = m_rightView->lastVisibleDifference();
 
-		int first = firstL < 0 ? firstR : QMIN( firstL, firstR );
-		int last = lastL < 0 ? lastR : QMAX( lastL, lastR );
+		int first = firstL < 0 ? firstR : qMin( firstL, firstR );
+		int last = lastL < 0 ? lastR : qMax( lastL, lastR );
 
 //		kDebug(8106) << "    left: " << firstL << " - " << lastL << endl;
 //		kDebug(8106) << "   right: " << firstR << " - " << lastR << endl;

@@ -22,6 +22,7 @@
 #include <kapplication.h>
 #include <klocale.h>
 #include <kurlrequester.h>
+#include <kglobal.h>
 
 #include "diffpage.h"
 #include "diffsettings.h"
@@ -37,7 +38,7 @@ KompareURLDialog::KompareURLDialog( QWidget *parent, const char *name )
 {
 	setIconListAllVisible(true);
 
-	KConfig* cfg = kapp->config();
+	KConfig* cfg = KGlobal::config();
 	QVBox* filesBox = addVBoxPage( i18n( "Files" ), i18n( "Here you can enter the files you want to compare." ) );
 	m_filesPage = new FilesPage( filesBox );
 	m_filesSettings = new FilesSettings( this );
@@ -76,7 +77,7 @@ void KompareURLDialog::slotOk()
 {
 	m_filesPage->setURLsInComboBoxes();
 
-	KConfig* cfg = kapp->config();
+	KConfig* cfg = KGlobal::config();
 
 	m_filesPage->apply();
 	m_diffPage->apply();
@@ -125,7 +126,7 @@ void KompareURLDialog::setSecondGroupBoxTitle( const QString& title )
 void KompareURLDialog::setGroup( const QString& groupName )
 {
 	m_filesSettings->setGroup( groupName );
-	m_filesSettings->loadSettings( kapp->config() );
+	m_filesSettings->loadSettings( KGlobal::config() );
 	m_filesPage->setSettings( m_filesSettings );
 }
 

@@ -31,6 +31,7 @@
 #include <kdialog.h>
 #include <kfontcombo.h>
 #include <klocale.h>
+#include <kglobal.h>
 
 #include "viewpage.h"
 #include "viewsettings.h"
@@ -162,7 +163,7 @@ void ViewPage::apply()
 	m_settings->m_font                = QFont( m_fontCombo->currentFont() );
 	m_settings->m_font.setPointSize( m_fontSizeSpinBox->value() );
 
-	m_settings->saveSettings( kapp->config() );
+	m_settings->saveSettings( KGlobal::config() );
 }
 
 void ViewPage::setDefaults()

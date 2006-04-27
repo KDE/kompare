@@ -40,6 +40,7 @@
 
 #include <kparts/componentfactory.h>
 #include <kregexpeditorinterface.h>
+#include <kglobal.h>
 
 #include "diffsettings.h"
 
@@ -133,7 +134,7 @@ void DiffPage::apply()
 	m_settings->m_excludeFilesFileURL            = m_excludeFileURLComboBox->currentText();
 	m_settings->m_excludeFilesFileHistoryList    = m_excludeFileURLComboBox->urls();
 
-	m_settings->saveSettings( kapp->config() );
+	m_settings->saveSettings( KGlobal::config() );
 }
 
 void DiffPage::setDefaults()

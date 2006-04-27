@@ -505,7 +505,7 @@ void KompareListViewDiffItem::applyDifference( bool apply )
 
 int KompareListViewDiffItem::maxHeight()
 {
-	int lines = QMAX( m_difference->sourceLineCount(), m_difference->destinationLineCount() );
+	int lines = qMax( m_difference->sourceLineCount(), m_difference->destinationLineCount() );
 	if( lines == 0 )
 		return BLANK_LINE_HEIGHT;
 	else

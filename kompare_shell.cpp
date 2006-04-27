@@ -83,7 +83,7 @@ KompareShell::KompareShell()
 	KLibFactory *mainViewFactory = KLibLoader::self()->factory( ptr->library().ascii() );
 	if (mainViewFactory)
 	{
-		m_mainViewDock = createDockWidget( "View", kapp->icon() );
+		m_mainViewDock = createDockWidget( "View", qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)) );
 		// now that the Part is loaded, we cast it to a KomparePart to get
 		// our hands on it
 		m_viewPart = static_cast<KomparePart*>(mainViewFactory->create(m_mainViewDock,
@@ -120,7 +120,7 @@ KompareShell::KompareShell()
 	KLibFactory *navTreeFactory = KLibLoader::self()->factory( ptr->library().ascii() );
 	if (navTreeFactory)
 	{
-		m_navTreeDock = createDockWidget( "Navigation", kapp->icon() );
+		m_navTreeDock = createDockWidget( "Navigation", qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)) );
 
 		m_navTreePart = static_cast<KompareNavTreePart*>(navTreeFactory->create(m_navTreeDock,
 		                 "komparenavtreepart", "KParts::ReadOnlyPart" ));
@@ -200,7 +200,7 @@ void KompareShell::openStdin()
 {
 	kDebug(8102) << "Using stdin to read the diff" << endl;
 	QFile file;
-	file.open( IO_ReadOnly, stdin );
+	file.open( QIODevice::ReadOnly, stdin );
 	QTextStream stream( &file );
 
 	QString diff = stream.read();

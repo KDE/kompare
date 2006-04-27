@@ -895,7 +895,7 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 	if ( fi.isDir() )
 	{ // is a dir
 		kDebug() << "Blend Dir" << endl;
-//		QDir dir( localURL, QString::null, QDir::Name|QDir::DirsFirst, QDir::All );
+//		QDir dir( localURL, QString::null, QDir::Name|QDir::DirsFirst, QDir::TypeMask );
 		DiffModelListIterator modelIt = m_models->begin();
 		DiffModelListIterator mEnd    = m_models->end();
 		for ( ; modelIt != mEnd; ++modelIt )

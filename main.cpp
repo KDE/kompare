@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 	bool difault = false;
 
 	// see if we are starting with session management
-	if (app.isRestored())
+	if (app.isSessionRestored())
 	{
 		RESTORE(KompareShell)
 	}

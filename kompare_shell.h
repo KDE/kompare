@@ -21,7 +21,7 @@
 #define KOMPARESHELL_H
 
 #include <kapplication.h>
-#include <kparts/dockmainwindow.h>
+#include <dockmainwindow3.h>
 
 #include "kompare.h"
 
@@ -48,7 +48,7 @@ namespace KTextEditor {
 * @author Otto Bruggeman <bruggie@home.nl>
 * @version 3.2.90
 */
-class KompareShell : public KParts::DockMainWindow
+class KompareShell : public KParts::DockMainWindow3
 {
 	Q_OBJECT
 public:
@@ -135,9 +135,9 @@ private:
 	KTextEditor::View*          m_textView;
 	KTextEditor::EditInterface* m_textEditIface;
 
-	KDockWidget*                m_textViewWidget;
-	KDockWidget*                m_mainViewDock;
-	KDockWidget*                m_navTreeDock;
+	K3DockWidget*                m_textViewWidget;
+	K3DockWidget*                m_mainViewDock;
+	K3DockWidget*                m_navTreeDock;
 
 	KToggleAction*              m_showTextView;
 

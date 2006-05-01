@@ -13,9 +13,6 @@ noinst_HEADERS =  kompare_shell.h kompareurldialog.h
 # let automoc handle all of the meta source files (moc)
 METASOURCES = AUTO
 
-messages: rc.cpp
-	$(EXTRACTRC) */*.rc */*.ui >> rc.cpp
-	$(XGETTEXT) `find . -name "*.cpp" -o -name "*.h"` -o $(podir)/kompare.pot
 
 #########################################################################
 # APPLICATION SECTION

@@ -45,7 +45,8 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget * parent,
 	// Set up the scrollFrame
 	scrollFrame->setFrameStyle( QFrame::NoFrame | QFrame::Plain );
 	scrollFrame->setLineWidth(scrollFrame->style().pixelMetric(QStyle::PM_DefaultFrameWidth));
-	QGridLayout *pairlayout = new QGridLayout(scrollFrame, 2, 2, 0);
+	QGridLayout *pairlayout = new QGridLayout(scrollFrame);
+	pairlayout->setSpacing(0);
 	m_vScroll = new QScrollBar( QScrollBar::Vertical, scrollFrame );
 	pairlayout->addWidget( m_vScroll, 0, 1 );
 	m_hScroll = new QScrollBar( QScrollBar::Horizontal, scrollFrame );

@@ -283,7 +283,9 @@ void DiffPage::addOptionsTab()
 	m_caseCheckBox        = new QCheckBox( i18n( "&Ignore changes in case" ), optionButtonGroup );
 	QToolTip::add( m_caseCheckBox, i18n( "This corresponds to the -i diff option." ) );
 
-	QHBoxLayout* groupLayout = new QHBoxLayout( layout, -1, "regexp_horizontal_layout" );
+	QHBoxLayout* groupLayout = new QHBoxLayout( layout );
+	groupLayout->setObjectName( "regexp_horizontal_layout" );
+	groupLayout->setSpacing( -1 );
 	groupLayout->setMargin( KDialog::marginHint() );
 
 	m_ignoreRegExpCheckBox = new QCheckBox( i18n( "Ignore regexp:" ), page );

@@ -7,7 +7,7 @@ add_subdirectory( komparenavtreepart )
 add_subdirectory( komparepart ) 
 add_subdirectory( pics ) 
 
-include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  ${CMAKE_CURRENT_SOURCE_DIR}/komparepart ${CMAKE_CURRENT_SOURCE_DIR}/libdiff2 ${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages ${CMAKE_CURRENT_SOURCE_DIR}/interfaces ${CMAKE_CURRENT_SOURCE_DIR}/komparenavtreepart ${CMAKE_CURRENT_SOURCE_DIR}/komparepart)
+include_directories(  ${CMAKE_CURRENT_SOURCE_DIR}/komparepart ${CMAKE_CURRENT_SOURCE_DIR}/libdiff2 ${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages ${CMAKE_CURRENT_SOURCE_DIR}/interfaces ${CMAKE_CURRENT_SOURCE_DIR}/komparenavtreepart ${CMAKE_CURRENT_SOURCE_DIR}/komparepart)
 
 
 ########### next target ###############

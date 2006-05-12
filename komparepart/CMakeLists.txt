@@ -1,4 +1,3 @@
-kde4_header()
 
 include_directories( ${CMAKE_SOURCE_DIR}/kompare/libdialogpages ${CMAKE_SOURCE_DIR}/kompare/libdiff2 ${CMAKE_SOURCE_DIR}/kompare/interfaces  )
 
@@ -31,7 +30,6 @@ install_targets(${PLUGIN_INSTALL_DIR} komparepart )
 install_files( ${SERVICES_INSTALL_DIR} FILES komparepart.desktop )
 install_files( ${DATA_INSTALL_DIR}/kompare FILES komparepartui.rc )
 
-kde4_footer()
 
 
 

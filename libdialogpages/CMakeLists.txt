@@ -1,4 +1,3 @@
-kde4_header()
 
 include_directories( ${CMAKE_SOURCE_DIR}/kompare/libdiff2  )
 
@@ -9,7 +8,6 @@ include_directories( ${CMAKE_SOURCE_DIR}/kompare/libdiff2  )
 ########### install files ###############
 
 
-kde4_footer()
 
 
 

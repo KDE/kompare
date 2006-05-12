@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -20,7 +19,6 @@ install_targets(${LIB_INSTALL_DIR} kompareinterface )
 ########### install files ###############
 
 
-kde4_footer()
 
 
 

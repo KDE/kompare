@@ -1,4 +1,3 @@
-kde4_header()
 
 add_subdirectory( interfaces ) 
 add_subdirectory( libdiff2 ) 
@@ -29,7 +28,6 @@ install_files( ${XDG_APPS_DIR} FILES kompare.desktop )
 install_files( ${DATA_INSTALL_DIR}/kompare FILES kompareui.rc )
 install_files( ${SERVICETYPES_INSTALL_DIR} FILES komparenavigationpart.desktop kompareviewpart.desktop )
 
-kde4_footer()
 
 
 

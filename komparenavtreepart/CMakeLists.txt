@@ -1,4 +1,3 @@
-kde4_header()
 
 include_directories( ${CMAKE_SOURCE_DIR}/kompare/libdiff2 ${CMAKE_SOURCE_DIR}/kompare/komparepart  )
 
@@ -22,7 +21,6 @@ install_targets(${PLUGIN_INSTALL_DIR} komparenavtreepart )
 
 install_files( ${SERVICES_INSTALL_DIR} FILES komparenavtreepart.desktop )
 
-kde4_footer()
 
 
 

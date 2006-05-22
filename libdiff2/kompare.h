@@ -124,7 +124,7 @@ public:
 		// Find a common root.
 		root = from;
 		while( root.isValid() && !root.isParentOf( toURL ) ) {
-			root = root.upURL();
+			root = root.upUrl();
 			upLevels++;
 		}
 

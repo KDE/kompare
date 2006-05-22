@@ -190,7 +190,7 @@ bool KompareShell::queryClose()
 
 void KompareShell::openDiff(const KUrl& url)
 {
-	kDebug(8102) << "Url = " << url.prettyURL() << endl;
+	kDebug(8102) << "Url = " << url.prettyUrl() << endl;
 	m_diffURL = url;
 	m_viewPart->setEncoding( "Default" );
 	m_viewPart->openDiff( url );

@@ -267,7 +267,7 @@ const QString KomparePart::fetchURL( const KUrl& url )
 	{
 		if ( ! KIO::NetAccess::download( url, tempFileName, widget() ) )
 		{
-			slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.prettyURL() ) );
+			slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.prettyUrl() ) );
 			tempFileName = "";
 		}
 		return tempFileName;
@@ -279,7 +279,7 @@ const QString KomparePart::fetchURL( const KUrl& url )
 			return url.path();
 		else
 		{
-			slotShowError( i18n( "<qt>The URL <b>%1</b> does not exist on your system.</qt>", url.prettyURL() ) );
+			slotShowError( i18n( "<qt>The URL <b>%1</b> does not exist on your system.</qt>", url.prettyUrl() ) );
 			return tempFileName;
 		}
 	}
@@ -455,7 +455,7 @@ void KomparePart::saveDiff()
 				}
 				else
 				{
-					kDebug(8103) << "URL = " << url.prettyURL() << endl;
+					kDebug(8103) << "URL = " << url.prettyUrl() << endl;
 					kDebug(8103) << "Directory = " << w->directory() << endl;
 					kDebug(8103) << "DiffSettings = " << m_diffSettings << endl;
 
@@ -465,7 +465,7 @@ void KomparePart::saveDiff()
 			}
 			else
 			{
-				kDebug(8103) << "URL = " << url.prettyURL() << endl;
+				kDebug(8103) << "URL = " << url.prettyUrl() << endl;
 				kDebug(8103) << "Directory = " << w->directory() << endl;
 				kDebug(8103) << "DiffSettings = " << m_diffSettings << endl;
 
@@ -510,8 +510,8 @@ void KomparePart::slotSetStatus( enum Kompare::Status status )
 
 void KomparePart::updateCaption()
 {
-	QString source = m_info.source.prettyURL();
-	QString destination = m_info.destination.prettyURL();
+	QString source = m_info.source.prettyUrl();
+	QString destination = m_info.destination.prettyUrl();
 
 	QString text;
 
@@ -535,8 +535,8 @@ void KomparePart::updateCaption()
 
 void KomparePart::updateStatus()
 {
-	QString source = m_info.source.prettyURL();
-	QString destination = m_info.destination.prettyURL();
+	QString source = m_info.source.prettyUrl();
+	QString destination = m_info.destination.prettyUrl();
 
 	QString text;
 
@@ -562,8 +562,8 @@ void KomparePart::updateStatus()
 		break;
 	case Kompare::BlendingDir :
 		text = i18n( "Blending diff output from %1 into folder %2" ,
-		      m_info.source.prettyURL() ,
-		      m_info.destination.prettyURL() );
+		      m_info.source.prettyUrl() ,
+		      m_info.destination.prettyUrl() );
 		break;
 	default:
 		break;

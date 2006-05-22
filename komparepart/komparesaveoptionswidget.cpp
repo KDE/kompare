@@ -49,7 +49,7 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 	// Find a common root.
 	KUrl root( sourceURL );
 	while( root.isValid() && !root.isParentOf( destinationURL ) ) {
-		root = root.upURL();
+		root = root.upUrl();
 	}
 
 	// If we found a common root, change to that directory and

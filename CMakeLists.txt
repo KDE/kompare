@@ -1,4 +1,4 @@
-
+project(kompare)
 add_subdirectory( interfaces ) 
 add_subdirectory( libdiff2 ) 
 add_subdirectory( libdialogpages ) 

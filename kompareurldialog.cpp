@@ -94,7 +94,7 @@ void KompareURLDialog::slotOk()
 
 void KompareURLDialog::slotEnableOk()
 {
-	enableButtonOK( !m_filesPage->firstURLRequester()->url().isEmpty() &&
+	enableButtonOk( !m_filesPage->firstURLRequester()->url().isEmpty() &&
 	                !m_filesPage->secondURLRequester()->url().isEmpty() );
 }
 

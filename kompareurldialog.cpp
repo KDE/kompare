@@ -59,7 +59,7 @@ KompareURLDialog::KompareURLDialog( QWidget *parent, const char *name )
 
 	adjustSize();
 
-	enableButtonSeparator( true );
+	showButtonSeparator( true );
 
 	connect( m_filesPage->firstURLRequester(), SIGNAL( textChanged( const QString& ) ),
 	         this, SLOT( slotEnableOk() ) );

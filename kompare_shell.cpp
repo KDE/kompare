@@ -356,7 +356,7 @@ void KompareShell::readProperties(KConfig* config)
 void KompareShell::slotFileOpen()
 {
 	// FIXME: use different filedialog which gets encoding
-	KUrl url = KFileDialog::getOpenURL( QString::null, "text/x-diff", this );
+	KUrl url = KFileDialog::getOpenUrl( QString::null, "text/x-diff", this );
 	if( !url.isEmpty() ) {
 		KompareShell* shell = new KompareShell();
 		kapp->ref();

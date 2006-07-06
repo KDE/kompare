@@ -19,14 +19,14 @@ kde4_add_executable(kompare ${kompare_SRCS})
 
 target_link_libraries(kompare  ${KDE4_KDECORE_LIBS} kparts kompareinterface dialogpages ktexteditor )
 
-install_targets(/bin kompare )
+install(TARGETS kompare  DESTINATION ${BIN_INSTALL_DIR} )
 
 
 ########### install files ###############
 
-install_files( ${XDG_APPS_DIR} FILES kompare.desktop )
-install_files( ${DATA_INSTALL_DIR}/kompare FILES kompareui.rc )
-install_files( ${SERVICETYPES_INSTALL_DIR} FILES komparenavigationpart.desktop kompareviewpart.desktop )
+install( FILES kompare.desktop  DESTINATION  ${XDG_APPS_DIR} )
+install( FILES kompareui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kompare )
+install( FILES komparenavigationpart.desktop kompareviewpart.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
 
 
 

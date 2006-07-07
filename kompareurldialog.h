@@ -20,7 +20,7 @@
 #ifndef KOMPAREURLDIALOG_H
 #define KOMPAREURLDIALOG_H
 
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <kurl.h>
 
 class QGroupBox;
@@ -38,7 +38,7 @@ class DiffSettings;
 class ViewPage;
 class ViewSettings;
 
-class KompareURLDialog : public KDialogBase
+class KompareURLDialog : public KDialog
 {
 	Q_OBJECT
 

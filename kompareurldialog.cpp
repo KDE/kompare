@@ -34,7 +34,7 @@
 #include "kompareurldialog.h"
 
 KompareURLDialog::KompareURLDialog( QWidget *parent, const char *name )
-        : KDialogBase( IconList, "", Ok|Cancel, Ok, parent, name )
+        : KDialog( IconList, "", Ok|Cancel, Ok, parent, name )
 {
 	setIconListAllVisible(true);
 

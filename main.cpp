@@ -24,6 +24,7 @@
 #include <kfile.h>
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <kdialog.h>
 
 #include "kompare_part.h"
 #include "kompare_shell.h"
@@ -187,7 +188,7 @@ int main(int argc, char *argv[])
 			dialog->setSecondGroupBoxTitle( i18n( "Destination" ) );
 
 			KGuiItem compareGuiItem( i18n( "Compare" ), QString::null, i18n( "Compare these files or folder" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
-			dialog->setButtonOK( compareGuiItem );
+			dialog->setButtonGuiItem( KDialog::Ok, compareGuiItem );
 
 			dialog->setGroup( "Recent Compare Files" );
 

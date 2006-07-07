@@ -135,8 +135,7 @@ public:
 			relative += "../";
 		}
 
-		relative += QString( to ).replace( 0, root.path(1).length(), "" );
-
+		relative += QString( to ).replace( 0, root.path( KUrl::LeaveTrailingSlash ).length(), "" );
 		return relative;
 	}
 };

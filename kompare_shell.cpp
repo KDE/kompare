@@ -17,6 +17,9 @@
 **
 ***************************************************************************/
 
+#include <QDockWidget>
+#include <QTextStream>
+
 #include <ktexteditor/document.h>
 // #include <ktexteditor/editinterface.h>
 #include <ktexteditor/view.h>
@@ -32,7 +35,9 @@
 #include <ksqueezedtextlabel.h>
 #include <kstatusbar.h>
 #include <kstdaction.h>
+#include <kmimetypetrader.h>
 #include <kservicetypetrader.h>
+#include <ktoggleaction.h>
 // #include <kuserprofile.h>
 
 #include "kompare_part.h"
@@ -60,8 +65,9 @@ KompareShell::KompareShell()
 	setupActions();
 	setupStatusBar();
 
-	KTrader::OfferList offers = KTrader::self()->query( "text/x-diff",
-	    "Kompare/ViewPart", QString::null, QString::null );
+	KService::List offers = KMimeTypeTrader::self()->query( "text/x-diff",
+                                                            "Kompare/ViewPart",
+                                                             QString::null );
 #ifdef NDEBUG
 	for( int i = 0; i < offers.count(); i++ )
 	{
@@ -83,17 +89,19 @@ KompareShell::KompareShell()
 	KLibFactory *mainViewFactory = KLibLoader::self()->factory( ptr->library().ascii() );
 	if (mainViewFactory)
 	{
-		m_mainViewDock = createDockWidget( "View", qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)) );
+		m_mainViewDock = new QDockWidget( i18n( "View" ), this );
+		m_mainViewDock->setObjectName( "View" );
+// 		m_mainViewDock = createDockWidget( "View", qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)) );
 		// now that the Part is loaded, we cast it to a KomparePart to get
 		// our hands on it
 		m_viewPart = static_cast<KomparePart*>(mainViewFactory->create(m_mainViewDock,
-		              "kompare_part", "KParts::ReadWritePart" ));
+		              "kompare_part", QStringList("KParts::ReadWritePart" )));
 
 		if ( m_viewPart )
 		{
 			m_mainViewDock->setWidget( m_viewPart->widget() );
-			setView( m_mainViewDock );
-			setMainDockWidget( m_mainViewDock );
+// 			setView( m_mainViewDock );
+// 			setMainDockWidget( m_mainViewDock );
 
 			// and integrate the part's GUI with the shell's
 			createGUI(m_viewPart);
@@ -108,7 +116,7 @@ KompareShell::KompareShell()
 	}
 
 	offers.clear();
-	offers = KTrader::self()->query( "text/x-diff", "KParts/ReadOnlyPart", "'Kompare/NavigationPart' in ServiceTypes", QString::null );
+	offers = KServiceTypeTrader::self()->query( "KParts/ReadOnlyPart", "'Kompare/NavigationPart' in ServiceTypes" );
 	if ( offers.count() == 0 )
 	{
 		KMessageBox::error(this, i18n( "Could not find our KompareNavigationPart." ) );
@@ -120,15 +128,17 @@ KompareShell::KompareShell()
 	KLibFactory *navTreeFactory = KLibLoader::self()->factory( ptr->library().ascii() );
 	if (navTreeFactory)
 	{
-		m_navTreeDock = createDockWidget( "Navigation", qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)) );
+		m_navTreeDock = new QDockWidget( i18n( "Navigation" ), this );
+		m_navTreeDock->setObjectName( "Navigation" );
+// 		m_navTreeDock = createDockWidget( "Navigation", qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)) );
 
 		m_navTreePart = static_cast<KompareNavTreePart*>(navTreeFactory->create(m_navTreeDock,
-		                 "komparenavtreepart", "KParts::ReadOnlyPart" ));
+		                 "komparenavtreepart", QStringList("KParts::ReadOnlyPart" )));
 
 		if ( m_navTreePart )
 		{
 			m_navTreeDock->setWidget( m_navTreePart->widget() );
-			m_navTreeDock->manualDock( m_mainViewDock, KDockWidget::DockTop, 20 );
+// 			m_navTreeDock->manualDock( m_mainViewDock, KDockWidget::DockTop, 20 );
 		}
 	}
 	else
@@ -260,7 +270,7 @@ void KompareShell::setupStatusBar()
 	statusBar()->insertPermanentItem( i18n(" 0 of 0 differences "), ID_N_OF_N_DIFFERENCES, 0);
 	statusBar()->insertPermanentItem( i18n(" 0 of 0 files "), ID_N_OF_N_FILES, 0);
 
-	m_generalLabel = new KSqueezedTextLabel( "", 0, "general_statusbar_label" );
+	m_generalLabel = new KSqueezedTextLabel( "", 0 );
 	statusBar()->addWidget( m_generalLabel, 1, false );
 	m_generalLabel->setAlignment( Qt::AlignLeft );
 }
@@ -295,7 +305,7 @@ void KompareShell::slotSetStatusBarText( const QString& text )
 void KompareShell::setCaption( const QString& caption )
 {
 //	kDebug() << kBacktrace();
-	KParts::DockMainWindow::setCaption( caption, m_viewPart->isModified() );
+	KParts::MainWindow::setCaption( caption, m_viewPart->isModified() );
 }
 
 void KompareShell::saveProperties(KConfig* config)
@@ -356,10 +366,10 @@ void KompareShell::readProperties(KConfig* config)
 void KompareShell::slotFileOpen()
 {
 	// FIXME: use different filedialog which gets encoding
-	KUrl url = KFileDialog::getOpenUrl( QString::null, "text/x-diff", this );
+	KUrl url = KFileDialog::getOpenUrl( KUrl(), "text/x-diff", this );
 	if( !url.isEmpty() ) {
 		KompareShell* shell = new KompareShell();
-		kapp->ref();
+		KGlobal::ref();
 		shell->show();
 		shell->openDiff( url );
 	}
@@ -374,7 +384,7 @@ void KompareShell::slotFileBlendURLAndDiff()
 	dialog->setSecondGroupBoxTitle( i18n( "Diff Output" ) );
 
 	KGuiItem blendGuiItem( i18n( "Blend" ), QString::null, i18n( "Blend this file or folder with the diff output" ), i18n( "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );
-	dialog->setButtonOK( blendGuiItem );
+	dialog->setButtonGuiItem( KDialog::Ok, blendGuiItem );
 
 	dialog->setGroup( "Recent Blend Files" );
 
@@ -386,7 +396,7 @@ void KompareShell::slotFileBlendURLAndDiff()
 		m_sourceURL = dialog->getFirstURL();
 		m_destinationURL = dialog->getSecondURL();
 		KompareShell* shell = new KompareShell();
-		kapp->ref();
+		KGlobal::ref();
 		shell->show();
 		shell->m_viewPart->setEncoding( dialog->encoding() );
 		shell->blend( m_sourceURL, m_destinationURL );
@@ -403,7 +413,7 @@ void KompareShell::slotFileCompareFiles()
 	dialog->setSecondGroupBoxTitle( i18n( "Destination" ) );
 
 	KGuiItem compareGuiItem( i18n( "Compare" ), QString::null, i18n( "Compare these files or folders" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
-	dialog->setButtonOK( compareGuiItem );
+	dialog->setButtonGuiItem( KDialog::Ok, compareGuiItem );
 
 	dialog->setGroup( "Recent Compare Files" );
 
@@ -415,7 +425,7 @@ void KompareShell::slotFileCompareFiles()
 		m_sourceURL = dialog->getFirstURL();
 		m_destinationURL = dialog->getSecondURL();
 		KompareShell* shell = new KompareShell();
-		kapp->ref();
+		KGlobal::ref();
 		shell->show();
 		kDebug() << "Damn it, i should be called !!! Oh and encoding is: " << dialog->encoding() << endl;
 		shell->m_viewPart->setEncoding( dialog->encoding() );
@@ -429,7 +439,7 @@ void KompareShell::slotFileClose()
 	if ( m_viewPart->queryClose() )
 	{
 		delete this;
-		kapp->deref();
+		KGlobal::deref();
 	}
 }
 
@@ -440,32 +450,34 @@ void KompareShell::slotShowTextView()
 		int errCode;
 
 		// FIXME: proper error checking
-		m_textViewWidget = createDockWidget( i18n("Text View"), SmallIcon( "text") );
-		m_textViewPart = KParts::ComponentFactory::createPartInstanceFromQuery<KTextEditor::Document>(
+		m_textViewWidget = new QDockWidget( i18n( "Text View" ), this );
+		m_textViewWidget->setObjectName( "Text View" );
+// 		m_textViewWidget = createDockWidget( i18n("Text View"), SmallIcon( "text") );
+		m_textViewPart = KServiceTypeTrader::createInstanceFromQuery<KTextEditor::Document>(
 		                 QString::fromLatin1("KTextEditor/Document"),
-		                 QString::null, (QWidget*)this, 0, (QWidget*)this, 0, QStringList(), &errCode );
+		                 QString::null, (QWidget*)this, QStringList(), &errCode );
 		if ( m_textViewPart )
 		{
-			m_textView = m_textViewPart->createView( this, 0 );
+			m_textView = qobject_cast<KTextEditor::View*>( m_textViewPart->createView( this ) );
 			m_textViewWidget->setWidget( static_cast<QWidget*>(m_textView) );
-			m_textEditIface = editInterface( m_textViewPart );
+// 			m_textEditIface = editInterface( m_textViewPart );
 			connect( m_viewPart, SIGNAL(diffString(const QString&)),
 			         this, SLOT(slotSetDiffString(const QString&)) );
 		}
 	}
 
-	m_textViewWidget->manualDock( m_mainViewDock, KDockWidget:: DockCenter );
+// 	m_textViewWidget->manualDock( m_mainViewDock, KDockWidget:: DockCenter );
 }
 
 void KompareShell::slotSetDiffString( const QString& diffString )
 {
-	if ( m_textEditIface )
-		m_textEditIface->setText( diffString );
+// 	if ( m_textEditIface )
+// 		m_textEditIface->setText( diffString );
 }
 
 void KompareShell::optionsConfigureKeys()
 {
-	KKeyDialog dlg( true, this );
+	KKeyDialog dlg( KKeyChooser::AllActions, KKeyChooser::LetterShortcutsAllowed, this );
 
 	dlg.insert( actionCollection() );
 	if ( m_viewPart )

@@ -133,7 +133,7 @@ private:
 	KompareNavTreePart*         m_navTreePart;
 	KTextEditor::Document*      m_textViewPart;
 	KTextEditor::View*          m_textView;
-	KTextEditor::EditInterface* m_textEditIface;
+// 	KTextEditor::EditInterface* m_textEditIface;
 
 	QDockWidget*                m_textViewWidget;
 	QDockWidget*                m_mainViewDock;

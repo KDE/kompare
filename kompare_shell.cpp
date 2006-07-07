@@ -18,7 +18,7 @@
 ***************************************************************************/
 
 #include <ktexteditor/document.h>
-#include <ktexteditor/editinterface.h>
+// #include <ktexteditor/editinterface.h>
 #include <ktexteditor/view.h>
 #include <kdebug.h>
 #include <kedittoolbar.h>
@@ -32,8 +32,8 @@
 #include <ksqueezedtextlabel.h>
 #include <kstatusbar.h>
 #include <kstdaction.h>
-#include <ktrader.h>
-#include <kuserprofile.h>
+#include <kservicetypetrader.h>
+// #include <kuserprofile.h>
 
 #include "kompare_part.h"
 #include "komparenavtreepart.h"
@@ -46,7 +46,7 @@
 #define ID_GENERAL                 3
 
 KompareShell::KompareShell()
-	: KParts::DockMainWindow( 0L, "KompareShell" ),
+	: KParts::MainWindow( 0L, "KompareShell" ),
 	m_textViewPart( 0 ),
 	m_textViewWidget( 0 )
 {

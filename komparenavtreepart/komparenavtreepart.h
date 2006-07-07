@@ -25,6 +25,8 @@
 #include <qsplitter.h>
 #include <q3listview.h>
 
+#include <k3listview.h>
+
 #include <kparts/factory.h>
 #include <kparts/part.h>
 
@@ -87,6 +89,7 @@ private:
 	QString compareFromEndAndReturnSame( const QString& string1, const QString& string2 );
 	void addDirToTreeView( enum Kompare::Target, const QString& filename );
 
+	// PORT ME!
 	K3ListViewItem* findDirInDirTree( const K3ListViewItem* parent, const QString& dir );
 
 //	K3ListViewItem* firstItem();

@@ -33,7 +33,7 @@ class KUrlRequester;
 
 class FilesSettings;
 
-class FilesPage : PageBase
+class FilesPage : public PageBase
 {
 Q_OBJECT
 public:

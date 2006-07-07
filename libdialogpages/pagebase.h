@@ -7,7 +7,7 @@
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -24,14 +24,14 @@
 #include <qwidget.h>
 
 #include <kconfig.h>
-#include <ktabctl.h>
+// #include <ktabctl.h>
 
 #include "kompare.h"
 
-class PageBase : public KTabCtl
+class PageBase : public QWidget
 {
 Q_OBJECT
-public: 
+public:
 	PageBase( QWidget* );
 	~PageBase();
 

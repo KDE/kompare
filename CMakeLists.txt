@@ -1,17 +1,44 @@
 project(kompare)
-add_subdirectory( interfaces ) 
-add_subdirectory( libdiff2 ) 
-add_subdirectory( libdialogpages ) 
-add_subdirectory( komparenavtreepart ) 
-add_subdirectory( komparepart ) 
-add_subdirectory( pics ) 
+add_subdirectory( interfaces )
+add_subdirectory( libdiff2 )
+add_subdirectory( libdialogpages )
+add_subdirectory( komparenavtreepart )
+add_subdirectory( komparepart )
+add_subdirectory( pics )
 
 include_directories(  ${CMAKE_CURRENT_SOURCE_DIR}/komparepart ${CMAKE_CURRENT_SOURCE_DIR}/libdiff2 ${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages ${CMAKE_CURRENT_SOURCE_DIR}/interfaces ${CMAKE_CURRENT_SOURCE_DIR}/komparenavtreepart ${CMAKE_CURRENT_SOURCE_DIR}/komparepart)
 
 
 ########### next target ###############
 
-set(kompare_SRCS main.cpp kompare_shell.cpp kompareurldialog.cpp )
+set(kompare_SRCS
+main.cpp
+kompare_shell.cpp
+kompareurldialog.cpp
+
+${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages/settingsbase.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages/viewsettings.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages/diffpage.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages/filespage.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages/pagebase.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages/viewpage.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages/diffsettings.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages/filessettings.cpp
+
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/diffmodel.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/komparemodellist.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/cvsdiffparser.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/parser.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/diffmodellist.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/kompareprocess.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/difference.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/perforceparser.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/diffparser.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/levenshteintable.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/diffhunk.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/parserbase.cpp
+)
+
 
 kde4_automoc(${kompare_SRCS})
 

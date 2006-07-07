@@ -20,7 +20,7 @@
 #ifndef KOMPAREURLDIALOG_H
 #define KOMPAREURLDIALOG_H
 
-#include <kdialog.h>
+#include <kpagedialog.h>
 #include <kurl.h>
 
 class QGroupBox;
@@ -38,12 +38,12 @@ class DiffSettings;
 class ViewPage;
 class ViewSettings;
 
-class KompareURLDialog : public KDialog
+class KompareURLDialog : public KPageDialog
 {
 	Q_OBJECT
 
 public:
-	KompareURLDialog( QWidget* parent = 0, const char* name = 0 );
+	KompareURLDialog( QWidget *parent, Qt::WFlags flags= 0 );
 	~KompareURLDialog();
 
 	KUrl getFirstURL() const;

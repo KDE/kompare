@@ -181,7 +181,7 @@ int main(int argc, char *argv[])
 
 		if ( difault )
 		{
-			KompareURLDialog* dialog = new KompareURLDialog();
+			KompareURLDialog* dialog = new KompareURLDialog( 0 );
 
 			dialog->setCaption( i18n("Compare Files or Folders") );
 			dialog->setFirstGroupBoxTitle( i18n( "Source" ) );

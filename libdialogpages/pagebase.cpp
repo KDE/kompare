@@ -7,7 +7,7 @@
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
- 
+
 /***************************************************************************
 **
 **   This program is free software; you can redistribute it and/or modify
@@ -22,7 +22,7 @@
 
 #include "pagebase.h"
 
-PageBase::PageBase( QWidget* parent ) : KTabCtl( parent )
+PageBase::PageBase( QWidget* parent ) : QWidget( parent )
 {
 
 }
@@ -50,7 +50,7 @@ QSize PageBase::sizeHintForWidget( QWidget* widget )
 	QList<QObject*> l = widget->children();
 
 
-	
+
 	for( int i=0; i < l.count(); i++ )
 	{
 		QObject *o = l.at(i);

@@ -22,19 +22,17 @@
 #include <qradiobutton.h>
 #include <qspinbox.h>
 #include <qtooltip.h>
-#include <qvbuttongroup.h>
 #include <q3whatsthis.h>
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-
+#include <Q3VButtonGroup>
 #include <kapplication.h>
 #include <kcombobox.h>
 #include <kdialog.h>
 #include <keditlistbox.h>
 #include <klineedit.h>
 #include <klocale.h>
-#include <ktrader.h>
 #include <kurlcombobox.h>
 #include <kurlrequester.h>
 
@@ -67,7 +65,7 @@ void DiffPage::setSettings( DiffSettings* setts )
 {
 	m_settings = setts;
 
-	m_diffURLRequester->setURL( m_settings->m_diffProgram );
+	m_diffURLRequester->setUrl( m_settings->m_diffProgram );
 
 	m_smallerCheckBox->setChecked           ( m_settings->m_createSmallerDiff );
 	m_largerCheckBox->setChecked            ( m_settings->m_largeFiles );
@@ -139,7 +137,7 @@ void DiffPage::apply()
 
 void DiffPage::setDefaults()
 {
-	m_diffURLRequester->setURL( "diff" );
+	m_diffURLRequester->setUrl( "diff" );
 	m_smallerCheckBox->setChecked( true );
 	m_largerCheckBox->setChecked( true );
 	m_tabsCheckBox->setChecked( false );

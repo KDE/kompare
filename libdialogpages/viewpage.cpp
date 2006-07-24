@@ -18,18 +18,17 @@
 ***************************************************************************/
 
 #include <qcheckbox.h>
-#include <q3groupbox.h>
-#include <qhgroupbox.h>
+#include <QGroupBox>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qspinbox.h>
-//Added by qt3to4:
 #include <QVBoxLayout>
+#include <QTabWidget>
+#include <QFontComboBox>
 
 #include <kapplication.h>
 #include <kcolorbutton.h>
 #include <kdialog.h>
-#include <kfontcombo.h>
 #include <klocale.h>
 #include <kglobal.h>
 
@@ -39,21 +38,24 @@
 ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 {
 	QWidget*     page;
+	QTabWidget*  tabWidget;
 	QVBoxLayout* layout;
-	Q3GroupBox*   colorGroupBox;
-	QHGroupBox*  snolGroupBox;
-	QHGroupBox*  tabGroupBox;
+	QGroupBox*   colorGroupBox;
+	QGroupBox*   snolGroupBox;
+	QGroupBox*   tabGroupBox;
 	QLabel*      label;
 
-	page   = new QWidget( this );
+	tabWidget = new QTabWidget( this );
+	page   = new QWidget( tabWidget );
 	layout = new QVBoxLayout( page );
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
 
 	// add a groupbox
-	colorGroupBox = new Q3GroupBox( 2, Qt::Horizontal, i18n( "Colors" ), page );
+	colorGroupBox = new QGroupBox( page );
+	colorGroupBox->setTitle( i18n( "Colors" ) );
 	layout->addWidget( colorGroupBox );
-	colorGroupBox->setMargin( KDialog::marginHint() );
+	//colorGroupBox->setMargin( KDialog::marginHint() );
 
 	// add the removeColor
 	label = new QLabel( i18n( "Removed color:" ), colorGroupBox );
@@ -76,9 +78,10 @@ ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 	label->setBuddy( m_appliedColorButton );
 
 	// scroll number of lines (snol)
-	snolGroupBox = new QHGroupBox( i18n( "Mouse Wheel" ), page );
+	snolGroupBox = new QGroupBox( page );
+	snolGroupBox->setTitle( i18n( "Mouse Wheel" ) );
 	layout->addWidget( snolGroupBox );
-	snolGroupBox->setMargin( KDialog::marginHint() );
+	//snolGroupBox->setMargin( KDialog::marginHint() );
 
 	label            = new QLabel( i18n( "Number of lines:" ), snolGroupBox );
 	m_snolSpinBox    = new QSpinBox( 0, 50, 1, snolGroupBox );
@@ -86,9 +89,10 @@ ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 
 	// Temporarily here for testing...
 	// number of spaces for a tab character stuff
-	tabGroupBox = new QHGroupBox( i18n( "Tabs to Spaces" ), page );
+	tabGroupBox = new QGroupBox( page );
+	tabGroupBox->setTitle( i18n( "Tabs to Spaces" ) );
 	layout->addWidget( tabGroupBox );
-	tabGroupBox->setMargin( KDialog::marginHint() );
+	//tabGroupBox->setMargin( KDialog::marginHint() );
 
 	label = new QLabel( i18n( "Number of spaces to convert a tab character to:" ), tabGroupBox );
 	m_tabSpinBox = new QSpinBox( 1, 16, 1, tabGroupBox );
@@ -97,19 +101,21 @@ ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	addTab( page, i18n( "A&ppearance" ) );
+	tabWidget->addTab( page, i18n( "A&ppearance" ) );
 
-	page   = new QWidget( this );
+	page   = new QWidget( tabWidget );
 	layout = new QVBoxLayout( page );
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
 
-	QHGroupBox* gb = new QHGroupBox( i18n( "Text Font" ), page );
+	QGroupBox* gb = new QGroupBox( page );
+	gb->setTitle( i18n( "Text Font" ) );
 	layout->addWidget( gb );
-	gb->setMargin( KDialog::marginHint() );
+	//gb->setMargin( KDialog::marginHint() );
 
 	label = new QLabel( i18n( "Font:" ), gb );
-	m_fontCombo = new KFontCombo( gb, "fontcombo" );
+	m_fontCombo = new QFontComboBox( gb );
+	m_fontCombo->setObjectName( "fontcombo" );
 	label->setBuddy( m_fontCombo );
 
 	label = new QLabel( i18n( "Size:" ), gb );
@@ -119,7 +125,7 @@ ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	addTab( page, i18n( "&Fonts" ) );
+	tabWidget->addTab( page, i18n( "&Fonts" ) );
 }
 
 ViewPage::~ViewPage()
@@ -175,7 +181,8 @@ void ViewPage::setDefaults()
 	m_snolSpinBox->setValue       ( 3 );
         m_tabSpinBox->setValue        ( 4 );
 
-	m_fontCombo->setCurrentFont   ( KGlobalSettings::fixedFont().family() );
+	// TODO: port	
+	// m_fontCombo->setCurrentFont   ( KGlobalSettings::fixedFont().family() );
         m_fontSizeSpinBox->setValue   ( 10 );
 }
 

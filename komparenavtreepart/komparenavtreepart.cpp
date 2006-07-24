@@ -23,6 +23,7 @@
 #include <kmimetype.h>
 #include <k3listview.h>
 #include <kaboutdata.h>
+#include <kinstance.h>
 
 #include "difference.h"
 #include "diffmodel.h"
@@ -38,7 +39,7 @@
 using namespace Diff2;
 
 KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
-	: KParts::ReadOnlyPart( parent, name ),
+	: KParts::ReadOnlyPart( parent ),
 	m_splitter( 0 ),
 	m_modelList( 0 ),
 	m_srcDirTree( 0 ),
@@ -53,6 +54,7 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 	m_destination( "" ),
 	m_info( 0 )
 {
+	setObjectName( name );
 	m_splitter = new QSplitter( Qt::Horizontal );
 
 	setWidget( m_splitter );
@@ -703,7 +705,15 @@ extern "C"
 {
 	KDE_EXPORT void* init_libkomparenavtreepart()
 	{
+/* TODO:
+/home/kde4dev/kde/src/kdesdk/kompare/komparenavtreepart/komparenavtreepart.cpp:708: error: cannot allocate an object of type `KompareNavTreePartFactory'
+/home/kde4dev/kde/src/kdesdk/kompare/komparenavtreepart/komparenavtreepart.cpp:708: error:   because the following virtual functions are abstract:
+/home/kde4dev/kde/include/kparts/factory.h:118: error:  virtual KParts::Part* KParts::Factory::createPartObject(QWidget*, QObject*, const char*, const QStringList&)
+make[2]: *** [kompare/komparenavtreepart/CMakeFiles/komparenavtreepart.dir/komparenavtreepart.o] Error 1
+
+
 		return new KompareNavTreePartFactory;
+*/
 	}
 }
 

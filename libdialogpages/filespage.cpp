@@ -18,7 +18,6 @@
 
 #include <qlayout.h>
 #include <q3groupbox.h>
-//Added by qt3to4:
 #include <QVBoxLayout>
 
 #include <kapplication.h>
@@ -41,12 +40,14 @@ FilesPage::FilesPage( QWidget* parent ) : PageBase( parent ), m_URLChanged( fals
 	layout->setMargin( KDialog::marginHint() );
 
 	m_firstGB = new Q3GroupBox( 1, Qt::Vertical, "You have to set this moron :)", page );
-	m_firstURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_firstGB, "SourceURLComboBox" );
+	m_firstURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_firstGB );
+	m_firstURLComboBox->setObjectName( "SourceURLComboBox" );
 	m_firstURLRequester = new KUrlRequester( m_firstURLComboBox, m_firstGB );
 	m_firstURLRequester->setFocus();
 
 	m_secondGB = new Q3GroupBox( 1, Qt::Vertical, "This too moron !", page );
-	m_secondURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_secondGB, "DestURLComboBox" );
+	m_secondURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_secondGB );
+	m_secondURLComboBox->setObjectName( "DestURLComboBox" );
 	m_secondURLRequester = new KUrlRequester( m_secondURLComboBox, m_secondGB );
 
 	connect( m_firstURLRequester, SIGNAL( urlSelected( const QString & ) ), SLOT( setSecondURL( const QString & ) ) );
@@ -63,7 +64,7 @@ FilesPage::FilesPage( QWidget* parent ) : PageBase( parent ), m_URLChanged( fals
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	addTab( page, i18n( "&Files" ) );
+	//addTab( page, i18n( "&Files" ) );
 }
 
 FilesPage::~FilesPage()
@@ -142,9 +143,9 @@ void FilesPage::apply()
 
 void FilesPage::setDefaults()
 {
-	m_firstURLComboBox->setURLs( "" );
+	m_firstURLComboBox->setURLs( QStringList() );
 	m_firstURLComboBox->setURL( KUrl( "" ) );
-	m_secondURLComboBox->setURLs( "" );
+	m_secondURLComboBox->setURLs( QStringList() );
 	m_secondURLComboBox->setURL( KUrl( "" ) );
 	m_encodingComboBox->setCurrentText( "Default" );
 }
@@ -154,7 +155,7 @@ void FilesPage::setFirstURL( const QString &url )
 	QString _url = url;
 	if ( !m_URLChanged )
 	{
-		m_firstURLRequester->setURL( _url.remove( url.section( '/', -1 ) ) );
+		m_firstURLRequester->setUrl( _url.remove( url.section( '/', -1 ) ) );
 		m_URLChanged = true;
 	}
 }
@@ -164,7 +165,7 @@ void FilesPage::setSecondURL( const QString &url )
 	QString _url = url;
 	if ( !m_URLChanged )
 	{
-		m_secondURLRequester->setURL( _url.remove( url.section( '/', -1 ) ) );
+		m_secondURLRequester->setUrl( _url.remove( url.section( '/', -1 ) ) );
 		m_URLChanged = true;
 	}
 }

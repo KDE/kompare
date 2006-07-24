@@ -22,7 +22,6 @@
 #include <qregexp.h>
 #include <qtextcodec.h>
 #include <q3valuelist.h>
-//Added by qt3to4:
 #include <QTextStream>
 
 #include <kaction.h>
@@ -33,6 +32,7 @@
 #include <klocale.h>
 #include <kmimetype.h>
 #include <ktempfile.h>
+#include <kstdaction.h>
 
 #include "difference.h"
 #include "diffhunk.h"

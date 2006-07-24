@@ -4,6 +4,27 @@ include_directories( ${CMAKE_SOURCE_DIR}/kompare/libdialogpages ${CMAKE_SOURCE_D
 
 ########### next target ###############
 
+set(diff2_PART_SRCS
+	kompareprocess.cpp 
+	komparemodellist.cpp 
+	diffmodellist.cpp 
+	diffmodel.cpp 
+	difference.cpp 
+	diffhunk.cpp 
+	levenshteintable.cpp 
+	parser.cpp 
+	parserbase.cpp 
+	cvsdiffparser.cpp 
+	diffparser.cpp 
+	perforceparser.cpp )
+
+kde4_automoc(${diff2_PART_SRCS})
+
+kde4_add_library(diff2 ${diff2_PART_SRCS})
+
+target_link_libraries(diff2  ${KDE4_KDECORE_LIBS} )
+
+install(TARGETS diff2 DESTINATION ${LIB_INSTALL_DIR})
 
 ########### install files ###############
 

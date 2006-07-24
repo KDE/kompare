@@ -4,6 +4,23 @@ include_directories( ${CMAKE_SOURCE_DIR}/kompare/libdiff2  )
 
 ########### next target ###############
 
+set(dialogpages_PART_SRCS
+	settingsbase.cpp
+	diffsettings.cpp
+	filessettings.cpp
+	viewsettings.cpp
+	pagebase.cpp
+	diffpage.cpp
+	filespage.cpp
+	viewpage.cpp )
+
+kde4_automoc(${dialogpages_PART_SRCS})
+
+kde4_add_library(dialogpages ${dialogpages_PART_SRCS})
+
+target_link_libraries(dialogpages  ${KDE4_KDECORE_LIBS} )
+
+install(TARGETS dialogpages DESTINATION ${LIB_INSTALL_DIR})
 
 ########### install files ###############
 

@@ -20,7 +20,7 @@ kde4_add_plugin(komparepart WITH_PREFIX ${komparepart_PART_SRCS})
 
 kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} komparepart )
 
-target_link_libraries(komparepart  ${KDE4_KDECORE_LIBS} kparts dialogpages diff2 kompareinterface )
+target_link_libraries(komparepart  ${KDE4_KPARTS_LIBS} dialogpages diff2 kompareinterface )
 
 install(TARGETS komparepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

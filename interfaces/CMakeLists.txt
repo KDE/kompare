@@ -16,19 +16,3 @@ set_target_properties(kompareinterface PROPERTIES VERSION 1.0.0 SOVERSION 1 )
 install(TARGETS kompareinterface  DESTINATION ${LIB_INSTALL_DIR} )
 
 
-########### install files ###############
-
-
-
-
-
-#original Makefile.am contents follow:
-
-#INCLUDES = $(all_includes)
-#
-#lib_LTLIBRARIES =  libkompareinterface.la
-#
-#libkompareinterface_la_LDFLAGS = -no-undefined $(all_libraries)
-#libkompareinterface_la_SOURCES = kompareinterface.cpp
-#libkompareinterface_la_LIBADD  = $(LIB_QT)
-#

@@ -63,8 +63,8 @@ ParserBase::ParserBase( const KompareModelList* list, const QStringList& diff ) 
 	m_normalHunkBodyAdded.setPattern    ( "> (.*)" );
 	m_normalHunkBodyDivider.setPattern  ( "---" );
 
-	m_unifiedDiffHeader1.setPattern    ( "--- ([^\\t]+)\\t([^\\t]+)(?:\\t?)(.*)\\n" );
-	m_unifiedDiffHeader2.setPattern    ( "\\+\\+\\+ ([^\\t]+)\\t([^\\t]+)(?:\\t?)(.*)\\n" );
+	m_unifiedDiffHeader1.setPattern    ( "--- ([^\\t]+)(?:\\t([^\\t]+)(?:\\t?)(.*))?\\n" );
+	m_unifiedDiffHeader2.setPattern    ( "\\+\\+\\+ ([^\\t]+)(?:\\t([^\\t]+)(?:\\t?)(.*))?\\n" );
 	m_unifiedHunkHeader.setPattern     ( "@@ -([0-9]+)(|,([0-9]+)) \\+([0-9]+)(|,([0-9]+)) @@(?: ?)(.*)\\n" );
 	m_unifiedHunkBodyAdded.setPattern  ( "\\+(.*)" );
 	m_unifiedHunkBodyRemoved.setPattern( "-(.*)" );

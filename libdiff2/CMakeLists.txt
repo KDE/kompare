@@ -18,7 +18,7 @@ set(diff2_PART_SRCS
 	diffparser.cpp 
 	perforceparser.cpp )
 
-kde4_automoc(${diff2_PART_SRCS})
+kde4_automoc(diff2 ${diff2_PART_SRCS})
 
 kde4_add_library(diff2 ${diff2_PART_SRCS})
 

@@ -6,7 +6,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/kompare/libdiff2 ${CMAKE_SOURCE_DIR}/ko
 
 set(komparenavtreepart_PART_SRCS komparenavtreepart.cpp )
 
-kde4_automoc(komparenavtreepart ${komparenavtreepart_PART_SRCS})
+kde4_automoc(${komparenavtreepart_PART_SRCS})
 
 kde4_add_plugin(komparenavtreepart WITH_PREFIX ${komparenavtreepart_PART_SRCS})
 

@@ -14,7 +14,7 @@ set(dialogpages_PART_SRCS
 	filespage.cpp
 	viewpage.cpp )
 
-kde4_automoc(dialogpages ${dialogpages_PART_SRCS})
+kde4_automoc(${dialogpages_PART_SRCS})
 
 kde4_add_library(dialogpages ${dialogpages_PART_SRCS})
 

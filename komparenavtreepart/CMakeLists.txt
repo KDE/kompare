@@ -10,7 +10,7 @@ kde4_automoc(${komparenavtreepart_PART_SRCS})
 
 kde4_add_plugin(komparenavtreepart WITH_PREFIX ${komparenavtreepart_PART_SRCS})
 
-kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} komparenavtreepart )
+
 
 target_link_libraries(komparenavtreepart  ${KDE4_KPARTS_LIBS} diff2 )
 

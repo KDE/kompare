@@ -18,7 +18,7 @@ kde4_add_ui_files(komparepart_PART_SRCS komparesaveoptionsbase.ui )
 
 kde4_add_plugin(komparepart WITH_PREFIX ${komparepart_PART_SRCS})
 
-kde4_install_libtool_file( ${PLUGIN_INSTALL_DIR} komparepart )
+
 
 target_link_libraries(komparepart  ${KDE4_KPARTS_LIBS} dialogpages diff2 kompareinterface )
 

@@ -12,6 +12,6 @@ Exec=kompare -caption "%c" -o %U
 Icon=kompare
 DocPath=kompare/index.html
 Terminal=false
-X-DCOP-ServiceType=Multi
+X-DBUS-StartupType=Multi
 Categories=Qt;KDE;Development;
 InitialPreference=10

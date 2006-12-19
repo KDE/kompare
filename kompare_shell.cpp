@@ -34,7 +34,7 @@
 #include <kparts/componentfactory.h>
 #include <ksqueezedtextlabel.h>
 #include <kstatusbar.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <kmimetypetrader.h>
 #include <kservicetypetrader.h>
 #include <ktoggleaction.h>
@@ -242,7 +242,7 @@ void KompareShell::blend( const KUrl& url1, const KUrl& diff )
 
 void KompareShell::setupActions()
 {
-	KAction* open = KStdAction::open(this, SLOT(slotFileOpen()), actionCollection());
+	KAction* open = KStandardAction::open(this, SLOT(slotFileOpen()), actionCollection());
 	open->setText( i18n( "&Open Diff..." ) );
 	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_C,
 	              this, SLOT(slotFileCompareFiles()),
@@ -250,7 +250,7 @@ void KompareShell::setupActions()
 	new KAction( i18n("&Blend URL with Diff..."), "fileblend", Qt::CTRL + Qt::Key_B,
 	              this, SLOT(slotFileBlendURLAndDiff()),
 	              actionCollection(), "file_blend_url" );
-	KStdAction::quit( this, SLOT( slotFileClose() ), actionCollection() );
+	KStandardAction::quit( this, SLOT( slotFileClose() ), actionCollection() );
 
 #if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 	createStandardStatusBarAction();
@@ -260,8 +260,8 @@ void KompareShell::setupActions()
 	                                  actionCollection(), "options_show_text_view" );
         m_showTextView->setCheckedState(i18n("Hide T&ext View"));
 
-	KStdAction::keyBindings(this, SLOT(optionsConfigureKeys()), actionCollection());
-	KStdAction::configureToolbars(this, SLOT(optionsConfigureToolbars()), actionCollection());
+	KStandardAction::keyBindings(this, SLOT(optionsConfigureKeys()), actionCollection());
+	KStandardAction::configureToolbars(this, SLOT(optionsConfigureToolbars()), actionCollection());
 }
 
 void KompareShell::setupStatusBar()

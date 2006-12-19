@@ -31,7 +31,7 @@
 #include <kfiledialog.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <kinstance.h>
 #include <ktempfile.h>
 #include <kparts/genericfactory.h>
@@ -176,7 +176,7 @@ void KomparePart::setupActions()
 	                                 this, SLOT(slotShowDiffstats()),
 	                                 actionCollection(), "file_diffstats" );
 
-	KStdAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
+	KStandardAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
 }
 
 void KomparePart::updateActions()

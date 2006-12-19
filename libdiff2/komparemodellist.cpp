@@ -32,7 +32,7 @@
 #include <klocale.h>
 #include <kmimetype.h>
 #include <ktempfile.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 
 #include "difference.h"
 #include "diffhunk.h"
@@ -85,7 +85,7 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::
 	m_previousDifference->setEnabled( false );
 	m_nextDifference->setEnabled( false );
 
-	m_save = KStdAction::save( this, SLOT(slotSaveDestination()), ((KomparePart*)parent)->actionCollection() );
+	m_save = KStandardAction::save( this, SLOT(slotSaveDestination()), ((KomparePart*)parent)->actionCollection() );
 	m_save->setEnabled( false );
 
 	updateModelListActions();

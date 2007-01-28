@@ -23,7 +23,7 @@
 #include <kmimetype.h>
 #include <k3listview.h>
 #include <kaboutdata.h>
-#include <kinstance.h>
+#include <kcomponentdata.h>
 
 #include "difference.h"
 #include "diffmodel.h"
@@ -661,7 +661,7 @@ KDirLVI::~KDirLVI()
 }
 
 // part stuff
-KInstance*  KompareNavTreePartFactory::s_instance = 0L;
+KComponentData *KompareNavTreePartFactory::s_instance = 0L;
 KAboutData* KompareNavTreePartFactory::s_about = 0L;
 
 KompareNavTreePartFactory::KompareNavTreePartFactory()
@@ -689,16 +689,16 @@ KParts::Part* KompareNavTreePartFactory::createPartObject( QWidget* parentWidget
 	return obj;
 }
 
-KInstance* KompareNavTreePartFactory::instance()
+const KComponentData &KompareNavTreePartFactory::componentData()
 {
 	if( !s_instance )
 	{
 		s_about = new KAboutData("komparenavtreepart", I18N_NOOP("KompareNavTreePart"), "1.1");
 		s_about->addAuthor("John Firebaugh", "Author", "jfirebaugh@kde.org");
 		s_about->addAuthor("Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
-		s_instance = new KInstance(s_about);
+		s_instance = new KComponentData(s_about);
 	}
-	return s_instance;
+	return *s_instance;
 }
 
 extern "C"

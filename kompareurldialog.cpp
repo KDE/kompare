@@ -34,7 +34,7 @@ KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WFlags flags )
         : KPageDialog( parent, flags )
 {
     setFaceType( List );
-	KConfig* cfg = KGlobal::config();
+	KSharedConfig::Ptr cfg = KGlobal::config();
 
 // 	QVBox* filesBox = addVBoxPage( i18n( "Files" ), i18n( "Here you can enter the files you want to compare." ) );
 	m_filesPage = new FilesPage( 0 );
@@ -76,7 +76,7 @@ void KompareURLDialog::slotOk()
 {
 	m_filesPage->setURLsInComboBoxes();
 
-	KConfig* cfg = KGlobal::config();
+	KSharedConfig::Ptr cfg = KGlobal::config();
 
 	m_filesPage->apply();
 	m_diffPage->apply();

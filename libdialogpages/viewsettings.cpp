@@ -21,6 +21,7 @@
 
 #include <kconfig.h>
 #include <kglobalsettings.h>
+#include <kconfiggroup.h>
 
 #include "viewsettings.h"
 

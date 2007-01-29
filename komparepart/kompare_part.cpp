@@ -32,7 +32,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kstandardaction.h>
-#include <kinstance.h>
+#include <kcomponentdata.h>
 #include <ktempfile.h>
 #include <kparts/genericfactory.h>
 //#include <ktempdir.h>
@@ -64,7 +64,7 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	m_info()
 {
 	// we need an instance
-	setInstance( KomparePartFactory::instance() );
+	setComponentData( KomparePartFactory::componentData() );
 
 	if( !m_viewSettings ) {
 		m_viewSettings = new ViewSettings( 0 );
@@ -434,7 +434,7 @@ void KomparePart::saveDiff()
 
 	if( dlg->exec() ) {
 		w->saveOptions();
-		KConfig* config = instance()->config();
+		KSharedConfig::Ptr config = componentData().config();
 		saveProperties( config );
 		config->sync();
 

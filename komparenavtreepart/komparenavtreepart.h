@@ -172,7 +172,7 @@ private:
 };
 
 // part stuff
-class KInstance;
+class KComponentData;
 class KAboutData;
 
 class KompareNavTreePartFactory : public KParts::Factory
@@ -184,10 +184,10 @@ public:
 	virtual KParts::Part* createPartObject( QWidget *parentWidget, const char *widgetName,
 	                                        QObject *parent, const char *name,
 	                                        const char *classname, const QStringList &args );
-	static KInstance* instance();
+	static const KComponentData &componentData();
 
 private:
-	static KInstance* s_instance;
+	static KComponentData *s_instance;
 	static KAboutData* s_about;
 };
 

@@ -425,26 +425,26 @@ void KChangeLVI::setDifferenceText()
 		// Shouldn't this simply be diff->sourceLineCount() ?
 		// because you change the _number of lines_ lines in source, not in dest
 		if( m_difference->applied() )
-			text = i18np( "Applied: Changes made to %n line undone", "Applied: Changes made to  %n lines undone",
+			text = i18np( "Applied: Changes made to %1 line undone", "Applied: Changes made to  %1 lines undone",
 			             m_difference->sourceLineCount() );
 		else
-			text = i18np( "Changed %n line", "Changed %n lines",
+			text = i18np( "Changed %1 line", "Changed %1 lines",
 			             m_difference->sourceLineCount() );
 		break;
 	case Difference::Insert:
 		if( m_difference->applied() )
-			text = i18np( "Applied: Insertion of %n line undone", "Applied: Insertion of %n lines undone",
+			text = i18np( "Applied: Insertion of %1 line undone", "Applied: Insertion of %1 lines undone",
 			             m_difference->destinationLineCount() );
 		else
-			text = i18np( "Inserted %n line", "Inserted %n lines",
+			text = i18np( "Inserted %1 line", "Inserted %1 lines",
 			             m_difference->destinationLineCount() );
 		break;
 	case Difference::Delete:
 		if( m_difference->applied() )
-			text = i18np( "Applied: Deletion of %n line undone", "Applied: Deletion of %n lines undone",
+			text = i18np( "Applied: Deletion of %1 line undone", "Applied: Deletion of %1 lines undone",
 			             m_difference->sourceLineCount() );
 		else
-			text = i18np( "Deleted %n line", "Deleted %n lines",
+			text = i18np( "Deleted %1 line", "Deleted %1 lines",
 			             m_difference->sourceLineCount() );
 		break;
 	default:

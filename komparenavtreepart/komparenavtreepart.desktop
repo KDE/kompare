@@ -1,6 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KompareNavTreePart
+Name[pl]=Komponent drzewa nawigacyjnego Kompare
+Name[pt_BR]=Componente da árvore do Kompare
+Name[sv]=Kompare-navigeringsträdsdel
+Name[ta]=கோம்பெர் மரம் பாகம்
 Name[x-test]=xxKompareNavTreePartxx
 MimeType=text/x-diff
 ServiceTypes=Kompare/NavigationPart

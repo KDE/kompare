@@ -44,7 +44,6 @@ class KompareModelList;
 }
 class DiffSettings;
 class ViewSettings;
-class KFileTreeView;
 class KompareSplitter;
 class KompareProcess;
 

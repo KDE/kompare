@@ -59,7 +59,7 @@ void ViewSettings::loadSettings( KConfig* config )
 
 	QFont stdFixed = KGlobalSettings::fixedFont();
 	stdFixed.setPointSize( 10 );
-	m_font                = cfg.readFontEntry ( "TextFont", &stdFixed );
+	m_font                = cfg.readEntry ( "TextFont", stdFixed );
 }
 
 void ViewSettings::saveSettings( KConfig* config )

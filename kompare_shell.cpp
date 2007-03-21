@@ -65,7 +65,7 @@ KompareShell::KompareShell()
 	setupActions();
 	setupStatusBar();
 
-	KService::List offers = KMimeTypeTrader::self()->query( "text/x-diff",
+	KService::List offers = KMimeTypeTrader::self()->query( "text/x-patch",
                                                             "Kompare/ViewPart",
                                                              QString::null );
 #ifdef NDEBUG
@@ -366,7 +366,7 @@ void KompareShell::readProperties(KConfig* config)
 void KompareShell::slotFileOpen()
 {
 	// FIXME: use different filedialog which gets encoding
-	KUrl url = KFileDialog::getOpenUrl( KUrl(), "text/x-diff", this );
+	KUrl url = KFileDialog::getOpenUrl( KUrl(), "text/x-patch", this );
 	if( !url.isEmpty() ) {
 		KompareShell* shell = new KompareShell();
 		KGlobal::ref();

@@ -106,7 +106,7 @@ bool KompareModelList::isDirectory( const QString& url ) const
 
 bool KompareModelList::isDiff( const QString& mimeType ) const
 {
-	if ( mimeType == "text/x-diff" )
+	if ( mimeType == "text/x-patch" )
 		return true;
 	else
 		return false;

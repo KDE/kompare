@@ -20,7 +20,7 @@
 #ifndef KOMPAREPROCESS_H
 #define KOMPAREPROCESS_H
 
-#include <kprocess.h>
+#include <k3process.h>
 
 #include "kompare.h"
 
@@ -28,7 +28,7 @@ class QTextCodec;
 
 class DiffSettings;
 
-class KompareProcess : public KProcess, public KompareFunctions
+class KompareProcess : public K3Process, public KompareFunctions
 {
 	Q_OBJECT
 
@@ -52,9 +52,9 @@ protected:
 	void writeCommandLine();
 
 protected slots:
-	void slotReceivedStdout( KProcess*, char*, int );
-	void slotReceivedStderr( KProcess*, char*, int );
-	void slotProcessExited( KProcess* proc );
+	void slotReceivedStdout( K3Process*, char*, int );
+	void slotReceivedStderr( K3Process*, char*, int );
+	void slotProcessExited( K3Process* proc );
 
 private:
 	DiffSettings*          m_diffSettings;

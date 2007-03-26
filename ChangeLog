@@ -270,7 +270,7 @@ Jul    15, 2002 : Otto Bruggeman
 	* Removed some code duplication
 	* Fixed diff output parsing with Common subdirectories in it
 	* Fixed Copyright years in the about box (thanks Carsten Niehaus)
-	* Removed the KShellProcess and replaced it with a KProcess
+	* Removed the K3ShellProcess and replaced it with a K3Process
 
 Feb    18, 2002 : Otto Bruggeman
 	* Fixed scrolling with a wheel mouse in the kompare(list)view and

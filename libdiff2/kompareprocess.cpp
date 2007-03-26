@@ -32,7 +32,7 @@
 #include "kompareprocess.h"
 
 KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString dir )
-	: KProcess(),
+	: K3Process(),
 	m_diffSettings( diffSettings ),
 	m_mode( mode ),
 	m_textDecoder( 0 )
@@ -40,14 +40,14 @@ KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMo
 	setUseShell( true );
 
 	// connect the stdout and stderr signals
-	connect( this, SIGNAL( receivedStdout( KProcess*, char*, int ) ),
-	         SLOT  ( slotReceivedStdout( KProcess*, char*, int ) ) );
-	connect( this, SIGNAL( receivedStderr( KProcess*, char*, int ) ),
-	         SLOT  ( slotReceivedStderr( KProcess*, char*, int ) ) );
+	connect( this, SIGNAL( receivedStdout( K3Process*, char*, int ) ),
+	         SLOT  ( slotReceivedStdout( K3Process*, char*, int ) ) );
+	connect( this, SIGNAL( receivedStderr( K3Process*, char*, int ) ),
+	         SLOT  ( slotReceivedStderr( K3Process*, char*, int ) ) );
 
 	// connect the signal that indicates that the proces has exited
-	connect( this, SIGNAL( processExited( KProcess* ) ),
-	         SLOT  ( slotProcessExited( KProcess* ) ) );
+	connect( this, SIGNAL( processExited( K3Process* ) ),
+	         SLOT  ( slotProcessExited( K3Process* ) ) );
 
 	*this << "LANG=C";
 
@@ -67,8 +67,8 @@ KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMo
 
 	// Write file names
 	*this << "--";
-	*this << KProcess::quote( constructRelativePath( dir, source ) );
-	*this << KProcess::quote( constructRelativePath( dir, destination ) );
+	*this << K3Process::quote( constructRelativePath( dir, source ) );
+	*this << K3Process::quote( constructRelativePath( dir, destination ) );
 }
 
 void KompareProcess::writeDefaultCommandLine()
@@ -87,7 +87,7 @@ void KompareProcess::writeDefaultCommandLine()
 
 void KompareProcess::writeCommandLine()
 {
-	// load the executable into the KProcess
+	// load the executable into the K3Process
 	if ( m_diffSettings->m_diffProgram.isEmpty() )
 	{
 		kDebug(8101) << "Using the first diff in the path..." << endl;
@@ -164,7 +164,7 @@ void KompareProcess::writeCommandLine()
 
 	if ( m_diffSettings->m_ignoreRegExp && !m_diffSettings->m_ignoreRegExpText.isEmpty() )
 	{
-		*this << "-I " << KProcess::quote( m_diffSettings->m_ignoreRegExpText );
+		*this << "-I " << K3Process::quote( m_diffSettings->m_ignoreRegExpText );
 	}
 
 	if ( m_diffSettings->m_showCFunctionChange )
@@ -199,13 +199,13 @@ void KompareProcess::writeCommandLine()
 		QStringList::ConstIterator end = m_diffSettings->m_excludeFilePatternList.end();
 		for ( ; it != end; ++it )
 		{
-			*this << "-x" << KProcess::quote( *it );
+			*this << "-x" << K3Process::quote( *it );
 		}
 	}
 
 	if ( m_diffSettings->m_excludeFilesFile && !m_diffSettings->m_excludeFilesFileURL.isEmpty() )
 	{
-		*this << "-X" << KProcess::quote( m_diffSettings->m_excludeFilesFileURL );
+		*this << "-X" << K3Process::quote( m_diffSettings->m_excludeFilesFileURL );
 	}
 }
 
@@ -226,7 +226,7 @@ void KompareProcess::setEncoding( const QString& encoding )
 	}
 }
 
-void KompareProcess::slotReceivedStdout( KProcess* /* process */, char* buffer, int length )
+void KompareProcess::slotReceivedStdout( K3Process* /* process */, char* buffer, int length )
 {
 	// add all output to m_stdout
 	if ( m_textDecoder )
@@ -235,7 +235,7 @@ void KompareProcess::slotReceivedStdout( KProcess* /* process */, char* buffer, 
 		kDebug(8101) << "KompareProcess::slotReceivedStdout : No decoder !!!" << endl;
 }
 
-void KompareProcess::slotReceivedStderr( KProcess* /* process */, char* buffer, int length )
+void KompareProcess::slotReceivedStderr( K3Process* /* process */, char* buffer, int length )
 {
 	// add all output to m_stderr
 	if ( m_textDecoder )
@@ -253,10 +253,10 @@ bool KompareProcess::start()
 	    cmdLine += "\"" + (*it) + "\" ";
 	kDebug(8101) << cmdLine << endl;
 #endif
-	return( KProcess::start( KProcess::NotifyOnExit, KProcess::AllOutput ) );
+	return( K3Process::start( K3Process::NotifyOnExit, K3Process::AllOutput ) );
 }
 
-void KompareProcess::slotProcessExited( KProcess* /* proc */ )
+void KompareProcess::slotProcessExited( K3Process* /* proc */ )
 {
 	// exit status of 0: no differences
 	//                1: some differences

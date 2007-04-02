@@ -490,7 +490,7 @@ void KompareShell::optionsConfigureToolbars()
 {
 	saveMainWindowSettings( KGlobal::config(), autoSaveGroup() );
 	// use the standard toolbar editor
-	KEditToolbar dlg(factory());
+	KEditToolBar dlg(factory());
 	connect(&dlg,SIGNAL(newToolbarConfig()),this,SLOT(newToolbarConfig()));
 	dlg.exec();
 }

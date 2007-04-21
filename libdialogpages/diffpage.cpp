@@ -21,7 +21,7 @@
 #include <qlayout.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
-#include <qtooltip.h>
+
 #include <q3whatsthis.h>
 #include <QVBoxLayout>
 #include <QHBoxLayout>

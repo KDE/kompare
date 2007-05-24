@@ -167,7 +167,7 @@ void DiffPage::slotShowRegExpEditor()
 	if ( ! m_ignoreRegExpDialog )
 		m_ignoreRegExpDialog = KServiceTypeTrader::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor", QString::null, this );
 
-	KRegExpEditorInterface *iface = dynamic_cast<KRegExpEditorInterface *>( m_ignoreRegExpDialog );
+	KRegExpEditorInterface *iface = qobject_cast<KRegExpEditorInterface *>( m_ignoreRegExpDialog );
 
 	if ( !iface )
 		return;

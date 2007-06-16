@@ -23,7 +23,7 @@
 //Added by qt3to4:
 #include <Q3ValueList>
 #include <Q3CString>
-
+#include <kshell.h>
 #include <kcharsets.h>
 #include <kdebug.h>
 #include <kglobal.h>
@@ -67,8 +67,8 @@ KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMo
 
 	// Write file names
 	*this << "--";
-	*this << K3Process::quote( constructRelativePath( dir, source ) );
-	*this << K3Process::quote( constructRelativePath( dir, destination ) );
+	*this << KShell::quoteArg( constructRelativePath( dir, source ) );
+	*this << KShell::quoteArg( constructRelativePath( dir, destination ) );
 }
 
 void KompareProcess::writeDefaultCommandLine()
@@ -164,7 +164,7 @@ void KompareProcess::writeCommandLine()
 
 	if ( m_diffSettings->m_ignoreRegExp && !m_diffSettings->m_ignoreRegExpText.isEmpty() )
 	{
-		*this << "-I " << K3Process::quote( m_diffSettings->m_ignoreRegExpText );
+		*this << "-I " << KShell::quoteArg( m_diffSettings->m_ignoreRegExpText );
 	}
 
 	if ( m_diffSettings->m_showCFunctionChange )
@@ -199,13 +199,13 @@ void KompareProcess::writeCommandLine()
 		QStringList::ConstIterator end = m_diffSettings->m_excludeFilePatternList.end();
 		for ( ; it != end; ++it )
 		{
-			*this << "-x" << K3Process::quote( *it );
+			*this << "-x" << KShell::quoteArg( *it );
 		}
 	}
 
 	if ( m_diffSettings->m_excludeFilesFile && !m_diffSettings->m_excludeFilesFileURL.isEmpty() )
 	{
-		*this << "-X" << K3Process::quote( m_diffSettings->m_excludeFilesFileURL );
+		*this << "-X" << KShell::quoteArg( m_diffSettings->m_excludeFilesFileURL );
 	}
 }
 

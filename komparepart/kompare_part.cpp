@@ -479,9 +479,9 @@ void KomparePart::saveDiff()
 
 KAboutData *KomparePart::createAboutData()
 {
-    KAboutData *about = new KAboutData("kompare", I18N_NOOP("KomparePart"), "3.2");
-    about->addAuthor("John Firebaugh", "Author", "jfirebaugh@kde.org");
-    about->addAuthor("Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
+    KAboutData *about = new KAboutData("kompare", 0, ki18n("KomparePart"), "3.2");
+    about->addAuthor(ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org");
+    about->addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "otto.bruggeman@home.nl" );
     return about;
 }
 

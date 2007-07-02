@@ -693,9 +693,9 @@ const KComponentData &KompareNavTreePartFactory::componentData()
 {
 	if( !s_instance )
 	{
-		s_about = new KAboutData("komparenavtreepart", I18N_NOOP("KompareNavTreePart"), "1.1");
-		s_about->addAuthor("John Firebaugh", "Author", "jfirebaugh@kde.org");
-		s_about->addAuthor("Otto Bruggeman", "Author", "otto.bruggeman@home.nl" );
+		s_about = new KAboutData("komparenavtreepart", 0, ki18n("KompareNavTreePart"), "1.1");
+		s_about->addAuthor(ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org");
+		s_about->addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "otto.bruggeman@home.nl" );
 		s_instance = new KComponentData(s_about);
 	}
 	return *s_instance;

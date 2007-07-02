@@ -35,31 +35,27 @@ static const char description[] =
 
 static const char version[] = "3.4";
 
-static KCmdLineOptions options[] =
-{
-	{ "c", I18N_NOOP( "This will compare URL1 with URL2" ), 0 },
-	{ "o", I18N_NOOP( "This will open URL1 and expect it to be diff output. URL1 can also be a '-' and then it will read from standard input. Can be used for instance for cvs diff | kompare -o -. Kompare will do a check to see if it can find the original file(s) and then blend the original file(s) into the diffoutput and show that in the viewer. -n disables the check." ), 0 },
-	{ "b", I18N_NOOP( "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 the file or folder that the diffoutput needs to be blended into. " ), 0 },
-	{ "n", I18N_NOOP( "Disables the check for automatically finding the original file(s) when using '-' as URL with the -o option." ), 0 },
-	{ "e <encoding>", I18N_NOOP( "Use this to specify the encoding when calling it from the command line. It will default to the local encoding if not specified." ), 0 },
-	{ "+[URL1 [URL2]]",0 , 0 },
-	{ "+-", 0, 0 },
-//	{ "", I18N_NOOP( "" ), 0 },
-	KCmdLineLastOption
-};
-
 int main(int argc, char *argv[])
 {
-	KAboutData aboutData( "kompare", I18N_NOOP("Kompare"), version, description,
+	KAboutData aboutData( "kompare", 0, ki18n("Kompare"), version, ki18n(description),
 	                      KAboutData::License_GPL,
-	                      I18N_NOOP("(c) 2001-2004, John Firebaugh and Otto Bruggeman"), 0, "http://bruggie.dnsalias.org/kompare/" );
-	aboutData.addAuthor( "John Firebaugh", I18N_NOOP("Author"), "jfirebaugh@kde.org" );
-	aboutData.addAuthor( "Otto Bruggeman", I18N_NOOP("Author"), "otto.bruggeman@home.nl" );
-	aboutData.addCredit( "Chris Luetchford", I18N_NOOP("Kompare icon artist"), "chris@os11.com" );
-	aboutData.addCredit( "Malte Starostik", I18N_NOOP("A lot of good advice"), "malte@kde.org" );
-	aboutData.addCredit( "Bernd Gehrmann", I18N_NOOP("Cervisia diff viewer"), "bernd@physik.hu-berlin.de" );
+	                      ki18n("(c) 2001-2004, John Firebaugh and Otto Bruggeman"), KLocalizedString(), "http://bruggie.dnsalias.org/kompare/" );
+	aboutData.addAuthor( ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org" );
+	aboutData.addAuthor( ki18n("Otto Bruggeman"), ki18n("Author"), "otto.bruggeman@home.nl" );
+	aboutData.addCredit( ki18n("Chris Luetchford"), ki18n("Kompare icon artist"), "chris@os11.com" );
+	aboutData.addCredit( ki18n("Malte Starostik"), ki18n("A lot of good advice"), "malte@kde.org" );
+	aboutData.addCredit( ki18n("Bernd Gehrmann"), ki18n("Cervisia diff viewer"), "bernd@physik.hu-berlin.de" );
 
 	KCmdLineArgs::init(argc, argv, &aboutData);
+
+	KCmdLineOptions options;
+	options.add("c", ki18n( "This will compare URL1 with URL2" ));
+	options.add("o", ki18n( "This will open URL1 and expect it to be diff output. URL1 can also be a '-' and then it will read from standard input. Can be used for instance for cvs diff | kompare -o -. Kompare will do a check to see if it can find the original file(s) and then blend the original file(s) into the diffoutput and show that in the viewer. -n disables the check." ));
+	options.add("b", ki18n( "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 the file or folder that the diffoutput needs to be blended into. " ));
+	options.add("n", ki18n( "Disables the check for automatically finding the original file(s) when using '-' as URL with the -o option." ));
+	options.add("e <encoding>", ki18n( "Use this to specify the encoding when calling it from the command line. It will default to the local encoding if not specified." ));
+	options.add("+[URL1 [URL2]]");
+	options.add("+-");
 	KCmdLineArgs::addCmdLineOptions( options );
 	KApplication app;
 	bool difault = false;

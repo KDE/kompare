@@ -6,7 +6,6 @@
 
 set(kompareinterface_LIB_SRCS kompareinterface.cpp )
 
-kde4_automoc(${kompareinterface_LIB_SRCS})
 
 kde4_add_library(kompareinterface SHARED ${kompareinterface_LIB_SRCS})
 

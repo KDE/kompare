@@ -40,7 +40,6 @@ ${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/parserbase.cpp
 )
 
 
-kde4_automoc(${kompare_SRCS})
 
 kde4_add_executable(kompare ${kompare_SRCS})
 

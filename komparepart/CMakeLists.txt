@@ -12,7 +12,6 @@ set(komparepart_PART_SRCS
    kompareprefdlg.cpp 
    komparesaveoptionswidget.cpp )
 
-kde4_automoc(${komparepart_PART_SRCS})
 
 kde4_add_ui_files(komparepart_PART_SRCS komparesaveoptionsbase.ui )
 

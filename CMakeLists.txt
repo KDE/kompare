@@ -50,7 +50,7 @@ install(TARGETS kompare  DESTINATION ${BIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-install( FILES kompare.desktop  DESTINATION  ${XDG_APPS_DIR} )
+install( FILES kompare.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES kompareui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kompare )
 install( FILES komparenavigationpart.desktop kompareviewpart.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
 

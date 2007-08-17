@@ -33,7 +33,7 @@ class KompareProcess : public K3Process, public KompareFunctions
 	Q_OBJECT
 
 public:
-	KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString directory = QString::null );	//krazy:exclude=nullstrassign for old broken gcc
+	KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString directory = QString() );
 	~KompareProcess();
 
 	bool start();

@@ -67,7 +67,7 @@ KompareShell::KompareShell()
 
 	KService::List offers = KMimeTypeTrader::self()->query( "text/x-patch",
                                                             "Kompare/ViewPart",
-                                                             QString::null );	//krazy:exclude=nullstrassign for old broken gcc
+                                                             QString() );
 #ifdef NDEBUG
 	for( int i = 0; i < offers.count(); i++ )
 	{
@@ -383,7 +383,7 @@ void KompareShell::slotFileBlendURLAndDiff()
 	dialog->setFirstGroupBoxTitle( i18n( "File/Folder" ) );
 	dialog->setSecondGroupBoxTitle( i18n( "Diff Output" ) );
 
-	KGuiItem blendGuiItem( i18n( "Blend" ), QString::null, i18n( "Blend this file or folder with the diff output" ), i18n( "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );	//krazy:exclude=nullstrassign for old broken gcc
+	KGuiItem blendGuiItem( i18n( "Blend" ), QString(), i18n( "Blend this file or folder with the diff output" ), i18n( "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );
 	dialog->setButtonGuiItem( KDialog::Ok, blendGuiItem );
 
 	dialog->setGroup( "Recent Blend Files" );
@@ -412,7 +412,7 @@ void KompareShell::slotFileCompareFiles()
 	dialog->setFirstGroupBoxTitle( i18n( "Source" ) );
 	dialog->setSecondGroupBoxTitle( i18n( "Destination" ) );
 
-	KGuiItem compareGuiItem( i18n( "Compare" ), QString::null, i18n( "Compare these files or folders" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );	//krazy:exclude=nullstrassign for old broken gcc
+	KGuiItem compareGuiItem( i18n( "Compare" ), QString(), i18n( "Compare these files or folders" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
 	dialog->setButtonGuiItem( KDialog::Ok, compareGuiItem );
 
 	dialog->setGroup( "Recent Compare Files" );
@@ -455,7 +455,7 @@ void KompareShell::slotShowTextView()
 // 		m_textViewWidget = createDockWidget( i18n("Text View"), SmallIcon( "text") );
 		m_textViewPart = KServiceTypeTrader::createInstanceFromQuery<KTextEditor::Document>(
 		                 QString::fromLatin1("KTextEditor/Document"),
-		                 QString::null, (QWidget*)this, QStringList(), &errCode );	//krazy:exclude=nullstrassign for old broken gcc
+		                 QString(), (QWidget*)this, QStringList(), &errCode );
 		if ( m_textViewPart )
 		{
 			m_textView = qobject_cast<KTextEditor::View*>( m_textViewPart->createView( this ) );

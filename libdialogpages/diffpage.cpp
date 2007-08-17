@@ -151,7 +151,7 @@ void DiffPage::setDefaults()
 	m_ignoreTabExpansionCheckBox->setChecked( false );
 	m_ignoreRegExpCheckBox->setChecked( false );
 
-	m_ignoreRegExpEdit->setText( QString::null );	//krazy:exclude=nullstrassign for old broken gcc
+	m_ignoreRegExpEdit->setText( QString() );
 
 	m_locSpinBox->setValue( 3 );
 
@@ -165,7 +165,7 @@ void DiffPage::setDefaults()
 void DiffPage::slotShowRegExpEditor()
 {
 	if ( ! m_ignoreRegExpDialog )
-		m_ignoreRegExpDialog = KServiceTypeTrader::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor", QString::null, this );	//krazy:exclude=nullstrassign for old broken gcc
+		m_ignoreRegExpDialog = KServiceTypeTrader::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor", QString(), this );
 
 	KRegExpEditorInterface *iface = qobject_cast<KRegExpEditorInterface *>( m_ignoreRegExpDialog );
 

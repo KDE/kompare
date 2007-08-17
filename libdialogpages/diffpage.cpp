@@ -151,7 +151,7 @@ void DiffPage::setDefaults()
 	m_ignoreTabExpansionCheckBox->setChecked( false );
 	m_ignoreRegExpCheckBox->setChecked( false );
 
-	m_ignoreRegExpEdit->setText( QString::null );
+	m_ignoreRegExpEdit->setText( QString::null );	//krazy:exclude=nullstrassign for old broken gcc
 
 	m_locSpinBox->setValue( 3 );
 
@@ -165,7 +165,7 @@ void DiffPage::setDefaults()
 void DiffPage::slotShowRegExpEditor()
 {
 	if ( ! m_ignoreRegExpDialog )
-		m_ignoreRegExpDialog = KServiceTypeTrader::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor", QString::null, this );
+		m_ignoreRegExpDialog = KServiceTypeTrader::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor", QString::null, this );	//krazy:exclude=nullstrassign for old broken gcc
 
 	KRegExpEditorInterface *iface = qobject_cast<KRegExpEditorInterface *>( m_ignoreRegExpDialog );
 
@@ -296,7 +296,7 @@ void DiffPage::addOptionsTab()
 	m_ignoreRegExpCheckBox = new QCheckBox( i18n( "Ignore regexp:" ), page );
 	QToolTip::add( m_ignoreRegExpCheckBox, i18n( "This option corresponds to the -I diff option." ) );
 	groupLayout->addWidget( m_ignoreRegExpCheckBox );
-	m_ignoreRegExpEdit = new KLineEdit( QString::null, page);
+	m_ignoreRegExpEdit = new KLineEdit( QString::null, page);	//krazy:exclude=nullstrassign for old broken gcc
 	m_ignoreRegExpEdit->setObjectName("regexplineedit" );
 	QToolTip::add( m_ignoreRegExpEdit, i18n( "Add the regular expression here that you want to use\nto ignore lines that match it." ) );
 	groupLayout->addWidget( m_ignoreRegExpEdit );

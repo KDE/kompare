@@ -92,7 +92,7 @@ void KompareListViewFrame::slotSetModel( const DiffModel* model )
 				m_label.setText( model->destinationFile() );
 		}
 	} else {
-		m_label.setText( QString::null );
+		m_label.setText( QString::null );	//krazy:exclude=nullstrassign for old broken gcc
 	}
 }
 

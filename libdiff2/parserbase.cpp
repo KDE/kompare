@@ -456,7 +456,7 @@ bool ParserBase::parseNormalHunkBody()
 {
 //	kDebug(8101) << "ParserBase::parseNormalHunkBody" << endl;
 
-	QString type = QString::null;
+	QString type = QString();
 
 	int linenoA = 0, linenoB = 0;
 

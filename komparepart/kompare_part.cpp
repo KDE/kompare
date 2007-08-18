@@ -442,7 +442,7 @@ void KomparePart::saveDiff()
 		{
 			KUrl url = KFileDialog::getSaveURL( m_info.destination.url(),
 			              i18n("*.diff *.dif *.patch|Patch Files"), widget(), i18n( "Save .diff" ) );
-			if ( KIO::NetAccess::exists( url, false, widget() ) )
+			if ( KIO::NetAccess::exists( url, KIO::NetAccess::DestinationSide, widget() ) )
 			{
 				int result = KMessageBox::warningYesNoCancel( widget(), i18n("The file exists or is write-protected; do you want to overwrite it?"), i18n("File Exists"), i18n("Overwrite"), i18n("Do Not Overwrite") );
 				if ( result == KMessageBox::Cancel )

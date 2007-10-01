@@ -91,7 +91,7 @@ KompareShell::KompareShell()
 	{
 		m_mainViewDock = new QDockWidget( i18n( "View" ), this );
 		m_mainViewDock->setObjectName( "View" );
-// 		m_mainViewDock = createDockWidget( "View", qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)) );
+// 		m_mainViewDock = createDockWidget( "View", qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)) );
 		// now that the Part is loaded, we cast it to a KomparePart to get
 		// our hands on it
 		m_viewPart = static_cast<KomparePart*>(mainViewFactory->create(m_mainViewDock,
@@ -130,7 +130,7 @@ KompareShell::KompareShell()
 	{
 		m_navTreeDock = new QDockWidget( i18n( "Navigation" ), this );
 		m_navTreeDock->setObjectName( "Navigation" );
-// 		m_navTreeDock = createDockWidget( "Navigation", qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)) );
+// 		m_navTreeDock = createDockWidget( "Navigation", qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)) );
 
 		m_navTreePart = static_cast<KompareNavTreePart*>(navTreeFactory->create(m_navTreeDock,
 		                 "komparenavtreepart", QStringList("KParts::ReadOnlyPart" )));

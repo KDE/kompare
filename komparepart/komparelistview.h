@@ -22,10 +22,17 @@
 #ifndef KOMPARELISTVIEW_H
 #define KOMPARELISTVIEW_H
 
-#include <qptrlist.h>
-#include <qptrdict.h>
+#include <Q3PtrList>
+#include <Q3ValueList>
+#include <Q3PtrDict>
 #include <qlabel.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QWheelEvent>
+#include <Q3VBoxLayout>
+#include <QMouseEvent>
+#include <Q3Frame>
 
 #include <k3listview.h>
 
@@ -91,8 +98,8 @@ protected:
 	void contentsMouseMoveEvent ( QMouseEvent * ) {};
 
 private:
-	QValueList<KompareListViewDiffItem*> m_items;
-	QPtrDict<KompareListViewDiffItem> m_itemDict;
+	Q3ValueList<KompareListViewDiffItem*> m_items;
+	Q3PtrDict<KompareListViewDiffItem> m_itemDict;
 	bool                              m_isSource;
 	ViewSettings*                     m_settings;
 	int                               m_scrollId;
@@ -102,7 +109,7 @@ private:
 	QString                           m_spaces;
 };
 
-class KompareListViewFrame : public QFrame
+class KompareListViewFrame : public Q3Frame
 {
 	Q_OBJECT
 	
@@ -117,10 +124,10 @@ public slots:
 private:
 	KompareListView      m_view;
 	QLabel               m_label;
-	QVBoxLayout          m_layout;
+	Q3VBoxLayout          m_layout;
 };
 
-class KompareListViewItem : public QListViewItem
+class KompareListViewItem : public Q3ListViewItem
 {
 public:
 	KompareListViewItem( KompareListView* parent );

@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 				ks = new KompareShell();
 				ks->show();
 				kDebug( 8100 ) << "OpenDiff..." << endl;
-				if ( ( strlen( args->arg(0) ) == 1 ) && (  *(args->arg(0)) == '-' ) )
+				if ( args->arg(0) == QLatin1String("-") )
 					ks->openStdin();
 				else
 					ks->openDiff( args->url( 0 ) );
@@ -149,7 +149,7 @@ int main(int argc, char *argv[])
 			ks->show();
 
 			kDebug( 8100 ) << "Single file. so openDiff/openStdin is only possible..." << endl;
-			if ( ( strlen( args->arg(0) ) == 1 && *(args->arg(0)) == '-' ) )
+			if ( args->arg(0) == QLatin1String("-") )
 				ks->openStdin();
 			else
 				ks->openDiff( args->url( 0 ) );

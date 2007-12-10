@@ -18,16 +18,15 @@
 #ifndef _KOMPARESPLITTER_H_
 #define _KOMPARESPLITTER_H_
 
-#include "kompare_qsplitter.h"
+#include <QSplitter>
 
-#include <qtimer.h>
-
-#include "komparelistview.h"
 #include "komparemodellist.h"
 
-class QSplitterLayoutStruct;
-class QTextStream;
 class QSplitterHandle;
+class QTimer;
+class QScrollBar;
+class QWheelEvent;
+class QKeyEvent;
 
 namespace Diff2 {
 class DiffModel;
@@ -35,28 +34,38 @@ class Difference;
 }
 class ViewSettings;
 
+class KompareListView;
+class KompareConnectWidget;
+
 class KompareSplitter : public QSplitter
 {
 	Q_OBJECT
 
 public:
-	KompareSplitter(ViewSettings *settings, QWidget *parent=0, const char *name = 0);
+	KompareSplitter(ViewSettings *settings, QWidget *parent, const char *name = 0);
 	~KompareSplitter();
 
 signals:
-	void selectionChanged( const Diff2::Difference* diff );
-
 	void configChanged();
 
 	void scrollViewsToId( int id );
 	void setXOffset( int x );
 
+	void selectionChanged( const Diff2::Difference* diff );
+
 public slots:
+	void slotScrollToId( int id );
+	void slotDelayedUpdateScrollBars();
+	void slotUpdateScrollBars();
+	void slotDelayedUpdateVScrollValue();
+	void slotUpdateVScrollValue();
+	void slotScroll( QWheelEvent* e );
+	void keyPressEvent( QKeyEvent* e );
+
 	void slotApplyDifference( bool apply );
 	void slotApplyAllDifferences( bool apply );
 	void slotApplyDifference( const Diff2::Difference* diff, bool apply );
 
-	// to update the list views
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void slotSetSelection( const Diff2::Difference* diff );
 
@@ -64,35 +73,28 @@ public slots:
 
 	void slotConfigChanged();
 
-	void scrollToId( int id );
-	void slotDelayedUpdateScrollBars();
-	void slotUpdateScrollBars();
-	void slotDelayedUpdateVScrollValue();
-	void slotUpdateVScrollValue();
-
 protected:
-	void childEvent( QChildEvent * );
-	void wheelEvent( QWheelEvent* e );
-	void keyPressEvent( QKeyEvent* e );
-
 	void moveSplitter( QCOORD pos, int id );
 
-private slots:
+	ViewSettings* settings() const { return m_settings; }
+
+protected slots:
 	void slotDelayedRepaintHandles();
+	void slotRepaintHandles();
 	void timerTimeout();
 
 private:
-	QSplitterLayoutStruct *addWidget(KompareListViewFrame *w,
-		bool prepend = FALSE );
+	// override from QSplitter
+	QSplitterHandle* createHandle();
 
-	void doMove( bool backwards, int pos, int id, int delta,
-		bool mayCollapse, int* positions, int* widths );
+	void               setCursor( int id, const QCursor& cursor );
+	void               unsetCursor( int id );
 
-	void repaintHandles();
+protected:
+	KompareListView* listView( int index );
+	KompareConnectWidget* connectWidget( int index );
 
-	QTimer*            m_scrollTimer;
-	bool               restartTimer;
-	int                scrollTo;
+private:
 
 	// Scrollbars. all this just for the goddamn scrollbars. i hate them.
 	int  scrollId();
@@ -105,6 +107,10 @@ private:
 	int  maxHScrollId();
 	int  maxContentsX();
 	int  minVisibleWidth();
+
+	QTimer*            m_scrollTimer;
+	bool               m_restartTimer;
+	int                m_scrollTo;
 
 	ViewSettings*      m_settings;
 	QScrollBar*        m_vScroll;

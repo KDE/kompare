@@ -18,6 +18,7 @@
 
 #include <kapplication.h>
 #include <kconfig.h>
+#include <kconfiggroup.h>
 
 #include "filessettings.h"
 
@@ -32,23 +33,23 @@ FilesSettings::~FilesSettings()
 
 void FilesSettings::loadSettings( KConfig* config )
 {
-	config->setGroup( m_configGroupName );
+	KConfigGroup group( config, m_configGroupName );
 
-	m_recentSources            = config->readListEntry( "Recent Sources" );
-	m_lastChosenSourceURL      = config->readEntry    ( "LastChosenSourceListEntry", "" );
-	m_recentDestinations       = config->readListEntry( "Recent Destinations" );
-	m_lastChosenDestinationURL = config->readEntry    ( "LastChosenDestinationListEntry", "" );
-	m_encoding                 = config->readEntry    ( "Encoding", "default" );
+	m_recentSources            = group.readEntry( "Recent Sources", QStringList() );
+	m_lastChosenSourceURL      = group.readEntry    ( "LastChosenSourceListEntry", "" );
+	m_recentDestinations       = group.readEntry( "Recent Destinations", QStringList() );
+	m_lastChosenDestinationURL = group.readEntry    ( "LastChosenDestinationListEntry", "" );
+	m_encoding                 = group.readEntry    ( "Encoding", "default" );
 }
 
 void FilesSettings::saveSettings( KConfig* config )
 {
-	config->setGroup( m_configGroupName );
-	config->writeEntry( "Recent Sources", m_recentSources );
-	config->writeEntry( "Recent Destinations", m_recentDestinations );
-	config->writeEntry( "LastChosenSourceListEntry", m_lastChosenSourceURL );
-	config->writeEntry( "LastChosenDestinationListEntry", m_lastChosenDestinationURL );
-	config->writeEntry( "Encoding", m_encoding );
+	KConfigGroup group( config, m_configGroupName );
+	group.writeEntry( "Recent Sources", m_recentSources );
+	group.writeEntry( "Recent Destinations", m_recentDestinations );
+	group.writeEntry( "LastChosenSourceListEntry", m_lastChosenSourceURL );
+	group.writeEntry( "LastChosenDestinationListEntry", m_lastChosenDestinationURL );
+	group.writeEntry( "Encoding", m_encoding );
 	config->sync();
 }
 

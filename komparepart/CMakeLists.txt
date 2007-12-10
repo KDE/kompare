@@ -10,6 +10,7 @@ set(komparepart_PART_SRCS
    komparesplitter.cpp 
    komparelistview.cpp 
    kompareprefdlg.cpp 
+   komparesaveoptionsbase.cpp 
    komparesaveoptionswidget.cpp )
 
 
@@ -19,7 +20,7 @@ kde4_add_plugin(komparepart WITH_PREFIX ${komparepart_PART_SRCS})
 
 
 
-target_link_libraries(komparepart  ${KDE4_KPARTS_LIBS} dialogpages diff2 kompareinterface )
+target_link_libraries(komparepart  ${KDE4_KPARTS_LIBS} dialogpages diff2 kompareinterface ${KDE4_KDE3SUPPORT_LIBS} )
 
 install(TARGETS komparepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

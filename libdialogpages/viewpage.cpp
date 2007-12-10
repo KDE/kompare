@@ -19,10 +19,12 @@
 
 #include <qcheckbox.h>
 #include <QGroupBox>
+#include <Q3HGroupBox>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qspinbox.h>
 #include <QVBoxLayout>
+#include <QGridLayout>
 #include <QTabWidget>
 #include <QFontComboBox>
 
@@ -35,11 +37,12 @@
 #include "viewpage.h"
 #include "viewsettings.h"
 
-ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
+ViewPage::ViewPage() : PageBase()
 {
 	QWidget*     page;
 	QTabWidget*  tabWidget;
 	QVBoxLayout* layout;
+	QGridLayout* gridLayout;
 	QGroupBox*   colorGroupBox;
 	QGroupBox*   snolGroupBox;
 	QGroupBox*   tabGroupBox;
@@ -56,29 +59,38 @@ ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 	colorGroupBox->setTitle( i18n( "Colors" ) );
 	layout->addWidget( colorGroupBox );
 	//colorGroupBox->setMargin( KDialog::marginHint() );
+	gridLayout = new QGridLayout( colorGroupBox );
 
 	// add the removeColor
 	label = new QLabel( i18n( "Removed color:" ), colorGroupBox );
 	m_removedColorButton = new KColorButton( colorGroupBox );
 	label->setBuddy( m_removedColorButton );
+	gridLayout->addWidget( label, 0, 0 );
+	gridLayout->addWidget( m_removedColorButton, 0, 1 );
 
 	// add the changeColor
 	label = new QLabel( i18n( "Changed color:" ), colorGroupBox );
 	m_changedColorButton = new KColorButton( colorGroupBox );
 	label->setBuddy( m_changedColorButton );
+	gridLayout->addWidget( label, 1, 0 );
+	gridLayout->addWidget( m_changedColorButton, 1, 1 );
 
 	// add the addColor
 	label = new QLabel( i18n( "Added color:" ), colorGroupBox );
 	m_addedColorButton = new KColorButton( colorGroupBox );
 	label->setBuddy( m_addedColorButton );
+	gridLayout->addWidget( label, 2, 0 );
+	gridLayout->addWidget( m_addedColorButton, 2, 1 );
 
 	// add the appliedColor
 	label = new QLabel( i18n( "Applied color:" ), colorGroupBox );
 	m_appliedColorButton = new KColorButton( colorGroupBox );
 	label->setBuddy( m_appliedColorButton );
+	gridLayout->addWidget( label, 3, 0 );
+	gridLayout->addWidget( m_appliedColorButton, 3, 1 );
 
 	// scroll number of lines (snol)
-	snolGroupBox = new QGroupBox( page );
+	snolGroupBox = new Q3HGroupBox( page );
 	snolGroupBox->setTitle( i18n( "Mouse Wheel" ) );
 	layout->addWidget( snolGroupBox );
 	//snolGroupBox->setMargin( KDialog::marginHint() );
@@ -89,7 +101,7 @@ ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 
 	// Temporarily here for testing...
 	// number of spaces for a tab character stuff
-	tabGroupBox = new QGroupBox( page );
+	tabGroupBox = new Q3HGroupBox( page );
 	tabGroupBox->setTitle( i18n( "Tabs to Spaces" ) );
 	layout->addWidget( tabGroupBox );
 	//tabGroupBox->setMargin( KDialog::marginHint() );
@@ -108,7 +120,7 @@ ViewPage::ViewPage( QWidget* parent ) : PageBase( parent )
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
 
-	QGroupBox* gb = new QGroupBox( page );
+	QGroupBox* gb = new Q3HGroupBox( page );
 	gb->setTitle( i18n( "Text Font" ) );
 	layout->addWidget( gb );
 	//gb->setMargin( KDialog::marginHint() );
@@ -169,7 +181,7 @@ void ViewPage::apply()
 	m_settings->m_font                = QFont( m_fontCombo->currentFont() );
 	m_settings->m_font.setPointSize( m_fontSizeSpinBox->value() );
 
-	m_settings->saveSettings( KGlobal::config() );
+	m_settings->saveSettings( KGlobal::config().data() );
 }
 
 void ViewPage::setDefaults()

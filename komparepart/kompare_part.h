@@ -31,10 +31,11 @@
 
 class QWidget;
 
-class KTempFile;
+class KTemporaryFile;
 class KToggleAction;
 class KUrl;
 class KAboutData;
+class KAction;
 
 namespace Diff2 {
 class Difference;
@@ -64,8 +65,7 @@ public:
 	/**
 	* Default constructor
 	*/
-	KomparePart( QWidget *parentWidget, const char *widgetName,
-	             QObject *parent, const char *name, const QStringList & /*args*/);
+	KomparePart( QWidget *parentWidget, QObject *parent, const QStringList & /*args*/);
 
 	/**
 	* Destructor
@@ -167,6 +167,7 @@ signals:
 	void kompareInfo( Kompare::Info* info );
 	void setStatusBarModelInfo( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
 //	void setStatusBarText( const QString& text );
+	void diffString(const QString&);
 
 protected:
 	/**
@@ -215,7 +216,7 @@ private:
 	KAction*                 m_swap;
 	KAction*                 m_diffStats;
 
-	KTempFile*               m_tempDiff;
+	KTemporaryFile*               m_tempDiff;
 
 	struct Kompare::Info     m_info;
 };

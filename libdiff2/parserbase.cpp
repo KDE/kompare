@@ -301,7 +301,7 @@ bool ParserBase::parseUnifiedHunkHeader()
 {
 //	kDebug(8101) << "ParserBase::parseUnifiedHunkHeader()" << endl;
 
-	if ( m_unifiedHunkHeader.exactMatch( *m_diffIterator ) )
+	if ( m_diffIterator != m_diffLines.end() && m_unifiedHunkHeader.exactMatch( *m_diffIterator ) )
 	{
 		++m_diffIterator;
 		return true;

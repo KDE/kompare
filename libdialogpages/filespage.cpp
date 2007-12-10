@@ -32,7 +32,7 @@
 #include "filessettings.h"
 #include "filespage.h"
 
-FilesPage::FilesPage( QWidget* parent ) : PageBase( parent ), m_URLChanged( false )
+FilesPage::FilesPage() : PageBase()
 {
 	QWidget* page = new QWidget( this );
 	QVBoxLayout* layout = new QVBoxLayout( page );
@@ -49,9 +49,6 @@ FilesPage::FilesPage( QWidget* parent ) : PageBase( parent ), m_URLChanged( fals
 	m_secondURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_secondGB );
 	m_secondURLComboBox->setObjectName( "DestURLComboBox" );
 	m_secondURLRequester = new KUrlRequester( m_secondURLComboBox, m_secondGB );
-
-	connect( m_firstURLRequester, SIGNAL( urlSelected( const QString & ) ), SLOT( setSecondURL( const QString & ) ) );
-	connect( m_secondURLRequester, SIGNAL( urlSelected( const QString & ) ), SLOT( setFirstURL( const QString & ) ) );
 
 	m_thirdGB = new Q3GroupBox( 1, Qt::Vertical, i18n( "Encoding" ), page );
 	m_encodingComboBox = new QComboBox( false, m_thirdGB, "encoding_combobox" );
@@ -101,29 +98,29 @@ void FilesPage::setURLsInComboBoxes()
 {
 //	kDebug() << "first : " << m_firstURLComboBox->currentText() << endl;
 //	kDebug() << "second: " << m_secondURLComboBox->currentText() << endl;
-	m_firstURLComboBox->setURL( KUrl( m_firstURLComboBox->currentText() ) );
-	m_secondURLComboBox->setURL( KUrl( m_secondURLComboBox->currentText() ) );
+	m_firstURLComboBox->setUrl( KUrl( m_firstURLComboBox->currentText() ) );
+	m_secondURLComboBox->setUrl( KUrl( m_secondURLComboBox->currentText() ) );
 }
 
 
 void FilesPage::setFirstURLRequesterMode( unsigned int mode )
 {
-	m_firstURLRequester->setMode( mode );
+	m_firstURLRequester->setMode( (KFile::Mode) mode );
 }
 
 void FilesPage::setSecondURLRequesterMode( unsigned int mode )
 {
-	m_secondURLRequester->setMode( mode );
+	m_secondURLRequester->setMode( (KFile::Mode) mode );
 }
 
 void FilesPage::setSettings( FilesSettings* settings )
 {
 	m_settings = settings;
 
-	m_firstURLComboBox->setURLs( m_settings->m_recentSources );
-	m_firstURLComboBox->setURL( KUrl( m_settings->m_lastChosenSourceURL ) );
-	m_secondURLComboBox->setURLs( m_settings->m_recentDestinations );
-	m_secondURLComboBox->setURL( KUrl( m_settings->m_lastChosenDestinationURL ) );
+	m_firstURLComboBox->setUrls( m_settings->m_recentSources );
+	m_firstURLComboBox->setUrl( KUrl( m_settings->m_lastChosenSourceURL ) );
+	m_secondURLComboBox->setUrls( m_settings->m_recentDestinations );
+	m_secondURLComboBox->setUrl( KUrl( m_settings->m_lastChosenDestinationURL ) );
 	m_encodingComboBox->setCurrentText( m_settings->m_encoding );
 }
 
@@ -143,31 +140,11 @@ void FilesPage::apply()
 
 void FilesPage::setDefaults()
 {
-	m_firstURLComboBox->setURLs( QStringList() );
-	m_firstURLComboBox->setURL( KUrl( "" ) );
-	m_secondURLComboBox->setURLs( QStringList() );
-	m_secondURLComboBox->setURL( KUrl( "" ) );
+	m_firstURLComboBox->setUrls( QStringList() );
+	m_firstURLComboBox->setUrl( KUrl( "" ) );
+	m_secondURLComboBox->setUrls( QStringList() );
+	m_secondURLComboBox->setUrl( KUrl( "" ) );
 	m_encodingComboBox->setCurrentText( "Default" );
-}
-
-void FilesPage::setFirstURL( const QString &url )
-{
-	QString _url = url;
-	if ( !m_URLChanged )
-	{
-		m_firstURLRequester->setUrl( _url.remove( url.section( '/', -1 ) ) );
-		m_URLChanged = true;
-	}
-}
-
-void FilesPage::setSecondURL( const QString &url )
-{
-	QString _url = url;
-	if ( !m_URLChanged )
-	{
-		m_secondURLRequester->setUrl( _url.remove( url.section( '/', -1 ) ) );
-		m_URLChanged = true;
-	}
 }
 
 #include "filespage.moc"

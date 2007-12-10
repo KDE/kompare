@@ -30,7 +30,7 @@ class QFile;
 
 class KAction;
 class KDirWatch;
-class KTempFile;
+class KTemporaryFile;
 
 class DiffSettings;
 class KompareProcess;
@@ -122,6 +122,7 @@ signals:
 	void applyDifference( bool apply );
 	void applyAllDifferences( bool apply );
 	void applyDifference( const Diff2::Difference* diff, bool apply );
+	void diffString( const QString& );
 
 	// Emits true when m_noOfModified > 0, false when m_noOfModified == 0
 	void setModified( bool modified );
@@ -170,7 +171,7 @@ private: // Helper methods
 	QStringList split( const QString& diff );
 
 private:
-	KTempFile*            m_diffTemp;
+	KTemporaryFile*       m_diffTemp;
 	QString               m_diffURL;
 
 	KompareProcess*       m_diffProcess;

@@ -43,7 +43,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/libdiff2/parserbase.cpp
 
 kde4_add_executable(kompare ${kompare_SRCS})
 
-target_link_libraries(kompare  kompareinterface dialogpages ${KDE4_KTEXTEDITOR_LIBS} )
+target_link_libraries(kompare  kompareinterface dialogpages ${KDE4_KTEXTEDITOR_LIBS} ${KDE4_KDE3SUPPORT_LIBS} )
 
 install(TARGETS kompare  DESTINATION ${BIN_INSTALL_DIR} )
 

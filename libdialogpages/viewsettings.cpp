@@ -50,12 +50,12 @@ ViewSettings::~ViewSettings()
 void ViewSettings::loadSettings( KConfig* config )
 {
 	KConfigGroup cfg( config, "View Options" );
-	m_removeColor         = cfg.readColorEntry( "RemoveColor",         &default_removeColor );
-	m_changeColor         = cfg.readColorEntry( "ChangeColor",         &default_changeColor );
-	m_addColor            = cfg.readColorEntry( "AddColor",            &default_addColor );
-	m_appliedColor        = cfg.readColorEntry( "AppliedColor",        &default_appliedColor );
-	m_scrollNoOfLines     = cfg.readNumEntry  ( "ScrollNoOfLines",     3 );
-	m_tabToNumberOfSpaces = cfg.readNumEntry  ( "TabToNumberOfSpaces", 4 );
+	m_removeColor         = cfg.readEntry( "RemoveColor",         default_removeColor );
+	m_changeColor         = cfg.readEntry( "ChangeColor",         default_changeColor );
+	m_addColor            = cfg.readEntry( "AddColor",            default_addColor );
+	m_appliedColor        = cfg.readEntry( "AppliedColor",        default_appliedColor );
+	m_scrollNoOfLines     = cfg.readEntry  ( "ScrollNoOfLines",     3 );
+	m_tabToNumberOfSpaces = cfg.readEntry  ( "TabToNumberOfSpaces", 4 );
 
 	QFont stdFixed = KGlobalSettings::fixedFont();
 	stdFixed.setPointSize( 10 );

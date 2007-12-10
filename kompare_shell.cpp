@@ -21,13 +21,12 @@
 #include <QTextStream>
 
 #include <ktexteditor/document.h>
-// #include <ktexteditor/editinterface.h>
 #include <ktexteditor/view.h>
 #include <kdebug.h>
 #include <kedittoolbar.h>
 #include <kencodingfiledialog.h>
 #include <kiconloader.h>
-#include <kkeydialog.h>
+#include <kshortcutsdialog.h>
 #include <klibloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -39,6 +38,7 @@
 #include <kservicetypetrader.h>
 #include <ktoggleaction.h>
 // #include <kuserprofile.h>
+#include <kactioncollection.h>
 
 #include "kompare_part.h"
 #include "komparenavtreepart.h"
@@ -89,17 +89,18 @@ KompareShell::KompareShell()
 	KLibFactory *mainViewFactory = KLibLoader::self()->factory( ptr->library().ascii() );
 	if (mainViewFactory)
 	{
-		m_mainViewDock = new QDockWidget( i18n( "View" ), this );
-		m_mainViewDock->setObjectName( "View" );
+//		m_mainViewDock = new QDockWidget( i18n( "View" ), this );
+//		m_mainViewDock->setObjectName( "View" );
 // 		m_mainViewDock = createDockWidget( "View", qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)) );
 		// now that the Part is loaded, we cast it to a KomparePart to get
 		// our hands on it
-		m_viewPart = static_cast<KomparePart*>(mainViewFactory->create(m_mainViewDock,
-		              "kompare_part", QStringList("KParts::ReadWritePart" )));
+		m_viewPart = static_cast<KomparePart*>(mainViewFactory->create(this,
+		              "KomparePart", QStringList("KParts::ReadWritePart" )));
 
 		if ( m_viewPart )
 		{
-			m_mainViewDock->setWidget( m_viewPart->widget() );
+			setCentralWidget( m_viewPart->widget() );
+//			m_mainViewDock->setWidget( m_viewPart->widget() );
 // 			setView( m_mainViewDock );
 // 			setMainDockWidget( m_mainViewDock );
 
@@ -133,11 +134,12 @@ KompareShell::KompareShell()
 // 		m_navTreeDock = createDockWidget( "Navigation", qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)) );
 
 		m_navTreePart = static_cast<KompareNavTreePart*>(navTreeFactory->create(m_navTreeDock,
-		                 "komparenavtreepart", QStringList("KParts::ReadOnlyPart" )));
+		                 "KompareNavTreePart", QStringList("KParts::ReadOnlyPart" )));
 
 		if ( m_navTreePart )
 		{
 			m_navTreeDock->setWidget( m_navTreePart->widget() );
+			addDockWidget( Qt::TopDockWidgetArea, m_navTreeDock );
 // 			m_navTreeDock->manualDock( m_mainViewDock, KDockWidget::DockTop, 20 );
 		}
 	}
@@ -184,6 +186,9 @@ KompareShell::KompareShell()
 	         this, SLOT( slotUpdateStatusBar( int, int, int, int, int ) ) );
 	connect( m_viewPart, SIGNAL( setStatusBarText(const QString&) ),
 	         this, SLOT( slotSetStatusBarText(const QString&) ) );
+
+	connect( m_viewPart, SIGNAL(diffString(const QString&)),
+	         this, SLOT(slotSetDiffString(const QString&)) );
 
 	// Read basic main-view settings, and set to autosave
 	setAutoSaveSettings( "General Options" );
@@ -242,23 +247,27 @@ void KompareShell::blend( const KUrl& url1, const KUrl& diff )
 
 void KompareShell::setupActions()
 {
-	KAction* open = KStandardAction::open(this, SLOT(slotFileOpen()), actionCollection());
-	open->setText( i18n( "&Open Diff..." ) );
-	new KAction( i18n("&Compare Files..."), "fileopen", Qt::CTRL + Qt::Key_C,
-	              this, SLOT(slotFileCompareFiles()),
-	              actionCollection(), "file_compare_files" );
-	new KAction( i18n("&Blend URL with Diff..."), "fileblend", Qt::CTRL + Qt::Key_B,
-	              this, SLOT(slotFileBlendURLAndDiff()),
-	              actionCollection(), "file_blend_url" );
-	KStandardAction::quit( this, SLOT( slotFileClose() ), actionCollection() );
+	KAction *a;
+	a = actionCollection()->addAction(KStandardAction::Open, this, SLOT(slotFileOpen()));
+	a->setText( i18n( "&Open Diff..." ) );
+	a = actionCollection()->addAction("file_compare_files", this, SLOT(slotFileCompareFiles()));
+	a->setIcon(KIcon("document-open"));
+	a->setText(i18n("&Compare Files..."));
+	a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
+	a = actionCollection()->addAction("file_blend_url", this, SLOT(slotFileBlendURLAndDiff()));
+	a->setText(i18n("&Blend URL with Diff..."));
+	a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
+	actionCollection()->addAction(KStandardAction::Quit, this, SLOT( slotFileClose() ));
 
 #if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 	createStandardStatusBarAction();
 #endif
 	setStandardToolBarMenuEnabled(true);
-	m_showTextView = new KToggleAction( i18n("Show T&ext View"), 0, this, SLOT(slotShowTextView()),
-	                                  actionCollection(), "options_show_text_view" );
-        m_showTextView->setCheckedState(i18n("Hide T&ext View"));
+	m_showTextView = new KToggleAction(i18n("Show T&ext View"), this);
+// needs a KGuiItem, also the doc says explicitly not to do this
+//	m_showTextView->setCheckedState(i18n("Hide T&ext View"));
+	actionCollection()->addAction("options_show_text_view", m_showTextView);
+	connect(m_showTextView, SIGNAL(triggered(bool)), SLOT(slotShowTextView()));
 
 	KStandardAction::keyBindings(this, SLOT(optionsConfigureKeys()), actionCollection());
 	KStandardAction::configureToolbars(this, SLOT(optionsConfigureToolbars()), actionCollection());
@@ -308,58 +317,58 @@ void KompareShell::setCaption( const QString& caption )
 	KParts::MainWindow::setCaption( caption, m_viewPart->isModified() );
 }
 
-void KompareShell::saveProperties(KConfig* config)
+void KompareShell::saveProperties(KConfigGroup &config)
 {
 	// The 'config' object points to the session managed
 	// config file.  Anything you write here will be available
 	// later when this app is restored
 	if ( m_mode == Kompare::ComparingFiles )
 	{
-		config->writeEntry( "Mode", "ComparingFiles" );
-		config->writePathEntry( "SourceUrl", m_sourceURL.url() );
-		config->writePathEntry( "DestinationUrl", m_destinationURL.url() );
+		config.writeEntry( "Mode", "ComparingFiles" );
+		config.writePathEntry( "SourceUrl", m_sourceURL.url() );
+		config.writePathEntry( "DestinationUrl", m_destinationURL.url() );
 	}
 	else if ( m_mode == Kompare::ShowingDiff )
 	{
-		config->writeEntry( "Mode", "ShowingDiff" );
-		config->writePathEntry( "DiffUrl", m_diffURL.url() );
+		config.writeEntry( "Mode", "ShowingDiff" );
+		config.writePathEntry( "DiffUrl", m_diffURL.url() );
 	}
 
-	m_viewPart->saveProperties( config );
+	m_viewPart->saveProperties( config.config() );
 }
 
-void KompareShell::readProperties(KConfig* config)
+void KompareShell::readProperties(const KConfigGroup &config)
 {
 	// The 'config' object points to the session managed
 	// config file. This function is automatically called whenever
 	// the app is being restored. Read in here whatever you wrote
 	// in 'saveProperties'
 
-	QString mode = config->readEntry( "Mode", "ComparingFiles" );
+	QString mode = config.readEntry( "Mode", "ComparingFiles" );
 	if ( mode == "ComparingFiles" )
 	{
 		m_mode  = Kompare::ComparingFiles;
-		m_sourceURL  = config->readPathEntry( "SourceUrl", "" );
-		m_destinationURL = config->readPathEntry( "DestinationFile", "" );
+		m_sourceURL  = config.readPathEntry( "SourceUrl", "" );
+		m_destinationURL = config.readPathEntry( "DestinationFile", "" );
 
-		m_viewPart->readProperties( config );
+		m_viewPart->readProperties( const_cast<KConfig *>(config.config()) );
 
 		m_viewPart->compareFiles( m_sourceURL, m_destinationURL );
 	}
 	else if ( mode == "ShowingDiff" )
 	{
 		m_mode = Kompare::ShowingDiff;
-		m_diffURL = config->readPathEntry( "DiffUrl", "" );
+		m_diffURL = config.readPathEntry( "DiffUrl", "" );
 
-		m_viewPart->readProperties( config );
+		m_viewPart->readProperties( const_cast<KConfig *>(config.config()) );
 
-		m_viewPart->openURL( m_diffURL );
+		m_viewPart->openUrl( m_diffURL );
 	}
 	else
 	{ // just in case something weird has happened, dont restore the diff then
 	  // Bruggie: or when some idiot like me changes the possible values for mode
 	  // IOW, a nice candidate for a kconf_update thingy :)
-		m_viewPart->readProperties( config );
+		m_viewPart->readProperties( const_cast<KConfig *>(config.config()) );
 	}
 }
 
@@ -460,35 +469,48 @@ void KompareShell::slotShowTextView()
 		{
 			m_textView = qobject_cast<KTextEditor::View*>( m_textViewPart->createView( this ) );
 			m_textViewWidget->setWidget( static_cast<QWidget*>(m_textView) );
-// 			m_textEditIface = editInterface( m_textViewPart );
-			connect( m_viewPart, SIGNAL(diffString(const QString&)),
-			         this, SLOT(slotSetDiffString(const QString&)) );
+	 		m_textViewPart->setHighlightingMode( "Diff" );
+	 		m_textViewPart->setText( m_diffString );
 		}
+		m_textViewWidget->show();
+		connect( m_textViewWidget, SIGNAL(visibilityChanged(bool)), SLOT(slotVisibilityChanged(bool)) );
 	}
+	else if ( m_textViewWidget->isVisible() )
+		m_textViewWidget->hide();
+	else
+		m_textViewWidget->show();
 
+	addDockWidget( Qt::BottomDockWidgetArea, m_textViewWidget );
 // 	m_textViewWidget->manualDock( m_mainViewDock, KDockWidget:: DockCenter );
+}
+
+void KompareShell::slotVisibilityChanged( bool visible )
+{
+	m_showTextView->setChecked( visible );
 }
 
 void KompareShell::slotSetDiffString( const QString& diffString )
 {
-// 	if ( m_textEditIface )
-// 		m_textEditIface->setText( diffString );
+ 	if ( m_textViewPart )
+ 		m_textViewPart->setText( diffString );
+	m_diffString = diffString;
 }
 
 void KompareShell::optionsConfigureKeys()
 {
-	KKeyDialog dlg( KKeyChooser::AllActions, KKeyChooser::LetterShortcutsAllowed, this );
+	KShortcutsDialog dlg( KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsAllowed, this );
 
-	dlg.insert( actionCollection() );
+	dlg.addCollection( actionCollection() );
 	if ( m_viewPart )
-		dlg.insert( m_viewPart->actionCollection() );
+		dlg.addCollection( m_viewPart->actionCollection() );
 
 	dlg.configure();
 }
 
 void KompareShell::optionsConfigureToolbars()
 {
-	saveMainWindowSettings( KGlobal::config(), autoSaveGroup() );
+	KConfigGroup group(KGlobal::config(), autoSaveGroup());
+	saveMainWindowSettings(group);
 	// use the standard toolbar editor
 	KEditToolBar dlg(factory());
 	connect(&dlg,SIGNAL(newToolbarConfig()),this,SLOT(newToolbarConfig()));
@@ -497,7 +519,8 @@ void KompareShell::optionsConfigureToolbars()
 
 void KompareShell::newToolbarConfig()
 {
-	applyMainWindowSettings( KGlobal::config(), autoSaveGroup() );
+	KConfigGroup group(KGlobal::config(), autoSaveGroup());
+	applyMainWindowSettings(group);
 }
 
 #include "kompare_shell.moc"

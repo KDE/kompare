@@ -20,10 +20,15 @@
  ***************************************************************************/
 
 #include <qapplication.h>
-#include <qpainter.h>
+#include <Q3Painter>
 #include <qpixmap.h>
 #include <qstyle.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3PointArray>
+#include <QPaintEvent>
+#include <Q3Frame>
+#include <QMouseEvent>
 
 #include <kdebug.h>
 
@@ -36,23 +41,22 @@
 
 using namespace Diff2;
 
-KompareConnectWidgetFrame::KompareConnectWidgetFrame( KompareListView* left,
-                                                      KompareListView* right,
-                                                      ViewSettings* settings,
+KompareConnectWidgetFrame::KompareConnectWidgetFrame( ViewSettings* settings,
                                                       KompareSplitter* parent,
                                                       const char* name ) :
-	QSplitterHandle(Horizontal, (QSplitter *)parent, name),
-	m_wid ( left, right, settings, this, name ),
+	QSplitterHandle(Qt::Horizontal, (QSplitter *)parent),
+	m_wid ( settings, this, name ),
 	m_label ( "", this ),
 	m_layout ( this )
 {
+	setObjectName( name );
 	setSizePolicy ( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Ignored) );
 	m_wid.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored) );
 	m_label.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
 	m_label.setMargin(3);
-	QFrame* bottomLine = new QFrame(this);
-	bottomLine->setFrameShape(QFrame::HLine);
-	bottomLine->setFrameShadow ( QFrame::Plain );
+	Q3Frame* bottomLine = new Q3Frame(this);
+	bottomLine->setFrameShape(Q3Frame::HLine);
+	bottomLine->setFrameShadow ( Q3Frame::Plain );
 	bottomLine->setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
 	bottomLine->setFixedHeight(1);
 	m_layout.setSpacing(0);
@@ -68,14 +72,16 @@ KompareConnectWidgetFrame::~KompareConnectWidgetFrame()
 
 QSize KompareConnectWidgetFrame::sizeHint() const
 {
-	return QSize(50, style().pixelMetric( QStyle::PM_ScrollBarExtent ) );
+	return QSize(50, style()->pixelMetric( QStyle::PM_ScrollBarExtent ) );
 }
 
 static int kMouseOffset;
 
+#if 0
 void KompareConnectWidgetFrame::mouseMoveEvent( QMouseEvent *e )
 {
-	if ( !(e->state()&LeftButton) )
+
+	if ( !(e->state()&Qt::LeftButton) )
 		return;
 
 	QCOORD pos = s->pick( parentWidget()->mapFromGlobal(e->globalPos()) )
@@ -86,31 +92,29 @@ void KompareConnectWidgetFrame::mouseMoveEvent( QMouseEvent *e )
 
 void KompareConnectWidgetFrame::mousePressEvent( QMouseEvent *e )
 {
-	if ( e->button() == LeftButton )
+	if ( e->button() == Qt::LeftButton )
 		kMouseOffset = s->pick( e->pos() );
 	QSplitterHandle::mousePressEvent(e);
 }
 
 void KompareConnectWidgetFrame::mouseReleaseEvent( QMouseEvent *e )
 {
-	if ( !opaque() && e->button() == LeftButton ) {
+	if ( !opaque() && e->button() == Qt::LeftButton ) {
 		QCOORD pos = s->pick( parentWidget()->mapFromGlobal(e->globalPos()) )
 			- kMouseOffset;
 		((KompareSplitter*)s)->moveSplitter( pos, id() );
     }
 }
+#endif
 
-KompareConnectWidget::KompareConnectWidget( KompareListView* left, KompareListView* right,
-      ViewSettings* settings, QWidget* parent, const char* name )
+KompareConnectWidget::KompareConnectWidget( ViewSettings* settings, QWidget* parent, const char* name )
 	: QWidget(parent, name),
 	m_settings( settings ),
-	m_leftView( left ),
-	m_rightView( right ),
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 )
 {
 //	connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( slotDelayedRepaint() ) );
-	setBackgroundMode( NoBackground );
+	setBackgroundMode( Qt::NoBackground );
 	setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum ) );
 	setFocusProxy( parent->parentWidget() );
 }
@@ -157,17 +161,22 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 //	kDebug(8106) << "KompareConnectWidget::paintEvent()" << endl;
 
 	QPixmap pixbuf(size());
-	QPainter paint(&pixbuf, this);
-	QPainter* p = &paint;
+	Q3Painter paint(&pixbuf);
+	Q3Painter* p = &paint;
 
-	p->fillRect( 0, 0, pixbuf.width(), pixbuf.height(), white.dark(110) );
+	p->fillRect( 0, 0, pixbuf.width(), pixbuf.height(), QColor(Qt::white).dark(110) );
 
-	if ( m_selectedModel )
+	KompareSplitter* splitter = static_cast<KompareSplitter*>( parent()->parent() );
+	int count = splitter->count();
+	KompareListView *leftView = count >= 2 ? static_cast<KompareListViewFrame*>( splitter->widget(0) )->view() : 0;
+	KompareListView *rightView = count >= 2 ? static_cast<KompareListViewFrame*>( splitter->widget(1) )->view() : 0;
+
+	if ( m_selectedModel && leftView && rightView )
 	{
-		int firstL = m_leftView->firstVisibleDifference();
-		int firstR = m_rightView->firstVisibleDifference();
-		int lastL = m_leftView->lastVisibleDifference();
-		int lastR = m_rightView->lastVisibleDifference();
+		int firstL = leftView->firstVisibleDifference();
+		int firstR = rightView->firstVisibleDifference();
+		int lastL = leftView->lastVisibleDifference();
+		int lastR = rightView->lastVisibleDifference();
 
 		int first = firstL < 0 ? firstR : qMin( firstL, firstR );
 		int last = lastL < 0 ? lastR : qMax( lastL, lastR );
@@ -179,7 +188,7 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 		{
 			const DifferenceList* differences  = const_cast<DiffModel*>(m_selectedModel)->differences();
 			DifferenceListConstIterator diffIt = differences->at( first );
-			DifferenceListConstIterator dEnd   = differences->at( last + 1 );
+			DifferenceListConstIterator dEnd   = last + 1 < differences->size() ? differences->at( last + 1 ) : differences->end();
 
 			QRect leftRect, rightRect;
 
@@ -190,13 +199,13 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 
 				if ( QApplication::reverseLayout() )
 				{
-					leftRect = m_rightView->itemRect( i );
-					rightRect = m_leftView->itemRect( i );
+					leftRect = rightView->itemRect( i );
+					rightRect = leftView->itemRect( i );
 				}
 				else
 				{
-					leftRect = m_leftView->itemRect( i );
-					rightRect = m_rightView->itemRect( i );
+					leftRect = leftView->itemRect( i );
+					rightRect = rightView->itemRect( i );
 				}
 
 				int tl = leftRect.top();
@@ -211,8 +220,8 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 				br = br <=  32767 ? br :  32767;
 
 //				kDebug(8106) << "drawing: " << tl << " " << tr << " " << bl << " " << br << endl;
-				QPointArray topBezier = makeTopBezier( tl, tr );
-				QPointArray bottomBezier = makeBottomBezier( bl, br );
+				Q3PointArray topBezier = makeTopBezier( tl, tr );
+				Q3PointArray bottomBezier = makeBottomBezier( bl, br );
 
 				QColor color = m_settings->colorForDifferenceType( diff->type(), selected, diff->applied() ).dark(110);
 				p->setPen( color );
@@ -229,16 +238,16 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 		}
 	}
 
-	p->flush();
+//	p->flush();
 	bitBlt(this, 0, 0, &pixbuf);
 }
 
-QPointArray KompareConnectWidget::makeTopBezier( int tl, int tr )
+Q3PointArray KompareConnectWidget::makeTopBezier( int tl, int tr )
 {
 	int l = 0;
 	int r = width();
 	int o = (int)((double)r*0.4); // 40% of width
-	QPointArray controlPoints;
+	Q3PointArray controlPoints;
 
 	if ( tl != tr )
 	{
@@ -252,12 +261,12 @@ QPointArray KompareConnectWidget::makeTopBezier( int tl, int tr )
 	}
 }
 
-QPointArray KompareConnectWidget::makeBottomBezier( int bl, int br )
+Q3PointArray KompareConnectWidget::makeBottomBezier( int bl, int br )
 {
 	int l = 0;
 	int r = width();
 	int o = (int)((double)r*0.4); // 40% of width
-	QPointArray controlPoints;
+	Q3PointArray controlPoints;
 
 	if ( bl != br )
 	{
@@ -271,9 +280,9 @@ QPointArray KompareConnectWidget::makeBottomBezier( int bl, int br )
 	}
 }
 
-QPointArray KompareConnectWidget::makeConnectPoly( const QPointArray& topBezier, const QPointArray& bottomBezier )
+Q3PointArray KompareConnectWidget::makeConnectPoly( const Q3PointArray& topBezier, const Q3PointArray& bottomBezier )
 {
-	QPointArray poly( topBezier.size() + bottomBezier.size() );
+	Q3PointArray poly( topBezier.size() + bottomBezier.size() );
 	for( uint i = 0; i < topBezier.size(); i++ )
 		poly.setPoint( i, topBezier.point( i ) );
 	for( uint i = 0; i < bottomBezier.size(); i++ )

@@ -19,21 +19,20 @@
 **
 ***************************************************************************/
 
-#include "kompare_qsplitter.h" // make sure we get there first
-
 #include <qlayout.h>
 #include <qwidget.h>
 
 #include <kaction.h>
+#include <kactioncollection.h>
 #include <kapplication.h>
 #include <kdebug.h>
-#include <kfiletreeview.h>
+#include <k3filetreeview.h>
 #include <kfiledialog.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kstandardaction.h>
 #include <kcomponentdata.h>
-#include <ktempfile.h>
+#include <ktemporaryfile.h>
 #include <kparts/genericfactory.h>
 //#include <ktempdir.h>
 
@@ -57,9 +56,8 @@ K_EXPORT_COMPONENT_FACTORY( libkomparepart, KomparePartFactory )
 ViewSettings* KomparePart::m_viewSettings = 0L;
 DiffSettings* KomparePart::m_diffSettings = 0L;
 
-KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
-                          QObject *parent, const char *name, const QStringList & /*args*/ ) :
-	KParts::ReadWritePart(parent, name),
+KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringList & /*args*/ ) :
+	KParts::ReadWritePart(parent),
 	m_tempDiff( 0 ),
 	m_info()
 {
@@ -73,7 +71,7 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 		m_diffSettings = new DiffSettings( 0 );
 	}
 
-	readProperties( KGlobal::config() );
+	readProperties( KGlobal::config().data() );
 
 	// This creates the "Model creator" and connects the signals and slots
 	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_info, this, "komparemodellist" );
@@ -115,9 +113,11 @@ KomparePart::KomparePart( QWidget *parentWidget, const char *widgetName,
 	         this, SIGNAL(applyAllDifferences(bool)) );
 	connect( m_modelList, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
 	         this, SIGNAL(applyDifference(const Diff2::Difference*, bool)) );
+	connect( m_modelList, SIGNAL(diffString(const QString&)),
+	         this, SIGNAL(diffString(const QString&)) );
 
 	// This creates the splitterwidget and connects the signals and slots
-	m_splitter = new KompareSplitter ( m_viewSettings, parentWidget, widgetName );
+	m_splitter = new KompareSplitter ( m_viewSettings, parentWidget );
 
 	connect( m_modelList, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)),
 	         m_splitter,  SLOT(slotSetSelection(const Diff2::DiffModel*, const Diff2::Difference*)) );
@@ -163,18 +163,15 @@ void KomparePart::setupActions()
 {
 	// create our actions
 
-	m_saveAll         = new KAction( i18n("Save &All"), "save_all", 0,
-	                                 this, SLOT(saveAll()),
-	                                 actionCollection(), "file_save_all" );
-	m_saveDiff        = new KAction( i18n("Save .&diff..."), 0,
-	                                 this, SLOT(saveDiff()),
-	                                 actionCollection(), "file_save_diff" );
-	m_swap            = new KAction( i18n( "Swap Source with Destination" ), 0,
-	                                 this, SLOT(slotSwap()),
-	                                 actionCollection(), "file_swap" );
-	m_diffStats       = new KAction( i18n( "Show Statistics" ), 0,
-	                                 this, SLOT(slotShowDiffstats()),
-	                                 actionCollection(), "file_diffstats" );
+	m_saveAll = actionCollection()->addAction("file_save_all", this, SLOT(saveAll()));
+	m_saveAll->setIcon(KIcon("save_all"));
+	m_saveAll->setText(i18n("Save &All"));
+	m_saveDiff = actionCollection()->addAction("file_save_diff", this, SLOT(saveDiff()));
+	m_saveDiff->setText(i18n("Save .&diff..."));
+	m_swap = actionCollection()->addAction("file_swap", this, SLOT(slotSwap()));
+	m_swap->setText(i18n("Swap Source with Destination"));
+	m_diffStats = actionCollection()->addAction("file_diffstats", this, SLOT(slotShowDiffstats()));
+	m_diffStats->setText(i18n("Show Statistics"));
 
 	KStandardAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
 }
@@ -407,7 +404,7 @@ bool KomparePart::openFile()
 {
 	// This is called from openURL
 	// This is a little inefficient but i will do it anyway
-	openDiff( m_url );
+	openDiff( url() );
 	return true;
 }
 
@@ -422,29 +419,31 @@ bool KomparePart::saveAll()
 
 void KomparePart::saveDiff()
 {
-	KDialogBase* dlg = new KDialogBase( widget(), "save_options",
-	                                    true /* modal */, i18n("Diff Options"),
-	                                    KDialogBase::Ok|KDialogBase::Cancel );
+	KDialog* dlg = new KDialog( widget() );
+	dlg->setName( "save_options" );
+	dlg->setModal( true );
+	dlg->setWindowTitle( i18n("Diff Options") );
+	dlg->setButtons( KDialog::Ok|KDialog::Cancel );
 	KompareSaveOptionsWidget* w = new KompareSaveOptionsWidget(
 	                                             m_info.localSource,
 	                                             m_info.localDestination,
 	                                             m_diffSettings, dlg );
 	dlg->setMainWidget( w );
-	dlg->setButtonOK( KStandardGuiItem::save() );
+	dlg->setButtonGuiItem( KDialog::Ok, KStandardGuiItem::save() );
 
 	if( dlg->exec() ) {
 		w->saveOptions();
 		KSharedConfig::Ptr config = componentData().config();
-		saveProperties( config );
+		saveProperties( config.data() );
 		config->sync();
 
 		while ( 1 )
 		{
-			KUrl url = KFileDialog::getSaveURL( m_info.destination.url(),
+			KUrl url = KFileDialog::getSaveUrl( m_info.destination.url(),
 			              i18n("*.diff *.dif *.patch|Patch Files"), widget(), i18n( "Save .diff" ) );
 			if ( KIO::NetAccess::exists( url, KIO::NetAccess::DestinationSide, widget() ) )
 			{
-				int result = KMessageBox::warningYesNoCancel( widget(), i18n("The file exists or is write-protected; do you want to overwrite it?"), i18n("File Exists"), i18n("Overwrite"), i18n("Do Not Overwrite") );
+				int result = KMessageBox::warningYesNoCancel( widget(), i18n("The file exists or is write-protected; do you want to overwrite it?"), i18n("File Exists"), KGuiItem(i18n("Overwrite")), KGuiItem(i18n("Do Not Overwrite")) );
 				if ( result == KMessageBox::Cancel )
 				{
 					break;
@@ -759,3 +758,5 @@ void KomparePart::slotSetModified( bool modified )
 }
 
 #include "kompare_part.moc"
+
+K_EXPORT_PLUGIN( KomparePartFactory )

@@ -22,8 +22,14 @@
 #ifndef KOMPARECONNECTWIDGET_H
 #define KOMPARECONNECTWIDGET_H
 
-#include "kompare_qsplitter.h"
-#include <qwidget.h>
+#include <QWidget>
+#include <QSplitter>
+#include <Q3PointArray>
+//Added by qt3to4:
+#include <QPaintEvent>
+#include <QMouseEvent>
+#include <Q3VBoxLayout>
+#include <QLabel>
 
 namespace Diff2 {
 class DiffModel;
@@ -37,8 +43,7 @@ class KompareConnectWidget : public QWidget
 	Q_OBJECT
 
 public:
-	KompareConnectWidget( KompareListView* left, KompareListView* right,
-	      ViewSettings* settings, QWidget* parent, const char* name = 0 );
+	KompareConnectWidget( ViewSettings* settings, QWidget* parent, const char* name = 0 );
 	~KompareConnectWidget();
 
 public slots:
@@ -52,15 +57,12 @@ signals:
 
 protected:
 	void paintEvent( QPaintEvent* e );
-	QPointArray makeTopBezier( int tl, int tr );
-	QPointArray makeBottomBezier( int bl, int br );
-	QPointArray makeConnectPoly( const QPointArray& topBezier, const QPointArray& bottomBezier );
+	Q3PointArray makeTopBezier( int tl, int tr );
+	Q3PointArray makeBottomBezier( int bl, int br );
+	Q3PointArray makeConnectPoly( const Q3PointArray& topBezier, const Q3PointArray& bottomBezier );
 
 private:
 	ViewSettings*             m_settings;
-
-	KompareListView*          m_leftView;
-	KompareListView*          m_rightView;
 
 	const Diff2::DiffModel*   m_selectedModel;
 	const Diff2::Difference*  m_selectedDifference;
@@ -70,8 +72,7 @@ class KompareConnectWidgetFrame : public QSplitterHandle
 {
 	Q_OBJECT
 public:
-	KompareConnectWidgetFrame( KompareListView* left, KompareListView* right,
-	      ViewSettings* settings, KompareSplitter* parent, const char* name = 0 );
+	KompareConnectWidgetFrame( ViewSettings* settings, KompareSplitter* parent, const char* name = 0 );
 	~KompareConnectWidgetFrame();
 	
 	QSize sizeHint() const;
@@ -82,14 +83,16 @@ protected:
 	// stop the parent QSplitterHandle painting
 	void paintEvent( QPaintEvent* /* e */ ) { }
 
+#if 0
 	void mouseMoveEvent( QMouseEvent * );
 	void mousePressEvent( QMouseEvent * );
 	void mouseReleaseEvent( QMouseEvent * );
+#endif
 
 private:
 	KompareConnectWidget      m_wid;
 	QLabel                    m_label;
-	QVBoxLayout               m_layout;
+	Q3VBoxLayout               m_layout;
 };
 
 #endif

@@ -677,12 +677,12 @@ KompareNavTreePartFactory::~KompareNavTreePartFactory()
 	s_instance = 0L;
 }
 
-KParts::Part* KompareNavTreePartFactory::createPartObject( QWidget* parentWidget, const char* widgetName,
-                                                  QObject* /*parent*/, const char* /*name*/,
+KParts::Part* KompareNavTreePartFactory::createPartObject( QWidget* parentWidget,
+                                                  QObject* /*parent*/,
                                                   const char* /*classname*/, const QStringList & /*args*/ )
 {
 	// Create an instance of our Part
-	KompareNavTreePart* obj = new KompareNavTreePart( parentWidget, widgetName );
+	KompareNavTreePart* obj = new KompareNavTreePart( parentWidget, 0 );
 
 	KGlobal::locale()->insertCatalog("kompare");
 
@@ -701,20 +701,7 @@ const KComponentData &KompareNavTreePartFactory::componentData()
 	return *s_instance;
 }
 
-extern "C"
-{
-	KDE_EXPORT void* init_libkomparenavtreepart()
-	{
-/* TODO:
-/home/kde4dev/kde/src/kdesdk/kompare/komparenavtreepart/komparenavtreepart.cpp:708: error: cannot allocate an object of type `KompareNavTreePartFactory'
-/home/kde4dev/kde/src/kdesdk/kompare/komparenavtreepart/komparenavtreepart.cpp:708: error:   because the following virtual functions are abstract:
-/home/kde4dev/kde/include/kparts/factory.h:118: error:  virtual KParts::Part* KParts::Factory::createPartObject(QWidget*, QObject*, const char*, const QStringList&)
-make[2]: *** [kompare/komparenavtreepart/CMakeFiles/komparenavtreepart.dir/komparenavtreepart.o] Error 1
-
-
-		return new KompareNavTreePartFactory;
-*/
-	}
-}
+K_EXPORT_COMPONENT_FACTORY( libkomparenavtreepart, KompareNavTreePartFactory )
+K_EXPORT_PLUGIN( KompareNavTreePartFactory )
 
 #include "komparenavtreepart.moc"

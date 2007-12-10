@@ -20,14 +20,14 @@
 #ifndef KOMPAREPREFDLG_H
 #define KOMPAREPREFDLG_H
 
-#include <kdialogbase.h>
+#include <kpagedialog.h>
 
 class DiffPage;
 class DiffSettings;
 class ViewPage;
 class ViewSettings;
 
-class KomparePrefDlg : public KDialogBase
+class KomparePrefDlg : public KPageDialog
 {
 Q_OBJECT
 public:

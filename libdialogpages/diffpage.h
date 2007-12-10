@@ -42,7 +42,7 @@ class DiffPage : public PageBase
 {
 Q_OBJECT
 public:
-	DiffPage( QWidget* );
+	DiffPage();
 	~DiffPage();
 
 public:

@@ -19,10 +19,15 @@
 **
 ***************************************************************************/
 
-#include <qheader.h>
+#include <q3header.h>
 #include <qpainter.h>
 #include <qregexp.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3Frame>
+#include <QResizeEvent>
+#include <QMouseEvent>
+#include <QWheelEvent>
 
 #include <kdebug.h>
 #include <kglobal.h>
@@ -49,16 +54,16 @@ KompareListViewFrame::KompareListViewFrame( bool isSource,
                                             ViewSettings* settings,
                                             KompareSplitter* parent,
                                             const char* name ):
-	QFrame ( parent, name ),
+	Q3Frame ( parent, name ),
 	m_view ( isSource, settings, this, name ),
 	m_label ( isSource?"Source":"Dest", this ),
 	m_layout ( this )
 {
 	setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored) );
 	m_label.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
-	QFrame *bottomLine = new QFrame(this);
-	bottomLine->setFrameShape(QFrame::HLine);
-	bottomLine->setFrameShadow ( QFrame::Plain );
+	Q3Frame *bottomLine = new Q3Frame(this);
+	bottomLine->setFrameShape(Q3Frame::HLine);
+	bottomLine->setFrameShadow ( Q3Frame::Plain );
 	bottomLine->setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
 	bottomLine->setFixedHeight(1);
 	m_label.setMargin(3);
@@ -99,18 +104,19 @@ void KompareListViewFrame::slotSetModel( const DiffModel* model )
 KompareListView::KompareListView( bool isSource,
                                   ViewSettings* settings,
                                   QWidget* parent, const char* name ) :
-	K3ListView( parent, name ),
+	K3ListView( parent ),
 	m_isSource( isSource ),
 	m_settings( settings ),
 	m_scrollId( -1 ),
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 )
 {
+	setObjectName( name );
 	header()->hide();
 	addColumn( "Line Number", 0 );
 	addColumn( "Main" );
 	addColumn( "Blank" );
-	setColumnAlignment( COL_LINE_NO, AlignRight );
+	setColumnAlignment( COL_LINE_NO, Qt::AlignRight );
 	setAllColumnsShowFocus( true );
 	setRootIsDecorated( false );
 	setSorting( -1 );
@@ -119,10 +125,10 @@ KompareListView::KompareListView( bool isSource,
 	setColumnWidthMode( COL_LINE_NO, Maximum );
 	setColumnWidthMode( COL_MAIN, Maximum );
 	setResizeMode( LastColumn );
-	setFrameStyle( QFrame::NoFrame );
-	setVScrollBarMode( QScrollView::AlwaysOff );
-	setHScrollBarMode( QScrollView::AlwaysOff );
-	setFocusPolicy( QWidget::NoFocus );
+	setFrameStyle( Q3Frame::NoFrame );
+	setVScrollBarMode( Q3ScrollView::AlwaysOff );
+	setHScrollBarMode( Q3ScrollView::AlwaysOff );
+	setFocusPolicy( Qt::NoFocus );
 	setFont( m_settings->m_font );
 	setSpaces( m_settings->m_tabToNumberOfSpaces );
 	setFocusProxy( parent->parentWidget() );
@@ -139,7 +145,7 @@ KompareListViewItem* KompareListView::itemAtIndex( int i )
 
 int KompareListView::firstVisibleDifference()
 {
-	QListViewItem* item = itemAt( QPoint( 0, 0 ) );
+	Q3ListViewItem* item = itemAt( QPoint( 0, 0 ) );
 
 	if( item == 0 )
 	{
@@ -161,7 +167,7 @@ int KompareListView::firstVisibleDifference()
 
 int KompareListView::lastVisibleDifference()
 {
-	QListViewItem* item = itemAt( QPoint( 0, visibleHeight() - 1 ) );
+	Q3ListViewItem* item = itemAt( QPoint( 0, visibleHeight() - 1 ) );
 
 	if( item == 0 )
 	{
@@ -184,7 +190,7 @@ int KompareListView::lastVisibleDifference()
 
 QRect KompareListView::itemRect( int i )
 {
-	QListViewItem* item = itemAtIndex( i );
+	Q3ListViewItem* item = itemAtIndex( i );
 	int x = 0;
 	int y = itemPos( item );
 	int vx, vy;
@@ -387,7 +393,7 @@ void KompareListView::slotApplyDifference( bool apply )
 
 void KompareListView::slotApplyAllDifferences( bool apply )
 {
-	QPtrDictIterator<KompareListViewDiffItem> it ( m_itemDict );
+	Q3PtrDictIterator<KompareListViewDiffItem> it ( m_itemDict );
 	for( ; it.current(); ++it )
 		it.current()->applyDifference( apply );
 	repaint();
@@ -421,27 +427,27 @@ void KompareListView::resizeEvent( QResizeEvent* e )
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent )
-	: QListViewItem( parent ),
+	: Q3ListViewItem( parent ),
 	m_scrollId( 0 )
 {
 //	kDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListViewItem* after )
-	: QListViewItem( parent, after ),
+	: Q3ListViewItem( parent, after ),
 	m_scrollId( after->scrollId() + after->maxHeight() )
 {
 //	kDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListViewItem* parent )
-	: QListViewItem( parent ),
+	: Q3ListViewItem( parent ),
 	m_scrollId( 0 )
 {
 }
 
 KompareListViewItem::KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* /*after*/ )
-	: QListViewItem( parent ),
+	: Q3ListViewItem( parent ),
 	m_scrollId( 0 )
 {
 }
@@ -516,7 +522,7 @@ void KompareListViewDiffItem::setSelected( bool b )
 {
 	kDebug(8104) << "KompareListViewDiffItem::setSelected( " << b << " )" << endl;
 	KompareListViewItem::setSelected( b );
-	QListViewItem* item = m_sourceItem->isVisible() ?
+	Q3ListViewItem* item = m_sourceItem->isVisible() ?
 	                      m_sourceItem->firstChild() :
 	                      m_destItem->firstChild();
 	while( item && item->isVisible() ) {
@@ -633,8 +639,8 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 		int offset = listView()->itemMargin();
 		unsigned int prevValue = 0;
 		int chunkWidth;
-		QBrush changeBrush( bg, Dense3Pattern );
-		QBrush normalBrush( bg, SolidPattern );
+		QBrush changeBrush( bg, Qt::Dense3Pattern );
+		QBrush normalBrush( bg, Qt::SolidPattern );
 		QBrush brush;
 
 		if ( m_text->string().isEmpty() )
@@ -732,7 +738,7 @@ void KompareListViewBlankLineItem::paintText( QPainter* p, const QColor& bg, int
 {
 	if ( column == COL_MAIN )
 	{
-		QBrush normalBrush( bg, SolidPattern );
+		QBrush normalBrush( bg, Qt::SolidPattern );
 		p->fillRect( 0, 0, width, height(), normalBrush );
 	}
 }

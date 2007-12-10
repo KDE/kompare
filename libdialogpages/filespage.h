@@ -37,7 +37,7 @@ class FilesPage : public PageBase
 {
 Q_OBJECT
 public:
-	FilesPage( QWidget* parent );
+	FilesPage();
 	virtual ~FilesPage();
 
 public:
@@ -59,10 +59,6 @@ public:
 	virtual void restore();
 	virtual void apply();
 	virtual void setDefaults();
-
-protected slots:
-	void setFirstURL( const QString & );
-	void setSecondURL( const QString & );
 
 private:
 	Q3GroupBox*     m_firstGB;

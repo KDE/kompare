@@ -17,8 +17,6 @@
 **
 ***************************************************************************/
 
-#include <qvbox.h>
-
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <klocale.h>
@@ -30,21 +28,35 @@
 
 // implementation
 
-KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets ) : KDialogBase( IconList, i18n( "Preferences" ), Help|Default|Ok|Apply|Cancel, Ok, 0, 0, true, true )
+KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets ) : KPageDialog( 0 )
 {
-	// ok i need some stuff in that pref dlg...
-	setIconListAllVisible(true);
+	setFaceType( KPageDialog::List );
+	setWindowTitle( i18n( "Preferences" ) );
+	setButtons( Help|Default|Ok|Apply|Cancel );
+	setDefaultButton( Ok );
+	setModal( true );
+	showButtonSeparator( true );
 
-	QVBox* frame;
-	frame = addVBoxPage( i18n( "View" ), i18n( "View Settings" ), UserIcon( "diff_view" ) );
-	m_viewPage = new ViewPage( frame );
+	// ok i need some stuff in that pref dlg...
+	//setIconListAllVisible(true);
+
+	m_viewPage = new ViewPage();
+	KPageWidgetItem *item = addPage( m_viewPage, i18n( "View" ) );
+	item->setHeader( i18n( "View Settings" ) );
 	m_viewPage->setSettings( viewSets );
 
-	frame = addVBoxPage( i18n( "Diff" ), i18n( "Diff Settings" ), UserIcon( "diff_specific" ) );
-	m_diffPage = new DiffPage( frame );
+	m_diffPage = new DiffPage();
+	item = addPage( m_diffPage, i18n( "Diff" ) );
+	item->setHeader( i18n( "Diff Settings" ) );
 	m_diffPage->setSettings( diffSets );
 
 //	frame = addVBoxPage( i18n( "" ), i18n( "" ), UserIcon( "" ) );
+
+	connect( this, SIGNAL(defaultClicked()), SLOT(slotDefault()) );
+	connect( this, SIGNAL(helpClicked()), SLOT(slotHelp()) );
+	connect( this, SIGNAL(applyClicked()), SLOT(slotApply()) );
+	connect( this, SIGNAL(okClicked()), SLOT(slotOk()) );
+	connect( this, SIGNAL(cancelClicked()), SLOT(slotCancel()) );
 
 	adjustSize();
 }
@@ -90,7 +102,7 @@ void KomparePrefDlg::slotOk()
 	m_viewPage->apply();
 	m_diffPage->apply();
 
-	KDialogBase::slotOk();
+	//accept();
 }
 
 /** No descriptions */
@@ -100,7 +112,7 @@ void KomparePrefDlg::slotCancel()
 	m_viewPage->restore();
 	m_diffPage->restore();
 
-	KDialogBase::slotCancel();
+	//reject();
 }
 
 #include "kompareprefdlg.moc"

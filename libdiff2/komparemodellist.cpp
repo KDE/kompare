@@ -23,15 +23,17 @@
 #include <qtextcodec.h>
 #include <q3valuelist.h>
 #include <QTextStream>
+#include <QLinkedList>
 
 #include <kaction.h>
+#include <kactioncollection.h>
 #include <kcharsets.h>
 #include <kdebug.h>
 #include <kdirwatch.h>
 #include <kio/netaccess.h>
 #include <klocale.h>
 #include <kmimetype.h>
-#include <ktempfile.h>
+#include <ktemporaryfile.h>
 #include <kstandardaction.h>
 
 #include "difference.h"
@@ -58,30 +60,39 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::
 	m_info( info ),
 	m_textCodec( 0 )
 {
-	m_applyDifference    = new KAction( i18n("&Apply Difference"), "1rightarrow", Qt::Key_Space,
-	                                 this, SLOT(slotActionApplyDifference()),
-	                                 (( KomparePart* )parent)->actionCollection(), "difference_apply" );
-	m_unApplyDifference  = new KAction( i18n("Un&apply Difference"), "1leftarrow", Qt::Key_Backspace,
-	                                 this, SLOT(slotActionUnApplyDifference()),
-	                                 (( KomparePart* )parent)->actionCollection(), "difference_unapply" );
-	m_applyAll           = new KAction( i18n("App&ly All"), "2rightarrow", Qt::CTRL + Qt::Key_A,
-	                                 this, SLOT(slotActionApplyAllDifferences()),
-	                                 (( KomparePart* )parent)->actionCollection(), "difference_applyall" );
-	m_unapplyAll         = new KAction( i18n("&Unapply All"), "2leftarrow", Qt::CTRL + Qt::Key_U,
-	                                 this, SLOT(slotActionUnapplyAllDifferences()),
-	                                 (( KomparePart* )parent)->actionCollection(), "difference_unapplyall" );
-	m_previousFile       = new KAction( i18n("P&revious File"), "2uparrow", Qt::CTRL + Qt::Key_PageUp,
-	                                 this, SLOT(slotPreviousModel()),
-	                                 (( KomparePart* )parent)->actionCollection(), "difference_previousfile" );
-	m_nextFile           = new KAction( i18n("N&ext File"), "2downarrow", Qt::CTRL + Qt::Key_PageDown,
-	                                 this, SLOT(slotNextModel()),
-	                                 (( KomparePart* )parent)->actionCollection(), "difference_nextfile" );
-	m_previousDifference = new KAction( i18n("&Previous Difference"), "1uparrow", Qt::CTRL + Qt::Key_Up,
-	                                 this, SLOT(slotPreviousDifference()),
-	                                 (( KomparePart* )parent)->actionCollection(), "difference_previous" );
-	m_nextDifference     = new KAction( i18n("&Next Difference"), "1downarrow", Qt::CTRL + Qt::Key_Down,
-	                                 this, SLOT(slotNextDifference()),
-	                                 (( KomparePart* )parent)->actionCollection(), "difference_next" );
+	KActionCollection *ac = (( KomparePart* )parent)->actionCollection();
+	m_applyDifference = ac->addAction( "difference_apply", this, SLOT(slotActionApplyDifference()) );
+	m_applyDifference->setIcon( KIcon("arrow-right") );
+	m_applyDifference->setText( i18n("&Apply Difference") );
+	m_applyDifference->setShortcut( QKeySequence(Qt::Key_Space) );
+	m_unApplyDifference = ac->addAction( "difference_unapply", this, SLOT(slotActionUnApplyDifference()) );
+	m_unApplyDifference->setIcon( KIcon("arrow-left") );
+	m_unApplyDifference->setText( i18n("Un&apply Difference") );
+	m_unApplyDifference->setShortcut( QKeySequence(Qt::Key_Backspace) );
+	m_applyAll = ac->addAction( "difference_applyall", this, SLOT(slotActionApplyAllDifferences()) );
+	m_applyAll->setIcon( KIcon("arrow-right-double") );
+	m_applyAll->setText( i18n("App&ly All") );
+	m_applyAll->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_A) );
+	m_unapplyAll = ac->addAction( "difference_unapplyall", this, SLOT(slotActionUnapplyAllDifferences()) );
+	m_unapplyAll->setIcon( KIcon("arrow-left-double") );
+	m_unapplyAll->setText( i18n("&Unapply All") );
+	m_unapplyAll->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_U) );
+	m_previousFile = ac->addAction( "difference_previousfile", this, SLOT(slotPreviousModel()) );
+	m_previousFile->setIcon( KIcon("arrow-up-double") );
+	m_previousFile->setText( i18n("P&revious File") );
+	m_previousFile->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_PageUp) );
+	m_nextFile = ac->addAction( "difference_nextfile", this, SLOT(slotNextModel()) );
+	m_nextFile->setIcon( KIcon("arrow-down-double") );
+	m_nextFile->setText( i18n("N&ext File") );
+	m_nextFile->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_PageDown) );
+	m_previousDifference = ac->addAction( "difference_previous", this, SLOT(slotPreviousDifference()) );
+	m_previousDifference->setIcon( KIcon("arrow-up") );
+	m_previousDifference->setText( i18n("&Previous Difference") );
+	m_previousDifference->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_Up) );
+	m_nextDifference = ac->addAction( "difference_next", this, SLOT(slotNextDifference()) );
+	m_nextDifference->setIcon( KIcon("arrow-down") );
+	m_nextDifference->setText( i18n("&Next Difference") );
+	m_nextDifference->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_Down) );
 	m_previousDifference->setEnabled( false );
 	m_nextDifference->setEnabled( false );
 
@@ -293,16 +304,16 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	if( !model->isModified() )
 		return true;
 
-	KTempFile* temp = new KTempFile();
+	KTemporaryFile* temp = new KTemporaryFile();
 
 	if( temp->status() != 0 ) {
 		emit error( i18n( "Could not open a temporary file." ) );
-		temp->unlink();
+		temp->remove();
 		delete temp;
 		return false;
 	}
 
-	QTextStream* stream = temp->textStream();
+	QTextStream stream( temp );
 	QStringList list;
 
 	DiffHunkListConstIterator hunkIt = model->hunks()->begin();
@@ -343,12 +354,12 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	// kDebug( 8101 ) << "Everything: " << endl << list.join( "\n" ) << endl;
 
 	if( list.count() > 0 )
-		*stream << list.join( "" );
+		stream << list.join( "" );
 
 	temp->close();
 	if( temp->status() != 0 ) {
 		emit error( i18n( "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>", temp->name() ) );
-		temp->unlink();
+		temp->remove();
 		delete temp;
 		return false;
 	}
@@ -388,7 +399,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	else
 	{
 		//model->slotSetModified( false );
-		temp->unlink();
+		temp->remove();
 		delete temp;
 	}
 
@@ -571,12 +582,12 @@ bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSett
 {
 	kDebug() << "KompareModelList::saveDiff: " << endl;
 
-	m_diffTemp = new KTempFile();
+	m_diffTemp = new KTemporaryFile();
 	m_diffURL = url;
 
 	if( m_diffTemp->status() != 0 ) {
 		emit error( i18n( "Could not open a temporary file." ) );
-		m_diffTemp->unlink();
+		m_diffTemp->remove();
 		delete m_diffTemp;
 		m_diffTemp = 0;
 		return false;
@@ -598,9 +609,9 @@ void KompareModelList::slotWriteDiffOutput( bool success )
 
 	if( success )
 	{
-		QTextStream* stream = m_diffTemp->textStream();
+		QTextStream stream( m_diffTemp );
 
-		*stream << m_diffProcess->diffOutput();
+		stream << m_diffProcess->diffOutput();
 
 		m_diffTemp->close();
 
@@ -615,7 +626,7 @@ void KompareModelList::slotWriteDiffOutput( bool success )
 	}
 
 	m_diffURL.truncate( 0 );
-	m_diffTemp->unlink();
+	m_diffTemp->remove();
 
 	delete m_diffTemp;
 	m_diffTemp = 0;
@@ -856,6 +867,7 @@ void KompareModelList::slotApplyAllDifferences( bool apply )
 int KompareModelList::parseDiffOutput( const QString& diff )
 {
 	kDebug(8101) << "KompareModelList::parseDiffOutput" << endl;
+	emit diffString( diff );
 
 	QStringList diffLines = split( diff );
 
@@ -949,10 +961,14 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 
 	int srcLineNo = 1, destLineNo = 1;
 
-	QStringList lines = split( fileContents );
+	QStringList list = split( fileContents );
+	QLinkedList<QString> lines;
+	foreach (QString str, list) {
+		lines.append(str);
+	}
 
-	QStringList::ConstIterator linesIt = lines.begin();
-	QStringList::ConstIterator lEnd    = lines.end();
+	QLinkedList<QString>::ConstIterator linesIt = lines.begin();
+	QLinkedList<QString>::ConstIterator lEnd    = lines.end();
 
 	DiffHunkList* hunks = model->hunks();
 	kDebug(8101) << "Hunks in hunklist: " << hunks->count() << endl;

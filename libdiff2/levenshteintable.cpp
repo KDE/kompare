@@ -141,11 +141,11 @@ unsigned int LevenshteinTable::createTable( DifferenceString* source, Difference
 	// Optimization, calculate row wise instead of column wise, wont trash the cache so much with large strings
 	for ( j = 1; j < n; ++j )
 	{
-		dj = QString(dq[ j ]).toInt();
+		dj = dq[j].unicode();
 
 		for ( i = 1; i < m; ++i )
 		{
-			si = QString(sq[ i ]).toInt();
+			si = sq[i].unicode();
 			if ( si == dj )
 				cost = 0;
 			else

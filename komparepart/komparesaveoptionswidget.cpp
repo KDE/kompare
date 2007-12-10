@@ -17,7 +17,7 @@
 **
 ***************************************************************************/
 
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <qradiobutton.h>
@@ -38,8 +38,8 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 {
 	m_settings = settings;
 
-	m_directoryRequester->setMode( static_cast<KFile::Mode>(
-	    KFile::ExistingOnly | KFile::Directory | KFile::LocalOnly ) );
+	m_directoryRequester->setMode(
+	    KFile::ExistingOnly | KFile::Directory | KFile::LocalOnly );
 
 	KUrl sourceURL;
 	KUrl destinationURL;
@@ -55,7 +55,7 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 	// If we found a common root, change to that directory and
 	// strip the common part from source and destination.
 	if( root.isValid() ) {
-		m_directoryRequester->setURL( root.url() );
+		m_directoryRequester->setUrl( root.url() );
 	}
 
 	connect( m_SmallerChangesCB,   SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
@@ -166,9 +166,9 @@ void KompareSaveOptionsWidget::updateCommandLine()
 	}
 
 	cmdLine += " -- ";
-	cmdLine += constructRelativePath( m_directoryRequester->url(), m_source );
+	cmdLine += constructRelativePath( m_directoryRequester->url().pathOrUrl(), m_source );
 	cmdLine += " ";
-	cmdLine += constructRelativePath( m_directoryRequester->url(), m_destination );
+	cmdLine += constructRelativePath( m_directoryRequester->url().pathOrUrl(), m_destination );
 
 	m_CommandLineLabel->setText( cmdLine );
 }

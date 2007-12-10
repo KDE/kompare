@@ -21,18 +21,16 @@
 #define PAGEBASE_H
 
 #include <qsize.h>
-#include <qwidget.h>
 
-#include <kconfig.h>
-// #include <ktabctl.h>
+#include <kvbox.h>
 
 #include "kompare.h"
 
-class PageBase : public QWidget
+class PageBase : public KVBox
 {
 Q_OBJECT
 public:
-	PageBase( QWidget* );
+	PageBase();
 	~PageBase();
 
 public:

@@ -181,8 +181,7 @@ class KompareNavTreePartFactory : public KParts::Factory
 public:
 	KompareNavTreePartFactory();
 	virtual ~KompareNavTreePartFactory();
-	virtual KParts::Part* createPartObject( QWidget *parentWidget, const char *widgetName,
-	                                        QObject *parent, const char *name,
+	virtual KParts::Part* createPartObject( QWidget *parentWidget, QObject *parent,
 	                                        const char *classname, const QStringList &args );
 	static const KComponentData &componentData();
 

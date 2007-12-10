@@ -34,7 +34,7 @@ class ViewPage : public PageBase
 {
 Q_OBJECT
 public:
-	ViewPage( QWidget* );
+	ViewPage();
 	~ViewPage();
 
 public:

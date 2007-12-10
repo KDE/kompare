@@ -118,6 +118,7 @@ private slots:
 	void optionsConfigureToolbars();
 	void slotSetDiffString( const QString& diffString );
 	void newToolbarConfig();
+	void slotVisibilityChanged( bool visible );
 
 private:
 	void setupAccel();
@@ -136,7 +137,6 @@ private:
 // 	KTextEditor::EditInterface* m_textEditIface;
 
 	QDockWidget*                m_textViewWidget;
-	QDockWidget*                m_mainViewDock;
 	QDockWidget*                m_navTreeDock;
 
 	KToggleAction*              m_showTextView;
@@ -144,6 +144,8 @@ private:
 	enum Kompare::Mode          m_mode;
 	// This is the statusbarwidget for displaying the general stuff
 	KSqueezedTextLabel*         m_generalLabel;
+
+	QString                     m_diffString;
 };
 
 #endif // KOMPARE_H

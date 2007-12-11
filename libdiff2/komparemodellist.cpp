@@ -305,6 +305,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 		return true;
 
 	KTemporaryFile* temp = new KTemporaryFile();
+	temp->open();
 
 	if( temp->status() != 0 ) {
 		emit error( i18n( "Could not open a temporary file." ) );
@@ -583,6 +584,7 @@ bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSett
 	kDebug() << "KompareModelList::saveDiff: " << endl;
 
 	m_diffTemp = new KTemporaryFile();
+	m_diffTemp->open();
 	m_diffURL = url;
 
 	if( m_diffTemp->status() != 0 ) {

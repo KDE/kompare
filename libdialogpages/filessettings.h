@@ -22,10 +22,11 @@
 #include <qstring.h>
 
 #include "settingsbase.h"
+#include "dialogpagesexport.h"
 
 class KConfig;
 
-class FilesSettings : public SettingsBase
+class DIALOGPAGES_EXPORT FilesSettings : public SettingsBase
 {
 Q_OBJECT
 public:

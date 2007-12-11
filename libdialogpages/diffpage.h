@@ -21,6 +21,7 @@
 #define DIFFPAGE_H
 
 #include "pagebase.h"
+#include "dialogpagesexport.h"
 
 class QCheckBox;
 class QDialog;
@@ -38,7 +39,7 @@ class KUrlRequester;
 
 class DiffSettings;
 
-class DiffPage : public PageBase
+class DIALOGPAGES_EXPORT DiffPage : public PageBase
 {
 Q_OBJECT
 public:

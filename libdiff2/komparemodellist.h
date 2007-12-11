@@ -25,6 +25,7 @@
 #include "diffmodel.h"
 #include "diffmodellist.h"
 #include "kompare.h"
+#include "diff2export.h"
 
 class QFile;
 
@@ -38,7 +39,7 @@ class KompareProcess;
 namespace Diff2
 {
 
-class KompareModelList : public QObject
+class DIFF2_EXPORT KompareModelList : public QObject
 {
 	Q_OBJECT
 public:

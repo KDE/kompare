@@ -21,6 +21,7 @@
 #define VIEWPAGE_H
 
 #include "pagebase.h"
+#include "dialogpagesexport.h"
 
 class QCheckBox;
 class QSpinBox;
@@ -30,7 +31,7 @@ class QFontComboBox;
 
 class ViewSettings;
 
-class ViewPage : public PageBase
+class DIALOGPAGES_EXPORT ViewPage : public PageBase
 {
 Q_OBJECT
 public:

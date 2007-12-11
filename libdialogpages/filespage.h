@@ -21,6 +21,7 @@
 #define FILESPAGE_H
 
 #include "pagebase.h"
+#include "dialogpagesexport.h"
 
 class Q3GroupBox;
 
@@ -33,7 +34,7 @@ class KUrlRequester;
 
 class FilesSettings;
 
-class FilesPage : public PageBase
+class DIALOGPAGES_EXPORT FilesPage : public PageBase
 {
 Q_OBJECT
 public:

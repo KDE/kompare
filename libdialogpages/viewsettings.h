@@ -25,8 +25,9 @@
 
 #include "difference.h"
 #include "settingsbase.h"
+#include "dialogpagesexport.h"
 
-class ViewSettings : public SettingsBase
+class DIALOGPAGES_EXPORT ViewSettings : public SettingsBase
 {
 Q_OBJECT
 public:

@@ -24,6 +24,7 @@
 #include <q3valuevector.h>
 
 #include <kdebug.h>
+#include "diff2export.h"
 
 class QString;
 
@@ -32,7 +33,7 @@ namespace Diff2
 
 class LevenshteinTable;
 
-class Marker
+class DIFF2_EXPORT Marker
 {
 public:
 	enum Type { Start = 0, End = 1 };
@@ -66,7 +67,7 @@ typedef Q3ValueList<Marker*> MarkerList;
 typedef Q3ValueList<Marker*>::iterator MarkerListIterator;
 typedef Q3ValueList<Marker*>::const_iterator MarkerListConstIterator;
 
-class DifferenceString
+class DIFF2_EXPORT DifferenceString
 {
 public:
 	DifferenceString()
@@ -152,7 +153,7 @@ typedef Q3ValueVector<DifferenceString*> DifferenceStringList;
 typedef Q3ValueVector<DifferenceString*>::iterator DifferenceStringListIterator;
 typedef Q3ValueVector<DifferenceString*>::const_iterator DifferenceStringListConstIterator;
 
-class Difference
+class DIFF2_EXPORT Difference
 {
 public:
 	enum Type { Change, Insert, Delete, Unchanged };

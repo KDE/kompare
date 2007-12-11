@@ -22,6 +22,8 @@
 
 #include <kurl.h>
 
+#include "diff2export.h"
+
 namespace Kompare
 {
 	enum Format {
@@ -111,7 +113,7 @@ namespace Kompare
 /*
 ** This should be removed and put somewhere else
 */
-class KompareFunctions
+class DIFF2_EXPORT KompareFunctions
 {
 public:
 	static QString constructRelativePath( const QString& from, const QString& to )

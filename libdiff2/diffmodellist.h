@@ -22,6 +22,7 @@
 #include <q3valuelist.h> // include for the base class
 
 #include "diffmodel.h"
+#include "diff2export.h"
 
 namespace Diff2
 {
@@ -29,7 +30,7 @@ namespace Diff2
 typedef Q3ValueListIterator<DiffModel*> DiffModelListIterator;
 typedef Q3ValueListConstIterator<DiffModel*> DiffModelListConstIterator;
 
-class DiffModelList : public Q3ValueList<DiffModel*>
+class DIFF2_EXPORT DiffModelList : public Q3ValueList<DiffModel*>
 {
 public:
 	DiffModelList() {}

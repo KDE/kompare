@@ -1,10 +1,11 @@
 /***************************************************************************
-				filessettings.cpp  -  description
-				-------------------
-	begin			: Sun Apr 18 2004
-	copyright		: (C) 2004 Otto Bruggeman
-	email			: otto.bruggeman@home.nl
-
+                                filessettings.cpp  -  description
+                                -------------------
+        begin                   : Sun Apr 18 2004
+        copyright               : (C) 2004 Otto Bruggeman
+                                  (C) 2007      Kevin Kofler
+        email                   : otto.bruggeman@home.nl
+                                  kevin.kofler@chello.at
 ****************************************************************************/
 
 /***************************************************************************

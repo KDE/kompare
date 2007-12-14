@@ -5,9 +5,11 @@
         copyright               : (C) 2001-2004 Otto Bruggeman
                                   (C) 2001-2003 John Firebaugh
                                   (C) 2004      Jeff Snyder
+                                  (C) 2007      Kevin Kofler
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
                                   jeff@caffeinated.me.uk
+                                  kevin.kofler@chello.at
 ****************************************************************************/
 
 /***************************************************************************

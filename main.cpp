@@ -4,8 +4,10 @@
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001-2004 Otto Bruggeman
                                   (C) 2001-2003 John Firebaugh
+                                  (C) 2007      Kevin Kofler
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
+                                  kevin.kofler@chello.at
 ****************************************************************************/
 
 /***************************************************************************
@@ -42,6 +44,7 @@ int main(int argc, char *argv[])
 	                      ki18n("(c) 2001-2004, John Firebaugh and Otto Bruggeman"), KLocalizedString(), "http://bruggie.dnsalias.org/kompare/" );
 	aboutData.addAuthor( ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org" );
 	aboutData.addAuthor( ki18n("Otto Bruggeman"), ki18n("Author"), "otto.bruggeman@home.nl" );
+	// FIXME: At least Jeff Snyder and Kevin Kofler should be listed here, and it's not 2004 anymore, but we're in a string freeze.
 	aboutData.addCredit( ki18n("Chris Luetchford"), ki18n("Kompare icon artist"), "chris@os11.com" );
 	aboutData.addCredit( ki18n("Malte Starostik"), ki18n("A lot of good advice"), "malte@kde.org" );
 	aboutData.addCredit( ki18n("Bernd Gehrmann"), ki18n("Cervisia diff viewer"), "bernd@physik.hu-berlin.de" );

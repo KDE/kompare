@@ -1,9 +1,11 @@
 /***************************************************************************
-				diffprefs.cpp  -  description
-				-------------------
-	begin			: Sun Mar 4 2001
-	copyright		: (C) 2001-2004 Otto Bruggeman
-	email			: otto.bruggeman@home.nl
+                                diffprefs.cpp  -  description
+                                -------------------
+        begin                   : Sun Mar 4 2001
+        copyright               : (C) 2001-2004 Otto Bruggeman
+                                  (C) 2007      Kevin Kofler
+        email                   : otto.bruggeman@home.nl
+                                  kevin.kofler@chello.at
 ****************************************************************************/
 
 /***************************************************************************

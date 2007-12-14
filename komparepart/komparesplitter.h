@@ -1,9 +1,11 @@
 /***************************************************************************
-                                kompareview.cpp  -  description
+                                komparesplitter.h  -  description
                                 -------------------
         begin                   : Wed Jan 14 2004
         copyright               : (C) 2004 by Jeff Snyder
+                                  (C) 2007    Kevin Kofler
         email                   : jeff@caffeinated.me.uk
+                                  kevin.kofler@chello.at
 ****************************************************************************/
 
 /***************************************************************************

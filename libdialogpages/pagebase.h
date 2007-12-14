@@ -4,8 +4,10 @@
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001 by Otto Bruggeman
                                   and John Firebaugh
+                                  (C) 2007      Kevin Kofler
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
+                                  kevin.kofler@chello.at
 ****************************************************************************/
 
 /***************************************************************************

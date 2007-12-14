@@ -3,7 +3,9 @@
 ** Filename   : levenshteintable.cpp
 ** Created on : 08 november, 2003
 ** Copyright  : (c) 2003 Otto Bruggeman
+**              (c) 2007 Kevin Kofler
 ** Email      : bruggie@home.nl
+**              kevin.kofler@chello.at
 **
 *******************************************************************************/
 

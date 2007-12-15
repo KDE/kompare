@@ -48,7 +48,7 @@ KompareConnectWidgetFrame::KompareConnectWidgetFrame( ViewSettings* settings,
                                                       const char* name ) :
 	QSplitterHandle(Qt::Horizontal, (QSplitter *)parent),
 	m_wid ( settings, this, name ),
-	m_label ( "", this ),
+	m_label ( " ", this ), // putting a space here because Qt 4 computes different size hints for empty labels
 	m_layout ( this )
 {
 	setObjectName( name );

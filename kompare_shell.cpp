@@ -261,9 +261,7 @@ void KompareShell::setupActions()
 	a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
 	actionCollection()->addAction(KStandardAction::Quit, this, SLOT( slotFileClose() ));
 
-#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,90)
 	createStandardStatusBarAction();
-#endif
 	setStandardToolBarMenuEnabled(true);
 	m_showTextView = new KToggleAction(i18n("Show T&ext View"), this);
 // needs a KGuiItem, also the doc says explicitly not to do this

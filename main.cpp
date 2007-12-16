@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "kompare", 0, ki18n("Kompare"), version, ki18n(description),
 	                      KAboutData::License_GPL,
-	                      ki18n("(c) 2001-2004, John Firebaugh and Otto Bruggeman"), KLocalizedString(), "http://bruggie.dnsalias.org/kompare/" );
+	                      ki18n("(c) 2001-2004, John Firebaugh and Otto Bruggeman") );
 	aboutData.addAuthor( ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org" );
 	aboutData.addAuthor( ki18n("Otto Bruggeman"), ki18n("Author"), "otto.bruggeman@home.nl" );
 	// FIXME: At least Jeff Snyder and Kevin Kofler should be listed here, and it's not 2004 anymore, but we're in a string freeze.

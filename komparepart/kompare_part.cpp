@@ -28,7 +28,6 @@
 #include <kactioncollection.h>
 #include <kapplication.h>
 #include <kdebug.h>
-#include <k3filetreeview.h>
 #include <kfiledialog.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -166,7 +165,7 @@ void KomparePart::setupActions()
 	// create our actions
 
 	m_saveAll = actionCollection()->addAction("file_save_all", this, SLOT(saveAll()));
-	m_saveAll->setIcon(KIcon("save_all"));
+	m_saveAll->setIcon(KIcon("document-save-all"));
 	m_saveAll->setText(i18n("Save &All"));
 	m_saveDiff = actionCollection()->addAction("file_save_diff", this, SLOT(saveDiff()));
 	m_saveDiff->setText(i18n("Save .&diff..."));

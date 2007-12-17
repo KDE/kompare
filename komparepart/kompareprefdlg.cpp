@@ -44,11 +44,13 @@ KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets )
 
 	m_viewPage = new ViewPage();
 	KPageWidgetItem *item = addPage( m_viewPage, i18n( "View" ) );
+	item->setIcon( KIcon( "preferences-desktop-theme" ) );
 	item->setHeader( i18n( "View Settings" ) );
 	m_viewPage->setSettings( viewSets );
 
 	m_diffPage = new DiffPage();
 	item = addPage( m_diffPage, i18n( "Diff" ) );
+	item->setIcon( KIcon( "text-x-patch" ) );
 	item->setHeader( i18n( "Diff Settings" ) );
 	m_diffPage->setSettings( diffSets );
 

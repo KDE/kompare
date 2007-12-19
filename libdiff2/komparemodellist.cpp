@@ -427,11 +427,18 @@ bool KompareModelList::saveAll()
 void KompareModelList::setEncoding( const QString& encoding )
 {
 	m_encoding = encoding;
-	kDebug() << "Encoding : " << encoding << endl;
-	m_textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
-	kDebug() << "TextCodec: " << m_textCodec << endl;
-	if ( !m_textCodec )
+	if ( !encoding.compare( "default", Qt::CaseInsensitive ) )
+	{
 		m_textCodec = QTextCodec::codecForLocale();
+	}
+	else
+	{
+		kDebug() << "Encoding : " << encoding << endl;
+		m_textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
+		kDebug() << "TextCodec: " << m_textCodec << endl;
+		if ( !m_textCodec )
+			m_textCodec = QTextCodec::codecForLocale();
+	}
 	kDebug() << "TextCodec: " << m_textCodec << endl;
 }
 

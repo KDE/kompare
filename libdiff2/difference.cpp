@@ -26,14 +26,12 @@ Difference::Difference( int sourceLineNo, int destinationLineNo, int type ) :
 	m_type( type ),
 	m_sourceLineNo( sourceLineNo ),
 	m_destinationLineNo( destinationLineNo ),
-	m_applied( false ),
-	m_table( new LevenshteinTable() )
+	m_applied( false )
 {
 }
 
 Difference::~Difference()
 {
-	delete m_table;
 }
 
 void Difference::addSourceLine( QString line )
@@ -63,6 +61,7 @@ void Difference::apply( bool apply )
 
 void Difference::determineInlineDifferences()
 {
+	LevenshteinTable table;
 	if ( m_type != Difference::Change )
 		return;
 
@@ -80,15 +79,10 @@ void Difference::determineInlineDifferences()
 		DifferenceString* dl = destinationLineAt( i );
 
 		// FIXME: If the table cant be created dont do the rest
-		m_table->createTable( sl, dl );
+		table.createTable( sl, dl );
 
-		m_table->createListsOfMarkers();
+		table.createListsOfMarkers();
 	}
-
-	// No longer needed, if we ever need to recalculate the inline differences we should
-	// simply recreate the table
-	delete m_table;
-	m_table = 0;
 }
 
 QString Difference::recreateDifference() const

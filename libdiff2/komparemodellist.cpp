@@ -4,9 +4,11 @@
     begin                : Tue Jun 26 2001
     copyright            : (C) 2001-2004 Otto Bruggeman
                            (C) 2001-2003 John Firebaugh
+                           (C) 2007      Kevin Kofler
     email                : jfirebaugh@kde.org
                            otto.bruggeman@home.nl
- ***************************************************************************/
+                           kevin.kofler@chello.at
+***************************************************************************/
 
 /***************************************************************************
  *                                                                         *
@@ -408,11 +410,18 @@ bool KompareModelList::saveAll()
 void KompareModelList::setEncoding( const QString& encoding )
 {
 	m_encoding = encoding;
-	kdDebug() << "Encoding : " << encoding << endl;
-	m_textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
-	kdDebug() << "TextCodec: " << m_textCodec << endl;
-	if ( !m_textCodec )
+	if ( encoding.lower() == "default" )
+	{
 		m_textCodec = QTextCodec::codecForLocale();
+	}
+	else
+	{
+		kdDebug() << "Encoding : " << encoding << endl;
+		m_textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
+		kdDebug() << "TextCodec: " << m_textCodec << endl;
+		if ( !m_textCodec )
+			m_textCodec = QTextCodec::codecForLocale();
+	}
 	kdDebug() << "TextCodec: " << m_textCodec << endl;
 }
 

@@ -4,8 +4,10 @@
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
+                                  (C) 2007      Kevin Kofler
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
+                                  kevin.kofler@chello.at
 ****************************************************************************/
 
 /***************************************************************************
@@ -206,14 +208,21 @@ KompareProcess::~KompareProcess()
 
 void KompareProcess::setEncoding( const QString& encoding )
 {
-	QTextCodec* textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
-	if ( textCodec )
-		m_textDecoder = textCodec->makeDecoder();
+	if ( encoding.lower() == "default" )
+	{
+		m_textDecoder = QTextCodec::codecForLocale()->makeDecoder();
+	}
 	else
 	{
-		kdDebug(8101) << "Using locale codec as backup..." << endl;
-		textCodec = QTextCodec::codecForLocale();
-		m_textDecoder = textCodec->makeDecoder();
+		QTextCodec* textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
+		if ( textCodec )
+			m_textDecoder = textCodec->makeDecoder();
+		else
+		{
+			kdDebug(8101) << "Using locale codec as backup..." << endl;
+			textCodec = QTextCodec::codecForLocale();
+			m_textDecoder = textCodec->makeDecoder();
+		}
 	}
 }
 

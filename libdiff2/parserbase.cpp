@@ -531,10 +531,24 @@ bool ParserBase::parseUnifiedHunkBody()
 //	kDebug(8101) << "ParserBase::parseUnifiedHunkBody" << endl;
 
 	int linenoA = 0, linenoB = 0;
+	bool wasNum;
 
 	// Fetching the stuff we need from the hunkheader regexp that was parsed in parseUnifiedHunkHeader();
 	linenoA = m_unifiedHunkHeader.cap( 1 ).toInt();
+	if( !m_unifiedHunkHeader.cap( 3 ).isEmpty() && m_unifiedHunkHeader.cap( 3 ).toInt(&wasNum) == 0 ) {
+		// If a hunk is an insertion or deletion with no context, the line number given
+		// is the one before the hunk. this isn't what we want, so increment it to fix this.
+		if( wasNum == false )
+			return false;
+		linenoA++;
+	}
 	linenoB = m_unifiedHunkHeader.cap( 4 ).toInt();
+	if( !m_unifiedHunkHeader.cap( 6 ).isEmpty() && m_unifiedHunkHeader.cap( 6 ).toInt(&wasNum) == 0 ) {
+		// see above
+		if( wasNum == false )
+			return false;
+		linenoB++;
+	}
 	QString function = m_unifiedHunkHeader.cap( 7 );
 	for ( int i = 0; i < 9; i++ )
 	{

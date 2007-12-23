@@ -70,11 +70,11 @@ KompareShell::KompareShell()
 	KService::List offers = KMimeTypeTrader::self()->query( "text/x-patch",
                                                             "Kompare/ViewPart",
                                                              QString() );
-#ifdef NDEBUG
+#ifndef NDEBUG
 	for( int i = 0; i < offers.count(); i++ )
 	{
 		kDebug(8102) << "One kservicetype checked..." << endl;
-		KService::Ptr ptr2 = *(offers.at( i ));
+		KService::Ptr ptr2 = offers.at( i );
 		QStringList list = ptr2->serviceTypes();
 		for ( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 )
 			kDebug(8102) << *it2 << endl;

@@ -457,7 +457,7 @@ void KompareShell::slotShowTextView()
 		// FIXME: proper error checking
 		m_textViewWidget = new QDockWidget( i18n( "Text View" ), this );
 		m_textViewWidget->setObjectName( "Text View" );
-// 		m_textViewWidget = createDockWidget( i18n("Text View"), SmallIcon( "text") );
+// 		m_textViewWidget = createDockWidget( i18n("Text View"), SmallIcon( "text-x-generic") );
 		m_textViewPart = KServiceTypeTrader::createInstanceFromQuery<KTextEditor::Document>(
 		                 QString::fromLatin1("KTextEditor/Document"),
 		                 QString(), (QWidget*)this, QStringList(), &errCode );

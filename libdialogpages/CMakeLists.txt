@@ -19,5 +19,8 @@ kde4_add_library(komparedialogpages SHARED ${dialogpages_PART_SRCS})
 
 target_link_libraries(komparedialogpages  ${KDE4_KDEUI_LIBS} ${KDE4_KDE3SUPPORT_LIBS} )
 
+set_target_properties(komparedialogpages PROPERTIES VERSION ${GENERIC_LIB_VERSION}
+SOVERSION ${GENERIC_LIB_SOVERSION} )
+
 install(TARGETS komparedialogpages DESTINATION ${LIB_INSTALL_DIR})
 

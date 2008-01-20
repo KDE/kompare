@@ -243,7 +243,7 @@ void KompareSplitter::keyPressEvent( QKeyEvent* e )
 	slotRepaintHandles();
 }
 
-void KompareSplitter::slotScroll( QWheelEvent* e )
+void KompareSplitter::wheelEvent( QWheelEvent* e )
 {
 	if ( e->orientation() == Qt::Vertical )
 	{

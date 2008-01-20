@@ -61,7 +61,6 @@ public slots:
 	void slotUpdateScrollBars();
 	void slotDelayedUpdateVScrollValue();
 	void slotUpdateVScrollValue();
-	void slotScroll( QWheelEvent* e );
 	void keyPressEvent( QKeyEvent* e );
 
 	void slotApplyDifference( bool apply );
@@ -77,6 +76,7 @@ public slots:
 
 protected:
 	void moveSplitter( QCOORD pos, int id );
+	void wheelEvent( QWheelEvent* e );
 
 	ViewSettings* settings() const { return m_settings; }
 

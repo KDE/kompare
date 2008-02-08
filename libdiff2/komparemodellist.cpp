@@ -974,7 +974,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 
 	QStringList list = split( fileContents );
 	QLinkedList<QString> lines;
-	foreach (QString str, list) {
+	foreach (const QString &str, list) {
 		lines.append(str);
 	}
 

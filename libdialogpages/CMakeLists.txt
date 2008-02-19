@@ -22,5 +22,5 @@ target_link_libraries(komparedialogpages  ${KDE4_KDEUI_LIBS} ${KDE4_KDE3SUPPORT_
 set_target_properties(komparedialogpages PROPERTIES VERSION ${GENERIC_LIB_VERSION}
 SOVERSION ${GENERIC_LIB_SOVERSION} )
 
-install(TARGETS komparedialogpages DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS komparedialogpages ${INSTALL_TARGETS_DEFAULT_ARGS})
 

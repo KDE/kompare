@@ -4,6 +4,7 @@
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
+                                  (C) 2008      Kevin Kofler
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
 ****************************************************************************/
@@ -20,7 +21,7 @@
 #ifndef KOMPAREPROCESS_H
 #define KOMPAREPROCESS_H
 
-#include <k3process.h>
+#include <kprocess.h>
 
 #include "kompare.h"
 
@@ -28,7 +29,7 @@ class QTextCodec;
 
 class DiffSettings;
 
-class KompareProcess : public K3Process, public KompareFunctions
+class KompareProcess : public KProcess, public KompareFunctions
 {
 	Q_OBJECT
 
@@ -36,7 +37,7 @@ public:
 	KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString directory = QString() );
 	~KompareProcess();
 
-	bool start();
+	void start();
 
 	QString diffOutput() { return m_stdout; }
 	QString stdOut()     { return m_stdout; }
@@ -52,9 +53,7 @@ protected:
 	void writeCommandLine();
 
 protected slots:
-	void slotReceivedStdout( K3Process*, char*, int );
-	void slotReceivedStderr( K3Process*, char*, int );
-	void slotProcessExited( K3Process* proc );
+	void slotFinished( int, QProcess::ExitStatus );
 
 private:
 	DiffSettings*          m_diffSettings;

@@ -4,7 +4,7 @@
     begin                : Tue Jun 26 2001
     copyright            : (C) 2001-2004 Otto Bruggeman
                            (C) 2001-2003 John Firebaugh
-                           (C) 2007      Kevin Kofler
+                           (C) 2007-2008 Kevin Kofler
     email                : jfirebaugh@kde.org
                            otto.bruggeman@home.nl
                            kevin.kofler@chello.at
@@ -611,7 +611,8 @@ bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSett
 	         this, SLOT(slotWriteDiffOutput( bool )) );
 
 	emit status( Kompare::RunningDiff );
-	return m_diffProcess->start();
+	m_diffProcess->start();
+	return true;
 }
 
 void KompareModelList::slotWriteDiffOutput( bool success )

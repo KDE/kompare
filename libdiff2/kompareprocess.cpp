@@ -4,7 +4,7 @@
         begin                   : Sun Mar 4 2001
         copyright               : (C) 2001-2003 by Otto Bruggeman
                                   and John Firebaugh
-                                  (C) 2007      Kevin Kofler
+                                  (C) 2007-2008 Kevin Kofler
         email                   : otto.bruggeman@home.nl
                                   jfirebaugh@kde.org
                                   kevin.kofler@chello.at
@@ -25,7 +25,6 @@
 //Added by qt3to4:
 #include <Q3ValueList>
 #include <Q3CString>
-#include <kshell.h>
 #include <kcharsets.h>
 #include <kdebug.h>
 #include <kglobal.h>
@@ -34,24 +33,16 @@
 #include "kompareprocess.h"
 
 KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString dir )
-	: K3Process(),
+	: KProcess(),
 	m_diffSettings( diffSettings ),
 	m_mode( mode ),
 	m_textDecoder( 0 )
 {
-	setUseShell( true );
-
-	// connect the stdout and stderr signals
-	connect( this, SIGNAL( receivedStdout( K3Process*, char*, int ) ),
-	         SLOT  ( slotReceivedStdout( K3Process*, char*, int ) ) );
-	connect( this, SIGNAL( receivedStderr( K3Process*, char*, int ) ),
-	         SLOT  ( slotReceivedStderr( K3Process*, char*, int ) ) );
-
 	// connect the signal that indicates that the proces has exited
-	connect( this, SIGNAL( processExited( K3Process* ) ),
-	         SLOT  ( slotProcessExited( K3Process* ) ) );
+	connect( this, SIGNAL( finished( int, QProcess::ExitStatus ) ),
+	         SLOT  ( slotFinished( int, QProcess::ExitStatus ) ) );
 
-	*this << "LANG=C";
+	setEnv( "LANG", "C" );
 
 	// Write command and options
 	if( m_mode == Kompare::Default )
@@ -64,13 +55,13 @@ KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMo
 	}
 
 	if( !dir.isEmpty() ) {
-		QDir::setCurrent( dir );
+		setWorkingDirectory( dir );
 	}
 
 	// Write file names
 	*this << "--";
-	*this << KShell::quoteArg( constructRelativePath( dir, source ) );
-	*this << KShell::quoteArg( constructRelativePath( dir, destination ) );
+	*this << constructRelativePath( dir, source );
+	*this << constructRelativePath( dir, destination );
 }
 
 void KompareProcess::writeDefaultCommandLine()
@@ -166,7 +157,7 @@ void KompareProcess::writeCommandLine()
 
 	if ( m_diffSettings->m_ignoreRegExp && !m_diffSettings->m_ignoreRegExpText.isEmpty() )
 	{
-		*this << "-I " << KShell::quoteArg( m_diffSettings->m_ignoreRegExpText );
+		*this << "-I " << m_diffSettings->m_ignoreRegExpText;
 	}
 
 	if ( m_diffSettings->m_showCFunctionChange )
@@ -201,13 +192,13 @@ void KompareProcess::writeCommandLine()
 		QStringList::ConstIterator end = m_diffSettings->m_excludeFilePatternList.end();
 		for ( ; it != end; ++it )
 		{
-			*this << "-x" << KShell::quoteArg( *it );
+			*this << "-x" << *it;
 		}
 	}
 
 	if ( m_diffSettings->m_excludeFilesFile && !m_diffSettings->m_excludeFilesFileURL.isEmpty() )
 	{
-		*this << "-X" << KShell::quoteArg( m_diffSettings->m_excludeFilesFileURL );
+		*this << "-X" << m_diffSettings->m_excludeFilesFileURL;
 	}
 }
 
@@ -235,43 +226,37 @@ void KompareProcess::setEncoding( const QString& encoding )
 	}
 }
 
-void KompareProcess::slotReceivedStdout( K3Process* /* process */, char* buffer, int length )
-{
-	// add all output to m_stdout
-	if ( m_textDecoder )
-		m_stdout += m_textDecoder->toUnicode( buffer, length );
-	else
-		kDebug(8101) << "KompareProcess::slotReceivedStdout : No decoder !!!" << endl;
-}
-
-void KompareProcess::slotReceivedStderr( K3Process* /* process */, char* buffer, int length )
-{
-	// add all output to m_stderr
-	if ( m_textDecoder )
-		m_stderr += m_textDecoder->toUnicode( buffer, length );
-	else
-		kDebug(8101) << "KompareProcess::slotReceivedStderr : No decoder !!!" << endl;
-}
-
-bool KompareProcess::start()
+void KompareProcess::start()
 {
 #ifndef NDEBUG
 	QString cmdLine;
-	QList<QByteArray>::ConstIterator it = arguments.begin();
-	for (; it != arguments.end(); ++it )
+	QStringList program = KProcess::program();
+	QStringList::ConstIterator it = program.begin();
+	for (; it != program.end(); ++it )
 	    cmdLine += "\"" + (*it) + "\" ";
 	kDebug(8101) << cmdLine << endl;
 #endif
-	return( K3Process::start( K3Process::NotifyOnExit, K3Process::AllOutput ) );
+	setOutputChannelMode( SeparateChannels );
+	setNextOpenMode( ReadOnly );
+	KProcess::start();
 }
 
-void KompareProcess::slotProcessExited( K3Process* /* proc */ )
+void KompareProcess::slotFinished( int exitCode, QProcess::ExitStatus exitStatus )
 {
-	// exit status of 0: no differences
-	//                1: some differences
-	//                2: error but there may be differences !
-	kDebug(8101) << "Exited with exit status : " << exitStatus() << endl;
-	emit diffHasFinished( normalExit() && exitStatus() != 0 );
+	// add all output to m_stdout/m_stderr
+	if ( m_textDecoder )
+	{
+		m_stdout = m_textDecoder->toUnicode( readAllStandardOutput() );
+		m_stderr = m_textDecoder->toUnicode( readAllStandardError() );
+	}
+	else
+		kDebug(8101) << "KompareProcess::slotFinished : No decoder !!!" << endl;
+
+	// exit code of 0: no differences
+	//              1: some differences
+	//              2: error but there may be differences !
+	kDebug(8101) << "Exited with exit code : " << exitCode << endl;
+	emit diffHasFinished( exitStatus == NormalExit && exitCode != 0 );
 }
 
 #include "kompareprocess.moc"

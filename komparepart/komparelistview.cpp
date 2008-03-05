@@ -48,6 +48,8 @@
 #define BLANK_LINE_HEIGHT 3
 #define HUNK_LINE_HEIGHT  5
 
+#define ANTIALIASING_MARGIN 1
+
 using namespace Diff2;
 
 KompareListViewFrame::KompareListViewFrame( bool isSource,
@@ -597,6 +599,8 @@ void KompareListViewLineItem::setup()
 
 void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align )
 {
+	p->setRenderHint(QPainter::Antialiasing);
+
 	QColor bg = cg.base();
 	p->fillRect( 0, 0, width, height(), bg );
 	if ( diffItemParent()->difference()->type() == Difference::Unchanged )
@@ -623,9 +627,13 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, i
 
 	if ( diffItemParent()->isSelected() )
 	{
+		bg = kompareListView()->settings()->colorForDifferenceType(
+		          diffItemParent()->difference()->type(),
+		          diffItemParent()->isSelected(),
+		          diffItemParent()->difference()->applied() );
 		p->setPen( bg.dark(135) );
 		if ( this == parent()->firstChild() )
-			p->drawLine( 0, 0, width, 0 );
+			p->drawLine( 0, ANTIALIASING_MARGIN, width, ANTIALIASING_MARGIN );
 		if ( nextSibling() == 0 )
 			p->drawLine( 0, height() - 1, width, height() - 1 );
 	}

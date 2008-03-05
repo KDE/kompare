@@ -22,7 +22,7 @@
  ***************************************************************************/
 
 #include <qapplication.h>
-#include <Q3Painter>
+#include <QPainter>
 #include <qpixmap.h>
 #include <qstyle.h>
 #include <qtimer.h>
@@ -40,6 +40,8 @@
 #include "komparesplitter.h"
 
 #include "kompareconnectwidget.h"
+
+#define ANTIALIASING_MARGIN 1
 
 using namespace Diff2;
 
@@ -163,8 +165,10 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 //	kDebug(8106) << "KompareConnectWidget::paintEvent()" << endl;
 
 	QPixmap pixbuf(size());
-	Q3Painter paint(&pixbuf);
-	Q3Painter* p = &paint;
+	QPainter paint(&pixbuf);
+	QPainter* p = &paint;
+
+	p->setRenderHint(QPainter::Antialiasing);
 
 	p->fillRect( 0, 0, pixbuf.width(), pixbuf.height(), QColor(Qt::white).dark(110) );
 
@@ -210,8 +214,8 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 					rightRect = rightView->itemRect( i );
 				}
 
-				int tl = leftRect.top();
-				int tr = rightRect.top();
+				int tl = leftRect.top() + ANTIALIASING_MARGIN;
+				int tr = rightRect.top() + ANTIALIASING_MARGIN;
 				int bl = leftRect.bottom();
 				int br = rightRect.bottom();
 

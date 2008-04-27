@@ -16,9 +16,10 @@
 **
 *******************************************************************************/
 
-#include <kdebug.h>
-#include <q3tl.h>
 #include "diffmodellist.h"
+
+#include <q3tl.h>
+#include <kdebug.h>
 
 using namespace Diff2;
 

@@ -15,11 +15,11 @@
 **
 ***************************************************************************/
 
-#include <qregexp.h>
+#include "diffparser.h"
+
+#include <QtCore/QRegExp>
 
 #include <kdebug.h>
-
-#include "diffparser.h"
 
 using namespace Diff2;
 

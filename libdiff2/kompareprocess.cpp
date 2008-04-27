@@ -19,18 +19,19 @@
 **
 ***************************************************************************/
 
-#include <qdir.h>
-#include <qstringlist.h>
-#include <qtextcodec.h>
-//Added by qt3to4:
+#include "kompareprocess.h"
+
+#include <QtCore/QDir>
+#include <QtCore/QStringList>
+#include <QtCore/QTextCodec>
 #include <Q3ValueList>
 #include <Q3CString>
+
 #include <kcharsets.h>
 #include <kdebug.h>
 #include <kglobal.h>
 
 #include "diffsettings.h"
-#include "kompareprocess.h"
 
 KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString dir )
 	: KProcess(),

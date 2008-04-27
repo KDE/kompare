@@ -15,13 +15,13 @@
 **
 ***************************************************************************/
 
-#include <qregexp.h>
+#include "cvsdiffparser.h"
+
+#include <QtCore/QRegExp>
 
 #include <kdebug.h>
 
-#include "cvsdiffparser.h"
 #include "komparemodellist.h"
-
 
 using namespace Diff2;
 

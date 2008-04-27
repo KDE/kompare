@@ -15,11 +15,11 @@
 **
 ***************************************************************************/
 
-#include <qregexp.h>
+#include "perforceparser.h"
+
+#include <QtCore/QRegExp>
 
 #include <kdebug.h>
-
-#include "perforceparser.h"
 
 using namespace Diff2;
 

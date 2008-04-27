@@ -17,7 +17,9 @@
 **
 ***************************************************************************/
 
-#include <qregexp.h>
+#include "diffmodel.h"
+
+#include <QtCore/QRegExp>
 #include <q3valuelist.h>
 
 #include <kdebug.h>
@@ -25,7 +27,6 @@
 
 #include "difference.h"
 #include "diffhunk.h"
-#include "diffmodel.h"
 
 using namespace Diff2;
 

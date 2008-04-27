@@ -17,9 +17,9 @@
 **
 ***************************************************************************/
 
+#include "diffhunk.h"
 
 #include "difference.h"
-#include "diffhunk.h"
 
 using namespace Diff2;
 

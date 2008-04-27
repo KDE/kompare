@@ -19,13 +19,15 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qfile.h>
-#include <qdir.h>
-#include <qregexp.h>
-#include <qtextcodec.h>
+#include "komparemodellist.h"
+
+#include <QtCore/QFile>
+#include <QtCore/QDir>
+#include <QtCore/QRegExp>
+#include <QtCore/QTextCodec>
 #include <q3valuelist.h>
-#include <QTextStream>
-#include <QLinkedList>
+#include <QtCore/QTextStream>
+#include <QtCore/QLinkedList>
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -43,9 +45,7 @@
 #include "diffmodel.h"
 #include "diffmodellist.h"
 #include "kompareprocess.h"
-#include "komparemodellist.h"
 #include "parser.h"
-
 #include "kompare_part.h"
 
 using namespace Diff2;

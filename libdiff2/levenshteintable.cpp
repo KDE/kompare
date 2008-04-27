@@ -18,14 +18,14 @@
 **
 *******************************************************************************/
 
+#include "levenshteintable.h"
+
 #include <iostream>
 
-#include <qstring.h>
+#include <QtCore/QString>
 
 #include <kdebug.h>
 #include <kglobal.h>
-
-#include "levenshteintable.h"
 
 #include "difference.h"
 

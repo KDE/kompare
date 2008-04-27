@@ -17,7 +17,9 @@
 **
 ***************************************************************************/
 
-#include <qobject.h>
+#include "parserbase.h"
+
+#include <QtCore/QObject>
 
 #include <kdebug.h>
 
@@ -25,8 +27,6 @@
 #include "diffhunk.h"
 #include "difference.h"
 #include "komparemodellist.h"
-
-#include "parserbase.h"
 
 using namespace Diff2;
 

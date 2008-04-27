@@ -18,9 +18,10 @@
 **   (at your option) any later version.
 **
 ***************************************************************************/
+#include "kompare_shell.h"
 
-#include <QDockWidget>
-#include <QTextStream>
+#include <QtCore/QTextStream>
+#include <QtGui/QDockWidget>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -45,8 +46,6 @@
 #include "kompare_part.h"
 #include "komparenavtreepart.h"
 #include "kompareurldialog.h"
-
-#include "kompare_shell.h"
 
 #define ID_N_OF_N_DIFFERENCES      1
 #define ID_N_OF_N_FILES            2

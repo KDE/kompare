@@ -17,9 +17,11 @@
 **
 ***************************************************************************/
 
-#include <qlayout.h>
-#include <q3groupbox.h>
-#include <QVBoxLayout>
+#include "filespage.h"
+
+#include <QtGui/QLayout>
+#include <Q3GroupBox>
+#include <QtGui/QVBoxLayout>
 
 #include <kapplication.h>
 #include <kcharsets.h>
@@ -31,7 +33,6 @@
 #include <kurlrequester.h>
 
 #include "filessettings.h"
-#include "filespage.h"
 
 FilesPage::FilesPage() : PageBase()
 {

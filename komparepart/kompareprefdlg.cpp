@@ -19,14 +19,14 @@
 **
 ***************************************************************************/
 
+#include "kompareprefdlg.h"
+
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <klocale.h>
 
 #include "diffpage.h"
 #include "viewpage.h"
-
-#include "kompareprefdlg.h"
 
 // implementation
 

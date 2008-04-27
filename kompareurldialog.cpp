@@ -18,6 +18,8 @@
 **   (at your option) any later version.
 **
 ***************************************************************************/
+#include "kompareurldialog.h"
+
 #include <kapplication.h>
 #include <klocale.h>
 #include <kurlrequester.h>
@@ -29,8 +31,6 @@
 #include "filessettings.h"
 #include "viewpage.h"
 #include "viewsettings.h"
-
-#include "kompareurldialog.h"
 
 KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WFlags flags )
         : KPageDialog( parent, flags )

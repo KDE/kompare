@@ -33,6 +33,8 @@
 #include <Q3VBoxLayout>
 #include <QLabel>
 
+#include "komparemodellist.h"
+
 namespace Diff2 {
 class DiffModel;
 }

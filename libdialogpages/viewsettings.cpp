@@ -19,13 +19,13 @@
 **
 ***************************************************************************/
 
-#include <qfont.h>
+#include "viewsettings.h"
+
+#include <QtGui/QFont>
 
 #include <kconfig.h>
 #include <kglobalsettings.h>
 #include <kconfiggroup.h>
-
-#include "viewsettings.h"
 
 using namespace Diff2;
 

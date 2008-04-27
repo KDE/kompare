@@ -17,17 +17,19 @@
 **
 ***************************************************************************/
 
-#include <qcheckbox.h>
-#include <q3hgroupbox.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
+#include "diffpage.h"
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QTabWidget>
-#include <QToolTip>
+#include <QtGui/QCheckBox>
+#include <Q3HGroupBox>
+#include <QtGui/QLabel>
+#include <QtGui/QLayout>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSpinBox>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QTabWidget>
+#include <QtGui/QToolTip>
+
 #include <kbuttongroup.h>
 #include <kapplication.h>
 #include <kcombobox.h>
@@ -44,8 +46,6 @@
 #include <kglobal.h>
 
 #include "diffsettings.h"
-
-#include "diffpage.h"
 
 DiffPage::DiffPage() : PageBase(), m_ignoreRegExpDialog( 0 )
 {

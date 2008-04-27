@@ -21,12 +21,13 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qapplication.h>
+#include "kompareconnectwidget.h"
+
+#include <QApplication>
 #include <QPainter>
-#include <qpixmap.h>
-#include <qstyle.h>
-#include <qtimer.h>
-//Added by qt3to4:
+#include <QPixmap>
+#include <QStyle>
+#include <QTimer>
 #include <Q3PointArray>
 #include <QPaintEvent>
 #include <Q3Frame>
@@ -35,11 +36,8 @@
 #include <kdebug.h>
 
 #include "viewsettings.h"
-#include "komparemodellist.h"
 #include "komparelistview.h"
 #include "komparesplitter.h"
-
-#include "kompareconnectwidget.h"
 
 #define ANTIALIASING_MARGIN 1
 

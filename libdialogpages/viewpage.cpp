@@ -19,16 +19,18 @@
 **
 ***************************************************************************/
 
-#include <qcheckbox.h>
-#include <QGroupBox>
+#include "viewpage.h"
+
+#include <QtGui/QCheckBox>
+#include <QtGui/QGroupBox>
 #include <Q3HGroupBox>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qspinbox.h>
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QTabWidget>
-#include <QFontComboBox>
+#include <QtGui/QLabel>
+#include <QtGui/QLayout>
+#include <QtGui/QSpinBox>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QGridLayout>
+#include <QtGui/QTabWidget>
+#include <QtGui/QFontComboBox>
 
 #include <kapplication.h>
 #include <kcolorbutton.h>
@@ -36,7 +38,6 @@
 #include <klocale.h>
 #include <kglobal.h>
 
-#include "viewpage.h"
 #include "viewsettings.h"
 
 ViewPage::ViewPage() : PageBase()

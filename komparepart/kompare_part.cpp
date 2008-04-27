@@ -21,8 +21,10 @@
 **
 ***************************************************************************/
 
-#include <qlayout.h>
-#include <qwidget.h>
+#include "kompare_part.h"
+
+#include <QtGui/QLayout>
+#include <QtGui/QWidget>
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -48,8 +50,6 @@
 #include "kompareprefdlg.h"
 #include "komparesaveoptionswidget.h"
 #include "komparesplitter.h"
-
-#include "kompare_part.h"
 
 typedef KParts::GenericFactory<KomparePart> KomparePartFactory;
 K_EXPORT_COMPONENT_FACTORY( libkomparepart, KomparePartFactory )

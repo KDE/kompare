@@ -19,6 +19,8 @@
 **
 ***************************************************************************/
 
+#include "komparenavtreepart.h"
+
 #include <kdebug.h>
 #include <klocale.h>
 #include <kiconloader.h>
@@ -31,8 +33,6 @@
 #include "diffmodel.h"
 #include "diffmodellist.h"
 #include "komparemodellist.h"
-
-#include "komparenavtreepart.h"
 
 #define COL_SOURCE        0
 #define COL_DESTINATION   1

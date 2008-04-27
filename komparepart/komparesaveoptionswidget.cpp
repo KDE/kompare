@@ -19,18 +19,19 @@
 **
 ***************************************************************************/
 
+#include "komparesaveoptionswidget.h"
+
 #include <q3buttongroup.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
+#include <QtGui/QCheckBox>
+#include <QtGui/QLabel>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSpinBox>
 
 #include <kdebug.h>
 #include <kfiledialog.h>
 #include <kurlrequester.h>
 
 #include "diffsettings.h"
-#include "komparesaveoptionswidget.h"
 
 KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString destination,
            DiffSettings * settings, QWidget * parent )

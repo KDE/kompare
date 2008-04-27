@@ -19,11 +19,12 @@
 **
 ***************************************************************************/
 
+#include "komparelistview.h"
+
 #include <q3header.h>
-#include <qpainter.h>
-#include <qregexp.h>
-#include <qtimer.h>
-//Added by qt3to4:
+#include <QPainter>
+#include <QRegExp>
+#include <QTimer>
 #include <Q3Frame>
 #include <QResizeEvent>
 #include <QMouseEvent>
@@ -39,8 +40,6 @@
 #include "viewsettings.h"
 #include "komparemodellist.h"
 #include "komparesplitter.h"
-
-#include "komparelistview.h"
 
 #define COL_LINE_NO      0
 #define COL_MAIN         1

@@ -17,11 +17,11 @@
 **
 ****************************************************************************/
 
+#include "filessettings.h"
+
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-
-#include "filessettings.h"
 
 FilesSettings::FilesSettings( QWidget* parent )
 	: SettingsBase( parent )

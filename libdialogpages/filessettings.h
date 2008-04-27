@@ -19,7 +19,8 @@
 #ifndef FILESSETTINGS_H
 #define FILESSETTINGS_H
 
-#include <qstring.h>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 #include "settingsbase.h"
 #include "dialogpagesexport.h"

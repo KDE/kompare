@@ -360,7 +360,7 @@ void KompareShell::readProperties(const KConfigGroup &config)
 		m_viewPart->openUrl( m_diffURL );
 	}
 	else
-	{ // just in case something weird has happened, dont restore the diff then
+	{ // just in case something weird has happened, don't restore the diff then
 	  // Bruggie: or when some idiot like me changes the possible values for mode
 	  // IOW, a nice candidate for a kconf_update thingy :)
 		m_viewPart->readProperties( const_cast<KConfig *>(config.config()) );

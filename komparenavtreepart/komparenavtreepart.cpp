@@ -618,7 +618,7 @@ QString KDirLVI::fullPath( QString& path )
 //	else
 //		kDebug(8105) << "KDirLVI::fullPath called with empty path..." << endl;
 
-	if ( m_rootItem ) // dont bother adding rootItem's dir...
+	if ( m_rootItem ) // don't bother adding rootItem's dir...
 		return path;
 
 	path = path.prepend( m_dirName );

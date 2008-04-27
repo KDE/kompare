@@ -455,7 +455,7 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 		{
 			if ( m_info.mode != Kompare::ShowingDiff )
 			{
-				kDebug() << "Blend this crap please and dont gimme any conflicts..." << endl;
+				kDebug() << "Blend this crap please and do not give me any conflicts..." << endl;
 				blendOriginalIntoModelList( m_info.localSource );
 			}
 			updateModelListActions();
@@ -1174,7 +1174,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 				newModel->addDiff( diff );
 				break;
 			default:
-				kDebug(8101) << "****, some diff type we dont know about ???" << endl;
+				kDebug(8101) << "****, some diff type we do not know about ???" << endl;
 			}
 		}
 	}

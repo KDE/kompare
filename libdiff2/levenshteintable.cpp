@@ -109,8 +109,8 @@ unsigned int LevenshteinTable::createTable( DifferenceString* source, Difference
 	m_source      = source;
 	m_destination = destination;
 
-	QString s = ' ' + source->string();      // Optimization, so i dont have to subtract 1 from the indexes every 
-	QString d = ' ' + destination->string(); // single time and add 1 to the width and height of the table
+	QString s = ' ' + source->string();      // Optimization, so i do not have to subtract 1 from the indexes
+	QString d = ' ' + destination->string(); // every single time and add 1 to the width and height of the table
 
 	unsigned int m = s.length();
 	unsigned int n = d.length();
@@ -215,7 +215,7 @@ void LevenshteinTable::createListsOfMarkers()
 //				kDebug(8101) << "CurrentValue: " << currentValue << endl;
 				if ( n == currentValue )
 					m_destination->prepend( new Marker( Marker::Start, y ) );
-				// else: the change continues, dont do anything
+				// else: the change continues, do not do anything
 			}
 			else
 			{
@@ -240,7 +240,7 @@ void LevenshteinTable::createListsOfMarkers()
 //				kDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( nw == currentValue )
 					m_destination->prepend( new Marker( Marker::Start, y ) );
-				// else: the change continues, dont do anything
+				// else: the change continues, do not do anything
 			}
 			else
 			{
@@ -259,7 +259,7 @@ void LevenshteinTable::createListsOfMarkers()
 //				kDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( nw == currentValue )
 					m_source->prepend( new Marker( Marker::Start, x ) );
-				// else: the change continues, dont do anything
+				// else: the change continues, do not do anything
 			}
 			else
 			{
@@ -285,7 +285,7 @@ void LevenshteinTable::createListsOfMarkers()
 //				kDebug(8101) << "End found: CurrentValue: " << currentValue << endl;
 				if ( w == currentValue )
 					m_source->prepend( new Marker( Marker::Start, x ) );
-				// else: the change continues, dont do anything
+				// else: the change continues, do not do anything
 			}
 			else
 			{

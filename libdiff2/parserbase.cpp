@@ -77,7 +77,7 @@ ParserBase::ParserBase( const KompareModelList* list, const QStringList& diff ) 
 ParserBase::~ParserBase()
 {
 	if ( m_models )
-		m_models = 0; // dont delete this, i pass it around...
+		m_models = 0; // do not delete this, i pass it around...
 }
 
 enum Kompare::Format ParserBase::determineFormat()
@@ -140,7 +140,7 @@ bool ParserBase::parseContextDiffHeader()
 			// We're screwed, second line does not match or is not there...
 			break;
 		}
-		// Dont inc the Iterator because the second line might be the first line of
+		// Do not inc the Iterator because the second line might be the first line of
 		// the context header and the first hit was a fluke (impossible imo)
 		// maybe we should return false here because the diff is broken ?
 	}
@@ -204,7 +204,7 @@ bool ParserBase::parseUnifiedDiffHeader()
 //	kDebug(8101) << "ParserBase::parseUnifiedDiffHeader()" << endl;
 	bool result = false;
 
-	while ( m_diffIterator != m_diffLines.end() ) // dont assume we start with the diffheader1 line
+	while ( m_diffIterator != m_diffLines.end() ) // do not assume we start with the diffheader1 line
 	{
 		if ( !m_unifiedDiffHeader1.exactMatch( *m_diffIterator ) )
 		{
@@ -391,7 +391,7 @@ bool ParserBase::parseContextHunkBody()
 		{
 //			kDebug(8101) << "Unchanged: " << endl;
 			diff = new Difference( linenoA, linenoB );
-			// Dont add this diff with addDiff to the model... no unchanged differences allowed in there...
+			// Do not add this diff with addDiff to the model... no unchanged differences allowed in there...
 			diff->setType( Difference::Unchanged );
 			hunk->add( diff );
 			while( ( oldIt == oldLines.end() || m_contextHunkBodyContext.exactMatch( *oldIt ) ) &&

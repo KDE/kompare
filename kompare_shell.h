@@ -43,7 +43,7 @@ namespace KTextEditor {
 * This is the application "Shell".  It has a menubar, toolbar, and
 * statusbar but relies on the "Part" to do all the real work.
 *
-* Adapted the shell a bit so it now handles seperate view and navigation parts
+* Adapted the shell a bit so it now handles separate view and navigation parts
 *
 * @short Application Shell
 * @author John Firebaugh <jfirebaugh@kde.org>
@@ -55,23 +55,23 @@ class KompareShell : public KParts::MainWindow
 	Q_OBJECT
 public:
 	/**
-	* Default Constructor
-	*/
+	 * Default Constructor
+	 */
 	KompareShell();
 
 	/**
-	* Default Destructor
-	*/
+	 * Default Destructor
+	 */
 	virtual ~KompareShell();
 
 	/**
-	* Use this method to load whatever file/URL you have
-	*/
+	 * Use this method to load whatever file/URL you have
+	 */
 	void openDiff( const KUrl& url );
 
 	/**
-	* Use this method to load the diff from stdin
-	*/
+	 * Use this method to load the diff from stdin
+	 */
 	void openStdin();
 
 	/**

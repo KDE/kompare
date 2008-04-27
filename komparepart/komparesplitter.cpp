@@ -21,15 +21,15 @@
 #include "komparesplitter.h"
 
 // qt
-#include <qstyle.h>
-#include <qstring.h>
-#include <qtimer.h>
-#include <qscrollbar.h>
-#include <qmap.h>
-#include <qsplitter.h>
-#include <qapplication.h>
-#include <qpainter.h>
-#include <qpixmap.h>
+#include <QStyle>
+#include <QString>
+#include <QTimer>
+#include <QScrollBar>
+#include <QMap>
+#include <QSplitter>
+#include <QApplication>
+#include <QPainter>
+#include <QPixmap>
 #include <QKeyEvent>
 #include <QGridLayout>
 #include <QResizeEvent>
@@ -385,7 +385,7 @@ int KompareSplitter::minVisibleWidth()
 {
 	// Why the hell do we want to know this?
 	// ah yes, its because we use it to set the "page size" for horiz. scrolling.
-	// despite the fact that *noone* has a pgright and pgleft key :P
+	// despite the fact that *none* has a pgright and pgleft key :P
 	// But we do have mousewheels with horizontal scrolling functionality,
 	// pressing shift and scrolling then goes left and right one page at the time
 	int min = -1;

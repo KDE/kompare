@@ -20,8 +20,8 @@
 #ifndef _KOMPARE_INTERFACE_H
 #define _KOMPARE_INTERFACE_H
 
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 #include <kdemacros.h>
 
 class KConfig;
@@ -61,7 +61,7 @@ public:
 	virtual bool openDiff3( const QString& diff3Output ) = 0;
 
 	/**
-	 * Compare, with diff, source with destination, can also be used if you dont
+	 * Compare, with diff, source with destination, can also be used if you do not
 	 * know what source and destination are. The part will try to figure out what
 	 * they are (directory, file, diff output file) and call the
 	 * appropriate method(s)

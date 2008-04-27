@@ -80,7 +80,7 @@ public:
 	virtual int readProperties( KConfig *config );
 	virtual int saveProperties( KConfig *config );
 	// this one is called when the shell_app is about to close.
-	// we need it now to save the properties of the part when apps dont (can't)
+	// we need it now to save the properties of the part when apps don't (can't)
 	// use the readProperties and saveProperties methods
 	virtual bool queryClose();
 

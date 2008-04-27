@@ -78,7 +78,7 @@ void Difference::determineInlineDifferences()
 		DifferenceString* sl = sourceLineAt( i );
 		DifferenceString* dl = destinationLineAt( i );
 
-		// FIXME: If the table cant be created dont do the rest
+		// FIXME: If the table cannot be created do not do the rest
 		table.createTable( sl, dl );
 
 		table.createListsOfMarkers();

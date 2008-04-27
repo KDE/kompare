@@ -99,7 +99,7 @@ QString Difference::recreateDifference() const
 		{
 		case Change:
 		case Delete:
-			difference += "-";
+			difference += '-';
 			break;
 		default:
 		// Insert but this is not possible in source
@@ -121,10 +121,10 @@ QString Difference::recreateDifference() const
 		{
 		case Change:
 		case Insert:
-			difference += "+";
+			difference += '+';
 			break;
 		case Unchanged:
-			difference += " ";
+			difference += ' ';
 			break;
 		default: // Delete but this is not possible in destination
 //			kDebug( 8101 ) << "Go away, nothing to do for you in destination..." << endl;

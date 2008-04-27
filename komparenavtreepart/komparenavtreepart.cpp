@@ -163,11 +163,11 @@ void KompareNavTreePart::buildTreeInMemory()
 		break;
 	case Kompare::ComparingDirs:
 		srcBase = m_info->localSource;
-		if ( !srcBase.endsWith( "/" ) )
-			srcBase += "/";
+		if ( !srcBase.endsWith( '/' ) )
+			srcBase += '/';
 		destBase = m_info->localDestination;
-		if ( !destBase.endsWith( "/" ) )
-			destBase += "/";
+		if ( !destBase.endsWith( '/' ) )
+			destBase += '/';
 		break;
 	case Kompare::BlendingFile:
 	case Kompare::BlendingDir:
@@ -225,7 +225,7 @@ QString KompareNavTreePart::compareFromEndAndReturnSame(
 			break;
 	}
 
-	if ( srcLen != 0 && destLen != 0 && result.startsWith( "/" ) )
+	if ( srcLen != 0 && destLen != 0 && result.startsWith( '/' ) )
 		result = result.remove( 0, 1 ); // strip leading /, we need it later
 
 	return result;

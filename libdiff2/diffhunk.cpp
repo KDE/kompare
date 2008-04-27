@@ -104,7 +104,7 @@ QString DiffHunk::recreateHunk() const
 	        .arg( dlc ); 
 
 	if ( !m_function.isEmpty() )
-		hunk += " " + m_function;
+		hunk += ' ' + m_function;
 
 	hunk += QString::fromLatin1( "\n" );
 

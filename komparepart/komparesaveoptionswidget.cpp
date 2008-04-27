@@ -105,13 +105,13 @@ void KompareSaveOptionsWidget::updateCommandLine()
 		cmdLine += " -C " + QString::number( m_ContextLinesSB->value() );
 		break;
 	case Kompare::RCS :
-		options += "n";
+		options += 'n';
 		break;
 	case Kompare::Ed :
-		options += "e";
+		options += 'e';
 		break;
 	case Kompare::SideBySide:
-		options += "y";
+		options += 'y';
 		break;
 	case Kompare::Normal :
 	case Kompare::UnknownFormat :
@@ -120,31 +120,31 @@ void KompareSaveOptionsWidget::updateCommandLine()
 	}
 
 	if ( m_SmallerChangesCB->isChecked() ) {
-		options += "d";
+		options += 'd';
 	}
 
 	if ( m_LargeFilesCB->isChecked() ) {
-		options += "H";
+		options += 'H';
 	}
 
 	if ( m_IgnoreCaseCB->isChecked() ){
-		options += "i";
+		options += 'i';
 	}
 
 	if ( m_ExpandTabsCB->isChecked() ) {
-		options += "t";
+		options += 't';
 	}
 
 	if ( m_IgnoreEmptyLinesCB->isChecked() ) {
-		options += "B";
+		options += 'B';
 	}
 
 	if ( m_IgnoreWhiteSpaceCB->isChecked() ) {
-		options += "b";
+		options += 'b';
 	}
 
 	if ( m_FunctionNamesCB->isChecked() ) {
-		options += "p";
+		options += 'p';
 	}
 
 //	if (  ) {
@@ -152,15 +152,15 @@ void KompareSaveOptionsWidget::updateCommandLine()
 //	}
 
 	if ( m_RecursiveCB->isChecked() ) {
-		options += "r";
+		options += 'r';
 	}
 
 	if( m_NewFilesCB->isChecked() ) {
-		options += "N";
+		options += 'N';
 	}
 
 //	if( m_AllTextCB->isChecked() ) {
-//		options += "a";
+//		options += 'a';
 //	}
 
 	if( options.length() > 0 ) {
@@ -169,7 +169,7 @@ void KompareSaveOptionsWidget::updateCommandLine()
 
 	cmdLine += " -- ";
 	cmdLine += constructRelativePath( m_directoryRequester->url().pathOrUrl(), m_source );
-	cmdLine += " ";
+	cmdLine += ' ';
 	cmdLine += constructRelativePath( m_directoryRequester->url().pathOrUrl(), m_destination );
 
 	m_CommandLineLabel->setText( cmdLine );

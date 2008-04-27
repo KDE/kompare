@@ -89,12 +89,12 @@ void KompareListViewFrame::slotSetModel( const DiffModel* model )
 	{
 		if( view()->isSource() ) {
 			if( !model->sourceRevision().isEmpty() )
-				m_label.setText( model->sourceFile() + " (" + model->sourceRevision() + ")" );
+				m_label.setText( model->sourceFile() + " (" + model->sourceRevision() + ')' );
 			else
 				m_label.setText( model->sourceFile() );
 		} else {
 			if( !model->destinationRevision().isEmpty() )
-				m_label.setText( model->destinationFile() + " (" + model->destinationRevision() + ")" );
+				m_label.setText( model->destinationFile() + " (" + model->destinationRevision() + ')' );
 			else
 				m_label.setText( model->destinationFile() );
 		}
@@ -411,7 +411,7 @@ void KompareListView::setSpaces( int spaces )
 	m_spaces.truncate( 0 );
 	kDebug( 8104 ) << "tabToNumberOfSpaces: " << spaces << endl;
 	for ( int i = 0; i < spaces; i++ )
-		m_spaces += " ";
+		m_spaces += ' ';
 
 	triggerUpdate();
 }

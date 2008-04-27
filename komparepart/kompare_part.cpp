@@ -521,7 +521,7 @@ void KomparePart::updateCaption()
 	case Kompare::ComparingDirs :
 	case Kompare::BlendingFile :
 	case Kompare::BlendingDir :
-		text = source + ":" + destination;
+		text = source + ':' + destination;
 		break;
 	case Kompare::ShowingDiff :
 		text = source;

@@ -149,6 +149,9 @@ public:
 	Diff2::DiffModel* model() { return m_model; };
 	void fillChangesList( K3ListView* changesList, Q3PtrDict<KChangeLVI>* diffToChangeItemDict );
 private:
+	bool hasExtension(const QString& extensions, const QString& fileName);
+	const QString getIcon(const QString& fileName);
+private:
 	Diff2::DiffModel* m_model;
 };
 

@@ -403,7 +403,7 @@ void KompareNavTreePart::slotApplyAllDifferences( bool /*apply*/ )
 {
 	Q3PtrDictIterator<KChangeLVI> it( m_diffToChangeItemDict );
 
-	kDebug() << "m_diffToChangeItemDict.count() = " << m_diffToChangeItemDict.count() << endl;
+	kDebug(8105) << "m_diffToChangeItemDict.count() = " << m_diffToChangeItemDict.count() << endl;
 
 	for ( ; it.current(); ++it )
 	{
@@ -495,11 +495,89 @@ KFileLVI::KFileLVI( K3ListView* parent, DiffModel* model ) : K3ListViewItem( par
 {
 	m_model = model;
 
-	setText( 0, model->sourceFile() );
-	setText( 1, model->destinationFile() );
-	setPixmap( 0, SmallIcon( "txt" ) );
-	setPixmap( 1, SmallIcon( "txt" ) );
+	QString src = model->sourceFile();
+	QString dst = model->destinationFile();
+
+	setText( 0, src );
+	setText( 1, dst );
+	setPixmap( 0, SmallIcon( getIcon( src ) ) );
+	setPixmap( 1, SmallIcon( getIcon( dst ) ) );
 	setSelectable( true );
+}
+
+bool KFileLVI::hasExtension(const QString& extensions, const QString& fileName)
+{
+    QStringList extList = extensions.split(' ');
+	foreach (QString ext, extList) {
+		if ( fileName.endsWith(ext, Qt::CaseInsensitive) ) {
+			return true;
+		}
+	}
+	return false;
+}
+
+const QString KFileLVI::getIcon(const QString& fileName)
+{
+	// C++, C
+	if ( hasExtension( ".h .hpp", fileName ) ) {
+		return "text-x-c++hdr";
+	}
+	if ( hasExtension( ".cpp", fileName ) ) {
+		return "text-x-c++src";
+	}
+	if ( hasExtension( ".c", fileName ) ) {
+		return "text-x-csrc";
+	}
+	// Python
+	if ( hasExtension( ".py .pyw", fileName ) ) {
+		return "text-x-python";
+	}
+	// C#
+	if ( hasExtension( ".cs", fileName ) ) {
+		return "text-x-csharp";
+	}
+	// Objective-C
+	if ( hasExtension( ".m", fileName ) ) {
+		return "text-x-objcsrc";
+	}
+	// Java
+	if ( hasExtension( ".java", fileName ) ) {
+		return "text-x-java";
+	}
+	// Script
+	if ( hasExtension( ".sh", fileName ) ) {
+		return "text-x-script";
+	}
+	// Makefile
+	if ( hasExtension( ".cmake Makefile", fileName ) ) {
+		return "text-x-makefile";
+	}
+	// Ada
+	if ( hasExtension( ".ada .ads .adb", fileName ) ) {
+		return "text-x-adasrc";
+	}
+	// Pascal
+	if ( hasExtension( ".pas", fileName ) ) {
+		return "text-x-pascal";
+	}
+	// Patch
+	if ( hasExtension( ".diff", fileName ) ) {
+		return "text-x-patch";
+	}
+	// Tcl
+	if ( hasExtension( ".tcl", fileName ) ) {
+		return "text-x-tcl";
+	}
+	// Text
+	if ( hasExtension( ".txt", fileName ) ) {
+		return "text-plain";
+	}
+	// Xml
+	if ( hasExtension( ".xml", fileName ) ) {
+		return "text-xml";
+	}
+	// unknown or no file extension
+	return "text-plain";
 }
 
 void KFileLVI::fillChangesList( K3ListView* changesList, Q3PtrDict<KChangeLVI>* diffToChangeItemDict )

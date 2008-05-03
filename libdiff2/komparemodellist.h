@@ -22,7 +22,7 @@
 #ifndef KOMPAREMODELLIST_H
 #define KOMPAREMODELLIST_H
 
-#include <qobject.h>
+#include <QtCore/QObject>
 
 #include "diffmodel.h"
 #include "diffmodellist.h"
@@ -193,7 +193,7 @@ private:
 	KDirWatch*            m_fileWatch;
 
 	int                   m_noOfModified;
-	unsigned int          m_modelIndex;
+	int                   m_modelIndex;
 
 	struct Kompare::Info& m_info;
 

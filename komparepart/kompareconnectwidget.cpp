@@ -77,9 +77,9 @@ QSize KompareConnectWidgetFrame::sizeHint() const
 	return QSize(50, style()->pixelMetric( QStyle::PM_ScrollBarExtent ) );
 }
 
+#if 0
 static int kMouseOffset;
 
-#if 0
 void KompareConnectWidgetFrame::mouseMoveEvent( QMouseEvent *e )
 {
 
@@ -287,9 +287,9 @@ Q3PointArray KompareConnectWidget::makeBottomBezier( int bl, int br )
 Q3PointArray KompareConnectWidget::makeConnectPoly( const Q3PointArray& topBezier, const Q3PointArray& bottomBezier )
 {
 	Q3PointArray poly( topBezier.size() + bottomBezier.size() );
-	for( uint i = 0; i < topBezier.size(); i++ )
+	for( int i = 0; i < topBezier.size(); i++ )
 		poly.setPoint( i, topBezier.point( i ) );
-	for( uint i = 0; i < bottomBezier.size(); i++ )
+	for( int i = 0; i < bottomBezier.size(); i++ )
 		poly.setPoint( i + topBezier.size(), bottomBezier.point( i ) );
 
 	return poly;

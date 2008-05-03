@@ -139,7 +139,7 @@ private:
 	int  m_appliedCount;
 	bool m_modified;
 
-	unsigned int m_diffIndex;
+	int          m_diffIndex;
 	Difference*  m_selectedDifference;
 
 	bool m_blended;

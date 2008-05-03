@@ -25,7 +25,6 @@
 #include <QtCore/QDir>
 #include <QtCore/QRegExp>
 #include <QtCore/QTextCodec>
-#include <q3valuelist.h>
 #include <QtCore/QTextStream>
 #include <QtCore/QLinkedList>
 
@@ -504,7 +503,7 @@ QStringList KompareModelList::split( const QString& fileContents )
 	QStringList list;
 
 	int pos = 0;
-	unsigned int oldpos = 0;
+	int oldpos = 0;
 	// split that does not strip the split char
 #ifdef QT_OS_MAC
 	const char split = '\r';
@@ -1360,7 +1359,7 @@ bool KompareModelList::hasNextModel() const
 {
 	kDebug(8101) << "KompareModelList::hasNextModel()" << endl;
 
-	if ( (  unsigned int )m_modelIndex < (  m_models->count() - 1 ) )
+	if ( m_modelIndex < (  m_models->count() - 1 ) )
 	{
 //		kDebug(8101) << "has next model" << endl;
 		return true;

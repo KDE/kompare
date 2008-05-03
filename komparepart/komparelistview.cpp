@@ -644,7 +644,7 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 	{
 		QString textChunk;
 		int offset = listView()->itemMargin();
-		unsigned int prevValue = 0;
+		int prevValue = 0;
 		int chunkWidth;
 		QBrush changeBrush( bg, Qt::Dense3Pattern );
 		QBrush normalBrush( bg, Qt::SolidPattern );
@@ -700,7 +700,7 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 		if ( prevValue < m_text->string().length() )
 		{
 			// Still have to draw some string without changes
-			textChunk = m_text->string().mid( prevValue, qMax( ( unsigned int )1, m_text->string().length() - prevValue ) );
+			textChunk = m_text->string().mid( prevValue, qMax( 1, m_text->string().length() - prevValue ) );
 			textChunk.replace( QChar('\t'), kompareListView()->spaces() );
 //			kDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
 			QFont font( p->font() );

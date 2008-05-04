@@ -1,13 +1,10 @@
 /***************************************************************************
-                                kompareurldialog.cpp  -  description
-                                -------------------
+                                kompareurldialog.cpp
+                                --------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2004 Otto Bruggeman
-                                  (C) 2001-2003 John Firebaugh
-                                  (C) 2007      Kevin Kofler
-        email                   : otto.bruggeman@home.nl
-                                  jfirebaugh@kde.org
-                                  kevin.kofler@chello.at
+        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
+        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -105,16 +102,28 @@ void KompareURLDialog::slotEnableOk()
 	                !m_filesPage->secondURLRequester()->url().isEmpty() );
 }
 
+/**
+ * Returns the first URL, which was entered.
+ * @return first URL
+ */
 KUrl KompareURLDialog::getFirstURL() const
 {
 	return KUrl( m_filesPage->firstURLRequester()->url() );
 }
 
+/**
+ * Returns the second URL, which was entered.
+ * @return second URL
+ */
 KUrl KompareURLDialog::getSecondURL() const
 {
 	return KUrl( m_filesPage->secondURLRequester()->url() );
 }
 
+/**
+ * Returns the encoding.
+ * @return encoding
+ */
 QString KompareURLDialog::encoding() const
 {
 	return m_filesPage->encoding();

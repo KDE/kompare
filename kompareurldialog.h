@@ -1,11 +1,9 @@
 /***************************************************************************
-                                kcompareurldialog.h  -  description
+                                kcompareurldialog.h
                                 -------------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2004 Otto Bruggeman
-                                  (C) 2001-2003 John Firebaugh
-        email                   : otto.bruggeman@home.nl
-                                  jfirebaugh@kde.org
+        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
 ****************************************************************************/
 
 /***************************************************************************
@@ -38,6 +36,11 @@ class DiffSettings;
 class ViewPage;
 class ViewSettings;
 
+/**
+ * Definition of class KompareURLDialog.
+ * @author Otto Bruggeman
+ * @author John Firebaugh
+ */
 class KompareURLDialog : public KPageDialog
 {
 	Q_OBJECT

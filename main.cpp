@@ -1,13 +1,10 @@
 /***************************************************************************
-                                main.cpp  -  description
-                                -------------------
+                                main.cpp
+                                --------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2004 Otto Bruggeman
-                                  (C) 2001-2003 John Firebaugh
-                                  (C) 2007      Kevin Kofler
-        email                   : otto.bruggeman@home.nl
-                                  jfirebaugh@kde.org
-                                  kevin.kofler@chello.at
+        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
+        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -18,7 +15,14 @@
 **   (at your option) any later version.
 **
 ***************************************************************************/
-
+/**
+ * @file main.cpp
+ * This is the main entry point for Kompare.
+ * The command line arguments are handled and the application is started.
+ * @author Otto Bruggeman <otto.bruggeman@home.nl>
+ * @author John Firebaugh <jfirebaugh@kde.org>
+ * @author Kevin Kofler   <kevin.kofler@chello.at>
+ */
 
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
@@ -32,11 +36,24 @@
 #include "kompare_shell.h"
 #include "kompareurldialog.h"
 
+/**
+ * Program description.
+ */
 static const char description[] =
 	I18N_NOOP("A program to view the differences between files and optionally generate a diff" );
 
+/**
+ * Version number.
+ */
 static const char version[] = "3.4";
 
+/**
+ * Setting up the KAboutData structure.
+ * Parsing and handling of the given command line arguments.
+ * @param argc   the number of arguments
+ * @param argv   the array of arguments
+ * @return exit status
+ */
 int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "kompare", 0, ki18n("Kompare"), version, ki18n(description),
@@ -44,7 +61,8 @@ int main(int argc, char *argv[])
 	                      ki18n("(c) 2001-2004, John Firebaugh and Otto Bruggeman") );
 	aboutData.addAuthor( ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org" );
 	aboutData.addAuthor( ki18n("Otto Bruggeman"), ki18n("Author"), "otto.bruggeman@home.nl" );
-	// FIXME: At least Jeff Snyder and Kevin Kofler should be listed here, and it's not 2004 anymore, but we're in a string freeze.
+	aboutData.addAuthor( ki18n("Jeff Snyder"), ki18n("Author"), "jeff@caffeinated.me.uk" );
+	aboutData.addCredit( ki18n("Kevin Kofler"), ki18n("Author"), "kevin.kofler@chello.at" );
 	aboutData.addCredit( ki18n("Chris Luetchford"), ki18n("Kompare icon artist"), "chris@os11.com" );
 	aboutData.addCredit( ki18n("Malte Starostik"), ki18n("A lot of good advice"), "malte@kde.org" );
 	aboutData.addCredit( ki18n("Bernd Gehrmann"), ki18n("Cervisia diff viewer"), "bernd@physik.hu-berlin.de" );

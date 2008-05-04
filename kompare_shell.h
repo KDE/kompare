@@ -1,13 +1,10 @@
 /***************************************************************************
-                                kompare_shell.h  -  description
-                                -------------------
+                                kompare_shell.h
+                                ----------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
-                                  (C) 2007      Kevin Kofler
-        email                   : otto.bruggeman@home.nl
-                                  jfirebaugh@kde.org
-                                  kevin.kofler@chello.at
+        Copyright 2001-2003 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
+        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -40,16 +37,16 @@ namespace KTextEditor {
 }
 
 /**
-* This is the application "Shell".  It has a menubar, toolbar, and
-* statusbar but relies on the "Part" to do all the real work.
-*
-* Adapted the shell a bit so it now handles separate view and navigation parts
-*
-* @short Application Shell
-* @author John Firebaugh <jfirebaugh@kde.org>
-* @author Otto Bruggeman <bruggie@home.nl>
-* @version 3.2.90
-*/
+ * This is the application "Shell".  It has a menubar, toolbar, and
+ * statusbar but relies on the "Part" to do all the real work.
+ *
+ * Adapted the shell a bit so it now handles separate view and navigation parts
+ *
+ * @short Application Shell
+ * @author John Firebaugh <jfirebaugh@kde.org>
+ * @author Otto Bruggeman <bruggie@home.nl>
+ * @version 3.2.90
+ */
 class KompareShell : public KParts::MainWindow
 {
 	Q_OBJECT
@@ -97,16 +94,16 @@ protected:
 	virtual bool queryClose();
 
 	/**
-	* This method is called when it is time for the app to save its
-	* properties for session management purposes.
-	*/
+	 * This method is called when it is time for the app to save its
+	 * properties for session management purposes.
+	 */
 	void saveProperties(KConfigGroup &);
 
 	/**
-	* This method is called when this app is restored.  The KConfig
-	* object points to the session management config file that was saved
-	* with @ref saveProperties
-	*/
+	 * This method is called when this app is restored.  The KConfig
+	 * object points to the session management config file that was saved
+	 * with @ref saveProperties
+	 */
 	void readProperties(const KConfigGroup &);
 
 private slots:

@@ -1,11 +1,9 @@
 /***************************************************************************
-                                diffhunk.h  -  description
-                                -------------------
+                                diffhunk.h
+                                ----------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
-        email                   : otto.bruggeman@home.nl
-                                  jfirebaugh@kde.org
+        Copyright 2001-2003 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
 ****************************************************************************/
 
 /***************************************************************************
@@ -21,7 +19,7 @@
 #define DIFFHUNK_H
 
 #include "difference.h"
-//Added by qt3to4:
+
 #include <Q3ValueList>
 
 namespace Diff2

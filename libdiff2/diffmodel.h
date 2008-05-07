@@ -1,11 +1,9 @@
 /***************************************************************************
-                                diffmodel.h  -  description
-                                -------------------
+                                diffmodel.h
+                                -----------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2004 Otto Bruggeman
-                                  (C) 2001-2003 John Firebaugh
-        email                   : otto.bruggeman@home.nl
-                                  jfirebaugh@kde.org
+        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>                                 
 ****************************************************************************/
 
 /***************************************************************************
@@ -20,8 +18,8 @@
 #ifndef DIFFMODEL_H
 #define DIFFMODEL_H
 
-#include <qobject.h>
-#include <qstringlist.h>
+#include <QtCore/QObject>
+#include <QtCore/QStringList>
 
 #include "diffhunk.h"
 #include "kompare.h"

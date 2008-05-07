@@ -1,10 +1,8 @@
 /**************************************************************************
 **                              cvsdiffparser.h
-**                              -----------------
+**                              ----------------
 **      begin                   : Sun Aug  4 15:05:35 2002
-**      copyright               : (C) 2002-2004 Otto Bruggeman
-**      email                   : otto.bruggeman@home.nl
-**
+**      Copyright 2002-2004 Otto Bruggeman <otto.bruggeman@home.nl>
 ***************************************************************************/
 /***************************************************************************
 **
@@ -15,10 +13,10 @@
 **
 ***************************************************************************/
 
-#ifndef _CVSDIFF_PARSER_H
-#define _CVSDIFF_PARSER_H
+#ifndef CVSDIFF_PARSER_H
+#define CVSDIFF_PARSER_H
 
-#include <qregexp.h>
+#include <QtCore/QRegExp>
 
 #include "parserbase.h"
 

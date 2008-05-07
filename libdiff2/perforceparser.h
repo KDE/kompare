@@ -1,10 +1,8 @@
 /**************************************************************************
 **                             perforceparser.h
-**                              -------------------
+**                             ----------------
 **      begin                   : Sun Sep  8 20:58:59 2002
-**      copyright               : (c) 2002-2004 Otto Bruggeman
-**      email                   : otto.bruggeman@home.nl
-**
+**      Copyright 2002-2004 Otto Bruggeman <otto.bruggeman@home.nl>
 ***************************************************************************/
 /***************************************************************************
 **
@@ -15,8 +13,8 @@
 **
 ***************************************************************************/
 
-#ifndef _PERFORCE_PARSER_H
-#define _PERFORCE_PARSER_H
+#ifndef PERFORCE_PARSER_H
+#define PERFORCE_PARSER_H
 
 #include "parserbase.h"
 

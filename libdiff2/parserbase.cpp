@@ -1,12 +1,9 @@
 /**************************************************************************
 **                             parserbase.cpp
-**                              -------------------
+**                             --------------
 **      begin                   : Sun Aug  4 15:05:35 2002
-**      copyright               : (C) 2002-2004 Otto Bruggeman
-**                                (C) 2007      Kevin Kofler
-**      email                   : otto.bruggeman@home.nl
-**                                kevin.kofler@chello.at
-**
+**      Copyright 2002-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+**      Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ***************************************************************************/
 /***************************************************************************
 **

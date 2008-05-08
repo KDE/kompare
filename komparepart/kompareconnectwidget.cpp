@@ -1,15 +1,11 @@
 /***************************************************************************
-                          kompareconnectwidget.cpp  -  description
-                             -------------------
+                          kompareconnectwidget.cpp
+                          ------------------------
     begin                : Tue Jun 26 2001
-    copyright            : (C) 2001-2003 John Firebaugh
-                           (C) 2001-2004 Otto Bruggeman
-                           (C) 2004      Jeff Snyder
-                           (C) 2007      Kevin Kofler
-    email                : jfirebaugh@kde.org
-                           otto.bruggeman@home.nl
-                           jeff@caffeinated.me.uk
-                           kevin.kofler@chello.at
+    Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
+    Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+    Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
+    Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
  ***************************************************************************/
 
 /***************************************************************************
@@ -23,15 +19,15 @@
 
 #include "kompareconnectwidget.h"
 
-#include <QApplication>
-#include <QPainter>
-#include <QPixmap>
-#include <QStyle>
-#include <QTimer>
+#include <QtGui/QApplication>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
+#include <QtGui/QStyle>
+#include <QtCore/QTimer>
 #include <Q3PointArray>
-#include <QPaintEvent>
+#include <QtGui/QPaintEvent>
 #include <Q3Frame>
-#include <QMouseEvent>
+#include <QtGui/QMouseEvent>
 
 #include <kdebug.h>
 

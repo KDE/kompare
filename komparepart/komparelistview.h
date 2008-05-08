@@ -1,13 +1,10 @@
 /***************************************************************************
-                                komparelistview.h  -  description
-                                -------------------
+                                komparelistview.h
+                                -----------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2004 Otto Bruggeman
-                                  (C) 2001-2003 John Firebaugh
-                                  (C) 2004      Jeff Snyder
-        email                   : otto.bruggeman@home.nl
-                                  jfirebaugh@kde.org
-                                  jeff@caffeinated.me.uk
+        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
+        Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
 ****************************************************************************/
 
 /***************************************************************************
@@ -25,9 +22,8 @@
 #include <Q3PtrList>
 #include <Q3ValueList>
 #include <Q3PtrDict>
-#include <qlabel.h>
-#include <qlayout.h>
-//Added by qt3to4:
+#include <QLabel>
+#include <QLayout>
 #include <QResizeEvent>
 #include <QWheelEvent>
 #include <Q3VBoxLayout>

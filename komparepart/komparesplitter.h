@@ -1,11 +1,9 @@
 /***************************************************************************
-                                komparesplitter.h  -  description
-                                -------------------
+                                komparesplitter.h
+                                -----------------
         begin                   : Wed Jan 14 2004
-        copyright               : (C) 2004 by Jeff Snyder
-                                  (C) 2007    Kevin Kofler
-        email                   : jeff@caffeinated.me.uk
-                                  kevin.kofler@chello.at
+        Copyright 2004 Jeff Snyder  <jeff@caffeinated.me.uk>
+        Copyright 2007 Kevin Kofler <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -20,7 +18,7 @@
 #ifndef _KOMPARESPLITTER_H_
 #define _KOMPARESPLITTER_H_
 
-#include <QSplitter>
+#include <QtGui/QSplitter>
 
 #include "komparemodellist.h"
 

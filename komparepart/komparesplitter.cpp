@@ -2,10 +2,8 @@
 **                              komparesplitter.cpp
 **                              -------------------
 **      begin                   : Wed Jan 14 2004
-**      copyright               : (c) 2004-2005 by Jeff Snyder
-**                                (c) 2007      Kevin Kofler
-**      email                   : jeff-webcvsspam@caffeinated.me.uk
-**                                kevin.kofler@chello.at
+**      Copyright 2004-2005 Jeff Snyder  <jeff-webcvsspam@caffeinated.me.uk>
+**      Copyright 2007      Kevin Kofler <kevin.kofler@chello.at>
 ***************************************************************************/
 
 /**************************************************************************
@@ -21,21 +19,21 @@
 #include "komparesplitter.h"
 
 // qt
-#include <QStyle>
-#include <QString>
-#include <QTimer>
-#include <QScrollBar>
-#include <QMap>
-#include <QSplitter>
-#include <QApplication>
-#include <QPainter>
-#include <QPixmap>
-#include <QKeyEvent>
-#include <QGridLayout>
-#include <QResizeEvent>
-#include <QChildEvent>
-#include <QEvent>
-#include <QWheelEvent>
+#include <QtGui/QStyle>
+#include <QtCore/QString>
+#include <QtCore/QTimer>
+#include <QtGui/QScrollBar>
+#include <QtCore/QMap>
+#include <QtGui/QSplitter>
+#include <QtGui/QApplication>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QGridLayout>
+#include <QtGui/QResizeEvent>
+#include <QtCore/QChildEvent>
+#include <QtCore/QEvent>
+#include <QtGui/QWheelEvent>
 
 // kde
 #include <kdebug.h>

@@ -1,13 +1,10 @@
 /***************************************************************************
-                                komparelistview.h  -  description
-                                -------------------
+                                komparelistview.h
+                                -----------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2004 Otto Bruggeman
-                                  (C) 2001-2003 John Firebaugh
-                                  (C) 2004      Jeff Snyder
-        email                   : otto.bruggeman@home.nl
-                                  jfirebaugh@kde.org
-                                  jeff@caffeinated.me.uk
+        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
+        Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
 ****************************************************************************/
 
 /***************************************************************************
@@ -22,13 +19,13 @@
 #include "komparelistview.h"
 
 #include <q3header.h>
-#include <QPainter>
-#include <QRegExp>
-#include <QTimer>
+#include <QtGui/QPainter>
+#include <QtCore/QRegExp>
+#include <QtCore/QTimer>
 #include <Q3Frame>
-#include <QResizeEvent>
-#include <QMouseEvent>
-#include <QWheelEvent>
+#include <QtGui/QResizeEvent>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QWheelEvent>
 
 #include <kdebug.h>
 #include <kglobal.h>

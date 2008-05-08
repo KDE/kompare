@@ -1,13 +1,10 @@
 /***************************************************************************
-                                kompareprefdlg.h  -  description
-                                -------------------
+                                kompareprefdlg.h
+                                ----------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2003 by Otto Bruggeman
-                                  and John Firebaugh
-                                  (C) 2007      Kevin Kofler
-        email                   : otto.bruggeman@home.nl
-                                  jfirebaugh@kde.org
-                                  kevin.kofler@chello.at
+        Copyright 2001-2003 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
+        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************

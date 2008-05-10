@@ -1,13 +1,10 @@
 /***************************************************************************
-                                komparenavtreepart.h  -  description
-                                -------------------
+                                komparenavtreepart.h
+                                --------------------
         begin                   : Mon Feb 26 2002
-        copyright               : (C) 2001-2004 Otto Bruggeman
-                                  (C) 2001-2003 John Firebaugh
-                                  (C) 2007      Kevin Kofler
-        email                   : otto.bruggeman@home.nl
-                                  jfirebaugh@kde.org
-                                  kevin.kofler@chello.at
+        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
+        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -24,7 +21,7 @@
 
 #include <q3ptrdict.h>
 #include <q3ptrlist.h>
-#include <qsplitter.h>
+#include <QtGui/QSplitter>
 #include <q3listview.h>
 
 #include <k3listview.h>

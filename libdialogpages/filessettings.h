@@ -1,10 +1,8 @@
 /***************************************************************************
-				filessettings.h  -  description
-				-------------------
+				filessettings.h
+				---------------
 	begin			: Sun Apr 18 2004
-	copyright		: (C) 2004 Otto Bruggeman
-	email			: otto.bruggeman@home.nl
-
+	Copyright 2004 Otto Bruggeman <otto.bruggeman@home.nl>
 ****************************************************************************/
 
 /***************************************************************************

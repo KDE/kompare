@@ -1,11 +1,9 @@
 /***************************************************************************
-                                diffsettings.cpp  -  description
-                                -------------------
+                                diffsettings.cpp
+                                ----------------
         begin                   : Sun Mar 4 2001
-        copyright               : (C) 2001-2004 Otto Bruggeman
-                                  (C) 2007      Kevin Kofler
-        email                   : otto.bruggeman@home.nl
-                                  kevin.kofler@chello.at
+        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************

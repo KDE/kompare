@@ -375,10 +375,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 		{
 			if ( !KIO::NetAccess::mkdir( KUrl( destination ).path(), (QWidget*)parent() ) )
 			{
-#ifdef __GNUC__				
-				#warning i18n: Missing argument to the i18n call below
-#endif				
-				emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved.</qt>" ) );
+				emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved.</qt>", destination ) );
 				return false;
 			}
 		}

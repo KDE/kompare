@@ -26,7 +26,7 @@ class KompareSaveOptionsBase : public QWidget, public Ui::KompareSaveOptionsBase
     Q_OBJECT
 
 public:
-    KompareSaveOptionsBase(QWidget* parent = 0, const char* name = 0, Qt::WindowFlags fl = 0);
+    explicit KompareSaveOptionsBase(QWidget* parent = 0, const char* name = 0, Qt::WindowFlags fl = 0);
     ~KompareSaveOptionsBase();
 
 protected slots:

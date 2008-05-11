@@ -72,7 +72,7 @@ public:
 	{
 //		kDebug(8101) << "DifferenceString::DifferenceString()" << endl;
 	}
-	DifferenceString( const QString& string, const MarkerList& markerList = MarkerList() ) :
+	explicit DifferenceString( const QString& string, const MarkerList& markerList = MarkerList() ) :
 		m_string( string ), 
 		m_markerList( markerList )
 	{

@@ -50,7 +50,7 @@ class KompareNavTreePart : public KParts::ReadOnlyPart
 	Q_OBJECT
 
 public:
-	KompareNavTreePart( QWidget* parent = 0L, const char* name = 0L );
+	explicit KompareNavTreePart( QWidget* parent = 0L, const char* name = 0L );
 	virtual ~KompareNavTreePart();
 
 public:

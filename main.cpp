@@ -58,11 +58,11 @@ int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "kompare", 0, ki18n("Kompare"), version, ki18n(description),
 	                      KAboutData::License_GPL,
-	                      ki18n("(c) 2001-2004, John Firebaugh and Otto Bruggeman") );
+	                      ki18n("(c) 2001-2004 John Firebaugh and Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2008 Kevin Kofler") );
 	aboutData.addAuthor( ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org" );
 	aboutData.addAuthor( ki18n("Otto Bruggeman"), ki18n("Author"), "otto.bruggeman@home.nl" );
-	aboutData.addAuthor( ki18n("Jeff Snyder"), ki18n("Author"), "jeff@caffeinated.me.uk" );
-	aboutData.addCredit( ki18n("Kevin Kofler"), ki18n("Author"), "kevin.kofler@chello.at" );
+	aboutData.addAuthor( ki18n("Jeff Snyder"), ki18n("Developer"), "jeff@caffeinated.me.uk" );
+	aboutData.addCredit( ki18n("Kevin Kofler"), ki18n("Maintainer"), "kevin.kofler@chello.at" );
 	aboutData.addCredit( ki18n("Chris Luetchford"), ki18n("Kompare icon artist"), "chris@os11.com" );
 	aboutData.addCredit( ki18n("Malte Starostik"), ki18n("A lot of good advice"), "malte@kde.org" );
 	aboutData.addCredit( ki18n("Bernd Gehrmann"), ki18n("Cervisia diff viewer"), "bernd@physik.hu-berlin.de" );

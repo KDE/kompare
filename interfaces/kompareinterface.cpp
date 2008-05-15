@@ -1,5 +1,5 @@
 /*
-  Copyright 2002-20034  Otto Bruggeman <otto.bruggeman@home.nl>
+  Copyright 2002-2004  Otto Bruggeman <otto.bruggeman@home.nl>
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as

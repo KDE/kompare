@@ -23,7 +23,7 @@ kde4_add_executable(kompare ${kompare_SRCS})
 
 target_link_libraries(kompare  kompareinterface komparediff2 komparedialogpages ${KDE4_KTEXTEDITOR_LIBS} ${KDE4_KDE3SUPPORT_LIBS} )
 
-install(TARGETS kompare  DESTINATION ${BIN_INSTALL_DIR} )
+install(TARGETS kompare  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 
 ########### install files ###############

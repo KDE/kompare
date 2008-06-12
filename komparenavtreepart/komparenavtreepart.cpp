@@ -505,7 +505,7 @@ KFileLVI::KFileLVI( K3ListView* parent, DiffModel* model ) : K3ListViewItem( par
 bool KFileLVI::hasExtension(const QString& extensions, const QString& fileName)
 {
     QStringList extList = extensions.split(' ');
-	foreach (QString ext, extList) {
+	foreach (const QString &ext, extList) {
 		if ( fileName.endsWith(ext, Qt::CaseInsensitive) ) {
 			return true;
 		}

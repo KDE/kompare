@@ -26,7 +26,6 @@
 #include <QtGui/QSpinBox>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QGridLayout>
-#include <QtGui/QTabWidget>
 #include <QtGui/QFontComboBox>
 
 #include <kapplication.h>
@@ -34,13 +33,14 @@
 #include <kdialog.h>
 #include <klocale.h>
 #include <kglobal.h>
+#include <ktabwidget.h>
 
 #include "viewsettings.h"
 
 ViewPage::ViewPage() : PageBase()
 {
 	QWidget*     page;
-	QTabWidget*  tabWidget;
+	KTabWidget*  tabWidget;
 	QVBoxLayout* layout;
 	QGridLayout* gridLayout;
 	QGroupBox*   colorGroupBox;
@@ -48,7 +48,7 @@ ViewPage::ViewPage() : PageBase()
 	QGroupBox*   tabGroupBox;
 	QLabel*      label;
 
-	tabWidget = new QTabWidget( this );
+	tabWidget = new KTabWidget( this );
 	page   = new QWidget( tabWidget );
 	layout = new QVBoxLayout( page );
 	layout->setSpacing( KDialog::spacingHint() );

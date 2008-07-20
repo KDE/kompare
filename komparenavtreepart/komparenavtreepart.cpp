@@ -631,7 +631,7 @@ void KDirLVI::addModel( QString& path, DiffModel* model, Q3PtrDict<KDirLVI>* mod
 	if ( !m_dirName.isEmpty() )
 	{
 		if ( path.find( m_dirName ) > -1 )
-			path = path.replace( path.find( m_dirName ), m_dirName.length(), "" );
+			path = path.remove( path.find( m_dirName ), m_dirName.length() );
 	}
 
 //	kDebug(8105) << "Path after removal of own dir (\"" << m_dirName << "\") = " << path << endl;

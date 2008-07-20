@@ -51,7 +51,8 @@ FilesPage::FilesPage() : PageBase()
 	m_secondURLRequester = new KUrlRequester( m_secondURLComboBox, m_secondGB );
 
 	m_thirdGB = new Q3GroupBox( 1, Qt::Vertical, i18n( "Encoding" ), page );
-	m_encodingComboBox = new QComboBox( false, m_thirdGB, "encoding_combobox" );
+	m_encodingComboBox = new KComboBox( false, m_thirdGB );
+	m_encodingComboBox->setObjectName( "encoding_combobox" );
 	m_encodingComboBox->insertStringList( KGlobal::charsets()->availableEncodingNames() );
 
 	layout->addWidget( m_firstGB );

@@ -25,7 +25,6 @@
 #include <QtGui/QSpinBox>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QHBoxLayout>
-#include <QtGui/QTabWidget>
 #include <QtGui/QToolTip>
 
 #include <kbuttongroup.h>
@@ -38,6 +37,7 @@
 #include <kurlcombobox.h>
 #include <kurlrequester.h>
 #include <kservicetypetrader.h>
+#include <ktabwidget.h>
 
 #include <kparts/componentfactory.h>
 #include <kregexpeditorinterface.h>
@@ -47,7 +47,7 @@
 
 DiffPage::DiffPage() : PageBase(), m_ignoreRegExpDialog( 0 )
 {
-	m_tabWidget = new QTabWidget( this );
+	m_tabWidget = new KTabWidget( this );
 
 	addDiffTab();
 
@@ -360,7 +360,10 @@ void DiffPage::addExcludeTab()
 	excludeFilePatternGroupBox->setTitle( i18n( "File Pattern to Exclude" ) );
 	m_excludeFilePatternCheckBox = new QCheckBox( "", excludeFilePatternGroupBox );
 	QToolTip::add( m_excludeFilePatternCheckBox, i18n( "If this is checked you can enter a shell pattern in the text box on the right or select entries from the list." ) );
-	m_excludeFilePatternEditListBox = new KEditListBox( excludeFilePatternGroupBox, "exclude_file_pattern_editlistbox", false, KEditListBox::Add|KEditListBox::Remove );
+	m_excludeFilePatternEditListBox = new KEditListBox( excludeFilePatternGroupBox );
+	m_excludeFilePatternEditListBox->setObjectName( "exclude_file_pattern_editlistbox" );
+	m_excludeFilePatternEditListBox->setButtons( KEditListBox::Add|KEditListBox::Remove );
+	m_excludeFilePatternEditListBox->setCheckAtEntering( false );
 	QToolTip::add( m_excludeFilePatternEditListBox, i18n( "Here you can enter or remove a shell pattern or select one or more entries from the list." ) );
 	layout->addWidget( excludeFilePatternGroupBox );
 

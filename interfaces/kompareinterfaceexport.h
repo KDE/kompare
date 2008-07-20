@@ -19,8 +19,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
 
-#ifndef LIBDIFF2EXPORT_H
-#define LIBDIFF2EXPORT_H
+#ifndef KOMPAREINTERFACEEXPORT_H
+#define KOMPAREINTERFACEEXPORT_H
 
 /* needed for KDE_EXPORT macros */
 #include <kdemacros.h>
@@ -33,5 +33,5 @@
 # endif
 #endif
 
-#endif
+#endif  // KOMPAREINTERFACEEXPORT_H
 

@@ -24,7 +24,6 @@
 
 class Q3GroupBox;
 
-class QComboBox;
 class KComboBox;
 class KConfig;
 class KFileDialog;
@@ -71,7 +70,7 @@ private:
 	// Use this bool to lock the connection between both KUrlRequesters.
 	// This prevents annoying behaviour
 	bool           m_URLChanged;
-	QComboBox*     m_encodingComboBox;
+	KComboBox*     m_encodingComboBox;
 
 	FilesSettings* m_settings;
 };

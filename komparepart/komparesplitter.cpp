@@ -92,7 +92,7 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget *parent,
 	connect( m_hScroll, SIGNAL(valueChanged(int)), SIGNAL(setXOffset(int)) );
 	connect( m_hScroll, SIGNAL(sliderMoved(int)),  SIGNAL(setXOffset(int)) );
 
-	m_scrollTimer=new QTimer();
+	m_scrollTimer=new QTimer(this);
 	m_restartTimer = false;
 	connect (m_scrollTimer, SIGNAL(timeout()), SLOT(timerTimeout()) );
 

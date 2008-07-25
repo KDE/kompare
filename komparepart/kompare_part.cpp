@@ -744,6 +744,7 @@ void KomparePart::optionsPreferences()
 
 	if ( pref->exec() )
 		emit configChanged();
+        delete pref;
 }
 
 void KomparePart::slotSetModified( bool modified )

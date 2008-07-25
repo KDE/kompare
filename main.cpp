@@ -220,8 +220,10 @@ int main(int argc, char *argv[])
 				ks->compare( dialog->getFirstURL(), dialog->getSecondURL() );
 			}
 			else
+                        {
+                                delete dialog;
 				return -1;
-
+                        }
 			delete dialog;
 		}
 

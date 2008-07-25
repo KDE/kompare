@@ -391,6 +391,9 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	if ( !result )
 	{
 		emit error( i18n( "<qt>Could not upload the temporary file to the destination location <b>%1</b>. The temporary file is still available under: <b>%2</b>. You can manually copy it to the right place.</qt>", m_destination, temp->name() ) );
+                //Don't remove file when we delete temp and don't leak it.
+                temp->setAutoRemove(false);
+                delete temp;
 	}
 	else
 	{

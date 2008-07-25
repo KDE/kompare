@@ -113,7 +113,7 @@ ViewPage::ViewPage() : PageBase()
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	tabWidget->addTab( page, i18n( "A&ppearance" ) );
+	tabWidget->addTab( page, i18n( "Appearance" ) );
 
 	page   = new QWidget( tabWidget );
 	layout = new QVBoxLayout( page );
@@ -137,7 +137,7 @@ ViewPage::ViewPage() : PageBase()
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	tabWidget->addTab( page, i18n( "&Fonts" ) );
+	tabWidget->addTab( page, i18n( "Fonts" ) );
 }
 
 ViewPage::~ViewPage()

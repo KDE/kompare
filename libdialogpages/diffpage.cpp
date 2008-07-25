@@ -226,7 +226,7 @@ void DiffPage::addDiffTab()
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	m_tabWidget->addTab( page, i18n( "&Diff" ) );
+	m_tabWidget->addTab( page, i18n( "Diff" ) );
 }
 
 void DiffPage::addFormatTab()
@@ -272,7 +272,7 @@ void DiffPage::addFormatTab()
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	m_tabWidget->addTab( page, i18n( "&Format" ) );
+	m_tabWidget->addTab( page, i18n( "Format" ) );
 }
 
 void DiffPage::addOptionsTab()
@@ -346,7 +346,7 @@ void DiffPage::addOptionsTab()
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	m_tabWidget->addTab( page, i18n( "O&ptions" ) );
+	m_tabWidget->addTab( page, i18n( "Options" ) );
 }
 
 void DiffPage::addExcludeTab()
@@ -387,7 +387,7 @@ void DiffPage::addExcludeTab()
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	m_tabWidget->addTab( page, i18n( "&Exclude" ) );
+	m_tabWidget->addTab( page, i18n( "Exclude" ) );
 }
 
 #include "diffpage.moc"

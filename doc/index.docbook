@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
    <!ENTITY kappname "&kompare;">
-   <!ENTITY version "3.4">
+   <!ENTITY version "3.5.1">
    <!ENTITY package "kdesdk">
    <!ENTITY % addindex "IGNORE">
    <!ENTITY % English "INCLUDE">
@@ -25,8 +25,8 @@
 
  <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2007-01-20</date>
-<releaseinfo>3.4</releaseinfo>
+<date>2008-07-31</date>
+<releaseinfo>&version;</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -217,7 +217,7 @@ This opens the main workspace in a window of its own, allowing it to be maximize
 <varlistentry>
 <term>Statusbar Toggle</term>
 <listitem>
-<para>The status bar of the view panel can be toggled ON/OFF by selecting <menuchoice><guimenu>Settings</guimenu><guimenuitem>Hide/Show Statusbar</guimenuitem></menuchoice>.</para>
+<para>The status bar of the view panel can be toggled on and off by selecting <menuchoice><guimenu>Settings</guimenu><guimenuitem>Show Statusbar</guimenuitem></menuchoice>.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -551,12 +551,14 @@ Like Ed format, this format is rarely used since the <application>patch</applica
 output is more compact than that of context as it omits redundant context lines.</para>
 </listitem>
 </varlistentry>
+<!-- not in 3.5.1
 <varlistentry>
 <term><guilabel>Side-by-side</guilabel></term>
 <listitem>
 <para>Use the side by side output format which displays files listed in two columns with a gutter between them. This option is only available from the <guilabel>Diff Options</guilabel> dialog (see <xref linkend="creating-a-diff"/>).</para>
 </listitem>
 </varlistentry>
+-->
 </variablelist>
 <variablelist>
 <title>Lines of Context</title>
@@ -599,7 +601,6 @@ output is more compact than that of context as it omits redundant context lines.
 </varlistentry>
 </variablelist>
 <variablelist>
-<title>Ignore regexp</title>
 <varlistentry>
 <term><guilabel>Ignore regexp</guilabel></term>
 <listitem><para>Ignore lines matching a regular expression.</para></listitem>
@@ -714,7 +715,7 @@ When this option is checked such changes are ignored.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice><guimenu>File</guimenu><guimenuitem>Save .diff</guimenuitem></menuchoice></term>
+<term><menuchoice><guimenu>File</guimenu><guimenuitem>Save .diff...</guimenuitem></menuchoice></term>
 <listitem><para>Displays the <guilabel>Diff Options</guilabel> dialog to define diff format and options.</para></listitem>
 </varlistentry>
 
@@ -817,11 +818,11 @@ When this option is checked such changes are ignored.</para></listitem>
 <title>The <guimenu>Settings</guimenu> Menu</title>
 <variablelist>
 <varlistentry>
-<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Hide/Show Toolbar</guimenuitem></menuchoice></term>
+<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Show Toolbar</guimenuitem></menuchoice></term>
 <listitem><para>Toggle the toolbar display ON/OFF.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Show/Hide Statusbar</guimenuitem></menuchoice></term>
+<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Show Statusbar</guimenuitem></menuchoice></term>
 <listitem><para>Toggle the status bar display ON/OFF.</para></listitem>
 </varlistentry>
 <varlistentry>

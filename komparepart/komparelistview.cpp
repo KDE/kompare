@@ -276,7 +276,7 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 	// setSelection signal from the modelcontroller arrives.
 	//
 	// the first call (which will always be from the splitter) will have
-	// scroll==false, and the the second call will bail out here.
+	// scroll==false, and the second call will bail out here.
 	// Which is why clicking on a difference does not cause the listviews to
 	// scroll.
 	if ( m_selectedDifference == diff )

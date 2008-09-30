@@ -109,7 +109,7 @@ listed by &kompare; where easy navigation between the various files is possible.
 <menuchoice><guimenu>Development</guimenu><guimenuitem>Kompare</guimenuitem></menuchoice>.</para>
 
 <para>When &kompare; starts the first thing it does is display a dialog from 
-which to select the files you wish to compare. Special settings for the properties of the diff and the apprearance thereof can also be selected. 
+which to select the files you wish to compare. Special settings for the properties of the diff and the appearance thereof can also be selected. 
 In the file form select a source and destination source to compare. This can be any two files, folders or a &URL; and a file. 
 Once the source and destination are selected click the <guibutton>Compare</guibutton> button.</para>
 
@@ -142,8 +142,8 @@ with many subfolders and files, this process can take awhile.</para>
 <sect3 id="toolbar">
 <title>Toolbar</title>
 <para>The &kompare; toolbar provides shortcuts to the most frequently used diff and merge operations. 
-The toolbar orientation, text postioning, icon size properties and which shortcut icons are displayed can be customized from the 
-toobar context menu accessed when right-clicking the toolbar with the mouse. The toobar content menu also enables the toobar to be hidden. 
+The toolbar orientation, text positioning, icon size properties and which shortcut icons are displayed can be customized from the 
+toolbar context menu accessed when right-clicking the toolbar with the mouse. The toolbar context menu also enables the toolbar to be hidden. 
 If the toolbar is hidden and you wish to unhide it, select <menuchoice><guimenu>Settings</guimenu><guimenuitem>Show Toolbar</guimenuitem></menuchoice>.</para>
 </sect3>
 
@@ -169,7 +169,7 @@ Selecting a record within the pane highlights and selects the difference. This i
 <sect3 id="source-destination-view">
 <title>Source and Destination View</title>
 <para>The source and destination view is the main workspace of &kompare;. 
-The contents and highlighted differences of the currently selected source and destination file are displayed here with line numbers..</para>
+The contents and highlighted differences of the currently selected source and destination file are displayed here with line numbers.</para>
 </sect3>
 
 <sect3 id="text-view">

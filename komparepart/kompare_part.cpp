@@ -171,7 +171,7 @@ void KomparePart::setupActions()
 	m_diffStats = actionCollection()->addAction("file_diffstats", this, SLOT(slotShowDiffstats()));
 	m_diffStats->setText(i18n("Show Statistics"));
 	m_diffRefresh = actionCollection()->addAction("file_refreshdiff", this, SLOT(slotRefreshDiff()));
-	m_diffRefresh->setIcon(KIcon("reload"));
+	m_diffRefresh->setIcon(KIcon("view-refresh"));
 	m_diffRefresh->setText(i18n("Refresh Diff"));
 	m_diffRefresh->setShortcut(KStandardShortcut::reload());
 

@@ -1209,6 +1209,16 @@ void KompareModelList::clear()
 	emit modelsChanged( m_models );
 }
 
+void KompareModelList::refresh()
+{
+	QString source = m_source;
+	QString destination = m_destination;
+	if ( m_info.mode == Kompare::ComparingFiles )
+		compareFiles( source, destination );
+	else if ( m_info.mode == Kompare::ComparingDirs )
+		compareDirs( source, destination );
+}
+
 void KompareModelList::swap()
 {
 	QString source = m_source;

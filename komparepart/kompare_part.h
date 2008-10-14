@@ -5,7 +5,7 @@
         Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
-        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2008 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -186,6 +186,7 @@ protected slots:
 
 	void slotSwap();
 	void slotShowDiffstats();
+	void slotRefreshDiff();
 	void optionsPreferences();
 	void updateActions();
 	void updateCaption();
@@ -213,6 +214,7 @@ private:
 	KAction*                 m_saveDiff;
 	KAction*                 m_swap;
 	KAction*                 m_diffStats;
+	KAction*                 m_diffRefresh;
 
 	KTemporaryFile*               m_tempDiff;
 

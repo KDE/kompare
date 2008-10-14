@@ -4,7 +4,7 @@
     begin                : Tue Jun 26 2001
     Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
     Copyright 2001-2003 Otto Bruggeman <otto.bruggeman@home.nl>
-    Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+    Copyright 2007-2008 Kevin Kofler   <kevin.kofler@chello.at>
  ***************************************************************************/
 
 /***************************************************************************
@@ -46,6 +46,7 @@ public:
 	~KompareModelList();
 
 public:
+	void refresh();
 	// Swap source with destination and show differences
 	void swap();
 

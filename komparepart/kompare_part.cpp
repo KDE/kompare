@@ -5,7 +5,7 @@
         Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
-        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2008 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -30,6 +30,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kstandardaction.h>
+#include <kstandardshortcut.h>
 #include <kcomponentdata.h>
 #include <ktemporaryfile.h>
 #include <kparts/genericfactory.h>
@@ -169,6 +170,10 @@ void KomparePart::setupActions()
 	m_swap->setText(i18n("Swap Source with Destination"));
 	m_diffStats = actionCollection()->addAction("file_diffstats", this, SLOT(slotShowDiffstats()));
 	m_diffStats->setText(i18n("Show Statistics"));
+	m_diffRefresh = actionCollection()->addAction("file_refreshdiff", this, SLOT(slotRefreshDiff()));
+	m_diffRefresh->setIcon(KIcon("reload"));
+	m_diffRefresh->setText(i18n("Refresh Diff"));
+	m_diffRefresh->setShortcut(KStandardShortcut::reload());
 
 	KStandardAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
 }
@@ -178,6 +183,7 @@ void KomparePart::updateActions()
 	m_saveAll->setEnabled  ( m_modelList->isModified() );
 	m_saveDiff->setEnabled ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
 	m_swap->setEnabled     ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
+	m_diffRefresh->setEnabled( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
 	m_diffStats->setEnabled( m_modelList->modelCount() > 0 );
 }
 
@@ -608,6 +614,30 @@ void KomparePart::slotSwap()
 	updateStatus();
 
 	m_modelList->swap();
+}
+
+void KomparePart::slotRefreshDiff()
+{
+	if ( isModified() )
+	{
+		int query = KMessageBox::warningYesNoCancel
+		            (
+		                widget(),
+		                i18n( "You have made changes to the destination file(s).\n"
+		                      "Would you like to save them?" ),
+		                i18n(  "Save Changes?" ),
+		                KStandardGuiItem::save(),
+		                KStandardGuiItem::discard()
+		            );
+
+		if ( query == KMessageBox::Yes )
+			m_modelList->saveAll();
+
+		if ( query == KMessageBox::Cancel )
+			return; // Abort prematurely so no swapping
+	}
+
+	m_modelList->refresh();
 }
 
 void KomparePart::slotShowDiffstats( void )

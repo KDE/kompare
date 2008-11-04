@@ -423,7 +423,6 @@ void KompareListView::resizeEvent( QResizeEvent* e )
 {
 	K3ListView::resizeEvent(e);
 	emit resized();
-	kDebug() << "resizeEvent " << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent )

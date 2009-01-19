@@ -28,6 +28,7 @@ class QSpinBox;
 class QStringList;
 class KButtonGroup;
 class QWidget;
+class QGroupBox;
 
 class KLineEdit;
 class KComboBox;
@@ -95,7 +96,7 @@ public:
 	QSpinBox*      m_locSpinBox;
 
 	KButtonGroup* m_modeButtonGroup;
-	KButtonGroup* m_diffProgramGroup;
+	QGroupBox* m_diffProgramGroup;
 
 	KTabWidget*      m_tabWidget;
 };

@@ -240,11 +240,11 @@ This will display the <guilabel>Diff Statistics</guilabel> dialog. The following
 <variablelist>
 <varlistentry>
 <term><guilabel>Old file:</guilabel></term>
-<listitem><para>The file name of what is usually the destination file or file that is unmodified and to which differences will be applied.</para></listitem>
+<listitem><para>The file name of what is usually the source file or file that is unmodified.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guilabel>New file:</guilabel></term>
-<listitem><para>The file name of what is usually the source file or file that is modified.</para></listitem>
+<listitem><para>The file name of what is usually the destination file or file that is modified and to which differences will be applied.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guilabel>Format:</guilabel></term>

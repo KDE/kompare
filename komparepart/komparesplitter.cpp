@@ -382,7 +382,7 @@ int KompareSplitter::maxContentsX()
 int KompareSplitter::minVisibleWidth()
 {
 	// Why the hell do we want to know this?
-	// ah yes, its because we use it to set the "page size" for horiz. scrolling.
+	// ah yes, it is because we use it to set the "page size" for horiz. scrolling.
 	// despite the fact that *none* has a pgright and pgleft key :P
 	// But we do have mousewheels with horizontal scrolling functionality,
 	// pressing shift and scrolling then goes left and right one page at the time

@@ -468,7 +468,7 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 		emit error( m_diffProcess->stdErr() );
 	}
 
-	delete m_diffProcess;
+	m_diffProcess->deleteLater();
 	m_diffProcess = 0;
 }
 

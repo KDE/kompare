@@ -592,18 +592,16 @@ void KompareListViewLineItem::setup()
 	setHeight( listView()->fontMetrics().lineSpacing() );
 }
 
-void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align )
+void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & /*cg*/, int column, int width, int align )
 {
 	p->setRenderHint(QPainter::Antialiasing);
 
-	QColor bg = cg.base();
-	p->fillRect( 0, 0, width, height(), bg );
+	QColor bg( Qt::white ); // Always make the background white when it is not a real difference
 	if ( diffItemParent()->difference()->type() == Difference::Unchanged )
 	{
 		if ( column == COL_LINE_NO )
 		{
-			bg = cg.background();
-			p->fillRect( 0, 0, width, height(), bg );
+			bg = QColor( Qt::lightGray );
 		}
 	}
 	else
@@ -612,20 +610,19 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, i
 		          diffItemParent()->difference()->type(),
 		          diffItemParent()->isSelected(),
 		          diffItemParent()->difference()->applied() );
-		if ( column != COL_MAIN )
-			p->fillRect( 0, 0, width, height(), bg );
 	}
 
-	p->setPen( cg.foreground() );
+	// Paint background
+	p->fillRect( 0, 0, width, height(), bg );
+
+	// Paint foreground
+	p->setPen( QColor( Qt::darkGray ) ); // always make normal text gray
 
 	paintText( p, bg, column, width, align );
 
+	// Paint darker lines around selected item
 	if ( diffItemParent()->isSelected() )
 	{
-		bg = kompareListView()->settings()->colorForDifferenceType(
-		          diffItemParent()->difference()->type(),
-		          diffItemParent()->isSelected(),
-		          diffItemParent()->difference()->applied() );
 		p->setPen( bg.dark(135) );
 		if ( this == parent()->firstChild() )
 			p->drawLine( 0, ANTIALIASING_MARGIN, width, ANTIALIASING_MARGIN );
@@ -780,9 +777,10 @@ void KompareListViewHunkItem::setup()
 	setHeight( maxHeight() );
 }
 
-void KompareListViewHunkItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align )
+void KompareListViewHunkItem::paintCell( QPainter * p, const QColorGroup & /*cg*/, int column, int width, int align )
 {
-	p->fillRect( 0, 0, width, height(), cg.mid() );
+	p->fillRect( 0, 0, width, height(), QColor( Qt::lightGray ) ); // Hunk headers should be lightgray 
+	p->setPen( QColor( Qt::black ) ); // Text color in hunk should be black
 	if( column == COL_MAIN ) {
 		p->drawText( listView()->itemMargin(), 0, width - listView()->itemMargin(), height(),
 		             align, m_hunk->function() );

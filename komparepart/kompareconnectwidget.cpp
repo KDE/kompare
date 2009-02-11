@@ -164,7 +164,7 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 
 	p->setRenderHint(QPainter::Antialiasing);
 
-	p->fillRect( 0, 0, pixbuf.width(), pixbuf.height(), QColor(Qt::white).dark(110) );
+	p->fillRect( 0, 0, pixbuf.width(), pixbuf.height(), palette().color( QPalette::Window ) );
 
 	KompareSplitter* splitter = static_cast<KompareSplitter*>( parent()->parent() );
 	int count = splitter->count();
@@ -223,14 +223,14 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 				Q3PointArray topBezier = makeTopBezier( tl, tr );
 				Q3PointArray bottomBezier = makeBottomBezier( bl, br );
 
-				QColor color = m_settings->colorForDifferenceType( diff->type(), selected, diff->applied() ).dark(110);
-				p->setPen( color );
-				p->setBrush( color );
+				QColor bg = m_settings->colorForDifferenceType( diff->type(), selected, diff->applied() );
+				p->setPen( bg );
+				p->setBrush( bg );
 				p->drawPolygon ( makeConnectPoly( topBezier, bottomBezier ) );
 
 				if ( selected )
 				{
-					p->setPen( color.dark(135) );
+					p->setPen( bg.dark(135) );
 					p->drawPolyline( topBezier );
 					p->drawPolyline( bottomBezier );
 				}

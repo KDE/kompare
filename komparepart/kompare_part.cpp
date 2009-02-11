@@ -770,7 +770,7 @@ void KomparePart::optionsPreferences()
 	// show preferences
 	KomparePrefDlg* pref = new KomparePrefDlg( m_viewSettings, m_diffSettings );
 
-	connect( pref, SIGNAL(applyClicked()), this, SIGNAL(configChanged()) );
+	connect( pref, SIGNAL(configChanged()), this, SIGNAL(configChanged()) );
 
 	if ( pref->exec() )
 		emit configChanged();

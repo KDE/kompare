@@ -45,6 +45,9 @@ protected slots:
 	/** No descriptions */
 	virtual void slotCancel();
 
+signals:
+	void configChanged();
+
 private:
 	ViewPage* m_viewPage;
 	DiffPage* m_diffPage;

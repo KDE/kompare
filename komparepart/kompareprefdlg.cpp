@@ -92,7 +92,7 @@ void KomparePrefDlg::slotApply()
 	m_viewPage->apply();
 	m_diffPage->apply();
 
-	emit applyClicked();
+	emit configChanged();
 }
 
 /** No descriptions */

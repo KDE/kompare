@@ -758,7 +758,7 @@ DiffModel* KompareModelList::lastModel()
 DiffModel* KompareModelList::prevModel()
 {
 	kDebug( 8101 ) << "KompareModelList::prevModel()" << endl;
-	if ( --m_modelIndex < m_models->count() )
+	if ( m_modelIndex > 0 && --m_modelIndex < m_models->count() )
 	{
 		kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
 		m_selectedModel = (*m_models)[ m_modelIndex ];
@@ -1314,8 +1314,8 @@ void KompareModelList::updateModelListActions()
 			else
 				m_unapplyAll->setEnabled( false );
 
-			m_applyDifference->setEnabled( true );
-			m_unApplyDifference->setEnabled( true );
+			m_applyDifference->setEnabled( m_selectedDifference->applied() == false );
+			m_unApplyDifference->setEnabled( m_selectedDifference->applied() == true );
 			m_save->setEnabled( m_selectedModel->isModified() );
 		}
 		else

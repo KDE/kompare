@@ -228,7 +228,7 @@ Difference* DiffModel::lastDifference()
 Difference* DiffModel::prevDifference()
 {
 	kDebug( 8101 ) << "DiffModel::prevDifference()" << endl;
-	if ( --m_diffIndex < m_differences.count() )
+	if ( m_diffIndex > 0 && --m_diffIndex < m_differences.count() )
 	{
 		kDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
 		m_selectedDifference = m_differences[ m_diffIndex ];

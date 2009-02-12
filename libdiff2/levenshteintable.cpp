@@ -2,7 +2,7 @@
 **
 ** Filename   : levenshteintable.cpp
 ** Created on : 08 november, 2003
-** Copyright 2003 Otto Bruggeman <bruggie@home.nl>
+** Copyright 2003,2009 Otto Bruggeman <bruggie@gmail.com>
 ** Copyright 2007 Kevin Kofler   <kevin.kofler@chello.at>
 **
 *******************************************************************************/
@@ -21,6 +21,7 @@
 #include <iostream>
 
 #include <QtCore/QString>
+//#include <QtCore/QStringList>
 
 #include <kdebug.h>
 #include <kglobal.h>
@@ -177,12 +178,28 @@ int LevenshteinTable::chooseRoute( int c1, int c2, int c3 )
 
 void LevenshteinTable::createListsOfMarkers()
 {
-//	std::cout << source.latin1() << std::endl;
-//	std::cout << destination.latin1() << std::endl;
+	QString source( m_source->string() );
+	QString destination( m_destination->string() );
+//	kDebug(8101) << source << endl;
+//	kDebug(8101) << destination << endl;
 //	dumpLevenshteinTable();
 
 	unsigned int x = m_width-1;
 	unsigned int y = m_height-1;
+
+	unsigned int difference = getContent(x, y);
+
+	// If the number of differences is more than half the length of the largest string 
+	// dont bother to mark the individual changes
+	// Patch based on work by Felix Berger as put as attachment to bug 75794
+	if ( difference > QMAX(x, y) / 2 )
+	{
+		m_source->prepend( new Marker( Marker::End, x ) );
+		m_source->prepend( new Marker( Marker::Start, 0 ) );
+		m_destination->prepend( new Marker( Marker::End, y ) );
+		m_destination->prepend( new Marker( Marker::Start, 0 ) );
+		return;
+	}
 
 	Marker* c = 0;
 
@@ -297,35 +314,54 @@ void LevenshteinTable::createListsOfMarkers()
 		}
 	}
 
-//	kDebug(8101) << "Source string: " << m_source->string() << endl;
-//	c = m_source->markerList()->first();
+	// When leaving the loop it does not mean both are 0! If not there is still a change at the beginning of the line we missed so adding now.
+	if ( x != 0 )
+	{
+		m_source->prepend( new Marker( Marker::End, x ) );
+		m_source->prepend( new Marker( Marker::Start, 0 ) );
+	}
+
+	if ( y != 0 )
+	{
+		m_destination->prepend( new Marker( Marker::End, y ) );
+		m_destination->prepend( new Marker( Marker::Start, 0 ) );
+	}
+
+//	kDebug(8101) << "Source string: " << source << endl;
+
 //	QStringList list;
-//	unsigned int prevValue = 0;
-//	for ( ; c; c = m_source->markerList()->next() )
+//	int prevValue = 0;
+//	MarkerListConstIterator mit = m_source->markerList().begin();
+//	MarkerListConstIterator end = m_source->markerList().end();
+//	for ( ; mit != end; ++mit )
 //	{
+//		c = *mit;
 //		kDebug(8101) << "Source Marker Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
-//		list.append( m_source->string().mid( prevValue, c->offset() - prevValue ) );
+//		list.append( source.mid( prevValue, c->offset() - prevValue ) );
 //		prevValue = c->offset();
 //	}
-//	if ( prevValue < m_source->string().length() - 1 )
+//	if ( prevValue < source.length() - 1 )
 //	{
-//		list.append( m_source->string().mid( prevValue, m_source->string().length() - prevValue ) );
+//		list.append( source.mid( prevValue, source.length() - prevValue ) );
 //	}
 //	kDebug(8101) << "Source Resulting stringlist : " << list.join("\n") << endl;
-
+//
 //	list.clear();
 //	prevValue = 0;
-
-//	kDebug(8101) << "Destination string: " << m_destination->string() << endl;
-//	for ( ; c; c = m_destination->markerList()->next() )
+//
+//	kDebug(8101) << "Destination string: " << destination << endl;
+//	mit = m_destination->markerList().begin();
+//	end = m_destination->markerList().end();
+//	for ( ; mit != end; ++mit )
 //	{
+//		c = *mit;
 //		kDebug(8101) << "Destination Marker Entry : Type: " << c->type() << ", Offset: " << c->offset() << endl;
-//		list.append( m_destination->string().mid( prevValue, c->offset() - prevValue ) );
+//		list.append( destination.mid( prevValue, c->offset() - prevValue ) );
 //		prevValue = c->offset();
 //	}
-//	if ( prevValue < m_destination->string().length() - 1 )
+//	if ( prevValue < destination.length() - 1 )
 //	{
-//		list.append( m_destination->string().mid( prevValue, m_destination->string().length() - prevValue ) );
+//		list.append( destination.mid( prevValue, destination.length() - prevValue ) );
 //	}
 //	kDebug(8101) << "Destination Resulting string : " << list.join("\n") << endl;
 }

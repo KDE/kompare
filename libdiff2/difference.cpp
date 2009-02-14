@@ -59,27 +59,27 @@ void Difference::apply( bool apply )
 
 void Difference::determineInlineDifferences()
 {
-	LevenshteinTable table;
 	if ( m_type != Difference::Change )
 		return;
 
 	// Do nothing for now when the slc != dlc
 	// One could try to find the closest matching destination string for any
 	// of the source strings but this is compute intensive
-	if ( sourceLineCount() != destinationLineCount() )
+	int slc = sourceLineCount();
+
+	if ( slc != destinationLineCount() )
 		return;
 
-	int slc = sourceLineCount();
+	LevenshteinTable table;
 
 	for ( int i = 0; i < slc; ++i )
 	{
 		DifferenceString* sl = sourceLineAt( i );
 		DifferenceString* dl = destinationLineAt( i );
 
-		// FIXME: If the table cannot be created do not do the rest
-		table.createTable( sl, dl );
-
-		table.createListsOfMarkers();
+		// return value 0 means something went wrong creating the table so dont bother finding markers
+		if ( table.createTable( sl, dl ) != 0 )
+			table.createListsOfMarkers();
 	}
 }
 

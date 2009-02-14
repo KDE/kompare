@@ -151,8 +151,19 @@ void KompareNavTreePart::buildTreeInMemory()
 	switch ( m_info->mode )
 	{
 	case Kompare::ShowingDiff:
+		// BUG: 107489 No common root because it is a multi directory relative path diff
+		// We need to detect this and create a different rootitem / or so or should we always add this?
+		// Trouble we run into is that the directories do not start with a /
+		// so we have an unknown top root dir
+		// Thinking some more about it i guess it is best to use "" as base and simply show some string
+		// like Unknown filesystem path as root text but only in the case of dirs starting without a /
 		srcBase = model->sourcePath();
 		destBase = model->destinationPath();
+		// FIXME: these tests will not work on windows, we need something else
+		if ( srcBase[0] != '/' )
+			srcBase = "";
+		if ( destBase[0] != '/' )
+			destBase = "";
 		break;
 	case Kompare::ComparingFiles:
 		srcBase  = model->sourcePath();

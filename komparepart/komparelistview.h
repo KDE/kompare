@@ -92,6 +92,7 @@ protected:
 	void contentsMouseDoubleClickEvent ( QMouseEvent* );
 	void contentsMouseReleaseEvent ( QMouseEvent * ) {};
 	void contentsMouseMoveEvent ( QMouseEvent * ) {};
+	void renumberLines( void );
 
 private:
 	Q3ValueList<KompareListViewDiffItem*> m_items;
@@ -123,6 +124,8 @@ private:
 	Q3VBoxLayout          m_layout;
 };
 
+enum ListViewItemType { Diff = 1001, Container = 1002, Line = 1003, Blank = 1004, Hunk = 1005 };  
+
 class KompareListViewItem : public Q3ListViewItem
 {
 public:
@@ -135,6 +138,7 @@ public:
 	int scrollId() { return m_scrollId; };
 
 	virtual int maxHeight() = 0;
+	virtual int rtti(void) const = 0;
 
 	KompareListView* kompareListView() const;
 
@@ -154,7 +158,8 @@ public:
 
 	Diff2::Difference* difference() { return m_difference; };
 
-	int maxHeight();
+	virtual int maxHeight();
+	virtual int rtti(void) const { return Diff; };
 
 private:
 	void init();
@@ -171,7 +176,8 @@ public:
 	KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource );
 
 	void setup();
-	int maxHeight() { return 0; }
+	virtual int maxHeight() { return 0; }
+	virtual int rtti(void) const { return Container; };
 	KompareListViewDiffItem* diffItemParent() const;
 
 private:
@@ -188,7 +194,8 @@ public:
 	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, Diff2::DifferenceString* text );
 
 	virtual void setup();
-	int maxHeight() { return 0; }
+	virtual int maxHeight() { return 0; }
+	virtual int rtti(void) const { return Line; };
 
 	virtual void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );
 	virtual void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
@@ -205,6 +212,7 @@ public:
 	KompareListViewBlankLineItem( KompareListViewLineContainerItem* parent );
 
 	void setup();
+	virtual int rtti(void) const { return Blank; };
 
 	void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
 };
@@ -218,7 +226,8 @@ public:
 	void setup();
 	void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );
 
-	int maxHeight();
+	virtual int maxHeight();
+	virtual int rtti(void) const { return Hunk; };
 
 private:
 	bool             m_zeroHeight;

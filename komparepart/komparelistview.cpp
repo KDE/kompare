@@ -384,9 +384,28 @@ void KompareListView::contentsMouseDoubleClickEvent( QMouseEvent* e )
 	}
 }
 
+void KompareListView::renumberLines( void )
+{
+//	kDebug( 8104 ) << "Begin" << endl;
+	unsigned int newLineNo = 1;
+	KompareListViewItem* item = (KompareListViewItem*)firstChild();
+	while( item ) {
+//		kDebug( 8104 ) << "rtti: " << item->rtti() << endl;
+		if ( item->rtti() != Container && item->rtti() != Blank && item->rtti() != Hunk )
+		{
+//			kDebug( 8104 ) << QString::number( newLineNo ) << endl;
+			item->setText( COL_LINE_NO, QString::number( newLineNo++ ) );
+		}
+		item = (KompareListViewItem*)item->itemBelow();
+	}
+}
+
 void KompareListView::slotApplyDifference( bool apply )
 {
 	m_itemDict[ (void*)m_selectedDifference ]->applyDifference( apply );
+	// now renumber the line column if this is the destination
+	if ( !m_isSource )
+		renumberLines();
 }
 
 void KompareListView::slotApplyAllDifferences( bool apply )
@@ -394,12 +413,18 @@ void KompareListView::slotApplyAllDifferences( bool apply )
 	Q3PtrDictIterator<KompareListViewDiffItem> it ( m_itemDict );
 	for( ; it.current(); ++it )
 		it.current()->applyDifference( apply );
+	// now renumber the line column if this is the destination
+	if ( !m_isSource )
+		renumberLines();
 	repaint();
 }
 
 void KompareListView::slotApplyDifference( const Difference* diff, bool apply )
 {
 	m_itemDict[ (void*)diff ]->applyDifference( apply );
+	// now renumber the line column if this is the destination
+	if ( !m_isSource )
+		renumberLines();
 }
 
 void KompareListView::setSpaces( int spaces )

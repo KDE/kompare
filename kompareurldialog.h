@@ -62,7 +62,7 @@ public:
 	void setSecondURLRequesterMode( unsigned int mode );
 
 protected slots:
-	virtual void slotOk();
+	virtual void slotButtonClicked( int button );
 
 private slots:
 	void slotEnableOk();

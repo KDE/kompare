@@ -17,10 +17,14 @@
 ***************************************************************************/
 #include "kompareurldialog.h"
 
+#include <QtGui/qcheckbox.h>
+
 #include <kapplication.h>
-#include <klocale.h>
-#include <kurlrequester.h>
 #include <kglobal.h>
+#include <klocale.h>
+#include <kmessagebox.h>
+#include <kurlcombobox.h>
+#include <kurlrequester.h>
 
 #include "diffpage.h"
 #include "diffsettings.h"
@@ -32,7 +36,7 @@
 KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WFlags flags )
         : KPageDialog( parent, flags )
 {
-    setFaceType( List );
+	setFaceType( List );
 	KSharedConfig::Ptr cfg = KGlobal::config();
 
 	m_filesPage = new FilesPage();
@@ -77,8 +81,28 @@ KompareURLDialog::~KompareURLDialog()
 {
 }
 
-void KompareURLDialog::slotOk()
+void KompareURLDialog::slotButtonClicked( int button )
 {
+	if ( button == KDialog::Cancel )
+	{
+		reject();
+		return;
+	}
+	// BUG: 124121 File with filenames to be excluded does not exist so diff complains and no diffs are generated
+	kDebug(8102) << "Test to see if the file is an actual file that is given in the file with filenames to exclude field" << endl;
+	if ( m_diffPage->m_excludeFileCheckBox->isChecked() )
+	{
+		kDebug(8102) << "Ok the checkbox is active..." << endl;
+		if ( QFileInfo( m_diffPage->m_excludeFileURLComboBox->currentText() ).isDir() )
+		{
+			kDebug(8102) << "Dont enter directory names where filenames are expected..." << endl;
+			KMessageBox::sorry( this, i18n( "File used for excluding files does not exist! Please give a file that exists." ) );
+			reject();
+			return;
+		}
+	}
+	// Room for more checks for invalid input
+
 	m_filesPage->setURLsInComboBoxes();
 
 	KSharedConfig::Ptr cfg = KGlobal::config();
@@ -93,7 +117,7 @@ void KompareURLDialog::slotOk()
 
 	cfg->sync();
 
-	//accept();
+	accept();
 }
 
 void KompareURLDialog::slotEnableOk()

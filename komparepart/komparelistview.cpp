@@ -391,7 +391,9 @@ void KompareListView::renumberLines( void )
 	KompareListViewItem* item = (KompareListViewItem*)firstChild();
 	while( item ) {
 //		kDebug( 8104 ) << "rtti: " << item->rtti() << endl;
-		if ( item->rtti() != Container && item->rtti() != Blank && item->rtti() != Hunk )
+		if ( item->rtti() != KompareListViewItem::Container 
+		     && item->rtti() != KompareListViewItem::Blank 
+		     && item->rtti() != KompareListViewItem::Hunk )
 		{
 //			kDebug( 8104 ) << QString::number( newLineNo ) << endl;
 			item->setText( COL_LINE_NO, QString::number( newLineNo++ ) );

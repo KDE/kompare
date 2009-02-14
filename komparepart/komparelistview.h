@@ -124,7 +124,6 @@ private:
 	Q3VBoxLayout          m_layout;
 };
 
-enum ListViewItemType { Diff = 1001, Container = 1002, Line = 1003, Blank = 1004, Hunk = 1005 };  
 
 class KompareListViewItem : public Q3ListViewItem
 {
@@ -141,6 +140,8 @@ public:
 	virtual int rtti(void) const = 0;
 
 	KompareListView* kompareListView() const;
+
+	enum ListViewItemType { Diff = 1001, Container = 1002, Line = 1003, Blank = 1004, Hunk = 1005 };  
 
 private:
 	int     m_scrollId;

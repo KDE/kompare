@@ -338,7 +338,7 @@ Multiple apply and unapply operations can be performed on a difference as all op
 
 <sect2 id="unapplying-all-differences">
 <title>Unapplying All Differences</title>
-<para>To differences that have been applied select 
+<para>To revert all differences that have been applied previously select 
 <menuchoice><guimenu>Difference</guimenu><guimenuitem>Unapply All</guimenuitem></menuchoice> (<keycombo action="simul">&Ctrl;<keycap>U</keycap></keycombo>).</para>
 </sect2>
 

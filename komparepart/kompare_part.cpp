@@ -5,7 +5,7 @@
         Copyright 2001-2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
-        Copyright 2007-2008 Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2009 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -73,7 +73,11 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringL
 
 	m_splitter = new KompareSplitter ( m_viewSettings, parentWidget );
 
-	setWidget( m_splitter );
+	// !!! Do not change this ->parentWidget()! Due to the bizarre reparenting hacks in KompareSplitter, !!!
+	// !!! the ->parentWidget() is not the one passed in the constructor, but the scroll view created    !!!
+	// !!! within the KompareSplitter. If you use m_splitter here, the scroll bars will not be shown!    !!!
+	// !!! Using the parentWidget parameter is also wrong, of course, you have to use m_splitter->...!   !!!
+	setWidget( m_splitter->parentWidget() );
 
 	// This creates the "Model creator" and connects the signals and slots
 	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_info, m_splitter, this, "komparemodellist" );

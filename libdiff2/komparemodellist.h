@@ -42,7 +42,7 @@ class DIFF2_EXPORT KompareModelList : public QObject
 {
 	Q_OBJECT
 public:
-	KompareModelList( DiffSettings* diffSettings, struct Kompare::Info& info, QObject* parent = 0, const char* name = 0 );
+	KompareModelList( DiffSettings* diffSettings, struct Kompare::Info& info, QWidget* widgetForKIO, QObject* parent, const char* name = 0 );
 	~KompareModelList();
 
 public:
@@ -208,6 +208,8 @@ private:
 
 	QString               m_encoding;
 	QTextCodec*           m_textCodec;
+
+	QWidget*              m_widgetForKIO;
 };
 
 } // End of namespace Diff2

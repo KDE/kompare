@@ -2,7 +2,7 @@
 **
 ** Filename   : diffmodellist.h
 ** Created on : 24 januari, 2004
-** Copyright 2004 Otto Bruggeman <bruggie@home.nl>
+** Copyright 2004-2005, 2009 Otto Bruggeman <bruggie@gmail.com>
 **
 *******************************************************************************/
 
@@ -36,7 +36,9 @@ public:
 	DiffModelList( const DiffModelList &list ) : Q3ValueList<DiffModel*>( list ) {}
 	virtual ~DiffModelList()
 	{
-		clear();
+		// Memleak as indicated by valgrind
+		while ( !isEmpty() )
+			delete takeFirst();
 	}
 
 public:

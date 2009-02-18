@@ -2,7 +2,7 @@
                                 kompare_part.h
                                 --------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2005,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
         Copyright 2007-2008 Kevin Kofler   <kevin.kofler@chello.at>
@@ -216,7 +216,7 @@ private:
 	KAction*                 m_diffStats;
 	KAction*                 m_diffRefresh;
 
-	KTemporaryFile*               m_tempDiff;
+	KTemporaryFile*          m_tempDiff;
 
 	struct Kompare::Info     m_info;
 };

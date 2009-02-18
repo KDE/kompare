@@ -119,6 +119,9 @@ KompareConnectWidget::KompareConnectWidget( ViewSettings* settings, QWidget* par
 
 KompareConnectWidget::~KompareConnectWidget()
 {
+	m_settings = 0;
+	m_selectedModel = 0;
+	m_selectedDifference = 0;
 }
 
 void KompareConnectWidget::slotSetSelection( const DiffModel* model, const Difference* diff )

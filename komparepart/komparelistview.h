@@ -2,7 +2,7 @@
                                 komparelistview.h
                                 -----------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2004,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
 ****************************************************************************/
@@ -152,6 +152,7 @@ class KompareListViewDiffItem : public KompareListViewItem
 public:
 	KompareListViewDiffItem( KompareListView* parent, Diff2::Difference* difference );
 	KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Diff2::Difference* difference );
+	~KompareListViewDiffItem();
 
 	void setup();
 	void setSelected( bool b );
@@ -166,15 +167,20 @@ private:
 	void init();
 	void setVisibility();
 
+private:
 	Diff2::Difference* m_difference;
 	KompareListViewLineContainerItem* m_sourceItem;
 	KompareListViewLineContainerItem* m_destItem;
 };
 
+class KompareListViewLineItem;
+class KompareListViewBlankLineItem;
+
 class KompareListViewLineContainerItem : public KompareListViewItem
 {
 public:
 	KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource );
+	~KompareListViewLineContainerItem();
 
 	void setup();
 	virtual int maxHeight() { return 0; }
@@ -186,6 +192,9 @@ private:
 	int lineNumber() const;
 	Diff2::DifferenceString* lineAt( int i ) const;
 
+private:
+	Q3ValueList<KompareListViewLineItem *> m_lineItemList;
+	KompareListViewBlankLineItem* m_blankLineItem;
 	bool m_isSource;
 };
 
@@ -193,6 +202,7 @@ class KompareListViewLineItem : public KompareListViewItem
 {
 public:
 	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, Diff2::DifferenceString* text );
+	~KompareListViewLineItem();
 
 	virtual void setup();
 	virtual int maxHeight() { return 0; }
@@ -223,6 +233,7 @@ class KompareListViewHunkItem : public KompareListViewItem
 public:
 	KompareListViewHunkItem( KompareListView* parent, Diff2::DiffHunk* hunk, bool zeroHeight = false );
 	KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, Diff2::DiffHunk* hunk, bool zeroHeight= false );
+	~KompareListViewHunkItem();
 
 	void setup();
 	void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );

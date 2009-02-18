@@ -2,7 +2,7 @@
                                 kompareurldialog.cpp
                                 --------------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2005,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
@@ -71,8 +71,6 @@ KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WFlags flags )
 	         this, SLOT( slotEnableOk() ) );
 	connect( m_filesPage->secondURLRequester(), SIGNAL( textChanged( const QString& ) ),
 	         this, SLOT( slotEnableOk() ) );
-
-	connect( this, SIGNAL(okClicked()), SLOT(slotOk()) );
 
 	slotEnableOk();
 }

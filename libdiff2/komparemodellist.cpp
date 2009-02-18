@@ -46,7 +46,7 @@
 
 using namespace Diff2;
 
-KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::Info& info, QObject* parent, const char* name )
+KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::Info& info, QWidget* widgetForKIO, QObject* parent, const char* name )
 	: QObject( parent, name ),
 	m_diffProcess( 0 ),
 	m_diffSettings( diffSettings ),
@@ -56,8 +56,10 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::
 	m_noOfModified( 0 ),
 	m_modelIndex( 0 ),
 	m_info( info ),
-	m_textCodec( 0 )
+	m_textCodec( 0 ),
+	m_widgetForKIO( widgetForKIO )
 {
+	kDebug(8101) << "Show me the arguments: " << diffSettings << ", " << &info << ", " << widgetForKIO << ", " << parent << ", " << name << endl;
 	KActionCollection *ac = (( KomparePart* )parent)->actionCollection();
 	m_applyDifference = ac->addAction( "difference_apply", this, SLOT(slotActionApplyDifference()) );
 	m_applyDifference->setIcon( KIcon("arrow-right") );
@@ -102,6 +104,9 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::
 
 KompareModelList::~KompareModelList()
 {
+	m_selectedModel = 0;
+	m_selectedDifference = 0;
+	delete m_models;
 }
 
 bool KompareModelList::isDirectory( const QString& url ) const
@@ -302,17 +307,16 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	if( !model->isModified() )
 		return true;
 
-	KTemporaryFile* temp = new KTemporaryFile();
-	temp->open();
+	KTemporaryFile temp;
+	temp.open();
 
-	if( temp->status() != 0 ) {
+	if( temp.status() != 0 ) {
 		emit error( i18n( "Could not open a temporary file." ) );
-		temp->remove();
-		delete temp;
+		temp.remove();
 		return false;
 	}
 
-	QTextStream stream( temp );
+	QTextStream stream( &temp );
 	QStringList list;
 
 	DiffHunkListConstIterator hunkIt = model->hunks()->begin();
@@ -355,51 +359,49 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	if( list.count() > 0 )
 		stream << list.join( "" );
 
-	temp->close();
-	if( temp->status() != 0 ) {
-		emit error( i18n( "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>", temp->name() ) );
-		temp->remove();
-		delete temp;
+	temp.close();
+	if( temp.status() != 0 ) {
+		emit error( i18n( "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>", temp.name() ) );
+		temp.remove();
 		return false;
 	}
 
 	bool result = false;
 
+	// Make sure the destination directory exists, it is possible when using -N to not have the destination dir/file available
 	if ( m_info.mode == Kompare::ComparingDirs )
 	{
 		QString destination = model->destinationPath() + model->destinationFile();
-		kDebug(8101) << "Tempfilename   : " << temp->name() << endl;
+		kDebug(8101) << "Tempfilename   : " << temp.name() << endl;
 		kDebug(8101) << "DestinationURL : " << destination << endl;
 		KIO::UDSEntry entry;
-		if ( !KIO::NetAccess::stat( KUrl( destination ).path(), entry, (QWidget*)parent() ) )
+		if ( !KIO::NetAccess::stat( KUrl( destination ).path(), entry, m_widgetForKIO ) )
 		{
-			if ( !KIO::NetAccess::mkdir( KUrl( destination ).path(), (QWidget*)parent() ) )
+			if ( !KIO::NetAccess::mkdir( KUrl( destination ).path(), m_widgetForKIO ) )
 			{
 				emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved.</qt>", destination ) );
 				return false;
 			}
 		}
-		result = KIO::NetAccess::upload( temp->name(), KUrl( destination ), (QWidget*)parent() );
+		result = KIO::NetAccess::upload( temp.name(), KUrl( destination ), m_widgetForKIO );
 	}
 	else
 	{
-		kDebug(8101) << "Tempfilename   : " << temp->name() << endl;
+		kDebug(8101) << "Tempfilename   : " << temp.name() << endl;
 		kDebug(8101) << "DestinationURL : " << m_destination << endl;
-		result = KIO::NetAccess::upload( temp->name(), KUrl( m_destination ), (QWidget*)parent() );
+		result = KIO::NetAccess::upload( temp.name(), KUrl( m_destination ), m_widgetForKIO );
 	}
 
 	if ( !result )
 	{
-		emit error( i18n( "<qt>Could not upload the temporary file to the destination location <b>%1</b>. The temporary file is still available under: <b>%2</b>. You can manually copy it to the right place.</qt>", m_destination, temp->name() ) );
+		emit error( i18n( "<qt>Could not upload the temporary file to the destination location <b>%1</b>. The temporary file is still available under: <b>%2</b>. You can manually copy it to the right place.</qt>", m_destination, temp.name() ) );
                 //Don't remove file when we delete temp and don't leak it.
-                temp->setAutoRemove(false);
-                delete temp;
+                temp.setAutoRemove(false);
 	}
 	else
 	{
 		//model->slotSetModified( false );
-		temp->remove();
-		delete temp;
+		temp.remove();
 	}
 
 	return true;
@@ -628,7 +630,7 @@ void KompareModelList::slotWriteDiffOutput( bool success )
 			emit error( i18n( "Could not write to the temporary file." ) );
 		}
 
-		KIO::NetAccess::upload( m_diffTemp->name(), KUrl( m_diffURL ), (QWidget*)parent() );
+		KIO::NetAccess::upload( m_diffTemp->name(), KUrl( m_diffURL ), m_widgetForKIO );
 
 		emit status( Kompare::FinishedWritingDiff );
 	}
@@ -1302,6 +1304,7 @@ void KompareModelList::updateModelListActions()
 {
 	if ( m_models && m_selectedModel && m_selectedDifference )
 	{
+		// ARGH!!!! Casts are evil!!!
 		if ( ( ( KomparePart* )parent() )->isReadWrite() )
 		{
 			if ( m_selectedModel->appliedCount() != m_selectedModel->differenceCount() )

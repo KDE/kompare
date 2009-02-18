@@ -71,8 +71,12 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringL
 
 	readProperties( KGlobal::config().data() );
 
+	m_splitter = new KompareSplitter ( m_viewSettings, parentWidget );
+
+	setWidget( m_splitter );
+
 	// This creates the "Model creator" and connects the signals and slots
-	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_info, this, "komparemodellist" );
+	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_info, m_splitter, this, "komparemodellist" );
 	connect( m_modelList, SIGNAL(status( Kompare::Status )),
 	         this, SLOT(slotSetStatus( Kompare::Status )) );
 	connect( m_modelList, SIGNAL(setStatusBarModelInfo( int, int, int, int, int )),
@@ -114,9 +118,7 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringL
 	connect( m_modelList, SIGNAL(diffString(const QString&)),
 	         this, SIGNAL(diffString(const QString&)) );
 
-	// This creates the splitterwidget and connects the signals and slots
-	m_splitter = new KompareSplitter ( m_viewSettings, parentWidget );
-
+	// Here we connect the splitter to the modellist
 	connect( m_modelList, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)),
 	         m_splitter,  SLOT(slotSetSelection(const Diff2::DiffModel*, const Diff2::Difference*)) );
 //	connect( m_splitter,  SIGNAL(selectionChanged(const Diff2::Difference*, const Diff2::Difference*)),
@@ -133,9 +135,6 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringL
 	connect( m_modelList, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
 	         m_splitter, SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
 	connect( this, SIGNAL(configChanged()), m_splitter, SIGNAL(configChanged()) );
-
-	// notify the part that this is our internal widget
-	setWidget( m_splitter->parentWidget() );
 
 	setupActions();
 
@@ -481,9 +480,10 @@ void KomparePart::saveDiff()
 
 KAboutData *KomparePart::createAboutData()
 {
-    KAboutData *about = new KAboutData("kompare", 0, ki18n("KomparePart"), "3.2");
+    KAboutData *about = new KAboutData("kompare", 0, ki18n("KomparePart"), "4.0");
     about->addAuthor(ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org");
-    about->addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "otto.bruggeman@home.nl" );
+    about->addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "bruggie@gmail.com" );
+    about->addAuthor(ki18n("Kevin Kofler"), ki18n("Author"), "kevin.kofler@chello.at" );
     return about;
 }
 

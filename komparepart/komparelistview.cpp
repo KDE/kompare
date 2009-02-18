@@ -134,6 +134,9 @@ KompareListView::KompareListView( bool isSource,
 
 KompareListView::~KompareListView()
 {
+	m_settings = 0;
+	m_selectedModel = 0;
+	m_selectedDifference = 0;
 }
 
 KompareListViewItem* KompareListView::itemAtIndex( int i )
@@ -323,34 +326,27 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 	DiffHunkListConstIterator hEnd   = model->hunks()->end();
 
 	KompareListViewItem* item = 0;
-	Difference* tmpdiff = 0;
-	DiffHunk* hunk = 0;
-	
 
 	for ( ; hunkIt != hEnd; ++hunkIt )
 	{
-		hunk = *hunkIt;
-
 		if( item )
-			item = new KompareListViewHunkItem( this, item, hunk, model->isBlended() );
+			item = new KompareListViewHunkItem( this, item, *hunkIt, model->isBlended() );
 		else
-			item = new KompareListViewHunkItem( this, hunk, model->isBlended() );
+			item = new KompareListViewHunkItem( this, *hunkIt, model->isBlended() );
 
-		DifferenceListConstIterator diffIt = hunk->differences().begin();
-		DifferenceListConstIterator dEnd   = hunk->differences().end();
+		DifferenceListConstIterator diffIt = (*hunkIt)->differences().begin();
+		DifferenceListConstIterator dEnd   = (*hunkIt)->differences().end();
 
 		for ( ; diffIt != dEnd; ++diffIt )
 		{
-			tmpdiff = *diffIt;
+			item = new KompareListViewDiffItem( this, item, *diffIt );
 
-			item = new KompareListViewDiffItem( this, item, tmpdiff );
-
-			int type = tmpdiff->type();
+			int type = (*diffIt)->type();
 
 			if ( type != Difference::Unchanged )
 			{
 				m_items.append( (KompareListViewDiffItem*)item );
-				m_itemDict.insert( tmpdiff, (KompareListViewDiffItem*)item );
+				m_itemDict.insert( *diffIt, (KompareListViewDiffItem*)item );
 			}
 		}
 	}
@@ -504,6 +500,13 @@ KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, Kompa
 	init();
 }
 
+KompareListViewDiffItem::~KompareListViewDiffItem()
+{
+	m_difference = 0;
+	delete m_sourceItem;
+	delete m_destItem;
+}
+
 void KompareListViewDiffItem::init()
 {
 	setExpandable( true );
@@ -557,6 +560,7 @@ void KompareListViewDiffItem::setSelected( bool b )
 
 KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource )
 	: KompareListViewItem( parent ),
+	m_blankLineItem( 0 ),
 	m_isSource( isSource )
 {
 //	kDebug(8104) << "isSource ? " << (isSource ? " Yes!" : " No!") << endl;
@@ -567,13 +571,19 @@ KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListV
 	int line = lineNumber() + lines - 1;
 //	kDebug(8104) << "LineNumber : " << lineNumber() << endl;
 	if( lines == 0 ) {
-		new KompareListViewBlankLineItem( this );
+		m_blankLineItem = new KompareListViewBlankLineItem( this );
 		return;
 	}
 
 	for( int i = lines - 1; i >= 0; i--, line-- ) {
-		new KompareListViewLineItem( this, line, lineAt( i ) );
+		m_lineItemList.append(new KompareListViewLineItem( this, line, lineAt( i ) ) );
 	}
+}
+
+KompareListViewLineContainerItem::~KompareListViewLineContainerItem()
+{
+	delete m_blankLineItem;
+	qDeleteAll( m_lineItemList );
 }
 
 void KompareListViewLineContainerItem::setup()
@@ -611,6 +621,11 @@ KompareListViewLineItem::KompareListViewLineItem( KompareListViewLineContainerIt
 	setText( COL_LINE_NO, QString::number( line ) );
 	setText( COL_MAIN, text->string() );
 	m_text = text;
+}
+
+KompareListViewLineItem::~KompareListViewLineItem()
+{
+	m_text = 0;
 }
 
 void KompareListViewLineItem::setup()
@@ -784,6 +799,11 @@ KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, Kompa
 	m_hunk( hunk )
 {
 	setSelectable( false );
+}
+
+KompareListViewHunkItem::~KompareListViewHunkItem()
+{
+	m_hunk = 0;
 }
 
 int KompareListViewHunkItem::maxHeight()

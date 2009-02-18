@@ -2,7 +2,7 @@
                                 kompare_shell.cpp
                                 -----------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2004,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
@@ -198,7 +198,12 @@ KompareShell::~KompareShell()
 
 bool KompareShell::queryClose()
 {
-	return m_viewPart->queryClose();
+	kDebug( 8103 ) << "Where did you just click?" << endl;
+	
+	bool rv = m_viewPart->queryClose();
+	if ( rv )
+		KGlobal::deref();
+	return rv;
 }
 
 void KompareShell::openDiff(const KUrl& url)
@@ -378,68 +383,67 @@ void KompareShell::slotFileOpen()
 
 void KompareShell::slotFileBlendURLAndDiff()
 {
-	KompareURLDialog* dialog = new KompareURLDialog( this );
+	KompareURLDialog dialog( this );
 
-	dialog->setCaption( i18n( "Blend File/Folder with diff Output" ) );
-	dialog->setFirstGroupBoxTitle( i18n( "File/Folder" ) );
-	dialog->setSecondGroupBoxTitle( i18n( "Diff Output" ) );
+	dialog.setCaption( i18n( "Blend File/Folder with diff Output" ) );
+	dialog.setFirstGroupBoxTitle( i18n( "File/Folder" ) );
+	dialog.setSecondGroupBoxTitle( i18n( "Diff Output" ) );
 
 	KGuiItem blendGuiItem( i18n( "Blend" ), QString(), i18n( "Blend this file or folder with the diff output" ), i18n( "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );
-	dialog->setButtonGuiItem( KDialog::Ok, blendGuiItem );
+	dialog.setButtonGuiItem( KDialog::Ok, blendGuiItem );
 
-	dialog->setGroup( "Recent Blend Files" );
+	dialog.setGroup( "Recent Blend Files" );
 
-	dialog->setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+	dialog.setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
 	// diff output can not be a directory
-	dialog->setSecondURLRequesterMode( KFile::File|KFile::ExistingOnly );
-	if ( dialog->exec() == QDialog::Accepted )
+	dialog.setSecondURLRequesterMode( KFile::File|KFile::ExistingOnly );
+	if ( dialog.exec() == QDialog::Accepted )
 	{
-		m_sourceURL = dialog->getFirstURL();
-		m_destinationURL = dialog->getSecondURL();
+		m_sourceURL = dialog.getFirstURL();
+		m_destinationURL = dialog.getSecondURL();
+		// Leak???
 		KompareShell* shell = new KompareShell();
 		KGlobal::ref();
 		shell->show();
-		shell->m_viewPart->setEncoding( dialog->encoding() );
+		shell->m_viewPart->setEncoding( dialog.encoding() );
 		shell->blend( m_sourceURL, m_destinationURL );
 	}
-	delete dialog;
 }
 
 void KompareShell::slotFileCompareFiles()
 {
-	KompareURLDialog* dialog = new KompareURLDialog( this );
+	KompareURLDialog dialog( this );
 
-	dialog->setCaption( i18n( "Compare Files or Folders" ) );
-	dialog->setFirstGroupBoxTitle( i18n( "Source" ) );
-	dialog->setSecondGroupBoxTitle( i18n( "Destination" ) );
+	dialog.setCaption( i18n( "Compare Files or Folders" ) );
+	dialog.setFirstGroupBoxTitle( i18n( "Source" ) );
+	dialog.setSecondGroupBoxTitle( i18n( "Destination" ) );
 
 	KGuiItem compareGuiItem( i18n( "Compare" ), QString(), i18n( "Compare these files or folders" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
-	dialog->setButtonGuiItem( KDialog::Ok, compareGuiItem );
+	dialog.setButtonGuiItem( KDialog::Ok, compareGuiItem );
 
-	dialog->setGroup( "Recent Compare Files" );
+	dialog.setGroup( "Recent Compare Files" );
 
-	dialog->setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
-	dialog->setSecondURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+	dialog.setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+	dialog.setSecondURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
 
-	if ( dialog->exec() == QDialog::Accepted )
+	if ( dialog.exec() == QDialog::Accepted )
 	{
-		m_sourceURL = dialog->getFirstURL();
-		m_destinationURL = dialog->getSecondURL();
+		m_sourceURL = dialog.getFirstURL();
+		m_destinationURL = dialog.getSecondURL();
 		KompareShell* shell = new KompareShell();
 		KGlobal::ref();
 		shell->show();
-		kDebug() << "Damn it, i should be called !!! Oh and encoding is: " << dialog->encoding() << endl;
-		shell->m_viewPart->setEncoding( dialog->encoding() );
+		kDebug() << "The encoding is: " << dialog.encoding() << endl;
+		shell->m_viewPart->setEncoding( dialog.encoding() );
 		shell->compare( m_sourceURL, m_destinationURL );
 	}
-	delete dialog;
 }
 
 void KompareShell::slotFileClose()
 {
+	kDebug(8103) << "here we exit through the file menu -> quit" << endl;
 	if ( m_viewPart->queryClose() )
 	{
-		delete this;
 		KGlobal::deref();
 	}
 }

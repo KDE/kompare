@@ -5,6 +5,7 @@
         Copyright 2001-2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
+        Copyright 2007-2009 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -658,7 +659,10 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & /*cg*
 	p->fillRect( 0, 0, width, height(), bg );
 
 	// Paint foreground
-	p->setPen( QColor( Qt::darkGray ) ); // always make normal text gray
+	if ( diffItemParent()->difference()->type() == Difference::Unchanged )
+		p->setPen( QColor( Qt::darkGray ) ); // always make normal text gray
+	else
+		p->setPen( QColor( Qt::black ) ); // make text with changes black
 
 	paintText( p, bg, column, width, align );
 

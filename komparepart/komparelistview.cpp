@@ -2,9 +2,10 @@
                                 komparelistview.h
                                 -----------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
+        Copyright 2007-2009 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -134,6 +135,9 @@ KompareListView::KompareListView( bool isSource,
 
 KompareListView::~KompareListView()
 {
+	m_settings = 0;
+	m_selectedModel = 0;
+	m_selectedDifference = 0;
 }
 
 KompareListViewItem* KompareListView::itemAtIndex( int i )
@@ -323,34 +327,27 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 	DiffHunkListConstIterator hEnd   = model->hunks()->end();
 
 	KompareListViewItem* item = 0;
-	Difference* tmpdiff = 0;
-	DiffHunk* hunk = 0;
-	
 
 	for ( ; hunkIt != hEnd; ++hunkIt )
 	{
-		hunk = *hunkIt;
-
 		if( item )
-			item = new KompareListViewHunkItem( this, item, hunk, model->isBlended() );
+			item = new KompareListViewHunkItem( this, item, *hunkIt, model->isBlended() );
 		else
-			item = new KompareListViewHunkItem( this, hunk, model->isBlended() );
+			item = new KompareListViewHunkItem( this, *hunkIt, model->isBlended() );
 
-		DifferenceListConstIterator diffIt = hunk->differences().begin();
-		DifferenceListConstIterator dEnd   = hunk->differences().end();
+		DifferenceListConstIterator diffIt = (*hunkIt)->differences().begin();
+		DifferenceListConstIterator dEnd   = (*hunkIt)->differences().end();
 
 		for ( ; diffIt != dEnd; ++diffIt )
 		{
-			tmpdiff = *diffIt;
+			item = new KompareListViewDiffItem( this, item, *diffIt );
 
-			item = new KompareListViewDiffItem( this, item, tmpdiff );
-
-			int type = tmpdiff->type();
+			int type = (*diffIt)->type();
 
 			if ( type != Difference::Unchanged )
 			{
 				m_items.append( (KompareListViewDiffItem*)item );
-				m_itemDict.insert( tmpdiff, (KompareListViewDiffItem*)item );
+				m_itemDict.insert( *diffIt, (KompareListViewDiffItem*)item );
 			}
 		}
 	}
@@ -384,9 +381,30 @@ void KompareListView::contentsMouseDoubleClickEvent( QMouseEvent* e )
 	}
 }
 
+void KompareListView::renumberLines( void )
+{
+//	kDebug( 8104 ) << "Begin" << endl;
+	unsigned int newLineNo = 1;
+	KompareListViewItem* item = (KompareListViewItem*)firstChild();
+	while( item ) {
+//		kDebug( 8104 ) << "rtti: " << item->rtti() << endl;
+		if ( item->rtti() != KompareListViewItem::Container 
+		     && item->rtti() != KompareListViewItem::Blank 
+		     && item->rtti() != KompareListViewItem::Hunk )
+		{
+//			kDebug( 8104 ) << QString::number( newLineNo ) << endl;
+			item->setText( COL_LINE_NO, QString::number( newLineNo++ ) );
+		}
+		item = (KompareListViewItem*)item->itemBelow();
+	}
+}
+
 void KompareListView::slotApplyDifference( bool apply )
 {
 	m_itemDict[ (void*)m_selectedDifference ]->applyDifference( apply );
+	// now renumber the line column if this is the destination
+	if ( !m_isSource )
+		renumberLines();
 }
 
 void KompareListView::slotApplyAllDifferences( bool apply )
@@ -394,12 +412,18 @@ void KompareListView::slotApplyAllDifferences( bool apply )
 	Q3PtrDictIterator<KompareListViewDiffItem> it ( m_itemDict );
 	for( ; it.current(); ++it )
 		it.current()->applyDifference( apply );
+	// now renumber the line column if this is the destination
+	if ( !m_isSource )
+		renumberLines();
 	repaint();
 }
 
 void KompareListView::slotApplyDifference( const Difference* diff, bool apply )
 {
 	m_itemDict[ (void*)diff ]->applyDifference( apply );
+	// now renumber the line column if this is the destination
+	if ( !m_isSource )
+		renumberLines();
 }
 
 void KompareListView::setSpaces( int spaces )
@@ -477,6 +501,13 @@ KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, Kompa
 	init();
 }
 
+KompareListViewDiffItem::~KompareListViewDiffItem()
+{
+	m_difference = 0;
+	delete m_sourceItem;
+	delete m_destItem;
+}
+
 void KompareListViewDiffItem::init()
 {
 	setExpandable( true );
@@ -530,6 +561,7 @@ void KompareListViewDiffItem::setSelected( bool b )
 
 KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource )
 	: KompareListViewItem( parent ),
+	m_blankLineItem( 0 ),
 	m_isSource( isSource )
 {
 //	kDebug(8104) << "isSource ? " << (isSource ? " Yes!" : " No!") << endl;
@@ -540,13 +572,19 @@ KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListV
 	int line = lineNumber() + lines - 1;
 //	kDebug(8104) << "LineNumber : " << lineNumber() << endl;
 	if( lines == 0 ) {
-		new KompareListViewBlankLineItem( this );
+		m_blankLineItem = new KompareListViewBlankLineItem( this );
 		return;
 	}
 
 	for( int i = lines - 1; i >= 0; i--, line-- ) {
-		new KompareListViewLineItem( this, line, lineAt( i ) );
+		m_lineItemList.append(new KompareListViewLineItem( this, line, lineAt( i ) ) );
 	}
+}
+
+KompareListViewLineContainerItem::~KompareListViewLineContainerItem()
+{
+	delete m_blankLineItem;
+	qDeleteAll( m_lineItemList );
 }
 
 void KompareListViewLineContainerItem::setup()
@@ -586,24 +624,27 @@ KompareListViewLineItem::KompareListViewLineItem( KompareListViewLineContainerIt
 	m_text = text;
 }
 
+KompareListViewLineItem::~KompareListViewLineItem()
+{
+	m_text = 0;
+}
+
 void KompareListViewLineItem::setup()
 {
 	KompareListViewItem::setup();
 	setHeight( listView()->fontMetrics().lineSpacing() );
 }
 
-void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align )
+void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & /*cg*/, int column, int width, int align )
 {
 	p->setRenderHint(QPainter::Antialiasing);
 
-	QColor bg = cg.base();
-	p->fillRect( 0, 0, width, height(), bg );
+	QColor bg( Qt::white ); // Always make the background white when it is not a real difference
 	if ( diffItemParent()->difference()->type() == Difference::Unchanged )
 	{
 		if ( column == COL_LINE_NO )
 		{
-			bg = cg.background();
-			p->fillRect( 0, 0, width, height(), bg );
+			bg = QColor( Qt::lightGray );
 		}
 	}
 	else
@@ -612,20 +653,22 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & cg, i
 		          diffItemParent()->difference()->type(),
 		          diffItemParent()->isSelected(),
 		          diffItemParent()->difference()->applied() );
-		if ( column != COL_MAIN )
-			p->fillRect( 0, 0, width, height(), bg );
 	}
 
-	p->setPen( cg.foreground() );
+	// Paint background
+	p->fillRect( 0, 0, width, height(), bg );
+
+	// Paint foreground
+	if ( diffItemParent()->difference()->type() == Difference::Unchanged )
+		p->setPen( QColor( Qt::darkGray ) ); // always make normal text gray
+	else
+		p->setPen( QColor( Qt::black ) ); // make text with changes black
 
 	paintText( p, bg, column, width, align );
 
+	// Paint darker lines around selected item
 	if ( diffItemParent()->isSelected() )
 	{
-		bg = kompareListView()->settings()->colorForDifferenceType(
-		          diffItemParent()->difference()->type(),
-		          diffItemParent()->isSelected(),
-		          diffItemParent()->difference()->applied() );
 		p->setPen( bg.dark(135) );
 		if ( this == parent()->firstChild() )
 			p->drawLine( 0, ANTIALIASING_MARGIN, width, ANTIALIASING_MARGIN );
@@ -762,6 +805,11 @@ KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, Kompa
 	setSelectable( false );
 }
 
+KompareListViewHunkItem::~KompareListViewHunkItem()
+{
+	m_hunk = 0;
+}
+
 int KompareListViewHunkItem::maxHeight()
 {
 	if( m_zeroHeight ) {
@@ -780,9 +828,10 @@ void KompareListViewHunkItem::setup()
 	setHeight( maxHeight() );
 }
 
-void KompareListViewHunkItem::paintCell( QPainter * p, const QColorGroup & cg, int column, int width, int align )
+void KompareListViewHunkItem::paintCell( QPainter * p, const QColorGroup & /*cg*/, int column, int width, int align )
 {
-	p->fillRect( 0, 0, width, height(), cg.mid() );
+	p->fillRect( 0, 0, width, height(), QColor( Qt::lightGray ) ); // Hunk headers should be lightgray 
+	p->setPen( QColor( Qt::black ) ); // Text color in hunk should be black
 	if( column == COL_MAIN ) {
 		p->drawText( listView()->itemMargin(), 0, width - listView()->itemMargin(), height(),
 		             align, m_hunk->function() );

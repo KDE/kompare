@@ -28,6 +28,7 @@ class QSpinBox;
 class QStringList;
 class KButtonGroup;
 class QWidget;
+class QGroupBox;
 
 class KLineEdit;
 class KComboBox;
@@ -94,10 +95,10 @@ public:
 	// loc == lines of context
 	QSpinBox*      m_locSpinBox;
 
-	KButtonGroup* m_modeButtonGroup;
-	KButtonGroup* m_diffProgramGroup;
+	KButtonGroup*  m_modeButtonGroup;
+	QGroupBox*     m_diffProgramGroup;
 
-	KTabWidget*      m_tabWidget;
+	KTabWidget*    m_tabWidget;
 };
 
 #endif

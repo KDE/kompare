@@ -19,6 +19,7 @@
 
 #include <QtGui/QCheckBox>
 #include <Q3HGroupBox>
+#include <QGroupBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
 #include <QtGui/QRadioButton>
@@ -212,7 +213,7 @@ void DiffPage::addDiffTab()
 	layout->setMargin( KDialog::marginHint() );
 
 	// add diff program selector
-	m_diffProgramGroup = new KButtonGroup( page );
+	m_diffProgramGroup = new QGroupBox( page );
 	layout->addWidget( m_diffProgramGroup );
 	QVBoxLayout* bgLayout = new QVBoxLayout( m_diffProgramGroup );
 	m_diffProgramGroup->setTitle( i18n( "Diff Program" ) );

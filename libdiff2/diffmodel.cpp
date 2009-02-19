@@ -2,7 +2,7 @@
                                 diffmodel.cpp
                                 -------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
 ****************************************************************************/
 
@@ -72,6 +72,9 @@ DiffModel::DiffModel() :
 /**  */
 DiffModel::~DiffModel()
 {
+	m_selectedDifference = 0;
+
+	qDeleteAll( m_hunks );
 }
 
 void DiffModel::splitSourceInPathAndFileName()
@@ -175,34 +178,6 @@ QString DiffModel::recreateDiff() const
 	return diff;
 }
 
-DifferenceList* DiffModel::allDifferences()
-{
-	if ( m_hunks.count() != 0 )
-	{
-		DiffHunkListConstIterator hunkIt = m_hunks.begin();
-		DiffHunkListConstIterator hEnd   = m_hunks.end();
-
-		for ( ; hunkIt != hEnd; ++hunkIt )
-		{
-			DiffHunk* hunk = *hunkIt;
-
-			DifferenceListConstIterator diffIt = hunk->differences().begin();
-			DifferenceListConstIterator dEnd   = hunk->differences().end();
-
-			for ( ; diffIt != dEnd; ++diffIt )
-			{
-				m_allDifferences.append( *diffIt );
-			}
-		}
-		return &m_allDifferences;
-	}
-	else
-	{
-		DifferenceList *diffList = new DifferenceList;
-		return diffList;
-	}
-}
-
 Difference* DiffModel::firstDifference()
 {
 	kDebug( 8101 ) << "DiffModel::firstDifference()" << endl;
@@ -228,7 +203,7 @@ Difference* DiffModel::lastDifference()
 Difference* DiffModel::prevDifference()
 {
 	kDebug( 8101 ) << "DiffModel::prevDifference()" << endl;
-	if ( --m_diffIndex < m_differences.count() )
+	if ( m_diffIndex > 0 && --m_diffIndex < m_differences.count() )
 	{
 		kDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
 		m_selectedDifference = m_differences[ m_diffIndex ];

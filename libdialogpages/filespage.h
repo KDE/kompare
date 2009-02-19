@@ -22,7 +22,7 @@
 #include "pagebase.h"
 #include "dialogpagesexport.h"
 
-class Q3GroupBox;
+class QGroupBox;
 
 class KComboBox;
 class KConfig;
@@ -60,9 +60,9 @@ public:
 	virtual void setDefaults();
 
 private:
-	Q3GroupBox*     m_firstGB;
-	Q3GroupBox*     m_secondGB;
-	Q3GroupBox*     m_thirdGB;
+	QGroupBox*     m_firstGB;
+	QGroupBox*     m_secondGB;
+	QGroupBox*     m_thirdGB;
 	KUrlComboBox*  m_firstURLComboBox;
 	KUrlComboBox*  m_secondURLComboBox;
 	KUrlRequester* m_firstURLRequester;

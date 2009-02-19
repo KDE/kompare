@@ -2,7 +2,7 @@
                                 kompareprefdlg.cpp
                                 ------------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2003 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
@@ -92,7 +92,7 @@ void KomparePrefDlg::slotApply()
 	m_viewPage->apply();
 	m_diffPage->apply();
 
-	emit applyClicked();
+	emit configChanged();
 }
 
 /** No descriptions */

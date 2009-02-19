@@ -2,7 +2,7 @@
 **                             parserbase.cpp
 **                             --------------
 **      begin                   : Sun Aug  4 15:05:35 2002
-**      Copyright 2002-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+**      Copyright 2002-2004,2009 Otto Bruggeman <bruggie@gmail.com>
 **      Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ***************************************************************************/
 /***************************************************************************
@@ -489,7 +489,9 @@ bool ParserBase::parseNormalHunkBody()
 //			kDebug(8101) << "Line = " << *m_diffIterator << endl;
 			diff->addSourceLine( m_normalHunkBodyRemoved.cap( 1 ) );
 		}
+	
 	if ( m_normalDiffType == Difference::Change )
+	{
 		if( m_diffIterator != m_diffLines.end() && m_normalHunkBodyDivider.exactMatch( *m_diffIterator ) )
 		{
 //			kDebug(8101) << "Line = " << *m_diffIterator << endl;
@@ -497,6 +499,8 @@ bool ParserBase::parseNormalHunkBody()
 		}
 		else
 			return false;
+	}	
+
 	if ( m_normalDiffType == Difference::Insert || m_normalDiffType == Difference::Change )
 		for( ; m_diffIterator != m_diffLines.end() && m_normalHunkBodyAdded.exactMatch( *m_diffIterator ); ++m_diffIterator )
 		{

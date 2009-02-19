@@ -2,7 +2,7 @@
                                 diffhunk.cpp
                                 ------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2003 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2004,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
 ****************************************************************************/
 
@@ -31,6 +31,7 @@ DiffHunk::DiffHunk( int sourceLine, int destinationLine, QString function, Type 
 
 DiffHunk::~DiffHunk()
 {
+	qDeleteAll( m_differences );
 }
 
 void DiffHunk::add( Difference* diff )

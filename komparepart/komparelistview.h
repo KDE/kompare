@@ -2,7 +2,7 @@
                                 komparelistview.h
                                 -----------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2004,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
 ****************************************************************************/
@@ -92,6 +92,7 @@ protected:
 	void contentsMouseDoubleClickEvent ( QMouseEvent* );
 	void contentsMouseReleaseEvent ( QMouseEvent * ) {};
 	void contentsMouseMoveEvent ( QMouseEvent * ) {};
+	void renumberLines( void );
 
 private:
 	Q3ValueList<KompareListViewDiffItem*> m_items;
@@ -123,6 +124,7 @@ private:
 	Q3VBoxLayout          m_layout;
 };
 
+
 class KompareListViewItem : public Q3ListViewItem
 {
 public:
@@ -135,8 +137,11 @@ public:
 	int scrollId() { return m_scrollId; };
 
 	virtual int maxHeight() = 0;
+	virtual int rtti(void) const = 0;
 
 	KompareListView* kompareListView() const;
+
+	enum ListViewItemType { Diff = 1001, Container = 1002, Line = 1003, Blank = 1004, Hunk = 1005 };  
 
 private:
 	int     m_scrollId;
@@ -147,6 +152,7 @@ class KompareListViewDiffItem : public KompareListViewItem
 public:
 	KompareListViewDiffItem( KompareListView* parent, Diff2::Difference* difference );
 	KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Diff2::Difference* difference );
+	~KompareListViewDiffItem();
 
 	void setup();
 	void setSelected( bool b );
@@ -154,24 +160,31 @@ public:
 
 	Diff2::Difference* difference() { return m_difference; };
 
-	int maxHeight();
+	virtual int maxHeight();
+	virtual int rtti(void) const { return Diff; };
 
 private:
 	void init();
 	void setVisibility();
 
+private:
 	Diff2::Difference* m_difference;
 	KompareListViewLineContainerItem* m_sourceItem;
 	KompareListViewLineContainerItem* m_destItem;
 };
 
+class KompareListViewLineItem;
+class KompareListViewBlankLineItem;
+
 class KompareListViewLineContainerItem : public KompareListViewItem
 {
 public:
 	KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource );
+	~KompareListViewLineContainerItem();
 
 	void setup();
-	int maxHeight() { return 0; }
+	virtual int maxHeight() { return 0; }
+	virtual int rtti(void) const { return Container; };
 	KompareListViewDiffItem* diffItemParent() const;
 
 private:
@@ -179,6 +192,9 @@ private:
 	int lineNumber() const;
 	Diff2::DifferenceString* lineAt( int i ) const;
 
+private:
+	Q3ValueList<KompareListViewLineItem *> m_lineItemList;
+	KompareListViewBlankLineItem* m_blankLineItem;
 	bool m_isSource;
 };
 
@@ -186,9 +202,11 @@ class KompareListViewLineItem : public KompareListViewItem
 {
 public:
 	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, Diff2::DifferenceString* text );
+	~KompareListViewLineItem();
 
 	virtual void setup();
-	int maxHeight() { return 0; }
+	virtual int maxHeight() { return 0; }
+	virtual int rtti(void) const { return Line; };
 
 	virtual void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );
 	virtual void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
@@ -205,6 +223,7 @@ public:
 	KompareListViewBlankLineItem( KompareListViewLineContainerItem* parent );
 
 	void setup();
+	virtual int rtti(void) const { return Blank; };
 
 	void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
 };
@@ -214,11 +233,13 @@ class KompareListViewHunkItem : public KompareListViewItem
 public:
 	KompareListViewHunkItem( KompareListView* parent, Diff2::DiffHunk* hunk, bool zeroHeight = false );
 	KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, Diff2::DiffHunk* hunk, bool zeroHeight= false );
+	~KompareListViewHunkItem();
 
 	void setup();
 	void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );
 
-	int maxHeight();
+	virtual int maxHeight();
+	virtual int rtti(void) const { return Hunk; };
 
 private:
 	bool             m_zeroHeight;

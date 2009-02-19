@@ -2,10 +2,10 @@
                                 kompare_part.cpp
                                 ----------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
-        Copyright 2007-2008 Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2009 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -71,8 +71,16 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringL
 
 	readProperties( KGlobal::config().data() );
 
+	m_splitter = new KompareSplitter ( m_viewSettings, parentWidget );
+
+	// !!! Do not change this ->parentWidget()! Due to the bizarre reparenting hacks in KompareSplitter, !!!
+	// !!! the ->parentWidget() is not the one passed in the constructor, but the scroll view created    !!!
+	// !!! within the KompareSplitter. If you use m_splitter here, the scroll bars will not be shown!    !!!
+	// !!! Using the parentWidget parameter is also wrong, of course, you have to use m_splitter->...!   !!!
+	setWidget( m_splitter->parentWidget() );
+
 	// This creates the "Model creator" and connects the signals and slots
-	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_info, this, "komparemodellist" );
+	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_info, m_splitter, this, "komparemodellist" );
 	connect( m_modelList, SIGNAL(status( Kompare::Status )),
 	         this, SLOT(slotSetStatus( Kompare::Status )) );
 	connect( m_modelList, SIGNAL(setStatusBarModelInfo( int, int, int, int, int )),
@@ -114,9 +122,7 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringL
 	connect( m_modelList, SIGNAL(diffString(const QString&)),
 	         this, SIGNAL(diffString(const QString&)) );
 
-	// This creates the splitterwidget and connects the signals and slots
-	m_splitter = new KompareSplitter ( m_viewSettings, parentWidget );
-
+	// Here we connect the splitter to the modellist
 	connect( m_modelList, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)),
 	         m_splitter,  SLOT(slotSetSelection(const Diff2::DiffModel*, const Diff2::Difference*)) );
 //	connect( m_splitter,  SIGNAL(selectionChanged(const Diff2::Difference*, const Diff2::Difference*)),
@@ -133,9 +139,6 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringL
 	connect( m_modelList, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
 	         m_splitter, SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
 	connect( this, SIGNAL(configChanged()), m_splitter, SIGNAL(configChanged()) );
-
-	// notify the part that this is our internal widget
-	setWidget( m_splitter->parentWidget() );
 
 	setupActions();
 
@@ -481,9 +484,9 @@ void KomparePart::saveDiff()
 
 KAboutData *KomparePart::createAboutData()
 {
-    KAboutData *about = new KAboutData("kompare", 0, ki18n("KomparePart"), "3.2");
+    KAboutData *about = new KAboutData("kompare", 0, ki18n("KomparePart"), "4.0");
     about->addAuthor(ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org");
-    about->addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "otto.bruggeman@home.nl" );
+    about->addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "bruggie@gmail.com" );
     return about;
 }
 
@@ -770,7 +773,7 @@ void KomparePart::optionsPreferences()
 	// show preferences
 	KomparePrefDlg* pref = new KomparePrefDlg( m_viewSettings, m_diffSettings );
 
-	connect( pref, SIGNAL(applyClicked()), this, SIGNAL(configChanged()) );
+	connect( pref, SIGNAL(configChanged()), this, SIGNAL(configChanged()) );
 
 	if ( pref->exec() )
 		emit configChanged();

@@ -2,7 +2,7 @@
                                 KompareNavTreePart.cpp
                                 ----------------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2005,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
@@ -95,6 +95,9 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 
 KompareNavTreePart::~KompareNavTreePart()
 {
+	m_modelList = 0;
+	m_selectedModel = 0;
+	m_selectedDifference = 0;
 }
 
 void KompareNavTreePart::slotKompareInfo( struct Kompare::Info* info )
@@ -151,8 +154,19 @@ void KompareNavTreePart::buildTreeInMemory()
 	switch ( m_info->mode )
 	{
 	case Kompare::ShowingDiff:
+		// BUG: 107489 No common root because it is a multi directory relative path diff
+		// We need to detect this and create a different rootitem / or so or should we always add this?
+		// Trouble we run into is that the directories do not start with a /
+		// so we have an unknown top root dir
+		// Thinking some more about it i guess it is best to use "" as base and simply show some string
+		// like Unknown filesystem path as root text but only in the case of dirs starting without a /
 		srcBase = model->sourcePath();
 		destBase = model->destinationPath();
+		// FIXME: these tests will not work on windows, we need something else
+		if ( srcBase[0] != '/' )
+			srcBase = "";
+		if ( destBase[0] != '/' )
+			destBase = "";
 		break;
 	case Kompare::ComparingFiles:
 		srcBase  = model->sourcePath();
@@ -735,6 +749,7 @@ KDirLVI* KDirLVI::setSelected( QString dir )
 
 KDirLVI::~KDirLVI()
 {
+	m_modelList.clear();
 }
 
 // part stuff
@@ -770,9 +785,9 @@ const KComponentData &KompareNavTreePartFactory::componentData()
 {
 	if( !s_instance )
 	{
-		s_about = new KAboutData("komparenavtreepart", 0, ki18n("KompareNavTreePart"), "1.1");
+		s_about = new KAboutData("komparenavtreepart", 0, ki18n("KompareNavTreePart"), "1.2");
 		s_about->addAuthor(ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org");
-		s_about->addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "otto.bruggeman@home.nl" );
+		s_about->addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "bruggie@gmail.com" );
 		s_instance = new KComponentData(s_about);
 	}
 	return *s_instance;

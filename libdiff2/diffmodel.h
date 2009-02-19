@@ -2,7 +2,7 @@
                                 diffmodel.h
                                 -----------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2004,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>                                 
 ****************************************************************************/
 
@@ -57,8 +57,6 @@ public:
 	DifferenceList*       differences()       { return &m_differences; }
 	const DifferenceList* differences() const { return &m_differences; }
 
-	DifferenceList*       allDifferences();
-
 	int findDifference( Difference* diff ) const { return m_differences.findIndex( diff ); }
 
 	Difference* firstDifference();
@@ -88,8 +86,8 @@ public:
 	void addDiff( Difference* diff );
 	bool isModified() const { return m_modified; }
 
-	const int diffIndex( void ) const       { return m_diffIndex; }
-	void      setDiffIndex( int diffIndex ) { m_diffIndex = diffIndex; }
+	int  diffIndex( void ) const       { return m_diffIndex; }
+	void setDiffIndex( int diffIndex ) { m_diffIndex = diffIndex; }
 
 	void applyDifference( bool apply );
 	void applyAllDifferences( bool apply );
@@ -132,7 +130,6 @@ private:
 
 	DiffHunkList   m_hunks;
 	DifferenceList m_differences;
-	DifferenceList m_allDifferences;
 
 	int  m_appliedCount;
 	bool m_modified;

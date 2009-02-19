@@ -2,7 +2,7 @@
                                 main.cpp
                                 --------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2001-2005,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
@@ -45,7 +45,7 @@ static const char description[] =
 /**
  * Version number.
  */
-static const char version[] = "3.5.2";
+static const char version[] = "3.5.3";
 
 /**
  * Setting up the KAboutData structure.
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 	                      KAboutData::License_GPL,
 	                      ki18n("(c) 2001-2004 John Firebaugh and Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2008 Kevin Kofler") );
 	aboutData.addAuthor( ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org" );
-	aboutData.addAuthor( ki18n("Otto Bruggeman"), ki18n("Author"), "otto.bruggeman@home.nl" );
+	aboutData.addAuthor( ki18n("Otto Bruggeman"), ki18n("Author"), "bruggie@gmail.com" );
 	aboutData.addAuthor( ki18n("Jeff Snyder"), ki18n("Developer"), "jeff@caffeinated.me.uk" );
 	aboutData.addCredit( ki18n("Kevin Kofler"), ki18n("Maintainer"), "kevin.kofler@chello.at" );
 	aboutData.addCredit( ki18n("Chris Luetchford"), ki18n("Kompare icon artist"), "chris@os11.com" );
@@ -78,11 +78,13 @@ int main(int argc, char *argv[])
 	options.add("+[URL1 [URL2]]");
 	options.add("+-");
 	KCmdLineArgs::addCmdLineOptions( options );
-	KApplication app;
+	KApplication kompare;
 	bool difault = false;
 
+	KompareShell* ks;
+
 	// see if we are starting with session management
-	if (app.isSessionRestored())
+	if (kompare.isSessionRestored())
 	{
 		RESTORE(KompareShell)
 	}
@@ -90,7 +92,8 @@ int main(int argc, char *argv[])
 	{
 		KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-		KompareShell* ks;
+		ks = new KompareShell();
+		ks->setObjectName( "FirstKompareShell" );
 
 		kDebug( 8100 ) << "Arg Count = " << args->count() << endl;
 		for ( int i=0; i < args->count(); i++ )
@@ -113,7 +116,6 @@ int main(int argc, char *argv[])
 			}
 			else
 			{
-				ks = new KompareShell();
 				ks->show();
 				kDebug( 8100 ) << "OpenDiff..." << endl;
 				if ( args->arg(0) == QLatin1String("-") )
@@ -133,7 +135,6 @@ int main(int argc, char *argv[])
 			}
 			else
 			{
-				ks = new KompareShell();
 				ks->show();
 				KUrl url0 = args->url( 0 );
 				kDebug( 8100 ) << "URL0 = " << url0.url() << endl;
@@ -153,7 +154,6 @@ int main(int argc, char *argv[])
 			}
 			else
 			{
-				ks = new KompareShell();
 				ks->show();
 				kDebug( 8100 ) << "blend..." << endl;
 				KUrl url0 = args->url( 0 );
@@ -166,7 +166,6 @@ int main(int argc, char *argv[])
 		}
 		else if ( args->count() == 1 )
 		{
-			ks = new KompareShell();
 			ks->show();
 
 			kDebug( 8100 ) << "Single file. so openDiff/openStdin is only possible..." << endl;
@@ -181,7 +180,6 @@ int main(int argc, char *argv[])
 		{
 			// In this case we are assuming you want to compare files/dirs
 			// and not blending because that is almost impossible to detect
-			ks = new KompareShell();
 			ks->show();
 			kDebug( 8100 ) << "Dunno, we'll have to figure it out later, trying compare for now..." << endl;
 			KUrl url0 = args->url( 0 );
@@ -198,39 +196,36 @@ int main(int argc, char *argv[])
 
 		if ( difault )
 		{
-			KompareURLDialog* dialog = new KompareURLDialog( 0 );
+			KompareURLDialog dialog( 0 );
 
-			dialog->setCaption( i18n("Compare Files or Folders") );
-			dialog->setFirstGroupBoxTitle( i18n( "Source" ) );
-			dialog->setSecondGroupBoxTitle( i18n( "Destination" ) );
+			dialog.setCaption( i18n("Compare Files or Folders") );
+			dialog.setFirstGroupBoxTitle( i18n( "Source" ) );
+			dialog.setSecondGroupBoxTitle( i18n( "Destination" ) );
 
 			KGuiItem compareGuiItem( i18n( "Compare" ), QString(), i18n( "Compare these files or folder" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
-			dialog->setButtonGuiItem( KDialog::Ok, compareGuiItem );
+			dialog.setButtonGuiItem( KDialog::Ok, compareGuiItem );
 
-			dialog->setGroup( "Recent Compare Files" );
+			dialog.setGroup( "Recent Compare Files" );
 
-			dialog->setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
-			dialog->setSecondURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+			dialog.setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+			dialog.setSecondURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
 
-			if( dialog->exec() == QDialog::Accepted )
+			if( dialog.exec() == QDialog::Accepted )
 			{
-				ks = new KompareShell();
 				ks->show();
-				ks->viewPart()->setEncoding( dialog->encoding() );
-				ks->compare( dialog->getFirstURL(), dialog->getSecondURL() );
+				ks->viewPart()->setEncoding( dialog.encoding() );
+				ks->compare( dialog.getFirstURL(), dialog.getSecondURL() );
 			}
 			else
                         {
-                                delete dialog;
 				return -1;
                         }
-			delete dialog;
 		}
 
 		args->clear();
 	}
 
-	return kapp->exec();
+	return kompare.exec();
 }
 
 /* vim: set ts=4 sw=4 noet: */

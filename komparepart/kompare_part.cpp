@@ -493,7 +493,6 @@ void KomparePart::saveDiff()
 
 void KomparePart::slotFilePrint()
 {
-	kDebug(8103) << "someone wants to print but it is not done yet, sorry!" << endl;
 	QPrinter printer;
 	printer.setOrientation( QPrinter::Landscape );
 	QPrintDialog* dlg = KdePrint::createPrintDialog( &printer, m_splitter );
@@ -509,8 +508,6 @@ void KomparePart::slotFilePrint()
 
 void KomparePart::slotFilePrintPreview()
 {
-	kDebug(8103) << "someone wants to see a print preview but it is not working yet, sorry!" << endl;
-
 	QPrinter printer;
 	printer.setOrientation( QPrinter::Landscape );
 	QPrintPreviewDialog dlg( &printer );

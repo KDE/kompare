@@ -434,19 +434,19 @@ bool KomparePart::saveAll()
 
 void KomparePart::saveDiff()
 {
-	KDialog* dlg = new KDialog( widget() );
-	dlg->setName( "save_options" );
-	dlg->setModal( true );
-	dlg->setWindowTitle( i18n("Diff Options") );
-	dlg->setButtons( KDialog::Ok|KDialog::Cancel );
+	KDialog dlg( widget() );
+	dlg.setName( "save_options" );
+	dlg.setModal( true );
+	dlg.setWindowTitle( i18n("Diff Options") );
+	dlg.setButtons( KDialog::Ok|KDialog::Cancel );
 	KompareSaveOptionsWidget* w = new KompareSaveOptionsWidget(
 	                                             m_info.localSource,
 	                                             m_info.localDestination,
-	                                             m_diffSettings, dlg );
-	dlg->setMainWidget( w );
-	dlg->setButtonGuiItem( KDialog::Ok, KStandardGuiItem::save() );
+	                                             m_diffSettings, &dlg );
+	dlg.setMainWidget( w );
+	dlg.setButtonGuiItem( KDialog::Ok, KStandardGuiItem::save() );
 
-	if( dlg->exec() ) {
+	if( dlg.exec() ) {
 		w->saveOptions();
 		KSharedConfig::Ptr config = componentData().config();
 		saveProperties( config.data() );
@@ -488,7 +488,6 @@ void KomparePart::saveDiff()
 			}
 		}
 	}
-	delete dlg;
 }
 
 void KomparePart::slotFilePrint()
@@ -537,7 +536,7 @@ void KomparePart::slotPaintRequested( QPrinter* printer )
 	kDebug(8103) << "Done painting something..." << endl;
 }
 
-KAboutData *KomparePart::createAboutData()
+KAboutData* KomparePart::createAboutData()
 {
     KAboutData *about = new KAboutData("kompare", 0, ki18n("KomparePart"), "4.0");
     about->addAuthor(ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org");
@@ -827,13 +826,12 @@ int KomparePart::saveProperties( KConfig *config )
 void KomparePart::optionsPreferences()
 {
 	// show preferences
-	KomparePrefDlg* pref = new KomparePrefDlg( m_viewSettings, m_diffSettings );
+	KomparePrefDlg pref( m_viewSettings, m_diffSettings );
 
-	connect( pref, SIGNAL(configChanged()), this, SIGNAL(configChanged()) );
+	connect( &pref, SIGNAL(configChanged()), this, SIGNAL(configChanged()) );
 
-	if ( pref->exec() )
+	if ( pref.exec() )
 		emit configChanged();
-        delete pref;
 }
 
 void KomparePart::slotSetModified( bool modified )

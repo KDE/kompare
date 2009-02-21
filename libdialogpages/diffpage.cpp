@@ -248,13 +248,7 @@ void DiffPage::addFormatTab()
 	QRadioButton* radioButton;
 	radioButton = new QRadioButton( i18n( "Context" ), m_modeButtonGroup );
 	bgLayout->addWidget( radioButton );
-	radioButton = new QRadioButton( i18n( "Ed" ),      m_modeButtonGroup );
-	radioButton->setEnabled( false );
-	bgLayout->addWidget( radioButton );
 	radioButton = new QRadioButton( i18n( "Normal" ),  m_modeButtonGroup );
-	bgLayout->addWidget( radioButton );
-	radioButton = new QRadioButton( i18n( "RCS" ),     m_modeButtonGroup );
-	radioButton->setEnabled( false );
 	bgLayout->addWidget( radioButton );
 	radioButton = new QRadioButton( i18n( "Unified" ), m_modeButtonGroup );
 	bgLayout->addWidget( radioButton );
@@ -263,9 +257,11 @@ void DiffPage::addFormatTab()
 	Q3HGroupBox* groupBox = new Q3HGroupBox( page );
 	layout->addWidget( groupBox );
 	groupBox->setTitle( i18n( "Lines of Context" ) );
+	groupBox->setWhatsThis( i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
 	//groupBox->setMargin( KDialog::marginHint() );
 
 	QLabel* label = new QLabel( i18n( "Number of context lines:" ), groupBox );
+	label->setWhatsThis( i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
 	m_locSpinBox = new QSpinBox( 0, 100, 1, groupBox );
 	m_locSpinBox->setWhatsThis( i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
 	label->setBuddy( m_locSpinBox );
@@ -292,12 +288,15 @@ void DiffPage::addOptionsTab()
 
 	m_smallerCheckBox     = new QCheckBox( i18n( "&Look for smaller changes" ), optionButtonGroup );
 	QToolTip::add( m_smallerCheckBox, i18n( "This corresponds to the -d diff option." ) );
+	m_smallerCheckBox->setWhatsThis( i18n( "With this option enabled diff will try a little harder (at the cost of more memory) to find fewer changes." ) );
 	bgLayout->addWidget( m_smallerCheckBox );
 	m_largerCheckBox      = new QCheckBox( i18n( "O&ptimize for large files" ), optionButtonGroup );
 	QToolTip::add( m_largerCheckBox, i18n( "This corresponds to the -H diff option." ) );
+	m_largerCheckBox->setWhatsThis( i18n( "This option lets diff makes better diffs when using large files. The definition of large is nowhere to be found though." ) );
 	bgLayout->addWidget( m_largerCheckBox );
 	m_caseCheckBox        = new QCheckBox( i18n( "&Ignore changes in case" ), optionButtonGroup );
 	QToolTip::add( m_caseCheckBox, i18n( "This corresponds to the -i diff option." ) );
+	m_caseCheckBox->setWhatsThis( i18n( "With this option to ignore changes in case enabled, diff will not indicate a difference when something in one file is changed into SoMEthing in the other file." ) );
 	bgLayout->addWidget( m_caseCheckBox );
 
 	QHBoxLayout* groupLayout = new QHBoxLayout( layout );
@@ -307,6 +306,7 @@ void DiffPage::addOptionsTab()
 
 	m_ignoreRegExpCheckBox = new QCheckBox( i18n( "Ignore regexp:" ), page );
 	QToolTip::add( m_ignoreRegExpCheckBox, i18n( "This option corresponds to the -I diff option." ) );
+	m_ignoreRegExpCheckBox->setWhatsThis( i18n( "When this checkbox is enabled, an option to diff is given that will make diff ignore lines that match the regular expression." ) );
 	groupLayout->addWidget( m_ignoreRegExpCheckBox );
 	m_ignoreRegExpEdit = new KLineEdit( QString::null, page);	//krazy:exclude=nullstrassign for old broken gcc
 	m_ignoreRegExpEdit->setObjectName("regexplineedit" );
@@ -330,18 +330,23 @@ void DiffPage::addOptionsTab()
 
 	m_tabsCheckBox        = new QCheckBox( i18n( "E&xpand tabs to spaces in output" ), moreOptionButtonGroup );
 	QToolTip::add( m_tabsCheckBox, i18n( "This option corresponds to the -t diff option." ) );
+	m_tabsCheckBox->setWhatsThis( i18n( "This option does not always produce the right result. Due to this expansion Kompare may have problems applying the change to the destination file." ) );
 	bgLayout->addWidget( m_tabsCheckBox );
 	m_linesCheckBox       = new QCheckBox( i18n( "I&gnore added or removed empty lines" ), moreOptionButtonGroup );
 	QToolTip::add( m_linesCheckBox, i18n( "This option corresponds to the -B diff option." ) );
+	m_linesCheckBox->setWhatsThis( i18n( "This can be very useful in situations where code has been reorganized and empty lines have been added or removed to improve legibility." ) );
 	bgLayout->addWidget( m_linesCheckBox );
 	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes in the amount of whitespace" ), moreOptionButtonGroup );
 	QToolTip::add( m_whitespaceCheckBox, i18n( "This option corresponds to the -b diff option." ) );
+	m_whitespaceCheckBox->setWhatsThis( i18n( "If you dont care about the changes made due to for example indentation then use this option." ) );
 	bgLayout->addWidget( m_whitespaceCheckBox );
 	m_allWhitespaceCheckBox = new QCheckBox( i18n( "Ign&ore all whitespace" ), moreOptionButtonGroup );
 	QToolTip::add( m_allWhitespaceCheckBox, i18n( "This option corresponds to the -w diff option." ) );
+	m_allWhitespaceCheckBox->setWhatsThis( i18n( "This is useful for seeing the real changes and not be overwhelmed because of all the white space changes" ) );
 	bgLayout->addWidget( m_allWhitespaceCheckBox );
 	m_ignoreTabExpansionCheckBox = new QCheckBox( i18n( "Igno&re changes due to tab expansion" ), moreOptionButtonGroup );
 	QToolTip::add( m_ignoreTabExpansionCheckBox, i18n( "This option corresponds to the -E diff option." ) );
+	m_ignoreTabExpansionCheckBox->setWhatsThis( i18n( "If there is a change because tabs have been expanded into spaces in the other file then this option will make sure that these do not show up. Kompare currently has some problems applying such changes so be careful when you use this option." ) );
 	bgLayout->addWidget( m_ignoreTabExpansionCheckBox );
 
 	layout->addStretch( 1 );

@@ -27,6 +27,7 @@
 
 #include "kompareinterface.h"
 
+class QPrinter;
 class QWidget;
 
 class KTemporaryFile;
@@ -159,6 +160,10 @@ public slots:
 	/** This slot is connected to the setModifed( bool ) signal from the KompareModelList */
 	void slotSetModified( bool modified );
 
+	/** To enable printing, the part has the only interesting printable content so putting it here */
+	void slotFilePrint();
+	void slotFilePrintPreview();
+
 signals:
 	void appliedChanged();
 	void diffURLChanged();
@@ -192,6 +197,7 @@ protected slots:
 	void updateCaption();
 	void updateStatus();
 
+	void slotPaintRequested( QPrinter* );
 private:
 	void cleanUpTemporaryFiles();
 	void setupActions();
@@ -215,6 +221,8 @@ private:
 	KAction*                 m_swap;
 	KAction*                 m_diffStats;
 	KAction*                 m_diffRefresh;
+	KAction*                 m_print;
+	KAction*                 m_printPreview;
 
 	KTemporaryFile*          m_tempDiff;
 

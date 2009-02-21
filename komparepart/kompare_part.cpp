@@ -21,17 +21,22 @@
 
 #include <QtGui/QLayout>
 #include <QtGui/QWidget>
+#include <QPainter>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QPrintPreviewDialog>
 
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kapplication.h>
+#include <kcomponentdata.h>
 #include <kdebug.h>
+#include <kdeprintdialog.h>
 #include <kfiledialog.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
-#include <kcomponentdata.h>
 #include <ktemporaryfile.h>
 #include <kparts/genericfactory.h>
 //#include <ktempdir.h>
@@ -178,16 +183,20 @@ void KomparePart::setupActions()
 	m_diffRefresh->setText(i18n("Refresh Diff"));
 	m_diffRefresh->setShortcut(KStandardShortcut::reload());
 
+	m_print        = actionCollection()->addAction(KStandardAction::Print, this, SLOT( slotFilePrint() ));
+	m_printPreview = actionCollection()->addAction(KStandardAction::PrintPreview, this, SLOT( slotFilePrintPreview() ));
 	KStandardAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
 }
 
 void KomparePart::updateActions()
 {
-	m_saveAll->setEnabled  ( m_modelList->isModified() );
-	m_saveDiff->setEnabled ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
-	m_swap->setEnabled     ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
-	m_diffRefresh->setEnabled( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
-	m_diffStats->setEnabled( m_modelList->modelCount() > 0 );
+	m_saveAll->setEnabled     ( m_modelList->isModified() );
+	m_saveDiff->setEnabled    ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
+	m_swap->setEnabled        ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
+	m_diffRefresh->setEnabled ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
+	m_diffStats->setEnabled   ( m_modelList->modelCount() > 0 );
+	m_print->setEnabled       ( m_modelList ); // If modellist is not 0 then we have something to print, it's that simple.
+	m_printPreview->setEnabled( m_modelList );
 }
 
 void KomparePart::setEncoding( const QString& encoding )
@@ -480,6 +489,55 @@ void KomparePart::saveDiff()
 		}
 	}
 	delete dlg;
+}
+
+void KomparePart::slotFilePrint()
+{
+	kDebug(8103) << "someone wants to print but it is not done yet, sorry!" << endl;
+	QPrinter printer;
+	printer.setOrientation( QPrinter::Landscape );
+	QPrintDialog* dlg = KdePrint::createPrintDialog( &printer, m_splitter );
+
+	if ( dlg->exec() == QDialog::Accepted )
+	{
+		// do some printing in qprinter
+		slotPaintRequested( &printer );
+	}
+
+	delete dlg;
+}
+
+void KomparePart::slotFilePrintPreview()
+{
+	kDebug(8103) << "someone wants to see a print preview but it is not working yet, sorry!" << endl;
+
+	QPrinter printer;
+	printer.setOrientation( QPrinter::Landscape );
+	QPrintPreviewDialog dlg( &printer );
+
+	connect( &dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(slotPaintRequested(QPrinter*)) );
+
+	dlg.exec();
+}
+
+void KomparePart::slotPaintRequested( QPrinter* printer )
+{
+	kDebug(8103) << "Now paint something..." << endl;
+	QPainter p;
+	p.begin( printer );
+
+	QSize widgetWidth = m_splitter->parentWidget()->size();
+	kDebug(8103) << "printer.width()     = " << printer->width() << endl;
+	kDebug(8103) << "widgetWidth.width() = " << widgetWidth.width() << endl;
+	qreal factor = ((qreal)printer->width())/((qreal)widgetWidth.width());
+
+	kDebug(8103) << "factor              = " << factor << endl;
+
+	p.scale( factor, factor );
+	m_splitter->parentWidget()->render( &p );
+
+	p.end();
+	kDebug(8103) << "Done painting something..." << endl;
 }
 
 KAboutData *KomparePart::createAboutData()

@@ -23,10 +23,11 @@
 #include "dialogpagesexport.h"
 
 class QCheckBox;
+class QFontComboBox;
 class QSpinBox;
 
 class KColorButton;
-class QFontComboBox;
+class KTabWidget;
 
 class ViewSettings;
 
@@ -59,6 +60,7 @@ public:
 	QSpinBox*     m_tabSpinBox;
 	QFontComboBox*   m_fontCombo;
 	QSpinBox*     m_fontSizeSpinBox;
+	KTabWidget*   m_tabWidget;
 };
 
 #endif

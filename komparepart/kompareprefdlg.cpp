@@ -21,6 +21,8 @@
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <klocale.h>
+#include <ktabwidget.h>
+#include <ktoolinvocation.h>
 
 #include "diffpage.h"
 #include "viewpage.h"
@@ -79,9 +81,48 @@ void KomparePrefDlg::slotDefault()
 /** No descriptions */
 void KomparePrefDlg::slotHelp()
 {
-	// show some help...
 	// figure out the current active page
-	// and give help for that page
+	QWidget* currentpage = currentPage()->widget();
+	if ( dynamic_cast<ViewPage*>(currentpage) )
+	{
+		// figure out the active tab
+		int currentTab = static_cast<ViewPage*>(currentpage)->m_tabWidget->currentIndex();
+		switch ( currentTab )
+		{
+		case 0:
+			KToolInvocation::invokeHelp( "appearance" );
+			break;
+		case 1:
+			KToolInvocation::invokeHelp( "fonts" );
+			break;
+		default:
+			KToolInvocation::invokeHelp( "view-settings" );
+		}
+	}
+	else if ( dynamic_cast<DiffPage*>(currentpage) )
+	{
+		// figure out the active tab
+		int currentTab = static_cast<DiffPage*>(currentpage)->m_tabWidget->currentIndex();
+		switch ( currentTab )
+		{
+		case 0:
+			KToolInvocation::invokeHelp( "diff" );
+			break;
+		case 1:
+			KToolInvocation::invokeHelp( "diff-format" );
+			break;
+		case 2:
+			KToolInvocation::invokeHelp( "options" );
+			break;
+		case 3:
+			KToolInvocation::invokeHelp( "exclude" );
+			break;
+		default:
+			KToolInvocation::invokeHelp( "diff-settings" );
+		}
+	}
+	else // Fallback since we had not added the code for the page/tab or forgotten about it
+		KToolInvocation::invokeHelp( "configure-preferences" );
 }
 
 /** No descriptions */

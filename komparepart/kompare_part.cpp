@@ -309,7 +309,18 @@ bool KomparePart::fetchURL( const KUrl& url, bool addToSource )
 				result = false;
 			}
 			else
+			{
 				tempFileName = tmpDir->name();
+				// If a directory is copied into KTempDir then the directory in 
+				// here is what I need to add to tempFileName
+				QDir dir( tempFileName );
+				QStringList entries = dir.entryList();
+				Q_ASSERT( entries.size() != 1 ); // More than 1 entry in here means big problems!!!
+				if ( !tempFileName.endsWith( '/' ) )
+					tempFileName += '/';
+				tempFileName += entries.at( 0 );
+				tempFileName += '/';
+			}
 		}
 	}
 	else

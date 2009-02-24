@@ -198,8 +198,6 @@ KompareShell::~KompareShell()
 
 bool KompareShell::queryClose()
 {
-	kDebug( 8103 ) << "Where did you just click?" << endl;
-	
 	bool rv = m_viewPart->queryClose();
 	if ( rv )
 		KGlobal::deref();
@@ -441,7 +439,6 @@ void KompareShell::slotFileCompareFiles()
 
 void KompareShell::slotFileClose()
 {
-	kDebug(8103) << "here we exit through the file menu -> quit" << endl;
 	if ( m_viewPart->queryClose() )
 	{
 		KGlobal::deref();

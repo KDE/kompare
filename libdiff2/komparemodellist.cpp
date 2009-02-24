@@ -171,7 +171,8 @@ bool KompareModelList::compare()
 			QString tempString( m_info->localSource );
 			m_info->localSource = m_info->localDestination;
 			m_info->localDestination = tempString;
-			// FIXME Do we need to notify anyone we swapped source and destination?
+			// Do we need to notify anyone we swapped source and destination?
+			// No we do not need to notify anyone about swapping source with destination
 			result = openFileAndDiff();
 		}
 		else
@@ -189,14 +190,15 @@ bool KompareModelList::compare()
 	else
 	{
 		m_info->mode = Kompare::BlendingDir;
-		// FIXME swap source and destination first in m_info
+		// swap source and destination first in m_info
 		KUrl tempUrl( m_info->source );
 		m_info->source = m_info->destination;
 		m_info->destination = tempUrl;
 		QString tempString( m_info->localSource );
 		m_info->localSource = m_info->localDestination;
 		m_info->localDestination = tempString;
-		// FIXME Do we need to notify anyone we swapped source and dest?
+		// Do we need to notify anyone we swapped source and destination?
+		// No we do not need to notify anyone about swapping source with destination
 		result = openDirAndDiff();
 	}
 

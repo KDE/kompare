@@ -22,6 +22,9 @@
 
 #include "diff2export.h"
 
+// Forward declaration needed
+class KTempDir;
+
 namespace Kompare
 {
 	enum Format {
@@ -85,7 +88,9 @@ namespace Kompare
 			KUrl _source = KUrl(),
 			KUrl _destination = KUrl(),
 			QString _localSource = "",
-			QString _localDestination = ""
+			QString _localDestination = "",
+			KTempDir* _sourceKTempDir = 0,
+			KTempDir* _destinationKTempDir = 0
 		)
 		{
 			mode = _mode;
@@ -96,6 +101,22 @@ namespace Kompare
 			destination = _destination;
 			localSource = _localSource;
 			localDestination = _localDestination;
+			sourceKTempDir = _sourceKTempDir;
+			destinationKTempDir = _destinationKTempDir;
+		}
+		void swapSourceWithDestination()
+		{
+			KUrl url = source;
+			source = destination;
+			destination = url;
+
+			QString string = localSource;
+			localSource = localDestination;
+			localDestination = string;
+
+			KTempDir* tmpDir = sourceKTempDir;
+			sourceKTempDir = destinationKTempDir;
+			destinationKTempDir = tmpDir;
 		}
 		enum Mode      mode;
 		enum DiffMode  diffMode;
@@ -105,6 +126,8 @@ namespace Kompare
 		KUrl           destination;
 		QString        localSource;
 		QString        localDestination;
+		KTempDir*      sourceKTempDir;
+		KTempDir*      destinationKTempDir;
 	};
 } // End of namespace Kompare
 

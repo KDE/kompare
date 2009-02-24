@@ -203,7 +203,9 @@ private:
 	void setupActions();
 	bool exists( const QString& url );
 	bool isDirectory( const KUrl& url );
-	const QString fetchURL( const KUrl& url );
+	// FIXME (like in cpp file not urgent) Replace with enum, cant find a proper 
+	// name now but it is private anyway so can not be used from outside
+	bool fetchURL( const KUrl& url, bool isSource );
 
 private:
 	// Uhm why were these static again ???

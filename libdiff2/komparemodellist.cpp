@@ -2,7 +2,7 @@
                           komparemodellist.cpp
                           --------------------
     begin                : Tue Jun 26 2001
-    Copyright 2001-2009 Otto Bruggeman <otto.bruggeman@home.nl>
+    Copyright 2001-2005,2009 Otto Bruggeman <otto.bruggeman@home.nl>
     Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
     Copyright 2007-2009 Kevin Kofler   <kevin.kofler@chello.at>
  ***************************************************************************/
@@ -46,7 +46,7 @@
 
 using namespace Diff2;
 
-KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::Info& info, QWidget* widgetForKIO, QObject* parent, const char* name )
+KompareModelList::KompareModelList( DiffSettings* diffSettings, QWidget* widgetForKIO, QObject* parent, const char* name )
 	: QObject( parent, name ),
 	m_diffProcess( 0 ),
 	m_diffSettings( diffSettings ),
@@ -55,11 +55,11 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, struct Kompare::
 	m_selectedDifference( 0 ),
 	m_noOfModified( 0 ),
 	m_modelIndex( 0 ),
-	m_info( info ),
+	m_info( 0 ),
 	m_textCodec( 0 ),
 	m_widgetForKIO( widgetForKIO )
 {
-	kDebug(8101) << "Show me the arguments: " << diffSettings << ", " << &info << ", " << widgetForKIO << ", " << parent << ", " << name << endl;
+	kDebug(8101) << "Show me the arguments: " << diffSettings << ", " << widgetForKIO << ", " << parent << ", " << name << endl;
 	KActionCollection *ac = (( KomparePart* )parent)->actionCollection();
 	m_applyDifference = ac->addAction( "difference_apply", this, SLOT(slotActionApplyDifference()) );
 	m_applyDifference->setIcon( KIcon("arrow-right") );
@@ -106,6 +106,7 @@ KompareModelList::~KompareModelList()
 {
 	m_selectedModel = 0;
 	m_selectedDifference = 0;
+	m_info = 0;
 	delete m_models;
 }
 
@@ -126,27 +127,27 @@ bool KompareModelList::isDiff( const QString& mimeType ) const
 		return false;
 }
 
-bool KompareModelList::compare( const QString& source, const QString& destination )
+bool KompareModelList::compare()
 {
 	bool result = false;
 
-	bool sourceIsDirectory = isDirectory( source );
-	bool destinationIsDirectory = isDirectory( source );
+	bool sourceIsDirectory = isDirectory( m_info->localSource );
+	bool destinationIsDirectory = isDirectory( m_info->localDestination );
 
 	if ( sourceIsDirectory && destinationIsDirectory )
 	{
-		m_info.mode = Kompare::ComparingDirs;
-		result = compareDirs( source, destination );
+		m_info->mode = Kompare::ComparingDirs;
+		result = compareDirs();
 	}
 	else if ( !sourceIsDirectory && !destinationIsDirectory )
 	{
-		QFile sourceFile( source );
+		QFile sourceFile( m_info->localSource );
 		sourceFile.open( QIODevice::ReadOnly );
 		QString sourceMimeType = ( KMimeType::findByContent( sourceFile.readAll() ) )->name();
 		sourceFile.close();
 		kDebug(8101) << "Mimetype source     : " << sourceMimeType << endl;
 
-		QFile destinationFile( destination );
+		QFile destinationFile( m_info->localDestination );
 		destinationFile.open( QIODevice::ReadOnly );
 		QString destinationMimeType = ( KMimeType::findByContent( destinationFile.readAll() ) )->name();
 		destinationFile.close();
@@ -156,41 +157,42 @@ bool KompareModelList::compare( const QString& source, const QString& destinatio
 		if ( !isDiff( sourceMimeType ) && isDiff( destinationMimeType ) )
 		{
 			kDebug(8101) << "Blending destination into source..." << endl;
-			m_info.mode = Kompare::BlendingFile;
-			result = openFileAndDiff( source, destination );
+			m_info->mode = Kompare::BlendingFile;
+			result = openFileAndDiff();
 		}
 		else if ( isDiff( sourceMimeType ) && !isDiff( destinationMimeType ) )
 		{
 			kDebug(8101) << "Blending source into destination..." << endl;
-			m_info.mode = Kompare::BlendingFile;
-			result = openFileAndDiff( destination, source );
+			m_info->mode = Kompare::BlendingFile;
+			// FIXME Swap source and destination before calling this
+			// FIXME Do we need to notify anyone we swapped source and destination?
+			result = openFileAndDiff();
 		}
 		else
 		{
 			kDebug(8101) << "Comparing source with destination" << endl;
-			m_info.mode = Kompare::ComparingFiles;
-			result = compareFiles( source, destination );
+			m_info->mode = Kompare::ComparingFiles;
+			result = compareFiles();
 		}
 	}
 	else if ( sourceIsDirectory && !destinationIsDirectory )
 	{
-		m_info.mode = Kompare::BlendingDir;
-		result = openDirAndDiff( source, destination );
+		m_info->mode = Kompare::BlendingDir;
+		result = openDirAndDiff();
 	}
 	else
 	{
-		m_info.mode = Kompare::BlendingDir;
-		result = openDirAndDiff( destination, source );
+		m_info->mode = Kompare::BlendingDir;
+		// FIXME swap source and destination first in m_info
+		// FIXME Do we need to notify anyone we swapped source and dest?
+		result = openDirAndDiff();
 	}
 
 	return result;
 }
 
-bool KompareModelList::compareFiles( const QString& source, const QString& destination )
+bool KompareModelList::compareFiles()
 {
-	m_source = source;
-	m_destination = destination;
-
 	clear(); // Destroy the old models...
 
 //	m_fileWatch = new KDirWatch( this, "filewatch" );
@@ -202,7 +204,7 @@ bool KompareModelList::compareFiles( const QString& source, const QString& desti
 //	connect( m_fileWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotFileChanged( const QString& ) ) );
 
 //	m_fileWatch->startScan();
-	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_source, m_destination );
+	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_info->localSource, m_info->localDestination );
 	m_diffProcess->setEncoding( m_encoding );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
@@ -214,11 +216,8 @@ bool KompareModelList::compareFiles( const QString& source, const QString& desti
 	return true;
 }
 
-bool KompareModelList::compareDirs( const QString& source, const QString& destination )
+bool KompareModelList::compareDirs()
 {
-	m_source = source;
-	m_destination = destination;
-
 	clear(); // Destroy the old models...
 
 //	m_dirWatch = new KDirWatch( this, "dirwatch" );
@@ -231,7 +230,7 @@ bool KompareModelList::compareDirs( const QString& source, const QString& destin
 //	connect( m_dirWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotDirectoryChanged( const QString& ) ) );
 
 //	m_dirWatch->startScan();
-	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_source, m_destination );
+	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_info->localSource, m_info->localDestination );
 	m_diffProcess->setEncoding( m_encoding );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
@@ -243,21 +242,20 @@ bool KompareModelList::compareDirs( const QString& source, const QString& destin
 	return true;
 }
 
-bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff )
+bool KompareModelList::openFileAndDiff()
 {
 	clear();
 
-	if ( parseDiffOutput( readFile( diff ) ) != 0 )
+	if ( parseDiffOutput( readFile( m_info->localDestination ) ) != 0 )
 	{
-		emit error( i18n( "<qt>No models or no differences, this file: <b>%1</b>, is not a valid diff file.</qt>", diff ) );
+		emit error( i18n( "<qt>No models or no differences, this file: <b>%1</b>, is not a valid diff file.</qt>", m_info->destination.url() ) );
 		return false;
 	}
 
-	// Do our thing :)
-	if ( !blendOriginalIntoModelList( file ) )
+	if ( !blendOriginalIntoModelList( m_info->localSource ) )
 	{
-		kDebug(8101) << "Oops cant blend original file into modellist : " << file << endl;
-		emit( i18n( "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>.</qt>", diff, file ) );
+		kDebug(8101) << "Oops cant blend original file into modellist : " << m_info->localSource << endl;
+		emit( i18n( "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>.</qt>", m_info->destination.url(), m_info->source.url() ) );
 		return false;
 	}
 
@@ -267,22 +265,22 @@ bool KompareModelList::openFileAndDiff( const QString& file, const QString& diff
 	return true;
 }
 
-bool KompareModelList::openDirAndDiff( const QString& dir, const QString& diff )
+bool KompareModelList::openDirAndDiff()
 {
 	clear();
 
-	if ( parseDiffOutput( readFile( diff ) ) != 0 )
+	if ( parseDiffOutput( readFile( m_info->localDestination ) ) != 0 )
 	{
-		emit error( i18n( "<qt>No models or no differences, this file: <b>%1</b>, is not a valid diff file.</qt>", diff ) );
+		emit error( i18n( "<qt>No models or no differences, this file: <b>%1</b>, is not a valid diff file.</qt>", m_info->destination.url() ) );
 		return false;
 	}
 
 	// Do our thing :)
-	if ( !blendOriginalIntoModelList( dir ) )
+	if ( !blendOriginalIntoModelList( m_info->localSource ) )
 	{
 		// Trouble blending the original into the model
-		kDebug(8101) << "Oops cant blend original dir into modellist : " << dir << endl;
-		emit error( i18n( "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</b>.</qt>", diff, dir ) );
+		kDebug(8101) << "Oops cant blend original dir into modellist : " << m_info->localSource << endl;
+		emit error( i18n( "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</b>.</qt>", m_info->destination.url(), m_info->source.url() ) );
 		return false;
 	}
 
@@ -369,32 +367,34 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	bool result = false;
 
 	// Make sure the destination directory exists, it is possible when using -N to not have the destination dir/file available
-	if ( m_info.mode == Kompare::ComparingDirs )
+	if ( m_info->mode == Kompare::ComparingDirs )
 	{
-		QString destination = model->destinationPath() + model->destinationFile();
+		// Dont use destination which was used for creating the diff directly, use the original URL!!!
+		// FIXME!!! Wrong destination this way! Need to add the sub directory to the url!!!!
 		kDebug(8101) << "Tempfilename   : " << temp.name() << endl;
-		kDebug(8101) << "DestinationURL : " << destination << endl;
+		kDebug(8101) << "DestinationURL : " << m_info->destination << endl;
 		KIO::UDSEntry entry;
-		if ( !KIO::NetAccess::stat( KUrl( destination ).path(), entry, m_widgetForKIO ) )
+		if ( !KIO::NetAccess::stat( m_info->destination.directory(), entry, m_widgetForKIO ) )
 		{
-			if ( !KIO::NetAccess::mkdir( KUrl( destination ).path(), m_widgetForKIO ) )
+			if ( !KIO::NetAccess::mkdir( m_info->destination.directory(), m_widgetForKIO ) )
 			{
-				emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved.</qt>", destination ) );
+				emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved.</qt>", m_info->destination.directory() ) );
 				return false;
 			}
 		}
-		result = KIO::NetAccess::upload( temp.name(), KUrl( destination ), m_widgetForKIO );
+		result = KIO::NetAccess::upload( temp.name(), m_info->destination, m_widgetForKIO );
 	}
 	else
 	{
 		kDebug(8101) << "Tempfilename   : " << temp.name() << endl;
-		kDebug(8101) << "DestinationURL : " << m_destination << endl;
-		result = KIO::NetAccess::upload( temp.name(), KUrl( m_destination ), m_widgetForKIO );
+		kDebug(8101) << "DestinationURL : " << m_info->destination << endl;
+		result = KIO::NetAccess::upload( temp.name(), m_info->destination, m_widgetForKIO );
+		kDebug(8101) << "true or false?" << result << endl;
 	}
 
 	if ( !result )
 	{
-		emit error( i18n( "<qt>Could not upload the temporary file to the destination location <b>%1</b>. The temporary file is still available under: <b>%2</b>. You can manually copy it to the right place.</qt>", m_destination, temp.name() ) );
+		emit error( i18n( "<qt>Could not upload the temporary file to the destination location <b>%1</b>. The temporary file is still available under: <b>%2</b>. You can manually copy it to the right place.</qt>", m_info->destination.url(), temp.name() ) );
                 //Don't remove file when we delete temp and don't leak it.
                 temp.setAutoRemove(false);
 	}
@@ -451,10 +451,10 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 		}
 		else
 		{
-			if ( m_info.mode != Kompare::ShowingDiff )
+			if ( m_info->mode != Kompare::ShowingDiff )
 			{
 				kDebug() << "Blend this crap please and do not give me any conflicts..." << endl;
-				blendOriginalIntoModelList( m_info.localSource );
+				blendOriginalIntoModelList( m_info->localSource );
 			}
 			updateModelListActions();
 			show();
@@ -602,7 +602,7 @@ bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSett
 		return false;
 	}
 
-	m_diffProcess = new KompareProcess( diffSettings, Kompare::Custom, m_source, m_destination, directory );
+	m_diffProcess = new KompareProcess( diffSettings, Kompare::Custom, m_info->localSource, m_info->localDestination, directory );
 	m_diffProcess->setEncoding( m_encoding );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
@@ -884,8 +884,8 @@ int KompareModelList::parseDiffOutput( const QString& diff )
 	Parser* parser = new Parser( this );
 	m_models = parser->parse( diffLines );
 
-	m_info.generator = parser->generator();
-	m_info.format    = parser->format();
+	m_info->generator = parser->generator();
+	m_info->format    = parser->format();
 
 	delete parser;
 
@@ -1213,22 +1213,20 @@ void KompareModelList::clear()
 
 void KompareModelList::refresh()
 {
-	QString source = m_source;
-	QString destination = m_destination;
-	if ( m_info.mode == Kompare::ComparingFiles )
-		compareFiles( source, destination );
-	else if ( m_info.mode == Kompare::ComparingDirs )
-		compareDirs( source, destination );
+	// FIXME: I can imagine blending also wants to be refreshed so make a switch case here
+	if ( m_info->mode == Kompare::ComparingFiles )
+		compareFiles();
+	else if ( m_info->mode == Kompare::ComparingDirs )
+		compareDirs();
 }
 
 void KompareModelList::swap()
 {
-	QString source = m_source;
-	QString destination = m_destination;
-	if ( m_info.mode == Kompare::ComparingFiles )
-		compareFiles( destination, source );
-	else if ( m_info.mode == Kompare::ComparingDirs )
-		compareDirs( destination, source );
+	// Swap should not be active when there is a diff and a file/dir
+	if ( m_info->mode == Kompare::ComparingFiles )
+		compareFiles();
+	else if ( m_info->mode == Kompare::ComparingDirs )
+		compareDirs();
 }
 
 bool KompareModelList::isModified() const
@@ -1279,6 +1277,11 @@ void KompareModelList::slotSetModified( bool modified )
 	{
 		emit setModified( true );
 	}
+}
+
+void KompareModelList::slotKompareInfo( struct Kompare::Info* info )
+{
+	m_info = info;
 }
 
 bool KompareModelList::setSelectedModel( DiffModel* model )

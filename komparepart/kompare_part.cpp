@@ -2,7 +2,7 @@
                                 kompare_part.cpp
                                 ----------------
         begin                   : Sun Mar 4 2001
-        Copyright 2001-2009 Otto Bruggeman <bruggie@gmail.com>
+        Copyright 2001-2005,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
         Copyright 2007-2009 Kevin Kofler   <kevin.kofler@chello.at>
@@ -36,10 +36,11 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kstandardaction.h>
+#include <kstandarddirs.h>
 #include <kstandardshortcut.h>
 #include <ktemporaryfile.h>
 #include <kparts/genericfactory.h>
-//#include <ktempdir.h>
+#include <ktempdir.h>
 
 #include <kio/netaccess.h>
 #include <kglobal.h>
@@ -85,7 +86,7 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringL
 	setWidget( m_splitter->parentWidget() );
 
 	// This creates the "Model creator" and connects the signals and slots
-	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_info, m_splitter, this, "komparemodellist" );
+	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_splitter, this, "komparemodellist" );
 	connect( m_modelList, SIGNAL(status( Kompare::Status )),
 	         this, SLOT(slotSetStatus( Kompare::Status )) );
 	connect( m_modelList, SIGNAL(setStatusBarModelInfo( int, int, int, int, int )),
@@ -126,6 +127,8 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringL
 	         this, SIGNAL(applyDifference(const Diff2::Difference*, bool)) );
 	connect( m_modelList, SIGNAL(diffString(const QString&)),
 	         this, SIGNAL(diffString(const QString&)) );
+
+	connect( this, SIGNAL(kompareInfo(Kompare::Info*)), m_modelList, SLOT(slotKompareInfo(Kompare::Info*)) );
 
 	// Here we connect the splitter to the modellist
 	connect( m_modelList, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)),
@@ -195,7 +198,7 @@ void KomparePart::updateActions()
 	m_swap->setEnabled        ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
 	m_diffRefresh->setEnabled ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
 	m_diffStats->setEnabled   ( m_modelList->modelCount() > 0 );
-	m_print->setEnabled       ( m_modelList ); // If modellist is not 0 then we have something to print, it's that simple.
+	m_print->setEnabled       ( m_modelList->modelCount() > 0 ); // If modellist has models then we have something to print, it's that simple.
 	m_printPreview->setEnabled( m_modelList );
 }
 
@@ -209,12 +212,13 @@ bool KomparePart::openDiff( const KUrl& url )
 {
 	kDebug(8103) << "Url = " << url.url() << endl;
 
-	emit kompareInfo( &m_info );
-
 	m_info.mode = Kompare::ShowingDiff;
 	m_info.source = url;
 	bool result = false;
 	m_info.localSource = fetchURL( url );
+
+	emit kompareInfo( &m_info );
+
 	if ( !m_info.localSource.isEmpty() )
 	{
 		kDebug(8103) << "Download succeeded " << endl;
@@ -235,9 +239,9 @@ bool KomparePart::openDiff( const QString& diffOutput )
 {
 	bool value = false;
 
-	emit kompareInfo( &m_info );
-
 	m_info.mode = Kompare::ShowingDiff;
+
+	emit kompareInfo( &m_info );
 
 	if ( m_modelList->parseDiffOutput( diffOutput ) == 0 )
 	{
@@ -277,10 +281,27 @@ const QString KomparePart::fetchURL( const KUrl& url )
 	QString tempFileName( "" );
 	if ( !url.isLocalFile() )
 	{
-		if ( ! KIO::NetAccess::download( url, tempFileName, widget() ) )
+		KIO::UDSEntry node;
+		KIO::NetAccess::stat( url, node, widget() );
+		if ( !node.isDir() )
 		{
-			slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.prettyUrl() ) );
-			tempFileName = "";
+			if ( ! KIO::NetAccess::download( url, tempFileName, widget() ) )
+			{
+				slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.prettyUrl() ) );
+				tempFileName = "";
+			}
+		}
+		else
+		{
+			KTempDir tmpDir(KStandardDirs::locateLocal("tmp", "kompare"));
+			tmpDir.setAutoRemove( false );
+			if ( ! KIO::NetAccess::dircopy( url, KUrl( tmpDir.name() ), widget() ) )
+			{
+				slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.prettyUrl() ) );
+				tempFileName = "";
+			}
+			else
+				tempFileName = tmpDir.name();
 		}
 		return tempFileName;
 	}
@@ -299,7 +320,7 @@ const QString KomparePart::fetchURL( const KUrl& url )
 
 void KomparePart::cleanUpTemporaryFiles()
 {
-	// i hope a local file will not be removed if it was not downloaded...
+	// FIXME: When this is a directory remove it with a different method
 	if ( !m_info.localSource.isEmpty() )
 		KIO::NetAccess::removeTempFile( m_info.localSource );
 	if ( !m_info.localDestination.isEmpty() )
@@ -308,6 +329,10 @@ void KomparePart::cleanUpTemporaryFiles()
 
 void KomparePart::compare( const KUrl& source, const KUrl& destination )
 {
+	// FIXME: This is silly, i can use NetAccess::stat to figure out what it is and not
+	// wait until i am in the modellist to determine the mode we're supposed to be in.
+	// That should make the code more readable
+	// I should store the KTempDir(s)/File(s) in the Info struct as well and delete it at the right time
 	m_info.source = source;
 	m_info.destination = destination;
 
@@ -318,7 +343,7 @@ void KomparePart::compare( const KUrl& source, const KUrl& destination )
 
 	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
-		m_modelList->compare( m_info.localSource, m_info.localDestination );
+		m_modelList->compare();
 		updateActions();
 		updateCaption();
 		updateStatus();
@@ -327,8 +352,6 @@ void KomparePart::compare( const KUrl& source, const KUrl& destination )
 
 void KomparePart::compareFiles( const KUrl& sourceFile, const KUrl& destinationFile )
 {
-	emit kompareInfo( &m_info );
-
 	m_info.mode = Kompare::ComparingFiles;
 
 	m_info.source = sourceFile;
@@ -337,9 +360,11 @@ void KomparePart::compareFiles( const KUrl& sourceFile, const KUrl& destinationF
 	m_info.localSource = fetchURL( sourceFile );
 	m_info.localDestination = fetchURL( destinationFile );
 
+	emit kompareInfo( &m_info );
+
 	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
-		m_modelList->compareFiles( m_info.localSource, m_info.localDestination );
+		m_modelList->compareFiles();
 		updateActions();
 		updateCaption();
 		updateStatus();
@@ -348,8 +373,6 @@ void KomparePart::compareFiles( const KUrl& sourceFile, const KUrl& destinationF
 
 void KomparePart::compareDirs( const KUrl& sourceDirectory, const KUrl& destinationDirectory )
 {
-	emit kompareInfo( &m_info );
-
 	m_info.mode = Kompare::ComparingDirs;
 
 	m_info.source = sourceDirectory;
@@ -358,9 +381,11 @@ void KomparePart::compareDirs( const KUrl& sourceDirectory, const KUrl& destinat
 	m_info.localSource = fetchURL( sourceDirectory );
 	m_info.localDestination = fetchURL( destinationDirectory );
 
+	emit kompareInfo( &m_info );
+
 	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
-		m_modelList->compareDirs( m_info.localSource, m_info.localDestination );
+		m_modelList->compareDirs();
 		updateActions();
 		updateCaption();
 		updateStatus();
@@ -377,8 +402,6 @@ void KomparePart::compare3Files( const KUrl& /*originalFile*/, const KUrl& /*cha
 
 void KomparePart::openFileAndDiff( const KUrl& file, const KUrl& diffFile )
 {
-	emit kompareInfo( &m_info );
-
 	m_info.source = file;
 	m_info.destination = diffFile;
 
@@ -386,9 +409,11 @@ void KomparePart::openFileAndDiff( const KUrl& file, const KUrl& diffFile )
 	m_info.localDestination = fetchURL( diffFile );
 	m_info.mode = Kompare::BlendingFile;
 
+	emit kompareInfo( &m_info );
+
 	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
-		m_modelList->openFileAndDiff( m_info.localSource, m_info.localDestination );
+		m_modelList->openFileAndDiff();
 		updateActions();
 		updateCaption();
 		updateStatus();
@@ -397,8 +422,6 @@ void KomparePart::openFileAndDiff( const KUrl& file, const KUrl& diffFile )
 
 void KomparePart::openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile )
 {
-	emit kompareInfo( &m_info );
-
 	m_info.source = dir;
 	m_info.destination = diffFile;
 
@@ -406,9 +429,11 @@ void KomparePart::openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile )
 	m_info.localDestination = fetchURL( diffFile );
 	m_info.mode = Kompare::BlendingDir;
 
+	emit kompareInfo( &m_info );
+
 	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
-		m_modelList->openDirAndDiff( m_info.localSource, m_info.localDestination );
+		m_modelList->openDirAndDiff();
 		updateActions();
 		updateCaption();
 		updateStatus();
@@ -581,7 +606,7 @@ void KomparePart::updateCaption()
 	case Kompare::ComparingDirs :
 	case Kompare::BlendingFile :
 	case Kompare::BlendingDir :
-		text = source + ':' + destination;
+		text = source + " -- " + destination; // no need to translate this " -- "
 		break;
 	case Kompare::ShowingDiff :
 		text = source;
@@ -688,13 +713,17 @@ void KomparePart::slotRefreshDiff()
 		                KStandardGuiItem::discard()
 		            );
 
+		if ( query == KMessageBox::Cancel )
+			return; // Abort prematurely so no refreshing
+
 		if ( query == KMessageBox::Yes )
 			m_modelList->saveAll();
-
-		if ( query == KMessageBox::Cancel )
-			return; // Abort prematurely so no swapping
 	}
 
+	// For this to work properly you have to refetch the files from their remote locations
+	cleanUpTemporaryFiles();
+	m_info.localSource = fetchURL( m_info.source );
+	m_info.localDestination = fetchURL( m_info.destination );
 	m_modelList->refresh();
 }
 

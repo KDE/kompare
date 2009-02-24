@@ -3,7 +3,7 @@
                           -------------------
     begin                : Tue Jun 26 2001
     Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
-    Copyright 2001-2003 Otto Bruggeman <otto.bruggeman@home.nl>
+    Copyright 2001-2005,2009 Otto Bruggeman <bruggie@gmail.com>
     Copyright 2007-2008 Kevin Kofler   <kevin.kofler@chello.at>
  ***************************************************************************/
 
@@ -42,7 +42,7 @@ class DIFF2_EXPORT KompareModelList : public QObject
 {
 	Q_OBJECT
 public:
-	KompareModelList( DiffSettings* diffSettings, struct Kompare::Info& info, QWidget* widgetForKIO, QObject* parent, const char* name = 0 );
+	KompareModelList( DiffSettings* diffSettings, QWidget* widgetForKIO, QObject* parent, const char* name = 0 );
 	~KompareModelList();
 
 public:
@@ -51,15 +51,15 @@ public:
 	void swap();
 
 	/* Comparing methods */
-	bool compare( const QString& source, const QString& destination );
+	bool compare();
 
-	bool compareFiles( const QString& source, const QString& destination );
-	bool compareDirs( const QString& source, const QString& destination );
+	bool compareFiles();
+	bool compareDirs();
 
 	bool openDiff( const QString& diff );
 
-	bool openFileAndDiff( const QString& file, const QString& diff );
-	bool openDirAndDiff( const QString& dir, const QString& diff );
+	bool openFileAndDiff();
+	bool openDirAndDiff();
 
 	bool saveDiff( const QString& url, QString directory, DiffSettings* diffSettings );
 	bool saveAll();
@@ -80,7 +80,8 @@ public:
 	// this is like patching but with a twist
 	bool blendOriginalIntoModelList( const QString& localURL );
 
-	enum Kompare::Mode    mode()   const { return m_info.mode; };
+	// This mode() method is superfluous now so FIXME
+	enum Kompare::Mode    mode()   const { return m_info->mode; };
 	const DiffModelList*  models() const { return m_models; };
 
 	int modelCount() const;
@@ -142,6 +143,8 @@ public slots:
 	// This slot is called by the diffmodels whenever their status changes to modified or unmodified
 	void slotSetModified( bool modified );
 
+	void slotKompareInfo( struct Kompare::Info* );
+
 protected slots:
 	void slotDiffProcessFinished( bool success );
 	void slotWriteDiffOutput( bool success );
@@ -181,19 +184,13 @@ private:
 
 	DiffModelList*        m_models;
 
-	QString               m_source;
-	QString               m_destination;
-
 	DiffModel*            m_selectedModel;
 	Difference*           m_selectedDifference;
-
-	KDirWatch*            m_dirWatch;
-	KDirWatch*            m_fileWatch;
 
 	int                   m_noOfModified;
 	int                   m_modelIndex;
 
-	struct Kompare::Info& m_info;
+	struct Kompare::Info* m_info;
 
 	KAction*              m_applyDifference;
 	KAction*              m_unApplyDifference;

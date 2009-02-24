@@ -40,7 +40,6 @@
 ViewPage::ViewPage() : PageBase()
 {
 	QWidget*     page;
-	KTabWidget*  tabWidget;
 	QVBoxLayout* layout;
 	QGridLayout* gridLayout;
 	QGroupBox*   colorGroupBox;
@@ -48,8 +47,8 @@ ViewPage::ViewPage() : PageBase()
 	QGroupBox*   tabGroupBox;
 	QLabel*      label;
 
-	tabWidget = new KTabWidget( this );
-	page   = new QWidget( tabWidget );
+	m_tabWidget = new KTabWidget( this );
+	page   = new QWidget( m_tabWidget );
 	layout = new QVBoxLayout( page );
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
@@ -113,9 +112,9 @@ ViewPage::ViewPage() : PageBase()
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	tabWidget->addTab( page, i18n( "Appearance" ) );
+	m_tabWidget->addTab( page, i18n( "Appearance" ) );
 
-	page   = new QWidget( tabWidget );
+	page   = new QWidget( m_tabWidget );
 	layout = new QVBoxLayout( page );
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
@@ -137,7 +136,7 @@ ViewPage::ViewPage() : PageBase()
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );
 
-	tabWidget->addTab( page, i18n( "Fonts" ) );
+	m_tabWidget->addTab( page, i18n( "Fonts" ) );
 }
 
 ViewPage::~ViewPage()

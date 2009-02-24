@@ -311,15 +311,26 @@ bool KomparePart::fetchURL( const KUrl& url, bool addToSource )
 			else
 			{
 				tempFileName = tmpDir->name();
+				kDebug(8101) << "tempFileName = " << tempFileName << endl;
 				// If a directory is copied into KTempDir then the directory in 
 				// here is what I need to add to tempFileName
 				QDir dir( tempFileName );
-				QStringList entries = dir.entryList();
-				Q_ASSERT( entries.size() != 1 ); // More than 1 entry in here means big problems!!!
-				if ( !tempFileName.endsWith( '/' ) )
+				QStringList entries = dir.entryList( QDir::Dirs | QDir::NoDotAndDotDot );
+				if ( entries.size() == 1 ) // More than 1 entry in here means big problems!!!
+				{
+					if ( !tempFileName.endsWith( '/' ) )
+						tempFileName += '/';
+					tempFileName += entries.at( 0 );
 					tempFileName += '/';
-				tempFileName += entries.at( 0 );
-				tempFileName += '/';
+				}
+				else
+				{
+					kDebug(8101) << "Yikes, nothing downloaded?" << endl;
+					delete tmpDir;
+					tmpDir = 0;
+					tempFileName = "";
+					result = false;
+				}
 			}
 		}
 	}
@@ -351,6 +362,7 @@ bool KomparePart::fetchURL( const KUrl& url, bool addToSource )
 
 void KomparePart::cleanUpTemporaryFiles()
 {
+	kDebug(8101) << "Cleaning temporary files." << endl;
 	if ( !m_info.localSource.isEmpty() )
 	{
 		if ( m_info.sourceKTempDir == 0 )

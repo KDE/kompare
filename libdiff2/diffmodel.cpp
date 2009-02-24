@@ -102,7 +102,7 @@ void DiffModel::splitDestinationInPathAndFileName()
 	if( ( pos = m_destination.findRev( "/" ) ) >= 0 )
 		m_destinationFile = m_destination.mid( pos+1, m_destination.length() - pos );
 	else
-		m_destinationFile = m_source;
+		m_destinationFile = m_destination;
 
 	kDebug(8101) << m_destination << " was split into " << m_destinationPath << " and " << m_destinationFile << endl;
 }
@@ -280,7 +280,7 @@ void DiffModel::setDestinationTimestamp( QString timestamp )
 
 void DiffModel::setSourceRevision( QString revision )
 {
-	m_destinationRevision = revision;
+	m_sourceRevision = revision;
 }
 
 void DiffModel::setDestinationRevision( QString revision )

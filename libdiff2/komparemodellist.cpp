@@ -385,18 +385,27 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	{
 		// Dont use destination which was used for creating the diff directly, use the original URL!!!
 		// FIXME!!! Wrong destination this way! Need to add the sub directory to the url!!!!
-		kDebug(8101) << "Tempfilename   : " << temp.name() << endl;
-		kDebug(8101) << "DestinationURL : " << m_info->destination << endl;
+		kDebug(8101) << "Tempfilename (save) : " << temp.name() << endl;
+		kDebug(8101) << "Model->path+file    : " << model->destinationPath() << model->destinationFile() << endl;
+		kDebug(8101) << "info->localdest     : " << m_info->localDestination << endl;
+		QString tmp = model->destinationPath() + model->destinationFile();
+		if ( tmp.startsWith( m_info->localDestination ) ) // It should, if not serious trouble...
+			tmp.remove( 0, m_info->localDestination.size() );
+		kDebug(8101) << "DestinationURL      : " << m_info->destination << endl;
+		kDebug(8101) << "tmp                 : " << tmp << endl;
 		KIO::UDSEntry entry;
-		if ( !KIO::NetAccess::stat( m_info->destination.directory(), entry, m_widgetForKIO ) )
+		KUrl fullDestinationPath( m_info->destination );
+		fullDestinationPath.addPath( tmp );
+		kDebug(8101) << "fullDestinationPath : " << fullDestinationPath << endl;
+		if ( !KIO::NetAccess::stat( fullDestinationPath.directory(), entry, m_widgetForKIO ) )
 		{
-			if ( !KIO::NetAccess::mkdir( m_info->destination.directory(), m_widgetForKIO ) )
+			if ( !KIO::NetAccess::mkdir( fullDestinationPath.directory(), m_widgetForKIO ) )
 			{
-				emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved.</qt>", m_info->destination.directory() ) );
+				emit error( i18n( "<qt>Could not create destination directory <b>%1</b>.\nThe file has not been saved.</qt>", fullDestinationPath.directory() ) );
 				return false;
 			}
 		}
-		result = KIO::NetAccess::upload( temp.name(), m_info->destination, m_widgetForKIO );
+		result = KIO::NetAccess::upload( temp.name(), fullDestinationPath, m_widgetForKIO );
 	}
 	else
 	{

@@ -206,7 +206,7 @@ bool KomparePart::openDiff( const KUrl& url )
 	m_info.mode = Kompare::ShowingDiff;
 	m_info.source = url;
 	bool result = false;
-	m_info.localSource = fetchURL( url );
+	fetchURL( url, true );
 
 	emit kompareInfo( &m_info );
 
@@ -249,7 +249,7 @@ bool KomparePart::openDiff( const QString& diffOutput )
 bool KomparePart::openDiff3( const KUrl& diff3Url )
 {
 	// FIXME: Implement this !!!
-	kDebug(8103) << "Not implemented yet. Filename is: " << diff3Url.url() << endl;
+	kDebug(8103) << "Not implemented yet. Filename is: " << diff3Url.prettyUrl() << endl;
 	return false;
 }
 
@@ -267,9 +267,14 @@ bool KomparePart::exists( const QString& url )
 	return fi.exists();
 }
 
-const QString KomparePart::fetchURL( const KUrl& url )
+bool KomparePart::fetchURL( const KUrl& url, bool addToSource )
 {
+	// Default value if there is an error is "", we rely on it!
 	QString tempFileName( "" );
+	// Only in case of error do we set result to false, don't forget!!
+	bool result = true;
+	KTempDir* tmpDir = 0;
+
 	if ( !url.isLocalFile() )
 	{
 		KIO::UDSEntry node;
@@ -279,43 +284,98 @@ const QString KomparePart::fetchURL( const KUrl& url )
 			if ( ! KIO::NetAccess::download( url, tempFileName, widget() ) )
 			{
 				slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.prettyUrl() ) );
-				tempFileName = "";
+				tempFileName = ""; // Not sure if download has already touched this tempFileName when there is an error
+				result = false;
 			}
 		}
 		else
 		{
-			KTempDir tmpDir(KStandardDirs::locateLocal("tmp", "kompare"));
-			tmpDir.setAutoRemove( false );
-			if ( ! KIO::NetAccess::dircopy( url, KUrl( tmpDir.name() ), widget() ) )
+			tmpDir = new KTempDir(KStandardDirs::locateLocal("tmp", "kompare"));
+			tmpDir->setAutoRemove( true ); // Yes this is the default but just to make sure
+			if ( ! KIO::NetAccess::dircopy( url, KUrl( tmpDir->name() ), widget() ) )
 			{
 				slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.prettyUrl() ) );
-				tempFileName = "";
+				delete tmpDir;
+				tmpDir = 0;
+				result = false;
 			}
 			else
-				tempFileName = tmpDir.name();
+			{
+				tempFileName = tmpDir->name();
+				kDebug(8101) << "tempFileName = " << tempFileName << endl;
+				// If a directory is copied into KTempDir then the directory in 
+				// here is what I need to add to tempFileName
+				QDir dir( tempFileName );
+				QStringList entries = dir.entryList( QDir::Dirs | QDir::NoDotAndDotDot );
+				if ( entries.size() == 1 ) // More than 1 entry in here means big problems!!!
+				{
+					if ( !tempFileName.endsWith( '/' ) )
+						tempFileName += '/';
+					tempFileName += entries.at( 0 );
+					tempFileName += '/';
+				}
+				else
+				{
+					kDebug(8101) << "Yikes, nothing downloaded?" << endl;
+					delete tmpDir;
+					tmpDir = 0;
+					tempFileName = "";
+					result = false;
+				}
+			}
 		}
-		return tempFileName;
 	}
 	else
 	{
 		// is Local already, check if exists
 		if ( exists( url.path() ) )
-			return url.path();
+			tempFileName = url.path();
 		else
 		{
 			slotShowError( i18n( "<qt>The URL <b>%1</b> does not exist on your system.</qt>", url.prettyUrl() ) );
-			return tempFileName;
+			result = false;
 		}
 	}
+
+	if ( addToSource )
+	{
+		m_info.localSource = tempFileName;
+		m_info.sourceKTempDir = tmpDir;
+	}
+	else
+	{
+		m_info.localDestination = tempFileName;
+		m_info.destinationKTempDir = tmpDir;
+	}
+
+	return result;
 }
 
 void KomparePart::cleanUpTemporaryFiles()
 {
-	// FIXME: When this is a directory remove it with a different method
+	kDebug(8101) << "Cleaning temporary files." << endl;
 	if ( !m_info.localSource.isEmpty() )
-		KIO::NetAccess::removeTempFile( m_info.localSource );
+	{
+		if ( m_info.sourceKTempDir == 0 )
+			KIO::NetAccess::removeTempFile( m_info.localSource );
+		else
+		{
+			delete m_info.sourceKTempDir;
+			m_info.sourceKTempDir = 0;
+		}
+		m_info.localSource = "";
+	}
 	if ( !m_info.localDestination.isEmpty() )
-		KIO::NetAccess::removeTempFile( m_info.localDestination );
+	{
+		if ( m_info.destinationKTempDir == 0  )
+			KIO::NetAccess::removeTempFile( m_info.localDestination );
+		else
+		{
+			delete m_info.destinationKTempDir;
+			m_info.destinationKTempDir = 0;
+		}
+		m_info.localDestination = "";
+	}
 }
 
 void KomparePart::compare( const KUrl& source, const KUrl& destination )
@@ -327,18 +387,20 @@ void KomparePart::compare( const KUrl& source, const KUrl& destination )
 	m_info.source = source;
 	m_info.destination = destination;
 
-	m_info.localSource = fetchURL( source );
-	m_info.localDestination = fetchURL( destination );
+	// FIXME: (Not urgent) But turn this into an enum, for now i cant find a nice name for the enum that has Source and Destination as values
+	// For now we do not do error checking, user has already been notified and if the localString is empty then we dont diff
+	fetchURL( source, true );
+	fetchURL( destination, false );
 
 	emit kompareInfo( &m_info );
 
 	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
 		m_modelList->compare();
-		updateActions();
 		updateCaption();
 		updateStatus();
 	}
+	updateActions();
 }
 
 void KomparePart::compareFiles( const KUrl& sourceFile, const KUrl& destinationFile )
@@ -348,18 +410,20 @@ void KomparePart::compareFiles( const KUrl& sourceFile, const KUrl& destinationF
 	m_info.source = sourceFile;
 	m_info.destination = destinationFile;
 
-	m_info.localSource = fetchURL( sourceFile );
-	m_info.localDestination = fetchURL( destinationFile );
+	// FIXME: (Not urgent) But turn this into an enum, for now i cant find a nice name for the enum that has Source and Destination as values
+	// For now we do not do error checking, user has already been notified and if the localString is empty then we dont diff
+	fetchURL( sourceFile, true );
+	fetchURL( destinationFile, false );
 
 	emit kompareInfo( &m_info );
 
 	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
 		m_modelList->compareFiles();
-		updateActions();
 		updateCaption();
 		updateStatus();
 	}
+	updateActions();
 }
 
 void KomparePart::compareDirs( const KUrl& sourceDirectory, const KUrl& destinationDirectory )
@@ -369,18 +433,18 @@ void KomparePart::compareDirs( const KUrl& sourceDirectory, const KUrl& destinat
 	m_info.source = sourceDirectory;
 	m_info.destination = destinationDirectory;
 
-	m_info.localSource = fetchURL( sourceDirectory );
-	m_info.localDestination = fetchURL( destinationDirectory );
+	fetchURL( sourceDirectory, true );
+	fetchURL( destinationDirectory, false );
 
 	emit kompareInfo( &m_info );
 
 	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
 		m_modelList->compareDirs();
-		updateActions();
 		updateCaption();
 		updateStatus();
 	}
+	updateActions();
 }
 
 void KomparePart::compare3Files( const KUrl& /*originalFile*/, const KUrl& /*changedFile1*/, const KUrl& /*changedFile2*/ )
@@ -396,8 +460,8 @@ void KomparePart::openFileAndDiff( const KUrl& file, const KUrl& diffFile )
 	m_info.source = file;
 	m_info.destination = diffFile;
 
-	m_info.localSource = fetchURL( file );
-	m_info.localDestination = fetchURL( diffFile );
+	fetchURL( file, true );
+	fetchURL( diffFile, false );
 	m_info.mode = Kompare::BlendingFile;
 
 	emit kompareInfo( &m_info );
@@ -405,10 +469,10 @@ void KomparePart::openFileAndDiff( const KUrl& file, const KUrl& diffFile )
 	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
 		m_modelList->openFileAndDiff();
-		updateActions();
 		updateCaption();
 		updateStatus();
 	}
+	updateActions();
 }
 
 void KomparePart::openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile )
@@ -416,8 +480,8 @@ void KomparePart::openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile )
 	m_info.source = dir;
 	m_info.destination = diffFile;
 
-	m_info.localSource = fetchURL( dir );
-	m_info.localDestination = fetchURL( diffFile );
+	fetchURL( dir, true );
+	fetchURL( diffFile, false );
 	m_info.mode = Kompare::BlendingDir;
 
 	emit kompareInfo( &m_info );
@@ -628,13 +692,7 @@ void KomparePart::slotSwap()
 	}
 
 	// Swap the info in the Kompare::Info struct
-	KUrl url = m_info.source;
-	m_info.source = m_info.destination;
-	m_info.destination = url;
-
-	QString string = m_info.localSource;
-	m_info.localSource = m_info.localDestination;
-	m_info.localDestination = string;
+	m_info.swapSourceWithDestination();
 
 	// Update window caption and statusbar text
 	updateCaption();
@@ -664,10 +722,10 @@ void KomparePart::slotRefreshDiff()
 			m_modelList->saveAll();
 	}
 
-	// For this to work properly you have to refetch the files from their remote locations
+	// For this to work properly you have to refetch the files from their (remote) locations
 	cleanUpTemporaryFiles();
-	m_info.localSource = fetchURL( m_info.source );
-	m_info.localDestination = fetchURL( m_info.destination );
+	fetchURL( m_info.source, true );
+	fetchURL( m_info.destination, false );
 	m_modelList->refresh();
 }
 

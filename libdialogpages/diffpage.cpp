@@ -338,15 +338,15 @@ void DiffPage::addOptionsTab()
 	bgLayout->addWidget( m_linesCheckBox );
 	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes in the amount of whitespace" ), moreOptionButtonGroup );
 	QToolTip::add( m_whitespaceCheckBox, i18n( "This option corresponds to the -b diff option." ) );
-	m_whitespaceCheckBox->setWhatsThis( i18n( "If you dont care about the changes made due to for example indentation then use this option." ) );
+	m_whitespaceCheckBox->setWhatsThis( i18n( "If you are uninterested in differences arising due to, for example, changes in indentation, then use this option." ) );
 	bgLayout->addWidget( m_whitespaceCheckBox );
 	m_allWhitespaceCheckBox = new QCheckBox( i18n( "Ign&ore all whitespace" ), moreOptionButtonGroup );
 	QToolTip::add( m_allWhitespaceCheckBox, i18n( "This option corresponds to the -w diff option." ) );
-	m_allWhitespaceCheckBox->setWhatsThis( i18n( "This is useful for seeing the real changes and not be overwhelmed because of all the white space changes" ) );
+	m_allWhitespaceCheckBox->setWhatsThis( i18n( "This is useful for seeing the significant changes without being overwhelmed by all the white space changes." ) );
 	bgLayout->addWidget( m_allWhitespaceCheckBox );
 	m_ignoreTabExpansionCheckBox = new QCheckBox( i18n( "Igno&re changes due to tab expansion" ), moreOptionButtonGroup );
 	QToolTip::add( m_ignoreTabExpansionCheckBox, i18n( "This option corresponds to the -E diff option." ) );
-	m_ignoreTabExpansionCheckBox->setWhatsThis( i18n( "If there is a change because tabs have been expanded into spaces in the other file then this option will make sure that these do not show up. Kompare currently has some problems applying such changes so be careful when you use this option." ) );
+	m_ignoreTabExpansionCheckBox->setWhatsThis( i18n( "If there is a change because tabs have been expanded into spaces in the other file, then this option will make sure that these do not show up. Kompare currently has some problems applying such changes so be careful when you use this option." ) );
 	bgLayout->addWidget( m_ignoreTabExpansionCheckBox );
 
 	layout->addStretch( 1 );

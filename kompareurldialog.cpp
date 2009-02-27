@@ -94,7 +94,7 @@ void KompareURLDialog::slotButtonClicked( int button )
 		if ( QFileInfo( m_diffPage->m_excludeFileURLComboBox->currentText() ).isDir() )
 		{
 			kDebug(8102) << "Dont enter directory names where filenames are expected..." << endl;
-			KMessageBox::sorry( this, i18n( "File used for excluding files does not exist! Please give a file that exists." ) );
+			KMessageBox::sorry( this, i18n( "File used for excluding files cannot be found, please specify another file." ) );
 			reject();
 			return;
 		}

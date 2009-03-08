@@ -207,12 +207,15 @@ Using the scrollbars it is possible to move rapidly through the comparison.</par
 <listitem><para>The vertical space between the source and destination view not only makes it possible to clearly see the start and end of lines in each of the panes, 
 but is also a grip handle that allows adjustment of percentage occupied between the source and destinate views that comprise the view pane. 
 To change pane size for one of the views, hover the mouse pointer over the grip handle then hold down the mouse button and drag left or right. 
-Naturally, increasing the area of one pane will decrease the area available to the opposite pane within the view panel area.</para></listitem>
+Naturally, increasing the area of one pane will decrease the area available to the opposite pane within the view panel area.</para>
+<para>A second horizontal handle is available between the navigation panel and the source and destination view.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term>Docking</term>
-<listitem><para>The main workspace can be undocked from the main interface by clicking the <guibutton>undock</guibutton> button located top right of the main workspace panel. 
-This opens the main workspace in a window of its own, allowing it to be maximized and resized across the screen.</para></listitem>
+<listitem><para>The navigation panel can be undocked from the main interface by clicking the <guibutton>undock</guibutton> button located top right of the panel. 
+This opens it in a window of its own, allowing you to move it across the screen. You can even hide the navigation panel by clicking the <guibutton>hide</guibutton> button.
+To display a hidden navigation bar again, click with the &RMB; into the menubar and select <guilabel>Navigation</guilabel> from the context menu.
+</para></listitem>
 </varlistentry>
 <varlistentry>
 <term>Statusbar Toggle</term>
@@ -240,11 +243,11 @@ This will display the <guilabel>Diff Statistics</guilabel> dialog. The following
 <variablelist>
 <varlistentry>
 <term><guilabel>Old file:</guilabel></term>
-<listitem><para>The file name of what is usually the destination file or file that is unmodified and to which differences will be applied.</para></listitem>
+<listitem><para>The file name of what is usually the source file or file that is unmodified.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guilabel>New file:</guilabel></term>
-<listitem><para>The file name of what is usually the source file or file that is modified.</para></listitem>
+<listitem><para>The file name of what is usually the destination file or file that is modified and to which differences will be applied.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guilabel>Format:</guilabel></term>
@@ -338,7 +341,7 @@ Multiple apply and unapply operations can be performed on a difference as all op
 
 <sect2 id="unapplying-all-differences">
 <title>Unapplying All Differences</title>
-<para>To differences that have been applied select 
+<para>To revert all differences that have been applied previously select 
 <menuchoice><guimenu>Difference</guimenu><guimenuitem>Unapply All</guimenuitem></menuchoice> (<keycombo action="simul">&Ctrl;<keycap>U</keycap></keycombo>).</para>
 </sect2>
 

@@ -187,6 +187,15 @@ public:
 		m_conflicts = conflicts;
 	}
 
+	bool isUnsaved() const
+	{
+		return m_unsaved;
+	}
+	void setUnsaved( bool unsaved )
+	{
+		m_unsaved = unsaved;
+	}
+
 	void apply( bool apply );
 	bool applied() const { return m_applied; }
 
@@ -211,6 +220,7 @@ private:
 
 	bool                  m_applied;
 	bool                  m_conflicts;
+	bool                  m_unsaved;
 };
 
 typedef Q3ValueList<Difference*> DifferenceList;

@@ -97,7 +97,6 @@ bool CVSDiffParser::parseNormalDiffHeader()
 			kDebug(8101) << "Matched string Header = " << m_normalDiffHeader.cap( 0 ) << endl;
 
 			m_currentModel = new DiffModel();
-			QObject::connect( m_currentModel, SIGNAL( setModified( bool ) ), m_list, SLOT( slotSetModified( bool ) ) );
 			m_currentModel->setSourceFile          ( m_normalDiffHeader.cap( 1 ) );
 			m_currentModel->setDestinationFile     ( m_normalDiffHeader.cap( 1 ) );
 
@@ -118,7 +117,6 @@ bool CVSDiffParser::parseNormalDiffHeader()
 		// Set this to the first line again and hope it is a single file diff
 		m_diffIterator = m_diffLines.begin();
 		m_currentModel = new DiffModel();
-		QObject::connect( m_currentModel, SIGNAL( setModified( bool ) ), m_list, SLOT( slotSetModified( bool ) ) );
 		m_singleFileDiff = true;
 	}
 

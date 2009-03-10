@@ -91,7 +91,7 @@ public:
 	const DiffModel* modelAt( int i ) const { return *( m_models->at( i ) ); };
 	int              findModel( DiffModel* model ) const { return m_models->findIndex( model ); };
 
-	bool isModified() const;
+	bool hasUnsavedChanges() const;
 
 	int currentModel() const      { return m_models->findIndex( m_selectedModel ); };
 	int currentDifference() const { return m_selectedModel ? m_selectedModel->findDifference( m_selectedDifference ) : -1; };
@@ -125,9 +125,7 @@ signals:
 	void applyAllDifferences( bool apply );
 	void applyDifference( const Diff2::Difference* diff, bool apply );
 	void diffString( const QString& );
-
-	// Emits true when m_noOfModified > 0, false when m_noOfModified == 0
-	void setModified( bool modified );
+	void updateActions();
 
 public slots:
 	void slotSelectionChanged( const Diff2::DiffModel* model, const Diff2::Difference* diff );
@@ -139,9 +137,6 @@ public slots:
 	void slotNextModel();
 	void slotPreviousDifference();
 	void slotNextDifference();
-
-	// This slot is called by the diffmodels whenever their status changes to modified or unmodified
-	void slotSetModified( bool modified );
 
 	void slotKompareInfo( struct Kompare::Info* );
 
@@ -187,7 +182,6 @@ private:
 	DiffModel*            m_selectedModel;
 	Difference*           m_selectedDifference;
 
-	int                   m_noOfModified;
 	int                   m_modelIndex;
 
 	struct Kompare::Info* m_info;

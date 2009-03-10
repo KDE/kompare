@@ -24,7 +24,9 @@ Difference::Difference( int sourceLineNo, int destinationLineNo, int type ) :
 	m_type( type ),
 	m_sourceLineNo( sourceLineNo ),
 	m_destinationLineNo( destinationLineNo ),
-	m_applied( false )
+	m_applied( false ),
+	m_conflicts( false ),
+	m_unsaved( false )
 {
 }
 
@@ -57,6 +59,7 @@ int Difference::destinationLineCount() const
 void Difference::apply( bool apply )
 {
 	m_applied = apply;
+	m_unsaved = !m_unsaved;
 }
 
 void Difference::determineInlineDifferences()
@@ -135,3 +138,4 @@ QString Difference::recreateDifference() const
 
 	return difference;
 }
+

@@ -13,6 +13,6 @@ target_link_libraries(kompareinterface  ${KDE4_KDECORE_LIBS} )
 
 set_target_properties(kompareinterface PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS kompareinterface ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install(TARGETS kompareinterface.h ${INCLUDE_INSTALL_DIR}/kompare COMPONENT Devel )
+#install(TARGETS kompareinterface.h ${INCLUDE_INSTALL_DIR}/kompare COMPONENT Devel )
 
 

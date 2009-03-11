@@ -137,6 +137,9 @@ bool DiffModel::operator<( const DiffModel& model )
 
 int DiffModel::localeAwareCompareSource( const DiffModel& model )
 {
+	kDebug(8101) << "Path: " << model.m_sourcePath << endl;
+	kDebug(8101) << "File: " << model.m_sourceFile << endl;
+
 	int result = m_sourcePath.localeAwareCompare( model.m_sourcePath );
 
 	if ( result == 0 )

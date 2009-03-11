@@ -203,7 +203,7 @@ void KomparePart::updateActions()
 
 void KomparePart::setEncoding( const QString& encoding )
 {
-	kDebug() << "Encoding: " << encoding << endl;
+	kDebug(8103) << "Encoding: " << encoding << endl;
 	m_modelList->setEncoding( encoding );
 }
 

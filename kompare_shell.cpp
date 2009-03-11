@@ -308,7 +308,7 @@ void KompareShell::slotSetStatusBarText( const QString& text )
 
 void KompareShell::setCaption( const QString& caption )
 {
-//	kDebug() << kBacktrace();
+//	kDebug(8102) << kBacktrace();
 	KParts::MainWindow::setCaption( caption, m_viewPart->isModified() );
 }
 
@@ -431,7 +431,7 @@ void KompareShell::slotFileCompareFiles()
 		KompareShell* shell = new KompareShell();
 		KGlobal::ref();
 		shell->show();
-		kDebug() << "The encoding is: " << dialog.encoding() << endl;
+		kDebug(8102) << "The encoding is: " << dialog.encoding() << endl;
 		shell->m_viewPart->setEncoding( dialog.encoding() );
 		shell->compare( m_sourceURL, m_destinationURL );
 	}

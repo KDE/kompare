@@ -71,6 +71,7 @@ public:
 
 	KUrlRequester* m_diffURLRequester;
 
+	QCheckBox*     m_newFilesCheckBox;
 	QCheckBox*     m_smallerCheckBox;
 	QCheckBox*     m_largerCheckBox;
 	QCheckBox*     m_tabsCheckBox;

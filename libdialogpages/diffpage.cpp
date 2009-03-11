@@ -70,6 +70,7 @@ void DiffPage::setSettings( DiffSettings* setts )
 
 	m_diffURLRequester->setUrl( m_settings->m_diffProgram );
 
+	m_newFilesCheckBox->setChecked          ( m_settings->m_newFiles );
 	m_smallerCheckBox->setChecked           ( m_settings->m_createSmallerDiff );
 	m_largerCheckBox->setChecked            ( m_settings->m_largeFiles );
 	m_tabsCheckBox->setChecked              ( m_settings->m_convertTabsToSpaces );
@@ -111,6 +112,7 @@ void DiffPage::apply()
 {
 	m_settings->m_diffProgram                    = m_diffURLRequester->url().pathOrUrl();
 
+	m_settings->m_newFiles                       = m_newFilesCheckBox->isChecked();
 	m_settings->m_largeFiles                     = m_largerCheckBox->isChecked();
 	m_settings->m_createSmallerDiff              = m_smallerCheckBox->isChecked();
 	m_settings->m_convertTabsToSpaces            = m_tabsCheckBox->isChecked();
@@ -141,6 +143,7 @@ void DiffPage::apply()
 void DiffPage::setDefaults()
 {
 	m_diffURLRequester->setUrl( KUrl( "diff" ) );
+	m_newFilesCheckBox->setChecked( true );
 	m_smallerCheckBox->setChecked( true );
 	m_largerCheckBox->setChecked( true );
 	m_tabsCheckBox->setChecked( false );
@@ -285,6 +288,11 @@ void DiffPage::addOptionsTab()
 	QVBoxLayout* bgLayout = new QVBoxLayout( optionButtonGroup );
 	optionButtonGroup->setTitle( i18n( "General" ) );
 	//optionButtonGroup->setMargin( KDialog::marginHint() );
+
+	m_newFilesCheckBox    = new QCheckBox( i18n( "&Treat new files as empty" ), optionButtonGroup );
+	QToolTip::add( m_newFilesCheckBox, i18n( "This option corresponds to the -N diff option." ) );
+	m_newFilesCheckBox->setWhatsThis( i18n( "With this option enabled diff will treat a file that only exists in one of the directories as empty in the other directory. This means that the file is compared with an empty file and because of this will appear as one big insertion or deletion." ) );
+	bgLayout->addWidget( m_newFilesCheckBox );
 
 	m_smallerCheckBox     = new QCheckBox( i18n( "&Look for smaller changes" ), optionButtonGroup );
 	QToolTip::add( m_smallerCheckBox, i18n( "This corresponds to the -d diff option." ) );

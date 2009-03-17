@@ -65,7 +65,7 @@ KompareShell::KompareShell()
 
 	KService::List offers = KMimeTypeTrader::self()->query( "text/x-patch",
                                                             "Kompare/ViewPart",
-                                                             QString() );
+                                                             QString("") );
 #ifndef NDEBUG
 	for( int i = 0; i < offers.count(); i++ )
 	{

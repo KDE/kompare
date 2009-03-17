@@ -184,28 +184,13 @@ void DiffPage::slotShowRegExpEditor()
 
 void DiffPage::slotExcludeFilePatternToggled( bool on )
 {
-	if ( !on )
-	{
-		m_excludeFilePatternEditListBox->setEnabled( false );
-	}
-	else
-	{
-		m_excludeFilePatternEditListBox->setEnabled( true );
-	}
+	m_excludeFilePatternEditListBox->setEnabled( on );
 }
 
 void DiffPage::slotExcludeFileToggled( bool on )
 {
-	if ( !on )
-	{
-		m_excludeFileURLComboBox->setEnabled( false );
-		m_excludeFileURLRequester->setEnabled( false );
-	}
-	else
-	{
-		m_excludeFileURLComboBox->setEnabled( true );
-		m_excludeFileURLRequester->setEnabled( true );
-	}
+	m_excludeFileURLComboBox->setEnabled( on );
+	m_excludeFileURLRequester->setEnabled( on );
 }
 
 void DiffPage::addDiffTab()
@@ -248,13 +233,9 @@ void DiffPage::addFormatTab()
 	m_modeButtonGroup->setTitle( i18n( "Output Format" ) );
 	//m_modeButtonGroup->setMargin( KDialog::marginHint() );
 
-	QRadioButton* radioButton;
-	radioButton = new QRadioButton( i18n( "Context" ), m_modeButtonGroup );
-	bgLayout->addWidget( radioButton );
-	radioButton = new QRadioButton( i18n( "Normal" ),  m_modeButtonGroup );
-	bgLayout->addWidget( radioButton );
-	radioButton = new QRadioButton( i18n( "Unified" ), m_modeButtonGroup );
-	bgLayout->addWidget( radioButton );
+	bgLayout->addWidget( new QRadioButton( i18n( "Context" ), m_modeButtonGroup ) );
+	bgLayout->addWidget( new QRadioButton( i18n( "Normal" ),  m_modeButtonGroup ) );
+	bgLayout->addWidget( new QRadioButton( i18n( "Unified" ), m_modeButtonGroup ) );
 
 	// #lines of context (loc)
 	Q3HGroupBox* groupBox = new Q3HGroupBox( page );
@@ -405,3 +386,5 @@ void DiffPage::addExcludeTab()
 }
 
 #include "diffpage.moc"
+
+//kate: replace-tabs 0; indent-width 4; tab-width 4;

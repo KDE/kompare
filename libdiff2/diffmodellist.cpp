@@ -24,6 +24,43 @@ using namespace Diff2;
 
 void DiffModelList::sort()
 {
-	qHeapSort(*this);
+	// This is not going to be performance critical so implementing a very simple bubblesort based on qbubblesortrcode
+	// Goto last element;
+	DiffModelListIterator last = end();
+	DiffModelListIterator e = end();
+	DiffModelListIterator b = begin();
+
+	// empty list
+	if ( b == e )
+		return;
+
+	--last;
+	// only one element ?
+	if ( last == b )
+		return;
+
+	// So we have at least two elements in here
+	while (b != last) {
+		bool swapped = false;
+		DiffModelListIterator swapPos = b;
+		DiffModelListIterator x = e;
+		DiffModelListIterator y = x;
+		y--;
+		do {
+			--x;
+			--y;
+			if ( (*(*x) < *(*y)) ) {
+				swapped = true;
+				DiffModel* temp = *x;
+				*x = *y;
+				*y = temp;
+				swapPos = y;
+			}
+		} while (y != b);
+		if (!swapped)
+			return;
+		b = swapPos;
+		++b;
+	}
 }
 

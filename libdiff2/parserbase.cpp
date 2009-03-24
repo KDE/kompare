@@ -520,7 +520,9 @@ bool ParserBase::matchesUnifiedHunkLine( QString line ) const
 
 	QChar first = line[0];
 
-	return ( first == context || first == added || first == removed );
+	return (    (first == context)
+	         || ( (first == removed) && !m_unifiedDiffHeader1.exactMatch(line) )
+	         || ( (first == added)   && !m_unifiedDiffHeader2.exactMatch(line) )  );
 }
 
 bool ParserBase::parseUnifiedHunkBody()

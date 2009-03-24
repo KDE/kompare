@@ -41,7 +41,6 @@ DiffModel::DiffModel( const QString& source, const QString& destination ) :
 	m_sourceRevision( "" ),
 	m_destinationRevision( "" ),
 	m_appliedCount( 0 ),
-	m_modified( false ),
 	m_diffIndex( 0 ),
 	m_selectedDifference( 0 ),
 	m_blended( false )
@@ -62,7 +61,6 @@ DiffModel::DiffModel() :
 	m_sourceRevision( "" ),
 	m_destinationRevision( "" ),
 	m_appliedCount( 0 ),
-	m_modified( false ),
 	m_diffIndex( 0 ),
 	m_selectedDifference( 0 ),
 	m_blended( false )
@@ -122,7 +120,6 @@ DiffModel& DiffModel::operator=( const DiffModel& model )
 		m_destinationTimestamp = model.m_destinationTimestamp;
 		m_destinationRevision = model.m_destinationRevision;
 		m_appliedCount = model.m_appliedCount;
-		m_modified = model.m_modified;
 
 		m_diffIndex = model.m_diffIndex;
 		m_selectedDifference = model.m_selectedDifference;
@@ -298,6 +295,20 @@ void DiffModel::addDiff( Difference* diff )
 	m_differences.append( diff );
 }
 
+bool DiffModel::hasUnsavedChanges( void ) const
+{
+	DifferenceListConstIterator diffIt = m_differences.begin();
+	DifferenceListConstIterator endIt  = m_differences.end();
+
+	for ( ; diffIt != endIt; ++diffIt )
+	{
+		if ( (*diffIt)->isUnsaved() )
+			return true;
+	}
+
+	return false;
+}
+
 void DiffModel::applyDifference( bool apply )
 {
 	if ( apply && !m_selectedDifference->applied() )
@@ -305,42 +316,19 @@ void DiffModel::applyDifference( bool apply )
 	else if ( !apply && m_selectedDifference->applied() )
 		m_appliedCount--;
 
-	bool modified;
-
-	// Not setting the m_modified yet so i can still query the current
-	// modified status from the slot that is connected to the signal
-	if ( m_appliedCount == 0 )
-		modified = false;
-	else
-		modified = true;
-
-	emit setModified( modified );
-
-	m_modified = modified;
-
 	m_selectedDifference->apply( apply );
 }
 
 void DiffModel::applyAllDifferences( bool apply )
 {
-	bool modified;
-
-	// Not setting the m_modified yet so i can still query the current
-	// modified status from the slot that is connected to the signal
 	if ( apply )
 	{
 		m_appliedCount = m_differences.count();
-		modified = true;
 	}
 	else
 	{
 		m_appliedCount = 0;
-		modified = false;
 	}
-
-	emit setModified( modified );
-
-	m_modified = modified;
 
 	DifferenceListIterator diffIt = m_differences.begin();
 	DifferenceListIterator dEnd   = m_differences.end();
@@ -349,15 +337,6 @@ void DiffModel::applyAllDifferences( bool apply )
 	{
 		(*diffIt)->apply( apply );
 	}
-}
-
-void DiffModel::slotSetModified( bool modified )
-{
-	// Not setting the m_modified yet so i can still query the current
-	// modified status from the slot that is connected to the signal
-	emit setModified( modified );
-
-	m_modified = modified;
 }
 
 bool DiffModel::setSelectedDifference( Difference* diff )
@@ -377,7 +356,5 @@ bool DiffModel::setSelectedDifference( Difference* diff )
 
 	return true;
 }
-
-#include "diffmodel.moc"
 
 /* vim: set ts=4 sw=4 noet: */

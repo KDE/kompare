@@ -82,6 +82,7 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringL
 
 	// This creates the "Model creator" and connects the signals and slots
 	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_splitter, this, "komparemodellist" );
+
 	connect( m_modelList, SIGNAL(status( Kompare::Status )),
 	         this, SLOT(slotSetStatus( Kompare::Status )) );
 	connect( m_modelList, SIGNAL(setStatusBarModelInfo( int, int, int, int, int )),
@@ -96,9 +97,7 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringL
 	         this, SIGNAL(appliedChanged()) );
 	connect( m_modelList, SIGNAL(applyDifference( bool )),
 	         this, SIGNAL(appliedChanged()) );
-
-	connect( m_modelList, SIGNAL( setModified( bool ) ),
-	         this, SLOT( slotSetModified( bool ) ) );
+	connect( m_modelList, SIGNAL(updateActions()), this, SLOT(updateActions()) );
 
 	// This is the stuff to connect the "interface" of the kompare part to the model inside
 	connect( m_modelList, SIGNAL(modelsChanged(const Diff2::DiffModelList*)),
@@ -186,7 +185,7 @@ void KomparePart::setupActions()
 
 void KomparePart::updateActions()
 {
-	m_saveAll->setEnabled  ( m_modelList->isModified() );
+	m_saveAll->setEnabled     ( m_modelList->hasUnsavedChanges() );
 	m_saveDiff->setEnabled ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
 	m_swap->setEnabled     ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
 	m_diffRefresh->setEnabled( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
@@ -672,7 +671,7 @@ void KomparePart::slotShowError( QString error )
 
 void KomparePart::slotSwap()
 {
-	if ( isModified() )
+	if ( m_modelList->hasUnsavedChanges() )
 	{
 		int query = KMessageBox::warningYesNoCancel
 		            (
@@ -703,7 +702,7 @@ void KomparePart::slotSwap()
 
 void KomparePart::slotRefreshDiff()
 {
-	if ( isModified() )
+	if ( m_modelList->hasUnsavedChanges() )
 	{
 		int query = KMessageBox::warningYesNoCancel
 		            (
@@ -818,7 +817,7 @@ void KomparePart::slotShowDiffstats( void )
 
 bool KomparePart::queryClose()
 {
-	if( !isModified() ) return true;
+	if ( !m_modelList->hasUnsavedChanges() ) return true;
 
 	int query = KMessageBox::warningYesNoCancel
 	            (
@@ -863,14 +862,6 @@ void KomparePart::optionsPreferences()
 
 	if ( pref.exec() )
 		emit configChanged();
-}
-
-void KomparePart::slotSetModified( bool modified )
-{ 
-	kDebug() << "KomparePart::slotSetModified( " << modified << " );" << endl;
-	setModified( modified );
-	updateActions();
-	updateCaption();
 }
 
 #include "kompare_part.moc"

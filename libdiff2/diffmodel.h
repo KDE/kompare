@@ -31,16 +31,18 @@ namespace Diff2
 class DiffHunk;
 class Difference;
 
-class DIFF2_EXPORT DiffModel : public QObject
+class DIFF2_EXPORT DiffModel
 {
-Q_OBJECT
 public:
 
 	DiffModel( const QString& srcBaseURL, const QString& destBaseURL );
 	DiffModel();
-	DiffModel( const DiffModel& ) : QObject() {};
 	~DiffModel();
 
+private:
+	DiffModel( const DiffModel& ) {};
+
+public:
 	int parseDiff( enum Kompare::Format format, const QStringList& list );
 
 	QString recreateDiff() const;
@@ -84,7 +86,7 @@ public:
 
 	void addHunk( DiffHunk* hunk );
 	void addDiff( Difference* diff );
-	bool isModified() const { return m_modified; }
+	bool hasUnsavedChanges() const;
 
 	int  diffIndex( void ) const       { return m_diffIndex; }
 	void setDiffIndex( int diffIndex ) { m_diffIndex = diffIndex; }
@@ -101,12 +103,6 @@ public:
 
 	bool isBlended() const { return m_blended; }
 	void setBlended( bool blended ) { m_blended = blended; }
-
-signals:
-	void setModified( bool modified );
-
-public slots:
-	void slotSetModified( bool modified );
 
 private:
 	void splitSourceInPathAndFileName();
@@ -132,7 +128,6 @@ private:
 	DifferenceList m_differences;
 
 	int  m_appliedCount;
-	bool m_modified;
 
 	int          m_diffIndex;
 	Difference*  m_selectedDifference;

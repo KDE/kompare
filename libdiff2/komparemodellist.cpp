@@ -53,7 +53,6 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, QWidget* widgetF
 	m_models( 0 ),
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 ),
-	m_noOfModified( 0 ),
 	m_modelIndex( 0 ),
 	m_info( 0 ),
 	m_textCodec( 0 ),
@@ -296,9 +295,12 @@ bool KompareModelList::openDirAndDiff()
 
 void KompareModelList::slotSaveDestination()
 {
+	// Unnecessary safety check! We can now guarantee that saving is only possible when there is a model and there are unsaved changes
 	if ( m_selectedModel )
 	{
 		saveDestination( m_selectedModel );
+		m_save->setEnabled( false );
+		emit updateActions();
 	}
 }
 
@@ -306,7 +308,8 @@ bool KompareModelList::saveDestination( DiffModel* model )
 {
 	kDebug() << "KompareModelList::saveDestination: " << endl;
 
-	if( !model->isModified() )
+	// Unecessary safety check, we can guarantee there are unsaved changes!!!
+	if( !model->hasUnsavedChanges() )
 		return true;
 
 	KTemporaryFile temp;
@@ -407,22 +410,34 @@ bool KompareModelList::saveDestination( DiffModel* model )
 
 	if ( !result )
 	{
+		// FIXME: Wrong first argument given in case of comparing directories!
 		emit error( i18n( "<qt>Could not upload the temporary file to the destination location <b>%1</b>. The temporary file is still available under: <b>%2</b>. You can manually copy it to the right place.</qt>", m_info->destination.url(), temp.name() ) );
                 //Don't remove file when we delete temp and don't leak it.
                 temp.setAutoRemove(false);
 	}
 	else
 	{
-		//model->slotSetModified( false );
 		temp.remove();
 	}
 
+	// If saving was fine set all differences to saved so we can start again with a clean slate
+	if ( result )
+	{
+		DifferenceListConstIterator diffIt = model->differences()->begin();
+		DifferenceListConstIterator endIt  = model->differences()->end();
+
+		for (; diffIt != endIt; ++diffIt )
+		{
+			(*diffIt)->setUnsaved( false );
+		}
+	}
+	
 	return true;
 }
 
 bool KompareModelList::saveAll()
 {
-	if ( !m_models )
+	if ( modelCount() == 0 )
 		return false;
 
 	DiffModelListIterator it  =  m_models->begin();
@@ -432,6 +447,7 @@ bool KompareModelList::saveAll()
 		if( !saveDestination( *it ) )
 			return false;
 	}
+
 	return true;
 }
 
@@ -1235,17 +1251,25 @@ void KompareModelList::refresh()
 
 void KompareModelList::swap()
 {
-	// Swap should not be active when there is a diff and a file/dir
 	if ( m_info->mode == Kompare::ComparingFiles )
 		compareFiles();
 	else if ( m_info->mode == Kompare::ComparingDirs )
 		compareDirs();
 }
 
-bool KompareModelList::isModified() const
+bool KompareModelList::hasUnsavedChanges() const
 {
-	if ( m_noOfModified > 0 )
-		return true;
+	if ( modelCount() == 0 )
+		return false;
+
+	DiffModelListConstIterator modelIt = m_models->begin();
+	DiffModelListConstIterator endIt   = m_models->end();
+
+	for ( ; modelIt != endIt; ++modelIt )
+	{
+		if ( (*modelIt)->hasUnsavedChanges() )
+			return true;
+	}
 	return false;
 }
 
@@ -1262,34 +1286,6 @@ int KompareModelList::differenceCount() const
 int KompareModelList::appliedCount() const
 {
 	return m_selectedModel ? m_selectedModel->appliedCount() : -1;
-}
-
-void KompareModelList::slotSetModified( bool modified )
-{
-	kDebug(8101) << "KompareModelList::slotSetModified( " << modified << " );" << endl;
-	kDebug(8101) << "Before: m_noOfModified = " << m_noOfModified << endl;
-
-	// If selectedModel emits its signal setModified it does not set the model
-	// internal m_modified bool yet, it only does that after the emit.
-	if ( modified && !m_selectedModel->isModified() )
-		m_noOfModified++;
-	else if ( !modified && m_selectedModel->isModified() )
-		m_noOfModified--;
-
-	kDebug(8101) << "After : m_noOfModified = " << m_noOfModified << endl;
-
-	if ( m_noOfModified < 0 )
-	{
-		kDebug(8101) << "Wow something is ****ed up..." << endl;
-	}
-	else if ( m_noOfModified == 0 )
-	{
-		emit setModified( false );
-	}
-	else // > 0 :-)
-	{
-		emit setModified( true );
-	}
 }
 
 void KompareModelList::slotKompareInfo( struct Kompare::Info* info )
@@ -1335,7 +1331,7 @@ void KompareModelList::updateModelListActions()
 
 			m_applyDifference->setEnabled( m_selectedDifference->applied() == false );
 			m_unApplyDifference->setEnabled( m_selectedDifference->applied() == true );
-			m_save->setEnabled( m_selectedModel->isModified() );
+			m_save->setEnabled( m_selectedModel->hasUnsavedChanges() );
 		}
 		else
 		{

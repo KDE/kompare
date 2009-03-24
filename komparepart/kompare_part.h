@@ -80,7 +80,6 @@ public:
 	// use the readProperties and saveProperties methods
 	virtual bool queryClose();
 
-	// bool isModified() const { return m_modelList->isModified(); }
 	// Do we really want to expose this ???
 	const Diff2::KompareModelList* model() const { return m_modelList; };
 
@@ -156,9 +155,6 @@ public slots:
 	/** Save the results of a comparison as a diff file. */
 	void saveDiff();
 
-	/** This slot is connected to the setModifed( bool ) signal from the KompareModelList */
-	void slotSetModified( bool modified );
-
 signals:
 	void appliedChanged();
 	void diffURLChanged();
@@ -174,6 +170,7 @@ protected:
 	 * return true when everything went ok, false if there were problems
 	 */
 	virtual bool openFile();
+	// ... Uhm we return true without saving ???
 	virtual bool saveFile() { return true; };
 
 	// patchFile
@@ -188,9 +185,11 @@ protected slots:
 	void slotShowDiffstats();
 	void slotRefreshDiff();
 	void optionsPreferences();
+
 	void updateActions();
 	void updateCaption();
 	void updateStatus();
+
 
 private:
 	void cleanUpTemporaryFiles();

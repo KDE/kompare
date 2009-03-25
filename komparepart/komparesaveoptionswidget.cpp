@@ -86,7 +86,7 @@ KompareSaveOptionsWidget::~KompareSaveOptionsWidget()
 
 QString KompareSaveOptionsWidget::directory() const
 {
-	return KUrl( m_directoryRequester->url() ).path();
+	return KUrl( m_directoryRequester->url() ).toLocalFile();
 }
 
 void KompareSaveOptionsWidget::updateCommandLine()

@@ -177,9 +177,9 @@ QString DiffModel::recreateDiff() const
 
 Difference* DiffModel::firstDifference()
 {
-	kDebug( 8101 ) << "DiffModel::firstDifference()" << endl;
+	kDebug(8101) << "DiffModel::firstDifference()" << endl;
 	m_diffIndex = 0;
-	kDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+	kDebug(8101) << "m_diffIndex = " << m_diffIndex << endl;
 
 	m_selectedDifference = m_differences[ m_diffIndex ];
 
@@ -188,9 +188,9 @@ Difference* DiffModel::firstDifference()
 
 Difference* DiffModel::lastDifference()
 {
-	kDebug( 8101 ) << "DiffModel::lastDifference()" << endl;
+	kDebug(8101) << "DiffModel::lastDifference()" << endl;
 	m_diffIndex = m_differences.count() - 1;
-	kDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+	kDebug(8101) << "m_diffIndex = " << m_diffIndex << endl;
 
 	m_selectedDifference = m_differences[ m_diffIndex ];
 
@@ -199,17 +199,17 @@ Difference* DiffModel::lastDifference()
 
 Difference* DiffModel::prevDifference()
 {
-	kDebug( 8101 ) << "DiffModel::prevDifference()" << endl;
+	kDebug(8101) << "DiffModel::prevDifference()" << endl;
 	if ( m_diffIndex > 0 && --m_diffIndex < m_differences.count() )
 	{
-		kDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+		kDebug(8101) << "m_diffIndex = " << m_diffIndex << endl;
 		m_selectedDifference = m_differences[ m_diffIndex ];
 	}
 	else
 	{
 		m_selectedDifference = 0;
 		m_diffIndex = 0;
-		kDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+		kDebug(8101) << "m_diffIndex = " << m_diffIndex << endl;
 	}
 
 	return m_selectedDifference;
@@ -217,17 +217,17 @@ Difference* DiffModel::prevDifference()
 
 Difference* DiffModel::nextDifference()
 {
-	kDebug( 8101 ) << "DiffModel::nextDifference()" << endl;
+	kDebug(8101) << "DiffModel::nextDifference()" << endl;
 	if (  ++m_diffIndex < m_differences.count() )
 	{
-		kDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+		kDebug(8101) << "m_diffIndex = " << m_diffIndex << endl;
 		m_selectedDifference = m_differences[ m_diffIndex ];
 	}
 	else
 	{
 		m_selectedDifference = 0;
 		m_diffIndex = 0; // just for safety...
-		kDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+		kDebug(8101) << "m_diffIndex = " << m_diffIndex << endl;
 	}
 
 	return m_selectedDifference;
@@ -350,7 +350,7 @@ bool DiffModel::setSelectedDifference( Difference* diff )
 			return false;
 		// Do not set m_diffIndex if it cant be found
 		m_diffIndex = m_differences.findIndex( diff );
-		kDebug( 8101 ) << "m_diffIndex = " << m_diffIndex << endl;
+		kDebug(8101) << "m_diffIndex = " << m_diffIndex << endl;
 		m_selectedDifference = diff;
 	}
 

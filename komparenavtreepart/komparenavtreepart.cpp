@@ -134,13 +134,13 @@ void KompareNavTreePart::buildTreeInMemory()
 
 	if ( m_modelList->count() == 0 )
 	{
-		kDebug() << "No models... weird shit..." << endl;
+		kDebug(8105) << "No models... weird shit..." << endl;
 		return; // avoids a crash on clear()
 	}
 
 	if ( m_info == 0 )
 	{
-		kDebug() << "No Info... weird shit..." << endl;
+		kDebug(8105) << "No Info... weird shit..." << endl;
 		return;
 	}
 

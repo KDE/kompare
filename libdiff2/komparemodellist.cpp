@@ -306,7 +306,7 @@ void KompareModelList::slotSaveDestination()
 
 bool KompareModelList::saveDestination( DiffModel* model )
 {
-	kDebug() << "KompareModelList::saveDestination: " << endl;
+	kDebug(8101) << "KompareModelList::saveDestination: " << endl;
 
 	// Unecessary safety check, we can guarantee there are unsaved changes!!!
 	if( !model->hasUnsavedChanges() )
@@ -359,7 +359,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 		}
 	}
 
-	// kDebug( 8101 ) << "Everything: " << endl << list.join( "\n" ) << endl;
+	// kDebug(8101) << "Everything: " << endl << list.join( "\n" ) << endl;
 
 	if( list.count() > 0 )
 		stream << list.join( "" );
@@ -460,13 +460,13 @@ void KompareModelList::setEncoding( const QString& encoding )
 	}
 	else
 	{
-		kDebug() << "Encoding : " << encoding << endl;
+		kDebug(8101) << "Encoding : " << encoding << endl;
 		m_textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
-		kDebug() << "TextCodec: " << m_textCodec << endl;
+		kDebug(8101) << "TextCodec: " << m_textCodec << endl;
 		if ( !m_textCodec )
 			m_textCodec = QTextCodec::codecForLocale();
 	}
-	kDebug() << "TextCodec: " << m_textCodec << endl;
+	kDebug(8101) << "TextCodec: " << m_textCodec << endl;
 }
 
 void KompareModelList::slotDiffProcessFinished( bool success )
@@ -482,7 +482,7 @@ void KompareModelList::slotDiffProcessFinished( bool success )
 		{
 			if ( m_info->mode != Kompare::ShowingDiff )
 			{
-				kDebug() << "Blend this crap please and do not give me any conflicts..." << endl;
+				kDebug(8101) << "Blend this crap please and do not give me any conflicts..." << endl;
 				blendOriginalIntoModelList( m_info->localSource );
 			}
 			updateModelListActions();
@@ -560,7 +560,7 @@ QString KompareModelList::readFile( const QString& fileName )
 	file.open( QIODevice::ReadOnly );
 
 	QTextStream stream( &file );
-	kDebug() << "Codec = " << m_textCodec << endl;
+	kDebug(8101) << "Codec = " << m_textCodec << endl;
 
 	if (  !m_textCodec )
 		m_textCodec = QTextCodec::codecForLocale();
@@ -617,7 +617,7 @@ QString KompareModelList::recreateDiff() const
 
 bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSettings* diffSettings )
 {
-	kDebug() << "KompareModelList::saveDiff: " << endl;
+	kDebug(8101) << "KompareModelList::saveDiff: " << endl;
 
 	m_diffTemp = new KTemporaryFile();
 	m_diffTemp->open();
@@ -684,7 +684,7 @@ void KompareModelList::slotSelectionChanged( const Diff2::DiffModel* model, cons
 
 	m_selectedModel = const_cast<DiffModel*>(model);
 	m_modelIndex = m_models->findIndex( m_selectedModel );
-	kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+	kDebug(8101) << "m_modelIndex = " << m_modelIndex << endl;
 	m_selectedDifference = const_cast<Difference*>(diff);
 
 	m_selectedModel->setSelectedDifference( m_selectedDifference );
@@ -766,9 +766,9 @@ void KompareModelList::slotNextModel()
 
 DiffModel* KompareModelList::firstModel()
 {
-	kDebug( 8101 ) << "KompareModelList::firstModel()" << endl;
+	kDebug(8101) << "KompareModelList::firstModel()" << endl;
 	m_modelIndex = 0;
-	kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+	kDebug(8101) << "m_modelIndex = " << m_modelIndex << endl;
 
 	m_selectedModel = m_models->first();
 
@@ -777,9 +777,9 @@ DiffModel* KompareModelList::firstModel()
 
 DiffModel* KompareModelList::lastModel()
 {
-	kDebug( 8101 ) << "KompareModelList::lastModel()" << endl;
+	kDebug(8101) << "KompareModelList::lastModel()" << endl;
 	m_modelIndex = m_models->count() - 1;
-	kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+	kDebug(8101) << "m_modelIndex = " << m_modelIndex << endl;
 
 	m_selectedModel = m_models->last();
 
@@ -788,17 +788,17 @@ DiffModel* KompareModelList::lastModel()
 
 DiffModel* KompareModelList::prevModel()
 {
-	kDebug( 8101 ) << "KompareModelList::prevModel()" << endl;
+	kDebug(8101) << "KompareModelList::prevModel()" << endl;
 	if ( m_modelIndex > 0 && --m_modelIndex < m_models->count() )
 	{
-		kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+		kDebug(8101) << "m_modelIndex = " << m_modelIndex << endl;
 		m_selectedModel = (*m_models)[ m_modelIndex ];
 	}
 	else
 	{
 		m_selectedModel = 0;
 		m_modelIndex = 0;
-		kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+		kDebug(8101) << "m_modelIndex = " << m_modelIndex << endl;
 	}
 
 	return m_selectedModel;
@@ -806,17 +806,17 @@ DiffModel* KompareModelList::prevModel()
 
 DiffModel* KompareModelList::nextModel()
 {
-	kDebug( 8101 ) << "KompareModelList::nextModel()" << endl;
+	kDebug(8101) << "KompareModelList::nextModel()" << endl;
 	if ( ++m_modelIndex < m_models->count() )
 	{
-		kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+		kDebug(8101) << "m_modelIndex = " << m_modelIndex << endl;
 		m_selectedModel = (*m_models)[ m_modelIndex ];
 	}
 	else
 	{
 		m_selectedModel = 0;
 		m_modelIndex = 0;
-		kDebug( 8101 ) << "m_modelIndex = " << m_modelIndex << endl;
+		kDebug(8101) << "m_modelIndex = " << m_modelIndex << endl;
 	}
 
 	return m_selectedModel;
@@ -937,7 +937,7 @@ int KompareModelList::parseDiffOutput( const QString& diff )
 
 bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 {
-	kDebug() << "Hurrah we are blending..." << endl;
+	kDebug(8101) << "Hurrah we are blending..." << endl;
 	QFileInfo fi( localURL );
 
 	bool result = false;
@@ -947,7 +947,7 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 
 	if ( fi.isDir() )
 	{ // is a dir
-		kDebug() << "Blend Dir" << endl;
+		kDebug(8101) << "Blend Dir" << endl;
 //		QDir dir( localURL, QString(), QDir::Name|QDir::DirsFirst, QDir::TypeMask );
 		DiffModelListIterator modelIt = m_models->begin();
 		DiffModelListIterator mEnd    = m_models->end();
@@ -973,16 +973,16 @@ bool KompareModelList::blendOriginalIntoModelList( const QString& localURL )
 				result = blendFile( model, fileContents );
 			}
 		}
-		kDebug() << "End of Blend Dir" << endl;
+		kDebug(8101) << "End of Blend Dir" << endl;
 	}
 	else if ( fi.isFile() )
 	{ // is a file
-		kDebug() << "Blend File" << endl;
+		kDebug(8101) << "Blend File" << endl;
 		kDebug(8101) << "Reading from: " << localURL << endl;
 		fileContents = readFile( localURL );
 
 		result = blendFile( (*m_models)[ 0 ], fileContents );
-		kDebug() << "End of Blend File" << endl;
+		kDebug(8101) << "End of Blend File" << endl;
 	}
 
 	return result;
@@ -992,7 +992,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 {
 	if ( !model )
 	{
-		kDebug() << "**** model is null :(" << endl;
+		kDebug(8101) << "**** model is null :(" << endl;
 		return false;
 	}
 
@@ -1079,7 +1079,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 		DifferenceList hunkDiffList   = (*hunkIt)->differences();
 		DifferenceListIterator diffIt = hunkDiffList.begin();
 		DifferenceListIterator dEnd   = hunkDiffList.end();
-		kDebug() << "Number of differences in hunkDiffList = " << diffList.count() << endl;
+		kDebug(8101) << "Number of differences in hunkDiffList = " << diffList.count() << endl;
 
 		DifferenceListIterator tempIt;
 		Difference* diff;
@@ -1087,7 +1087,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 		for ( ; diffIt != dEnd; ++diffIt )
 		{
 			diff = *diffIt;
-			kDebug() << "*(Diff it) = " << diff << endl;
+			kDebug(8101) << "*(Diff it) = " << diff << endl;
 			// Check if there are lines in the original file before the difference
 			// that are not yet in the diff. If so create new Unchanged diff
 			if ( srcLineNo < diff->sourceLineNumber() )
@@ -1227,7 +1227,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 
 void KompareModelList::show()
 {
-	kDebug() << "KompareModelList::Show Number of models = " << m_models->count() << endl;
+	kDebug(8101) << "KompareModelList::Show Number of models = " << m_models->count() << endl;
 	emit modelsChanged( m_models );
 	emit setSelection( m_selectedModel, m_selectedDifference );
 }

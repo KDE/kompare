@@ -336,8 +336,8 @@ bool KomparePart::fetchURL( const KUrl& url, bool addToSource )
 	else
 	{
 		// is Local already, check if exists
-		if ( exists( url.path() ) )
-			tempFileName = url.path();
+		if ( exists( url.toLocalFile() ) )
+			tempFileName = url.toLocalFile();
 		else
 		{
 			slotShowError( i18n( "<qt>The URL <b>%1</b> does not exist on your system.</qt>", url.prettyUrl() ) );

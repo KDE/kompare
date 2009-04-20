@@ -175,7 +175,7 @@ void KomparePart::setupActions()
 	m_saveAll->setIcon(KIcon("document-save-all"));
 	m_saveAll->setText(i18n("Save &All"));
 	m_saveDiff = actionCollection()->addAction("file_save_diff", this, SLOT(saveDiff()));
-	m_saveDiff->setText(i18n("Save .&diff..."));
+	m_saveDiff->setText(i18n("Save &Diff..."));
 	m_swap = actionCollection()->addAction("file_swap", this, SLOT(slotSwap()));
 	m_swap->setText(i18n("Swap Source with Destination"));
 	m_diffStats = actionCollection()->addAction("file_diffstats", this, SLOT(slotShowDiffstats()));

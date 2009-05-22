@@ -112,11 +112,11 @@ void KompareProcess::writeCommandLine()
 		break;
 	}
 
-	if ( m_diffSettings->m_largeFiles 
+	if ( m_diffSettings->m_largeFiles
 // default diff does not have -H on OpenBSD
 // so don't pass this option unless the user overrode the default program
 #if defined(__OpenBSD__)
-		&& !m_diffSettings->m_diffProgram.isEmpty() 
+		&& !m_diffSettings->m_diffProgram.isEmpty()
 #endif
 	   )
 	{
@@ -186,11 +186,9 @@ void KompareProcess::writeCommandLine()
 
 	if ( m_diffSettings->m_excludeFilePattern )
 	{
-		QStringList::ConstIterator it = m_diffSettings->m_excludeFilePatternList.begin();
-		QStringList::ConstIterator end = m_diffSettings->m_excludeFilePatternList.end();
-		for ( ; it != end; ++it )
+		Q_FOREACH(const QString& it, m_diffSettings->m_excludeFilePatternList)
 		{
-			*this << "-x" << *it;
+			*this << "-x" << it;
 		}
 	}
 

@@ -1,4 +1,8 @@
 project(kompare)
+
+# TODO port away from QT3_SUPPORT
+add_definitions(-DQT3_SUPPORT)
+
 add_subdirectory( interfaces )
 add_subdirectory( libdiff2 )
 add_subdirectory( libdialogpages )

@@ -67,6 +67,11 @@ public:
 	 * appropriate method(s)
 	 */
 	virtual void compare( const KUrl& sourceFile, const KUrl& destinationFile ) = 0;
+	
+	/**
+	 * Compare a Source file to generated text to be the destination file
+	 */
+	virtual void compareFileString( const KUrl & sourceFile, const QString & destination) = 0;
 
 	/**
 	 * Compare, with diff, source with destination files
@@ -117,5 +122,7 @@ protected:
 	KompareInterfacePrivate* kip;
 	QString                  m_encoding;
 };
+
+Q_DECLARE_INTERFACE(KompareInterface, "com.kde.Kompare.KompareInterface/4.0")
 
 #endif /* _KOMPARE_INTERFACE_H */

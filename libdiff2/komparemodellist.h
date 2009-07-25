@@ -53,8 +53,7 @@ public:
 	/* Comparing methods */
 	bool compare();
 
-	bool compareFiles();
-	bool compareDirs();
+	bool compare(Kompare::Mode);
 
 	bool openDiff( const QString& diff );
 

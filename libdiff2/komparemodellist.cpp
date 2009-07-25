@@ -136,7 +136,7 @@ bool KompareModelList::compare()
 	if ( sourceIsDirectory && destinationIsDirectory )
 	{
 		m_info->mode = Kompare::ComparingDirs;
-		result = compareDirs();
+		result = compare(m_info->mode);
 	}
 	else if ( !sourceIsDirectory && !destinationIsDirectory )
 	{
@@ -173,7 +173,7 @@ bool KompareModelList::compare()
 		{
 			kDebug(8101) << "Comparing source with destination" << endl;
 			m_info->mode = Kompare::ComparingFiles;
-			result = compareFiles();
+			result = compare(m_info->mode);
 		}
 	}
 	else if ( sourceIsDirectory && !destinationIsDirectory )
@@ -194,46 +194,11 @@ bool KompareModelList::compare()
 	return result;
 }
 
-bool KompareModelList::compareFiles()
+bool KompareModelList::compare(Kompare::Mode mode)
 {
 	clear(); // Destroy the old models...
 
-//	m_fileWatch = new KDirWatch( this, "filewatch" );
-//	m_fileWatch->addFile( m_source );
-//	m_fileWatch->addFile( m_destination );
-
-//	connect( m_fileWatch, SIGNAL( dirty( const QString& ) ), this, SLOT( slotFileChanged( const QString& ) ) );
-//	connect( m_fileWatch, SIGNAL( created( const QString& ) ), this, SLOT( slotFileChanged( const QString& ) ) );
-//	connect( m_fileWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotFileChanged( const QString& ) ) );
-
-//	m_fileWatch->startScan();
-	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_info->localSource, m_info->localDestination );
-	m_diffProcess->setEncoding( m_encoding );
-
-	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
-	         this, SLOT(slotDiffProcessFinished( bool )) );
-
-	emit status( Kompare::RunningDiff );
-	m_diffProcess->start();
-
-	return true;
-}
-
-bool KompareModelList::compareDirs()
-{
-	clear(); // Destroy the old models...
-
-//	m_dirWatch = new KDirWatch( this, "dirwatch" );
-	// Watch files in the dirs and watch the dirs recursively
-//	m_dirWatch->addDir( m_source, true, true );
-//	m_dirWatch->addDir( m_destination, true, true );
-
-//	connect( m_dirWatch, SIGNAL( dirty  ( const QString& ) ), this, SLOT( slotDirectoryChanged( const QString& ) ) );
-//	connect( m_dirWatch, SIGNAL( created( const QString& ) ), this, SLOT( slotDirectoryChanged( const QString& ) ) );
-//	connect( m_dirWatch, SIGNAL( deleted( const QString& ) ), this, SLOT( slotDirectoryChanged( const QString& ) ) );
-
-//	m_dirWatch->startScan();
-	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_info->localSource, m_info->localDestination );
+	m_diffProcess = new KompareProcess( m_diffSettings, Kompare::Custom, m_info->localSource, m_info->localDestination, QString(), mode );
 	m_diffProcess->setEncoding( m_encoding );
 
 	connect( m_diffProcess, SIGNAL(diffHasFinished( bool )),
@@ -1243,18 +1208,16 @@ void KompareModelList::clear()
 void KompareModelList::refresh()
 {
 	// FIXME: I can imagine blending also wants to be refreshed so make a switch case here
-	if ( m_info->mode == Kompare::ComparingFiles )
-		compareFiles();
-	else if ( m_info->mode == Kompare::ComparingDirs )
-		compareDirs();
+	compare(m_info->mode);
 }
 
 void KompareModelList::swap()
 {
+	//FIXME Not sure if any mode could be swapped
 	if ( m_info->mode == Kompare::ComparingFiles )
-		compareFiles();
+		compare(m_info->mode);
 	else if ( m_info->mode == Kompare::ComparingDirs )
-		compareDirs();
+		compare(m_info->mode);
 }
 
 bool KompareModelList::hasUnsavedChanges() const

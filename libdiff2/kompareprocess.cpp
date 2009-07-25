@@ -30,10 +30,11 @@
 
 #include "diffsettings.h"
 
-KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString dir )
+KompareProcess::KompareProcess( DiffSettings* diffSettings, Kompare::DiffMode diffMode, const QString & source, const QString & destination, QString dir, Kompare::Mode mode )
 	: KProcess(),
 	m_diffSettings( diffSettings ),
-	m_mode( mode ),
+	m_mode( diffMode ),
+	m_customString(0),
 	m_textDecoder( 0 )
 {
 	// connect the signal that indicates that the proces has exited
@@ -59,7 +60,17 @@ KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMo
 	// Write file names
 	*this << "--";
 	*this << constructRelativePath( dir, source );
-	*this << constructRelativePath( dir, destination );
+	
+	//Add the option for diff to read from stdin(QIODevice::write), and save a pointer to the string
+	if(mode == Kompare::ComparingFileString)
+	{
+		*this << "- ";
+		m_customString = &destination;
+	}
+	else
+	{
+		*this << constructRelativePath( dir, destination );
+	}
 }
 
 void KompareProcess::writeDefaultCommandLine()
@@ -234,8 +245,12 @@ void KompareProcess::start()
 	kDebug(8101) << cmdLine << endl;
 #endif
 	setOutputChannelMode( SeparateChannels );
-	setNextOpenMode( ReadOnly );
 	KProcess::start();
+
+	//If we have a string to compare against input it now
+	if(m_customString)
+		kDebug() << "Bytes written into diff process stream" << write(m_customString->toAscii());
+	closeWriteChannel();
 }
 
 void KompareProcess::slotFinished( int exitCode, QProcess::ExitStatus exitStatus )

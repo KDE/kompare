@@ -52,12 +52,13 @@ namespace Kompare
 	};
 
 	enum Mode {
-		ComparingFiles,  // compareFiles
-		ComparingDirs,   // compareDirs
-		ShowingDiff,     // openDiff
-		BlendingDir,     // openDirAnfDiff
-		BlendingFile,    // openFileAndDiff
-		UnknownMode      // Used to initialize the Infoi struct
+		ComparingFiles,      // compareFiles
+		ComparingFileString, // Compare a source file with a destination string
+		ComparingDirs,       // compareDirs
+		ShowingDiff,         // openDiff
+		BlendingDir,         // openDirAnfDiff
+		BlendingFile,        // openFileAndDiff
+		UnknownMode          // Used to initialize the Infoi struct
 	};
 
 	enum DiffMode {

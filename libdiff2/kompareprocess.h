@@ -61,6 +61,7 @@ private:
 	QString                m_stdout;
 	QString                m_stderr;
 	QTextDecoder*          m_textDecoder;
+	QTextCodec *           m_codec;
 };
 
 #endif

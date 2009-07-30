@@ -29,6 +29,7 @@
 #include <kglobal.h>
 
 #include "diffsettings.h"
+#include <KTemporaryFile>
 
 KompareProcess::KompareProcess( DiffSettings* diffSettings, Kompare::DiffMode diffMode, const QString & source, const QString & destination, QString dir, Kompare::Mode mode )
 	: KProcess(),
@@ -64,7 +65,7 @@ KompareProcess::KompareProcess( DiffSettings* diffSettings, Kompare::DiffMode di
 	//Add the option for diff to read from stdin(QIODevice::write), and save a pointer to the string
 	if(mode == Kompare::ComparingFileString)
 	{
-		*this << "- ";
+		*this << "-";
 		m_customString = &destination;
 	}
 	else
@@ -222,14 +223,14 @@ void KompareProcess::setEncoding( const QString& encoding )
 	}
 	else
 	{
-		QTextCodec* textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
-		if ( textCodec )
-			m_textDecoder = textCodec->makeDecoder();
+		m_codec = KGlobal::charsets()->codecForName( encoding.latin1() );
+		if ( m_codec )
+			m_textDecoder = m_codec->makeDecoder();
 		else
 		{
 			kDebug(8101) << "Using locale codec as backup..." << endl;
-			textCodec = QTextCodec::codecForLocale();
-			m_textDecoder = textCodec->makeDecoder();
+			m_codec = QTextCodec::codecForLocale();
+			m_textDecoder = m_codec->makeDecoder();
 		}
 	}
 }
@@ -245,11 +246,12 @@ void KompareProcess::start()
 	kDebug(8101) << cmdLine << endl;
 #endif
 	setOutputChannelMode( SeparateChannels );
+	setNextOpenMode(QIODevice::ReadWrite);
 	KProcess::start();
 
 	//If we have a string to compare against input it now
 	if(m_customString)
-		kDebug() << "Bytes written into diff process stream" << write(m_customString->toAscii());
+		write(m_codec->fromUnicode(*m_customString));
 	closeWriteChannel();
 }
 

@@ -27,7 +27,6 @@
 #include <kglobal.h>
 
 #include "diffsettings.h"
-#include <KTemporaryFile>
 
 KompareProcess::KompareProcess( DiffSettings* diffSettings, Kompare::DiffMode diffMode, const QString & source, const QString & destination, const QString &dir, Kompare::Mode mode )
 	: KProcess(),

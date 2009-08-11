@@ -19,11 +19,9 @@
 #ifndef KOMPARELISTVIEW_H
 #define KOMPARELISTVIEW_H
 
-#include <Q3PtrList>
 #include <Q3ValueList>
 #include <Q3PtrDict>
 #include <QLabel>
-#include <QLayout>
 #include <QResizeEvent>
 #include <QWheelEvent>
 #include <Q3VBoxLayout>

@@ -66,7 +66,8 @@ protected slots:
 
 private slots:
 	void slotEnableOk();
-
+protected:
+    void showEvent ( QShowEvent * event );
 private:
 	FilesPage*     m_filesPage;
 	FilesSettings* m_filesSettings;

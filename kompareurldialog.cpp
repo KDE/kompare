@@ -16,6 +16,7 @@
 **
 ***************************************************************************/
 #include "kompareurldialog.h"
+#include <QShowEvent>
 
 #include <QtGui/qcheckbox.h>
 
@@ -72,11 +73,18 @@ KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WFlags flags )
 	connect( m_filesPage->secondURLRequester(), SIGNAL( textChanged( const QString& ) ),
 	         this, SLOT( slotEnableOk() ) );
 
-	slotEnableOk();
 }
 
 KompareURLDialog::~KompareURLDialog()
 {
+}
+
+void KompareURLDialog::showEvent ( QShowEvent * event )
+{
+    if ( !event->spontaneous () )
+    {
+        slotEnableOk();
+    }
 }
 
 void KompareURLDialog::slotButtonClicked( int button )

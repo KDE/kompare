@@ -33,7 +33,7 @@ class KompareProcess : public KProcess, public KompareFunctions
 
 public:
 	KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, const QString & source,
-			const QString & destination, QString directory = QString(), enum Kompare::Mode = Kompare::UnknownMode );
+			const QString & destination, const QString& directory = QString(), enum Kompare::Mode = Kompare::UnknownMode );
 	~KompareProcess();
 
 	void start();

@@ -21,8 +21,6 @@
 #include <QtCore/QDir>
 #include <QtCore/QStringList>
 #include <QtCore/QTextCodec>
-#include <Q3ValueList>
-#include <Q3CString>
 
 #include <kcharsets.h>
 #include <kdebug.h>
@@ -31,7 +29,7 @@
 #include "diffsettings.h"
 #include <KTemporaryFile>
 
-KompareProcess::KompareProcess( DiffSettings* diffSettings, Kompare::DiffMode diffMode, const QString & source, const QString & destination, QString dir, Kompare::Mode mode )
+KompareProcess::KompareProcess( DiffSettings* diffSettings, Kompare::DiffMode diffMode, const QString & source, const QString & destination, const QString &dir, Kompare::Mode mode )
 	: KProcess(),
 	m_diffSettings( diffSettings ),
 	m_mode( diffMode ),

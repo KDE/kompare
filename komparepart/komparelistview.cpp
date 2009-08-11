@@ -23,7 +23,6 @@
 #include <QtGui/QPainter>
 #include <QtCore/QRegExp>
 #include <QtCore/QTimer>
-#include <Q3Frame>
 #include <QtGui/QResizeEvent>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QWheelEvent>
@@ -124,7 +123,7 @@ KompareListView::KompareListView( bool isSource,
 	setColumnWidthMode( COL_LINE_NO, Maximum );
 	setColumnWidthMode( COL_MAIN, Maximum );
 	setResizeMode( LastColumn );
-	setFrameStyle( Q3Frame::NoFrame );
+	setFrameStyle( QFrame::NoFrame );
 	setVScrollBarMode( Q3ScrollView::AlwaysOff );
 	setHScrollBarMode( Q3ScrollView::AlwaysOff );
 	setFocusPolicy( Qt::NoFocus );

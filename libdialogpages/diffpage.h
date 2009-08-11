@@ -26,7 +26,7 @@ class QCheckBox;
 class QDialog;
 class QSpinBox;
 class QStringList;
-class KButtonGroup;
+class QButtonGroup;
 class QWidget;
 class QGroupBox;
 
@@ -88,7 +88,7 @@ public:
 
 	QCheckBox*     m_excludeFilePatternCheckBox;
 	KEditListBox*  m_excludeFilePatternEditListBox;
-	
+
 	QCheckBox*     m_excludeFileCheckBox;
 	KUrlComboBox*  m_excludeFileURLComboBox;
 	KUrlRequester* m_excludeFileURLRequester;
@@ -96,7 +96,7 @@ public:
 	// loc == lines of context
 	QSpinBox*      m_locSpinBox;
 
-	KButtonGroup*  m_modeButtonGroup;
+	QButtonGroup*  m_modeButtonGroup;
 	QGroupBox*     m_diffProgramGroup;
 
 	KTabWidget*    m_tabWidget;

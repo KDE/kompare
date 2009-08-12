@@ -3,7 +3,7 @@
                                 -----------
         begin                   : Sun Mar 4 2001
         Copyright 2001-2004,2009 Otto Bruggeman <bruggie@gmail.com>
-        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>                                 
+        Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
 ****************************************************************************/
 
 /***************************************************************************
@@ -51,8 +51,8 @@ public:
 	int differenceCount() const { return m_differences.count(); }
 	int appliedCount() const    { return m_appliedCount; }
 
-	DiffHunk* hunkAt( int i )               { return *( m_hunks.at( i ) ); }
-	const Difference* differenceAt( int i ) { return *( m_differences.at( i ) ); }
+	DiffHunk* hunkAt( int i )               { return ( m_hunks.at( i ) ); }
+	const Difference* differenceAt( int i ) { return ( m_differences.at( i ) ); }
 
 	DiffHunkList*         hunks()             { return &m_hunks; }
 	const DiffHunkList*   hunks() const       { return &m_hunks; }

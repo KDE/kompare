@@ -596,8 +596,8 @@ void KFileLVI::fillChangesList( K3ListView* changesList, Q3PtrDict<KChangeLVI>* 
 	changesList->clear();
 	diffToChangeItemDict->clear();
 
-	DifferenceListConstIterator diffIt = m_model->differences()->begin();
-	DifferenceListConstIterator dEnd   = m_model->differences()->end();
+	DifferenceListConstIterator diffIt = m_model->differences()->constBegin();
+	DifferenceListConstIterator dEnd   = m_model->differences()->constEnd();
 
 	for ( ; diffIt != dEnd; ++diffIt )
 	{

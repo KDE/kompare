@@ -18,7 +18,6 @@
 #ifndef DIFFERENCE_H
 #define DIFFERENCE_H
 
-#include <q3valuelist.h>
 #include <q3valuevector.h>
 
 #include <kdebug.h>
@@ -61,9 +60,9 @@ private:
 	unsigned int      m_offset;
 };
 
-typedef Q3ValueList<Marker*> MarkerList;
-typedef Q3ValueList<Marker*>::iterator MarkerListIterator;
-typedef Q3ValueList<Marker*>::const_iterator MarkerListConstIterator;
+typedef QList<Marker*> MarkerList;
+typedef QList<Marker*>::iterator MarkerListIterator;
+typedef QList<Marker*>::const_iterator MarkerListConstIterator;
 
 class DIFF2_EXPORT DifferenceString
 {
@@ -73,7 +72,7 @@ public:
 //		kDebug(8101) << "DifferenceString::DifferenceString()" << endl;
 	}
 	explicit DifferenceString( const QString& string, const MarkerList& markerList = MarkerList() ) :
-		m_string( string ), 
+		m_string( string ),
 		m_markerList( markerList )
 	{
 //		kDebug(8101) << "DifferenceString::DifferenceString( " << string << ", " << markerList << " )" << endl;
@@ -223,9 +222,9 @@ private:
 	bool                  m_unsaved;
 };
 
-typedef Q3ValueList<Difference*> DifferenceList;
-typedef Q3ValueList<Difference*>::iterator DifferenceListIterator;
-typedef Q3ValueList<Difference*>::const_iterator DifferenceListConstIterator;
+typedef QList<Difference*> DifferenceList;
+typedef QList<Difference*>::iterator DifferenceListIterator;
+typedef QList<Difference*>::const_iterator DifferenceListConstIterator;
 
 } // End of namespace Diff2
 

@@ -18,7 +18,6 @@
 #include "diffmodel.h"
 
 #include <QtCore/QRegExp>
-#include <q3valuelist.h>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -335,7 +334,7 @@ void DiffModel::applyAllDifferences( bool apply )
 
 	DifferenceListIterator diffIt = m_differences.begin();
 	DifferenceListIterator dEnd   = m_differences.end();
-	
+
 	for ( ; diffIt != dEnd; ++diffIt )
 	{
 		(*diffIt)->apply( apply );

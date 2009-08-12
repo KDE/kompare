@@ -60,9 +60,9 @@ private:
 	Type           m_type;
 };
 
-typedef Q3ValueList<DiffHunk*> DiffHunkList;
-typedef Q3ValueList<DiffHunk*>::iterator DiffHunkListIterator;
-typedef Q3ValueList<DiffHunk*>::const_iterator DiffHunkListConstIterator;
+typedef QList<DiffHunk*> DiffHunkList;
+typedef QList<DiffHunk*>::iterator DiffHunkListIterator;
+typedef QList<DiffHunk*>::const_iterator DiffHunkListConstIterator;
 
 } // End of namespace Diff2
 

@@ -289,15 +289,15 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	QTextStream stream( &temp );
 	QStringList list;
 
-	DiffHunkListConstIterator hunkIt = model->hunks()->begin();
-	DiffHunkListConstIterator hEnd   = model->hunks()->end();
+	DiffHunkListConstIterator hunkIt = model->hunks()->constBegin();
+	DiffHunkListConstIterator hEnd   = model->hunks()->constEnd();
 
 	for( ; hunkIt != hEnd; ++hunkIt )
 	{
 		DiffHunk* hunk = *hunkIt;
 
-		DifferenceListConstIterator diffIt = hunk->differences().begin();
-		DifferenceListConstIterator dEnd   = hunk->differences().end();
+		DifferenceListConstIterator diffIt = hunk->differences().constBegin();
+		DifferenceListConstIterator dEnd   = hunk->differences().constEnd();
 
 		Difference* diff;
 		for( ; diffIt != dEnd; ++diffIt )
@@ -388,15 +388,15 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	// If saving was fine set all differences to saved so we can start again with a clean slate
 	if ( result )
 	{
-		DifferenceListConstIterator diffIt = model->differences()->begin();
-		DifferenceListConstIterator endIt  = model->differences()->end();
+		DifferenceListConstIterator diffIt = model->differences()->constBegin();
+		DifferenceListConstIterator endIt  = model->differences()->constEnd();
 
 		for (; diffIt != endIt; ++diffIt )
 		{
 			(*diffIt)->setUnsaved( false );
 		}
 	}
-	
+
 	return true;
 }
 

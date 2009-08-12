@@ -25,7 +25,7 @@
 #include <QtGui/QStyle>
 #include <QtCore/QTimer>
 #include <QtGui/QPaintEvent>
-#include <Q3Frame>
+#include <QFrame>
 #include <QtGui/QMouseEvent>
 
 #include <kdebug.h>
@@ -51,9 +51,9 @@ KompareConnectWidgetFrame::KompareConnectWidgetFrame( ViewSettings* settings,
 	m_wid.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored) );
 	m_label.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
 	m_label.setMargin(3);
-	Q3Frame* bottomLine = new Q3Frame(this);
-	bottomLine->setFrameShape(Q3Frame::HLine);
-	bottomLine->setFrameShadow ( Q3Frame::Plain );
+	QFrame* bottomLine = new QFrame(this);
+	bottomLine->setFrameShape(QFrame::HLine);
+	bottomLine->setFrameShadow ( QFrame::Plain );
 	bottomLine->setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
 	bottomLine->setFixedHeight(1);
 	m_layout.setSpacing(0);

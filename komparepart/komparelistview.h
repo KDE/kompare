@@ -19,7 +19,6 @@
 #ifndef KOMPARELISTVIEW_H
 #define KOMPARELISTVIEW_H
 
-#include <Q3ValueList>
 #include <Q3PtrDict>
 #include <QLabel>
 #include <QResizeEvent>
@@ -93,7 +92,7 @@ protected:
 	void renumberLines( void );
 
 private:
-	Q3ValueList<KompareListViewDiffItem*> m_items;
+	QList<KompareListViewDiffItem*> m_items;
 	Q3PtrDict<KompareListViewDiffItem> m_itemDict;
 	bool                              m_isSource;
 	ViewSettings*                     m_settings;
@@ -107,7 +106,7 @@ private:
 class KompareListViewFrame : public Q3Frame
 {
 	Q_OBJECT
-	
+
 public:
 	KompareListViewFrame( bool isSource, ViewSettings* settings, KompareSplitter* parent, const char* name = 0 );
 	virtual ~KompareListViewFrame() {};
@@ -139,7 +138,7 @@ public:
 
 	KompareListView* kompareListView() const;
 
-	enum ListViewItemType { Diff = 1001, Container = 1002, Line = 1003, Blank = 1004, Hunk = 1005 };  
+	enum ListViewItemType { Diff = 1001, Container = 1002, Line = 1003, Blank = 1004, Hunk = 1005 };
 
 private:
 	int     m_scrollId;
@@ -191,7 +190,7 @@ private:
 	Diff2::DifferenceString* lineAt( int i ) const;
 
 private:
-	Q3ValueList<KompareListViewLineItem *> m_lineItemList;
+	QList<KompareListViewLineItem *> m_lineItemList;
 	KompareListViewBlankLineItem* m_blankLineItem;
 	bool m_isSource;
 };

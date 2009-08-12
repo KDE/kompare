@@ -24,7 +24,7 @@
 #include <QLabel>
 #include <QResizeEvent>
 #include <QWheelEvent>
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 #include <QMouseEvent>
 #include <Q3Frame>
 
@@ -119,7 +119,7 @@ public slots:
 private:
 	KompareListView      m_view;
 	QLabel               m_label;
-	Q3VBoxLayout          m_layout;
+	QVBoxLayout          m_layout;
 };
 
 

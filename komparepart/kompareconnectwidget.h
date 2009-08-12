@@ -25,7 +25,7 @@
 #include <Q3PointArray>
 #include <QtGui/QPaintEvent>
 #include <QtGui/QMouseEvent>
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 #include <QtGui/QLabel>
 
 #include "komparemodellist.h"
@@ -91,7 +91,7 @@ protected:
 private:
 	KompareConnectWidget      m_wid;
 	QLabel                    m_label;
-	Q3VBoxLayout               m_layout;
+	QVBoxLayout               m_layout;
 };
 
 #endif

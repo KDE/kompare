@@ -119,18 +119,24 @@ ViewPage::ViewPage() : PageBase()
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
 
-	QGroupBox* gb = new Q3HGroupBox( page );
+	QGroupBox* gb = new QGroupBox( page );
+        QHBoxLayout *layfont = new QHBoxLayout;
+        gb->setLayout( layfont );
 	gb->setTitle( i18n( "Text Font" ) );
 	layout->addWidget( gb );
 	//gb->setMargin( KDialog::marginHint() );
 
-	label = new QLabel( i18n( "Font:" ), gb );
-	m_fontCombo = new QFontComboBox( gb );
+	label = new QLabel( i18n( "Font:" ) );
+	m_fontCombo = new QFontComboBox;
+        layfont->addWidget( label );
+        layfont->addWidget( m_fontCombo );
 	m_fontCombo->setObjectName( "fontcombo" );
 	label->setBuddy( m_fontCombo );
 
-	label = new QLabel( i18n( "Size:" ), gb );
-	m_fontSizeSpinBox = new QSpinBox( 6, 24, 1, gb, "fontsize" );
+	label = new QLabel( i18n( "Size:" ) );
+        layfont->addWidget( label );
+	m_fontSizeSpinBox = new QSpinBox( 6, 24, 1,gb );
+        layfont->addWidget( m_fontSizeSpinBox );
 	label->setBuddy( m_fontSizeSpinBox );
 
 	layout->addStretch( 1 );
@@ -192,7 +198,7 @@ void ViewPage::setDefaults()
 	m_snolSpinBox->setValue       ( 3 );
         m_tabSpinBox->setValue        ( 4 );
 
-	// TODO: port	
+	// TODO: port
 	// m_fontCombo->setCurrentFont   ( KGlobalSettings::fixedFont().family() );
         m_fontSizeSpinBox->setValue   ( 10 );
 }

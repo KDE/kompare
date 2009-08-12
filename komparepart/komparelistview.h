@@ -25,7 +25,7 @@
 #include <QWheelEvent>
 #include <QVBoxLayout>
 #include <QMouseEvent>
-#include <Q3Frame>
+#include <QFrame>
 
 #include <k3listview.h>
 
@@ -103,7 +103,7 @@ private:
 	QString                           m_spaces;
 };
 
-class KompareListViewFrame : public Q3Frame
+class KompareListViewFrame : public QFrame
 {
 	Q_OBJECT
 

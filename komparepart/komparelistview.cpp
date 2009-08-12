@@ -52,7 +52,7 @@ KompareListViewFrame::KompareListViewFrame( bool isSource,
                                             ViewSettings* settings,
                                             KompareSplitter* parent,
                                             const char* name ):
-	Q3Frame ( parent, name ),
+	QFrame ( parent ),
 	m_view ( isSource, settings, this, name ),
 	m_label ( isSource?"Source":"Dest", this ),
 	m_layout ( this )

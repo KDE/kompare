@@ -20,7 +20,6 @@
 
 #include "difference.h"
 
-#include <Q3ValueList>
 
 namespace Diff2
 {

@@ -27,7 +27,6 @@
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QToolTip>
 #include <QButtonGroup>
-#include <QDebug>
 
 #include <kbuttongroup.h>
 #include <kapplication.h>

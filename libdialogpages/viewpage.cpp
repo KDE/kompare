@@ -20,7 +20,6 @@
 
 #include <QtGui/QCheckBox>
 #include <QtGui/QGroupBox>
-#include <Q3HGroupBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
 #include <QtGui/QSpinBox>
@@ -89,24 +88,32 @@ ViewPage::ViewPage() : PageBase()
 	gridLayout->addWidget( m_appliedColorButton, 3, 1 );
 
 	// scroll number of lines (snol)
-	snolGroupBox = new Q3HGroupBox( page );
+	snolGroupBox = new QGroupBox( page );
+        QHBoxLayout *snolLayout = new QHBoxLayout;
+        snolGroupBox->setLayout( snolLayout );
 	snolGroupBox->setTitle( i18n( "Mouse Wheel" ) );
 	layout->addWidget( snolGroupBox );
 	//snolGroupBox->setMargin( KDialog::marginHint() );
 
-	label            = new QLabel( i18n( "Number of lines:" ), snolGroupBox );
+	label            = new QLabel( i18n( "Number of lines:" ) );
+        snolLayout->addWidget( label );
 	m_snolSpinBox    = new QSpinBox( 0, 50, 1, snolGroupBox );
+        snolLayout->addWidget( m_snolSpinBox );
 	label->setBuddy( m_snolSpinBox );
 
 	// Temporarily here for testing...
 	// number of spaces for a tab character stuff
-	tabGroupBox = new Q3HGroupBox( page );
+	tabGroupBox = new QGroupBox( page );
+        QHBoxLayout *tabLayout = new QHBoxLayout;
+        tabGroupBox->setLayout( tabLayout );
 	tabGroupBox->setTitle( i18n( "Tabs to Spaces" ) );
 	layout->addWidget( tabGroupBox );
 	//tabGroupBox->setMargin( KDialog::marginHint() );
 
-	label = new QLabel( i18n( "Number of spaces to convert a tab character to:" ), tabGroupBox );
+	label = new QLabel( i18n( "Number of spaces to convert a tab character to:" ) );
+        tabLayout->addWidget( label );
 	m_tabSpinBox = new QSpinBox( 1, 16, 1, tabGroupBox );
+        tabLayout->addWidget( m_tabSpinBox );
 	label->setBuddy( m_tabSpinBox );
 
 	layout->addStretch( 1 );

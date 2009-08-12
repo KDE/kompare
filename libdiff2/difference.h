@@ -18,7 +18,7 @@
 #ifndef DIFFERENCE_H
 #define DIFFERENCE_H
 
-#include <q3valuevector.h>
+#include <qvector.h>
 
 #include <kdebug.h>
 #include "diff2export.h"
@@ -149,9 +149,9 @@ private:
 	MarkerList   m_markerList;
 };
 
-typedef Q3ValueVector<DifferenceString*> DifferenceStringList;
-typedef Q3ValueVector<DifferenceString*>::iterator DifferenceStringListIterator;
-typedef Q3ValueVector<DifferenceString*>::const_iterator DifferenceStringListConstIterator;
+typedef QVector<DifferenceString*> DifferenceStringList;
+typedef QVector<DifferenceString*>::iterator DifferenceStringListIterator;
+typedef QVector<DifferenceString*>::const_iterator DifferenceStringListConstIterator;
 
 class DIFF2_EXPORT Difference
 {

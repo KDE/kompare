@@ -18,7 +18,6 @@
 #include "diffpage.h"
 
 #include <QtGui/QCheckBox>
-#include <Q3HGroupBox>
 #include <QGroupBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
@@ -247,15 +246,19 @@ void DiffPage::addFormatTab()
         bgLayout->addWidget( radioButton );
 
 	// #lines of context (loc)
-	Q3HGroupBox* groupBox = new Q3HGroupBox( page );
+	QGroupBox* groupBox = new QGroupBox( page );
+        QHBoxLayout *groupLayout = new QHBoxLayout;
+        groupBox->setLayout( groupLayout );
 	layout->addWidget( groupBox );
 	groupBox->setTitle( i18n( "Lines of Context" ) );
 	groupBox->setWhatsThis( i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
 	//groupBox->setMargin( KDialog::marginHint() );
 
-	QLabel* label = new QLabel( i18n( "Number of context lines:" ), groupBox );
+	QLabel* label = new QLabel( i18n( "Number of context lines:" ));
+        groupLayout->addWidget( label );
 	label->setWhatsThis( i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
 	m_locSpinBox = new QSpinBox( 0, 100, 1, groupBox );
+        groupLayout->addWidget( m_locSpinBox );
 	m_locSpinBox->setWhatsThis( i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
 	label->setBuddy( m_locSpinBox );
 
@@ -360,11 +363,15 @@ void DiffPage::addExcludeTab()
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
 
-	Q3HGroupBox* excludeFilePatternGroupBox = new Q3HGroupBox( page );
+	QGroupBox* excludeFilePatternGroupBox = new QGroupBox( page );
+        QHBoxLayout *excludeFileLayout = new QHBoxLayout;
+        excludeFilePatternGroupBox->setLayout( excludeFileLayout );
 	excludeFilePatternGroupBox->setTitle( i18n( "File Pattern to Exclude" ) );
-	m_excludeFilePatternCheckBox = new QCheckBox( "", excludeFilePatternGroupBox );
+	m_excludeFilePatternCheckBox = new QCheckBox( "" );
+        excludeFileLayout->addWidget( m_excludeFilePatternCheckBox );
 	QToolTip::add( m_excludeFilePatternCheckBox, i18n( "If this is checked you can enter a shell pattern in the text box on the right or select entries from the list." ) );
-	m_excludeFilePatternEditListBox = new KEditListBox( excludeFilePatternGroupBox );
+	m_excludeFilePatternEditListBox = new KEditListBox;
+        excludeFileLayout->addWidget( m_excludeFilePatternEditListBox );
 	m_excludeFilePatternEditListBox->setObjectName( "exclude_file_pattern_editlistbox" );
 	m_excludeFilePatternEditListBox->setButtons( KEditListBox::Add|KEditListBox::Remove );
 	m_excludeFilePatternEditListBox->setCheckAtEntering( false );
@@ -374,14 +381,19 @@ void DiffPage::addExcludeTab()
 
 	connect( m_excludeFilePatternCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFilePatternToggled(bool)));
 
-	Q3HGroupBox* excludeFileNameGroupBox = new Q3HGroupBox( page );
+	QGroupBox* excludeFileNameGroupBox = new QGroupBox( page );
+        excludeFileLayout = new QHBoxLayout;
+        excludeFileNameGroupBox->setLayout( excludeFileLayout );
 	excludeFileNameGroupBox->setTitle( i18n( "File with Filenames to Exclude" ) );
-	m_excludeFileCheckBox     = new QCheckBox( "", excludeFileNameGroupBox );
+	m_excludeFileCheckBox     = new QCheckBox( "" );
+        excludeFileLayout->addWidget( m_excludeFileCheckBox );
 	QToolTip::add( m_excludeFileCheckBox, i18n( "If this is checked you can enter a filename in the combo box on the right." ) );
-	m_excludeFileURLComboBox  = new KUrlComboBox( KUrlComboBox::Files, true, excludeFileNameGroupBox );
+	m_excludeFileURLComboBox  = new KUrlComboBox( KUrlComboBox::Files, true );
+        excludeFileLayout->addWidget( m_excludeFileURLComboBox );
 	m_excludeFileURLComboBox->setObjectName( "exclude_file_urlcombo" );
 	QToolTip::add( m_excludeFileURLComboBox, i18n( "Here you can enter the URL of a file with shell patterns to ignore during the comparison of the folders." ) );
-	m_excludeFileURLRequester = new KUrlRequester( m_excludeFileURLComboBox, excludeFileNameGroupBox);
+	m_excludeFileURLRequester = new KUrlRequester( m_excludeFileURLComboBox,excludeFileNameGroupBox );
+        excludeFileLayout->addWidget( m_excludeFileURLRequester );
 	m_excludeFileURLRequester->setObjectName("exclude_file_name_urlrequester" );
 	QToolTip::add( m_excludeFileURLRequester, i18n( "Any file you select in the dialog that pops up when you click it will be put in the dialog to the left of this button." ) );
 	layout->addWidget( excludeFileNameGroupBox );

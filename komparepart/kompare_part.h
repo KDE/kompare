@@ -31,7 +31,6 @@ class QPrinter;
 class QWidget;
 
 class KTemporaryFile;
-class KToggleAction;
 class KUrl;
 class KAboutData;
 class KAction;
@@ -45,7 +44,6 @@ class KompareModelList;
 class DiffSettings;
 class ViewSettings;
 class KompareSplitter;
-class KompareProcess;
 
 /**
  * This is a "Part".  It does all the real work in a KPart

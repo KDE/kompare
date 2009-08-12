@@ -32,8 +32,6 @@
 #include "kompare.h"
 #include "diffmodellist.h"
 
-class KompareModelList;
-class KomparePart;
 class K3ListView;
 
 namespace Diff2 {

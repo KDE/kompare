@@ -26,10 +26,8 @@
 #include "kompare.h"
 #include "diff2export.h"
 
-class QFile;
 
 class KAction;
-class KDirWatch;
 class KTemporaryFile;
 
 class DiffSettings;

@@ -34,7 +34,6 @@ namespace Diff2 {
 class DiffModel;
 }
 class ViewSettings;
-class KompareListView;
 class KompareSplitter;
 
 class KompareConnectWidget : public QWidget

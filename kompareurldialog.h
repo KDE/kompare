@@ -21,13 +21,7 @@
 #include <kpagedialog.h>
 #include <kurl.h>
 
-class QGroupBox;
 
-class KComboBox;
-class KConfig;
-class KFileDialog;
-class KUrlComboBox;
-class KUrlRequester;
 
 class FilesPage;
 class FilesSettings;

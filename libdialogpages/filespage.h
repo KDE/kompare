@@ -25,8 +25,6 @@
 class QGroupBox;
 
 class KComboBox;
-class KConfig;
-class KFileDialog;
 class KUrlComboBox;
 class KUrlRequester;
 

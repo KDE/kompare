@@ -27,11 +27,9 @@ class QDialog;
 class QSpinBox;
 class QStringList;
 class QButtonGroup;
-class QWidget;
 class QGroupBox;
 
 class KLineEdit;
-class KComboBox;
 class KEditListBox;
 class KTabWidget;
 class KUrlComboBox;

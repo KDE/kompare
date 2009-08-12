@@ -22,7 +22,6 @@
 #include "pagebase.h"
 #include "dialogpagesexport.h"
 
-class QCheckBox;
 class QFontComboBox;
 class QSpinBox;
 

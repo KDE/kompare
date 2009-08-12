@@ -34,7 +34,6 @@ class DiffModel;
 class DiffHunk;
 class Difference;
 class DifferenceString;
-class KompareModelList;
 }
 class ViewSettings;
 class KompareSplitter;

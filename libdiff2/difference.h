@@ -28,7 +28,6 @@ class QString;
 namespace Diff2
 {
 
-class LevenshteinTable;
 
 class DIFF2_EXPORT Marker
 {

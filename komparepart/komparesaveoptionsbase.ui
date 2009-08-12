@@ -17,7 +17,7 @@
         <number>6</number>
       </property>
       <item rowspan="1" row="1" column="0" colspan="2" >
-        <widget class="Q3GroupBox" name="GroupBox2" >
+        <widget class="QGroupBox" name="GroupBox2" >
           <property name="sizePolicy" >
             <sizepolicy>
               <hsizetype>1</hsizetype>
@@ -25,9 +25,6 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
             </sizepolicy>
-          </property>
-          <property name="frameShape" >
-            <enum>Q3GroupBox::Panel</enum>
           </property>
           <property name="title" >
             <string>Run Diff In</string>
@@ -55,7 +52,7 @@
         </widget>
       </item>
       <item rowspan="1" row="2" column="0" colspan="2" >
-        <widget class="Q3GroupBox" name="m_CommandLineGB" >
+        <widget class="QGroupBox" name="m_CommandLineGB" >
           <property name="sizePolicy" >
             <sizepolicy>
               <hsizetype>3</hsizetype>
@@ -63,9 +60,6 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
             </sizepolicy>
-          </property>
-          <property name="frameShape" >
-            <enum>Q3GroupBox::Panel</enum>
           </property>
           <property name="title" >
             <string>Command Line</string>

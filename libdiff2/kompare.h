@@ -54,6 +54,7 @@ namespace Kompare
 	enum Mode {
 		ComparingFiles,      // compareFiles
 		ComparingFileString, // Compare a source file with a destination string
+		ComparingStringFile, // Compare a source string with a destination file
 		ComparingDirs,       // compareDirs
 		ShowingDiff,         // openDiff
 		BlendingDir,         // openDirAnfDiff

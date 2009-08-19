@@ -104,7 +104,11 @@ public:
 	/** Compare, with diff, source with destination */
 	virtual void compare( const KUrl& sourceFile, const KUrl& destinationFile );
 	
+	/** Compare a Source file to a custom Destination string */
 	virtual void compareFileString( const KUrl & sourceFile, const QString & destination);
+	
+	/** Compare a custom Source string to a Destination file */
+	virtual void compareStringFile( const QString & source, const KUrl & destinationFile);
 
 	/** Compare, with diff, source with destination */
 	virtual void compareFiles( const KUrl& sourceFile, const KUrl& destinationFile );

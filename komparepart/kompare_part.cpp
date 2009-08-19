@@ -420,6 +420,21 @@ void KomparePart::compareFileString( const KUrl & sourceFile, const QString & de
 	compareAndUpdateAll();
 }
 
+void KomparePart::compareStringFile( const QString & source, const KUrl & destinationFile)
+{
+	//Set the modeto specify that the source is a file, and the destination is a string
+	m_info.mode = Kompare::ComparingStringFile;
+	
+	m_info.localSource = source;
+	m_info.destination = destinationFile;
+	
+	fetchURL(destinationFile, false);
+	
+	emit kompareInfo( &m_info );
+	
+	compareAndUpdateAll();
+}
+
 void KomparePart::compareFiles( const KUrl& sourceFile, const KUrl& destinationFile )
 {
 	m_info.mode = Kompare::ComparingFiles;
@@ -723,6 +738,7 @@ void KomparePart::compareAndUpdateAll()
 			m_modelList->compare();
 			break;
 		
+		case Kompare::ComparingStringFile:
 		case Kompare::ComparingFileString:
 		case Kompare::ComparingFiles:
 		case Kompare::ComparingDirs:

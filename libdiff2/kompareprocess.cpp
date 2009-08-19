@@ -57,9 +57,18 @@ KompareProcess::KompareProcess( DiffSettings* diffSettings, Kompare::DiffMode di
 
 	// Write file names
 	*this << "--";
-	*this << constructRelativePath( dir, source );
 	
 	//Add the option for diff to read from stdin(QIODevice::write), and save a pointer to the string
+	if(mode == Kompare::ComparingStringFile)
+	{
+		*this << "-";
+		m_customString = &source;
+	}
+	else
+	{
+		*this << constructRelativePath( dir, source );
+	}
+	
 	if(mode == Kompare::ComparingFileString)
 	{
 		*this << "-";

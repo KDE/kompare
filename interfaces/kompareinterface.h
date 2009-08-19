@@ -69,9 +69,14 @@ public:
 	virtual void compare( const KUrl& sourceFile, const KUrl& destinationFile ) = 0;
 	
 	/**
-	 * Compare a Source file to generated text to be the destination file
+	 * Compare a Source file to a custom Destination string
 	 */
 	virtual void compareFileString( const KUrl & sourceFile, const QString & destination) = 0;
+	
+	/**
+	 * Compare a custom Source string to a Destination file
+	 */
+	virtual void compareStringFile( const QString & source, const KUrl & destinationFile) = 0;
 
 	/**
 	 * Compare, with diff, source with destination files

@@ -402,13 +402,37 @@ void KomparePart::compare( const KUrl& source, const KUrl& destination )
 
 	emit kompareInfo( &m_info );
 
-	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
-	{
-		m_modelList->compare();
-		updateCaption();
-		updateStatus();
-	}
-	updateActions();
+	compareAndUpdateAll();
+}
+
+void KomparePart::compareFileString( const KUrl & sourceFile, const QString & destination)
+{
+	//Set the modeto specify that the source is a file, and the destination is a string
+	m_info.mode = Kompare::ComparingFileString;
+	
+	m_info.source = sourceFile;
+	m_info.localDestination = destination;
+	
+	fetchURL(sourceFile, true);
+	
+	emit kompareInfo( &m_info );
+	
+	compareAndUpdateAll();
+}
+
+void KomparePart::compareStringFile( const QString & source, const KUrl & destinationFile)
+{
+	//Set the modeto specify that the source is a file, and the destination is a string
+	m_info.mode = Kompare::ComparingStringFile;
+	
+	m_info.localSource = source;
+	m_info.destination = destinationFile;
+	
+	fetchURL(destinationFile, false);
+	
+	emit kompareInfo( &m_info );
+	
+	compareAndUpdateAll();
 }
 
 void KomparePart::compareFiles( const KUrl& sourceFile, const KUrl& destinationFile )
@@ -425,13 +449,7 @@ void KomparePart::compareFiles( const KUrl& sourceFile, const KUrl& destinationF
 
 	emit kompareInfo( &m_info );
 
-	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
-	{
-		m_modelList->compareFiles();
-		updateCaption();
-		updateStatus();
-	}
-	updateActions();
+	compareAndUpdateAll();
 }
 
 void KomparePart::compareDirs( const KUrl& sourceDirectory, const KUrl& destinationDirectory )
@@ -446,13 +464,7 @@ void KomparePart::compareDirs( const KUrl& sourceDirectory, const KUrl& destinat
 
 	emit kompareInfo( &m_info );
 
-	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
-	{
-		m_modelList->compareDirs();
-		updateCaption();
-		updateStatus();
-	}
-	updateActions();
+	compareAndUpdateAll();
 }
 
 void KomparePart::compare3Files( const KUrl& /*originalFile*/, const KUrl& /*changedFile1*/, const KUrl& /*changedFile2*/ )
@@ -474,13 +486,7 @@ void KomparePart::openFileAndDiff( const KUrl& file, const KUrl& diffFile )
 
 	emit kompareInfo( &m_info );
 
-	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
-	{
-		m_modelList->openFileAndDiff();
-		updateCaption();
-		updateStatus();
-	}
-	updateActions();
+	compareAndUpdateAll();
 }
 
 void KomparePart::openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile )
@@ -497,6 +503,7 @@ void KomparePart::openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile )
 	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
 	{
 		m_modelList->openDirAndDiff();
+		//Must this be in here? couldn't we use compareAndUpdateAll as well?
 		updateActions();
 		updateCaption();
 		updateStatus();
@@ -718,6 +725,34 @@ void KomparePart::updateStatus()
 	}
 
 	emit setStatusBarText( text );
+}
+
+void KomparePart::compareAndUpdateAll()
+{
+	if ( !m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty() )
+	{
+		switch(m_info.mode)
+		{
+		default:
+		case Kompare::UnknownMode:
+			m_modelList->compare();
+			break;
+		
+		case Kompare::ComparingStringFile:
+		case Kompare::ComparingFileString:
+		case Kompare::ComparingFiles:
+		case Kompare::ComparingDirs:
+			m_modelList->compare(m_info.mode);
+			break;
+			
+		case Kompare::BlendingFile:
+			m_modelList->openFileAndDiff();
+			break;
+		}
+		updateCaption();
+		updateStatus();
+	}
+	updateActions();
 }
 
 void KomparePart::slotShowError( QString error )

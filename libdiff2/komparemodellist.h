@@ -26,10 +26,8 @@
 #include "kompare.h"
 #include "diff2export.h"
 
-class QFile;
 
 class KAction;
-class KDirWatch;
 class KTemporaryFile;
 
 class DiffSettings;
@@ -53,8 +51,7 @@ public:
 	/* Comparing methods */
 	bool compare();
 
-	bool compareFiles();
-	bool compareDirs();
+	bool compare(Kompare::Mode);
 
 	bool openDiff( const QString& diff );
 

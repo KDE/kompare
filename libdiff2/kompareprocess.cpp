@@ -21,8 +21,6 @@
 #include <QtCore/QDir>
 #include <QtCore/QStringList>
 #include <QtCore/QTextCodec>
-#include <Q3ValueList>
-#include <Q3CString>
 
 #include <kcharsets.h>
 #include <kdebug.h>
@@ -30,10 +28,11 @@
 
 #include "diffsettings.h"
 
-KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMode mode, QString source, QString destination, QString dir )
+KompareProcess::KompareProcess( DiffSettings* diffSettings, Kompare::DiffMode diffMode, const QString & source, const QString & destination, const QString &dir, Kompare::Mode mode )
 	: KProcess(),
 	m_diffSettings( diffSettings ),
-	m_mode( mode ),
+	m_mode( diffMode ),
+	m_customString(0),
 	m_textDecoder( 0 )
 {
 	// connect the signal that indicates that the proces has exited
@@ -58,8 +57,27 @@ KompareProcess::KompareProcess( DiffSettings* diffSettings, enum Kompare::DiffMo
 
 	// Write file names
 	*this << "--";
-	*this << constructRelativePath( dir, source );
-	*this << constructRelativePath( dir, destination );
+	
+	//Add the option for diff to read from stdin(QIODevice::write), and save a pointer to the string
+	if(mode == Kompare::ComparingStringFile)
+	{
+		*this << "-";
+		m_customString = &source;
+	}
+	else
+	{
+		*this << constructRelativePath( dir, source );
+	}
+	
+	if(mode == Kompare::ComparingFileString)
+	{
+		*this << "-";
+		m_customString = &destination;
+	}
+	else
+	{
+		*this << constructRelativePath( dir, destination );
+	}
 }
 
 void KompareProcess::writeDefaultCommandLine()
@@ -211,14 +229,14 @@ void KompareProcess::setEncoding( const QString& encoding )
 	}
 	else
 	{
-		QTextCodec* textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
-		if ( textCodec )
-			m_textDecoder = textCodec->makeDecoder();
+		m_codec = KGlobal::charsets()->codecForName( encoding.latin1() );
+		if ( m_codec )
+			m_textDecoder = m_codec->makeDecoder();
 		else
 		{
 			kDebug(8101) << "Using locale codec as backup..." << endl;
-			textCodec = QTextCodec::codecForLocale();
-			m_textDecoder = textCodec->makeDecoder();
+			m_codec = QTextCodec::codecForLocale();
+			m_textDecoder = m_codec->makeDecoder();
 		}
 	}
 }
@@ -234,8 +252,13 @@ void KompareProcess::start()
 	kDebug(8101) << cmdLine << endl;
 #endif
 	setOutputChannelMode( SeparateChannels );
-	setNextOpenMode( ReadOnly );
+	setNextOpenMode(QIODevice::ReadWrite);
 	KProcess::start();
+
+	//If we have a string to compare against input it now
+	if(m_customString)
+		write(m_codec->fromUnicode(*m_customString));
+	closeWriteChannel();
 }
 
 void KompareProcess::slotFinished( int exitCode, QProcess::ExitStatus exitStatus )

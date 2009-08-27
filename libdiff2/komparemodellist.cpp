@@ -1029,7 +1029,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 		{
 			newHunk = new DiffHunk( srcLineNo, destLineNo, "", DiffHunk::AddedByBlend );
 
-			hunks->insert( hunkIt, newHunk );
+			hunkIt = ++hunks->insert( hunkIt, newHunk );
 
 			newDiff = new Difference( srcLineNo, destLineNo,
 			              Difference::Unchanged );
@@ -1055,7 +1055,7 @@ bool KompareModelList::blendFile( DiffModel* model, const QString& fileContents 
 		}
 
 		srcLineNo += size;
-		destLineNo += (*hunkIt)->destinationLineCount();
+		destLineNo += hunk->destinationLineCount();
 	}
 
 	if ( linesIt != lEnd )

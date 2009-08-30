@@ -44,8 +44,6 @@
 #define BLANK_LINE_HEIGHT 3
 #define HUNK_LINE_HEIGHT  5
 
-#define ANTIALIASING_MARGIN 1
-
 using namespace Diff2;
 
 KompareListViewFrame::KompareListViewFrame( bool isSource,
@@ -668,9 +666,10 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & /*cg*
 	// Paint darker lines around selected item
 	if ( diffItemParent()->isSelected() )
 	{
+		p->translate(0.5,0.5);
 		p->setPen( bg.dark(135) );
 		if ( this == parent()->firstChild() )
-			p->drawLine( 0, ANTIALIASING_MARGIN, width, ANTIALIASING_MARGIN );
+			p->drawLine( 0, 0, width, 0 );
 		if ( nextSibling() == 0 )
 			p->drawLine( 0, height() - 1, width, height() - 1 );
 	}

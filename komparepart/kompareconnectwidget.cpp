@@ -161,9 +161,8 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 	QPainter* p = &paint;
 
 	p->setRenderHint(QPainter::Antialiasing);
-	p->translate(QPointF(0, 0.5));
-
 	p->fillRect( 0, 0, pixbuf.width(), pixbuf.height(), palette().color( QPalette::Window ) );
+	p->translate(QPointF(0, 0.5));
 
 	KompareSplitter* splitter = static_cast<KompareSplitter*>( parent()->parent() );
 	int count = splitter->count();

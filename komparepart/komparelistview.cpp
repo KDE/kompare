@@ -126,7 +126,6 @@ KompareListView::KompareListView( bool isSource,
 	setHScrollBarMode( Q3ScrollView::AlwaysOff );
 	setFocusPolicy( Qt::NoFocus );
 	setFont( m_settings->m_font );
-	setSpaces( m_settings->m_tabToNumberOfSpaces );
 	setFocusProxy( parent->parentWidget() );
 }
 
@@ -423,16 +422,6 @@ void KompareListView::slotApplyDifference( const Difference* diff, bool apply )
 		renumberLines();
 }
 
-void KompareListView::setSpaces( int spaces )
-{
-	m_spaces.truncate( 0 );
-	kDebug( 8104 ) << "tabToNumberOfSpaces: " << spaces << endl;
-	for ( int i = 0; i < spaces; i++ )
-		m_spaces += ' ';
-
-	triggerUpdate();
-}
-
 void KompareListView::wheelEvent( QWheelEvent* e )
 {
 	e->ignore(); // we want the parent to catch wheel events
@@ -682,6 +671,7 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 		QString textChunk;
 		int offset = listView()->itemMargin();
 		int prevValue = 0;
+		int charsDrawn = 0;
 		int chunkWidth;
 		QBrush changeBrush( bg, Qt::Dense3Pattern );
 		QBrush normalBrush( bg, Qt::SolidPattern );
@@ -708,7 +698,8 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 //				kDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
 //				kDebug(8104) << "c->offset() = " << c->offset() << endl;
 //				kDebug(8104) << "prevValue   = " << prevValue << endl;
-				textChunk.replace( QChar('\t'), kompareListView()->spaces() );
+				expandTabs(textChunk, kompareListView()->settings()->m_tabToNumberOfSpaces, charsDrawn);
+				charsDrawn += textChunk.length();
 				prevValue = m->offset();
 				if ( m->type() == Marker::End )
 				{
@@ -738,7 +729,7 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 		{
 			// Still have to draw some string without changes
 			textChunk = m_text->string().mid( prevValue, qMax( 1, m_text->string().length() - prevValue ) );
-			textChunk.replace( QChar('\t'), kompareListView()->spaces() );
+			expandTabs(textChunk, kompareListView()->settings()->m_tabToNumberOfSpaces, charsDrawn);
 //			kDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
 			QFont font( p->font() );
 			font.setBold( false );
@@ -759,6 +750,13 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 		             width - listView()->itemMargin(), height(),
 		             align, text( column ) );
 	}
+}
+
+void KompareListViewLineItem::expandTabs(QString& text, int tabstop, int startPos) const
+{
+	int index;
+	while((index = text.indexOf(QChar(9)))!= -1)
+		text.replace(index, 1, QString(tabstop-((startPos+index)%4),' '));
 }
 
 KompareListViewDiffItem* KompareListViewLineItem::diffItemParent() const

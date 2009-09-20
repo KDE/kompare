@@ -63,9 +63,6 @@ public:
 
 	void setSelectedDifference( const Diff2::Difference* diff, bool scroll );
 
-	const QString& spaces() const { return m_spaces; };
-	void setSpaces( int spaces );
-
 public slots:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void slotSetSelection( const Diff2::Difference* diff );
@@ -99,7 +96,6 @@ private:
 	int                               m_maxMainWidth;
 	const Diff2::DiffModel*           m_selectedModel;
 	const Diff2::Difference*          m_selectedDifference;
-	QString                           m_spaces;
 };
 
 class KompareListViewFrame : public QFrame
@@ -208,6 +204,9 @@ public:
 	virtual void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
 
 	KompareListViewDiffItem* diffItemParent() const;
+
+private:
+	void expandTabs(QString& text, int tabstop, int startPos = 0) const;
 
 private:
 	Diff2::DifferenceString* m_text;

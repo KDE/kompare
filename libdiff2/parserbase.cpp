@@ -532,25 +532,28 @@ bool ParserBase::parseUnifiedHunkBody()
 
 	// Fetching the stuff we need from the hunkheader regexp that was parsed in parseUnifiedHunkHeader();
 	linenoA = m_unifiedHunkHeader.cap( 1 ).toInt();
-	if( !m_unifiedHunkHeader.cap( 3 ).isEmpty() && m_unifiedHunkHeader.cap( 3 ).toInt(&wasNum) == 0 ) {
+	int lineCountA = 1, lineCountB = 1; // an ommitted line count in the header implies a line count of 1
+	if( !m_unifiedHunkHeader.cap( 3 ).isEmpty() )
+	{
+		lineCountA = m_unifiedHunkHeader.cap( 3 ).toInt(&wasNum);
+		if( !wasNum )
+			return false;
+
 		// If a hunk is an insertion or deletion with no context, the line number given
 		// is the one before the hunk. this isn't what we want, so increment it to fix this.
-		if( wasNum == false )
-			return false;
-		linenoA++;
+		if(lineCountA == 0)
+			linenoA++;
 	}
 	linenoB = m_unifiedHunkHeader.cap( 4 ).toInt();
-	if( !m_unifiedHunkHeader.cap( 6 ).isEmpty() && m_unifiedHunkHeader.cap( 6 ).toInt(&wasNum) == 0 ) {
-		// see above
-		if( wasNum == false )
+	if( !m_unifiedHunkHeader.cap( 6 ).isEmpty() ) {
+		lineCountA = m_unifiedHunkHeader.cap( 6 ).toInt(&wasNum);
+		if( !wasNum )
 			return false;
-		linenoB++;
+
+		if(lineCountB == 0) // see above
+			linenoB++;
 	}
 	QString function = m_unifiedHunkHeader.cap( 7 );
-	for ( int i = 0; i < 9; i++ )
-	{
-//		kDebug(8101) << "Capture " << i << ": " << m_unifiedHunkHeader.cap( i ) << endl;
-	}
 
 	DiffHunk* hunk = new DiffHunk( linenoA, linenoB, function );
 	m_currentModel->addHunk( hunk );
@@ -561,32 +564,36 @@ bool ParserBase::parseUnifiedHunkBody()
 	const QString added   = QString( "+" );
 	const QString removed = QString( "-" );
 
-	while( m_diffIterator != m_diffLinesEnd && matchesUnifiedHunkLine( *m_diffIterator ) )
+	while( m_diffIterator != m_diffLinesEnd && matchesUnifiedHunkLine( *m_diffIterator ) && (lineCountA || lineCountB) )
 	{
 		Difference* diff = new Difference( linenoA, linenoB );
 		hunk->add( diff );
 
 		if( (*m_diffIterator).startsWith( context ) )
 		{	// context
-			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( context ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( context ) && (lineCountA || lineCountB); ++m_diffIterator )
 			{
 				diff->addSourceLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				diff->addDestinationLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				linenoA++;
 				linenoB++;
+				--lineCountA;
+				--lineCountB;
 			}
 		}
 		else
 		{	// This is a real difference, not context
-			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( removed ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( removed ) && (lineCountA || lineCountB); ++m_diffIterator )
 			{
 				diff->addSourceLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				linenoA++;
+				--lineCountA;
 			}
-			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( added ); ++m_diffIterator )
+			for( ; m_diffIterator != m_diffLinesEnd && (*m_diffIterator).startsWith( added ) && (lineCountA || lineCountB); ++m_diffIterator )
 			{
 				diff->addDestinationLine( QString( *m_diffIterator ).remove( 0, 1 ) );
 				linenoB++;
+				--lineCountB;
 			}
 			if ( diff->sourceLineCount() == 0 )
 			{

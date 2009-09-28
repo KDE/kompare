@@ -470,7 +470,6 @@ void KompareSplitter::slotConfigChanged()
 	const int end = count();
 	for ( int i = 0; i < end; ++i ) {
 		KompareListView *view = listView(i);
-		view->setSpaces( m_settings->m_tabToNumberOfSpaces );
 		view->setFont( m_settings->m_font );
 		view->update();
 	}

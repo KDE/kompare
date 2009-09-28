@@ -56,9 +56,7 @@ signals:
 
 protected:
 	void paintEvent( QPaintEvent* e );
-	Q3PointArray makeTopBezier( int tl, int tr );
-	Q3PointArray makeBottomBezier( int bl, int br );
-	Q3PointArray makeConnectPoly( const Q3PointArray& topBezier, const Q3PointArray& bottomBezier );
+	QPainterPath makeBezier( int l, int r ) const;
 
 private:
 	ViewSettings*             m_settings;

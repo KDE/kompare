@@ -35,8 +35,6 @@
 #include "komparelistview.h"
 #include "komparesplitter.h"
 
-#define ANTIALIASING_MARGIN 1
-
 using namespace Diff2;
 
 KompareConnectWidgetFrame::KompareConnectWidgetFrame( ViewSettings* settings,
@@ -159,13 +157,12 @@ void KompareConnectWidget::slotSetSelection( const Difference* diff )
 
 void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 {
-//	kDebug(8106) << "KompareConnectWidget::paintEvent()" << endl;
-
 	QPixmap pixbuf(size());
 	QPainter paint(&pixbuf);
 	QPainter* p = &paint;
 
 	p->setRenderHint(QPainter::Antialiasing);
+	p->translate(QPointF(0, 0.5));
 
 	p->fillRect( 0, 0, pixbuf.width(), pixbuf.height(), palette().color( QPalette::Window ) );
 
@@ -211,8 +208,8 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 					rightRect = rightView->itemRect( i );
 				}
 
-				int tl = leftRect.top() + ANTIALIASING_MARGIN;
-				int tr = rightRect.top() + ANTIALIASING_MARGIN;
+				int tl = leftRect.top();
+				int tr = rightRect.top();
 				int bl = leftRect.bottom();
 				int br = rightRect.bottom();
 
@@ -222,20 +219,24 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 				bl = bl <=  32767 ? bl :  32767;
 				br = br <=  32767 ? br :  32767;
 
-//				kDebug(8106) << "drawing: " << tl << " " << tr << " " << bl << " " << br << endl;
-				Q3PointArray topBezier = makeTopBezier( tl, tr );
-				Q3PointArray bottomBezier = makeBottomBezier( bl, br );
+				QPainterPath topBezier = makeBezier( tl, tr );
+				QPainterPath bottomBezier = makeBezier( bl, br );
+
+				QPainterPath poly(topBezier);
+				poly.connectPath(bottomBezier.toReversed());
+				poly.closeSubpath();
 
 				QColor bg = m_settings->colorForDifferenceType( diff->type(), selected, diff->applied() );
 				p->setPen( bg );
 				p->setBrush( bg );
-				p->drawPolygon ( makeConnectPoly( topBezier, bottomBezier ) );
+				p->drawPath(poly);
 
-				if ( selected )
+				if(selected)
 				{
-					p->setPen( bg.dark(135) );
-					p->drawPolyline( topBezier );
-					p->drawPolyline( bottomBezier );
+					p->setPen( bg.dark( 135 ) );
+					p->setBrush( Qt::NoBrush );
+					p->drawPath( topBezier );
+					p->drawPath( bottomBezier.toReversed() );
 				}
 			}
 		}
@@ -245,53 +246,18 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 	bitBlt(this, 0, 0, &pixbuf);
 }
 
-Q3PointArray KompareConnectWidget::makeTopBezier( int tl, int tr )
+QPainterPath KompareConnectWidget::makeBezier( int leftHeight, int rightHeight ) const
 {
-	int l = 0;
 	int r = width();
 	int o = (int)((double)r*0.4); // 40% of width
-	Q3PointArray controlPoints;
 
-	if ( tl != tr )
-	{
-		controlPoints.setPoints( 4, l,tl, o,tl, r-o,tr, r,tr );
-		return controlPoints.cubicBezier();
+	QPainterPath p(QPointF(0, leftHeight));
+	if(leftHeight==rightHeight) {
+		p.lineTo(QPointF(r, rightHeight));
+	} else {
+		p.cubicTo(QPointF(o, leftHeight), QPointF(r-o, rightHeight), QPointF(r,rightHeight));
 	}
-	else
-	{
-		controlPoints.setPoints( 2, l,tl, r,tr );
-		return controlPoints;
-	}
-}
-
-Q3PointArray KompareConnectWidget::makeBottomBezier( int bl, int br )
-{
-	int l = 0;
-	int r = width();
-	int o = (int)((double)r*0.4); // 40% of width
-	Q3PointArray controlPoints;
-
-	if ( bl != br )
-	{
-		controlPoints.setPoints( 4, r,br, r-o,br, o,bl, l,bl );
-		return controlPoints.cubicBezier();
-	}
-	else
-	{
-		controlPoints.setPoints( 2, r,br, l,bl );
-		return controlPoints;
-	}
-}
-
-Q3PointArray KompareConnectWidget::makeConnectPoly( const Q3PointArray& topBezier, const Q3PointArray& bottomBezier )
-{
-	Q3PointArray poly( topBezier.size() + bottomBezier.size() );
-	for( int i = 0; i < topBezier.size(); i++ )
-		poly.setPoint( i, topBezier.point( i ) );
-	for( int i = 0; i < bottomBezier.size(); i++ )
-		poly.setPoint( i + topBezier.size(), bottomBezier.point( i ) );
-
-	return poly;
+	return p;
 }
 
 #include "kompareconnectwidget.moc"

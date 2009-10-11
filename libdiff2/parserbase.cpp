@@ -546,7 +546,7 @@ bool ParserBase::parseUnifiedHunkBody()
 	}
 	linenoB = m_unifiedHunkHeader.cap( 4 ).toInt();
 	if( !m_unifiedHunkHeader.cap( 6 ).isEmpty() ) {
-		lineCountA = m_unifiedHunkHeader.cap( 6 ).toInt(&wasNum);
+		lineCountB = m_unifiedHunkHeader.cap( 6 ).toInt(&wasNum);
 		if( !wasNum )
 			return false;
 

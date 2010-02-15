@@ -284,7 +284,7 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 
 	m_selectedDifference = diff;
 
-	KompareListViewItem* item = m_itemDict[ (void*)diff ];
+	KompareListViewItem* item = m_itemDict[ diff ];
 	if( !item ) {
 		kDebug(8104) << "KompareListView::slotSetSelection(): couldn't find our selection!" << endl;
 		return;
@@ -316,8 +316,6 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 	m_items.clear();
 	m_itemDict.clear();
 	m_selectedModel = model;
-
-	m_itemDict.resize(model->differenceCount());
 
 	DiffHunkListConstIterator hunkIt = model->hunks()->begin();
 	DiffHunkListConstIterator hEnd   = model->hunks()->end();
@@ -397,7 +395,7 @@ void KompareListView::renumberLines( void )
 
 void KompareListView::slotApplyDifference( bool apply )
 {
-	m_itemDict[ (void*)m_selectedDifference ]->applyDifference( apply );
+	m_itemDict[ m_selectedDifference ]->applyDifference( apply );
 	// now renumber the line column if this is the destination
 	if ( !m_isSource )
 		renumberLines();
@@ -405,9 +403,11 @@ void KompareListView::slotApplyDifference( bool apply )
 
 void KompareListView::slotApplyAllDifferences( bool apply )
 {
-	Q3PtrDictIterator<KompareListViewDiffItem> it ( m_itemDict );
-	for( ; it.current(); ++it )
-		it.current()->applyDifference( apply );
+	QHash<const Diff2::Difference*, KompareListViewDiffItem*>::ConstIterator it = m_itemDict.constBegin();
+	QHash<const Diff2::Difference*, KompareListViewDiffItem*>::ConstIterator end = m_itemDict.constEnd();
+	for ( ; it != end; ++it )
+		it.value()->applyDifference( apply );
+
 	// now renumber the line column if this is the destination
 	if ( !m_isSource )
 		renumberLines();
@@ -416,7 +416,7 @@ void KompareListView::slotApplyAllDifferences( bool apply )
 
 void KompareListView::slotApplyDifference( const Difference* diff, bool apply )
 {
-	m_itemDict[ (void*)diff ]->applyDifference( apply );
+	m_itemDict[ diff ]->applyDifference( apply );
 	// now renumber the line column if this is the destination
 	if ( !m_isSource )
 		renumberLines();

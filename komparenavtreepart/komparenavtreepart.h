@@ -19,9 +19,8 @@
 #ifndef KOMPARENAVTREEPART_H
 #define KOMPARENAVTREEPART_H
 
-#include <q3ptrdict.h>
-#include <q3ptrlist.h>
 #include <QtGui/QSplitter>
+#include <QtCore/QHash>
 #include <q3listview.h>
 
 #include <k3listview.h>
@@ -96,10 +95,10 @@ private:
 	QSplitter*                         m_splitter;
 	const Diff2::DiffModelList*        m_modelList;
 
-	Q3PtrDict<KChangeLVI>               m_diffToChangeItemDict;
-	Q3PtrDict<KFileLVI>                 m_modelToFileItemDict;
-	Q3PtrDict<KDirLVI>                  m_modelToSrcDirItemDict;
-	Q3PtrDict<KDirLVI>                  m_modelToDestDirItemDict;
+	QHash<const Diff2::Difference*, KChangeLVI*>	m_diffToChangeItemDict;
+	QHash<const Diff2::DiffModel*, KFileLVI*>       m_modelToFileItemDict;
+	QHash<const Diff2::DiffModel*, KDirLVI*>        m_modelToSrcDirItemDict;
+	QHash<const Diff2::DiffModel*, KDirLVI*>        m_modelToDestDirItemDict;
 
 	K3ListView*                         m_srcDirTree;
 	K3ListView*                         m_destDirTree;
@@ -142,7 +141,7 @@ public:
 	~KFileLVI();
 public:
 	Diff2::DiffModel* model() { return m_model; };
-	void fillChangesList( K3ListView* changesList, Q3PtrDict<KChangeLVI>* diffToChangeItemDict );
+	void fillChangesList( K3ListView* changesList, QHash<const Diff2::Difference*, KChangeLVI*>* diffToChangeItemDict );
 private:
 	bool hasExtension(const QString& extensions, const QString& fileName);
 	const QString getIcon(const QString& fileName);
@@ -157,11 +156,11 @@ public:
 	KDirLVI( K3ListView* parent, QString& dir );
 	~KDirLVI();
 public:
-	void addModel( QString& dir, Diff2::DiffModel* model, Q3PtrDict<KDirLVI>* modelToDirItemDict );
+	void addModel( QString& dir, Diff2::DiffModel* model, QHash<const Diff2::DiffModel*, KDirLVI*>* modelToDirItemDict );
 	QString& dirName() { return m_dirName; };
 	QString fullPath( QString& path );
 	KDirLVI* setSelected( QString dir );
-	void fillFileList( K3ListView* fileList, Q3PtrDict<KFileLVI>* modelToFileItemDict );
+	void fillFileList( K3ListView* fileList, QHash<const Diff2::DiffModel*, KFileLVI*>* modelToFileItemDict );
 	bool isRootItem() { return m_rootItem; };
 private:
 	KDirLVI* findChild( QString dir );

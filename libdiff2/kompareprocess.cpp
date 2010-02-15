@@ -96,7 +96,7 @@ void KompareProcess::writeDefaultCommandLine()
 
 void KompareProcess::writeCommandLine()
 {
-	// load the executable into the K3Process
+	// load the executable into the KProcess
 	if ( m_diffSettings->m_diffProgram.isEmpty() )
 	{
 		kDebug(8101) << "Using the first diff in the path..." << endl;

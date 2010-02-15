@@ -85,7 +85,7 @@ public:
 	int differenceCount() const;
 	int appliedCount() const;
 
-	const DiffModel* modelAt( int i ) const { return *( m_models->at( i ) ); };
+	const DiffModel* modelAt( int i ) const { return m_models->at( i ); };
 	int              findModel( DiffModel* model ) const { return m_models->findIndex( model ); };
 
 	bool hasUnsavedChanges() const;

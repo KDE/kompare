@@ -282,14 +282,14 @@ void KompareNavTreePart::slotSetSelection( const DiffModel* model, const Differe
 void KompareNavTreePart::setSelectedDir( const DiffModel* model )
 {
 	KDirLVI* currentDir;
-	currentDir = m_modelToSrcDirItemDict[ (void*)model ];
+	currentDir = m_modelToSrcDirItemDict[ model ];
 	kDebug(8105) << "Manually setting selection in srcdirtree with currentDir = " << currentDir << endl;
 	m_srcDirTree->blockSignals( true );
 	m_srcDirTree->setSelected( currentDir, true );
 	m_srcDirTree->ensureItemVisible( currentDir );
 	m_srcDirTree->blockSignals( false );
 
-	currentDir = m_modelToDestDirItemDict[ (void*)model ];
+	currentDir = m_modelToDestDirItemDict[ model ];
 	kDebug(8105) << "Manually setting selection in destdirtree with currentDir = " << currentDir << endl;
 	m_destDirTree->blockSignals( true );
 	m_destDirTree->setSelected( currentDir, true );
@@ -304,7 +304,7 @@ void KompareNavTreePart::setSelectedDir( const DiffModel* model )
 void KompareNavTreePart::setSelectedFile( const DiffModel* model )
 {
 	KFileLVI* currentFile;
-	currentFile = m_modelToFileItemDict[ (void*)model ];
+	currentFile = m_modelToFileItemDict[ model ];
 	kDebug(8105) << "Manually setting selection in filelist" << endl;
 	m_fileList->blockSignals( true );
 	m_fileList->setSelected( currentFile, true );
@@ -319,7 +319,7 @@ void KompareNavTreePart::setSelectedFile( const DiffModel* model )
 void KompareNavTreePart::setSelectedDifference( const Difference* diff )
 {
 	KChangeLVI* currentDiff;
-	currentDiff = m_diffToChangeItemDict[ (void*)diff ];
+	currentDiff = m_diffToChangeItemDict[ diff ];
 	kDebug(8105) << "Manually setting selection in changeslist to " << currentDiff << endl;
 	m_changesList->blockSignals( true );
 	m_changesList->setSelected( currentDiff, true );
@@ -405,27 +405,28 @@ void KompareNavTreePart::slotChangesListSelectionChanged( Q3ListViewItem* item )
 
 void KompareNavTreePart::slotApplyDifference( bool /*apply*/ )
 {
-	KChangeLVI* clvi = m_diffToChangeItemDict[(void*)m_selectedDifference];
+	KChangeLVI* clvi = m_diffToChangeItemDict[m_selectedDifference];
 	if ( clvi )
 		clvi->setDifferenceText();
 }
 
 void KompareNavTreePart::slotApplyAllDifferences( bool /*apply*/ )
 {
-	Q3PtrDictIterator<KChangeLVI> it( m_diffToChangeItemDict );
+	QHash<const Diff2::Difference*, KChangeLVI*>::ConstIterator it = m_diffToChangeItemDict.constBegin();
+	QHash<const Diff2::Difference*, KChangeLVI*>::ConstIterator end = m_diffToChangeItemDict.constEnd();
 
 	kDebug(8105) << "m_diffToChangeItemDict.count() = " << m_diffToChangeItemDict.count() << endl;
 
-	for ( ; it.current(); ++it )
+	for ( ; it != end ; ++it )
 	{
-		it.current()->setDifferenceText();
+		it.value()->setDifferenceText();
 	}
 }
 
 void KompareNavTreePart::slotApplyDifference( const Difference* diff, bool /*apply*/ )
 {
 	// this applies to the currently selected difference
-	KChangeLVI* clvi = m_diffToChangeItemDict[(void*)diff];
+	KChangeLVI* clvi = m_diffToChangeItemDict[diff];
 	if ( clvi )
 		clvi->setDifferenceText();
 }
@@ -591,7 +592,7 @@ const QString KFileLVI::getIcon(const QString& fileName)
 	return "text-plain";
 }
 
-void KFileLVI::fillChangesList( K3ListView* changesList, Q3PtrDict<KChangeLVI>* diffToChangeItemDict )
+void KFileLVI::fillChangesList( K3ListView* changesList, QHash<const Diff2::Difference*, KChangeLVI*>* diffToChangeItemDict )
 {
 	changesList->clear();
 	diffToChangeItemDict->clear();
@@ -638,7 +639,7 @@ KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : K3ListViewItem( parent )
 }
 
 // addModel always removes it own path from the beginning
-void KDirLVI::addModel( QString& path, DiffModel* model, Q3PtrDict<KDirLVI>* modelToDirItemDict )
+void KDirLVI::addModel( QString& path, DiffModel* model, QHash<const Diff2::DiffModel*, KDirLVI*>* modelToDirItemDict )
 {
 //	kDebug(8105) << "KDirLVI::addModel called with path = " << path << " from KDirLVI with m_dirName = " << m_dirName << endl;
 
@@ -685,7 +686,7 @@ KDirLVI* KDirLVI::findChild( QString dir )
 	return 0L;
 }
 
-void KDirLVI::fillFileList( K3ListView* fileList, Q3PtrDict<KFileLVI>* modelToFileItemDict )
+void KDirLVI::fillFileList( K3ListView* fileList, QHash<const Diff2::DiffModel*, KFileLVI*>* modelToFileItemDict )
 {
 	fileList->clear();
 

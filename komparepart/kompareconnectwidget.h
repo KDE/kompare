@@ -22,7 +22,6 @@
 
 #include <QtGui/QWidget>
 #include <QtGui/QSplitter>
-#include <Q3PointArray>
 #include <QtGui/QPaintEvent>
 #include <QtGui/QMouseEvent>
 #include <QVBoxLayout>

@@ -19,7 +19,7 @@
 #ifndef KOMPARELISTVIEW_H
 #define KOMPARELISTVIEW_H
 
-#include <Q3PtrDict>
+#include <QHash>
 #include <QLabel>
 #include <QResizeEvent>
 #include <QWheelEvent>
@@ -89,7 +89,7 @@ protected:
 
 private:
 	QList<KompareListViewDiffItem*> m_items;
-	Q3PtrDict<KompareListViewDiffItem> m_itemDict;
+	QHash<const Diff2::Difference*, KompareListViewDiffItem*> m_itemDict;
 	bool                              m_isSource;
 	ViewSettings*                     m_settings;
 	int                               m_scrollId;

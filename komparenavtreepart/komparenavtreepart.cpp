@@ -18,11 +18,12 @@
 
 #include "komparenavtreepart.h"
 
+#include <QtGui/QTreeWidgetItemIterator>
+
 #include <kdebug.h>
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kmimetype.h>
-#include <k3listview.h>
 #include <kaboutdata.h>
 #include <kcomponentdata.h>
 
@@ -58,39 +59,36 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 
 	setWidget( m_splitter );
 
-	m_srcDirTree = new K3ListView( m_splitter );
-	m_srcDirTree->addColumn( i18n("Source Folder") );
+	m_srcDirTree = new QTreeWidget( m_splitter );
+	m_srcDirTree->setHeaderLabel( i18n("Source Folder") );
 	m_srcDirTree->setRootIsDecorated( false );
-	m_srcDirTree->setSorting( 0, true );
+	m_srcDirTree->setSortingEnabled( true );
 
-	m_destDirTree = new K3ListView( m_splitter );
-	m_destDirTree->addColumn( i18n("Destination Folder") );
+	m_destDirTree = new QTreeWidget( m_splitter );
+	m_destDirTree->setHeaderLabel( i18n("Destination Folder") );
 	m_destDirTree->setRootIsDecorated( false );
-	m_destDirTree->setSorting( 0, true );
+	m_destDirTree->setSortingEnabled( true );
 
-	m_fileList = new K3ListView( m_splitter );
-	m_fileList->addColumn( i18n("Source File") );
-	m_fileList->addColumn( i18n("Destination File") );
+	m_fileList = new QTreeWidget( m_splitter );
+	m_fileList->setHeaderLabels( QStringList() << i18n("Source File") << i18n("Destination File") );
 	m_fileList->setAllColumnsShowFocus( true );
 	m_fileList->setRootIsDecorated( false );
-	m_fileList->setSorting( 0, true );
+	m_fileList->setSortingEnabled( true );
 
-	m_changesList = new K3ListView( m_splitter );
-	m_changesList->addColumn( i18n("Source Line") );
-	m_changesList->addColumn( i18n("Destination Line") );
-	m_changesList->addColumn( i18n("Difference") );
+	m_changesList = new QTreeWidget( m_splitter );
+	m_changesList->setHeaderLabels( QStringList() << i18n("Source Line") << i18n("Destination Line") << i18n("Difference") );
 	m_changesList->setAllColumnsShowFocus( true );
 	m_changesList->setRootIsDecorated( false );
-	m_changesList->setSorting( 0, true );
+	m_changesList->setSortingEnabled( true );
 
-	connect( m_srcDirTree, SIGNAL(selectionChanged( Q3ListViewItem* )),
-	         this, SLOT(slotSrcDirTreeSelectionChanged( Q3ListViewItem* )) );
-	connect( m_destDirTree, SIGNAL(selectionChanged( Q3ListViewItem* )),
-	         this, SLOT(slotDestDirTreeSelectionChanged( Q3ListViewItem* )) );
-	connect( m_fileList, SIGNAL(selectionChanged( Q3ListViewItem* )),
-	         this, SLOT(slotFileListSelectionChanged( Q3ListViewItem* )) );
-	connect( m_changesList, SIGNAL(selectionChanged( Q3ListViewItem* )),
-	         this, SLOT(slotChangesListSelectionChanged( Q3ListViewItem* )) );
+	connect( m_srcDirTree, SIGNAL(currentItemChanged( QTreeWidgetItem*, QTreeWidgetItem* )),
+	         this, SLOT(slotSrcDirTreeSelectionChanged( QTreeWidgetItem* )) );
+	connect( m_destDirTree, SIGNAL(currentItemChanged( QTreeWidgetItem*, QTreeWidgetItem* )),
+	         this, SLOT(slotDestDirTreeSelectionChanged( QTreeWidgetItem* )) );
+	connect( m_fileList, SIGNAL(currentItemChanged( QTreeWidgetItem*, QTreeWidgetItem* )),
+	         this, SLOT(slotFileListSelectionChanged( QTreeWidgetItem* )) );
+	connect( m_changesList, SIGNAL(currentItemChanged( QTreeWidgetItem*, QTreeWidgetItem* )),
+	         this, SLOT(slotChangesListSelectionChanged( QTreeWidgetItem* )) );
 }
 
 KompareNavTreePart::~KompareNavTreePart()
@@ -285,15 +283,15 @@ void KompareNavTreePart::setSelectedDir( const DiffModel* model )
 	currentDir = m_modelToSrcDirItemDict[ model ];
 	kDebug(8105) << "Manually setting selection in srcdirtree with currentDir = " << currentDir << endl;
 	m_srcDirTree->blockSignals( true );
-	m_srcDirTree->setSelected( currentDir, true );
-	m_srcDirTree->ensureItemVisible( currentDir );
+	m_srcDirTree->setCurrentItem( currentDir );
+	m_srcDirTree->scrollToItem( currentDir );
 	m_srcDirTree->blockSignals( false );
 
 	currentDir = m_modelToDestDirItemDict[ model ];
 	kDebug(8105) << "Manually setting selection in destdirtree with currentDir = " << currentDir << endl;
 	m_destDirTree->blockSignals( true );
-	m_destDirTree->setSelected( currentDir, true );
-	m_destDirTree->ensureItemVisible( currentDir );
+	m_destDirTree->setCurrentItem( currentDir );
+	m_destDirTree->scrollToItem( currentDir );
 	m_destDirTree->blockSignals( false );
 
 	m_fileList->blockSignals( true );
@@ -307,8 +305,8 @@ void KompareNavTreePart::setSelectedFile( const DiffModel* model )
 	currentFile = m_modelToFileItemDict[ model ];
 	kDebug(8105) << "Manually setting selection in filelist" << endl;
 	m_fileList->blockSignals( true );
-	m_fileList->setSelected( currentFile, true );
-	m_fileList->ensureItemVisible( currentFile );
+	m_fileList->setCurrentItem( currentFile );
+	m_fileList->scrollToItem( currentFile );
 	m_fileList->blockSignals( false );
 
 	m_changesList->blockSignals( true );
@@ -322,8 +320,8 @@ void KompareNavTreePart::setSelectedDifference( const Difference* diff )
 	currentDiff = m_diffToChangeItemDict[ diff ];
 	kDebug(8105) << "Manually setting selection in changeslist to " << currentDiff << endl;
 	m_changesList->blockSignals( true );
-	m_changesList->setSelected( currentDiff, true );
-	m_changesList->ensureItemVisible( currentDiff );
+	m_changesList->setCurrentItem( currentDiff );
+	m_changesList->scrollToItem( currentDiff );
 	m_changesList->blockSignals( false );
 }
 
@@ -338,10 +336,13 @@ void KompareNavTreePart::slotSetSelection( const Difference* diff )
 	}
 }
 
-void KompareNavTreePart::slotSrcDirTreeSelectionChanged( Q3ListViewItem* item )
+void KompareNavTreePart::slotSrcDirTreeSelectionChanged( QTreeWidgetItem* item )
 {
+	if (!item)
+		return;
+
 	kDebug(8105) << "Sent by the sourceDirectoryTree with item = " << item << endl;
-	m_srcDirTree->ensureItemVisible( item );
+	m_srcDirTree->scrollToItem( item );
 	KDirLVI* dir = static_cast<KDirLVI*>(item);
 	// order the dest tree view to set its selected item to the same as here
 	QString path;
@@ -349,17 +350,20 @@ void KompareNavTreePart::slotSrcDirTreeSelectionChanged( Q3ListViewItem* item )
 	path = dir->fullPath( path );
 	KDirLVI* selItem = m_destRootItem->setSelected( path );
 	m_destDirTree->blockSignals( true );
-	m_destDirTree->setSelected( selItem, true );
-	m_destDirTree->ensureItemVisible( selItem );
+	m_destDirTree->setCurrentItem( selItem );
+	m_destDirTree->scrollToItem( selItem );
 	m_destDirTree->blockSignals( false );
 	// fill the changes list
 	dir->fillFileList( m_fileList, &m_modelToFileItemDict );
 }
 
-void KompareNavTreePart::slotDestDirTreeSelectionChanged( Q3ListViewItem* item )
+void KompareNavTreePart::slotDestDirTreeSelectionChanged( QTreeWidgetItem* item )
 {
+	if (!item)
+		return;
+
 	kDebug(8105) << "Sent by the destinationDirectoryTree with item = " << item << endl;
-	m_destDirTree->ensureItemVisible( item );
+	m_destDirTree->scrollToItem( item );
 	KDirLVI* dir = static_cast<KDirLVI*>(item);
 	// order the src tree view to set its selected item to the same as here
 	QString path;
@@ -367,15 +371,18 @@ void KompareNavTreePart::slotDestDirTreeSelectionChanged( Q3ListViewItem* item )
 	path = dir->fullPath( path );
 	KDirLVI* selItem = m_srcRootItem->setSelected( path );
 	m_srcDirTree->blockSignals( true );
-	m_srcDirTree->setSelected( selItem, true );
-	m_srcDirTree->ensureItemVisible( selItem );
+	m_srcDirTree->setCurrentItem( selItem );
+	m_srcDirTree->scrollToItem( selItem );
 	m_srcDirTree->blockSignals( false );
 	// fill the changes list
 	dir->fillFileList( m_fileList, &m_modelToFileItemDict );
 }
 
-void KompareNavTreePart::slotFileListSelectionChanged( Q3ListViewItem* item )
+void KompareNavTreePart::slotFileListSelectionChanged( QTreeWidgetItem* item )
 {
+	if (!item)
+		return;
+
 	kDebug(8105) << "Sent by the fileList with item = " << item << endl;
 
 	KFileLVI* file = static_cast<KFileLVI*>(item);
@@ -384,17 +391,20 @@ void KompareNavTreePart::slotFileListSelectionChanged( Q3ListViewItem* item )
 	file->fillChangesList( m_changesList, &m_diffToChangeItemDict );
 	m_changesList->blockSignals( false );
 
-	if ( m_changesList->selectedItem() )
+	if ( m_changesList->currentItem() )
 	{
 		// FIXME: This is ugly...
-		m_selectedDifference = (static_cast<KChangeLVI*>(m_changesList->selectedItem()))->difference();
+		m_selectedDifference = (static_cast<KChangeLVI*>(m_changesList->currentItem()))->difference();
 	}
 
 	emit selectionChanged( m_selectedModel, m_selectedDifference );
 }
 
-void KompareNavTreePart::slotChangesListSelectionChanged( Q3ListViewItem* item )
+void KompareNavTreePart::slotChangesListSelectionChanged( QTreeWidgetItem* item )
 {
+	if (!item)
+		return;
+
 	kDebug(8105) << "Sent by the changesList" << endl;
 
 	KChangeLVI* change = static_cast<KChangeLVI*>(item);
@@ -469,7 +479,7 @@ void KChangeLVI::setDifferenceText()
 	setText( 2, text );
 }
 
-KChangeLVI::KChangeLVI( K3ListView* parent, Difference* diff ) : K3ListViewItem( parent )
+KChangeLVI::KChangeLVI( QTreeWidget* parent, Difference* diff ) : QTreeWidgetItem( parent )
 {
 	m_difference = diff;
 
@@ -479,31 +489,23 @@ KChangeLVI::KChangeLVI( K3ListView* parent, Difference* diff ) : K3ListViewItem(
 	setDifferenceText();
 }
 
-int KChangeLVI::compare( Q3ListViewItem* item, int column, bool ascending ) const
+bool KChangeLVI::operator<( const QTreeWidgetItem& item ) const
 {
-	if ( ascending )
-	{
-		if ( this->text(column).length() < item->text(column).length() )
-			return -1;
-		if ( this->text(column).length() > item->text(column).length() )
-			return 1;
-	}
-	else
-	{
-		if ( this->text(column).length() > item->text(column).length() )
-			return -1;
-		if ( this->text(column).length() < item->text(column).length() )
-			return 1;
-	}
+	int column = treeWidget()->sortColumn();
+	QString text1 = text(column);
+	QString text2 = item.text(column);
 
-	return key( column, ascending ).compare( item->key( column, ascending ) );
+	// Compare the numbers.
+	if (column < 2 && text1.length() != text2.length())
+		return text1.length() < text2.length();
+	return text1 < text2;
 }
 
 KChangeLVI::~KChangeLVI()
 {
 }
 
-KFileLVI::KFileLVI( K3ListView* parent, DiffModel* model ) : K3ListViewItem( parent )
+KFileLVI::KFileLVI( QTreeWidget* parent, DiffModel* model ) : QTreeWidgetItem( parent )
 {
 	m_model = model;
 
@@ -512,14 +514,13 @@ KFileLVI::KFileLVI( K3ListView* parent, DiffModel* model ) : K3ListViewItem( par
 
 	setText( 0, src );
 	setText( 1, dst );
-	setPixmap( 0, SmallIcon( getIcon( src ) ) );
-	setPixmap( 1, SmallIcon( getIcon( dst ) ) );
-	setSelectable( true );
+	setIcon( 0, SmallIcon( getIcon( src ) ) );
+	setIcon( 1, SmallIcon( getIcon( dst ) ) );
 }
 
 bool KFileLVI::hasExtension(const QString& extensions, const QString& fileName)
 {
-    QStringList extList = extensions.split(' ');
+	QStringList extList = extensions.split(' ');
 	foreach (const QString &ext, extList) {
 		if ( fileName.endsWith(ext, Qt::CaseInsensitive) ) {
 			return true;
@@ -592,7 +593,7 @@ const QString KFileLVI::getIcon(const QString& fileName)
 	return "text-plain";
 }
 
-void KFileLVI::fillChangesList( K3ListView* changesList, QHash<const Diff2::Difference*, KChangeLVI*>* diffToChangeItemDict )
+void KFileLVI::fillChangesList( QTreeWidget* changesList, QHash<const Diff2::Difference*, KChangeLVI*>* diffToChangeItemDict )
 {
 	changesList->clear();
 	diffToChangeItemDict->clear();
@@ -606,35 +607,33 @@ void KFileLVI::fillChangesList( K3ListView* changesList, QHash<const Diff2::Diff
 		diffToChangeItemDict->insert( *diffIt, change );
 	}
 
-	changesList->setSelected( changesList->firstChild(), true );
+	changesList->setCurrentItem( changesList->topLevelItem( 0 ) );
 }
 
 KFileLVI::~KFileLVI()
 {
 }
 
-KDirLVI::KDirLVI( K3ListView* parent, QString& dir ) : K3ListViewItem( parent )
+KDirLVI::KDirLVI( QTreeWidget* parent, QString& dir ) : QTreeWidgetItem( parent )
 {
-//	kDebug(8105) << "KDirLVI (K3ListView) constructor called with dir = " << dir << endl;
+//	kDebug(8105) << "KDirLVI (QTreeWidget) constructor called with dir = " << dir << endl;
 	m_rootItem = true;
 	m_dirName = dir;
-	setPixmap( 0, SmallIcon( "folder" ) );
-	setOpen( true );
-	setSelectable( true );
+	setIcon( 0, SmallIcon( "folder" ) );
+	setExpanded( true );
 	if ( m_dirName.isEmpty() )
 		setText( 0, i18n( "Unknown" ) );
 	else
 		setText( 0, m_dirName );
 }
 
-KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : K3ListViewItem( parent )
+KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : QTreeWidgetItem( parent )
 {
 //	kDebug(8105) << "KDirLVI (KDirLVI) constructor called with dir = " << dir << endl;
 	m_rootItem = false;
 	m_dirName = dir;
-	setPixmap( 0, SmallIcon( "folder" ) );
-	setOpen( true );
-	setSelectable( true );
+	setIcon( 0, SmallIcon( "folder" ) );
+	setExpanded( true );
 	setText( 0, m_dirName );
 }
 
@@ -675,18 +674,20 @@ KDirLVI* KDirLVI::findChild( QString dir )
 {
 //	kDebug(8105) << "KDirLVI::findChild called with dir = " << dir << endl;
 	KDirLVI* child;
-	if ( ( child = static_cast<KDirLVI*>(this->firstChild()) ) != 0L )
+	if ( ( child = static_cast<KDirLVI*>(this->child(0)) ) != 0L )
 	{ // has children, check if dir already exists, if so addModel
-		do {
+		QTreeWidgetItemIterator it(child);
+		while (*it) {
 			if ( dir == child->dirName() )
 				return child;
-		} while ( ( child = static_cast<KDirLVI*>(child->nextSibling()) ) != 0L );
+			++it;
+		}
 	}
 
 	return 0L;
 }
 
-void KDirLVI::fillFileList( K3ListView* fileList, QHash<const Diff2::DiffModel*, KFileLVI*>* modelToFileItemDict )
+void KDirLVI::fillFileList( QTreeWidget* fileList, QHash<const Diff2::DiffModel*, KFileLVI*>* modelToFileItemDict )
 {
 	fileList->clear();
 
@@ -698,7 +699,7 @@ void KDirLVI::fillFileList( K3ListView* fileList, QHash<const Diff2::DiffModel*,
 		modelToFileItemDict->insert( *modelIt, file );
 	}
 
-	fileList->setSelected( fileList->firstChild(), true );
+	fileList->setCurrentItem( fileList->topLevelItem( 0 ) );
 }
 
 QString KDirLVI::fullPath( QString& path )
@@ -736,14 +737,16 @@ KDirLVI* KDirLVI::setSelected( QString dir )
 	{
 		return this;
 	}
-	KDirLVI* child = static_cast<KDirLVI*>(firstChild());
+	KDirLVI* child = static_cast<KDirLVI*>(this->child(0));
 	if ( !child )
 		return 0L;
 
-	do {
+	QTreeWidgetItemIterator it(child);
+	while (*it) {
 		if ( dir.startsWith( child->dirName() ) )
 			return child->setSelected( dir );
-	} while ( ( child = static_cast<KDirLVI*>(child->nextSibling()) ) != 0L );
+		++it;
+	}
 
 	return 0L;
 }

@@ -18,7 +18,7 @@
 #ifndef DIFFMODELLIST_H
 #define DIFFMODELLIST_H
 
-#include <qlist.h> // include for the base class
+#include <QtCore/QList> // include for the base class
 
 #include "diffmodel.h"
 #include "diff2export.h"

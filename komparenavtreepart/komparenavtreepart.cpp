@@ -678,6 +678,8 @@ KDirLVI* KDirLVI::findChild( QString dir )
 	{ // has children, check if dir already exists, if so addModel
 		QTreeWidgetItemIterator it(child);
 		while (*it) {
+			child = static_cast<KDirLVI*>(*it);
+
 			if ( dir == child->dirName() )
 				return child;
 			++it;
@@ -743,6 +745,8 @@ KDirLVI* KDirLVI::setSelected( QString dir )
 
 	QTreeWidgetItemIterator it(child);
 	while (*it) {
+		child = static_cast<KDirLVI*>(*it);
+
 		if ( dir.startsWith( child->dirName() ) )
 			return child->setSelected( dir );
 		++it;

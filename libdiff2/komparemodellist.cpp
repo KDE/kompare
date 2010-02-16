@@ -570,8 +570,8 @@ QString KompareModelList::recreateDiff() const
 {
 	QString diff;
 
-	DiffModelListConstIterator modelIt = m_models->begin();
-	DiffModelListConstIterator mEnd    = m_models->end();
+	DiffModelListConstIterator modelIt = m_models->constBegin();
+	DiffModelListConstIterator mEnd    = m_models->constEnd();
 
 	for ( ; modelIt != mEnd; ++modelIt )
 	{
@@ -1225,8 +1225,8 @@ bool KompareModelList::hasUnsavedChanges() const
 	if ( modelCount() == 0 )
 		return false;
 
-	DiffModelListConstIterator modelIt = m_models->begin();
-	DiffModelListConstIterator endIt   = m_models->end();
+	DiffModelListConstIterator modelIt = m_models->constBegin();
+	DiffModelListConstIterator endIt   = m_models->constEnd();
 
 	for ( ; modelIt != endIt; ++modelIt )
 	{

@@ -192,7 +192,7 @@ void LevenshteinTable::createListsOfMarkers()
 	// If the number of differences is more than half the length of the largest string 
 	// dont bother to mark the individual changes
 	// Patch based on work by Felix Berger as put as attachment to bug 75794
-	if ( difference > QMAX(x, y) / 2 )
+	if ( difference > qMax(x, y) / 2 )
 	{
 		m_source->prepend( new Marker( Marker::End, x ) );
 		m_source->prepend( new Marker( Marker::Start, 0 ) );

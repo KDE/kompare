@@ -78,10 +78,10 @@ void DiffModel::splitSourceInPathAndFileName()
 {
 	int pos;
 
-	if( ( pos = m_source.findRev( "/" ) ) >= 0 )
+	if( ( pos = m_source.lastIndexOf( "/" ) ) >= 0 )
 		m_sourcePath = m_source.mid( 0, pos+1 );
 
-	if( ( pos = m_source.findRev( "/" ) ) >= 0 )
+	if( ( pos = m_source.lastIndexOf( "/" ) ) >= 0 )
 		m_sourceFile = m_source.mid( pos+1, m_source.length() - pos );
 	else
 		m_sourceFile = m_source;
@@ -93,10 +93,10 @@ void DiffModel::splitDestinationInPathAndFileName()
 {
 	int pos;
 
-	if( ( pos = m_destination.findRev( "/" ) )>= 0 )
+	if( ( pos = m_destination.lastIndexOf( "/" ) )>= 0 )
 		m_destinationPath = m_destination.mid( 0, pos+1 );
 
-	if( ( pos = m_destination.findRev( "/" ) ) >= 0 )
+	if( ( pos = m_destination.lastIndexOf( "/" ) ) >= 0 )
 		m_destinationFile = m_destination.mid( pos+1, m_destination.length() - pos );
 	else
 		m_destinationFile = m_destination;
@@ -348,10 +348,10 @@ bool DiffModel::setSelectedDifference( Difference* diff )
 
 	if ( diff != m_selectedDifference )
 	{
-		if ( ( m_differences.findIndex( diff ) ) == -1 )
+		if ( ( m_differences.indexOf( diff ) ) == -1 )
 			return false;
 		// Do not set m_diffIndex if it cant be found
-		m_diffIndex = m_differences.findIndex( diff );
+		m_diffIndex = m_differences.indexOf( diff );
 		kDebug(8101) << "m_diffIndex = " << m_diffIndex << endl;
 		m_selectedDifference = diff;
 	}

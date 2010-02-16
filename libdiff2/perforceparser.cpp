@@ -51,22 +51,22 @@ enum Kompare::Format PerforceParser::determineFormat()
 
 	while( it != m_diffLines.end() )
 	{
-		if( (*it).find( unifiedRE, 0 ) == 0 )
+		if( it->indexOf( unifiedRE, 0 ) == 0 )
 		{
 			kDebug(8101) << "Difflines are from a Unified diff..." << endl;
 			return Kompare::Unified;
 		}
-		else if( (*it).find( contextRE, 0 ) == 0 )
+		else if( it->indexOf( contextRE, 0 ) == 0 )
 		{
 			kDebug(8101) << "Difflines are from a Context diff..." << endl;
 			return Kompare::Context;
 		}
-		else if( (*it).find( normalRE, 0 ) == 0 )
+		else if( it->indexOf( normalRE, 0 ) == 0 )
 		{
 			kDebug(8101) << "Difflines are from a Normal diff..." << endl;
 			return Kompare::Normal;
 		}
-		else if( (*it).find( rcsRE, 0 ) == 0 )
+		else if( it->indexOf( rcsRE, 0 ) == 0 )
 		{
 			kDebug(8101) << "Difflines are from a RCS diff..." << endl;
 			return Kompare::RCS;

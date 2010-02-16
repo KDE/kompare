@@ -229,7 +229,7 @@ void KompareProcess::setEncoding( const QString& encoding )
 	}
 	else
 	{
-		m_codec = KGlobal::charsets()->codecForName( encoding.latin1() );
+		m_codec = KGlobal::charsets()->codecForName( encoding.toLatin1() );
 		if ( m_codec )
 			m_textDecoder = m_codec->makeDecoder();
 		else

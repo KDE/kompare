@@ -47,7 +47,7 @@
 using namespace Diff2;
 
 KompareModelList::KompareModelList( DiffSettings* diffSettings, QWidget* widgetForKIO, QObject* parent, const char* name )
-	: QObject( parent, name ),
+	: QObject( parent ),
 	m_diffProcess( 0 ),
 	m_diffSettings( diffSettings ),
 	m_models( 0 ),
@@ -59,7 +59,7 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, QWidget* widgetF
 	m_widgetForKIO( widgetForKIO )
 {
 	kDebug(8101) << "Show me the arguments: " << diffSettings << ", " << widgetForKIO << ", " << parent << ", " << name << endl;
-	KActionCollection *ac = (( KomparePart* )parent)->actionCollection();
+	KActionCollection *ac = ((KomparePart*) parent)->actionCollection();
 	m_applyDifference = ac->addAction( "difference_apply", this, SLOT(slotActionApplyDifference()) );
 	m_applyDifference->setIcon( KIcon("arrow-right") );
 	m_applyDifference->setText( i18n("&Apply Difference") );
@@ -95,7 +95,7 @@ KompareModelList::KompareModelList( DiffSettings* diffSettings, QWidget* widgetF
 	m_previousDifference->setEnabled( false );
 	m_nextDifference->setEnabled( false );
 
-	m_save = KStandardAction::save( this, SLOT(slotSaveDestination()), ((KomparePart*)parent)->actionCollection() );
+	m_save = KStandardAction::save( this, SLOT(slotSaveDestination()), ac );
 	m_save->setEnabled( false );
 
 	updateModelListActions();
@@ -278,9 +278,9 @@ bool KompareModelList::saveDestination( DiffModel* model )
 		return true;
 
 	KTemporaryFile temp;
-	temp.open();
+	bool correct=temp.open();
 
-	if( temp.status() != 0 ) {
+	if( correct ) {
 		emit error( i18n( "Could not open a temporary file." ) );
 		temp.remove();
 		return false;
@@ -330,8 +330,8 @@ bool KompareModelList::saveDestination( DiffModel* model )
 		stream << list.join( "" );
 
 	temp.close();
-	if( temp.status() != 0 ) {
-		emit error( i18n( "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>", temp.name() ) );
+	if( false/* || temp.status() != 0 */) {
+		emit error( i18n( "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>", temp.fileName() ) );
 		temp.remove();
 		return false;
 	}
@@ -343,7 +343,7 @@ bool KompareModelList::saveDestination( DiffModel* model )
 	{
 		// Dont use destination which was used for creating the diff directly, use the original URL!!!
 		// FIXME!!! Wrong destination this way! Need to add the sub directory to the url!!!!
-		kDebug(8101) << "Tempfilename (save) : " << temp.name() << endl;
+		kDebug(8101) << "Tempfilename (save) : " << temp.fileName() << endl;
 		kDebug(8101) << "Model->path+file    : " << model->destinationPath() << model->destinationFile() << endl;
 		kDebug(8101) << "info->localdest     : " << m_info->localDestination << endl;
 		QString tmp = model->destinationPath() + model->destinationFile();
@@ -363,20 +363,20 @@ bool KompareModelList::saveDestination( DiffModel* model )
 				return false;
 			}
 		}
-		result = KIO::NetAccess::upload( temp.name(), fullDestinationPath, m_widgetForKIO );
+		result = KIO::NetAccess::upload( temp.fileName(), fullDestinationPath, m_widgetForKIO );
 	}
 	else
 	{
-		kDebug(8101) << "Tempfilename   : " << temp.name() << endl;
+		kDebug(8101) << "Tempfilename   : " << temp.fileName() << endl;
 		kDebug(8101) << "DestinationURL : " << m_info->destination << endl;
-		result = KIO::NetAccess::upload( temp.name(), m_info->destination, m_widgetForKIO );
+		result = KIO::NetAccess::upload( temp.fileName(), m_info->destination, m_widgetForKIO );
 		kDebug(8101) << "true or false?" << result << endl;
 	}
 
 	if ( !result )
 	{
 		// FIXME: Wrong first argument given in case of comparing directories!
-		emit error( i18n( "<qt>Could not upload the temporary file to the destination location <b>%1</b>. The temporary file is still available under: <b>%2</b>. You can manually copy it to the right place.</qt>", m_info->destination.url(), temp.name() ) );
+		emit error( i18n( "<qt>Could not upload the temporary file to the destination location <b>%1</b>. The temporary file is still available under: <b>%2</b>. You can manually copy it to the right place.</qt>", m_info->destination.url(), temp.fileName() ) );
                 //Don't remove file when we delete temp and don't leak it.
                 temp.setAutoRemove(false);
 	}
@@ -426,7 +426,7 @@ void KompareModelList::setEncoding( const QString& encoding )
 	else
 	{
 		kDebug(8101) << "Encoding : " << encoding << endl;
-		m_textCodec = KGlobal::charsets()->codecForName( encoding.latin1() );
+		m_textCodec = KGlobal::charsets()->codecForName( encoding.toLatin1() );
 		kDebug(8101) << "TextCodec: " << m_textCodec << endl;
 		if ( !m_textCodec )
 			m_textCodec = QTextCodec::codecForLocale();
@@ -503,7 +503,7 @@ QStringList KompareModelList::split( const QString& fileContents )
 #else
 	const char split = '\n';
 #endif
-	while ( ( pos = contents.find( split, oldpos ) ) >= 0 )
+	while ( ( pos = contents.indexOf( split, oldpos ) ) >= 0 )
 	{
 		list.append( contents.mid( oldpos, pos - oldpos + 1 ) );
 		oldpos = pos + 1;
@@ -532,7 +532,7 @@ QString KompareModelList::readFile( const QString& fileName )
 
 	stream.setCodec(  m_textCodec );
 
-	QString contents = stream.read();
+	QString contents = stream.readAll();
 
 	file.close();
 
@@ -585,10 +585,10 @@ bool KompareModelList::saveDiff( const QString& url, QString directory, DiffSett
 	kDebug(8101) << "KompareModelList::saveDiff: " << endl;
 
 	m_diffTemp = new KTemporaryFile();
-	m_diffTemp->open();
 	m_diffURL = url;
+    bool opened=m_diffTemp->open();
 
-	if( m_diffTemp->status() != 0 ) {
+	if( opened ) {
 		emit error( i18n( "Could not open a temporary file." ) );
 		m_diffTemp->remove();
 		delete m_diffTemp;
@@ -619,12 +619,12 @@ void KompareModelList::slotWriteDiffOutput( bool success )
 
 		m_diffTemp->close();
 
-		if( m_diffTemp->status() != 0 )
+		if( false /*|| m_diffTemp->status() != 0 */)
 		{
 			emit error( i18n( "Could not write to the temporary file." ) );
 		}
 
-		KIO::NetAccess::upload( m_diffTemp->name(), KUrl( m_diffURL ), m_widgetForKIO );
+		KIO::NetAccess::upload( m_diffTemp->fileName(), KUrl( m_diffURL ), m_widgetForKIO );
 
 		emit status( Kompare::FinishedWritingDiff );
 	}
@@ -644,11 +644,11 @@ void KompareModelList::slotSelectionChanged( const Diff2::DiffModel* model, cons
 // This method will signal all the other objects about a change in selection,
 // it will emit setSelection( const DiffModel*, const Difference* ) to all who are connected
 	kDebug(8101) << "KompareModelList::slotSelectionChanged( " << model << ", " << diff << " )" << endl;
-	kDebug(8101) << "Sender is : " << sender()->className() << endl;
+	kDebug(8101) << "Sender is : " << sender()->metaObject()->className() << endl;
 //	kDebug(8101) << kBacktrace() << endl;
 
 	m_selectedModel = const_cast<DiffModel*>(model);
-	m_modelIndex = m_models->findIndex( m_selectedModel );
+	m_modelIndex = m_models->indexOf( m_selectedModel );
 	kDebug(8101) << "m_modelIndex = " << m_modelIndex << endl;
 	m_selectedDifference = const_cast<Difference*>(diff);
 
@@ -679,7 +679,7 @@ void KompareModelList::slotSelectionChanged( const Diff2::Difference* diff )
 // This method will emit setSelection( const Difference* ) to whomever is listening
 // when for instance in kompareview the selection has changed
 	kDebug(8101) << "KompareModelList::slotSelectionChanged( " << diff << " )" << endl;
-	kDebug(8101) << "Sender is : " << sender()->className() << endl;
+	kDebug(8101) << "Sender is : " << sender()->metaObject()->className() << endl;
 
 	m_selectedDifference = const_cast<Difference*>(diff);
 
@@ -1262,10 +1262,10 @@ bool KompareModelList::setSelectedModel( DiffModel* model )
 
 	if ( model != m_selectedModel )
 	{
-		if ( m_models->findIndex( model ) == -1 )
+		if ( !m_models->contains( model ) )
 			return false;
 		kDebug(8101) << "m_selectedModel (was) = " << m_selectedModel << endl;
-		m_modelIndex = m_models->findIndex( model );
+		m_modelIndex = m_models->indexOf( model );
 		kDebug(8101) << "m_selectedModel (is)  = " << m_selectedModel << endl;
 		m_selectedModel = model;
 	}
@@ -1280,7 +1280,7 @@ void KompareModelList::updateModelListActions()
 	if ( m_models && m_selectedModel && m_selectedDifference )
 	{
 		// ARGH!!!! Casts are evil!!!
-		if ( ( ( KomparePart* )parent() )->isReadWrite() )
+		if ( false /*( ( KomparePart* )parent() )->isReadWrite()*/ )
 		{
 			if ( m_selectedModel->appliedCount() != m_selectedModel->differenceCount() )
 				m_applyAll->setEnabled( true );

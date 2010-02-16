@@ -59,7 +59,7 @@ public:
 	DifferenceList*       differences()       { return &m_differences; }
 	const DifferenceList* differences() const { return &m_differences; }
 
-	int findDifference( Difference* diff ) const { return m_differences.findIndex( diff ); }
+	int findDifference( Difference* diff ) const { return m_differences.indexOf( diff ); }
 
 	Difference* firstDifference();
 	Difference* lastDifference();

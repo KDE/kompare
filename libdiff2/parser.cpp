@@ -45,11 +45,11 @@ int Parser::cleanUpCrap( QStringList& diffLines )
 	{
 		if ( (*it).startsWith( noNewLine ) )
 		{
-			it = diffLines.remove( it );
+			it = diffLines.erase( it );
 			// correcting the advance of the iterator because of the remove
 			--it;
 			QString temp( *it );
-			temp.truncate( temp.find( '\n' ) );
+			temp.truncate( temp.indexOf( '\n' ) );
 			*it = temp;
 			++nol;
 		}

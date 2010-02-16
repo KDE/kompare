@@ -86,11 +86,11 @@ public:
 	int appliedCount() const;
 
 	const DiffModel* modelAt( int i ) const { return m_models->at( i ); };
-	int              findModel( DiffModel* model ) const { return m_models->findIndex( model ); };
+	int              findModel( DiffModel* model ) const { return m_models->indexOf( model ); };
 
 	bool hasUnsavedChanges() const;
 
-	int currentModel() const      { return m_models->findIndex( m_selectedModel ); };
+	int currentModel() const      { return m_models->indexOf( m_selectedModel ); };
 	int currentDifference() const { return m_selectedModel ? m_selectedModel->findDifference( m_selectedDifference ) : -1; };
 
 	const DiffModel* selectedModel() const       { return m_selectedModel; };

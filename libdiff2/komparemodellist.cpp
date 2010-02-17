@@ -1280,7 +1280,7 @@ void KompareModelList::updateModelListActions()
 	if ( m_models && m_selectedModel && m_selectedDifference )
 	{
 		// ARGH!!!! Casts are evil!!!
-		if ( false /*( ( KomparePart* )parent() )->isReadWrite()*/ )
+		if ( ( ( KomparePart* )parent() )->isReadWrite() )
 		{
 			if ( m_selectedModel->appliedCount() != m_selectedModel->differenceCount() )
 				m_applyAll->setEnabled( true );

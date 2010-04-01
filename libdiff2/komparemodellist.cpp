@@ -328,9 +328,14 @@ bool KompareModelList::saveDestination( DiffModel* model )
 
 	if( list.count() > 0 )
 		stream << list.join( "" );
+	if( temp.error() != QFile::NoError ) {
+		emit error( i18n( "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>", temp.fileName() ) );
+		temp.remove();
+		return false;
+	}
 
 	temp.close();
-	if( false/* || temp.status() != 0 */) {
+	if( temp.error() != QFile::NoError ) {
 		emit error( i18n( "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>", temp.fileName() ) );
 		temp.remove();
 		return false;

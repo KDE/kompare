@@ -3,6 +3,7 @@
 **                             ----------
 **      begin                   : Sun Aug  4 15:05:35 2002
 **      Copyright 2002-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+**      Copyright 2010 Kevin Kofler   <kevin.kofler@chello.at>
 ***************************************************************************/
 /***************************************************************************
 **
@@ -58,7 +59,7 @@ int Parser::cleanUpCrap( QStringList& diffLines )
 	return nol;
 } 
 
-DiffModelList* Parser::parse( QStringList& diffLines )
+DiffModelList* Parser::parse( QStringList& diffLines, bool* malformed )
 {
 	/* Basically determine the generator then call the parse method */
 	ParserBase* parser;
@@ -88,7 +89,7 @@ DiffModelList* Parser::parse( QStringList& diffLines )
 	}
 
 	m_format = parser->format();
-	DiffModelList* modelList = parser->parse();
+	DiffModelList* modelList = parser->parse( malformed );
 	if ( modelList )
 	{
 		kDebug(8101) << "Modelcount: " << modelList->count() << endl;

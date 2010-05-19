@@ -3,7 +3,7 @@
 **                             --------------
 **      begin                   : Sun Aug  4 15:05:35 2002
 **      Copyright 2002-2004,2009 Otto Bruggeman <bruggie@gmail.com>
-**      Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+**      Copyright 2007,2010 Kevin Kofler   <kevin.kofler@chello.at>
 ***************************************************************************/
 /***************************************************************************
 **
@@ -33,6 +33,7 @@ ParserBase::ParserBase( const KompareModelList* list, const QStringList& diff ) 
     m_models( 0 ),
     m_diffIterator( m_diffLines.begin() ),
     m_singleFileDiff( false ),
+    m_malformed( false ),
     m_list( list )
 {
 //	kDebug(8101) << diff << endl;
@@ -83,23 +84,37 @@ enum Kompare::Format ParserBase::determineFormat()
 	return Kompare::UnknownFormat;
 }
 
-DiffModelList* ParserBase::parse()
+DiffModelList* ParserBase::parse( bool* malformed )
 {
+	DiffModelList* result;
 	switch( determineFormat() )
 	{
 		case Kompare::Context :
-			return parseContext();
+			result = parseContext();
+			break;
 		case Kompare::Ed :
-			return parseEd();
+			result = parseEd();
+			break;
 		case Kompare::Normal :
-			return parseNormal();
+			result = parseNormal();
+			break;
 		case Kompare::RCS :
-			return parseRCS();
+			result = parseRCS();
+			break;
 		case Kompare::Unified :
-			return parseUnified();
+			result = parseUnified();
+			break;
 		default: // Unknown and SideBySide for now
-			return 0L;
+			result = 0;
+			break;
 	}
+
+	// *malformed is set to true if some hunks or parts of hunks were
+	// probably missed due to a malformed diff
+	if ( malformed )
+		*malformed = m_malformed;
+
+	return result;
 }
 
 bool ParserBase::parseContextDiffHeader()
@@ -618,6 +633,13 @@ bool ParserBase::parseUnifiedHunkBody()
 	return true;
 }
 
+void ParserBase::checkHeader( const QRegExp& header )
+{
+	if ( m_diffIterator != m_diffLines.end()
+	     && !header.exactMatch( *m_diffIterator ) )
+		m_malformed = true;
+}
+
 DiffModelList* ParserBase::parseContext()
 {
 	while ( parseContextDiffHeader() )
@@ -626,6 +648,7 @@ DiffModelList* ParserBase::parseContext()
 			parseContextHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
 			m_models->append( m_currentModel );
+		checkHeader( m_contextDiffHeader1 );
 	}
 
 	m_models->sort();
@@ -672,6 +695,7 @@ DiffModelList* ParserBase::parseNormal()
 			parseNormalHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
 			m_models->append( m_currentModel );
+		checkHeader( m_normalDiffHeader );
 	}
 
 	if ( m_singleFileDiff )
@@ -680,6 +704,8 @@ DiffModelList* ParserBase::parseNormal()
 			parseNormalHunkBody();
 		if ( m_currentModel->differenceCount() > 0 )
 			m_models->append( m_currentModel );
+		if ( m_diffIterator != m_diffLines.end() )
+			m_malformed = true;
 	}
 
 	m_models->sort();
@@ -728,6 +754,7 @@ DiffModelList* ParserBase::parseUnified()
 //		kDebug(8101) << " differenceCount() == " << m_currentModel->differenceCount() << endl;
 		if ( m_currentModel->differenceCount() > 0 )
 			m_models->append( m_currentModel );
+		checkHeader( m_unifiedDiffHeader1 );
 	}
 
 	m_models->sort();

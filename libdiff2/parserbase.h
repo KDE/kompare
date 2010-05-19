@@ -3,6 +3,7 @@
 **                             -------------
 **      begin                   : Tue Jul 30 23:53:52 2002
 **      Copyright 2002-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+**      Copyright 2010 Kevin Kofler   <kevin.kofler@chello.at>
 ***************************************************************************/
 /***************************************************************************
 **
@@ -38,7 +39,7 @@ public:
 
 public:
 	enum Kompare::Format format() { return determineFormat(); };
-	DiffModelList* parse();
+	DiffModelList* parse( bool* malformed = 0 );
 
 protected:
 	virtual bool parseContextDiffHeader();
@@ -67,6 +68,7 @@ protected:
 
 protected: // Helper methods to speed things up
 	bool matchesUnifiedHunkLine( QString line ) const;
+	void checkHeader( const QRegExp& header );
 
 protected:
 	/** What is format of the diff */
@@ -121,6 +123,7 @@ protected:
 	QStringList::ConstIterator m_diffIterator;
 
 	bool                       m_singleFileDiff;
+	bool                       m_malformed;
 
 protected:
 	const KompareModelList* m_list;

@@ -881,7 +881,8 @@ int KompareModelList::parseDiffOutput( const QString& diff )
 	QStringList diffLines = split( diff );
 
 	Parser* parser = new Parser( this );
-	m_models = parser->parse( diffLines );
+	bool malformed = false;
+	m_models = parser->parse( diffLines, &malformed );
 
 	m_info->generator = parser->generator();
 	m_info->format    = parser->format();
@@ -890,6 +891,12 @@ int KompareModelList::parseDiffOutput( const QString& diff )
 
 	if ( m_models )
 	{
+		if ( malformed )
+		{
+			kDebug(8101) << "Malformed diff" << endl;
+			emit error( i18n( "The diff is malformed. Some lines could not be parsed and will not be displayed in the diff view." ) );
+			// proceed anyway with the lines which have been parsed
+		}
 		m_selectedModel = firstModel();
 		kDebug(8101) << "Ok there are differences..." << endl;
 		m_selectedDifference = m_selectedModel->firstDifference();

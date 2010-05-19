@@ -3,6 +3,7 @@
 **                              --------
 **      begin                   : Tue Jul 30 23:53:52 2002
 **      Copyright 2002-2004 Otto Bruggeman <otto.bruggeman@home.nl>
+**      Copyright 2010 Kevin Kofler   <kevin.kofler@chello.at>
 ***************************************************************************/
 /***************************************************************************
 **
@@ -32,7 +33,7 @@ public:
 	~Parser();
 
 public:
-	DiffModelList* parse( QStringList& diffLines );
+	DiffModelList* parse( QStringList& diffLines, bool* malformed = 0 );
 
 	enum Kompare::Generator generator() const { return m_generator; };
 	enum Kompare::Format    format() const    { return m_format; };

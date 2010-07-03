@@ -3,6 +3,7 @@
 Type=Application
 Name=Kompare
 Name[af]=K-vergelyk
+Name[bg]=Kompare
 Name[br]=Kompare
 Name[ca]=Kompare
 Name[ca@valencia]=Kompare
@@ -62,6 +63,7 @@ Name[zh_CN]=Kompare
 Name[zh_TW]=Kompare
 GenericName=Diff/Patch Frontend
 GenericName[af]=Diff/Lap Voorprogram
+GenericName[bg]=Интерфейс за Diff/Patch
 GenericName[ca]=Interfície per a diff/patch
 GenericName[ca@valencia]=Interfície per a diff/patch
 GenericName[cs]=Rozhraní pro Diff/Patch

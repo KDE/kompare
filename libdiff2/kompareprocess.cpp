@@ -173,7 +173,7 @@ void KompareProcess::writeCommandLine()
 
 	if ( m_diffSettings->m_ignoreRegExp && !m_diffSettings->m_ignoreRegExpText.isEmpty() )
 	{
-		*this << "-I " << m_diffSettings->m_ignoreRegExpText;
+		*this << "-I" << m_diffSettings->m_ignoreRegExpText;
 	}
 
 	if ( m_diffSettings->m_showCFunctionChange )

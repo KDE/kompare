@@ -21,7 +21,7 @@ set(diff2_PART_SRCS
 
 kde4_add_library(komparediff2 SHARED ${diff2_PART_SRCS})
 
-target_link_libraries(komparediff2 ${KDE4_KDECORE_LIBS} ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KPARTS_LIBS})
+target_link_libraries(komparediff2 ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS})
 
 set_target_properties(komparediff2 PROPERTIES VERSION ${GENERIC_LIB_VERSION}
 SOVERSION ${GENERIC_LIB_SOVERSION} )

@@ -98,7 +98,7 @@ private:
 
 	// Scrollbars. all this just for the goddamn scrollbars. i hate them.
 	int  scrollId();
-	int  lineSpacing();
+	int  lineHeight();
 	int  pageSize();
 	bool needVScrollBar();
 	int  minVScrollId();

@@ -166,7 +166,7 @@ void KompareSplitter::slotDelayedUpdateScrollBars()
 
 void KompareSplitter::slotUpdateScrollBars()
 {
-	int m_scrollDistance = m_settings->m_scrollNoOfLines * lineSpacing();
+	int m_scrollDistance = m_settings->m_scrollNoOfLines * lineHeight();
 	int m_pageSize = pageSize();
 
 	if( needVScrollBar() )
@@ -286,10 +286,10 @@ int KompareSplitter::scrollId()
 	return minVScrollId();
 }
 
-int KompareSplitter::lineSpacing()
+int KompareSplitter::lineHeight()
 {
 	if(widget(0))
-		return listView(0)->fontMetrics().lineSpacing();
+		return listView(0)->fontMetrics().height();
 	return 1;
 }
 

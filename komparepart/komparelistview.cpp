@@ -529,7 +529,7 @@ int KompareListViewDiffItem::maxHeight()
 	if( lines == 0 )
 		return BLANK_LINE_HEIGHT;
 	else
-		return lines * listView()->fontMetrics().lineSpacing();
+		return lines * listView()->fontMetrics().height();
 }
 
 void KompareListViewDiffItem::setSelected( bool b )
@@ -618,7 +618,7 @@ KompareListViewLineItem::~KompareListViewLineItem()
 void KompareListViewLineItem::setup()
 {
 	KompareListViewItem::setup();
-	setHeight( listView()->fontMetrics().lineSpacing() );
+	setHeight( listView()->fontMetrics().height() );
 }
 
 void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & /*cg*/, int column, int width, int align )
@@ -813,7 +813,7 @@ int KompareListViewHunkItem::maxHeight()
 	} else if( m_hunk->function().isEmpty() ) {
 		return HUNK_LINE_HEIGHT;
 	} else {
-		return listView()->fontMetrics().lineSpacing();
+		return listView()->fontMetrics().height();
 	}
 }
 

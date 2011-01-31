@@ -11,12 +11,12 @@ set(diff2_PART_SRCS
 	diffmodel.cpp 
 	difference.cpp 
 	diffhunk.cpp 
-	levenshteintable.cpp 
 	parser.cpp 
 	parserbase.cpp 
 	cvsdiffparser.cpp 
 	diffparser.cpp 
-	perforceparser.cpp )
+	perforceparser.cpp 
+	stringlistpair.cpp)
 
 
 kde4_add_library(komparediff2 SHARED ${diff2_PART_SRCS})
@@ -28,3 +28,4 @@ SOVERSION ${GENERIC_LIB_SOVERSION} )
 
 install(TARGETS komparediff2 ${INSTALL_TARGETS_DEFAULT_ARGS})
 
+add_subdirectory(tests)

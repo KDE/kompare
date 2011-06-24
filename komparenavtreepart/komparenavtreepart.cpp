@@ -63,23 +63,27 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 	m_srcDirTree->setHeaderLabel( i18n("Source Folder") );
 	m_srcDirTree->setRootIsDecorated( false );
 	m_srcDirTree->setSortingEnabled( true );
+	m_srcDirTree->sortByColumn( 0, Qt::AscendingOrder );
 
 	m_destDirTree = new QTreeWidget( m_splitter );
 	m_destDirTree->setHeaderLabel( i18n("Destination Folder") );
 	m_destDirTree->setRootIsDecorated( false );
 	m_destDirTree->setSortingEnabled( true );
+	m_destDirTree->sortByColumn( 0, Qt::AscendingOrder );
 
 	m_fileList = new QTreeWidget( m_splitter );
 	m_fileList->setHeaderLabels( QStringList() << i18n("Source File") << i18n("Destination File") );
 	m_fileList->setAllColumnsShowFocus( true );
 	m_fileList->setRootIsDecorated( false );
 	m_fileList->setSortingEnabled( true );
+	m_fileList->sortByColumn( 0, Qt::AscendingOrder );
 
 	m_changesList = new QTreeWidget( m_splitter );
 	m_changesList->setHeaderLabels( QStringList() << i18n("Source Line") << i18n("Destination Line") << i18n("Difference") );
 	m_changesList->setAllColumnsShowFocus( true );
 	m_changesList->setRootIsDecorated( false );
 	m_changesList->setSortingEnabled( true );
+	m_changesList->sortByColumn( 0, Qt::AscendingOrder );
 
 	connect( m_srcDirTree, SIGNAL(currentItemChanged( QTreeWidgetItem*, QTreeWidgetItem* )),
 	         this, SLOT(slotSrcDirTreeSelectionChanged( QTreeWidgetItem* )) );

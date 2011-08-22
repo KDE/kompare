@@ -18,7 +18,6 @@
 
 #include "komparesaveoptionswidget.h"
 
-#include <q3buttongroup.h>
 #include <QtGui/QCheckBox>
 #include <QtGui/QLabel>
 #include <QtGui/QRadioButton>
@@ -35,6 +34,7 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 	: KompareSaveOptionsBase( parent, "save options" )
 	, m_source( source )
 	, m_destination( destination )
+	, m_FormatBG( new QButtonGroup(this) )
 {
 	m_settings = settings;
 
@@ -76,6 +76,14 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 	connect( m_ContextLinesSB,     SIGNAL(valueChanged(int)), SLOT(updateCommandLine()) );
 	connect( m_directoryRequester, SIGNAL(textChanged(const QString&)), SLOT(updateCommandLine()) );
 
+	m_FormatBG->setExclusive(true);
+	m_FormatBG->addButton(m_ContextRB, Kompare::Context);
+	m_FormatBG->addButton(m_EdRB, Kompare::Ed);
+	m_FormatBG->addButton(m_NormalRB, Kompare::Normal);
+	m_FormatBG->addButton(m_UnifiedRB, Kompare::Unified);
+	m_FormatBG->addButton(m_RCSRB, Kompare::RCS);
+	m_FormatBG->addButton(m_SideBySideRB, Kompare::SideBySide);
+
 	loadOptions();
 }
 
@@ -95,7 +103,7 @@ void KompareSaveOptionsWidget::updateCommandLine()
 
 	QString options = "";
 
-	switch( static_cast<Kompare::Format>( m_FormatBG->id( m_FormatBG->selected() ) ) ) {
+	switch( static_cast<Kompare::Format>( m_FormatBG->checkedId() ) ) {
 	case Kompare::Unified :
 		cmdLine += " -U " + QString::number( m_ContextLinesSB->value() );
 		break;
@@ -188,7 +196,7 @@ void KompareSaveOptionsWidget::loadOptions()
 
 	m_ContextLinesSB->setValue      ( m_settings->m_linesOfContext );
 
-	m_FormatBG->setButton           ( m_settings->m_format );
+	m_FormatBG->button(m_settings->m_format)->setChecked(true);
 
 	updateCommandLine();
 }
@@ -208,7 +216,7 @@ void KompareSaveOptionsWidget::saveOptions()
 
 	m_settings->m_linesOfContext      = m_ContextLinesSB->value();
 
-	m_settings->m_format = static_cast<Kompare::Format>( m_FormatBG->id( m_FormatBG->selected() ) );
+	m_settings->m_format = static_cast<Kompare::Format>( m_FormatBG->checkedId() );
 
 }
 

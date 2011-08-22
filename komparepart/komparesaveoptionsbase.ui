@@ -88,7 +88,7 @@
         </widget>
       </item>
       <item row="0" column="1" >
-        <widget class="Q3ButtonGroup" name="m_OptionsGB" >
+        <widget class="QGroupBox" name="m_OptionsGB" >
           <property name="title" >
             <string>Options</string>
           </property>
@@ -184,7 +184,7 @@
         </widget>
       </item>
       <item row="0" column="0" >
-        <widget class="Q3ButtonGroup" name="m_FormatBG" >
+        <widget class="QGroupBox" name="m_FormatGB" >
           <property name="title" >
             <string>Format</string>
           </property>

@@ -24,6 +24,7 @@
 #include "kompare.h"
 
 class DiffSettings;
+class QButtonGroup;
 
 class KompareSaveOptionsWidget : public KompareSaveOptionsBase, public KompareFunctions
 {
@@ -44,6 +45,7 @@ private:
 	DiffSettings*   m_settings;
 	QString         m_source;
 	QString         m_destination;
+	QButtonGroup*   m_FormatBG;
 };
 
 #endif

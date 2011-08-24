@@ -26,6 +26,7 @@
 #include <QPrintDialog>
 #include <QPrintPreviewDialog>
 
+#include <kaboutdata.h>
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kapplication.h>
@@ -39,7 +40,6 @@
 #include <kstandarddirs.h>
 #include <kstandardshortcut.h>
 #include <ktemporaryfile.h>
-#include <kparts/genericfactory.h>
 #include <ktempdir.h>
 
 #include <kio/netaccess.h>
@@ -54,20 +54,17 @@
 #include "komparesaveoptionswidget.h"
 #include "komparesplitter.h"
 
-typedef KParts::GenericFactory<KomparePart> KomparePartFactory;
-K_EXPORT_COMPONENT_FACTORY( libkomparepart, KomparePartFactory )
+K_PLUGIN_FACTORY( KomparePartFactory, registerPlugin<KomparePart>(); )
+K_EXPORT_PLUGIN( KomparePartFactory )
 
 ViewSettings* KomparePart::m_viewSettings = 0L;
 DiffSettings* KomparePart::m_diffSettings = 0L;
 
-KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QStringList & /*args*/ ) :
+KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QVariantList & /*args*/ ) :
 	KParts::ReadWritePart(parent),
 	m_tempDiff( 0 ),
 	m_info()
 {
-	// we need an instance
-	setComponentData( KomparePartFactory::componentData() );
-
 	if( !m_viewSettings ) {
 		m_viewSettings = new ViewSettings( 0 );
 	}
@@ -956,5 +953,3 @@ void KomparePart::optionsPreferences()
 }
 
 #include "kompare_part.moc"
-
-K_EXPORT_PLUGIN( KomparePartFactory )

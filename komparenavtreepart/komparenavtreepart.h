@@ -25,7 +25,6 @@
 #include <QtGui/QTreeWidget>
 #include <QtGui/QTreeWidgetItem>
 
-#include <kparts/factory.h>
 #include <kparts/part.h>
 
 #include "kompare.h"
@@ -47,7 +46,7 @@ class KompareNavTreePart : public KParts::ReadOnlyPart
 	Q_OBJECT
 
 public:
-	explicit KompareNavTreePart( QWidget* parent = 0L, const char* name = 0L );
+	explicit KompareNavTreePart( QWidget* parentWidget, QObject* parent, const QVariantList& args );
 	virtual ~KompareNavTreePart();
 
 public:
@@ -168,25 +167,6 @@ private:
 	Diff2::DiffModelList m_modelList;
 	QString m_dirName;
 	bool m_rootItem;
-};
-
-// part stuff
-class KComponentData;
-class KAboutData;
-
-class KompareNavTreePartFactory : public KParts::Factory
-{
-	Q_OBJECT
-public:
-	KompareNavTreePartFactory();
-	virtual ~KompareNavTreePartFactory();
-	virtual KParts::Part* createPartObject( QWidget *parentWidget, QObject *parent,
-	                                        const char *classname, const QStringList &args );
-	static const KComponentData &componentData();
-
-private:
-	static KComponentData *s_instance;
-	static KAboutData* s_about;
 };
 
 #endif

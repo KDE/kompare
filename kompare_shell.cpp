@@ -16,6 +16,7 @@
 **
 ***************************************************************************/
 #include "kompare_shell.h"
+#include <kompare/kompare_shell.h>
 
 #include <QtCore/QTextStream>
 #include <QtGui/QDockWidget>
@@ -40,8 +41,7 @@
 // #include <kuserprofile.h>
 #include <kactioncollection.h>
 
-#include "kompare_part.h"
-#include "komparenavtreepart.h"
+#include "kompareinterface.h"
 #include "kompareurldialog.h"
 
 #define ID_N_OF_N_DIFFERENCES      1
@@ -49,7 +49,7 @@
 #define ID_GENERAL                 3
 
 KompareShell::KompareShell()
-	: KParts::MainWindow( 0L, "KompareShell" ),
+	: KParts::MainWindow( 0L ),
 	m_textViewPart( 0 ),
 	m_textViewWidget( 0 )
 {
@@ -83,29 +83,18 @@ KompareShell::KompareShell()
 	}
 
 	KService::Ptr ptr = offers.first();
-
-	KLibFactory *mainViewFactory = KLibLoader::self()->factory( ptr->library().ascii() );
-	if (mainViewFactory)
-	{
-//		m_mainViewDock = new QDockWidget( i18n( "View" ), this );
-//		m_mainViewDock->setObjectName( "View" );
-// 		m_mainViewDock = createDockWidget( "View", qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)) );
-		// now that the Part is loaded, we cast it to a KomparePart to get
-		// our hands on it
-		m_viewPart = static_cast<KomparePart*>(mainViewFactory->create(this,
-		              "KomparePart", QStringList("KParts::ReadWritePart" )));
-
-		if ( m_viewPart )
-		{
-			setCentralWidget( m_viewPart->widget() );
+        m_viewPart = ptr->createInstance<KParts::ReadWritePart>( this, this );
+        
+        if ( m_viewPart )
+        {
+            setCentralWidget( m_viewPart->widget() );
 //			m_mainViewDock->setWidget( m_viewPart->widget() );
 // 			setView( m_mainViewDock );
 // 			setMainDockWidget( m_mainViewDock );
 
-			// and integrate the part's GUI with the shell's
-			createGUI(m_viewPart);
-		}
-	}
+            // and integrate the part's GUI with the shell's
+            createGUI(m_viewPart);
+        }
 	else
 	{
 		// if we couldn't load our Part, we exit since the Shell by
@@ -124,22 +113,17 @@ KompareShell::KompareShell()
 
 	ptr = offers.first();
 
-	KLibFactory *navTreeFactory = KLibLoader::self()->factory( ptr->library().ascii() );
-	if (navTreeFactory)
-	{
-		m_navTreeDock = new QDockWidget( i18n( "Navigation" ), this );
-		m_navTreeDock->setObjectName( "Navigation" );
-// 		m_navTreeDock = createDockWidget( "Navigation", qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)) );
+        m_navTreeDock = new QDockWidget( i18n( "Navigation" ), this );
+        m_navTreeDock->setObjectName( "Navigation" );
 
-		m_navTreePart = static_cast<KompareNavTreePart*>(navTreeFactory->create(m_navTreeDock,
-		                 "KompareNavTreePart", QStringList("KParts::ReadOnlyPart" )));
-
-		if ( m_navTreePart )
-		{
-			m_navTreeDock->setWidget( m_navTreePart->widget() );
-			addDockWidget( Qt::TopDockWidgetArea, m_navTreeDock );
+        // This part is implemented in KompareNavTreePart
+        m_navTreePart = ptr->createInstance<KParts::ReadOnlyPart>(m_navTreeDock, m_navTreeDock);
+        
+        if ( m_navTreePart )
+        {
+            m_navTreeDock->setWidget( m_navTreePart->widget() );
+            addDockWidget( Qt::TopDockWidgetArea, m_navTreeDock );
 // 			m_navTreeDock->manualDock( m_mainViewDock, KDockWidget::DockTop, 20 );
-		}
 	}
 	else
 	{
@@ -208,7 +192,7 @@ void KompareShell::openDiff(const KUrl& url)
 {
 	kDebug(8102) << "Url = " << url.prettyUrl() << endl;
 	m_diffURL = url;
-	m_viewPart->openDiff( url );
+	viewPart()->openDiff( url );
 }
 
 void KompareShell::openStdin()
@@ -222,7 +206,7 @@ void KompareShell::openStdin()
 
 	file.close();
 
-	m_viewPart->openDiff( diff );
+	viewPart()->openDiff( diff );
 
 }
 
@@ -231,7 +215,7 @@ void KompareShell::compare(const KUrl& source,const KUrl& destination )
 	m_sourceURL = source;
 	m_destinationURL = destination;
 
-	m_viewPart->compare( source, destination );
+	viewPart()->compare( source, destination );
 }
 
 void KompareShell::blend( const KUrl& url1, const KUrl& diff )
@@ -239,7 +223,7 @@ void KompareShell::blend( const KUrl& url1, const KUrl& diff )
 	m_sourceURL = url1;
 	m_destinationURL = diff;
 
-	m_viewPart->openDirAndDiff( url1, diff );
+	viewPart()->openDirAndDiff( url1, diff );
 }
 
 void KompareShell::setupActions()
@@ -329,7 +313,7 @@ void KompareShell::saveProperties(KConfigGroup &config)
 		config.writePathEntry( "DiffUrl", m_diffURL.url() );
 	}
 
-	m_viewPart->saveProperties( config.config() );
+	viewPart()->saveProperties( config.config() );
 }
 
 void KompareShell::readProperties(const KConfigGroup &config)
@@ -346,16 +330,16 @@ void KompareShell::readProperties(const KConfigGroup &config)
 		m_sourceURL  = config.readPathEntry( "SourceUrl", "" );
 		m_destinationURL = config.readPathEntry( "DestinationFile", "" );
 
-		m_viewPart->readProperties( const_cast<KConfig *>(config.config()) );
+		viewPart()->readProperties( const_cast<KConfig *>(config.config()) );
 
-		m_viewPart->compareFiles( m_sourceURL, m_destinationURL );
+		viewPart()->compareFiles( m_sourceURL, m_destinationURL );
 	}
 	else if ( mode == "ShowingDiff" )
 	{
 		m_mode = Kompare::ShowingDiff;
 		m_diffURL = config.readPathEntry( "DiffUrl", "" );
 
-		m_viewPart->readProperties( const_cast<KConfig *>(config.config()) );
+		viewPart()->readProperties( const_cast<KConfig *>(config.config()) );
 
 		m_viewPart->openUrl( m_diffURL );
 	}
@@ -363,7 +347,7 @@ void KompareShell::readProperties(const KConfigGroup &config)
 	{ // just in case something weird has happened, don't restore the diff then
 	  // Bruggie: or when some idiot like me changes the possible values for mode
 	  // IOW, a nice candidate for a kconf_update thingy :)
-		m_viewPart->readProperties( const_cast<KConfig *>(config.config()) );
+		viewPart()->readProperties( const_cast<KConfig *>(config.config()) );
 	}
 }
 
@@ -403,7 +387,7 @@ void KompareShell::slotFileBlendURLAndDiff()
 		KompareShell* shell = new KompareShell();
 		KGlobal::ref();
 		shell->show();
-		shell->m_viewPart->setEncoding( dialog.encoding() );
+		shell->viewPart()->setEncoding( dialog.encoding() );
 		shell->blend( m_sourceURL, m_destinationURL );
 	}
 }
@@ -432,7 +416,7 @@ void KompareShell::slotFileCompareFiles()
 		KGlobal::ref();
 		shell->show();
 		kDebug(8102) << "The encoding is: " << dialog.encoding() << endl;
-		shell->m_viewPart->setEncoding( dialog.encoding() );
+		shell->viewPart()->setEncoding( dialog.encoding() );
 		shell->compare( m_sourceURL, m_destinationURL );
 	}
 }
@@ -449,7 +433,7 @@ void KompareShell::slotShowTextView()
 {
 	if ( !m_textViewWidget )
 	{
-		int errCode;
+		QString error;
 
 		// FIXME: proper error checking
 		m_textViewWidget = new QDockWidget( i18n( "Text View" ), this );
@@ -457,7 +441,7 @@ void KompareShell::slotShowTextView()
 // 		m_textViewWidget = createDockWidget( i18n("Text View"), SmallIcon( "text-x-generic") );
 		m_textViewPart = KServiceTypeTrader::createInstanceFromQuery<KTextEditor::Document>(
 		                 QString::fromLatin1("KTextEditor/Document"),
-		                 QString(), (QWidget*)this, QStringList(), &errCode );
+		                 (QWidget*)this, this, QString(), QVariantList(), &error );
 		if ( m_textViewPart )
 		{
 			m_textView = qobject_cast<KTextEditor::View*>( m_textViewPart->createView( this ) );
@@ -514,6 +498,11 @@ void KompareShell::newToolbarConfig()
 {
 	KConfigGroup group(KGlobal::config(), autoSaveGroup());
 	applyMainWindowSettings(group);
+}
+
+KompareInterface* KompareShell::viewPart() const
+{
+	return qobject_cast<KompareInterface *>(m_viewPart);
 }
 
 #include "kompare_shell.moc"

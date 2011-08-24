@@ -16,7 +16,7 @@ set(komparepart_PART_SRCS
 
 kde4_add_ui_files(komparepart_PART_SRCS komparesaveoptionsbase.ui )
 
-kde4_add_plugin(komparepart WITH_PREFIX ${komparepart_PART_SRCS})
+kde4_add_plugin(komparepart ${komparepart_PART_SRCS})
 
 
 

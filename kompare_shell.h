@@ -24,6 +24,11 @@
 
 #include "kompare.h"
 
+class KompareInterface;
+namespace KParts {
+    class ReadOnlyPart;
+    class ReadWritePart;
+}
 class KToggleAction;
 
 class KSqueezedTextLabel;
@@ -85,10 +90,7 @@ public slots:
 	void slotUpdateStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
 	void setCaption( const QString& caption );
 
-	/**
-	 * This method only exists because i cant make main a frined of this class
-	 */
-	KomparePart* viewPart() const { return m_viewPart; }
+	KompareInterface* viewPart() const;
 
 protected:
 	virtual bool queryClose();
@@ -129,8 +131,8 @@ private:
 	KUrl                        m_destinationURL;
 	KUrl                        m_diffURL;
 
-	KomparePart*                m_viewPart;
-	KompareNavTreePart*         m_navTreePart;
+	KParts::ReadWritePart*      m_viewPart;
+	KParts::ReadOnlyPart*         m_navTreePart;
 	KTextEditor::Document*      m_textViewPart;
 	KTextEditor::View*          m_textView;
 // 	KTextEditor::EditInterface* m_textEditIface;

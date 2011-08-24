@@ -26,6 +26,7 @@
 #include <kmimetype.h>
 #include <kaboutdata.h>
 #include <kcomponentdata.h>
+#include <kpluginfactory.h>
 
 #include "difference.h"
 #include "diffmodel.h"
@@ -38,7 +39,7 @@
 
 using namespace Diff2;
 
-KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
+KompareNavTreePart::KompareNavTreePart( QWidget* parentWidget, QObject* parent, const QVariantList& )
 	: KParts::ReadOnlyPart( parent ),
 	m_splitter( 0 ),
 	m_modelList( 0 ),
@@ -54,8 +55,7 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parent, const char* name )
 	m_destination( "" ),
 	m_info( 0 )
 {
-	setObjectName( name );
-	m_splitter = new QSplitter( Qt::Horizontal );
+	m_splitter = new QSplitter( Qt::Horizontal, parentWidget );
 
 	setWidget( m_splitter );
 
@@ -764,48 +764,17 @@ KDirLVI::~KDirLVI()
 	m_modelList.clear();
 }
 
-// part stuff
-KComponentData *KompareNavTreePartFactory::s_instance = 0L;
-KAboutData* KompareNavTreePartFactory::s_about = 0L;
-
-KompareNavTreePartFactory::KompareNavTreePartFactory()
-    : KParts::Factory()
+static KAboutData aboutData()
 {
+    KAboutData about("komparenavtreepart", 0, ki18n("KompareNavTreePart"), "1.2");
+    about.addAuthor(ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org");
+    about.addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "bruggie@gmail.com" );
+    return about;
 }
 
-KompareNavTreePartFactory::~KompareNavTreePartFactory()
-{
-	delete s_instance;
-	delete s_about;
-
-	s_instance = 0L;
-}
-
-KParts::Part* KompareNavTreePartFactory::createPartObject( QWidget* parentWidget,
-                                                  QObject* /*parent*/,
-                                                  const char* /*classname*/, const QStringList & /*args*/ )
-{
-	// Create an instance of our Part
-	KompareNavTreePart* obj = new KompareNavTreePart( parentWidget, 0 );
-
-	KGlobal::locale()->insertCatalog("kompare");
-
-	return obj;
-}
-
-const KComponentData &KompareNavTreePartFactory::componentData()
-{
-	if( !s_instance )
-	{
-		s_about = new KAboutData("komparenavtreepart", 0, ki18n("KompareNavTreePart"), "1.2");
-		s_about->addAuthor(ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org");
-		s_about->addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "bruggie@gmail.com" );
-		s_instance = new KComponentData(s_about);
-	}
-	return *s_instance;
-}
-
-K_EXPORT_COMPONENT_FACTORY( libkomparenavtreepart, KompareNavTreePartFactory )
-K_EXPORT_PLUGIN( KompareNavTreePartFactory )
+K_PLUGIN_FACTORY(KompareNavTreePartFactory,
+                 registerPlugin<KompareNavTreePart>();
+    )
+K_EXPORT_PLUGIN( KompareNavTreePartFactory(aboutData()) )
 
 #include "komparenavtreepart.moc"

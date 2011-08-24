@@ -22,6 +22,7 @@
 
 #include <kparts/factory.h>
 #include <kparts/part.h>
+#include <QVariantList>
 
 #include "kompare.h"
 
@@ -63,7 +64,7 @@ public:
 	/**
 	* Default constructor
 	*/
-	KomparePart( QWidget *parentWidget, QObject *parent, const QStringList & /*args*/);
+	KomparePart( QWidget *parentWidget, QObject *parent, const QVariantList & /*args*/);
 
 	/**
 	* Destructor

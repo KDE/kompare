@@ -7,7 +7,7 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../libdiff2 ${CMAKE_CURRENT_SOU
 set(komparenavtreepart_PART_SRCS komparenavtreepart.cpp )
 
 
-kde4_add_plugin(komparenavtreepart WITH_PREFIX ${komparenavtreepart_PART_SRCS})
+kde4_add_plugin(komparenavtreepart ${komparenavtreepart_PART_SRCS})
 
 
 

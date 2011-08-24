@@ -61,6 +61,6 @@ Name[zh_CN]=KompareNavTreePart
 Name[zh_TW]=KompareNavTreePart
 MimeType=text/x-patch;
 ServiceTypes=Kompare/NavigationPart
-X-KDE-Library=libkomparenavtreepart
+X-KDE-Library=komparenavtreepart
 Type=Service
 Icon=kompare

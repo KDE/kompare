@@ -67,10 +67,6 @@ KompareShell::KompareShell()
 	if ( m_viewPart )
 	{
 		setCentralWidget( m_viewPart->widget() );
-		//			m_mainViewDock->setWidget( m_viewPart->widget() );
-		// 			setView( m_mainViewDock );
-		// 			setMainDockWidget( m_mainViewDock );
-
 		// and integrate the part's GUI with the shell's
 		createGUI(m_viewPart);
 	}

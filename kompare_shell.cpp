@@ -16,7 +16,6 @@
 **
 ***************************************************************************/
 #include "kompare_shell.h"
-#include <kompare/kompare_shell.h>
 
 #include <QtCore/QTextStream>
 #include <QtGui/QDockWidget>
@@ -49,7 +48,7 @@
 #define ID_GENERAL                 3
 
 KompareShell::KompareShell()
-	: KParts::MainWindow( 0L ),
+	: KParts::MainWindow( ),
 	m_textViewPart( 0 ),
 	m_textViewWidget( 0 )
 {
@@ -63,38 +62,18 @@ KompareShell::KompareShell()
 	setupActions();
 	setupStatusBar();
 
-	KService::List offers = KMimeTypeTrader::self()->query( "text/x-patch",
-                                                            "Kompare/ViewPart",
-                                                             QString("") );
-#ifndef NDEBUG
-	for( int i = 0; i < offers.count(); i++ )
-	{
-		kDebug(8102) << "One kservicetype checked..." << endl;
-		KService::Ptr ptr2 = offers.at( i );
-		QStringList list = ptr2->serviceTypes();
-		for ( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 )
-			kDebug(8102) << *it2 << endl;
-	}
-#endif
-	if ( offers.count() == 0 )
-	{
-		KMessageBox::error(this, i18n( "Could not find our KompareViewPart." ) );
-		exit(1);
-	}
+	m_viewPart = KMimeTypeTrader::createInstanceFromQuery<KParts::ReadWritePart>("text/x-patch", "Kompare/ViewPart", this);
 
-	KService::Ptr ptr = offers.first();
-        m_viewPart = ptr->createInstance<KParts::ReadWritePart>( this, this );
-        
-        if ( m_viewPart )
-        {
-            setCentralWidget( m_viewPart->widget() );
-//			m_mainViewDock->setWidget( m_viewPart->widget() );
-// 			setView( m_mainViewDock );
-// 			setMainDockWidget( m_mainViewDock );
+	if ( m_viewPart )
+	{
+		setCentralWidget( m_viewPart->widget() );
+		//			m_mainViewDock->setWidget( m_viewPart->widget() );
+		// 			setView( m_mainViewDock );
+		// 			setMainDockWidget( m_mainViewDock );
 
-            // and integrate the part's GUI with the shell's
-            createGUI(m_viewPart);
-        }
+		// and integrate the part's GUI with the shell's
+		createGUI(m_viewPart);
+	}
 	else
 	{
 		// if we couldn't load our Part, we exit since the Shell by
@@ -103,26 +82,17 @@ KompareShell::KompareShell()
 		exit(2);
 	}
 
-	offers.clear();
-	offers = KServiceTypeTrader::self()->query( "KParts/ReadOnlyPart", "'Kompare/NavigationPart' in ServiceTypes" );
-	if ( offers.count() == 0 )
+	m_navTreeDock = new QDockWidget( i18n( "Navigation" ), this );
+	m_navTreeDock->setObjectName( "Navigation" );
+
+	// This part is implemented in KompareNavTreePart
+	m_navTreePart = KServiceTypeTrader::createInstanceFromQuery<KParts::ReadOnlyPart>
+		("KParts/ReadOnlyPart", "'Kompare/NavigationPart' in ServiceTypes", m_navTreeDock);
+
+	if ( m_navTreePart )
 	{
-		KMessageBox::error(this, i18n( "Could not find our KompareNavigationPart." ) );
-		exit(3);
-	}
-
-	ptr = offers.first();
-
-        m_navTreeDock = new QDockWidget( i18n( "Navigation" ), this );
-        m_navTreeDock->setObjectName( "Navigation" );
-
-        // This part is implemented in KompareNavTreePart
-        m_navTreePart = ptr->createInstance<KParts::ReadOnlyPart>(m_navTreeDock, m_navTreeDock);
-        
-        if ( m_navTreePart )
-        {
-            m_navTreeDock->setWidget( m_navTreePart->widget() );
-            addDockWidget( Qt::TopDockWidgetArea, m_navTreeDock );
+		m_navTreeDock->setWidget( m_navTreePart->widget() );
+		addDockWidget( Qt::TopDockWidgetArea, m_navTreeDock );
 // 			m_navTreeDock->manualDock( m_mainViewDock, KDockWidget::DockTop, 20 );
 	}
 	else
@@ -441,7 +411,7 @@ void KompareShell::slotShowTextView()
 // 		m_textViewWidget = createDockWidget( i18n("Text View"), SmallIcon( "text-x-generic") );
 		m_textViewPart = KServiceTypeTrader::createInstanceFromQuery<KTextEditor::Document>(
 		                 QString::fromLatin1("KTextEditor/Document"),
-		                 (QWidget*)this, this, QString(), QVariantList(), &error );
+		                 this, this, QString(), QVariantList(), &error );
 		if ( m_textViewPart )
 		{
 			m_textView = qobject_cast<KTextEditor::View*>( m_textViewPart->createView( this ) );

@@ -18,7 +18,7 @@
 #include "kompareurldialog.h"
 #include <QShowEvent>
 
-#include <QtGui/qcheckbox.h>
+#include <QGroupBox>
 
 #include <kapplication.h>
 #include <kglobal.h>
@@ -96,12 +96,12 @@ void KompareURLDialog::slotButtonClicked( int button )
 	}
 	// BUG: 124121 File with filenames to be excluded does not exist so diff complains and no diffs are generated
 	kDebug(8102) << "Test to see if the file is an actual file that is given in the file with filenames to exclude field" << endl;
-	if ( m_diffPage->m_excludeFileCheckBox->isChecked() )
+	if ( m_diffPage->m_excludeFileNameGroupBox->isChecked() )
 	{
 		kDebug(8102) << "Ok the checkbox is active..." << endl;
 		if ( QFileInfo( m_diffPage->m_excludeFileURLComboBox->currentText() ).isDir() )
 		{
-			kDebug(8102) << "Dont enter directory names where filenames are expected..." << endl;
+			kDebug(8102) << "Don't enter directory names where filenames are expected..." << endl;
 			KMessageBox::sorry( this, i18n( "File used for excluding files cannot be found, please specify another file." ) );
 			reject();
 			return;

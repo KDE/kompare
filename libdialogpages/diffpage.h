@@ -30,7 +30,7 @@ class QButtonGroup;
 class QGroupBox;
 
 class KLineEdit;
-class KEditListBox;
+class KEditListWidget;
 class KTabWidget;
 class KUrlComboBox;
 class KUrlRequester;
@@ -84,10 +84,10 @@ public:
 	QStringList*   m_ignoreRegExpEditHistory;
 	QDialog*       m_ignoreRegExpDialog;
 
-	QCheckBox*     m_excludeFilePatternCheckBox;
-	KEditListBox*  m_excludeFilePatternEditListBox;
+	QGroupBox*     m_excludeFilePatternGroupBox;
+	KEditListWidget*  m_excludeFilePatternEditListBox;
 
-	QCheckBox*     m_excludeFileCheckBox;
+	QGroupBox*     m_excludeFileNameGroupBox;
 	KUrlComboBox*  m_excludeFileURLComboBox;
 	KUrlRequester* m_excludeFileURLRequester;
 

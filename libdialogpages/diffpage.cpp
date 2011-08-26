@@ -32,7 +32,7 @@
 #include <kapplication.h>
 #include <kcombobox.h>
 #include <kdialog.h>
-#include <keditlistbox.h>
+#include <keditlistwidget.h>
 #include <klineedit.h>
 #include <klocale.h>
 #include <kurlcombobox.h>
@@ -88,11 +88,11 @@ void DiffPage::setSettings( DiffSettings* setts )
 
         m_modeButtonGroup->button( m_settings->m_format )->setChecked( true );
 
-	m_excludeFilePatternCheckBox->setChecked         ( m_settings->m_excludeFilePattern );
+	m_excludeFilePatternGroupBox->setChecked         ( m_settings->m_excludeFilePattern );
 	slotExcludeFilePatternToggled                    ( m_settings->m_excludeFilePattern );
 	m_excludeFilePatternEditListBox->insertStringList( m_settings->m_excludeFilePatternList );
 
-	m_excludeFileCheckBox->setChecked( m_settings->m_excludeFilesFile );
+	m_excludeFileNameGroupBox->setChecked( m_settings->m_excludeFilesFile );
 	slotExcludeFileToggled           ( m_settings->m_excludeFilesFile );
 	m_excludeFileURLComboBox->setUrls( m_settings->m_excludeFilesFileHistoryList );
 	m_excludeFileURLComboBox->setUrl ( KUrl( m_settings->m_excludeFilesFileURL ) );
@@ -130,10 +130,10 @@ void DiffPage::apply()
 
 	m_settings->m_format = static_cast<Kompare::Format>( m_modeButtonGroup->checkedId() );
 
-	m_settings->m_excludeFilePattern             = m_excludeFilePatternCheckBox->isChecked();
+	m_settings->m_excludeFilePattern             = m_excludeFilePatternGroupBox->isChecked();
 	m_settings->m_excludeFilePatternList         = m_excludeFilePatternEditListBox->items();
 
-	m_settings->m_excludeFilesFile               = m_excludeFileCheckBox->isChecked();
+	m_settings->m_excludeFilesFile               = m_excludeFileNameGroupBox->isChecked();
 	m_settings->m_excludeFilesFileURL            = m_excludeFileURLComboBox->currentText();
 	m_settings->m_excludeFilesFileHistoryList    = m_excludeFileURLComboBox->urls();
 
@@ -160,9 +160,9 @@ void DiffPage::setDefaults()
 
         m_modeButtonGroup->button( Kompare::Unified )->setChecked( true );
 
-	m_excludeFilePatternCheckBox->setChecked( false );
+	m_excludeFilePatternGroupBox->setChecked( false );
 
-	m_excludeFileCheckBox->setChecked( false );
+	m_excludeFileNameGroupBox->setChecked( false );
 }
 
 void DiffPage::slotShowRegExpEditor()
@@ -362,42 +362,40 @@ void DiffPage::addExcludeTab()
 	layout->setSpacing( KDialog::spacingHint() );
 	layout->setMargin( KDialog::marginHint() );
 
-	QGroupBox* excludeFilePatternGroupBox = new QGroupBox( page );
+	m_excludeFilePatternGroupBox = new QGroupBox( page );
+        m_excludeFilePatternGroupBox->setCheckable(true);
         QHBoxLayout *excludeFileLayout = new QHBoxLayout;
-        excludeFilePatternGroupBox->setLayout( excludeFileLayout );
-	excludeFilePatternGroupBox->setTitle( i18n( "File Pattern to Exclude" ) );
-	m_excludeFilePatternCheckBox = new QCheckBox( "" );
-        excludeFileLayout->addWidget( m_excludeFilePatternCheckBox );
-	QToolTip::add( m_excludeFilePatternCheckBox, i18n( "If this is checked you can enter a shell pattern in the text box on the right or select entries from the list." ) );
-	m_excludeFilePatternEditListBox = new KEditListBox;
+        m_excludeFilePatternGroupBox->setLayout( excludeFileLayout );
+	m_excludeFilePatternGroupBox->setTitle( i18n( "File Pattern to Exclude" ) );
+	QToolTip::add( m_excludeFilePatternGroupBox, i18n( "If this is checked you can enter a shell pattern in the text box on the right or select entries from the list." ) );
+	m_excludeFilePatternEditListBox = new KEditListWidget;
         excludeFileLayout->addWidget( m_excludeFilePatternEditListBox );
 	m_excludeFilePatternEditListBox->setObjectName( "exclude_file_pattern_editlistbox" );
-	m_excludeFilePatternEditListBox->setButtons( KEditListBox::Add|KEditListBox::Remove );
+	m_excludeFilePatternEditListBox->setButtons( KEditListWidget::Add|KEditListWidget::Remove );
 	m_excludeFilePatternEditListBox->setCheckAtEntering( false );
 	QToolTip::add( m_excludeFilePatternEditListBox, i18n( "Here you can enter or remove a shell pattern or select one or more entries from the list." ) );
-	layout->addWidget( excludeFilePatternGroupBox );
+	layout->addWidget( m_excludeFilePatternGroupBox );
 
 
-	connect( m_excludeFilePatternCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFilePatternToggled(bool)));
+	connect( m_excludeFilePatternGroupBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFilePatternToggled(bool)));
 
-	QGroupBox* excludeFileNameGroupBox = new QGroupBox( page );
+	m_excludeFileNameGroupBox = new QGroupBox( page );
+        m_excludeFileNameGroupBox->setCheckable( true );
         excludeFileLayout = new QHBoxLayout;
-        excludeFileNameGroupBox->setLayout( excludeFileLayout );
-	excludeFileNameGroupBox->setTitle( i18n( "File with Filenames to Exclude" ) );
-	m_excludeFileCheckBox     = new QCheckBox( "" );
-        excludeFileLayout->addWidget( m_excludeFileCheckBox );
-	QToolTip::add( m_excludeFileCheckBox, i18n( "If this is checked you can enter a filename in the combo box on the right." ) );
+        m_excludeFileNameGroupBox->setLayout( excludeFileLayout );
+	m_excludeFileNameGroupBox->setTitle( i18n( "File with Filenames to Exclude" ) );
+	QToolTip::add( m_excludeFileNameGroupBox, i18n( "If this is checked you can enter a filename in the combo box below." ) );
 	m_excludeFileURLComboBox  = new KUrlComboBox( KUrlComboBox::Files, true );
         excludeFileLayout->addWidget( m_excludeFileURLComboBox );
 	m_excludeFileURLComboBox->setObjectName( "exclude_file_urlcombo" );
 	QToolTip::add( m_excludeFileURLComboBox, i18n( "Here you can enter the URL of a file with shell patterns to ignore during the comparison of the folders." ) );
-	m_excludeFileURLRequester = new KUrlRequester( m_excludeFileURLComboBox,excludeFileNameGroupBox );
+	m_excludeFileURLRequester = new KUrlRequester( m_excludeFileURLComboBox,m_excludeFileNameGroupBox );
         excludeFileLayout->addWidget( m_excludeFileURLRequester );
 	m_excludeFileURLRequester->setObjectName("exclude_file_name_urlrequester" );
 	QToolTip::add( m_excludeFileURLRequester, i18n( "Any file you select in the dialog that pops up when you click it will be put in the dialog to the left of this button." ) );
-	layout->addWidget( excludeFileNameGroupBox );
+	layout->addWidget( m_excludeFileNameGroupBox );
 
-	connect( m_excludeFileCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFileToggled(bool)));
+	connect( m_excludeFileNameGroupBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFileToggled(bool)));
 
 	layout->addStretch( 1 );
 	page->setMinimumSize( sizeHintForWidget( page ) );

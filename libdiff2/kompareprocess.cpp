@@ -57,7 +57,7 @@ KompareProcess::KompareProcess( DiffSettings* diffSettings, Kompare::DiffMode di
 
 	// Write file names
 	*this << "--";
-	
+
 	//Add the option for diff to read from stdin(QIODevice::write), and save a pointer to the string
 	if(mode == Kompare::ComparingStringFile)
 	{
@@ -68,7 +68,7 @@ KompareProcess::KompareProcess( DiffSettings* diffSettings, Kompare::DiffMode di
 	{
 		*this << constructRelativePath( dir, source );
 	}
-	
+
 	if(mode == Kompare::ComparingFileString)
 	{
 		*this << "-";
@@ -246,9 +246,10 @@ void KompareProcess::start()
 #ifndef NDEBUG
 	QString cmdLine;
 	QStringList program = KProcess::program();
-	QStringList::ConstIterator it = program.begin();
-	for (; it != program.end(); ++it )
-	    cmdLine += "\"" + (*it) + "\" ";
+	QStringList::ConstIterator it = program.constBegin();
+	QStringList::ConstIterator end = program.constEnd();
+	for (; it != end; ++it )
+		cmdLine += "\"" + (*it) + "\" ";
 	kDebug(8101) << cmdLine << endl;
 #endif
 	setOutputChannelMode( SeparateChannels );

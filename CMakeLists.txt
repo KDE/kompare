@@ -11,7 +11,7 @@ if ("${CMAKE_CURRENT_SOURCE_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
 endif()
 
 # TODO port away from QT3_SUPPORT
-add_definitions(-DQT3_SUPPORT)
+add_definitions(-DQT3_SUPPORT_WARNINGS)
 
 add_subdirectory( interfaces )
 add_subdirectory( libdiff2 )

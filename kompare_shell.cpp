@@ -4,7 +4,7 @@
         begin                   : Sun Mar 4 2001
         Copyright 2001-2004,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
-        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -254,12 +254,6 @@ void KompareShell::slotUpdateStatusBar( int modelIndex, int differenceIndex, int
 void KompareShell::slotSetStatusBarText( const QString& text )
 {
 	m_generalLabel->setText( text );
-}
-
-void KompareShell::setCaption( const QString& caption )
-{
-//	kDebug(8102) << kBacktrace();
-	KParts::MainWindow::setCaption( caption, m_viewPart->isModified() );
 }
 
 void KompareShell::saveProperties(KConfigGroup &config)

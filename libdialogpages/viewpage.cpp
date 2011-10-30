@@ -4,7 +4,7 @@
         begin                   : Sun Mar 4 2001
         Copyright 2001-2002 Otto Bruggeman <otto.bruggeman@home.nl>
         Copyright 2001-2002 John Firebaugh <jfirebaugh@kde.org>
-        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -97,7 +97,8 @@ ViewPage::ViewPage() : PageBase()
 
 	label            = new QLabel( i18n( "Number of lines:" ) );
         snolLayout->addWidget( label );
-	m_snolSpinBox    = new QSpinBox( 0, 50, 1, snolGroupBox );
+	m_snolSpinBox    = new QSpinBox( snolGroupBox );
+	m_snolSpinBox->setRange( 0, 50 );
         snolLayout->addWidget( m_snolSpinBox );
 	label->setBuddy( m_snolSpinBox );
 
@@ -112,7 +113,8 @@ ViewPage::ViewPage() : PageBase()
 
 	label = new QLabel( i18n( "Number of spaces to convert a tab character to:" ) );
         tabLayout->addWidget( label );
-	m_tabSpinBox = new QSpinBox( 1, 16, 1, tabGroupBox );
+	m_tabSpinBox = new QSpinBox( tabGroupBox );
+	m_tabSpinBox->setRange( 1, 16 );
         tabLayout->addWidget( m_tabSpinBox );
 	label->setBuddy( m_tabSpinBox );
 
@@ -142,7 +144,8 @@ ViewPage::ViewPage() : PageBase()
 
 	label = new QLabel( i18n( "Size:" ) );
         layfont->addWidget( label );
-	m_fontSizeSpinBox = new QSpinBox( 6, 24, 1,gb );
+	m_fontSizeSpinBox = new QSpinBox( gb );
+	m_fontSizeSpinBox->setRange( 6, 24 );
         layfont->addWidget( m_fontSizeSpinBox );
 	label->setBuddy( m_fontSizeSpinBox );
 

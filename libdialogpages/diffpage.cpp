@@ -3,7 +3,7 @@
                                 -------------
         begin                   : Sun Mar 4 2001
         Copyright 2001-2004 Otto Bruggeman <otto.bruggeman@home.nl>
-        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -256,8 +256,9 @@ void DiffPage::addFormatTab()
 	QLabel* label = new QLabel( i18n( "Number of context lines:" ));
         groupLayout->addWidget( label );
 	label->setWhatsThis( i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
-	m_locSpinBox = new QSpinBox( 0, 100, 1, groupBox );
-        groupLayout->addWidget( m_locSpinBox );
+	m_locSpinBox = new QSpinBox( groupBox );
+	m_locSpinBox->setRange( 0, 100 );
+	groupLayout->addWidget( m_locSpinBox );
 	m_locSpinBox->setWhatsThis( i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
 	label->setBuddy( m_locSpinBox );
 
@@ -282,42 +283,44 @@ void DiffPage::addOptionsTab()
 	//optionButtonGroup->setMargin( KDialog::marginHint() );
 
 	m_newFilesCheckBox    = new QCheckBox( i18n( "&Treat new files as empty" ), optionButtonGroup );
-	QToolTip::add( m_newFilesCheckBox, i18n( "This option corresponds to the -N diff option." ) );
+	m_newFilesCheckBox->setToolTip( i18n( "This option corresponds to the -N diff option." ) );
 	m_newFilesCheckBox->setWhatsThis( i18n( "With this option enabled diff will treat a file that only exists in one of the directories as empty in the other directory. This means that the file is compared with an empty file and because of this will appear as one big insertion or deletion." ) );
 	bgLayout->addWidget( m_newFilesCheckBox );
 
 	m_smallerCheckBox     = new QCheckBox( i18n( "&Look for smaller changes" ), optionButtonGroup );
-	QToolTip::add( m_smallerCheckBox, i18n( "This corresponds to the -d diff option." ) );
+	m_smallerCheckBox->setToolTip( i18n( "This corresponds to the -d diff option." ) );
 	m_smallerCheckBox->setWhatsThis( i18n( "With this option enabled diff will try a little harder (at the cost of more memory) to find fewer changes." ) );
 	bgLayout->addWidget( m_smallerCheckBox );
 	m_largerCheckBox      = new QCheckBox( i18n( "O&ptimize for large files" ), optionButtonGroup );
-	QToolTip::add( m_largerCheckBox, i18n( "This corresponds to the -H diff option." ) );
+	m_largerCheckBox->setToolTip( i18n( "This corresponds to the -H diff option." ) );
 	m_largerCheckBox->setWhatsThis( i18n( "This option lets diff makes better diffs when using large files. The definition of large is nowhere to be found though." ) );
 	bgLayout->addWidget( m_largerCheckBox );
 	m_caseCheckBox        = new QCheckBox( i18n( "&Ignore changes in case" ), optionButtonGroup );
-	QToolTip::add( m_caseCheckBox, i18n( "This corresponds to the -i diff option." ) );
+	m_caseCheckBox->setToolTip( i18n( "This corresponds to the -i diff option." ) );
 	m_caseCheckBox->setWhatsThis( i18n( "With this option to ignore changes in case enabled, diff will not indicate a difference when something in one file is changed into SoMEthing in the other file." ) );
 	bgLayout->addWidget( m_caseCheckBox );
 
-	QHBoxLayout* groupLayout = new QHBoxLayout( layout );
+	QHBoxLayout* groupLayout = new QHBoxLayout();
+	layout->addLayout( groupLayout );
 	groupLayout->setObjectName( "regexp_horizontal_layout" );
 	groupLayout->setSpacing( -1 );
 	groupLayout->setMargin( KDialog::marginHint() );
 
 	m_ignoreRegExpCheckBox = new QCheckBox( i18n( "Ignore regexp:" ), page );
-	QToolTip::add( m_ignoreRegExpCheckBox, i18n( "This option corresponds to the -I diff option." ) );
+	m_ignoreRegExpCheckBox->setToolTip( i18n( "This option corresponds to the -I diff option." ) );
 	m_ignoreRegExpCheckBox->setWhatsThis( i18n( "When this checkbox is enabled, an option to diff is given that will make diff ignore lines that match the regular expression." ) );
 	groupLayout->addWidget( m_ignoreRegExpCheckBox );
 	m_ignoreRegExpEdit = new KLineEdit( QString::null, page);	//krazy:exclude=nullstrassign for old broken gcc
 	m_ignoreRegExpEdit->setObjectName("regexplineedit" );
-	QToolTip::add( m_ignoreRegExpEdit, i18n( "Add the regular expression here that you want to use\nto ignore lines that match it." ) );
+	m_ignoreRegExpEdit->setToolTip( i18n( "Add the regular expression here that you want to use\nto ignore lines that match it." ) );
 	groupLayout->addWidget( m_ignoreRegExpEdit );
 
 	if ( !KServiceTypeTrader::self()->query("KRegExpEditor/KRegExpEditor").isEmpty() )
 	{
 		// Ok editor is available, use it
-		QPushButton* ignoreRegExpEditButton = new QPushButton( i18n( "&Edit..." ), page, "regexp_editor_button" );
-		QToolTip::add( ignoreRegExpEditButton, i18n( "Clicking this will open a regular expression dialog where\nyou can graphically create regular expressions." ) );
+		QPushButton* ignoreRegExpEditButton = new QPushButton( i18n( "&Edit..." ), page);
+		ignoreRegExpEditButton->setObjectName( "regexp_editor_button" );
+		ignoreRegExpEditButton->setToolTip( i18n( "Clicking this will open a regular expression dialog where\nyou can graphically create regular expressions." ) );
 		groupLayout->addWidget( ignoreRegExpEditButton );
 		connect( ignoreRegExpEditButton, SIGNAL( clicked() ), this, SLOT( slotShowRegExpEditor() ) );
 	}
@@ -329,23 +332,23 @@ void DiffPage::addOptionsTab()
 	//moreOptionButtonGroup->setMargin( KDialog::marginHint() );
 
 	m_tabsCheckBox        = new QCheckBox( i18n( "E&xpand tabs to spaces in output" ), moreOptionButtonGroup );
-	QToolTip::add( m_tabsCheckBox, i18n( "This option corresponds to the -t diff option." ) );
+	m_tabsCheckBox->setToolTip( i18n( "This option corresponds to the -t diff option." ) );
 	m_tabsCheckBox->setWhatsThis( i18n( "This option does not always produce the right result. Due to this expansion Kompare may have problems applying the change to the destination file." ) );
 	bgLayout->addWidget( m_tabsCheckBox );
 	m_linesCheckBox       = new QCheckBox( i18n( "I&gnore added or removed empty lines" ), moreOptionButtonGroup );
-	QToolTip::add( m_linesCheckBox, i18n( "This option corresponds to the -B diff option." ) );
+	m_linesCheckBox->setToolTip( i18n( "This option corresponds to the -B diff option." ) );
 	m_linesCheckBox->setWhatsThis( i18n( "This can be very useful in situations where code has been reorganized and empty lines have been added or removed to improve legibility." ) );
 	bgLayout->addWidget( m_linesCheckBox );
 	m_whitespaceCheckBox  = new QCheckBox( i18n( "Ig&nore changes in the amount of whitespace" ), moreOptionButtonGroup );
-	QToolTip::add( m_whitespaceCheckBox, i18n( "This option corresponds to the -b diff option." ) );
+	m_whitespaceCheckBox->setToolTip( i18n( "This option corresponds to the -b diff option." ) );
 	m_whitespaceCheckBox->setWhatsThis( i18n( "If you are uninterested in differences arising due to, for example, changes in indentation, then use this option." ) );
 	bgLayout->addWidget( m_whitespaceCheckBox );
 	m_allWhitespaceCheckBox = new QCheckBox( i18n( "Ign&ore all whitespace" ), moreOptionButtonGroup );
-	QToolTip::add( m_allWhitespaceCheckBox, i18n( "This option corresponds to the -w diff option." ) );
+	m_allWhitespaceCheckBox->setToolTip( i18n( "This option corresponds to the -w diff option." ) );
 	m_allWhitespaceCheckBox->setWhatsThis( i18n( "This is useful for seeing the significant changes without being overwhelmed by all the white space changes." ) );
 	bgLayout->addWidget( m_allWhitespaceCheckBox );
 	m_ignoreTabExpansionCheckBox = new QCheckBox( i18n( "Igno&re changes due to tab expansion" ), moreOptionButtonGroup );
-	QToolTip::add( m_ignoreTabExpansionCheckBox, i18n( "This option corresponds to the -E diff option." ) );
+	m_ignoreTabExpansionCheckBox->setToolTip( i18n( "This option corresponds to the -E diff option." ) );
 	m_ignoreTabExpansionCheckBox->setWhatsThis( i18n( "If there is a change because tabs have been expanded into spaces in the other file, then this option will make sure that these do not show up. Kompare currently has some problems applying such changes so be careful when you use this option." ) );
 	bgLayout->addWidget( m_ignoreTabExpansionCheckBox );
 
@@ -367,13 +370,13 @@ void DiffPage::addExcludeTab()
         QHBoxLayout *excludeFileLayout = new QHBoxLayout;
         m_excludeFilePatternGroupBox->setLayout( excludeFileLayout );
 	m_excludeFilePatternGroupBox->setTitle( i18n( "File Pattern to Exclude" ) );
-	QToolTip::add( m_excludeFilePatternGroupBox, i18n( "If this is checked you can enter a shell pattern in the text box on the right or select entries from the list." ) );
+	m_excludeFilePatternGroupBox->setToolTip( i18n( "If this is checked you can enter a shell pattern in the text box on the right or select entries from the list." ) );
 	m_excludeFilePatternEditListBox = new KEditListWidget;
         excludeFileLayout->addWidget( m_excludeFilePatternEditListBox );
 	m_excludeFilePatternEditListBox->setObjectName( "exclude_file_pattern_editlistbox" );
 	m_excludeFilePatternEditListBox->setButtons( KEditListWidget::Add|KEditListWidget::Remove );
 	m_excludeFilePatternEditListBox->setCheckAtEntering( false );
-	QToolTip::add( m_excludeFilePatternEditListBox, i18n( "Here you can enter or remove a shell pattern or select one or more entries from the list." ) );
+	m_excludeFilePatternEditListBox->setToolTip( i18n( "Here you can enter or remove a shell pattern or select one or more entries from the list." ) );
 	layout->addWidget( m_excludeFilePatternGroupBox );
 
 
@@ -384,15 +387,15 @@ void DiffPage::addExcludeTab()
         excludeFileLayout = new QHBoxLayout;
         m_excludeFileNameGroupBox->setLayout( excludeFileLayout );
 	m_excludeFileNameGroupBox->setTitle( i18n( "File with Filenames to Exclude" ) );
-	QToolTip::add( m_excludeFileNameGroupBox, i18n( "If this is checked you can enter a filename in the combo box below." ) );
+	m_excludeFileNameGroupBox->setToolTip( i18n( "If this is checked you can enter a filename in the combo box below." ) );
 	m_excludeFileURLComboBox  = new KUrlComboBox( KUrlComboBox::Files, true );
         excludeFileLayout->addWidget( m_excludeFileURLComboBox );
 	m_excludeFileURLComboBox->setObjectName( "exclude_file_urlcombo" );
-	QToolTip::add( m_excludeFileURLComboBox, i18n( "Here you can enter the URL of a file with shell patterns to ignore during the comparison of the folders." ) );
+	m_excludeFileURLComboBox->setToolTip( i18n( "Here you can enter the URL of a file with shell patterns to ignore during the comparison of the folders." ) );
 	m_excludeFileURLRequester = new KUrlRequester( m_excludeFileURLComboBox,m_excludeFileNameGroupBox );
         excludeFileLayout->addWidget( m_excludeFileURLRequester );
 	m_excludeFileURLRequester->setObjectName("exclude_file_name_urlrequester" );
-	QToolTip::add( m_excludeFileURLRequester, i18n( "Any file you select in the dialog that pops up when you click it will be put in the dialog to the left of this button." ) );
+	m_excludeFileURLRequester->setToolTip( i18n( "Any file you select in the dialog that pops up when you click it will be put in the dialog to the left of this button." ) );
 	layout->addWidget( m_excludeFileNameGroupBox );
 
 	connect( m_excludeFileNameGroupBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFileToggled(bool)));

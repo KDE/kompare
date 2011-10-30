@@ -4,7 +4,7 @@
         begin                   : Sun Mar 4 2001
         Copyright 2001-2005,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
-        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -648,8 +648,8 @@ void KDirLVI::addModel( QString& path, DiffModel* model, QHash<const Diff2::Diff
 
 	if ( !m_dirName.isEmpty() )
 	{
-		if ( path.find( m_dirName ) > -1 )
-			path = path.remove( path.find( m_dirName ), m_dirName.length() );
+		if ( path.indexOf( m_dirName ) > -1 )
+			path = path.remove( path.indexOf( m_dirName ), m_dirName.length() );
 	}
 
 //	kDebug(8105) << "Path after removal of own dir (\"" << m_dirName << "\") = " << path << endl;
@@ -662,7 +662,7 @@ void KDirLVI::addModel( QString& path, DiffModel* model, QHash<const Diff2::Diff
 
 	KDirLVI* child;
 
-	QString dir = path.mid( 0, path.find( "/", 0 ) + 1 );
+	QString dir = path.mid( 0, path.indexOf( "/", 0 ) + 1 );
 	child = findChild( dir );
 	if ( !child )
 	{

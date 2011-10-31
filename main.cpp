@@ -4,7 +4,7 @@
         begin                   : Sun Mar 4 2001
         Copyright 2001-2005,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
-        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -45,7 +45,7 @@ static const char description[] =
 /**
  * Version number.
  */
-static const char version[] = "4.0.0";
+static const char version[] = "4.1.0";
 
 /**
  * Setting up the KAboutData structure.

@@ -1,6 +1,9 @@
 
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../libdialogpages ${CMAKE_CURRENT_SOURCE_DIR}/../libdiff2 ${CMAKE_CURRENT_SOURCE_DIR}/../interfaces  )
 
+# TODO port away from QT3_SUPPORT
+add_definitions(-DQT3_SUPPORT_WARNINGS)
+
 
 ########### next target ###############
 

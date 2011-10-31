@@ -10,9 +10,6 @@ if ("${CMAKE_CURRENT_SOURCE_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
     include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES})
 endif()
 
-# TODO port away from QT3_SUPPORT
-add_definitions(-DQT3_SUPPORT_WARNINGS)
-
 add_subdirectory( interfaces )
 add_subdirectory( libdiff2 )
 add_subdirectory( libdialogpages )
@@ -40,7 +37,7 @@ kde4_add_app_icon(kompare_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/pics/hi*-app-kompare
 
 kde4_add_executable(kompare ${kompare_SRCS})
 
-target_link_libraries(kompare  kompareinterface komparediff2 komparedialogpages ${KDE4_KTEXTEDITOR_LIBS} ${KDE4_KDE3SUPPORT_LIBS} )
+target_link_libraries(kompare  kompareinterface komparediff2 komparedialogpages ${KDE4_KTEXTEDITOR_LIBS} )
 
 install(TARGETS kompare  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 

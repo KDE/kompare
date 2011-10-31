@@ -165,10 +165,10 @@ void KompareShell::openStdin()
 {
 	kDebug(8102) << "Using stdin to read the diff" << endl;
 	QFile file;
-	file.open( QIODevice::ReadOnly, stdin );
+	file.open( stdin, QIODevice::ReadOnly );
 	QTextStream stream( &file );
 
-	QString diff = stream.read();
+	QString diff = stream.readAll();
 
 	file.close();
 
@@ -225,7 +225,7 @@ void KompareShell::setupStatusBar()
 	statusBar()->insertPermanentItem( i18n(" 0 of 0 files "), ID_N_OF_N_FILES, 0);
 
 	m_generalLabel = new KSqueezedTextLabel( "", 0 );
-	statusBar()->addWidget( m_generalLabel, 1, false );
+	statusBar()->addWidget( m_generalLabel, 1 );
 	m_generalLabel->setAlignment( Qt::AlignLeft );
 }
 

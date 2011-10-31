@@ -2,8 +2,8 @@
                                 filespage.cpp
                                 -------------
         begin                   : Sun Apr 18 2004
-        Copyright 2004 Otto Bruggeman <otto.bruggeman@home.nl>
-        Copyright 2007 Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2004      Otto Bruggeman <otto.bruggeman@home.nl>
+        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -62,7 +62,8 @@ FilesPage::FilesPage() : PageBase()
 	QHBoxLayout* gb3Layout = new QHBoxLayout( m_thirdGB );
 	m_encodingComboBox = new KComboBox( false, m_thirdGB );
 	m_encodingComboBox->setObjectName( "encoding_combobox" );
-	m_encodingComboBox->insertStringList( KGlobal::charsets()->availableEncodingNames() );
+	m_encodingComboBox->insertItem( 0, "Default" );
+	m_encodingComboBox->insertItems( 1, KGlobal::charsets()->availableEncodingNames() );
 	gb3Layout->addWidget( m_encodingComboBox );
 
 	layout->addWidget( m_firstGB );
@@ -132,7 +133,7 @@ void FilesPage::setSettings( FilesSettings* settings )
 	m_firstURLComboBox->setUrl( KUrl( m_settings->m_lastChosenSourceURL ) );
 	m_secondURLComboBox->setUrls( m_settings->m_recentDestinations );
 	m_secondURLComboBox->setUrl( KUrl( m_settings->m_lastChosenDestinationURL ) );
-	m_encodingComboBox->setCurrentText( m_settings->m_encoding );
+	m_encodingComboBox->setCurrentIndex( m_encodingComboBox->findText( m_settings->m_encoding ) );
 }
 
 void FilesPage::restore()
@@ -155,7 +156,7 @@ void FilesPage::setDefaults()
 	m_firstURLComboBox->setUrl( KUrl( "" ) );
 	m_secondURLComboBox->setUrls( QStringList() );
 	m_secondURLComboBox->setUrl( KUrl( "" ) );
-	m_encodingComboBox->setCurrentText( "Default" );
+	m_encodingComboBox->setCurrentIndex( 0 ); // "Default"
 }
 
 #include "filespage.moc"

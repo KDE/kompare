@@ -5,7 +5,7 @@
     Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
     Copyright 2001-2009 Otto Bruggeman <bruggie@gmail.com>
     Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
-    Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+    Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
  ***************************************************************************/
 
 /***************************************************************************
@@ -103,13 +103,14 @@ void KompareConnectWidgetFrame::mouseReleaseEvent( QMouseEvent *e )
 #endif
 
 KompareConnectWidget::KompareConnectWidget( ViewSettings* settings, QWidget* parent, const char* name )
-	: QWidget(parent, name),
+	: QWidget(parent),
 	m_settings( settings ),
 	m_selectedModel( 0 ),
 	m_selectedDifference( 0 )
 {
+	setObjectName(name);
 //	connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( slotDelayedRepaint() ) );
-	setBackgroundMode( Qt::NoBackground );
+	setAttribute( Qt::WA_NoSystemBackground, true );
 	setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum ) );
 	setFocusProxy( parent->parentWidget() );
 }
@@ -190,7 +191,7 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
                             Difference* diff = differences->at(i );
 				bool selected = ( diff == m_selectedDifference );
 
-				if ( QApplication::reverseLayout() )
+				if ( QApplication::isRightToLeft() )
 				{
 					leftRect = rightView->itemRect( i );
 					rightRect = leftView->itemRect( i );
@@ -236,7 +237,8 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 	}
 
 //	p->flush();
-	bitBlt(this, 0, 0, &pixbuf);
+	QPainter widgetPainter(this);
+	widgetPainter.drawImage(0, 0, pixbuf.toImage());
 }
 
 QPainterPath KompareConnectWidget::makeBezier( int leftHeight, int rightHeight ) const

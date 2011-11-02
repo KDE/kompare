@@ -4,7 +4,7 @@
         begin                   : Sun Mar 4 2001
         Copyright 2001-2003 Otto Bruggeman <otto.bruggeman@home.nl>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
-        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -31,11 +31,13 @@
 
 KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString destination,
            DiffSettings * settings, QWidget * parent )
-	: KompareSaveOptionsBase( parent, "save options" )
+	: KompareSaveOptionsBase( parent )
 	, m_source( source )
 	, m_destination( destination )
 	, m_FormatBG( new QButtonGroup(this) )
 {
+	setObjectName("save options");
+
 	m_settings = settings;
 
 	m_directoryRequester->setMode(

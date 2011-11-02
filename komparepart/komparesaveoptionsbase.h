@@ -4,7 +4,7 @@
         Converted from komparesaveoptionsbase.ui using uic3, Tue Dec 4 2007
         Copyright 2001-2003 Otto Bruggeman <otto.bruggeman@home.nl>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
-        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -26,7 +26,7 @@ class KompareSaveOptionsBase : public QWidget, public Ui::KompareSaveOptionsBase
     Q_OBJECT
 
 public:
-    explicit KompareSaveOptionsBase(QWidget* parent = 0, const char* name = 0, Qt::WindowFlags fl = 0);
+    explicit KompareSaveOptionsBase(QWidget* parent = 0, Qt::WindowFlags fl = 0);
     ~KompareSaveOptionsBase();
 
 protected slots:

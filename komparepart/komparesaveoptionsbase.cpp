@@ -4,7 +4,7 @@
         Converted from komparesaveoptionsbase.ui using uic3, Tue Dec 4 2007
         Copyright 2001-2003 Otto Bruggeman <otto.bruggeman@home.nl>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
-        Copyright 2007      Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 
@@ -22,8 +22,8 @@
  *  Constructs a KompareSaveOptionsBase as a child of 'parent', with the
  *  name 'name' and widget flags set to 'f'.
  */
-KompareSaveOptionsBase::KompareSaveOptionsBase(QWidget* parent, const char* name, Qt::WindowFlags fl)
-    : QWidget(parent, name, fl)
+KompareSaveOptionsBase::KompareSaveOptionsBase(QWidget* parent, Qt::WindowFlags fl)
+    : QWidget(parent, fl)
 {
     setupUi(this);
 

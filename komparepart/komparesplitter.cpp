@@ -153,7 +153,7 @@ void KompareSplitter::slotScrollToId( int id )
 		emit scrollViewsToId( id );
 		slotRepaintHandles();
 		m_vScroll->setValue( id );
-		m_scrollTimer->start(30, false);
+		m_scrollTimer->start( 30 );
 	}
 }
 
@@ -175,7 +175,8 @@ void KompareSplitter::slotUpdateScrollBars()
 		m_vScroll->setRange( minVScrollId(), 
 		                     maxVScrollId() );
 		m_vScroll->setValue( scrollId() );
-		m_vScroll->setSteps( m_scrollDistance, m_pageSize );
+		m_vScroll->setSingleStep( m_scrollDistance );
+		m_vScroll->setPageStep( m_pageSize );
 		m_vScroll->blockSignals( false );
 	}
 	else
@@ -189,7 +190,8 @@ void KompareSplitter::slotUpdateScrollBars()
 		m_hScroll->blockSignals( true );
 		m_hScroll->setRange( 0, maxHScrollId() );
 		m_hScroll->setValue( maxContentsX() );
-		m_hScroll->setSteps( 10, minVisibleWidth() - 10 );
+		m_hScroll->setSingleStep( 10 );
+		m_hScroll->setPageStep( minVisibleWidth() - 10 );
 		m_hScroll->blockSignals( false );
 	}
 	else
@@ -214,25 +216,25 @@ void KompareSplitter::keyPressEvent( QKeyEvent* e )
 	switch ( e->key() ) {
 	case Qt::Key_Right:
 	case Qt::Key_L:
-		m_hScroll->addLine();
+		m_hScroll->triggerAction( QAbstractSlider::SliderSingleStepAdd );
 		break;
 	case Qt::Key_Left:
 	case Qt::Key_H:
-		m_hScroll->subtractLine();
+		m_hScroll->triggerAction( QAbstractSlider::SliderSingleStepSub );
 		break;
 	case Qt::Key_Up:
 	case Qt::Key_K:
-		m_vScroll->subtractLine();
+		m_vScroll->triggerAction( QAbstractSlider::SliderSingleStepSub );
 		break;
 	case Qt::Key_Down:
 	case Qt::Key_J:
-		m_vScroll->addLine();
+		m_vScroll->triggerAction( QAbstractSlider::SliderSingleStepAdd );
 		break;
 	case Qt::Key_PageDown:
-		m_vScroll->addPage();
+		m_vScroll->triggerAction( QAbstractSlider::SliderPageStepAdd );
 		break;
 	case Qt::Key_PageUp:
-		m_vScroll->subtractPage();
+		m_vScroll->triggerAction( QAbstractSlider::SliderPageStepSub );
 		break;
 	}
 	e->accept();
@@ -243,30 +245,30 @@ void KompareSplitter::wheelEvent( QWheelEvent* e )
 {
 	if ( e->orientation() == Qt::Vertical )
 	{
-		if ( e->state() & Qt::ControlButton ) {
+		if ( e->modifiers() & Qt::ControlModifier ) {
 			if ( e->delta() < 0 ) // scroll down one page
-				m_vScroll->addPage();
+				m_vScroll->triggerAction( QAbstractSlider::SliderPageStepAdd );
 			else // scroll up one page
-				m_vScroll->subtractPage();
+				m_vScroll->triggerAction( QAbstractSlider::SliderPageStepSub );
 		} else {
 			if ( e->delta() < 0 ) // scroll down
-				m_vScroll->addLine();
+				m_vScroll->triggerAction( QAbstractSlider::SliderSingleStepAdd );
 			else // scroll up
-				m_vScroll->subtractLine();
+				m_vScroll->triggerAction( QAbstractSlider::SliderSingleStepSub );
 		}
 	}
 	else
 	{
-		if ( e->state() & Qt::ControlButton ) {
+		if ( e->modifiers() & Qt::ControlModifier ) {
 			if ( e->delta() < 0 ) // scroll right one page
-				m_hScroll->addPage();
+				m_hScroll->triggerAction( QAbstractSlider::SliderPageStepAdd );
 			else // scroll left one page
-				m_hScroll->subtractPage();
+				m_hScroll->triggerAction( QAbstractSlider::SliderPageStepSub );
 		} else {
 			if ( e->delta() < 0 ) // scroll to the right
-				m_hScroll->addLine();
+				m_hScroll->triggerAction( QAbstractSlider::SliderSingleStepAdd );
 			else // scroll to the left
-				m_hScroll->subtractLine();
+				m_hScroll->triggerAction( QAbstractSlider::SliderSingleStepSub );
 		}
 	}
 	e->accept();

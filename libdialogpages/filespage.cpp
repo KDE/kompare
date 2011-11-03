@@ -133,7 +133,7 @@ void FilesPage::setSettings( FilesSettings* settings )
 	m_firstURLComboBox->setUrl( KUrl( m_settings->m_lastChosenSourceURL ) );
 	m_secondURLComboBox->setUrls( m_settings->m_recentDestinations );
 	m_secondURLComboBox->setUrl( KUrl( m_settings->m_lastChosenDestinationURL ) );
-	m_encodingComboBox->setCurrentIndex( m_encodingComboBox->findText( m_settings->m_encoding ) );
+	m_encodingComboBox->setCurrentIndex( m_encodingComboBox->findText( m_settings->m_encoding, Qt::MatchFixedString ) );
 }
 
 void FilesPage::restore()

@@ -5,7 +5,7 @@
         Copyright 2001-2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
-        Copyright 2007-2009 Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -158,7 +158,7 @@ int KompareListView::firstVisibleDifference()
 	}
 
 	if( item )
-		return m_items.findIndex( ((KompareListViewLineItem*)item)->diffItemParent() );
+		return m_items.indexOf( ((KompareListViewLineItem*)item)->diffItemParent() );
 
 	return -1;
 }
@@ -181,7 +181,7 @@ int KompareListView::lastVisibleDifference()
 	}
 
 	if( item )
-		return m_items.findIndex( ((KompareListViewLineItem*)item)->diffItemParent() );
+		return m_items.indexOf( ((KompareListViewLineItem*)item)->diffItemParent() );
 
 	return -1;
 }

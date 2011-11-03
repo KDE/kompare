@@ -2,8 +2,8 @@
                                 komparesplitter.h
                                 -----------------
         begin                   : Wed Jan 14 2004
-        Copyright 2004 Jeff Snyder  <jeff@caffeinated.me.uk>
-        Copyright 2007 Kevin Kofler <kevin.kofler@chello.at>
+        Copyright 2004      Jeff Snyder  <jeff@caffeinated.me.uk>
+        Copyright 2007-2011 Kevin Kofler <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -42,7 +42,7 @@ class KompareSplitter : public QSplitter
 	Q_OBJECT
 
 public:
-	KompareSplitter(ViewSettings *settings, QWidget *parent, const char *name = 0);
+	KompareSplitter(ViewSettings *settings, QWidget *parent);
 	~KompareSplitter();
 
 signals:

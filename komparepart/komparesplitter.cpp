@@ -3,7 +3,7 @@
 **                              -------------------
 **      begin                   : Wed Jan 14 2004
 **      Copyright 2004-2005 Jeff Snyder  <jeff-webcvsspam@caffeinated.me.uk>
-**      Copyright 2007      Kevin Kofler <kevin.kofler@chello.at>
+**      Copyright 2007-2011 Kevin Kofler <kevin.kofler@chello.at>
 ***************************************************************************/
 
 /**************************************************************************
@@ -49,13 +49,11 @@
 
 using namespace Diff2;
 
-KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget *parent,
-                                  const char *name) :
-	QSplitter( Qt::Horizontal, parent, name ),
+KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget *parent ) :
+	QSplitter( Qt::Horizontal, parent ),
 	m_settings( settings )
 {
-	QFrame *scrollFrame = new QFrame( parent, "scrollFrame" );
-	reparent( scrollFrame, QPoint(), false );
+	QFrame *scrollFrame = static_cast<QFrame *>(parent);
 
 	// Set up the scrollFrame
 	scrollFrame->setFrameStyle( QFrame::NoFrame | QFrame::Plain );

@@ -53,6 +53,7 @@
 #include "kompareprefdlg.h"
 #include "komparesaveoptionswidget.h"
 #include "komparesplitter.h"
+#include "kompareview.h"
 
 K_PLUGIN_FACTORY( KomparePartFactory, registerPlugin<KomparePart>(); )
 K_EXPORT_PLUGIN( KomparePartFactory )
@@ -74,13 +75,9 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QVariant
 
 	readProperties( KGlobal::config().data() );
 
-	m_splitter = new KompareSplitter ( m_viewSettings, parentWidget );
-
-	// !!! Do not change this ->parentWidget()! Due to the bizarre reparenting hacks in KompareSplitter, !!!
-	// !!! the ->parentWidget() is not the one passed in the constructor, but the scroll view created    !!!
-	// !!! within the KompareSplitter. If you use m_splitter here, the scroll bars will not be shown!    !!!
-	// !!! Using the parentWidget parameter is also wrong, of course, you have to use m_splitter->...!   !!!
-	setWidget( m_splitter->parentWidget() );
+	m_view = new KompareView ( m_viewSettings, parentWidget );
+	setWidget( m_view );
+	m_splitter = m_view->splitter();
 
 	// This creates the "Model creator" and connects the signals and slots
 	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_splitter, this, "komparemodellist" );
@@ -614,7 +611,7 @@ void KomparePart::slotPaintRequested( QPrinter* printer )
 	QPainter p;
 	p.begin( printer );
 
-	QSize widgetWidth = m_splitter->parentWidget()->size();
+	QSize widgetWidth = m_view->size();
 	kDebug(8103) << "printer.width()     = " << printer->width() << endl;
 	kDebug(8103) << "widgetWidth.width() = " << widgetWidth.width() << endl;
 	qreal factor = ((qreal)printer->width())/((qreal)widgetWidth.width());
@@ -622,7 +619,7 @@ void KomparePart::slotPaintRequested( QPrinter* printer )
 	kDebug(8103) << "factor              = " << factor << endl;
 
 	p.scale( factor, factor );
-	m_splitter->parentWidget()->render( &p );
+	m_view->render( &p );
 
 	p.end();
 	kDebug(8103) << "Done painting something..." << endl;

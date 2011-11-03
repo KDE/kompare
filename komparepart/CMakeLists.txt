@@ -7,14 +7,15 @@ add_definitions(-DQT3_SUPPORT_WARNINGS)
 
 ########### next target ###############
 
-set(komparepart_PART_SRCS 
-   kompare_part.cpp 
-   kompareconnectwidget.cpp 
-   komparesplitter.cpp 
-   komparelistview.cpp 
-   kompareprefdlg.cpp 
-   komparesaveoptionsbase.cpp 
-   komparesaveoptionswidget.cpp )
+set( komparepart_PART_SRCS
+     kompare_part.cpp
+     kompareconnectwidget.cpp
+     komparesplitter.cpp
+     komparelistview.cpp
+     kompareprefdlg.cpp
+     komparesaveoptionsbase.cpp
+     komparesaveoptionswidget.cpp
+     kompareview.cpp )
 
 
 kde4_add_ui_files(komparepart_PART_SRCS komparesaveoptionsbase.ui )

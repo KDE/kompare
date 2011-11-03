@@ -5,7 +5,7 @@
         Copyright 2001-2005,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
-        Copyright 2007-2008 Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -45,6 +45,7 @@ class KompareModelList;
 class DiffSettings;
 class ViewSettings;
 class KompareSplitter;
+class KompareView;
 
 /**
  * This is a "Part".  It does all the real work in a KPart
@@ -222,6 +223,7 @@ private:
 
 	Diff2::KompareModelList* m_modelList;
 
+	KompareView*             m_view;
 	KompareSplitter*         m_splitter;
 
 	KAction*                 m_saveAll;

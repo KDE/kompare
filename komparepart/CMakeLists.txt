@@ -1,9 +1,6 @@
 
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../libdialogpages ${CMAKE_CURRENT_SOURCE_DIR}/../libdiff2 ${CMAKE_CURRENT_SOURCE_DIR}/../interfaces  )
 
-# TODO port away from QT3_SUPPORT
-add_definitions(-DQT3_SUPPORT_WARNINGS)
-
 
 ########### next target ###############
 
@@ -24,7 +21,7 @@ kde4_add_plugin(komparepart ${komparepart_PART_SRCS})
 
 
 
-target_link_libraries(komparepart  ${KDE4_KPARTS_LIBS} komparedialogpages komparediff2 kompareinterface ${KDE4_KDE3SUPPORT_LIBS} )
+target_link_libraries(komparepart  ${KDE4_KPARTS_LIBS} komparedialogpages komparediff2 kompareinterface )
 
 install(TARGETS komparepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

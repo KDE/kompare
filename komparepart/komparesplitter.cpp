@@ -96,7 +96,7 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget *parent ) :
 
 	// we need to receive childEvents now so that d->list is ready for when
 	// slotSetSelection(...) arrives
-	kapp->sendPostedEvents(this, QEvent::ChildInserted);
+	kapp->sendPostedEvents(this, QEvent::ChildAdded);
 
 	// init stuff
 	slotUpdateScrollBars();
@@ -164,6 +164,15 @@ void KompareSplitter::slotDelayedUpdateScrollBars()
 
 void KompareSplitter::slotUpdateScrollBars()
 {
+	const int end = count();
+	for ( int i = 0; i < end; ++i ) {
+		KompareListView* lv = listView(i);
+		int minHScroll = minHScrollId();
+		if (lv->contentsX() < minHScroll) {
+			lv->setXOffset(minHScroll);
+		}
+	}
+
 	int m_scrollDistance = m_settings->m_scrollNoOfLines * lineHeight();
 	int m_pageSize = pageSize();
 
@@ -188,7 +197,7 @@ void KompareSplitter::slotUpdateScrollBars()
 	{
 		m_hScroll->show();
 		m_hScroll->blockSignals( true );
-		m_hScroll->setRange( 0, maxHScrollId() );
+		m_hScroll->setRange( minHScrollId(), maxHScrollId() );
 		m_hScroll->setValue( maxContentsX() );
 		m_hScroll->setSingleStep( 10 );
 		m_hScroll->setPageStep( minVisibleWidth() - 10 );
@@ -350,6 +359,12 @@ bool KompareSplitter::needHScrollBar()
 			return true;
 	}
 	return false;
+}
+
+int KompareSplitter::minHScrollId()
+{
+	// hardcode an offset to hide the tree controls
+	return 10;
 }
 
 int KompareSplitter::maxHScrollId()

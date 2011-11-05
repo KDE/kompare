@@ -5,6 +5,7 @@
         Copyright 2001-2004,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
+        Copyright 2011      Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -26,8 +27,8 @@
 #include <QVBoxLayout>
 #include <QMouseEvent>
 #include <QFrame>
-
-#include <k3listview.h>
+#include <QTreeWidget>
+#include <QItemDelegate>
 
 namespace Diff2 {
 class DiffModel;
@@ -39,12 +40,15 @@ class ViewSettings;
 class KompareSplitter;
 class KompareListView;
 class KompareListViewItem;
+class KompareListViewItemDelegate;
 class KompareListViewDiffItem;
 class KompareListViewLineContainerItem;
 
-class KompareListView : public K3ListView
+class KompareListView : public QTreeWidget
 {
 	Q_OBJECT
+
+	friend class KompareListViewItemDelegate;
 
 public:
 	KompareListView( bool isSource, ViewSettings* settings, QWidget* parent, const char* name = 0 );
@@ -56,7 +60,12 @@ public:
 	QRect                itemRect( int i );
 	int                  minScrollId();
 	int                  maxScrollId();
+	int                  contentsHeight();
 	int                  contentsWidth();
+	int                  visibleHeight();
+	int                  visibleWidth();
+	int                  contentsX();
+	int                  contentsY();
 
 	bool                 isSource() const { return m_isSource; };
 	ViewSettings*        settings() const { return m_settings; };
@@ -79,15 +88,17 @@ signals:
 	void resized();
 
 protected:
-	void wheelEvent( QWheelEvent* e );
-	void resizeEvent( QResizeEvent* e );
-	void contentsMousePressEvent ( QMouseEvent * e );
-	void contentsMouseDoubleClickEvent ( QMouseEvent* );
-	void contentsMouseReleaseEvent ( QMouseEvent * ) {};
-	void contentsMouseMoveEvent ( QMouseEvent * ) {};
-	void renumberLines( void );
+	virtual void wheelEvent( QWheelEvent* e );
+	virtual void resizeEvent( QResizeEvent* e );
+	virtual void mousePressEvent ( QMouseEvent * e );
+	virtual void mouseDoubleClickEvent ( QMouseEvent* );
+	virtual void mouseReleaseEvent ( QMouseEvent * ) {};
+	virtual void mouseMoveEvent ( QMouseEvent * ) {};
 
 private:
+	QRect totalVisualItemRect( QTreeWidgetItem* item );
+	void renumberLines( void );
+
 	QList<KompareListViewDiffItem*> m_items;
 	QHash<const Diff2::Difference*, KompareListViewDiffItem*> m_itemDict;
 	bool                              m_isSource;
@@ -116,8 +127,27 @@ private:
 	QVBoxLayout          m_layout;
 };
 
+class KompareListViewItemDelegate : public QItemDelegate
+{
+	Q_OBJECT
 
-class KompareListViewItem : public Q3ListViewItem
+public:
+	KompareListViewItemDelegate( QObject* parent );
+	virtual ~KompareListViewItemDelegate();
+	virtual void paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const;
+	virtual QSize sizeHint( const QStyleOptionViewItem& option, const QModelIndex& index ) const;
+	void paintDefault( QPainter* painter, const QStyleOptionViewItem& option, int column, KompareListViewItem* item ) const;
+	void drawDisplayDefault( QPainter* painter, const QStyleOptionViewItem& option, const QRect& rect, const QString& text ) const;
+protected:
+	virtual void drawDisplay( QPainter* painter, const QStyleOptionViewItem& option, const QRect& rect, const QString& text ) const;
+	virtual void drawFocus( QPainter* painter, const QStyleOptionViewItem& option, const QRect& rect ) const;
+
+private:
+	mutable KompareListViewItem* m_item;
+	mutable int m_column;
+};
+
+class KompareListViewItem : public QTreeWidgetItem
 {
 public:
 	KompareListViewItem( KompareListView* parent );
@@ -125,8 +155,15 @@ public:
 	KompareListViewItem( KompareListViewItem* parent );
 	KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* after );
 
-	void paintFocus( QPainter* p, const QColorGroup& cg, const QRect& r );
-	int scrollId() { return m_scrollId; };
+	virtual void setup() {}
+	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column, const KompareListViewItemDelegate* delegate );
+	virtual void paintText( QPainter* p, const QStyleOptionViewItem& option, const QRect& rect, const QString& text, int column, const KompareListViewItemDelegate* delegate );
+
+	void repaint();
+	int height() const;
+	void setHeight( int h );
+	bool isCurrent() const;
+	int scrollId() const { return m_scrollId; };
 
 	virtual int maxHeight() = 0;
 	virtual int rtti(void) const = 0;
@@ -137,6 +174,7 @@ public:
 
 private:
 	int     m_scrollId;
+	int     m_height;
 };
 
 class KompareListViewDiffItem : public KompareListViewItem
@@ -146,14 +184,15 @@ public:
 	KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Diff2::Difference* difference );
 	~KompareListViewDiffItem();
 
-	void setup();
-	void setSelected( bool b );
+	virtual void setup();
 	void applyDifference( bool apply );
 
 	Diff2::Difference* difference() { return m_difference; };
 
 	virtual int maxHeight();
 	virtual int rtti(void) const { return Diff; };
+
+	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column, const KompareListViewItemDelegate* delegate );
 
 private:
 	void init();
@@ -174,9 +213,12 @@ public:
 	KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource );
 	~KompareListViewLineContainerItem();
 
-	void setup();
-	virtual int maxHeight() { return 0; }
+	virtual void setup();
+	virtual int maxHeight() { return 1; }
 	virtual int rtti(void) const { return Container; };
+
+	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column, const KompareListViewItemDelegate* delegate );
+
 	KompareListViewDiffItem* diffItemParent() const;
 
 private:
@@ -200,12 +242,12 @@ public:
 	virtual int maxHeight() { return 0; }
 	virtual int rtti(void) const { return Line; };
 
-	virtual void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );
-	virtual void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
+	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column, const KompareListViewItemDelegate* delegate );
 
 	KompareListViewDiffItem* diffItemParent() const;
 
 private:
+	void paintTextP( QPainter* p, const QColor& bg, int column, int width, int align );
 	void expandTabs(QString& text, int tabstop, int startPos = 0) const;
 
 private:
@@ -217,10 +259,10 @@ class KompareListViewBlankLineItem : public KompareListViewLineItem
 public:
 	KompareListViewBlankLineItem( KompareListViewLineContainerItem* parent );
 
-	void setup();
+	virtual void setup();
 	virtual int rtti(void) const { return Blank; };
 
-	void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
+	virtual void paintText( QPainter* p, const QStyleOptionViewItem& option, const QRect& rect, const QString& text, int column, const KompareListViewItemDelegate* delegate );
 };
 
 class KompareListViewHunkItem : public KompareListViewItem
@@ -230,8 +272,8 @@ public:
 	KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, Diff2::DiffHunk* hunk, bool zeroHeight= false );
 	~KompareListViewHunkItem();
 
-	void setup();
-	void paintCell( QPainter* p, const QColorGroup& cg, int column, int width, int align );
+	virtual void setup();
+	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column, const KompareListViewItemDelegate* delegate );
 
 	virtual int maxHeight();
 	virtual int rtti(void) const { return Hunk; };

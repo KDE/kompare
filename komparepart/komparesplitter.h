@@ -73,7 +73,6 @@ public slots:
 	void slotConfigChanged();
 
 protected:
-	void moveSplitter( QCOORD pos, int id );
 	void wheelEvent( QWheelEvent* e );
 
 	ViewSettings* settings() const { return m_settings; }
@@ -104,6 +103,7 @@ private:
 	int  minVScrollId();
 	int  maxVScrollId();
 	bool needHScrollBar();
+	int  minHScrollId();
 	int  maxHScrollId();
 	int  maxContentsX();
 	int  minVisibleWidth();

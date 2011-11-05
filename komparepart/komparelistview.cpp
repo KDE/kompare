@@ -19,13 +19,13 @@
 
 #include "komparelistview.h"
 
-#include <q3header.h>
 #include <QtGui/QPainter>
 #include <QtCore/QRegExp>
 #include <QtCore/QTimer>
 #include <QtGui/QResizeEvent>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QWheelEvent>
+#include <QtGui/QScrollBar>
 
 #include <kdebug.h>
 #include <kglobal.h>
@@ -43,6 +43,8 @@
 
 #define BLANK_LINE_HEIGHT 3
 #define HUNK_LINE_HEIGHT  5
+
+#define ITEM_MARGIN 3
 
 using namespace Diff2;
 
@@ -100,7 +102,7 @@ void KompareListViewFrame::slotSetModel( const DiffModel* model )
 KompareListView::KompareListView( bool isSource,
                                   ViewSettings* settings,
                                   QWidget* parent, const char* name ) :
-	K3ListView( parent ),
+	QTreeWidget( parent ),
 	m_isSource( isSource ),
 	m_settings( settings ),
 	m_scrollId( -1 ),
@@ -108,22 +110,16 @@ KompareListView::KompareListView( bool isSource,
 	m_selectedDifference( 0 )
 {
 	setObjectName( name );
-	header()->hide();
-	addColumn( "Line Number", 0 );
-	addColumn( "Main" );
-	addColumn( "Blank" );
-	setColumnAlignment( COL_LINE_NO, Qt::AlignRight );
+	setItemDelegate( new KompareListViewItemDelegate( this ) );
+	setHeaderHidden( true );
+	setColumnCount( 3 ); // Line Number, Main, Blank
 	setAllColumnsShowFocus( true );
 	setRootIsDecorated( false );
-	setSorting( -1 );
-	setItemMargin( 3 );
-	setTreeStepSize( 0 );
-	setColumnWidthMode( COL_LINE_NO, Maximum );
-	setColumnWidthMode( COL_MAIN, Maximum );
-	setResizeMode( LastColumn );
+	setIndentation( 0 );
 	setFrameStyle( QFrame::NoFrame );
-	setVScrollBarMode( Q3ScrollView::AlwaysOff );
-	setHScrollBarMode( Q3ScrollView::AlwaysOff );
+	setVerticalScrollMode( QAbstractItemView::ScrollPerPixel );
+	setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+	setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 	setFocusPolicy( Qt::NoFocus );
 	setFont( m_settings->m_font );
 	setFocusProxy( parent->parentWidget() );
@@ -143,7 +139,7 @@ KompareListViewItem* KompareListView::itemAtIndex( int i )
 
 int KompareListView::firstVisibleDifference()
 {
-	Q3ListViewItem* item = itemAt( QPoint( 0, 0 ) );
+	QTreeWidgetItem* item = itemAt( QPoint( 0, 0 ) );
 
 	if( item == 0 )
 	{
@@ -154,7 +150,7 @@ int KompareListView::firstVisibleDifference()
 		KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>(item);
 		if( lineItem && lineItem->diffItemParent()->difference()->type() != Difference::Unchanged )
 			break;
-		item = item->itemBelow();
+		item = itemBelow(item);
 	}
 
 	if( item )
@@ -165,19 +161,27 @@ int KompareListView::firstVisibleDifference()
 
 int KompareListView::lastVisibleDifference()
 {
-	Q3ListViewItem* item = itemAt( QPoint( 0, visibleHeight() - 1 ) );
+	QTreeWidgetItem* item = itemAt( QPoint( 0, visibleHeight() - 1 ) );
 
 	if( item == 0 )
 	{
 		kDebug(8104) << "no item at viewport coordinates (0," << visibleHeight() - 1 << ")" << endl;
-		item = lastItem();
+		// find last item
+		item = itemAt( QPoint( 0, 0 ) );
+		if( item ) {
+			QTreeWidgetItem* nextItem = item;
+			do {
+				item = nextItem;
+				nextItem = itemBelow( item );
+			} while( nextItem );
+		}
 	}
 
 	while( item ) {
 		KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>(item);
 		if( lineItem && lineItem->diffItemParent()->difference()->type() != Difference::Unchanged )
 			break;
-		item = item->itemAbove();
+		item = itemAbove(item);
 	}
 
 	if( item )
@@ -186,14 +190,22 @@ int KompareListView::lastVisibleDifference()
 	return -1;
 }
 
+QRect KompareListView::totalVisualItemRect( QTreeWidgetItem* item )
+{
+	QRect total = visualItemRect( item );
+	int n = item->childCount();
+	for( int i=0; i<n; i++ ) {
+		QTreeWidgetItem* child = item->child( i );
+		if( !child->isHidden() )
+			total = total.united( totalVisualItemRect( child ) );
+	}
+	return total;
+}
+
 QRect KompareListView::itemRect( int i )
 {
-	Q3ListViewItem* item = itemAtIndex( i );
-	int x = 0;
-	int y = itemPos( item );
-	int vx, vy;
-	contentsToViewport( x, y, vx, vy );
-	return QRect( vx, vy, 0, item->totalHeight() );
+	QTreeWidgetItem* item = itemAtIndex( i );
+	return totalVisualItemRect( item );
 }
 
 int KompareListView::minScrollId()
@@ -203,14 +215,17 @@ int KompareListView::minScrollId()
 
 int KompareListView::maxScrollId()
 {
-	KompareListViewItem* item = (KompareListViewItem*)firstChild();
-	if(!item) return 0;
-	while( item && item->nextSibling() ) {
-		item = (KompareListViewItem*)item->nextSibling();
-	}
+	int n = topLevelItemCount();
+	if(!n) return 0;
+	KompareListViewItem* item = (KompareListViewItem*)topLevelItem( n-1 );
 	int maxId = item->scrollId() + item->maxHeight() - minScrollId();
 	kDebug(8104) << "Max ID = " << maxId << endl;
 	return maxId;
+}
+
+int KompareListView::contentsHeight()
+{
+	return verticalScrollBar()->maximum() + viewport()->height();
 }
 
 int KompareListView::contentsWidth()
@@ -218,31 +233,55 @@ int KompareListView::contentsWidth()
 	return ( columnWidth(COL_LINE_NO) + columnWidth(COL_MAIN) );
 }
 
+int KompareListView::visibleHeight()
+{
+	return viewport()->height();
+}
+
+int KompareListView::visibleWidth()
+{
+	return viewport()->width();
+}
+
+int KompareListView::contentsX()
+{
+	return horizontalOffset();
+}
+
+int KompareListView::contentsY()
+{
+	return verticalOffset();
+}
+
 void KompareListView::setXOffset( int x )
 {
 	kDebug(8104) << "SetXOffset : Scroll to x position: " << x << endl;
-	setContentsPos( x, contentsY() );
+	horizontalScrollBar()->setValue( x );
 }
 
 void KompareListView::scrollToId( int id )
 {
 //	kDebug(8104) << "ScrollToID : Scroll to id : " << id << endl;
-	KompareListViewItem* item = (KompareListViewItem*)firstChild();
-	while( item && item->nextSibling() ) {
-		if( ((KompareListViewItem*)item->nextSibling())->scrollId() > id )
-			break;
-		item = (KompareListViewItem*)item->nextSibling();
+	int n = topLevelItemCount();
+	KompareListViewItem* item = 0;
+	if( n ) {
+		int i = 1;
+		for( ; i<n; i++ ) {
+			if( ((KompareListViewItem*)topLevelItem( i ))->scrollId() > id )
+				break;
+		}
+		item = (KompareListViewItem*)topLevelItem( i-1 );
 	}
 
 	if( item ) {
-		int pos = item->itemPos();
+		QRect rect = totalVisualItemRect( item );
+		int pos = rect.top() + verticalOffset();
 		int itemId = item->scrollId();
-		int height = item->totalHeight();
+		int height = rect.height();
 		double r = (double)( id - itemId ) / (double)item->maxHeight();
 		int y = pos + (int)( r * (double)height ) - minScrollId();
 //		kDebug(8104) << "scrollToID: " << endl;
 //		kDebug(8104) << "            id = " << id << endl;
-//		kDebug(8104) << "      id after = " << ( item->nextSibling() ? QString::number( ((KompareListViewItem*)item->nextSibling())->scrollId() ) : "no such sibling..." ) << endl;
 //		kDebug(8104) << "           pos = " << pos << endl;
 //		kDebug(8104) << "        itemId = " << itemId << endl;
 //		kDebug(8104) << "             r = " << r << endl;
@@ -251,7 +290,7 @@ void KompareListView::scrollToId( int id )
 //		kDebug(8104) << "             y = " << y << endl;
 //		kDebug(8104) << "contentsHeight = " << contentsHeight() << endl;
 //		kDebug(8104) << "         c - y = " << contentsHeight() - y << endl;
-		setContentsPos( contentsX(), y );
+		verticalScrollBar()->setValue( y );
 	}
 
 	m_scrollId = id;
@@ -293,7 +332,13 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 	// why does this not happen when the user clicks on a diff? see the comment above.
 	if( scroll )
 		scrollToId(item->scrollId());
-	setSelected( item, true );
+	setUpdatesEnabled( false );
+	int x = horizontalScrollBar()->value();
+	int y = verticalScrollBar()->value();
+	setCurrentItem( item );
+	horizontalScrollBar()->setValue( x );
+	verticalScrollBar()->setValue( y );
+	setUpdatesEnabled( true );
 }
 
 void KompareListView::slotSetSelection( const Difference* diff )
@@ -346,12 +391,15 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 		}
 	}
 
+	resizeColumnToContents( COL_LINE_NO );
+	resizeColumnToContents( COL_MAIN );
+
 	slotSetSelection( diff );
 }
 
-void KompareListView::contentsMousePressEvent( QMouseEvent* e )
+void KompareListView::mousePressEvent( QMouseEvent* e )
 {
-	QPoint vp = contentsToViewport( e->pos() );
+	QPoint vp = e->pos();
 	KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>( itemAt( vp ) );
 	if( !lineItem )
 		return;
@@ -361,9 +409,9 @@ void KompareListView::contentsMousePressEvent( QMouseEvent* e )
 	}
 }
 
-void KompareListView::contentsMouseDoubleClickEvent( QMouseEvent* e )
+void KompareListView::mouseDoubleClickEvent( QMouseEvent* e )
 {
-	QPoint vp = contentsToViewport( e->pos() );
+	QPoint vp = e->pos();
 	KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>( itemAt( vp ) );
 	if ( !lineItem )
 		return;
@@ -379,7 +427,8 @@ void KompareListView::renumberLines( void )
 {
 //	kDebug( 8104 ) << "Begin" << endl;
 	unsigned int newLineNo = 1;
-	KompareListViewItem* item = (KompareListViewItem*)firstChild();
+	if( !topLevelItemCount() ) return;
+	KompareListViewItem* item = (KompareListViewItem*)topLevelItem( 0 );
 	while( item ) {
 //		kDebug( 8104 ) << "rtti: " << item->rtti() << endl;
 		if ( item->rtti() != KompareListViewItem::Container 
@@ -389,7 +438,7 @@ void KompareListView::renumberLines( void )
 //			kDebug( 8104 ) << QString::number( newLineNo ) << endl;
 			item->setText( COL_LINE_NO, QString::number( newLineNo++ ) );
 		}
-		item = (KompareListViewItem*)item->itemBelow();
+		item = (KompareListViewItem*)itemBelow( item );
 	}
 }
 
@@ -411,7 +460,7 @@ void KompareListView::slotApplyAllDifferences( bool apply )
 	// now renumber the line column if this is the destination
 	if ( !m_isSource )
 		renumberLines();
-	repaint();
+	update();
 }
 
 void KompareListView::slotApplyDifference( const Difference* diff, bool apply )
@@ -429,44 +478,119 @@ void KompareListView::wheelEvent( QWheelEvent* e )
 
 void KompareListView::resizeEvent( QResizeEvent* e )
 {
-	K3ListView::resizeEvent(e);
+	QTreeWidget::resizeEvent(e);
 	emit resized();
 }
 
+KompareListViewItemDelegate::KompareListViewItemDelegate( QObject* parent )
+	: QItemDelegate( parent ),
+	m_item(0),
+	m_column(0)
+{
+}
+
+KompareListViewItemDelegate::~KompareListViewItemDelegate()
+{
+}
+
+void KompareListViewItemDelegate::paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
+{
+	m_column = index.column();
+	QStyleOptionViewItemV4 changedOption = option;
+	if( m_column == COL_LINE_NO )
+		changedOption.displayAlignment = Qt::AlignRight;
+	m_item = static_cast<KompareListViewItem*>( static_cast<KompareListView*>( parent() )->itemFromIndex( index ) );
+	m_item->paintCell( painter, changedOption, m_column, this );
+}
+
+QSize KompareListViewItemDelegate::sizeHint( const QStyleOptionViewItem& option, const QModelIndex& index ) const
+{
+	KompareListViewItem* item = static_cast<KompareListViewItem*>( static_cast<KompareListView*>( parent() )->itemFromIndex( index ) );
+	item->setup();
+	QSize hint = QItemDelegate::sizeHint( option, index );
+	return QSize( hint.width() + ITEM_MARGIN, item->height() );
+}
+
+void KompareListViewItemDelegate::paintDefault( QPainter* painter, const QStyleOptionViewItem& option, int column, KompareListViewItem* item ) const
+{
+	QModelIndex index = static_cast<KompareListView*>( parent() )->indexFromItem( item, column );
+	QItemDelegate::paint( painter, option, index );
+}
+
+void KompareListViewItemDelegate::drawDisplayDefault( QPainter* painter, const QStyleOptionViewItem& option, const QRect& rect, const QString& text ) const
+{
+	QItemDelegate::drawDisplay( painter, option, rect, text );
+}
+
+void KompareListViewItemDelegate::drawDisplay( QPainter* painter, const QStyleOptionViewItem& option, const QRect& rect, const QString& text ) const
+{
+	m_item->paintText( painter, option, rect, text, m_column, this );
+}
+
+void KompareListViewItemDelegate::drawFocus( QPainter* /* painter */, const QStyleOptionViewItem& /* option */, const QRect& /* rect */ ) const
+{
+	// draw nothing
+}
+
 KompareListViewItem::KompareListViewItem( KompareListView* parent )
-	: Q3ListViewItem( parent ),
-	m_scrollId( 0 )
+	: QTreeWidgetItem( parent ),
+	m_scrollId( 0 ),
+	m_height( 0 )
 {
 //	kDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListViewItem* after )
-	: Q3ListViewItem( parent, after ),
-	m_scrollId( after->scrollId() + after->maxHeight() )
+	: QTreeWidgetItem( parent, after ),
+	m_scrollId( after->scrollId() + after->maxHeight() ),
+	m_height( 0 )
 {
 //	kDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListViewItem* parent )
-	: Q3ListViewItem( parent ),
-	m_scrollId( 0 )
+	: QTreeWidgetItem( parent ),
+	m_scrollId( 0 ),
+	m_height( 0 )
 {
 }
 
 KompareListViewItem::KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* /*after*/ )
-	: Q3ListViewItem( parent ),
-	m_scrollId( 0 )
+	: QTreeWidgetItem( parent ),
+	m_scrollId( 0 ),
+	m_height( 0 )
 {
+}
+
+void KompareListViewItem::paintCell( QPainter* p, const QStyleOptionViewItem& option, int column, const KompareListViewItemDelegate* delegate )
+{
+	delegate->paintDefault( p, option, column, this );
+}
+
+void KompareListViewItem::paintText( QPainter* p, const QStyleOptionViewItem& option, const QRect& rect, const QString& text, int /* column */, const KompareListViewItemDelegate* delegate )
+{
+	delegate->drawDisplayDefault( p, option, rect, text );
+}
+
+int KompareListViewItem::height() const
+{
+	return m_height;
+}
+
+void KompareListViewItem::setHeight( int h )
+{
+	m_height = h;
+	if( !m_height ) m_height++; // QTreeWidget doesn't like zero height.
+}
+
+bool KompareListViewItem::isCurrent() const
+{
+	return treeWidget()->currentItem() == this;
 }
 
 KompareListView* KompareListViewItem::kompareListView() const
 {
-	return (KompareListView*)listView();
-}
-
-void KompareListViewItem::paintFocus( QPainter* /* p */, const QColorGroup& /* cg */, const QRect& /* r */ )
-{
-	// Don't paint anything
+	return (KompareListView*)treeWidget();
 }
 
 KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, Difference* difference )
@@ -496,8 +620,7 @@ KompareListViewDiffItem::~KompareListViewDiffItem()
 
 void KompareListViewDiffItem::init()
 {
-	setExpandable( true );
-	setOpen( true );
+	setExpanded( true );
 	m_destItem = new KompareListViewLineContainerItem( this, false );
 	m_sourceItem = new KompareListViewLineContainerItem( this, true );
 	setVisibility();
@@ -509,10 +632,47 @@ void KompareListViewDiffItem::setup()
 	setHeight( 0 );
 }
 
+void KompareListViewDiffItem::paintCell( QPainter* p, const QStyleOptionViewItem& option, int column, const KompareListViewItemDelegate* /* delegate */ )
+{
+	int width = option.rect.width();
+
+	p->setRenderHint(QPainter::Antialiasing);
+	p->translate(option.rect.topLeft());
+
+	QColor bg( Qt::white ); // Always make the background white when it is not a real difference
+	if ( difference()->type() == Difference::Unchanged )
+	{
+		if ( column == COL_LINE_NO )
+		{
+			bg = QColor( Qt::lightGray );
+		}
+	}
+	else
+	{
+		bg = kompareListView()->settings()->colorForDifferenceType(
+		          difference()->type(),
+		          isCurrent(),
+		          difference()->applied() );
+	}
+
+	// Paint background
+	p->fillRect( 0, 0, width, height(), bg );
+
+	// Paint darker lines around selected item
+	if ( isCurrent() )
+	{
+		p->translate(0.5,0.5);
+		p->setPen( bg.dark(135) );
+		p->drawLine( 0, 0, width, 0 );
+	}
+
+	p->resetTransform();
+}
+
 void KompareListViewDiffItem::setVisibility()
 {
-	m_sourceItem->setVisible( kompareListView()->isSource() || m_difference->applied() );
-	m_destItem->setVisible( !m_sourceItem->isVisible() );
+	m_sourceItem->setHidden( !(kompareListView()->isSource() || m_difference->applied()) );
+	m_destItem->setHidden( !m_sourceItem->isHidden() );
 }
 
 void KompareListViewDiffItem::applyDifference( bool apply )
@@ -520,29 +680,15 @@ void KompareListViewDiffItem::applyDifference( bool apply )
 	kDebug(8104) << "KompareListViewDiffItem::applyDifference( " << apply << " )" << endl;
 	setVisibility();
 	setup();
-	repaint();
 }
 
 int KompareListViewDiffItem::maxHeight()
 {
 	int lines = qMax( m_difference->sourceLineCount(), m_difference->destinationLineCount() );
 	if( lines == 0 )
-		return BLANK_LINE_HEIGHT;
+		return BLANK_LINE_HEIGHT + 1;
 	else
-		return lines * listView()->fontMetrics().height();
-}
-
-void KompareListViewDiffItem::setSelected( bool b )
-{
-	kDebug(8104) << "KompareListViewDiffItem::setSelected( " << b << " )" << endl;
-	KompareListViewItem::setSelected( b );
-	Q3ListViewItem* item = m_sourceItem->isVisible() ?
-	                      m_sourceItem->firstChild() :
-	                      m_destItem->firstChild();
-	while( item && item->isVisible() ) {
-		item->repaint();
-		item = item->nextSibling();
-	}
+		return lines * treeWidget()->fontMetrics().height() + 1;
 }
 
 KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource )
@@ -551,18 +697,17 @@ KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListV
 	m_isSource( isSource )
 {
 //	kDebug(8104) << "isSource ? " << (isSource ? " Yes!" : " No!") << endl;
-	setExpandable( true );
-	setOpen( true );
+	setExpanded( true );
 
 	int lines = lineCount();
-	int line = lineNumber() + lines - 1;
+	int line = lineNumber();
 //	kDebug(8104) << "LineNumber : " << lineNumber() << endl;
 	if( lines == 0 ) {
 		m_blankLineItem = new KompareListViewBlankLineItem( this );
 		return;
 	}
 
-	for( int i = lines - 1; i >= 0; i--, line-- ) {
+	for( int i = 0; i < lines; i++, line++ ) {
 		m_lineItemList.append(new KompareListViewLineItem( this, line, lineAt( i ) ) );
 	}
 }
@@ -577,6 +722,35 @@ void KompareListViewLineContainerItem::setup()
 {
 	KompareListViewItem::setup();
 	setHeight( 0 );
+}
+
+void KompareListViewLineContainerItem::paintCell( QPainter* p, const QStyleOptionViewItem& option, int column, const KompareListViewItemDelegate* /* delegate */ )
+{
+	int width = option.rect.width();
+
+	p->setRenderHint(QPainter::Antialiasing);
+	p->translate(option.rect.topLeft());
+
+	QColor bg( Qt::white ); // Always make the background white when it is not a real difference
+	if ( diffItemParent()->difference()->type() == Difference::Unchanged )
+	{
+		if ( column == COL_LINE_NO )
+		{
+			bg = QColor( Qt::lightGray );
+		}
+	}
+	else
+	{
+		bg = kompareListView()->settings()->colorForDifferenceType(
+		          diffItemParent()->difference()->type(),
+		          diffItemParent()->isCurrent(),
+		          diffItemParent()->difference()->applied() );
+	}
+
+	// Paint background
+	p->fillRect( 0, 0, width, height(), bg );
+
+	p->resetTransform();
 }
 
 KompareListViewDiffItem* KompareListViewLineContainerItem::diffItemParent() const
@@ -618,12 +792,16 @@ KompareListViewLineItem::~KompareListViewLineItem()
 void KompareListViewLineItem::setup()
 {
 	KompareListViewItem::setup();
-	setHeight( listView()->fontMetrics().height() );
+	setHeight( treeWidget()->fontMetrics().height() );
 }
 
-void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & /*cg*/, int column, int width, int align )
+void KompareListViewLineItem::paintCell( QPainter* p, const QStyleOptionViewItem& option, int column, const KompareListViewItemDelegate* /* delegate */ )
 {
+	int width = option.rect.width();
+	Qt::Alignment align = option.displayAlignment;
+
 	p->setRenderHint(QPainter::Antialiasing);
+	p->translate(option.rect.topLeft());
 
 	QColor bg( Qt::white ); // Always make the background white when it is not a real difference
 	if ( diffItemParent()->difference()->type() == Difference::Unchanged )
@@ -637,7 +815,7 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & /*cg*
 	{
 		bg = kompareListView()->settings()->colorForDifferenceType(
 		          diffItemParent()->difference()->type(),
-		          diffItemParent()->isSelected(),
+		          diffItemParent()->isCurrent(),
 		          diffItemParent()->difference()->applied() );
 	}
 
@@ -650,26 +828,32 @@ void KompareListViewLineItem::paintCell( QPainter * p, const QColorGroup & /*cg*
 	else
 		p->setPen( QColor( Qt::black ) ); // make text with changes black
 
-	paintText( p, bg, column, width, align );
+	paintTextP( p, bg, column, width, align );
 
 	// Paint darker lines around selected item
-	if ( diffItemParent()->isSelected() )
+	if ( diffItemParent()->isCurrent() )
 	{
 		p->translate(0.5,0.5);
 		p->setPen( bg.dark(135) );
-		if ( this == parent()->firstChild() )
+		QTreeWidgetItem* parentItem = parent();
+#if 0
+		// We have to draw this in the DiffItem now because its height cannot be 0 anymore. :-(
+		if ( this == parentItem->child( 0 ) )
 			p->drawLine( 0, 0, width, 0 );
-		if ( nextSibling() == 0 )
+#endif
+		if ( this == parentItem->child( parentItem->childCount() - 1 ) )
 			p->drawLine( 0, height() - 1, width, height() - 1 );
 	}
+
+	p->resetTransform();
 }
 
-void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int column, int width, int align )
+void KompareListViewLineItem::paintTextP( QPainter* p, const QColor& bg, int column, int width, int align )
 {
 	if ( column == COL_MAIN )
 	{
 		QString textChunk;
-		int offset = listView()->itemMargin();
+		int offset = ITEM_MARGIN;
 		int prevValue = 0;
 		int charsDrawn = 0;
 		int chunkWidth;
@@ -746,8 +930,8 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 	else
 	{
 		p->fillRect( 0, 0, width, height(), bg );
-		p->drawText( listView()->itemMargin(), 0,
-		             width - listView()->itemMargin(), height(),
+		p->drawText( ITEM_MARGIN, 0,
+		             width - ITEM_MARGIN, height(),
 		             align, text( column ) );
 	}
 }
@@ -776,12 +960,12 @@ void KompareListViewBlankLineItem::setup()
 	setHeight( BLANK_LINE_HEIGHT );
 }
 
-void KompareListViewBlankLineItem::paintText( QPainter* p, const QColor& bg, int column, int width, int )
+void KompareListViewBlankLineItem::paintText( QPainter* p, const QStyleOptionViewItem& option, const QRect& rect, const QString& /* text */, int column, const KompareListViewItemDelegate* /* delegate */ )
 {
 	if ( column == COL_MAIN )
 	{
-		QBrush normalBrush( bg, Qt::SolidPattern );
-		p->fillRect( 0, 0, width, height(), normalBrush );
+		QBrush normalBrush( option.palette.color( QPalette::Base ), Qt::SolidPattern );
+		p->fillRect( rect.left(), rect.top(), rect.width(), height(), normalBrush );
 	}
 }
 
@@ -790,7 +974,7 @@ KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, DiffH
 	m_zeroHeight( zeroHeight ),
 	m_hunk( hunk )
 {
-	setSelectable( false );
+	setFlags( flags() & ~Qt::ItemIsSelectable );
 }
 
 KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, DiffHunk* hunk,  bool zeroHeight )
@@ -798,7 +982,7 @@ KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, Kompa
 	m_zeroHeight( zeroHeight ),
 	m_hunk( hunk )
 {
-	setSelectable( false );
+	setFlags( flags() & ~Qt::ItemIsSelectable );
 }
 
 KompareListViewHunkItem::~KompareListViewHunkItem()
@@ -809,11 +993,11 @@ KompareListViewHunkItem::~KompareListViewHunkItem()
 int KompareListViewHunkItem::maxHeight()
 {
 	if( m_zeroHeight ) {
-		return 0;
+		return 1; // minimum height forced to 1 because QTreeWidget doesn't like zero height
 	} else if( m_hunk->function().isEmpty() ) {
 		return HUNK_LINE_HEIGHT;
 	} else {
-		return listView()->fontMetrics().height();
+		return treeWidget()->fontMetrics().height();
 	}
 }
 
@@ -824,12 +1008,20 @@ void KompareListViewHunkItem::setup()
 	setHeight( maxHeight() );
 }
 
-void KompareListViewHunkItem::paintCell( QPainter * p, const QColorGroup & /*cg*/, int column, int width, int align )
+void KompareListViewHunkItem::paintCell( QPainter* p, const QStyleOptionViewItem& option, int column, const KompareListViewItemDelegate* /* delegate */ )
 {
-	p->fillRect( 0, 0, width, height(), QColor( Qt::lightGray ) ); // Hunk headers should be lightgray 
+	int x = option.rect.left();
+	int y = option.rect.top();
+	int width = option.rect.width();
+	Qt::Alignment align = option.displayAlignment;
+
+	if( column == COL_MAIN && m_zeroHeight )
+		p->fillRect( x, y, width, height(), QColor( Qt::white ) ); // fill the 1 pixel minimum height with white
+	else
+		p->fillRect( x, y, width, height(), QColor( Qt::lightGray ) ); // Hunk headers should be lightgray 
 	p->setPen( QColor( Qt::black ) ); // Text color in hunk should be black
 	if( column == COL_MAIN ) {
-		p->drawText( listView()->itemMargin(), 0, width - listView()->itemMargin(), height(),
+		p->drawText( x + ITEM_MARGIN, y, width - ITEM_MARGIN, height(),
 		             align, m_hunk->function() );
 	}
 }

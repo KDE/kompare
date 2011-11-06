@@ -149,7 +149,7 @@ public:
 	KompareListViewItem( KompareListViewItem* parent, int type );
 	KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* after, int type );
 
-	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column ) = 0;
+	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column );
 
 	void repaint();
 	int height() const;
@@ -185,8 +185,6 @@ public:
 
 	virtual int maxHeight();
 
-	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column );
-
 private:
 	void init();
 	void setVisibility();
@@ -207,8 +205,6 @@ public:
 	~KompareListViewLineContainerItem();
 
 	virtual int maxHeight() { return 0; }
-
-	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column );
 
 	KompareListViewDiffItem* diffItemParent() const;
 

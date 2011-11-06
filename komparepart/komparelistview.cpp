@@ -593,6 +593,18 @@ KompareListView* KompareListViewItem::kompareListView() const
 	return (KompareListView*)treeWidget();
 }
 
+void KompareListViewItem::paintCell( QPainter* p, const QStyleOptionViewItem& option, int column )
+{
+	// Default implementation for zero-height items.
+	// We have to paint the item which shines through or we'll end up with glitches.
+	KompareListViewItem* nextItem = (KompareListViewItem*)kompareListView()->itemBelow(this);
+	if( nextItem ) {
+		QStyleOptionViewItemV4 changedOption = option;
+		changedOption.rect.translate( 0, height() );
+		nextItem->paintCell( p, changedOption, column );
+	}
+}
+
 KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, Difference* difference )
 	: KompareListViewItem( parent, Diff ),
 	m_difference( difference ),
@@ -650,17 +662,6 @@ int KompareListViewDiffItem::maxHeight()
 		return lines * treeWidget()->fontMetrics().height();
 }
 
-void KompareListViewDiffItem::paintCell( QPainter* p, const QStyleOptionViewItem& option, int column )
-{
-	// We have to paint the item which shines through or we'll end up with glitches.
-	KompareListViewItem* nextItem = (KompareListViewItem*)kompareListView()->itemBelow(this);
-	if( nextItem ) {
-		QStyleOptionViewItemV4 changedOption = option;
-		changedOption.rect.translate( 0, height() );
-		nextItem->paintCell( p, changedOption, column );
-	}
-}
-
 KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource )
 	: KompareListViewItem( parent, Container ),
 	m_blankLineItem( 0 ),
@@ -710,17 +711,6 @@ DifferenceString* KompareListViewLineContainerItem::lineAt( int i ) const
 {
 	return m_isSource ? diffItemParent()->difference()->sourceLineAt( i ) :
 	                    diffItemParent()->difference()->destinationLineAt( i );
-}
-
-void KompareListViewLineContainerItem::paintCell( QPainter* p, const QStyleOptionViewItem& option, int column )
-{
-	// We have to paint the item which shines through or we'll end up with glitches.
-	KompareListViewItem* nextItem = (KompareListViewItem*)kompareListView()->itemBelow(this);
-	if( nextItem ) {
-		QStyleOptionViewItemV4 changedOption = option;
-		changedOption.rect.translate( 0, height() );
-		nextItem->paintCell( p, changedOption, column );
-	}
 }
 
 KompareListViewLineItem::KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, DifferenceString* text )
@@ -952,13 +942,7 @@ int KompareListViewHunkItem::maxHeight()
 void KompareListViewHunkItem::paintCell( QPainter* p, const QStyleOptionViewItem& option, int column )
 {
 	if( m_zeroHeight ) {
-		// We have to paint the item which shines through or we'll end up with glitches.
-		KompareListViewItem* nextItem = (KompareListViewItem*)kompareListView()->itemBelow(this);
-		if( nextItem ) {
-			QStyleOptionViewItemV4 changedOption = option;
-			changedOption.rect.translate( 0, height() );
-			nextItem->paintCell( p, changedOption, column );
-		}
+		KompareListViewItem::paintCell( p, option, column );
 	} else {
 		int x = option.rect.left();
 		int y = option.rect.top() - paintOffset();

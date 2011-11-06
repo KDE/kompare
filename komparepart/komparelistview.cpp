@@ -408,14 +408,33 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 	slotSetSelection( diff );
 }
 
+KompareListViewDiffItem* KompareListView::diffItemAt( const QPoint& pos )
+{
+	KompareListViewItem* item = static_cast<KompareListViewItem*>( itemAt( pos ) );
+	if( !item )
+		return 0;
+	switch( item->type() ) {
+		case KompareListViewItem::Hunk:
+			if( item->paintHeight() ) return 0; // no diff item here
+			// zero height (fake 1 pixel height), so a diff item shines through
+			return static_cast<KompareListViewDiffItem*>( itemBelow( item ) );
+		case KompareListViewItem::Line:
+		case KompareListViewItem::Blank:
+			return static_cast<KompareListViewLineItem*>( item )->diffItemParent();
+		case KompareListViewItem::Container:
+			return static_cast<KompareListViewLineContainerItem*>( item )->diffItemParent();
+		case KompareListViewItem::Diff:
+			return static_cast<KompareListViewDiffItem*>( item );
+		default:
+			return 0;
+	}
+}
+
 void KompareListView::mousePressEvent( QMouseEvent* e )
 {
 	QPoint vp = e->pos();
-	KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>( itemAt( vp ) );
-	if( !lineItem )
-		return;
-	KompareListViewDiffItem* diffItem = lineItem->diffItemParent();
-	if( diffItem->difference()->type() != Difference::Unchanged ) {
+	KompareListViewDiffItem* diffItem = diffItemAt( vp );
+	if( diffItem && diffItem->difference()->type() != Difference::Unchanged ) {
 		emit differenceClicked( diffItem->difference() );
 	}
 }
@@ -423,11 +442,8 @@ void KompareListView::mousePressEvent( QMouseEvent* e )
 void KompareListView::mouseDoubleClickEvent( QMouseEvent* e )
 {
 	QPoint vp = e->pos();
-	KompareListViewLineItem* lineItem = dynamic_cast<KompareListViewLineItem*>( itemAt( vp ) );
-	if ( !lineItem )
-		return;
-	KompareListViewDiffItem* diffItem = lineItem->diffItemParent();
-	if ( diffItem->difference()->type() != Difference::Unchanged ) {
+	KompareListViewDiffItem* diffItem = diffItemAt( vp );
+	if ( diffItem && diffItem->difference()->type() != Difference::Unchanged ) {
 		// FIXME: make a new signal that does both
 		emit differenceClicked( diffItem->difference() );
 		emit applyDifference( !diffItem->difference()->applied() );

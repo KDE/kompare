@@ -99,6 +99,7 @@ protected:
 
 private:
 	QRect totalVisualItemRect( QTreeWidgetItem* item );
+	KompareListViewDiffItem* diffItemAt( const QPoint& pos );
 	void renumberLines( void );
 
 	QList<KompareListViewDiffItem*> m_items;

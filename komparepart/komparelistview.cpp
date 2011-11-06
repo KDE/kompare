@@ -441,10 +441,10 @@ void KompareListView::renumberLines( void )
 	if( !topLevelItemCount() ) return;
 	KompareListViewItem* item = (KompareListViewItem*)topLevelItem( 0 );
 	while( item ) {
-//		kDebug( 8104 ) << "rtti: " << item->rtti() << endl;
-		if ( item->rtti() != KompareListViewItem::Container 
-		     && item->rtti() != KompareListViewItem::Blank 
-		     && item->rtti() != KompareListViewItem::Hunk )
+//		kDebug( 8104 ) << "type: " << item->type() << endl;
+		if ( item->type() != KompareListViewItem::Container 
+		     && item->type() != KompareListViewItem::Blank 
+		     && item->type() != KompareListViewItem::Hunk )
 		{
 //			kDebug( 8104 ) << QString::number( newLineNo ) << endl;
 			item->setText( COL_LINE_NO, QString::number( newLineNo++ ) );
@@ -519,8 +519,8 @@ QSize KompareListViewItemDelegate::sizeHint( const QStyleOptionViewItem& option,
 	return QSize( hint.width() + ITEM_MARGIN, item->height() );
 }
 
-KompareListViewItem::KompareListViewItem( KompareListView* parent )
-	: QTreeWidgetItem( parent ),
+KompareListViewItem::KompareListViewItem( KompareListView* parent, int type )
+	: QTreeWidgetItem( parent, type ),
 	m_scrollId( 0 ),
 	m_height( 0 ),
 	m_paintHeight( 0 ),
@@ -529,8 +529,8 @@ KompareListViewItem::KompareListViewItem( KompareListView* parent )
 //	kDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
-KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListViewItem* after )
-	: QTreeWidgetItem( parent, after ),
+KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListViewItem* after, int type )
+	: QTreeWidgetItem( parent, after, type ),
 	m_scrollId( after->scrollId() + after->maxHeight() ),
 	m_height( 0 ),
 	m_paintHeight( 0 ),
@@ -539,8 +539,8 @@ KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListVi
 //	kDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
 }
 
-KompareListViewItem::KompareListViewItem( KompareListViewItem* parent )
-	: QTreeWidgetItem( parent ),
+KompareListViewItem::KompareListViewItem( KompareListViewItem* parent, int type )
+	: QTreeWidgetItem( parent, type ),
 	m_scrollId( 0 ),
 	m_height( 0 ),
 	m_paintHeight( 0 ),
@@ -548,8 +548,8 @@ KompareListViewItem::KompareListViewItem( KompareListViewItem* parent )
 {
 }
 
-KompareListViewItem::KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* /*after*/ )
-	: QTreeWidgetItem( parent ),
+KompareListViewItem::KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* /*after*/, int type )
+	: QTreeWidgetItem( parent, type ),
 	m_scrollId( 0 ),
 	m_height( 0 ),
 	m_paintHeight( 0 ),
@@ -594,7 +594,7 @@ KompareListView* KompareListViewItem::kompareListView() const
 }
 
 KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, Difference* difference )
-	: KompareListViewItem( parent ),
+	: KompareListViewItem( parent, Diff ),
 	m_difference( difference ),
 	m_sourceItem( 0L ),
 	m_destItem( 0L )
@@ -603,7 +603,7 @@ KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, Diffe
 }
 
 KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Difference* difference )
-	: KompareListViewItem( parent, after ),
+	: KompareListViewItem( parent, after, Diff ),
 	m_difference( difference ),
 	m_sourceItem( 0L ),
 	m_destItem( 0L )
@@ -662,7 +662,7 @@ void KompareListViewDiffItem::paintCell( QPainter* p, const QStyleOptionViewItem
 }
 
 KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource )
-	: KompareListViewItem( parent ),
+	: KompareListViewItem( parent, Container ),
 	m_blankLineItem( 0 ),
 	m_isSource( isSource )
 {
@@ -724,17 +724,28 @@ void KompareListViewLineContainerItem::paintCell( QPainter* p, const QStyleOptio
 }
 
 KompareListViewLineItem::KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, DifferenceString* text )
-	: KompareListViewItem( parent )
+	: KompareListViewItem( parent, Line )
 {
-	setHeight( treeWidget()->fontMetrics().height() );
-	setText( COL_LINE_NO, QString::number( line ) );
-	setText( COL_MAIN, text->string() );
-	m_text = text;
+	init( line, text );
+}
+
+KompareListViewLineItem::KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, DifferenceString* text, int type )
+	: KompareListViewItem( parent, type )
+{
+	init( line, text );
 }
 
 KompareListViewLineItem::~KompareListViewLineItem()
 {
 	m_text = 0;
+}
+
+void KompareListViewLineItem::init( int line, DifferenceString* text )
+{
+	setHeight( treeWidget()->fontMetrics().height() );
+	setText( COL_LINE_NO, QString::number( line ) );
+	setText( COL_MAIN, text->string() );
+	m_text = text;
 }
 
 void KompareListViewLineItem::paintCell( QPainter* p, const QStyleOptionViewItem& option, int column )
@@ -890,7 +901,7 @@ KompareListViewDiffItem* KompareListViewLineItem::diffItemParent() const
 }
 
 KompareListViewBlankLineItem::KompareListViewBlankLineItem( KompareListViewLineContainerItem* parent )
-	: KompareListViewLineItem( parent, 0, new DifferenceString() )
+	: KompareListViewLineItem( parent, 0, new DifferenceString(), Blank )
 {
 	setHeight( BLANK_LINE_HEIGHT );
 }
@@ -905,7 +916,7 @@ void KompareListViewBlankLineItem::paintText( QPainter* p, const QColor& bg, int
 }
 
 KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, DiffHunk* hunk, bool zeroHeight )
-	: KompareListViewItem( parent ),
+	: KompareListViewItem( parent, Hunk ),
 	m_zeroHeight( zeroHeight ),
 	m_hunk( hunk )
 {
@@ -914,7 +925,7 @@ KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, DiffH
 }
 
 KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, DiffHunk* hunk,  bool zeroHeight )
-	: KompareListViewItem( parent, after ),
+	: KompareListViewItem( parent, after, Hunk ),
 	m_zeroHeight( zeroHeight ),
 	m_hunk( hunk )
 {

@@ -144,10 +144,10 @@ public:
 class KompareListViewItem : public QTreeWidgetItem
 {
 public:
-	KompareListViewItem( KompareListView* parent );
-	KompareListViewItem( KompareListView* parent, KompareListViewItem* after );
-	KompareListViewItem( KompareListViewItem* parent );
-	KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* after );
+	KompareListViewItem( KompareListView* parent, int type );
+	KompareListViewItem( KompareListView* parent, KompareListViewItem* after, int type );
+	KompareListViewItem( KompareListViewItem* parent, int type );
+	KompareListViewItem( KompareListViewItem* parent, KompareListViewItem* after, int type );
 
 	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column ) = 0;
 
@@ -160,11 +160,10 @@ public:
 	int scrollId() const { return m_scrollId; };
 
 	virtual int maxHeight() = 0;
-	virtual int rtti(void) const = 0;
 
 	KompareListView* kompareListView() const;
 
-	enum ListViewItemType { Diff = 1001, Container = 1002, Line = 1003, Blank = 1004, Hunk = 1005 };
+	enum ListViewItemType { Diff = QTreeWidgetItem::UserType + 1, Container = QTreeWidgetItem::UserType + 2, Line = QTreeWidgetItem::UserType + 3, Blank = QTreeWidgetItem::UserType + 4, Hunk = QTreeWidgetItem::UserType + 5 };
 
 private:
 	int     m_scrollId;
@@ -185,7 +184,6 @@ public:
 	Diff2::Difference* difference() { return m_difference; };
 
 	virtual int maxHeight();
-	virtual int rtti(void) const { return Diff; };
 
 	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column );
 
@@ -209,7 +207,6 @@ public:
 	~KompareListViewLineContainerItem();
 
 	virtual int maxHeight() { return 0; }
-	virtual int rtti(void) const { return Container; };
 
 	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column );
 
@@ -230,10 +227,10 @@ class KompareListViewLineItem : public KompareListViewItem
 {
 public:
 	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, Diff2::DifferenceString* text );
+	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, Diff2::DifferenceString* text, int type );
 	~KompareListViewLineItem();
 
 	virtual int maxHeight() { return 0; }
-	virtual int rtti(void) const { return Line; };
 
 	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column );
 
@@ -243,6 +240,7 @@ protected:
 	virtual void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
 
 private:
+	void init( int line, Diff2::DifferenceString* text );
 	void expandTabs(QString& text, int tabstop, int startPos = 0) const;
 
 private:
@@ -253,8 +251,6 @@ class KompareListViewBlankLineItem : public KompareListViewLineItem
 {
 public:
 	KompareListViewBlankLineItem( KompareListViewLineContainerItem* parent );
-
-	virtual int rtti(void) const { return Blank; };
 
 protected:
 	virtual void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
@@ -270,7 +266,6 @@ public:
 	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column );
 
 	virtual int maxHeight();
-	virtual int rtti(void) const { return Hunk; };
 
 private:
 	bool             m_zeroHeight;

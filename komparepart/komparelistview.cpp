@@ -951,16 +951,26 @@ int KompareListViewHunkItem::maxHeight()
 
 void KompareListViewHunkItem::paintCell( QPainter* p, const QStyleOptionViewItem& option, int column )
 {
-	int x = option.rect.left();
-	int y = option.rect.top() - paintOffset();
-	int width = option.rect.width();
-	Qt::Alignment align = option.displayAlignment;
+	if( m_zeroHeight ) {
+		// We have to paint the item which shines through or we'll end up with glitches.
+		KompareListViewItem* nextItem = (KompareListViewItem*)kompareListView()->itemBelow(this);
+		if( nextItem ) {
+			QStyleOptionViewItemV4 changedOption = option;
+			changedOption.rect.translate( 0, height() );
+			nextItem->paintCell( p, changedOption, column );
+		}
+	} else {
+		int x = option.rect.left();
+		int y = option.rect.top() - paintOffset();
+		int width = option.rect.width();
+		Qt::Alignment align = option.displayAlignment;
 
-	p->fillRect( x, y, width, paintHeight(), QColor( Qt::lightGray ) ); // Hunk headers should be lightgray 
-	p->setPen( QColor( Qt::black ) ); // Text color in hunk should be black
-	if( column == COL_MAIN ) {
-		p->drawText( x + ITEM_MARGIN, y, width - ITEM_MARGIN, paintHeight(),
-		             align, m_hunk->function() );
+		p->fillRect( x, y, width, paintHeight(), QColor( Qt::lightGray ) ); // Hunk headers should be lightgray 
+		p->setPen( QColor( Qt::black ) ); // Text color in hunk should be black
+		if( column == COL_MAIN ) {
+			p->drawText( x + ITEM_MARGIN, y, width - ITEM_MARGIN, paintHeight(),
+			             align, m_hunk->function() );
+	}
 	}
 }
 

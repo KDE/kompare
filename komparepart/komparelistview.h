@@ -28,7 +28,7 @@
 #include <QMouseEvent>
 #include <QFrame>
 #include <QTreeWidget>
-#include <QItemDelegate>
+#include <QStyledItemDelegate>
 
 namespace Diff2 {
 class DiffModel;
@@ -130,7 +130,7 @@ private:
 	QVBoxLayout          m_layout;
 };
 
-class KompareListViewItemDelegate : public QItemDelegate
+class KompareListViewItemDelegate : public QStyledItemDelegate
 {
 	Q_OBJECT
 

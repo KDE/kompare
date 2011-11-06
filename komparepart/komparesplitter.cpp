@@ -364,7 +364,7 @@ bool KompareSplitter::needHScrollBar()
 int KompareSplitter::minHScrollId()
 {
 	// hardcode an offset to hide the tree controls
-	return 10;
+	return 6;
 }
 
 int KompareSplitter::maxHScrollId()

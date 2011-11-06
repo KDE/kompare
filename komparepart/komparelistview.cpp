@@ -494,7 +494,7 @@ void KompareListView::resizeEvent( QResizeEvent* e )
 }
 
 KompareListViewItemDelegate::KompareListViewItemDelegate( QObject* parent )
-	: QItemDelegate( parent )
+	: QStyledItemDelegate( parent )
 {
 }
 
@@ -515,7 +515,7 @@ void KompareListViewItemDelegate::paint( QPainter* painter, const QStyleOptionVi
 QSize KompareListViewItemDelegate::sizeHint( const QStyleOptionViewItem& option, const QModelIndex& index ) const
 {
 	KompareListViewItem* item = static_cast<KompareListViewItem*>( static_cast<KompareListView*>( parent() )->itemFromIndex( index ) );
-	QSize hint = QItemDelegate::sizeHint( option, index );
+	QSize hint = QStyledItemDelegate::sizeHint( option, index );
 	return QSize( hint.width() + ITEM_MARGIN, item->height() );
 }
 

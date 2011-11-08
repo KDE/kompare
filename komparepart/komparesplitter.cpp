@@ -306,7 +306,7 @@ int KompareSplitter::pageSize()
 {
 	if(widget(0)) {
 		KompareListView *view = listView(0);
-		return view->visibleHeight() - QStyle::PM_ScrollBarExtent;
+		return view->visibleHeight() - view->style()->pixelMetric( QStyle::PM_ScrollBarExtent );
 	}
 	return 1;
 }

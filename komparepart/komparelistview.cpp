@@ -19,6 +19,7 @@
 
 #include "komparelistview.h"
 
+#include <QtGui/QStyle>
 #include <QtGui/QPainter>
 #include <QtCore/QRegExp>
 #include <QtCore/QTimer>
@@ -225,7 +226,7 @@ int KompareListView::maxScrollId()
 
 int KompareListView::contentsHeight()
 {
-	return verticalScrollBar()->maximum() + viewport()->height();
+	return verticalScrollBar()->maximum() + viewport()->height() - style()->pixelMetric( QStyle::PM_ScrollBarExtent );
 }
 
 int KompareListView::contentsWidth()

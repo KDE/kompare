@@ -642,8 +642,6 @@ KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, Kompa
 KompareListViewDiffItem::~KompareListViewDiffItem()
 {
 	m_difference = 0;
-	delete m_sourceItem;
-	delete m_destItem;
 }
 
 void KompareListViewDiffItem::init()
@@ -696,14 +694,12 @@ KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListV
 	}
 
 	for( int i = 0; i < lines; i++, line++ ) {
-		m_lineItemList.append(new KompareListViewLineItem( this, line, lineAt( i ) ) );
+		new KompareListViewLineItem( this, line, lineAt( i ) );
 	}
 }
 
 KompareListViewLineContainerItem::~KompareListViewLineContainerItem()
 {
-	delete m_blankLineItem;
-	qDeleteAll( m_lineItemList );
 }
 
 KompareListViewDiffItem* KompareListViewLineContainerItem::diffItemParent() const

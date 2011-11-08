@@ -215,7 +215,6 @@ private:
 	Diff2::DifferenceString* lineAt( int i ) const;
 
 private:
-	QList<KompareListViewLineItem *> m_lineItemList;
 	KompareListViewBlankLineItem* m_blankLineItem;
 	bool m_isSource;
 };

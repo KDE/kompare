@@ -57,7 +57,7 @@ namespace Kompare
 		ComparingStringFile, // Compare a source string with a destination file
 		ComparingDirs,       // compareDirs
 		ShowingDiff,         // openDiff
-		BlendingDir,         // openDirAnfDiff
+		BlendingDir,         // openDirAndDiff
 		BlendingFile,        // openFileAndDiff
 		UnknownMode          // Used to initialize the Infoi struct
 	};

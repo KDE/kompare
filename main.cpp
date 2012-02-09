@@ -4,7 +4,7 @@
         begin                   : Sun Mar 4 2001
         Copyright 2001-2005,2009 Otto Bruggeman <bruggie@gmail.com>
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
-        Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2007-2012 Kevin Kofler   <kevin.kofler@chello.at>
 ****************************************************************************/
 
 /***************************************************************************
@@ -45,7 +45,7 @@ static const char description[] =
 /**
  * Version number.
  */
-static const char version[] = "4.1.0";
+static const char version[] = "4.1.1";
 
 /**
  * Setting up the KAboutData structure.
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "kompare", 0, ki18n("Kompare"), version, ki18n(description),
 	                      KAboutData::License_GPL,
-	                      ki18n("(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2011 Kevin Kofler") );
+	                      ki18n("(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler") );
 	aboutData.addAuthor( ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org" );
 	aboutData.addAuthor( ki18n("Otto Bruggeman"), ki18n("Author"), "bruggie@gmail.com" );
 	aboutData.addAuthor( ki18n("Jeff Snyder"), ki18n("Developer"), "jeff@caffeinated.me.uk" );

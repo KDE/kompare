@@ -894,7 +894,7 @@ void KompareListViewLineItem::expandTabs(QString& text, int tabstop, int startPo
 {
 	int index;
 	while((index = text.indexOf(QChar(9)))!= -1)
-		text.replace(index, 1, QString(tabstop-((startPos+index)%4),' '));
+		text.replace(index, 1, QString(tabstop-((startPos+index)%tabstop),' '));
 }
 
 KompareListViewDiffItem* KompareListViewLineItem::diffItemParent() const

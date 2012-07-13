@@ -5,6 +5,7 @@
     Copyright 2001-2005,2009 Otto Bruggeman <otto.bruggeman@home.nl>
     Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
     Copyright 2007-2010 Kevin Kofler   <kevin.kofler@chello.at>
+    Copyright 2012      Jean-Nicolas Artaud <jeannicolasartaud@gmail.com>
  ***************************************************************************/
 
 /***************************************************************************
@@ -604,6 +605,25 @@ bool KompareModelList::openDiff( const QString& diffFile )
 
 	emit status( Kompare::FinishedParsing );
 
+	return true;
+}
+
+bool KompareModelList::parseAndOpenDiff(const QString& diff)
+{
+	clear(); // Clear the current models
+
+	emit status( Kompare::Parsing );
+
+	if ( parseDiffOutput( diff ) != 0 )
+	{
+		emit error( i18n( "Could not parse diff output." ) );
+		return false;
+	}
+
+	updateModelListActions();
+	show();
+
+	emit status( Kompare::FinishedParsing );
 	return true;
 }
 

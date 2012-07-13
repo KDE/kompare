@@ -6,6 +6,7 @@
         Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
         Copyright 2004      Jeff Snyder    <jeff@caffeinated.me.uk>
         Copyright 2007-2011 Kevin Kofler   <kevin.kofler@chello.at>
+        Copyright 2012     Jean-Nicolas Artaud <jeannicolasartaud@gmail.com>
 ****************************************************************************/
 
 /***************************************************************************
@@ -236,10 +237,9 @@ bool KomparePart::openDiff( const QString& diffOutput )
 
 	emit kompareInfo( &m_info );
 
-	if ( m_modelList->parseDiffOutput( diffOutput ) == 0 )
+	if ( m_modelList->parseAndOpenDiff( diffOutput ) == 0 )
 	{
 		value = true;
-		m_modelList->show();
 		updateActions();
 		updateCaption();
 		updateStatus();

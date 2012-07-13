@@ -5,6 +5,7 @@
     Copyright 2001-2003 John Firebaugh <jfirebaugh@kde.org>
     Copyright 2001-2005,2009 Otto Bruggeman <bruggie@gmail.com>
     Copyright 2007-2008 Kevin Kofler   <kevin.kofler@chello.at>
+    Copyright 2012      Jean-Nicolas Artaud <jeannicolasartaud@gmail.com>
  ***************************************************************************/
 
 /***************************************************************************
@@ -69,6 +70,9 @@ public:
 
 	// This parses the difflines and creates new models
 	int parseDiffOutput( const QString& diff );
+
+	// This open the difflines after parsing them
+	bool parseAndOpenDiff( const QString& diff );
 
 	// Call this to emit the signals to the rest of the "world" to show the diff
 	void show();

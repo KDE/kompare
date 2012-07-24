@@ -45,7 +45,7 @@ static const char description[] =
 /**
  * Version number.
  */
-static const char version[] = "4.1.1";
+static const char version[] = "4.1.2";
 
 /**
  * Setting up the KAboutData structure.

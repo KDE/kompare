@@ -7,7 +7,7 @@
    <!ENTITY % English "INCLUDE">
 ]>
 
-<book lang="&language;">
+<book id="kompare" lang="&language;">
 
 <bookinfo>
  <title>The &kompare; Handbook</title>

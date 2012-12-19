@@ -1,15 +1,13 @@
+cmake_minimum_required(VERSION 2.6)
 project(kompare)
 
-# Allow for standalone build outside of KDE's kdesdk module
-if ("${CMAKE_CURRENT_SOURCE_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
-    cmake_minimum_required(VERSION 2.6)
-    # search packages used by KDE
-    find_package(KDE4 REQUIRED)
-    include(KDE4Defaults)
-    add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-    include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES})
-endif()
+# search packages used by KDE
+find_package(KDE4 REQUIRED)
+include(KDE4Defaults)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES})
 
+add_subdirectory( doc )
 add_subdirectory( interfaces )
 add_subdirectory( libdiff2 )
 add_subdirectory( libdialogpages )

@@ -453,7 +453,7 @@ void KChangeLVI::setDifferenceText()
 		// Shouldn't this simply be diff->sourceLineCount() ?
 		// because you change the _number of lines_ lines in source, not in dest
 		if( m_difference->applied() )
-			text = i18np( "Applied: Changes made to %1 line undone", "Applied: Changes made to  %1 lines undone",
+			text = i18np( "Applied: Changes made to %1 line undone", "Applied: Changes made to %1 lines undone",
 			             m_difference->sourceLineCount() );
 		else
 			text = i18np( "Changed %1 line", "Changed %1 lines",

@@ -5,18 +5,18 @@ project(kompare)
 find_package(KDE4 REQUIRED)
 include(KDE4Defaults)
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES})
+
+find_package(LibKompareDiff2 REQUIRED)
+include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES} ${LIBKOMPAREDIFF2_INCLUDE_DIR})
 
 add_subdirectory( doc )
 add_subdirectory( interfaces )
-add_subdirectory( libdiff2 )
 add_subdirectory( libdialogpages )
 add_subdirectory( komparenavtreepart )
 add_subdirectory( komparepart )
 add_subdirectory( pics )
 
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/komparepart
-                     ${CMAKE_CURRENT_SOURCE_DIR}/libdiff2
                      ${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages
                      ${CMAKE_CURRENT_SOURCE_DIR}/interfaces
                      ${CMAKE_CURRENT_SOURCE_DIR}/komparenavtreepart

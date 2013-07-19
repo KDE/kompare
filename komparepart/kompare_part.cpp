@@ -81,8 +81,12 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QVariant
 	m_splitter = m_view->splitter();
 
 	// This creates the "Model creator" and connects the signals and slots
-	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_splitter, this, "komparemodellist" );
+	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_splitter, this, "komparemodellist" , KParts::ReadWritePart::isReadWrite());
 
+	Q_FOREACH(QAction* action, m_modelList->actionCollection()->actions())
+	{
+		actionCollection()->addAction(action->objectName(), action);
+	}
 	connect( m_modelList, SIGNAL(status( Kompare::Status )),
 	         this, SLOT(slotSetStatus( Kompare::Status )) );
 	connect( m_modelList, SIGNAL(setStatusBarModelInfo( int, int, int, int, int )),

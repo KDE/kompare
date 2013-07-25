@@ -1,5 +1,5 @@
 
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../libdialogpages ${CMAKE_CURRENT_SOURCE_DIR}/../libdiff2 ${CMAKE_CURRENT_SOURCE_DIR}/../interfaces  )
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../libdialogpages ${CMAKE_CURRENT_SOURCE_DIR}/../interfaces  )
 
 
 ########### next target ###############
@@ -42,7 +42,6 @@ install( FILES komparepartui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kompare )
 #
 #INCLUDES = \
 #	-I$(top_srcdir)/kompare/libdialogpages \
-#	-I$(top_srcdir)/kompare/libdiff2 \
 #	-I$(top_srcdir)/kompare/interfaces \
 #	$(all_includes)
 #
@@ -74,7 +73,6 @@ install( FILES komparepartui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kompare )
 #libkomparepart_la_LDFLAGS = $(KDE_PLUGIN) $(all_libraries)
 #libkomparepart_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE) \
 #	../libdialogpages/libdialogpages.la \
-#	../libdiff2/libdiff2.la \
 #	../interfaces/libkompareinterface.la
 #
 ## this is where the desktop file will go

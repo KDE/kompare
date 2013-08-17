@@ -21,7 +21,7 @@ kde4_add_plugin(komparepart ${komparepart_PART_SRCS})
 
 
 
-target_link_libraries(komparepart  ${KDE4_KPARTS_LIBS} komparedialogpages komparediff2 kompareinterface )
+target_link_libraries(komparepart  ${KDE4_KPARTS_LIBS} komparedialogpages ${LIBKOMPAREDIFF2_LIBRARIES} kompareinterface )
 
 install(TARGETS komparepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

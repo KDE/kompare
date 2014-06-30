@@ -21,8 +21,9 @@
 #include <QtGui/QColor>
 #include <QtGui/QWidget>
 
-#include "difference.h"
-#include "settingsbase.h"
+#include <difference.h>
+#include <settingsbase.h>
+
 #include "dialogpagesexport.h"
 
 class DIALOGPAGES_EXPORT ViewSettings : public SettingsBase

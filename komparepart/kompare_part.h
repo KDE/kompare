@@ -23,8 +23,7 @@
 #include <kparts/factory.h>
 #include <kparts/part.h>
 #include <QVariantList>
-
-#include "kompare.h"
+#include <kompare.h>
 
 #include "kompareinterface.h"
 

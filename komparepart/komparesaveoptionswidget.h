@@ -19,9 +19,9 @@
 #define KOMPARESAVEOPTIONSWIDGET_H
 
 #include <kurl.h>
+#include <kompare.h>
 
 #include "komparesaveoptionsbase.h"
-#include "kompare.h"
 
 class DiffSettings;
 class QButtonGroup;

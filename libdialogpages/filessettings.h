@@ -20,7 +20,8 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
-#include "settingsbase.h"
+#include <settingsbase.h>
+
 #include "dialogpagesexport.h"
 
 class KConfig;

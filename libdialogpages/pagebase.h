@@ -22,8 +22,7 @@
 #include <QtCore/QSize>
 
 #include <kvbox.h>
-
-#include "kompare.h"
+#include <kompare.h>
 
 class PageBase : public KVBox
 {

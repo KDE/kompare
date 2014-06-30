@@ -21,8 +21,7 @@
 
 #include <kapplication.h>
 #include <kparts/mainwindow.h>
-
-#include "kompare.h"
+#include <kompare.h>
 
 class KompareInterface;
 namespace KParts {

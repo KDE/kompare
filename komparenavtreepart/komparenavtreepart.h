@@ -26,9 +26,8 @@
 #include <QtGui/QTreeWidgetItem>
 
 #include <kparts/part.h>
-
-#include "kompare.h"
-#include "diffmodellist.h"
+#include <kompare.h>
+#include <diffmodellist.h>
 
 namespace Diff2 {
 class DiffModel;

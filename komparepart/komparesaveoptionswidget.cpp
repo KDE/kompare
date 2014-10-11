@@ -18,16 +18,15 @@
 
 #include "komparesaveoptionswidget.h"
 
-#include <QtGui/QCheckBox>
-#include <QtGui/QLabel>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSpinBox>
+#include <QCheckBox>
+#include <QLabel>
+#include <QRadioButton>
+#include <QSpinBox>
 
-#include <kdebug.h>
 #include <kfiledialog.h>
 #include <kurlrequester.h>
 
-#include "diffsettings.h"
+#include <diffsettings.h>
 
 KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString destination,
            DiffSettings * settings, QWidget * parent )
@@ -175,10 +174,11 @@ void KompareSaveOptionsWidget::updateCommandLine()
 		cmdLine += " -" + options;
 	}
 
+	QDir dir( directory() );
 	cmdLine += " -- ";
-	cmdLine += constructRelativePath( m_directoryRequester->url().pathOrUrl(), m_source );
+	cmdLine += dir.relativeFilePath( m_source );
 	cmdLine += ' ';
-	cmdLine += constructRelativePath( m_directoryRequester->url().pathOrUrl(), m_destination );
+	cmdLine += dir.relativeFilePath( m_destination );
 
 	m_CommandLineLabel->setText( cmdLine );
 }

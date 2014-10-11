@@ -18,9 +18,9 @@
 #ifndef _KOMPARESPLITTER_H_
 #define _KOMPARESPLITTER_H_
 
-#include <QtGui/QSplitter>
+#include <QSplitter>
 
-#include "komparemodellist.h"
+#include <komparemodellist.h>
 
 class QSplitterHandle;
 class QTimer;

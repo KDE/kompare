@@ -21,19 +21,20 @@
 #define KOMPAREPART_H
 
 #include <kparts/factory.h>
-#include <kparts/part.h>
+#include <kparts/readwritepart.h>
 #include <QVariantList>
+#include <QLoggingCategory>
 #include <kompare.h>
 
 #include "kompareinterface.h"
 
+class QAction;
 class QPrinter;
 class QWidget;
 
 class KTemporaryFile;
 class KUrl;
-class KAboutData;
-class KAction;
+class K4AboutData;
 
 namespace Diff2 {
 class Difference;
@@ -45,6 +46,8 @@ class DiffSettings;
 class ViewSettings;
 class KompareSplitter;
 class KompareView;
+
+Q_DECLARE_LOGGING_CATEGORY(KOMPAREPART)
 
 /**
  * This is a "Part".  It does all the real work in a KPart
@@ -84,7 +87,7 @@ public:
 	// Do we really want to expose this ???
 	const Diff2::KompareModelList* model() const { return m_modelList; };
 
-	static KAboutData *createAboutData();
+	static K4AboutData *createAboutData();
 
 public:
 	// Reimplemented from the KompareInterface
@@ -104,10 +107,10 @@ public:
 
 	/** Compare, with diff, source with destination */
 	virtual void compare( const KUrl& sourceFile, const KUrl& destinationFile );
-	
+
 	/** Compare a Source file to a custom Destination string */
 	virtual void compareFileString( const KUrl & sourceFile, const QString & destination);
-	
+
 	/** Compare a custom Source string to a Destination file */
 	virtual void compareStringFile( const QString & source, const KUrl & destinationFile);
 
@@ -209,7 +212,7 @@ private:
 	void setupActions();
 	bool exists( const QString& url );
 	bool isDirectory( const KUrl& url );
-	// FIXME (like in cpp file not urgent) Replace with enum, cant find a proper 
+	// FIXME (like in cpp file not urgent) Replace with enum, cant find a proper
 	// name now but it is private anyway so can not be used from outside
 	bool fetchURL( const KUrl& url, bool isSource );
 
@@ -225,13 +228,13 @@ private:
 	KompareView*             m_view;
 	KompareSplitter*         m_splitter;
 
-	KAction*                 m_saveAll;
-	KAction*                 m_saveDiff;
-	KAction*                 m_swap;
-	KAction*                 m_diffStats;
-	KAction*                 m_diffRefresh;
-	KAction*                 m_print;
-	KAction*                 m_printPreview;
+	QAction*                 m_saveAll;
+	QAction*                 m_saveDiff;
+	QAction*                 m_swap;
+	QAction*                 m_diffStats;
+	QAction*                 m_diffRefresh;
+	QAction*                 m_print;
+	QAction*                 m_printPreview;
 
 	KTemporaryFile*          m_tempDiff;
 

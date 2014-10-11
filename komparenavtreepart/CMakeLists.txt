@@ -1,5 +1,5 @@
 
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../libdiff2 ${CMAKE_CURRENT_SOURCE_DIR}/../komparepart  )
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../komparepart)
 
 
 ########### next target ###############
@@ -7,11 +7,16 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../libdiff2 ${CMAKE_CURRENT_SOU
 set(komparenavtreepart_PART_SRCS komparenavtreepart.cpp )
 
 
-kde4_add_plugin(komparenavtreepart ${komparenavtreepart_PART_SRCS})
+add_library(komparenavtreepart MODULE ${komparenavtreepart_PART_SRCS})
 
 
 
-target_link_libraries(komparenavtreepart  ${KDE4_KPARTS_LIBS} ${LIBKOMPAREDIFF2_LIBRARIES} )
+target_link_libraries(komparenavtreepart
+    Qt5::Widgets
+    KF5::KDELibs4Support
+    KF5::Parts
+    ${LIBKOMPAREDIFF2_LIBRARIES}
+)
 
 install(TARGETS komparenavtreepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

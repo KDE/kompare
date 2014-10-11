@@ -6,7 +6,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -20,8 +20,8 @@
 #ifndef _KOMPARE_INTERFACE_H
 #define _KOMPARE_INTERFACE_H
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QString>
+#include <QStringList>
 #include <kdemacros.h>
 
 class KConfig;
@@ -67,12 +67,12 @@ public:
 	 * appropriate method(s)
 	 */
 	virtual void compare( const KUrl& sourceFile, const KUrl& destinationFile ) = 0;
-	
+
 	/**
 	 * Compare a Source file to a custom Destination string
 	 */
 	virtual void compareFileString( const KUrl & sourceFile, const QString & destination) = 0;
-	
+
 	/**
 	 * Compare a custom Source string to a Destination file
 	 */

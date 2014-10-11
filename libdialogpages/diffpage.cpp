@@ -17,15 +17,15 @@
 
 #include "diffpage.h"
 
-#include <QtGui/QCheckBox>
+#include <QCheckBox>
 #include <QGroupBox>
-#include <QtGui/QLabel>
-#include <QtGui/QLayout>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSpinBox>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QToolTip>
+#include <QLabel>
+#include <QLayout>
+#include <QRadioButton>
+#include <QSpinBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QToolTip>
 #include <QButtonGroup>
 
 #include <kbuttongroup.h>
@@ -33,18 +33,19 @@
 #include <kcombobox.h>
 #include <kdialog.h>
 #include <keditlistwidget.h>
+#include <klibloader.h>
 #include <klineedit.h>
 #include <klocale.h>
+#include <kurl.h>
 #include <kurlcombobox.h>
 #include <kurlrequester.h>
 #include <kservicetypetrader.h>
 #include <ktabwidget.h>
 
-#include <kparts/componentfactory.h>
 #include <kregexpeditorinterface.h>
 #include <kglobal.h>
 
-#include "diffsettings.h"
+#include <diffsettings.h>
 
 DiffPage::DiffPage() : PageBase(), m_ignoreRegExpDialog( 0 )
 {
@@ -110,7 +111,7 @@ void DiffPage::restore()
 
 void DiffPage::apply()
 {
-	m_settings->m_diffProgram                    = m_diffURLRequester->url().pathOrUrl();
+	m_settings->m_diffProgram                    = m_diffURLRequester->url().toLocalFile();
 
 	m_settings->m_newFiles                       = m_newFilesCheckBox->isChecked();
 	m_settings->m_largeFiles                     = m_largerCheckBox->isChecked();

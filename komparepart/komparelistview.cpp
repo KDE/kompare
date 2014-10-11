@@ -19,24 +19,24 @@
 
 #include "komparelistview.h"
 
-#include <QtGui/QStyle>
-#include <QtGui/QPainter>
+#include <QLoggingCategory>
+#include <QStyle>
+#include <QPainter>
 #include <QtCore/QRegExp>
 #include <QtCore/QTimer>
-#include <QtGui/QResizeEvent>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QWheelEvent>
-#include <QtGui/QScrollBar>
+#include <QResizeEvent>
+#include <QMouseEvent>
+#include <QWheelEvent>
+#include <QScrollBar>
 
-#include <kdebug.h>
 #include <kglobal.h>
 #include <kglobalsettings.h>
 
-#include "diffmodel.h"
-#include "diffhunk.h"
-#include "difference.h"
+#include <diffmodel.h>
+#include <diffhunk.h>
+#include <difference.h>
 #include "viewsettings.h"
-#include "komparemodellist.h"
+#include <komparemodellist.h>
 #include "komparesplitter.h"
 
 #define COL_LINE_NO      0
@@ -48,6 +48,8 @@
 #define ITEM_MARGIN 3
 
 using namespace Diff2;
+
+Q_DECLARE_LOGGING_CATEGORY(KOMPAREPART)
 
 KompareListViewFrame::KompareListViewFrame( bool isSource,
                                             ViewSettings* settings,
@@ -144,7 +146,7 @@ int KompareListView::firstVisibleDifference()
 
 	if( item == 0 )
 	{
-		kDebug(8104) << "no item at viewport coordinates (0,0)" << endl;
+		qCDebug(KOMPAREPART) << "no item at viewport coordinates (0,0)" ;
 	}
 
 	while( item ) {
@@ -166,7 +168,7 @@ int KompareListView::lastVisibleDifference()
 
 	if( item == 0 )
 	{
-		kDebug(8104) << "no item at viewport coordinates (0," << visibleHeight() - 1 << ")" << endl;
+		qCDebug(KOMPAREPART) << "no item at viewport coordinates (0," << visibleHeight() - 1 << ")" ;
 		// find last item
 		item = itemAt( QPoint( 0, 0 ) );
 		if( item ) {
@@ -220,7 +222,7 @@ int KompareListView::maxScrollId()
 	if(!n) return 0;
 	KompareListViewItem* item = (KompareListViewItem*)topLevelItem( n-1 );
 	int maxId = item->scrollId() + item->maxHeight() - minScrollId();
-	kDebug(8104) << "Max ID = " << maxId << endl;
+	qCDebug(KOMPAREPART) << "Max ID = " << maxId ;
 	return maxId;
 }
 
@@ -266,13 +268,13 @@ void KompareListView::setNextPaintOffset(int offset)
 
 void KompareListView::setXOffset( int x )
 {
-	kDebug(8104) << "SetXOffset : Scroll to x position: " << x << endl;
+	qCDebug(KOMPAREPART) << "SetXOffset : Scroll to x position: " << x ;
 	horizontalScrollBar()->setValue( x );
 }
 
 void KompareListView::scrollToId( int id )
 {
-//	kDebug(8104) << "ScrollToID : Scroll to id : " << id << endl;
+//	qCDebug(KOMPAREPART) << "ScrollToID : Scroll to id : " << id ;
 	int n = topLevelItemCount();
 	KompareListViewItem* item = 0;
 	if( n ) {
@@ -291,16 +293,16 @@ void KompareListView::scrollToId( int id )
 		int height = rect.height();
 		double r = (double)( id - itemId ) / (double)item->maxHeight();
 		int y = pos + (int)( r * (double)height ) - minScrollId();
-//		kDebug(8104) << "scrollToID: " << endl;
-//		kDebug(8104) << "            id = " << id << endl;
-//		kDebug(8104) << "           pos = " << pos << endl;
-//		kDebug(8104) << "        itemId = " << itemId << endl;
-//		kDebug(8104) << "             r = " << r << endl;
-//		kDebug(8104) << "        height = " << height << endl;
-//		kDebug(8104) << "         minID = " << minScrollId() << endl;
-//		kDebug(8104) << "             y = " << y << endl;
-//		kDebug(8104) << "contentsHeight = " << contentsHeight() << endl;
-//		kDebug(8104) << "         c - y = " << contentsHeight() - y << endl;
+//		qCDebug(KOMPAREPART) << "scrollToID: " ;
+//		qCDebug(KOMPAREPART) << "            id = " << id ;
+//		qCDebug(KOMPAREPART) << "           pos = " << pos ;
+//		qCDebug(KOMPAREPART) << "        itemId = " << itemId ;
+//		qCDebug(KOMPAREPART) << "             r = " << r ;
+//		qCDebug(KOMPAREPART) << "        height = " << height ;
+//		qCDebug(KOMPAREPART) << "         minID = " << minScrollId() ;
+//		qCDebug(KOMPAREPART) << "             y = " << y ;
+//		qCDebug(KOMPAREPART) << "contentsHeight = " << contentsHeight() ;
+//		qCDebug(KOMPAREPART) << "         c - y = " << contentsHeight() - y ;
 		verticalScrollBar()->setValue( y );
 	}
 
@@ -316,7 +318,7 @@ int KompareListView::scrollId()
 
 void KompareListView::setSelectedDifference( const Difference* diff, bool scroll )
 {
-	kDebug(8104) << "KompareListView::setSelectedDifference(" << diff << ", " << scroll << ")" << endl;
+	qCDebug(KOMPAREPART) << "KompareListView::setSelectedDifference(" << diff << ", " << scroll << ")" ;
 
 	// When something other than a click causes this function to be called,
 	// it'll only get called once, and all is simple.
@@ -336,7 +338,7 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 
 	KompareListViewItem* item = m_itemDict[ diff ];
 	if( !item ) {
-		kDebug(8104) << "KompareListView::slotSetSelection(): couldn't find our selection!" << endl;
+		qCDebug(KOMPAREPART) << "KompareListView::slotSetSelection(): couldn't find our selection!" ;
 		return;
 	}
 
@@ -354,14 +356,14 @@ void KompareListView::setSelectedDifference( const Difference* diff, bool scroll
 
 void KompareListView::slotSetSelection( const Difference* diff )
 {
-	kDebug(8104) << "KompareListView::slotSetSelection( const Difference* diff )" << endl;
+	qCDebug(KOMPAREPART) << "KompareListView::slotSetSelection( const Difference* diff )" ;
 
 	setSelectedDifference( diff, true );
 }
 
 void KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )
 {
-	kDebug(8104) << "KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )" << endl;
+	qCDebug(KOMPAREPART) << "KompareListView::slotSetSelection( const DiffModel* model, const Difference* diff )" ;
 
 	if( m_selectedModel && m_selectedModel == model ) {
 		slotSetSelection( diff );
@@ -453,17 +455,17 @@ void KompareListView::mouseDoubleClickEvent( QMouseEvent* e )
 
 void KompareListView::renumberLines( void )
 {
-//	kDebug( 8104 ) << "Begin" << endl;
+//	qCDebug(KOMPAREPART) << "Begin" ;
 	unsigned int newLineNo = 1;
 	if( !topLevelItemCount() ) return;
 	KompareListViewItem* item = (KompareListViewItem*)topLevelItem( 0 );
 	while( item ) {
-//		kDebug( 8104 ) << "type: " << item->type() << endl;
-		if ( item->type() != KompareListViewItem::Container 
-		     && item->type() != KompareListViewItem::Blank 
+//		qCDebug(KOMPAREPART) << "type: " << item->type() ;
+		if ( item->type() != KompareListViewItem::Container
+		     && item->type() != KompareListViewItem::Blank
 		     && item->type() != KompareListViewItem::Hunk )
 		{
-//			kDebug( 8104 ) << QString::number( newLineNo ) << endl;
+//			qCDebug(KOMPAREPART) << QString::number( newLineNo ) ;
 			item->setText( COL_LINE_NO, QString::number( newLineNo++ ) );
 		}
 		item = (KompareListViewItem*)itemBelow( item );
@@ -543,7 +545,7 @@ KompareListViewItem::KompareListViewItem( KompareListView* parent, int type )
 	m_paintHeight( 0 ),
 	m_paintOffset( parent->nextPaintOffset() )
 {
-//	kDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
+//	qCDebug(KOMPAREPART) << "Created KompareListViewItem with scroll id " << m_scrollId ;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListViewItem* after, int type )
@@ -553,7 +555,7 @@ KompareListViewItem::KompareListViewItem( KompareListView* parent, KompareListVi
 	m_paintHeight( 0 ),
 	m_paintOffset( parent->nextPaintOffset() )
 {
-//	kDebug(8104) << "Created KompareListViewItem with scroll id " << m_scrollId << endl;
+//	qCDebug(KOMPAREPART) << "Created KompareListViewItem with scroll id " << m_scrollId ;
 }
 
 KompareListViewItem::KompareListViewItem( KompareListViewItem* parent, int type )
@@ -664,7 +666,7 @@ void KompareListViewDiffItem::setVisibility()
 
 void KompareListViewDiffItem::applyDifference( bool apply )
 {
-	kDebug(8104) << "KompareListViewDiffItem::applyDifference( " << apply << " )" << endl;
+	qCDebug(KOMPAREPART) << "KompareListViewDiffItem::applyDifference( " << apply << " )" ;
 	setVisibility();
 }
 
@@ -682,13 +684,13 @@ KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListV
 	m_blankLineItem( 0 ),
 	m_isSource( isSource )
 {
-//	kDebug(8104) << "isSource ? " << (isSource ? " Yes!" : " No!") << endl;
+//	qCDebug(KOMPAREPART) << "isSource ? " << (isSource ? " Yes!" : " No!") ;
 	setHeight( 0 );
 	setExpanded( true );
 
 	int lines = lineCount();
 	int line = lineNumber();
-//	kDebug(8104) << "LineNumber : " << lineNumber() << endl;
+//	qCDebug(KOMPAREPART) << "LineNumber : " << lineNumber() ;
 	if( lines == 0 ) {
 		m_blankLineItem = new KompareListViewBlankLineItem( this );
 		return;
@@ -833,9 +835,9 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 			{
 				m  = *markerIt;
 				textChunk = m_text->string().mid( prevValue, m->offset() - prevValue );
-//				kDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
-//				kDebug(8104) << "c->offset() = " << c->offset() << endl;
-//				kDebug(8104) << "prevValue   = " << prevValue << endl;
+//				qCDebug(KOMPAREPART) << "TextChunk   = \"" << textChunk << "\"" ;
+//				qCDebug(KOMPAREPART) << "c->offset() = " << c->offset() ;
+//				qCDebug(KOMPAREPART) << "prevValue   = " << prevValue ;
 				expandTabs(textChunk, kompareListView()->settings()->m_tabToNumberOfSpaces, charsDrawn);
 				charsDrawn += textChunk.length();
 				prevValue = m->offset();
@@ -868,7 +870,7 @@ void KompareListViewLineItem::paintText( QPainter* p, const QColor& bg, int colu
 			// Still have to draw some string without changes
 			textChunk = m_text->string().mid( prevValue, qMax( 1, m_text->string().length() - prevValue ) );
 			expandTabs(textChunk, kompareListView()->settings()->m_tabToNumberOfSpaces, charsDrawn);
-//			kDebug(8104) << "TextChunk   = \"" << textChunk << "\"" << endl;
+//			qCDebug(KOMPAREPART) << "TextChunk   = \"" << textChunk << "\"" ;
 			QFont font( p->font() );
 			font.setBold( false );
 			p->setFont( font );
@@ -962,7 +964,7 @@ void KompareListViewHunkItem::paintCell( QPainter* p, const QStyleOptionViewItem
 		int width = option.rect.width();
 		Qt::Alignment align = option.displayAlignment;
 
-		p->fillRect( x, y, width, paintHeight(), QColor( Qt::lightGray ) ); // Hunk headers should be lightgray 
+		p->fillRect( x, y, width, paintHeight(), QColor( Qt::lightGray ) ); // Hunk headers should be lightgray
 		p->setPen( QColor( Qt::black ) ); // Text color in hunk should be black
 		if( column == COL_MAIN ) {
 			p->drawText( x + ITEM_MARGIN, y, width - ITEM_MARGIN, paintHeight(),

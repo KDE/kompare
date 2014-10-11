@@ -15,13 +15,18 @@ set( komparepart_PART_SRCS
      kompareview.cpp )
 
 
-kde4_add_ui_files(komparepart_PART_SRCS komparesaveoptionsbase.ui )
+qt5_wrap_ui(komparepart_PART_SRCS komparesaveoptionsbase.ui )
 
-kde4_add_plugin(komparepart ${komparepart_PART_SRCS})
+add_library(komparepart MODULE ${komparepart_PART_SRCS})
 
 
 
-target_link_libraries(komparepart  ${KDE4_KPARTS_LIBS} komparedialogpages ${LIBKOMPAREDIFF2_LIBRARIES} kompareinterface )
+target_link_libraries(komparepart
+    komparedialogpages
+    ${LIBKOMPAREDIFF2_LIBRARIES}
+    kompareinterface
+    KF5::ConfigWidgets
+)
 
 install(TARGETS komparepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

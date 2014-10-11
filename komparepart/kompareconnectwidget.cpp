@@ -19,16 +19,15 @@
 
 #include "kompareconnectwidget.h"
 
-#include <QtGui/QApplication>
-#include <QtGui/QPainter>
-#include <QtGui/QPixmap>
-#include <QtGui/QStyle>
+#include <QApplication>
+#include <QPainter>
+#include <QPixmap>
+#include <QStyle>
 #include <QtCore/QTimer>
-#include <QtGui/QPaintEvent>
+#include <QPaintEvent>
 #include <QFrame>
-#include <QtGui/QMouseEvent>
-
-#include <kdebug.h>
+#include <QMouseEvent>
+#include <QDebug>
 
 #include "viewsettings.h"
 #include "komparelistview.h"
@@ -179,9 +178,9 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 
 		int first = firstL < 0 ? firstR : qMin( firstL, firstR );
 		int last = lastL < 0 ? lastR : qMax( lastL, lastR );
-//		kDebug(8106) << "    left: " << firstL << " - " << lastL << endl;
-//		kDebug(8106) << "   right: " << firstR << " - " << lastR << endl;
-//		kDebug(8106) << " drawing: " << first << " - " << last << endl;
+//		qCDebug(KOMPAREPART) << "    left: " << firstL << " - " << lastL ;
+//		qCDebug(KOMPAREPART) << "   right: " << firstR << " - " << lastR ;
+//		qCDebug(KOMPAREPART) << " drawing: " << first << " - " << last ;
 		if ( first >= 0 && last >= 0 && first <= last )
 		{
 			const DifferenceList* differences  = const_cast<DiffModel*>(m_selectedModel)->differences();

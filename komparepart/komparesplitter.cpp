@@ -19,24 +19,23 @@
 #include "komparesplitter.h"
 
 // qt
-#include <QtGui/QStyle>
+#include <QStyle>
 #include <QtCore/QString>
 #include <QtCore/QTimer>
-#include <QtGui/QScrollBar>
+#include <QScrollBar>
 #include <QtCore/QMap>
-#include <QtGui/QSplitter>
-#include <QtGui/QApplication>
-#include <QtGui/QPainter>
-#include <QtGui/QPixmap>
-#include <QtGui/QKeyEvent>
-#include <QtGui/QGridLayout>
-#include <QtGui/QResizeEvent>
+#include <QSplitter>
+#include <QApplication>
+#include <QPainter>
+#include <QPixmap>
+#include <QKeyEvent>
+#include <QGridLayout>
+#include <QResizeEvent>
 #include <QtCore/QChildEvent>
 #include <QtCore/QEvent>
-#include <QtGui/QWheelEvent>
+#include <QWheelEvent>
 
 // kde
-#include <kdebug.h>
 #include <kapplication.h>
 #include <kglobalsettings.h>
 
@@ -44,8 +43,8 @@
 #include "komparelistview.h"
 #include "viewsettings.h"
 #include "kompareconnectwidget.h"
-#include "diffmodel.h"
-#include "difference.h"
+#include <diffmodel.h>
+#include <difference.h>
 
 using namespace Diff2;
 
@@ -83,7 +82,7 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget *parent ) :
 	connect( this, SIGNAL(configChanged()), SLOT(slotConfigChanged()) );
 	connect( this, SIGNAL(configChanged()), SLOT(slotDelayedRepaintHandles()) );
 	connect( this, SIGNAL(configChanged()), SLOT(slotDelayedUpdateScrollBars()) );
-	
+
 	// scrolling
 	connect( m_vScroll, SIGNAL(valueChanged(int)), SLOT(slotScrollToId(int)) );
 	connect( m_vScroll, SIGNAL(sliderMoved(int)),  SLOT(slotScrollToId(int)) );
@@ -181,7 +180,7 @@ void KompareSplitter::slotUpdateScrollBars()
 		m_vScroll->show();
 
 		m_vScroll->blockSignals( true );
-		m_vScroll->setRange( minVScrollId(), 
+		m_vScroll->setRange( minVScrollId(),
 		                     maxVScrollId() );
 		m_vScroll->setValue( scrollId() );
 		m_vScroll->setSingleStep( m_scrollDistance );
@@ -287,7 +286,7 @@ void KompareSplitter::wheelEvent( QWheelEvent* e )
 /* FIXME: this should return/the scrollId() from the listview containing the
  * /base/ of the diff. but there's bigger issues with that atm.
  */
- 
+
 int KompareSplitter::scrollId()
 {
 	if(widget(0))

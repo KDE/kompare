@@ -18,8 +18,8 @@
 #ifndef VIEWSETTINGS_H
 #define VIEWSETTINGS_H
 
-#include <QtGui/QColor>
-#include <QtGui/QWidget>
+#include <QColor>
+#include <QWidget>
 
 #include <difference.h>
 #include <settingsbase.h>

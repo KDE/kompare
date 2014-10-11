@@ -18,14 +18,14 @@
 
 #include "viewpage.h"
 
-#include <QtGui/QCheckBox>
-#include <QtGui/QGroupBox>
-#include <QtGui/QLabel>
-#include <QtGui/QLayout>
-#include <QtGui/QSpinBox>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QGridLayout>
-#include <QtGui/QFontComboBox>
+#include <QCheckBox>
+#include <QGroupBox>
+#include <QLabel>
+#include <QLayout>
+#include <QSpinBox>
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QFontComboBox>
 
 #include <kapplication.h>
 #include <kcolorbutton.h>

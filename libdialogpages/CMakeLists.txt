@@ -10,11 +10,16 @@ set(dialogpages_PART_SRCS
 	viewpage.cpp )
 
 
-kde4_add_library(komparedialogpages SHARED ${dialogpages_PART_SRCS})
+add_library(komparedialogpages SHARED ${dialogpages_PART_SRCS})
 
 include_directories(${LIBKOMPAREDIFF2_INCLUDE_DIR})
 
-target_link_libraries(komparedialogpages  ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${LIBKOMPAREDIFF2_LIBRARIES})
+target_link_libraries(komparedialogpages
+    KF5::KDELibs4Support
+    KF5::Parts
+    KF5::WidgetsAddons
+    ${LIBKOMPAREDIFF2_LIBRARIES}
+)
 
 set_target_properties(komparedialogpages PROPERTIES VERSION ${GENERIC_LIB_VERSION}
 SOVERSION ${GENERIC_LIB_SOVERSION} )

@@ -21,6 +21,7 @@
 #include <QGroupBox>
 
 #include <kapplication.h>
+#include <kdialog.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -28,11 +29,13 @@
 #include <kurlrequester.h>
 
 #include "diffpage.h"
-#include "diffsettings.h"
+#include <diffsettings.h>
 #include "filespage.h"
 #include "filessettings.h"
 #include "viewpage.h"
 #include "viewsettings.h"
+
+Q_DECLARE_LOGGING_CATEGORY(KOMPARESHELL)
 
 KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WFlags flags )
         : KPageDialog( parent, flags )
@@ -42,7 +45,7 @@ KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WFlags flags )
 
 	m_filesPage = new FilesPage();
 	KPageWidgetItem *filesItem = addPage( m_filesPage, i18n( "Files" ) );
-	filesItem->setIcon( KIcon( "text-plain" ) );
+	filesItem->setIcon( QIcon::fromTheme( "text-plain" ) );
 	filesItem->setHeader( i18n( "Here you can enter the files you want to compare." ) );
 	m_filesSettings = new FilesSettings( this );
 	m_filesSettings->loadSettings( cfg.data() );
@@ -50,7 +53,7 @@ KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WFlags flags )
 
 	m_diffPage = new DiffPage();
 	KPageWidgetItem *diffItem = addPage( m_diffPage, i18n( "Diff" ) );
-	diffItem->setIcon( KIcon( "text-x-patch" ) );
+	diffItem->setIcon( QIcon::fromTheme( "text-x-patch" ) );
 	diffItem->setHeader( i18n( "Here you can change the options for comparing the files." ) );
 	m_diffSettings = new DiffSettings( this );
 	m_diffSettings->loadSettings( cfg.data() );
@@ -58,15 +61,13 @@ KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WFlags flags )
 
 	m_viewPage = new ViewPage();
 	KPageWidgetItem *viewItem = addPage( m_viewPage, i18n( "Appearance" ) );
-	viewItem->setIcon( KIcon( "preferences-desktop-theme" ) );
+	viewItem->setIcon( QIcon::fromTheme( "preferences-desktop-theme" ) );
 	viewItem->setHeader( i18n( "Here you can change the options for the view." ) );
 	m_viewSettings = new ViewSettings( this );
 	m_viewSettings->loadSettings( cfg.data() );
 	m_viewPage->setSettings( m_viewSettings );
 
 	adjustSize();
-
-	showButtonSeparator( true );
 
 	connect( m_filesPage->firstURLRequester(), SIGNAL( textChanged( const QString& ) ),
 	         this, SLOT( slotEnableOk() ) );
@@ -95,13 +96,13 @@ void KompareURLDialog::slotButtonClicked( int button )
 		return;
 	}
 	// BUG: 124121 File with filenames to be excluded does not exist so diff complains and no diffs are generated
-	kDebug(8102) << "Test to see if the file is an actual file that is given in the file with filenames to exclude field" << endl;
+	qCDebug(KOMPARESHELL) << "Test to see if the file is an actual file that is given in the file with filenames to exclude field" ;
 	if ( m_diffPage->m_excludeFileNameGroupBox->isChecked() )
 	{
-		kDebug(8102) << "Ok the checkbox is active..." << endl;
+		qCDebug(KOMPARESHELL) << "Ok the checkbox is active..." ;
 		if ( QFileInfo( m_diffPage->m_excludeFileURLComboBox->currentText() ).isDir() )
 		{
-			kDebug(8102) << "Don't enter directory names where filenames are expected..." << endl;
+			qCDebug(KOMPARESHELL) << "Don't enter directory names where filenames are expected..." ;
 			KMessageBox::sorry( this, i18n( "File used for excluding files cannot be found, please specify another file." ) );
 			reject();
 			return;
@@ -128,7 +129,7 @@ void KompareURLDialog::slotButtonClicked( int button )
 
 void KompareURLDialog::slotEnableOk()
 {
-	enableButtonOk( !m_filesPage->firstURLRequester()->url().isEmpty() &&
+	button(QDialogButtonBox::Ok)->setEnabled( !m_filesPage->firstURLRequester()->url().isEmpty() &&
 	                !m_filesPage->secondURLRequester()->url().isEmpty() );
 }
 

@@ -18,27 +18,29 @@
 #include "kompare_shell.h"
 
 #include <QtCore/QTextStream>
-#include <QtGui/QDockWidget>
+#include <QDockWidget>
+#include <QEventLoopLocker>
+#include <QFileDialog>
+#include <QMimeDatabase>
+#include <QPushButton>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
-#include <kdebug.h>
 #include <kedittoolbar.h>
 #include <kencodingfiledialog.h>
-#include <kiconloader.h>
+#include <kfile.h>
 #include <kshortcutsdialog.h>
 #include <klibloader.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kparts/componentfactory.h>
 #include <ksqueezedtextlabel.h>
 #include <kstatusbar.h>
 #include <kstandardaction.h>
 #include <kmimetypetrader.h>
 #include <kservicetypetrader.h>
 #include <ktoggleaction.h>
-// #include <kuserprofile.h>
 #include <kactioncollection.h>
+#include <kconfiggroup.h>
 
 #include "kompareinterface.h"
 #include "kompareurldialog.h"
@@ -47,10 +49,13 @@
 #define ID_N_OF_N_FILES            2
 #define ID_GENERAL                 3
 
+Q_LOGGING_CATEGORY(KOMPARESHELL, "kompareshell")
+
 KompareShell::KompareShell()
 	: KParts::MainWindow( ),
 	m_textViewPart( 0 ),
-	m_textViewWidget( 0 )
+	m_textViewWidget( 0 ),
+	m_eventLoopLocker( new QEventLoopLocker() )
 {
 	if ( !initialGeometrySet() )
 	resize( 800, 480 );
@@ -144,26 +149,30 @@ KompareShell::KompareShell()
 
 KompareShell::~KompareShell()
 {
+	delete m_eventLoopLocker;
+	m_eventLoopLocker = 0;
 }
 
 bool KompareShell::queryClose()
 {
 	bool rv = m_viewPart->queryClose();
 	if ( rv )
-		KGlobal::deref();
+	{
+		close();
+	}
 	return rv;
 }
 
 void KompareShell::openDiff(const KUrl& url)
 {
-	kDebug(8102) << "Url = " << url.prettyUrl() << endl;
+	qCDebug(KOMPARESHELL) << "Url = " << url.prettyUrl() ;
 	m_diffURL = url;
 	viewPart()->openDiff( url );
 }
 
 void KompareShell::openStdin()
 {
-	kDebug(8102) << "Using stdin to read the diff" << endl;
+	qCDebug(KOMPARESHELL) << "Using stdin to read the diff" ;
 	QFile file;
 	file.open( stdin, QIODevice::ReadOnly );
 	QTextStream stream( &file );
@@ -194,11 +203,11 @@ void KompareShell::blend( const KUrl& url1, const KUrl& diff )
 
 void KompareShell::setupActions()
 {
-	KAction *a;
+	QAction *a;
 	a = actionCollection()->addAction(KStandardAction::Open, this, SLOT(slotFileOpen()));
 	a->setText( i18n( "&Open Diff..." ) );
 	a = actionCollection()->addAction("file_compare_files", this, SLOT(slotFileCompareFiles()));
-	a->setIcon(KIcon("document-open"));
+	a->setIcon(QIcon::fromTheme("document-open"));
 	a->setText(i18n("&Compare Files..."));
 	a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
 	a = actionCollection()->addAction("file_blend_url", this, SLOT(slotFileBlendURLAndDiff()));
@@ -221,8 +230,10 @@ void KompareShell::setupActions()
 void KompareShell::setupStatusBar()
 {
 	// Made these entries permanent so they will appear on the right side
-	statusBar()->insertPermanentItem( i18n(" 0 of 0 differences "), ID_N_OF_N_DIFFERENCES, 0);
-	statusBar()->insertPermanentItem( i18n(" 0 of 0 files "), ID_N_OF_N_FILES, 0);
+	m_differencesLabel = new QLabel(i18n(" 0 of 0 differences "));
+	m_filesLabel = new QLabel(i18n(" 0 of 0 files "));
+	statusBar()->insertPermanentWidget( ID_N_OF_N_DIFFERENCES, m_differencesLabel, 0);
+	statusBar()->insertPermanentWidget( ID_N_OF_N_FILES, m_filesLabel, 0);
 
 	m_generalLabel = new KSqueezedTextLabel( "", 0 );
 	statusBar()->addWidget( m_generalLabel, 1 );
@@ -231,7 +242,7 @@ void KompareShell::setupStatusBar()
 
 void KompareShell::slotUpdateStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount )
 {
-	kDebug(8102) << "KompareShell::updateStatusBar()" << endl;
+	qCDebug(KOMPARESHELL) << "KompareShell::updateStatusBar()" ;
 
 	QString fileStr;
 	QString diffStr;
@@ -247,8 +258,8 @@ void KompareShell::slotUpdateStatusBar( int modelIndex, int differenceIndex, int
 	else
 		diffStr = i18np( " %1 difference ", " %1 differences ", differenceCount );
 
-	statusBar()->changeItem( fileStr, ID_N_OF_N_FILES );
-	statusBar()->changeItem( diffStr, ID_N_OF_N_DIFFERENCES );
+	m_filesLabel->setText( fileStr );
+	m_differencesLabel->setText( diffStr );
 }
 
 void KompareShell::slotSetStatusBarText( const QString& text )
@@ -314,10 +325,9 @@ void KompareShell::readProperties(const KConfigGroup &config)
 void KompareShell::slotFileOpen()
 {
 	// FIXME: use different filedialog which gets encoding
-	KUrl url = KFileDialog::getOpenUrl( KUrl(), "text/x-patch", this );
+	KUrl url = QFileDialog::getOpenFileUrl( this, QString(), QUrl(), QMimeDatabase().mimeTypeForName("text/x-patch").filterString() );
 	if( !url.isEmpty() ) {
 		KompareShell* shell = new KompareShell();
-		KGlobal::ref();
 		shell->show();
 		shell->openDiff( url );
 	}
@@ -327,12 +337,14 @@ void KompareShell::slotFileBlendURLAndDiff()
 {
 	KompareURLDialog dialog( this );
 
-	dialog.setCaption( i18n( "Blend File/Folder with diff Output" ) );
+	dialog.setWindowTitle( i18n( "Blend File/Folder with diff Output" ) );
 	dialog.setFirstGroupBoxTitle( i18n( "File/Folder" ) );
 	dialog.setSecondGroupBoxTitle( i18n( "Diff Output" ) );
 
-	KGuiItem blendGuiItem( i18n( "Blend" ), QString(), i18n( "Blend this file or folder with the diff output" ), i18n( "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );
-	dialog.setButtonGuiItem( KDialog::Ok, blendGuiItem );
+	QPushButton *okButton = dialog.button( QDialogButtonBox::Ok );
+	okButton->setText( i18n( "Blend" ) );
+	okButton->setToolTip( i18n( "Blend this file or folder with the diff output"  ) );
+	okButton->setWhatsThis( i18n( "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );
 
 	dialog.setGroup( "Recent Blend Files" );
 
@@ -345,7 +357,6 @@ void KompareShell::slotFileBlendURLAndDiff()
 		m_destinationURL = dialog.getSecondURL();
 		// Leak???
 		KompareShell* shell = new KompareShell();
-		KGlobal::ref();
 		shell->show();
 		shell->viewPart()->setEncoding( dialog.encoding() );
 		shell->blend( m_sourceURL, m_destinationURL );
@@ -356,12 +367,14 @@ void KompareShell::slotFileCompareFiles()
 {
 	KompareURLDialog dialog( this );
 
-	dialog.setCaption( i18n( "Compare Files or Folders" ) );
+	dialog.setWindowTitle( i18n( "Compare Files or Folders" ) );
 	dialog.setFirstGroupBoxTitle( i18n( "Source" ) );
 	dialog.setSecondGroupBoxTitle( i18n( "Destination" ) );
 
-	KGuiItem compareGuiItem( i18n( "Compare" ), QString(), i18n( "Compare these files or folders" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
-	dialog.setButtonGuiItem( KDialog::Ok, compareGuiItem );
+	QPushButton *okButton = dialog.button( QDialogButtonBox::Ok );
+	okButton->setText( i18n( "Compare" ) );
+	okButton->setToolTip( i18n( "Compare these files or folders" ) );
+	okButton->setWhatsThis( i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
 
 	dialog.setGroup( "Recent Compare Files" );
 
@@ -373,9 +386,8 @@ void KompareShell::slotFileCompareFiles()
 		m_sourceURL = dialog.getFirstURL();
 		m_destinationURL = dialog.getSecondURL();
 		KompareShell* shell = new KompareShell();
-		KGlobal::ref();
 		shell->show();
-		kDebug(8102) << "The encoding is: " << dialog.encoding() << endl;
+		qCDebug(KOMPARESHELL) << "The encoding is: " << dialog.encoding() ;
 		shell->viewPart()->setEncoding( dialog.encoding() );
 		shell->compare( m_sourceURL, m_destinationURL );
 	}
@@ -385,7 +397,7 @@ void KompareShell::slotFileClose()
 {
 	if ( m_viewPart->queryClose() )
 	{
-		KGlobal::deref();
+		close();
 	}
 }
 

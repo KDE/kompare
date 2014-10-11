@@ -18,11 +18,10 @@
 
 #include "kompareprefdlg.h"
 
-#include <kdebug.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <ktabwidget.h>
-#include <ktoolinvocation.h>
+#include <khelpclient.h>
 
 #include "diffpage.h"
 #include "viewpage.h"
@@ -33,23 +32,21 @@ KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets )
 {
 	setFaceType( KPageDialog::List );
 	setWindowTitle( i18n( "Preferences" ) );
-	setButtons( Help|Default|Ok|Apply|Cancel );
-	setDefaultButton( Ok );
+	setStandardButtons( QDialogButtonBox::Help|QDialogButtonBox::Ok|QDialogButtonBox::Apply|QDialogButtonBox::Cancel );
 	setModal( true );
-	showButtonSeparator( true );
 
 	// ok i need some stuff in that pref dlg...
 	//setIconListAllVisible(true);
 
 	m_viewPage = new ViewPage();
 	KPageWidgetItem *item = addPage( m_viewPage, i18n( "View" ) );
-	item->setIcon( KIcon( "preferences-desktop-theme" ) );
+	item->setIcon( QIcon::fromTheme( "preferences-desktop-theme" ) );
 	item->setHeader( i18n( "View Settings" ) );
 	m_viewPage->setSettings( viewSets );
 
 	m_diffPage = new DiffPage();
 	item = addPage( m_diffPage, i18n( "Diff" ) );
-	item->setIcon( KIcon( "text-x-patch" ) );
+	item->setIcon( QIcon::fromTheme( "text-x-patch" ) );
 	item->setHeader( i18n( "Diff Settings" ) );
 	m_diffPage->setSettings( diffSets );
 
@@ -72,7 +69,6 @@ KomparePrefDlg::~KomparePrefDlg()
 /** No descriptions */
 void KomparePrefDlg::slotDefault()
 {
-	kDebug(8103) << "SlotDefault called -> Settings should be restored to defaults..." << endl;
 	// restore all defaults in the options...
 	m_viewPage->setDefaults();
 	m_diffPage->setDefaults();
@@ -90,13 +86,13 @@ void KomparePrefDlg::slotHelp()
 		switch ( currentTab )
 		{
 		case 0:
-			KToolInvocation::invokeHelp( "appearance" );
+			KHelpClient::invokeHelp( "appearance" );
 			break;
 		case 1:
-			KToolInvocation::invokeHelp( "fonts" );
+			KHelpClient::invokeHelp( "fonts" );
 			break;
 		default:
-			KToolInvocation::invokeHelp( "view-settings" );
+			KHelpClient::invokeHelp( "view-settings" );
 		}
 	}
 	else if ( dynamic_cast<DiffPage*>(currentpage) )
@@ -106,29 +102,28 @@ void KomparePrefDlg::slotHelp()
 		switch ( currentTab )
 		{
 		case 0:
-			KToolInvocation::invokeHelp( "diff" );
+			KHelpClient::invokeHelp( "diff" );
 			break;
 		case 1:
-			KToolInvocation::invokeHelp( "diff-format" );
+			KHelpClient::invokeHelp( "diff-format" );
 			break;
 		case 2:
-			KToolInvocation::invokeHelp( "options" );
+			KHelpClient::invokeHelp( "options" );
 			break;
 		case 3:
-			KToolInvocation::invokeHelp( "exclude" );
+			KHelpClient::invokeHelp( "exclude" );
 			break;
 		default:
-			KToolInvocation::invokeHelp( "diff-settings" );
+			KHelpClient::invokeHelp( "diff-settings" );
 		}
 	}
 	else // Fallback since we had not added the code for the page/tab or forgotten about it
-		KToolInvocation::invokeHelp( "configure-preferences" );
+		KHelpClient::invokeHelp( "configure-preferences" );
 }
 
 /** No descriptions */
 void KomparePrefDlg::slotApply()
 {
-	kDebug(8103) << "SlotApply called -> Settings should be applied..." << endl;
 	// well apply the settings that are currently selected
 	m_viewPage->apply();
 	m_diffPage->apply();
@@ -139,7 +134,6 @@ void KomparePrefDlg::slotApply()
 /** No descriptions */
 void KomparePrefDlg::slotOk()
 {
-	kDebug(8103) << "SlotOk called -> Settings should be applied..." << endl;
 	// Apply the settings that are currently selected
 	m_viewPage->apply();
 	m_diffPage->apply();

@@ -17,9 +17,9 @@
 #ifndef _KOMPAREVIEW_H_
 #define _KOMPAREVIEW_H_
 
-#include <QtGui/QFrame>
+#include <QFrame>
 
-#include "komparemodellist.h"
+#include <komparemodellist.h>
 
 class ViewSettings;
 class KompareSplitter;

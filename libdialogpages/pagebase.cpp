@@ -19,7 +19,7 @@
 #include "pagebase.h"
 
 #include <QtCore/QObject>
-#include <QtGui/QLayout>
+#include <QLayout>
 
 PageBase::PageBase() : KVBox()
 {

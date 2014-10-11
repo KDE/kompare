@@ -1,13 +1,30 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.12)
 project(kompare)
 
 # search packages used by KDE
-find_package(KDE4 REQUIRED)
-include(KDE4Defaults)
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+include(FeatureSummary)
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt5 OPTIONAL_COMPONENTS PrintSupport)
+
+find_package(ECM 0.0.9 NO_MODULE REQUIRED)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(ECMInstallIcons)
+
+find_package(KF5 REQUIRED COMPONENTS
+    DocTools
+    KDELibs4Support
+    Parts
+    TextEditor
+    WidgetsAddons
+)
 
 find_package(LibKompareDiff2 REQUIRED)
-include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES} ${LIBKOMPAREDIFF2_INCLUDE_DIR})
+include_directories (${LIBKOMPAREDIFF2_INCLUDE_DIR})
+include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
 
 add_subdirectory( doc )
 add_subdirectory( interfaces )
@@ -31,11 +48,18 @@ kompare_shell.cpp
 kompareurldialog.cpp
 )
 
-kde4_add_app_icon(kompare_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/pics/hi*-app-kompare.png")
+# kde4_add_app_icon(kompare_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/pics/hi*-app-kompare.png")
 
-kde4_add_executable(kompare ${kompare_SRCS})
+add_executable(kompare ${kompare_SRCS})
 
-target_link_libraries(kompare  kompareinterface ${LIBKOMPAREDIFF2_LIBRARIES} komparedialogpages ${KDE4_KTEXTEDITOR_LIBS} )
+target_link_libraries(kompare
+    kompareinterface
+    ${LIBKOMPAREDIFF2_LIBRARIES}
+    komparedialogpages
+    KF5::TextEditor
+    KF5::WidgetsAddons
+    Qt5::Widgets
+)
 
 install(TARGETS kompare  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 

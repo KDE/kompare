@@ -17,17 +17,18 @@
 
 #include "filespage.h"
 
-#include <QtGui/QLayout>
+#include <QLayout>
 #include <QGroupBox>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QHBoxLayout>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include <kapplication.h>
 #include <kcharsets.h>
 #include <kconfig.h>
-#include <kdebug.h>
 #include <kdialog.h>
 #include <klocale.h>
+#include <kglobal.h>
+#include <kurl.h>
 #include <kurlcombobox.h>
 #include <kurlrequester.h>
 
@@ -108,8 +109,8 @@ void FilesPage::setSecondGroupBoxTitle( const QString& title )
 
 void FilesPage::setURLsInComboBoxes()
 {
-//	kDebug() << "first : " << m_firstURLComboBox->currentText() << endl;
-//	kDebug() << "second: " << m_secondURLComboBox->currentText() << endl;
+//	qDebug() << "first : " << m_firstURLComboBox->currentText() ;
+//	qDebug() << "second: " << m_secondURLComboBox->currentText() ;
 	m_firstURLComboBox->setUrl( KUrl( m_firstURLComboBox->currentText() ) );
 	m_secondURLComboBox->setUrl( KUrl( m_secondURLComboBox->currentText() ) );
 }

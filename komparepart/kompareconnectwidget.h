@@ -20,14 +20,14 @@
 #ifndef KOMPARECONNECTWIDGET_H
 #define KOMPARECONNECTWIDGET_H
 
-#include <QtGui/QWidget>
-#include <QtGui/QSplitter>
-#include <QtGui/QPaintEvent>
-#include <QtGui/QMouseEvent>
+#include <QWidget>
+#include <QSplitter>
+#include <QPaintEvent>
+#include <QMouseEvent>
 #include <QVBoxLayout>
-#include <QtGui/QLabel>
+#include <QLabel>
 
-#include "komparemodellist.h"
+#include <komparemodellist.h>
 
 namespace Diff2 {
 class DiffModel;
@@ -69,7 +69,7 @@ class KompareConnectWidgetFrame : public QSplitterHandle
 public:
 	KompareConnectWidgetFrame( ViewSettings* settings, KompareSplitter* parent, const char* name = 0 );
 	~KompareConnectWidgetFrame();
-	
+
 	QSize sizeHint() const;
 
 	KompareConnectWidget*     wid() { return &m_wid; }

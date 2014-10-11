@@ -20,14 +20,16 @@
 #define KOMPARENAVTREEPART_H
 
 #include <QtCore/QHash>
+#include <QLoggingCategory>
+#include <QSplitter>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 
-#include <QtGui/QSplitter>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QTreeWidgetItem>
-
-#include <kparts/part.h>
+#include <kparts/readonlypart.h>
 #include <kompare.h>
 #include <diffmodellist.h>
+
+Q_DECLARE_LOGGING_CATEGORY(KOMPARENAVVIEW)
 
 namespace Diff2 {
 class DiffModel;

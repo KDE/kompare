@@ -26,7 +26,7 @@
 class DiffSettings;
 class QButtonGroup;
 
-class KompareSaveOptionsWidget : public KompareSaveOptionsBase, public KompareFunctions
+class KompareSaveOptionsWidget : public KompareSaveOptionsBase
 {
 Q_OBJECT
 public:

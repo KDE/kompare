@@ -24,13 +24,15 @@
  * @author Kevin Kofler   <kevin.kofler@chello.at>
  */
 
-#include <kaboutdata.h>
+#include <k4aboutdata.h>
 #include <kcmdlineargs.h>
-#include <kdebug.h>
 #include <kfile.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kdialog.h>
+
+#include <QPushButton>
+#include <QDebug>
 
 #include "kompare_part.h"
 #include "kompare_shell.h"
@@ -56,8 +58,8 @@ static const char version[] = "4.1.3";
  */
 int main(int argc, char *argv[])
 {
-	KAboutData aboutData( "kompare", 0, ki18n("Kompare"), version, ki18n(description),
-	                      KAboutData::License_GPL,
+	K4AboutData aboutData( "kompare", 0, ki18n("Kompare"), version, ki18n(description),
+	                      K4AboutData::License_GPL,
 	                      ki18n("(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler") );
 	aboutData.addAuthor( ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org" );
 	aboutData.addAuthor( ki18n("Otto Bruggeman"), ki18n("Author"), "bruggie@gmail.com" );
@@ -95,10 +97,10 @@ int main(int argc, char *argv[])
 		ks = new KompareShell();
 		ks->setObjectName( "FirstKompareShell" );
 
-		kDebug( 8100 ) << "Arg Count = " << args->count() << endl;
+		qCDebug(KOMPARESHELL) << "Arg Count = " << args->count() ;
 		for ( int i=0; i < args->count(); i++ )
 		{
-			kDebug( 8100 ) << "Argument " << (i+1) << ": " << args->arg( i ) << endl;
+			qCDebug(KOMPARESHELL) << "Argument " << (i+1) << ": " << args->arg( i ) ;
 		}
 
 		if ( args->isSet( "e" ) )
@@ -109,7 +111,7 @@ int main(int argc, char *argv[])
 
 		if ( args->isSet( "o" ) )
 		{
-			kDebug( 8100 ) << "Option -o is set" << endl;
+			qCDebug(KOMPARESHELL) << "Option -o is set" ;
 			if ( args->count() != 1 )
 			{
 				difault = true;
@@ -117,7 +119,7 @@ int main(int argc, char *argv[])
 			else
 			{
 				ks->show();
-				kDebug( 8100 ) << "OpenDiff..." << endl;
+				qCDebug(KOMPARESHELL) << "OpenDiff..." ;
 				if ( args->arg(0) == QLatin1String("-") )
 					ks->openStdin();
 				else
@@ -127,7 +129,7 @@ int main(int argc, char *argv[])
 		}
 		else if ( args->isSet( "c" ) )
 		{
-			kDebug( 8100 ) << "Option -c is set" << endl;
+			qCDebug(KOMPARESHELL) << "Option -c is set" ;
 			if ( args->count() != 2 )
 			{
 				KCmdLineArgs::usage( "kompare" );
@@ -137,16 +139,16 @@ int main(int argc, char *argv[])
 			{
 				ks->show();
 				KUrl url0 = args->url( 0 );
-				kDebug( 8100 ) << "URL0 = " << url0.url() << endl;
+				qCDebug(KOMPARESHELL) << "URL0 = " << url0.url() ;
 				KUrl url1 = args->url( 1 );
-				kDebug( 8100 ) << "URL1 = " << url1.url() << endl;
+				qCDebug(KOMPARESHELL) << "URL1 = " << url1.url() ;
 				ks->compare( url0, url1 );
 				difault = false;
 			}
 		}
 		else if ( args->isSet( "b" ) )
 		{
-			kDebug( 8100 ) << "Option -b is set" << endl;
+			qCDebug(KOMPARESHELL) << "Option -b is set" ;
 			if ( args->count() != 2 )
 			{
 				KCmdLineArgs::usage( "kompare" );
@@ -155,11 +157,11 @@ int main(int argc, char *argv[])
 			else
 			{
 				ks->show();
-				kDebug( 8100 ) << "blend..." << endl;
+				qCDebug(KOMPARESHELL) << "blend..." ;
 				KUrl url0 = args->url( 0 );
-				kDebug( 8100 ) << "URL0 = " << url0.url() << endl;
+				qCDebug(KOMPARESHELL) << "URL0 = " << url0.url() ;
 				KUrl url1 = args->url( 1 );
-				kDebug( 8100 ) << "URL1 = " << url1.url() << endl;
+				qCDebug(KOMPARESHELL) << "URL1 = " << url1.url() ;
 				ks->blend( url0, url1 );
 				difault = false;
 			}
@@ -168,7 +170,7 @@ int main(int argc, char *argv[])
 		{
 			ks->show();
 
-			kDebug( 8100 ) << "Single file. so openDiff/openStdin is only possible..." << endl;
+			qCDebug(KOMPARESHELL) << "Single file. so openDiff/openStdin is only possible..." ;
 			if ( args->arg(0) == QLatin1String("-") )
 				ks->openStdin();
 			else
@@ -181,11 +183,11 @@ int main(int argc, char *argv[])
 			// In this case we are assuming you want to compare files/dirs
 			// and not blending because that is almost impossible to detect
 			ks->show();
-			kDebug( 8100 ) << "Dunno, we'll have to figure it out later, trying compare for now..." << endl;
+			qCDebug(KOMPARESHELL) << "Dunno, we'll have to figure it out later, trying compare for now..." ;
 			KUrl url0 = args->url( 0 );
-			kDebug( 8100 ) << "URL0 = " << url0.url() << endl;
+			qCDebug(KOMPARESHELL) << "URL0 = " << url0.url() ;
 			KUrl url1 = args->url( 1 );
-			kDebug( 8100 ) << "URL1 = " << url1.url() << endl;
+			qCDebug(KOMPARESHELL) << "URL1 = " << url1.url() ;
 			ks->compare( url0, url1 );
 			difault = false;
 		}
@@ -198,12 +200,14 @@ int main(int argc, char *argv[])
 		{
 			KompareURLDialog dialog( 0 );
 
-			dialog.setCaption( i18n("Compare Files or Folders") );
+			dialog.setWindowTitle( i18n("Compare Files or Folders") );
 			dialog.setFirstGroupBoxTitle( i18n( "Source" ) );
 			dialog.setSecondGroupBoxTitle( i18n( "Destination" ) );
 
-			KGuiItem compareGuiItem( i18n( "Compare" ), QString(), i18n( "Compare these files or folder" ), i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
-			dialog.setButtonGuiItem( KDialog::Ok, compareGuiItem );
+			QPushButton *okButton = dialog.button( QDialogButtonBox::Ok );
+			okButton->setText( i18n( "Compare" ));
+			okButton->setToolTip( i18n( "Compare these files or folders" ));
+			okButton->setWhatsThis( i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ));
 
 			dialog.setGroup( "Recent Compare Files" );
 

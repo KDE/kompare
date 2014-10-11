@@ -20,8 +20,13 @@
 #define KOMPARESHELL_H
 
 #include <kapplication.h>
+#include <kurl.h>
 #include <kparts/mainwindow.h>
 #include <kompare.h>
+
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(KOMPARESHELL)
 
 class KompareInterface;
 namespace KParts {
@@ -33,6 +38,8 @@ class KToggleAction;
 class KSqueezedTextLabel;
 class KomparePart;
 class KompareNavTreePart;
+class QLabel;
+class QEventLoopLocker;
 
 namespace KTextEditor {
 	class Document;
@@ -145,6 +152,9 @@ private:
 	KSqueezedTextLabel*         m_generalLabel;
 
 	QString                     m_diffString;
+	QLabel*                     m_filesLabel;
+	QLabel*                     m_differencesLabel;
+	QEventLoopLocker*           m_eventLoopLocker;
 };
 
 #endif // KOMPARE_H

@@ -40,11 +40,11 @@ class KompareURLDialog : public KPageDialog
 	Q_OBJECT
 
 public:
-	explicit KompareURLDialog( QWidget *parent= 0, Qt::WFlags flags= 0 );
+	explicit KompareURLDialog( QWidget *parent= 0, Qt::WindowFlags flags= 0 );
 	~KompareURLDialog();
 
-	KUrl getFirstURL() const;
-	KUrl getSecondURL() const;
+	QUrl getFirstURL() const;
+	QUrl getSecondURL() const;
 	QString encoding() const;
 
 	void setFirstGroupBoxTitle ( const QString& title );

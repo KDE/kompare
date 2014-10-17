@@ -19,18 +19,19 @@
 #ifndef VIEWPAGE_H
 #define VIEWPAGE_H
 
-#include "pagebase.h"
-#include "dialogpagesexport.h"
+#include <QFrame>
+
+#include "dialogpages_export.h"
 
 class QFontComboBox;
 class QSpinBox;
+class QTabWidget;
 
 class KColorButton;
-class KTabWidget;
 
 class ViewSettings;
 
-class DIALOGPAGES_EXPORT ViewPage : public PageBase
+class DIALOGPAGES_EXPORT ViewPage : public QFrame
 {
 Q_OBJECT
 public:
@@ -59,7 +60,7 @@ public:
 	QSpinBox*     m_tabSpinBox;
 	QFontComboBox*   m_fontCombo;
 	QSpinBox*     m_fontSizeSpinBox;
-	KTabWidget*   m_tabWidget;
+	QTabWidget*   m_tabWidget;
 };
 
 #endif

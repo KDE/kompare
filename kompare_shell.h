@@ -19,8 +19,6 @@
 #ifndef KOMPARESHELL_H
 #define KOMPARESHELL_H
 
-#include <kapplication.h>
-#include <kurl.h>
 #include <kparts/mainwindow.h>
 #include <kompare.h>
 
@@ -75,7 +73,7 @@ public:
 	/**
 	 * Use this method to load whatever file/URL you have
 	 */
-	void openDiff( const KUrl& url );
+	void openDiff( const QUrl& url );
 
 	/**
 	 * Use this method to load the diff from stdin
@@ -85,12 +83,12 @@ public:
 	/**
 	 * Use this method to compare 2 URLs (files or directories)
 	 */
-	void compare( const KUrl& source, const KUrl& destination );
+	void compare( const QUrl& source, const QUrl& destination );
 
 	/**
 	 * Use this method to blend diff into url1 (file or directory)
 	 */
-	void blend( const KUrl& url1, const KUrl& diff );
+	void blend( const QUrl& url1, const QUrl& diff );
 
 public slots:
 	void slotUpdateStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
@@ -132,9 +130,9 @@ private:
 	void setupStatusBar();
 
 private:
-	KUrl                        m_sourceURL;
-	KUrl                        m_destinationURL;
-	KUrl                        m_diffURL;
+	QUrl                        m_sourceURL;
+	QUrl                        m_destinationURL;
+	QUrl                        m_diffURL;
 
 	KParts::ReadWritePart*      m_viewPart;
 	KParts::ReadOnlyPart*         m_navTreePart;

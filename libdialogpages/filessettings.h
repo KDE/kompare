@@ -22,7 +22,7 @@
 
 #include <settingsbase.h>
 
-#include "dialogpagesexport.h"
+#include "dialogpages_export.h"
 
 class KConfig;
 

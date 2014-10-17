@@ -24,7 +24,7 @@
 #include <difference.h>
 #include <settingsbase.h>
 
-#include "dialogpagesexport.h"
+#include "dialogpages_export.h"
 
 class DIALOGPAGES_EXPORT ViewSettings : public SettingsBase
 {

@@ -20,31 +20,30 @@
 
 #include "kompare_part.h"
 
+#include <QDialog>
 #include <QLayout>
 #include <QWidget>
 #include <QPainter>
 #include <QPrinter>
 #include <QPrintDialog>
 #include <QPrintPreviewDialog>
+#include <QTemporaryDir>
+#include <QTemporaryFile>
 
-#include <k4aboutdata.h>
-#include <kaction.h>
+#include <kaboutdata.h>
 #include <kactioncollection.h>
-#include <kapplication.h>
 #include <kcomponentdata.h>
-#include <kdeprintdialog.h>
-#include <kdialog.h>
-#include <kfiledialog.h>
-#include <klocale.h>
+#include <kjobwidgets.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
+#include <kpluginfactory.h>
 #include <kstandardaction.h>
-#include <kstandarddirs.h>
 #include <kstandardshortcut.h>
-#include <ktemporaryfile.h>
-#include <ktempdir.h>
 
-#include <kio/netaccess.h>
-#include <kglobal.h>
+#include <kio/copyjob.h>
+#include <kio/statjob.h>
+#include <kio/filecopyjob.h>
+#include <kio/mkdirjob.h>
 
 #include <diffmodel.h>
 #include "komparelistview.h"
@@ -59,7 +58,6 @@
 Q_LOGGING_CATEGORY(KOMPAREPART, "komparepart")
 
 K_PLUGIN_FACTORY( KomparePartFactory, registerPlugin<KomparePart>(); )
-K_EXPORT_PLUGIN( KomparePartFactory )
 
 ViewSettings* KomparePart::m_viewSettings = 0L;
 DiffSettings* KomparePart::m_diffSettings = 0L;
@@ -76,7 +74,7 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QVariant
 		m_diffSettings = new DiffSettings( 0 );
 	}
 
-	readProperties( KGlobal::config().data() );
+	readProperties( KSharedConfig::openConfig().data() );
 
 	m_view = new KompareView ( m_viewSettings, parentWidget );
 	setWidget( m_view );
@@ -208,7 +206,7 @@ void KomparePart::setEncoding( const QString& encoding )
 	m_modelList->setEncoding( encoding );
 }
 
-bool KomparePart::openDiff( const KUrl& url )
+bool KomparePart::openDiff( const QUrl& url )
 {
 	qCDebug(KOMPAREPART) << "Url = " << url.url();
 
@@ -254,7 +252,7 @@ bool KomparePart::openDiff( const QString& diffOutput )
 	return value;
 }
 
-bool KomparePart::openDiff3( const KUrl& diff3Url )
+bool KomparePart::openDiff3( const QUrl& diff3Url )
 {
 	// FIXME: Implement this !!!
 	qCDebug(KOMPAREPART) << "Not implemented yet. Filename is: " << diff3Url;
@@ -275,63 +273,76 @@ bool KomparePart::exists( const QString& url )
 	return fi.exists();
 }
 
-bool KomparePart::fetchURL( const KUrl& url, bool addToSource )
+bool KomparePart::fetchURL( const QUrl& url, bool addToSource )
 {
 	// Default value if there is an error is "", we rely on it!
 	QString tempFileName( "" );
 	// Only in case of error do we set result to false, don't forget!!
 	bool result = true;
-	KTempDir* tmpDir = 0;
+	QTemporaryDir* tmpDir = 0;
 
 	if ( !url.isLocalFile() )
 	{
-		KIO::UDSEntry node;
-		KIO::NetAccess::stat( url, node, widget() );
-		if ( !node.isDir() )
-		{
-			if ( ! KIO::NetAccess::download( url, tempFileName, widget() ) )
-			{
-				slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.toString(QUrl::RemovePassword) ) );
-				tempFileName = ""; // Not sure if download has already touched this tempFileName when there is an error
-				result = false;
-			}
-		}
-		else
-		{
-			tmpDir = new KTempDir(KStandardDirs::locateLocal("tmp", "kompare"));
-			tmpDir->setAutoRemove( true ); // Yes this is the default but just to make sure
-			if ( ! KIO::NetAccess::dircopy( url, KUrl( tmpDir->name() ), widget() ) )
-			{
-				slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.toString(QUrl::RemovePassword) ) );
-				delete tmpDir;
-				tmpDir = 0;
-				result = false;
-			}
-			else
-			{
-				tempFileName = tmpDir->name();
-				qCDebug(KOMPAREPART) << "tempFileName = " << tempFileName;
-				// If a directory is copied into KTempDir then the directory in
-				// here is what I need to add to tempFileName
-				QDir dir( tempFileName );
-				QStringList entries = dir.entryList( QDir::Dirs | QDir::NoDotAndDotDot );
-				if ( entries.size() == 1 ) // More than 1 entry in here means big problems!!!
-				{
-					if ( !tempFileName.endsWith( '/' ) )
-						tempFileName += '/';
-					tempFileName += entries.at( 0 );
-					tempFileName += '/';
-				}
-				else
-				{
-					qCDebug(KOMPAREPART) << "Yikes, nothing downloaded?";
-					delete tmpDir;
-					tmpDir = 0;
-					tempFileName = "";
-					result = false;
-				}
-			}
-		}
+        KIO::StatJob *statJob = KIO::stat( url );
+        KJobWidgets::setWindow( statJob, widget() );
+        if (statJob->exec() )
+        {
+            KIO::UDSEntry node;
+            node = statJob->statResult();
+            if ( !node.isDir() )
+            {
+                tmpDir = new QTemporaryDir(QDir::tempPath() + "/kompare");
+                tmpDir->setAutoRemove( true );
+                tempFileName = tmpDir->path() + QLatin1Char('/') + url.fileName();
+                KIO::FileCopyJob* copyJob = KIO::file_copy( url, QUrl::fromLocalFile( tempFileName ) );
+                KJobWidgets::setWindow( copyJob, widget() );
+                if ( ! copyJob->exec() )
+                {
+                    qDebug() << "download error " << copyJob->errorString();
+                    slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.toString(QUrl::RemovePassword) ) );
+                    tempFileName = ""; // Not sure if download has already touched this tempFileName when there is an error
+                    result = false;
+                }
+            }
+            else
+            {
+                tmpDir = new QTemporaryDir(QDir::tempPath() + "/kompare");
+                tmpDir->setAutoRemove( true ); // Yes this is the default but just to make sure
+                KIO::CopyJob *copyJob = KIO::copy( url, QUrl::fromLocalFile( tmpDir->path() ));
+                KJobWidgets::setWindow( copyJob, widget() );
+                if ( ! copyJob->exec() )
+                {
+                    slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.toString(QUrl::RemovePassword) ) );
+                    delete tmpDir;
+                    tmpDir = 0;
+                    result = false;
+                }
+                else
+                {
+                    tempFileName = tmpDir->path();
+                    qCDebug(KOMPAREPART) << "tempFileName = " << tempFileName;
+                    // If a directory is copied into QTemporaryDir then the directory in
+                    // here is what I need to add to tempFileName
+                    QDir dir( tempFileName );
+                    QStringList entries = dir.entryList( QDir::Dirs | QDir::NoDotAndDotDot );
+                    if ( entries.size() == 1 ) // More than 1 entry in here means big problems!!!
+                    {
+                        if ( !tempFileName.endsWith( '/' ) )
+                            tempFileName += '/';
+                        tempFileName += entries.at( 0 );
+                        tempFileName += '/';
+                    }
+                    else
+                    {
+                        qCDebug(KOMPAREPART) << "Yikes, nothing downloaded?";
+                        delete tmpDir;
+                        tmpDir = 0;
+                        tempFileName = "";
+                        result = false;
+                    }
+                }
+            }
+        }
 	}
 	else
 	{
@@ -348,12 +359,12 @@ bool KomparePart::fetchURL( const KUrl& url, bool addToSource )
 	if ( addToSource )
 	{
 		m_info.localSource = tempFileName;
-		m_info.sourceKTempDir = tmpDir;
+		m_info.sourceQTempDir = tmpDir;
 	}
 	else
 	{
 		m_info.localDestination = tempFileName;
-		m_info.destinationKTempDir = tmpDir;
+		m_info.destinationQTempDir = tmpDir;
 	}
 
 	return result;
@@ -364,34 +375,30 @@ void KomparePart::cleanUpTemporaryFiles()
 	qCDebug(KOMPAREPART) << "Cleaning temporary files.";
 	if ( !m_info.localSource.isEmpty() )
 	{
-		if ( m_info.sourceKTempDir == 0 )
-			KIO::NetAccess::removeTempFile( m_info.localSource );
-		else
+		if ( m_info.sourceQTempDir != 0 )
 		{
-			delete m_info.sourceKTempDir;
-			m_info.sourceKTempDir = 0;
+			delete m_info.sourceQTempDir;
+			m_info.sourceQTempDir = 0;
 		}
 		m_info.localSource = "";
 	}
 	if ( !m_info.localDestination.isEmpty() )
 	{
-		if ( m_info.destinationKTempDir == 0  )
-			KIO::NetAccess::removeTempFile( m_info.localDestination );
-		else
+		if ( m_info.destinationQTempDir != 0  )
 		{
-			delete m_info.destinationKTempDir;
-			m_info.destinationKTempDir = 0;
+			delete m_info.destinationQTempDir;
+			m_info.destinationQTempDir = 0;
 		}
 		m_info.localDestination = "";
 	}
 }
 
-void KomparePart::compare( const KUrl& source, const KUrl& destination )
+void KomparePart::compare( const QUrl& source, const QUrl& destination )
 {
 	// FIXME: This is silly, i can use NetAccess::stat to figure out what it is and not
 	// wait until i am in the modellist to determine the mode we're supposed to be in.
 	// That should make the code more readable
-	// I should store the KTempDir(s)/File(s) in the Info struct as well and delete it at the right time
+	// I should store the QTemporaryDir(s)/File(s) in the Info struct as well and delete it at the right time
 	m_info.source = source;
 	m_info.destination = destination;
 
@@ -405,7 +412,7 @@ void KomparePart::compare( const KUrl& source, const KUrl& destination )
 	compareAndUpdateAll();
 }
 
-void KomparePart::compareFileString( const KUrl & sourceFile, const QString & destination)
+void KomparePart::compareFileString( const QUrl & sourceFile, const QString & destination)
 {
 	//Set the modeto specify that the source is a file, and the destination is a string
 	m_info.mode = Kompare::ComparingFileString;
@@ -420,7 +427,7 @@ void KomparePart::compareFileString( const KUrl & sourceFile, const QString & de
 	compareAndUpdateAll();
 }
 
-void KomparePart::compareStringFile( const QString & source, const KUrl & destinationFile)
+void KomparePart::compareStringFile( const QString & source, const QUrl & destinationFile)
 {
 	//Set the modeto specify that the source is a file, and the destination is a string
 	m_info.mode = Kompare::ComparingStringFile;
@@ -435,7 +442,7 @@ void KomparePart::compareStringFile( const QString & source, const KUrl & destin
 	compareAndUpdateAll();
 }
 
-void KomparePart::compareFiles( const KUrl& sourceFile, const KUrl& destinationFile )
+void KomparePart::compareFiles( const QUrl& sourceFile, const QUrl& destinationFile )
 {
 	m_info.mode = Kompare::ComparingFiles;
 
@@ -452,7 +459,7 @@ void KomparePart::compareFiles( const KUrl& sourceFile, const KUrl& destinationF
 	compareAndUpdateAll();
 }
 
-void KomparePart::compareDirs( const KUrl& sourceDirectory, const KUrl& destinationDirectory )
+void KomparePart::compareDirs( const QUrl& sourceDirectory, const QUrl& destinationDirectory )
 {
 	m_info.mode = Kompare::ComparingDirs;
 
@@ -467,7 +474,7 @@ void KomparePart::compareDirs( const KUrl& sourceDirectory, const KUrl& destinat
 	compareAndUpdateAll();
 }
 
-void KomparePart::compare3Files( const KUrl& /*originalFile*/, const KUrl& /*changedFile1*/, const KUrl& /*changedFile2*/ )
+void KomparePart::compare3Files( const QUrl& /*originalFile*/, const QUrl& /*changedFile1*/, const QUrl& /*changedFile2*/ )
 {
 	// FIXME: actually implement this some day :)
 	updateActions();
@@ -475,7 +482,7 @@ void KomparePart::compare3Files( const KUrl& /*originalFile*/, const KUrl& /*cha
 	updateStatus();
 }
 
-void KomparePart::openFileAndDiff( const KUrl& file, const KUrl& diffFile )
+void KomparePart::openFileAndDiff( const QUrl& file, const QUrl& diffFile )
 {
 	m_info.source = file;
 	m_info.destination = diffFile;
@@ -489,7 +496,7 @@ void KomparePart::openFileAndDiff( const KUrl& file, const KUrl& diffFile )
 	compareAndUpdateAll();
 }
 
-void KomparePart::openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile )
+void KomparePart::openDirAndDiff ( const QUrl& dir,  const QUrl& diffFile )
 {
 	m_info.source = dir;
 	m_info.destination = diffFile;
@@ -529,17 +536,18 @@ bool KomparePart::saveAll()
 
 void KomparePart::saveDiff()
 {
-	KDialog dlg( widget() );
+	QDialog dlg( widget() );
 	dlg.setObjectName( "save_options" );
 	dlg.setModal( true );
 	dlg.setWindowTitle( i18n("Diff Options") );
-	dlg.setButtons( KDialog::Ok|KDialog::Cancel );
+	QDialogButtonBox *buttons = new QDialogButtonBox( QDialogButtonBox::Save | QDialogButtonBox::Cancel, &dlg );
 	KompareSaveOptionsWidget* w = new KompareSaveOptionsWidget(
 	                                             m_info.localSource,
 	                                             m_info.localDestination,
 	                                             m_diffSettings, &dlg );
-	dlg.setMainWidget( w );
-	dlg.setButtonGuiItem( KDialog::Ok, KStandardGuiItem::save() );
+	QHBoxLayout *layout = new QHBoxLayout(&dlg);
+	layout->addWidget( w );
+	dlg.setLayout( layout );
 
 	if( dlg.exec() ) {
 		w->saveOptions();
@@ -549,9 +557,10 @@ void KomparePart::saveDiff()
 
 		while ( 1 )
 		{
-			KUrl url = KFileDialog::getSaveUrl( m_info.destination.url(),
-			              i18n("*.diff *.dif *.patch|Patch Files"), widget(), i18n( "Save .diff" ) );
-			if ( KIO::NetAccess::exists( url, KIO::NetAccess::DestinationSide, widget() ) )
+			QUrl url = QFileDialog::getSaveFileUrl( widget(), i18n( "Save .diff" ),
+                                                    m_info.destination.url(),
+                                                    i18n("Patch Files (*.diff *.dif *.patch)") );
+			if ( QFile::exists( url.toLocalFile() ) )
 			{
 				int result = KMessageBox::warningYesNoCancel( widget(), i18n("The file exists or is write-protected; do you want to overwrite it?"), i18n("File Exists"), KGuiItem(i18n("Overwrite")), KGuiItem(i18n("Do Not Overwrite")) );
 				if ( result == KMessageBox::Cancel )
@@ -589,7 +598,7 @@ void KomparePart::slotFilePrint()
 {
 	QPrinter printer;
 	printer.setOrientation( QPrinter::Landscape );
-	QPrintDialog* dlg = KdePrint::createPrintDialog( &printer, m_splitter );
+	QPrintDialog* dlg = new QPrintDialog( &printer, 0 );
 
 	if ( dlg->exec() == QDialog::Accepted )
 	{
@@ -631,12 +640,12 @@ void KomparePart::slotPaintRequested( QPrinter* printer )
 	qCDebug(KOMPAREPART) << "Done painting something...";
 }
 
-K4AboutData* KomparePart::createAboutData()
+KAboutData* KomparePart::createAboutData()
 {
-    K4AboutData *about = new K4AboutData("kompare", 0, ki18n("KomparePart"), "4.0");
-    about->addAuthor(ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org");
-    about->addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "bruggie@gmail.com" );
-    about->addAuthor(ki18n("Kevin Kofler"), ki18n("Author"), "kevin.kofler@chello.at" );
+    KAboutData *about = new KAboutData("kompare", i18n("KomparePart"), "4.0");
+    about->addAuthor(i18n("John Firebaugh"), i18n("Author"), "jfirebaugh@kde.org");
+    about->addAuthor(i18n("Otto Bruggeman"), i18n("Author"), "bruggie@gmail.com" );
+    about->addAuthor(i18n("Kevin Kofler"), i18n("Author"), "kevin.kofler@chello.at" );
     return about;
 }
 

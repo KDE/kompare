@@ -13,8 +13,8 @@ add_library(komparenavtreepart MODULE ${komparenavtreepart_PART_SRCS})
 
 target_link_libraries(komparenavtreepart
     Qt5::Widgets
-    KF5::KDELibs4Support
     KF5::Parts
+    KF5::IconThemes
     ${LIBKOMPAREDIFF2_LIBRARIES}
 )
 

@@ -20,11 +20,9 @@
 
 #include <QGroupBox>
 
-#include <kapplication.h>
-#include <kdialog.h>
-#include <kglobal.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
+#include <ksharedconfig.h>
 #include <kurlcombobox.h>
 #include <kurlrequester.h>
 
@@ -37,11 +35,11 @@
 
 Q_DECLARE_LOGGING_CATEGORY(KOMPARESHELL)
 
-KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WFlags flags )
+KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WindowFlags flags )
         : KPageDialog( parent, flags )
 {
 	setFaceType( List );
-	KSharedConfig::Ptr cfg = KGlobal::config();
+	KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
 
 	m_filesPage = new FilesPage();
 	KPageWidgetItem *filesItem = addPage( m_filesPage, i18n( "Files" ) );
@@ -90,7 +88,7 @@ void KompareURLDialog::showEvent ( QShowEvent * event )
 
 void KompareURLDialog::slotButtonClicked( int button )
 {
-	if ( button == KDialog::Cancel )
+	if ( button == QDialogButtonBox::Cancel )
 	{
 		reject();
 		return;
@@ -112,7 +110,7 @@ void KompareURLDialog::slotButtonClicked( int button )
 
 	m_filesPage->setURLsInComboBoxes();
 
-	KSharedConfig::Ptr cfg = KGlobal::config();
+	KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
 
 	m_filesPage->apply();
 	m_diffPage->apply();
@@ -137,18 +135,18 @@ void KompareURLDialog::slotEnableOk()
  * Returns the first URL, which was entered.
  * @return first URL
  */
-KUrl KompareURLDialog::getFirstURL() const
+QUrl KompareURLDialog::getFirstURL() const
 {
-	return KUrl( m_filesPage->firstURLRequester()->url() );
+	return m_filesPage->firstURLRequester()->url();
 }
 
 /**
  * Returns the second URL, which was entered.
  * @return second URL
  */
-KUrl KompareURLDialog::getSecondURL() const
+QUrl KompareURLDialog::getSecondURL() const
 {
-	return KUrl( m_filesPage->secondURLRequester()->url() );
+	return m_filesPage->secondURLRequester()->url();
 }
 
 /**
@@ -173,7 +171,7 @@ void KompareURLDialog::setSecondGroupBoxTitle( const QString& title )
 void KompareURLDialog::setGroup( const QString& groupName )
 {
 	m_filesSettings->setGroup( groupName );
-	m_filesSettings->loadSettings( KGlobal::config().data() );
+	m_filesSettings->loadSettings( KSharedConfig::openConfig().data() );
 	m_filesPage->setSettings( m_filesSettings );
 }
 

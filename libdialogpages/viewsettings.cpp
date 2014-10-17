@@ -18,10 +18,10 @@
 
 #include "viewsettings.h"
 
-#include <QtGui/QFont>
+#include <QFont>
+#include <QFontDatabase>
 
 #include <kconfig.h>
-#include <kglobalsettings.h>
 #include <kconfiggroup.h>
 
 using namespace Diff2;
@@ -56,7 +56,7 @@ void ViewSettings::loadSettings( KConfig* config )
 	m_scrollNoOfLines     = cfg.readEntry  ( "ScrollNoOfLines",     3 );
 	m_tabToNumberOfSpaces = cfg.readEntry  ( "TabToNumberOfSpaces", 4 );
 
-	QFont stdFixed = KGlobalSettings::fixedFont();
+	QFont stdFixed = QFontDatabase::systemFont(QFontDatabase::FixedFont);
 	stdFixed.setPointSize( 10 );
 	m_font                = cfg.readEntry ( "TextFont", stdFixed );
 }

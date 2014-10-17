@@ -23,21 +23,20 @@
 #include <QFileDialog>
 #include <QMimeDatabase>
 #include <QPushButton>
+#include <QStatusBar>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 #include <kedittoolbar.h>
-#include <kencodingfiledialog.h>
 #include <kfile.h>
 #include <kshortcutsdialog.h>
-#include <klibloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <ksqueezedtextlabel.h>
-#include <kstatusbar.h>
 #include <kstandardaction.h>
 #include <kmimetypetrader.h>
 #include <kservicetypetrader.h>
+#include <ksharedconfig.h>
 #include <ktoggleaction.h>
 #include <kactioncollection.h>
 #include <kconfiggroup.h>
@@ -163,9 +162,9 @@ bool KompareShell::queryClose()
 	return rv;
 }
 
-void KompareShell::openDiff(const KUrl& url)
+void KompareShell::openDiff(const QUrl& url)
 {
-	qCDebug(KOMPARESHELL) << "Url = " << url.prettyUrl() ;
+	qCDebug(KOMPARESHELL) << "Url = " << url.toString( QUrl::RemovePassword );
 	m_diffURL = url;
 	viewPart()->openDiff( url );
 }
@@ -185,7 +184,7 @@ void KompareShell::openStdin()
 
 }
 
-void KompareShell::compare(const KUrl& source,const KUrl& destination )
+void KompareShell::compare(const QUrl& source,const QUrl& destination )
 {
 	m_sourceURL = source;
 	m_destinationURL = destination;
@@ -193,7 +192,7 @@ void KompareShell::compare(const KUrl& source,const KUrl& destination )
 	viewPart()->compare( source, destination );
 }
 
-void KompareShell::blend( const KUrl& url1, const KUrl& diff )
+void KompareShell::blend( const QUrl& url1, const QUrl& diff )
 {
 	m_sourceURL = url1;
 	m_destinationURL = diff;
@@ -325,7 +324,7 @@ void KompareShell::readProperties(const KConfigGroup &config)
 void KompareShell::slotFileOpen()
 {
 	// FIXME: use different filedialog which gets encoding
-	KUrl url = QFileDialog::getOpenFileUrl( this, QString(), QUrl(), QMimeDatabase().mimeTypeForName("text/x-patch").filterString() );
+	QUrl url = QFileDialog::getOpenFileUrl( this, QString(), QUrl(), QMimeDatabase().mimeTypeForName("text/x-patch").filterString() );
 	if( !url.isEmpty() ) {
 		KompareShell* shell = new KompareShell();
 		shell->show();
@@ -458,7 +457,7 @@ void KompareShell::optionsConfigureKeys()
 
 void KompareShell::optionsConfigureToolbars()
 {
-	KConfigGroup group(KGlobal::config(), autoSaveGroup());
+	KConfigGroup group(KSharedConfig::openConfig(), autoSaveGroup());
 	saveMainWindowSettings(group);
 	// use the standard toolbar editor
 	KEditToolBar dlg(factory());
@@ -468,7 +467,7 @@ void KompareShell::optionsConfigureToolbars()
 
 void KompareShell::newToolbarConfig()
 {
-	KConfigGroup group(KGlobal::config(), autoSaveGroup());
+	KConfigGroup group(KSharedConfig::openConfig(), autoSaveGroup());
 	applyMainWindowSettings(group);
 }
 

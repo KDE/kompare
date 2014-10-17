@@ -23,7 +23,7 @@
 #include <QRadioButton>
 #include <QSpinBox>
 
-#include <kfiledialog.h>
+#include <kio/global.h>
 #include <kurlrequester.h>
 
 #include <diffsettings.h>
@@ -42,20 +42,20 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 	m_directoryRequester->setMode(
 	    KFile::ExistingOnly | KFile::Directory | KFile::LocalOnly );
 
-	KUrl sourceURL;
-	KUrl destinationURL;
+	QUrl sourceURL;
+	QUrl destinationURL;
 	sourceURL.setPath( source );
 	destinationURL.setPath( destination );
 
 	// Find a common root.
-	KUrl root( sourceURL );
-	while( root.isValid() && !root.isParentOf( destinationURL ) && root != root.upUrl() ) {
-		root = root.upUrl();
+	QUrl root( sourceURL );
+	while( root.isValid() && !root.isParentOf( destinationURL ) && root != KIO::upUrl(root) ) {
+		root = KIO::upUrl(root);
 	}
 
 	// If we found a common root, change to that directory and
 	// strip the common part from source and destination.
-	if( root.isValid() && root != root.upUrl() ) {
+	if( root.isValid() && root != KIO::upUrl(root) ) {
 		m_directoryRequester->setUrl( root.url() );
 	}
 
@@ -95,7 +95,7 @@ KompareSaveOptionsWidget::~KompareSaveOptionsWidget()
 
 QString KompareSaveOptionsWidget::directory() const
 {
-	return KUrl( m_directoryRequester->url() ).toLocalFile();
+	return QUrl( m_directoryRequester->url() ).toLocalFile();
 }
 
 void KompareSaveOptionsWidget::updateCommandLine()

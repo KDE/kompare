@@ -20,7 +20,6 @@
 #ifndef KOMPAREPART_H
 #define KOMPAREPART_H
 
-#include <kparts/factory.h>
 #include <kparts/readwritepart.h>
 #include <QVariantList>
 #include <QLoggingCategory>
@@ -34,7 +33,7 @@ class QWidget;
 
 class KTemporaryFile;
 class KUrl;
-class K4AboutData;
+class KAboutData;
 
 namespace Diff2 {
 class Difference;
@@ -87,47 +86,47 @@ public:
 	// Do we really want to expose this ???
 	const Diff2::KompareModelList* model() const { return m_modelList; };
 
-	static K4AboutData *createAboutData();
+	static KAboutData *createAboutData();
 
 public:
 	// Reimplemented from the KompareInterface
 	/**
 	 * Open and parse the diff file at diffUrl.
 	 */
-	virtual bool openDiff( const KUrl& diffUrl );
+	virtual bool openDiff( const QUrl& diffUrl );
 
 	/** Added on request of Harald Fernengel */
 	virtual bool openDiff( const QString& diffOutput );
 
 	/** Open and parse the diff3 file at diff3Url */
-	virtual bool openDiff3( const KUrl& diff3URL );
+	virtual bool openDiff3( const QUrl& diff3URL );
 
 	/** Open and parse the file diff3Output with the output of diff3 */
 	virtual bool openDiff3( const QString& diff3Output );
 
 	/** Compare, with diff, source with destination */
-	virtual void compare( const KUrl& sourceFile, const KUrl& destinationFile );
+	virtual void compare( const QUrl& sourceFile, const QUrl& destinationFile );
 
 	/** Compare a Source file to a custom Destination string */
-	virtual void compareFileString( const KUrl & sourceFile, const QString & destination);
+	virtual void compareFileString( const QUrl & sourceFile, const QString & destination);
 
 	/** Compare a custom Source string to a Destination file */
-	virtual void compareStringFile( const QString & source, const KUrl & destinationFile);
+	virtual void compareStringFile( const QString & source, const QUrl & destinationFile);
 
 	/** Compare, with diff, source with destination */
-	virtual void compareFiles( const KUrl& sourceFile, const KUrl& destinationFile );
+	virtual void compareFiles( const QUrl& sourceFile, const QUrl& destinationFile );
 
 	/** Compare, with diff, source with destination */
-	virtual void compareDirs ( const KUrl& sourceDir, const KUrl& destinationDir );
+	virtual void compareDirs ( const QUrl& sourceDir, const QUrl& destinationDir );
 
 	/** Compare, with diff3, originalFile with changedFile1 and changedFile2 */
-	virtual void compare3Files( const KUrl& originalFile, const KUrl& changedFile1, const KUrl& changedFile2 );
+	virtual void compare3Files( const QUrl& originalFile, const QUrl& changedFile1, const QUrl& changedFile2 );
 
 	/** This will show the file and the file with the diff applied */
-	virtual void openFileAndDiff( const KUrl& file, const KUrl& diffFile );
+	virtual void openFileAndDiff( const QUrl& file, const QUrl& diffFile );
 
 	/** This will show the directory and the directory with the diff applied */
-	virtual void openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile );
+	virtual void openDirAndDiff ( const QUrl& dir,  const QUrl& diffFile );
 
 	/** Reimplementing this because this one knows more about the real part then the interface */
 	virtual void setEncoding( const QString& encoding );
@@ -211,10 +210,10 @@ private:
 	void cleanUpTemporaryFiles();
 	void setupActions();
 	bool exists( const QString& url );
-	bool isDirectory( const KUrl& url );
+	bool isDirectory( const QUrl& url );
 	// FIXME (like in cpp file not urgent) Replace with enum, cant find a proper
 	// name now but it is private anyway so can not be used from outside
-	bool fetchURL( const KUrl& url, bool isSource );
+	bool fetchURL( const QUrl& url, bool isSource );
 
 private:
 	// Uhm why were these static again ???

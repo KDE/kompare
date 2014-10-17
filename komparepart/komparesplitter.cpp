@@ -36,8 +36,6 @@
 #include <QWheelEvent>
 
 // kde
-#include <kapplication.h>
-#include <kglobalsettings.h>
 
 // kompare
 #include "komparelistview.h"
@@ -95,7 +93,7 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget *parent ) :
 
 	// we need to receive childEvents now so that d->list is ready for when
 	// slotSetSelection(...) arrives
-	kapp->sendPostedEvents(this, QEvent::ChildAdded);
+	qApp->sendPostedEvents(this, QEvent::ChildAdded);
 
 	// init stuff
 	slotUpdateScrollBars();

@@ -22,11 +22,10 @@
 #include <QTreeWidgetItemIterator>
 
 #include <klocale.h>
-#include <kiconloader.h>
-#include <kmimetype.h>
-#include <k4aboutdata.h>
+#include <kaboutdata.h>
 #include <kcomponentdata.h>
 #include <kpluginfactory.h>
+#include <kiconloader.h>
 
 #include <difference.h>
 #include <diffmodel.h>
@@ -766,11 +765,11 @@ KDirLVI::~KDirLVI()
 	m_modelList.clear();
 }
 
-static K4AboutData aboutData()
+static KAboutData aboutData()
 {
-    K4AboutData about("komparenavtreepart", 0, ki18n("KompareNavTreePart"), "1.2");
-    about.addAuthor(ki18n("John Firebaugh"), ki18n("Author"), "jfirebaugh@kde.org");
-    about.addAuthor(ki18n("Otto Bruggeman"), ki18n("Author"), "bruggie@gmail.com" );
+    KAboutData about("komparenavtreepart", i18n("KompareNavTreePart"), "1.2");
+    about.addAuthor(i18n("John Firebaugh"), i18n("Author"), "jfirebaugh@kde.org");
+    about.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), "bruggie@gmail.com" );
     return about;
 }
 

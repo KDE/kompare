@@ -19,8 +19,9 @@
 #ifndef DIFFPAGE_H
 #define DIFFPAGE_H
 
-#include "pagebase.h"
-#include "dialogpagesexport.h"
+#include <QFrame>
+
+#include "dialogpages_export.h"
 
 class QCheckBox;
 class QDialog;
@@ -28,16 +29,16 @@ class QSpinBox;
 class QStringList;
 class QButtonGroup;
 class QGroupBox;
+class QTabWidget;
 
 class KLineEdit;
 class KEditListWidget;
-class KTabWidget;
 class KUrlComboBox;
 class KUrlRequester;
 
 class DiffSettings;
 
-class DIALOGPAGES_EXPORT DiffPage : public PageBase
+class DIALOGPAGES_EXPORT DiffPage : public QFrame
 {
 Q_OBJECT
 public:
@@ -97,7 +98,7 @@ public:
 	QButtonGroup*  m_modeButtonGroup;
 	QGroupBox*     m_diffProgramGroup;
 
-	KTabWidget*    m_tabWidget;
+	QTabWidget*    m_tabWidget;
 };
 
 #endif

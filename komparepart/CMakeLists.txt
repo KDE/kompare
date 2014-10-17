@@ -26,6 +26,9 @@ target_link_libraries(komparepart
     ${LIBKOMPAREDIFF2_LIBRARIES}
     kompareinterface
     KF5::ConfigWidgets
+    KF5::CoreAddons
+    KF5::JobWidgets
+    Qt5::PrintSupport
 )
 
 install(TARGETS komparepart  DESTINATION ${PLUGIN_INSTALL_DIR} )

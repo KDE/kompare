@@ -25,7 +25,7 @@
 #include <kdemacros.h>
 
 class KConfig;
-class KUrl;
+class QUrl;
 
 class KompareInterfacePrivate;
 
@@ -43,7 +43,7 @@ public:
 	/**
 	 * Open and parse the diff file at url.
 	 */
-	virtual bool openDiff( const KUrl& diffUrl ) = 0;
+	virtual bool openDiff( const QUrl& diffUrl ) = 0;
 
 	/**
 	 * Open and parse the supplied diff output
@@ -53,7 +53,7 @@ public:
 	/**
 	 * Open and parse the diff3 file at url.
 	 */
-	virtual bool openDiff3( const KUrl& diff3Url ) = 0;
+	virtual bool openDiff3( const QUrl& diff3Url ) = 0;
 
 	/**
 	 * Open and parse the supplied diff3 output
@@ -66,42 +66,42 @@ public:
 	 * they are (directory, file, diff output file) and call the
 	 * appropriate method(s)
 	 */
-	virtual void compare( const KUrl& sourceFile, const KUrl& destinationFile ) = 0;
+	virtual void compare( const QUrl& sourceFile, const QUrl& destinationFile ) = 0;
 
 	/**
 	 * Compare a Source file to a custom Destination string
 	 */
-	virtual void compareFileString( const KUrl & sourceFile, const QString & destination) = 0;
+	virtual void compareFileString( const QUrl & sourceFile, const QString & destination) = 0;
 
 	/**
 	 * Compare a custom Source string to a Destination file
 	 */
-	virtual void compareStringFile( const QString & source, const KUrl & destinationFile) = 0;
+	virtual void compareStringFile( const QString & source, const QUrl & destinationFile) = 0;
 
 	/**
 	 * Compare, with diff, source with destination files
 	 */
-	virtual void compareFiles( const KUrl& sourceFile, const KUrl& destinationFile ) = 0;
+	virtual void compareFiles( const QUrl& sourceFile, const QUrl& destinationFile ) = 0;
 
 	/**
 	 * Compare, with diff, source with destination directories
 	 */
-	virtual void compareDirs ( const KUrl& sourceDir, const KUrl& destinationDir ) = 0;
+	virtual void compareDirs ( const QUrl& sourceDir, const QUrl& destinationDir ) = 0;
 
 	/**
 	 * Compare, with diff3, originalFile with changedFile1 and changedFile2
 	 */
-	virtual void compare3Files( const KUrl& originalFile, const KUrl& changedFile1, const KUrl& changedFile2 ) = 0;
+	virtual void compare3Files( const QUrl& originalFile, const QUrl& changedFile1, const QUrl& changedFile2 ) = 0;
 
 	/**
 	 * This will show the file and the file with the diff applied
 	 */
-	virtual void openFileAndDiff( const KUrl& file, const KUrl& diffFile ) = 0;
+	virtual void openFileAndDiff( const QUrl& file, const QUrl& diffFile ) = 0;
 
 	/**
 	 * This will show the directory and the directory with the diff applied
 	 */
-	virtual void openDirAndDiff ( const KUrl& dir,  const KUrl& diffFile ) = 0;
+	virtual void openDirAndDiff ( const QUrl& dir,  const QUrl& diffFile ) = 0;
 
 	/**
 	 * This will set the encoding to use for all files that are read or for the diffoutput

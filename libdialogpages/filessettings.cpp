@@ -17,7 +17,6 @@
 
 #include "filessettings.h"
 
-#include <kapplication.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
 

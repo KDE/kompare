@@ -26,17 +26,14 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QFontComboBox>
+#include <QTabWidget>
 
-#include <kapplication.h>
 #include <kcolorbutton.h>
-#include <kdialog.h>
 #include <klocale.h>
-#include <kglobal.h>
-#include <ktabwidget.h>
 
 #include "viewsettings.h"
 
-ViewPage::ViewPage() : PageBase()
+ViewPage::ViewPage() : QFrame()
 {
 	QWidget*     page;
 	QVBoxLayout* layout;
@@ -46,17 +43,17 @@ ViewPage::ViewPage() : PageBase()
 	QGroupBox*   tabGroupBox;
 	QLabel*      label;
 
-	m_tabWidget = new KTabWidget( this );
+	m_tabWidget = new QTabWidget( this );
+	layout = new QVBoxLayout( this );
+	layout->addWidget( m_tabWidget );
+
 	page   = new QWidget( m_tabWidget );
 	layout = new QVBoxLayout( page );
-	layout->setSpacing( KDialog::spacingHint() );
-	layout->setMargin( KDialog::marginHint() );
 
 	// add a groupbox
 	colorGroupBox = new QGroupBox( page );
 	colorGroupBox->setTitle( i18n( "Colors" ) );
 	layout->addWidget( colorGroupBox );
-	//colorGroupBox->setMargin( KDialog::marginHint() );
 	gridLayout = new QGridLayout( colorGroupBox );
 
 	// add the removeColor
@@ -89,68 +86,61 @@ ViewPage::ViewPage() : PageBase()
 
 	// scroll number of lines (snol)
 	snolGroupBox = new QGroupBox( page );
-        QHBoxLayout *snolLayout = new QHBoxLayout;
-        snolGroupBox->setLayout( snolLayout );
+	QHBoxLayout *snolLayout = new QHBoxLayout;
+	snolGroupBox->setLayout( snolLayout );
 	snolGroupBox->setTitle( i18n( "Mouse Wheel" ) );
 	layout->addWidget( snolGroupBox );
-	//snolGroupBox->setMargin( KDialog::marginHint() );
 
-	label            = new QLabel( i18n( "Number of lines:" ) );
-        snolLayout->addWidget( label );
+	label = new QLabel( i18n( "Number of lines:" ) );
+	snolLayout->addWidget( label );
 	m_snolSpinBox    = new QSpinBox( snolGroupBox );
 	m_snolSpinBox->setRange( 0, 50 );
-        snolLayout->addWidget( m_snolSpinBox );
+	snolLayout->addWidget( m_snolSpinBox );
 	label->setBuddy( m_snolSpinBox );
 
 	// Temporarily here for testing...
 	// number of spaces for a tab character stuff
 	tabGroupBox = new QGroupBox( page );
-        QHBoxLayout *tabLayout = new QHBoxLayout;
-        tabGroupBox->setLayout( tabLayout );
+	QHBoxLayout *tabLayout = new QHBoxLayout;
+	tabGroupBox->setLayout( tabLayout );
 	tabGroupBox->setTitle( i18n( "Tabs to Spaces" ) );
 	layout->addWidget( tabGroupBox );
-	//tabGroupBox->setMargin( KDialog::marginHint() );
 
 	label = new QLabel( i18n( "Number of spaces to convert a tab character to:" ) );
-        tabLayout->addWidget( label );
+	tabLayout->addWidget( label );
 	m_tabSpinBox = new QSpinBox( tabGroupBox );
 	m_tabSpinBox->setRange( 1, 16 );
-        tabLayout->addWidget( m_tabSpinBox );
+	tabLayout->addWidget( m_tabSpinBox );
 	label->setBuddy( m_tabSpinBox );
 
 	layout->addStretch( 1 );
-	page->setMinimumSize( sizeHintForWidget( page ) );
 
 	m_tabWidget->addTab( page, i18n( "Appearance" ) );
 
 	page   = new QWidget( m_tabWidget );
 	layout = new QVBoxLayout( page );
-	layout->setSpacing( KDialog::spacingHint() );
-	layout->setMargin( KDialog::marginHint() );
 
 	QGroupBox* gb = new QGroupBox( page );
-        QHBoxLayout *layfont = new QHBoxLayout;
-        gb->setLayout( layfont );
+	QHBoxLayout *layfont = new QHBoxLayout;
+	gb->setLayout( layfont );
 	gb->setTitle( i18n( "Text Font" ) );
 	layout->addWidget( gb );
-	//gb->setMargin( KDialog::marginHint() );
 
 	label = new QLabel( i18n( "Font:" ) );
 	m_fontCombo = new QFontComboBox;
-        layfont->addWidget( label );
-        layfont->addWidget( m_fontCombo );
+	layfont->addWidget( label );
+	layfont->addWidget( m_fontCombo );
 	m_fontCombo->setObjectName( "fontcombo" );
 	label->setBuddy( m_fontCombo );
 
 	label = new QLabel( i18n( "Size:" ) );
-        layfont->addWidget( label );
+	layfont->addWidget( label );
 	m_fontSizeSpinBox = new QSpinBox( gb );
 	m_fontSizeSpinBox->setRange( 6, 24 );
-        layfont->addWidget( m_fontSizeSpinBox );
+	layfont->addWidget( m_fontSizeSpinBox );
 	label->setBuddy( m_fontSizeSpinBox );
 
 	layout->addStretch( 1 );
-	page->setMinimumSize( sizeHintForWidget( page ) );
 
 	m_tabWidget->addTab( page, i18n( "Fonts" ) );
 }
@@ -196,7 +186,7 @@ void ViewPage::apply()
 	m_settings->m_font                = QFont( m_fontCombo->currentFont() );
 	m_settings->m_font.setPointSize( m_fontSizeSpinBox->value() );
 
-	m_settings->saveSettings( KGlobal::config().data() );
+	m_settings->saveSettings( KSharedConfig::openConfig().data() );
 }
 
 void ViewPage::setDefaults()
@@ -206,11 +196,11 @@ void ViewPage::setDefaults()
 	m_removedColorButton->setColor( ViewSettings::default_removeColor );
 	m_appliedColorButton->setColor( ViewSettings::default_appliedColor );
 	m_snolSpinBox->setValue       ( 3 );
-        m_tabSpinBox->setValue        ( 4 );
+	m_tabSpinBox->setValue        ( 4 );
 
 	// TODO: port
 	// m_fontCombo->setCurrentFont   ( KGlobalSettings::fixedFont().family() );
-        m_fontSizeSpinBox->setValue   ( 10 );
+	m_fontSizeSpinBox->setValue   ( 10 );
 }
 
 #include "viewpage.moc"

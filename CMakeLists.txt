@@ -13,10 +13,15 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
 include(ECMInstallIcons)
+include(GenerateExportHeader)
 
 find_package(KF5 REQUIRED COMPONENTS
+    CoreAddons
+    Codecs
     DocTools
-    KDELibs4Support
+    IconThemes
+    JobWidgets
+    Config
     Parts
     TextEditor
     WidgetsAddons

@@ -18,9 +18,9 @@
 
 #include "kompareprefdlg.h"
 
-#include <kiconloader.h>
-#include <klocale.h>
-#include <ktabwidget.h>
+#include <QTabWidget>
+
+#include <klocalizedstring.h>
 #include <khelpclient.h>
 
 #include "diffpage.h"

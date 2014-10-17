@@ -22,26 +22,21 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-#include <kapplication.h>
 #include <kcharsets.h>
 #include <kconfig.h>
-#include <kdialog.h>
-#include <klocale.h>
-#include <kglobal.h>
-#include <kurl.h>
+#include <klocalizedstring.h>
 #include <kurlcombobox.h>
 #include <kurlrequester.h>
 
 #include "filessettings.h"
 
-FilesPage::FilesPage() : PageBase()
-{
-	QWidget* page = new QWidget( this );
-	QVBoxLayout* layout = new QVBoxLayout( page );
-	layout->setSpacing( KDialog::spacingHint() );
-	layout->setMargin( KDialog::marginHint() );
+QUrl urlFromArg(const QString &arg);
 
-	m_firstGB = new QGroupBox( "You have to set this moron :)", page );
+FilesPage::FilesPage() : QFrame()
+{
+	QVBoxLayout* layout = new QVBoxLayout( this );
+
+	m_firstGB = new QGroupBox( "You have to set this moron :)", this );
 	layout->addWidget( m_firstGB );
 	QHBoxLayout* gb1Layout = new QHBoxLayout( m_firstGB );
 	m_firstURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_firstGB );
@@ -50,7 +45,7 @@ FilesPage::FilesPage() : PageBase()
 	gb1Layout->addWidget( m_firstURLRequester );
 	m_firstURLRequester->setFocus();
 
-	m_secondGB = new QGroupBox( "This too moron !", page );
+	m_secondGB = new QGroupBox( "This too moron !", this );
 	layout->addWidget( m_secondGB );
 	QHBoxLayout* gb2Layout = new QHBoxLayout( m_secondGB );
 	m_secondURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_secondGB );
@@ -58,13 +53,13 @@ FilesPage::FilesPage() : PageBase()
 	m_secondURLRequester = new KUrlRequester( m_secondURLComboBox, m_secondGB );
 	gb2Layout->addWidget( m_secondURLRequester );
 
-	m_thirdGB = new QGroupBox( i18n( "Encoding" ), page );
+	m_thirdGB = new QGroupBox( i18n( "Encoding" ), this );
 	layout->addWidget( m_thirdGB );
 	QHBoxLayout* gb3Layout = new QHBoxLayout( m_thirdGB );
 	m_encodingComboBox = new KComboBox( false, m_thirdGB );
 	m_encodingComboBox->setObjectName( "encoding_combobox" );
 	m_encodingComboBox->insertItem( 0, "Default" );
-	m_encodingComboBox->insertItems( 1, KGlobal::charsets()->availableEncodingNames() );
+	m_encodingComboBox->insertItems( 1, KCharsets::charsets()->availableEncodingNames() );
 	gb3Layout->addWidget( m_encodingComboBox );
 
 	layout->addWidget( m_firstGB );
@@ -72,9 +67,6 @@ FilesPage::FilesPage() : PageBase()
 	layout->addWidget( m_thirdGB );
 
 	layout->addStretch( 1 );
-	page->setMinimumSize( sizeHintForWidget( page ) );
-
-	//addTab( page, i18n( "&Files" ) );
 }
 
 FilesPage::~FilesPage()
@@ -111,8 +103,8 @@ void FilesPage::setURLsInComboBoxes()
 {
 //	qDebug() << "first : " << m_firstURLComboBox->currentText() ;
 //	qDebug() << "second: " << m_secondURLComboBox->currentText() ;
-	m_firstURLComboBox->setUrl( KUrl( m_firstURLComboBox->currentText() ) );
-	m_secondURLComboBox->setUrl( KUrl( m_secondURLComboBox->currentText() ) );
+	m_firstURLComboBox->setUrl( urlFromArg( m_firstURLComboBox->currentText() ) );
+	m_secondURLComboBox->setUrl( urlFromArg( m_secondURLComboBox->currentText() ) );
 }
 
 
@@ -131,9 +123,9 @@ void FilesPage::setSettings( FilesSettings* settings )
 	m_settings = settings;
 
 	m_firstURLComboBox->setUrls( m_settings->m_recentSources );
-	m_firstURLComboBox->setUrl( KUrl( m_settings->m_lastChosenSourceURL ) );
+	m_firstURLComboBox->setUrl( urlFromArg( m_settings->m_lastChosenSourceURL ) );
 	m_secondURLComboBox->setUrls( m_settings->m_recentDestinations );
-	m_secondURLComboBox->setUrl( KUrl( m_settings->m_lastChosenDestinationURL ) );
+	m_secondURLComboBox->setUrl( urlFromArg( m_settings->m_lastChosenDestinationURL ) );
 	m_encodingComboBox->setCurrentIndex( m_encodingComboBox->findText( m_settings->m_encoding, Qt::MatchFixedString ) );
 }
 
@@ -154,9 +146,9 @@ void FilesPage::apply()
 void FilesPage::setDefaults()
 {
 	m_firstURLComboBox->setUrls( QStringList() );
-	m_firstURLComboBox->setUrl( KUrl( "" ) );
+	m_firstURLComboBox->setUrl( QUrl() );
 	m_secondURLComboBox->setUrls( QStringList() );
-	m_secondURLComboBox->setUrl( KUrl( "" ) );
+	m_secondURLComboBox->setUrl( QUrl() );
 	m_encodingComboBox->setCurrentIndex( 0 ); // "Default"
 }
 

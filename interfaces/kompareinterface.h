@@ -22,14 +22,15 @@
 
 #include <QString>
 #include <QStringList>
-#include <kdemacros.h>
+
+#include "kompareinterface_export.h"
 
 class KConfig;
 class QUrl;
 
 class KompareInterfacePrivate;
 
-class KDE_EXPORT KompareInterface
+class KOMPAREINTERFACE_EXPORT KompareInterface
 {
 public:
 	KompareInterface();

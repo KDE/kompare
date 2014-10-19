@@ -9,6 +9,8 @@ set(kompareinterface_LIB_SRCS kompareinterface.cpp )
 
 add_library(kompareinterface SHARED ${kompareinterface_LIB_SRCS})
 
+generate_export_header(kompareinterface BASE_NAME KOMPAREINTERFACE)
+
 target_link_libraries(kompareinterface
     Qt5::Core
 )

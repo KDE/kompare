@@ -21,7 +21,7 @@
 #include <QDebug>
 #include <QTreeWidgetItemIterator>
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kaboutdata.h>
 #include <kpluginfactory.h>
 #include <kiconloader.h>

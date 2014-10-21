@@ -23,7 +23,6 @@
 
 #include <klocale.h>
 #include <kaboutdata.h>
-#include <kcomponentdata.h>
 #include <kpluginfactory.h>
 #include <kiconloader.h>
 

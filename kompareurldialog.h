@@ -19,9 +19,6 @@
 #define KOMPAREURLDIALOG_H
 
 #include <kpagedialog.h>
-#include <kurl.h>
-
-
 
 class FilesPage;
 class FilesSettings;

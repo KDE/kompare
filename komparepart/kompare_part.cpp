@@ -32,11 +32,11 @@
 
 #include <kaboutdata.h>
 #include <kactioncollection.h>
-#include <kcomponentdata.h>
 #include <kjobwidgets.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kpluginfactory.h>
+#include <ksharedconfig.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
 
@@ -64,7 +64,6 @@ DiffSettings* KomparePart::m_diffSettings = 0L;
 
 KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QVariantList & /*args*/ ) :
 	KParts::ReadWritePart(parent),
-	m_tempDiff( 0 ),
 	m_info()
 {
 	if( !m_viewSettings ) {

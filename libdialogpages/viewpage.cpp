@@ -29,7 +29,8 @@
 #include <QTabWidget>
 
 #include <kcolorbutton.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
+#include <ksharedconfig.h>
 
 #include "viewsettings.h"
 

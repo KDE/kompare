@@ -29,10 +29,9 @@
 
 class QAction;
 class QPrinter;
+class QUrl;
 class QWidget;
 
-class KTemporaryFile;
-class KUrl;
 class KAboutData;
 
 namespace Diff2 {
@@ -179,16 +178,12 @@ signals:
 protected:
 	/**
 	 * This is the method that gets called when the file is opened,
-	 * when using openURL( const KUrl& ) or in our case also openDiff( const KUrl& );
+	 * when using openURL( const QUrl& ) or in our case also openDiff( const QUrl& );
 	 * return true when everything went ok, false if there were problems
 	 */
 	virtual bool openFile();
 	// ... Uhm we return true without saving ???
 	virtual bool saveFile() { return true; };
-
-	// patchFile
-	bool patchFile(KUrl&);
-	bool patchDir();
 
 protected slots:
 	void slotSetStatus( Kompare::Status status );
@@ -234,8 +229,6 @@ private:
 	QAction*                 m_diffRefresh;
 	QAction*                 m_print;
 	QAction*                 m_printPreview;
-
-	KTemporaryFile*          m_tempDiff;
 
 	struct Kompare::Info     m_info;
 };

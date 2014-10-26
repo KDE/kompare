@@ -298,7 +298,7 @@ bool KomparePart::fetchURL( const QUrl& url, bool addToSource )
                 if ( ! copyJob->exec() )
                 {
                     qDebug() << "download error " << copyJob->errorString();
-                    slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.toString(QUrl::RemovePassword) ) );
+                    slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.toDisplayString() ) );
                     tempFileName = ""; // Not sure if download has already touched this tempFileName when there is an error
                     result = false;
                 }
@@ -311,7 +311,7 @@ bool KomparePart::fetchURL( const QUrl& url, bool addToSource )
                 KJobWidgets::setWindow( copyJob, widget() );
                 if ( ! copyJob->exec() )
                 {
-                    slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.toString(QUrl::RemovePassword) ) );
+                    slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.toDisplayString() ) );
                     delete tmpDir;
                     tmpDir = 0;
                     result = false;
@@ -350,7 +350,7 @@ bool KomparePart::fetchURL( const QUrl& url, bool addToSource )
 			tempFileName = url.toLocalFile();
 		else
 		{
-			slotShowError( i18n( "<qt>The URL <b>%1</b> does not exist on your system.</qt>", url.toString(QUrl::RemovePassword) ) );
+			slotShowError( i18n( "<qt>The URL <b>%1</b> does not exist on your system.</qt>", url.toDisplayString() ) );
 			result = false;
 		}
 	}
@@ -572,7 +572,7 @@ void KomparePart::saveDiff()
 				}
 				else
 				{
-					qCDebug(KOMPAREPART) << "URL = " << url.toString(QUrl::RemovePassword);
+					qCDebug(KOMPAREPART) << "URL = " << url.toDisplayString();
 					qCDebug(KOMPAREPART) << "Directory = " << w->directory();
 					qCDebug(KOMPAREPART) << "DiffSettings = " << m_diffSettings;
 
@@ -582,7 +582,7 @@ void KomparePart::saveDiff()
 			}
 			else
 			{
-				qCDebug(KOMPAREPART) << "URL = " << url.toString(QUrl::RemovePassword);
+				qCDebug(KOMPAREPART) << "URL = " << url.toDisplayString();
 				qCDebug(KOMPAREPART) << "Directory = " << w->directory();
 				qCDebug(KOMPAREPART) << "DiffSettings = " << m_diffSettings;
 
@@ -673,8 +673,8 @@ void KomparePart::slotSetStatus( enum Kompare::Status status )
 
 void KomparePart::updateCaption()
 {
-	QString source = m_info.source.toString(QUrl::RemovePassword);
-	QString destination = m_info.destination.toString(QUrl::RemovePassword);
+	QString source = m_info.source.toDisplayString();
+	QString destination = m_info.destination.toDisplayString();
 
 	QString text;
 
@@ -698,8 +698,8 @@ void KomparePart::updateCaption()
 
 void KomparePart::updateStatus()
 {
-	QString source = m_info.source.toString(QUrl::RemovePassword);
-	QString destination = m_info.destination.toString(QUrl::RemovePassword);
+	QString source = m_info.source.toDisplayString();
+	QString destination = m_info.destination.toDisplayString();
 
 	QString text;
 
@@ -725,8 +725,8 @@ void KomparePart::updateStatus()
 		break;
 	case Kompare::BlendingDir :
 		text = i18n( "Blending diff output from %1 into folder %2" ,
-		      m_info.source.toString(QUrl::RemovePassword) ,
-		      m_info.destination.toString(QUrl::RemovePassword) );
+		      m_info.source.toDisplayString() ,
+		      m_info.destination.toDisplayString() );
 		break;
 	default:
 		break;

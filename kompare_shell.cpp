@@ -164,7 +164,7 @@ bool KompareShell::queryClose()
 
 void KompareShell::openDiff(const QUrl& url)
 {
-	qCDebug(KOMPARESHELL) << "Url = " << url.toString( QUrl::RemovePassword );
+	qCDebug(KOMPARESHELL) << "Url = " << url.toDisplayString();
 	m_diffURL = url;
 	viewPart()->openDiff( url );
 }

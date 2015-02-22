@@ -3,8 +3,7 @@ project(kompare)
 
 # search packages used by KDE
 include(FeatureSummary)
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets)
-find_package(Qt5 OPTIONAL_COMPONENTS PrintSupport)
+find_package(Qt5 REQUIRED COMPONENTS Core PrintSupport Widgets)
 
 find_package(ECM 0.0.9 NO_MODULE REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})

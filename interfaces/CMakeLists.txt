@@ -15,7 +15,7 @@ target_link_libraries(kompareinterface
     Qt5::Core
 )
 
-set_target_properties(kompareinterface PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
+set_target_properties(kompareinterface PROPERTIES VERSION ${KOMPARE_LIB_VERSION} SOVERSION ${KOMPARE_LIB_SOVERSION} )
 install(TARGETS kompareinterface ${INSTALL_TARGETS_DEFAULT_ARGS} )
 install(FILES kompareinterface.h DESTINATION ${INCLUDE_INSTALL_DIR}/kompare COMPONENT Devel )
 

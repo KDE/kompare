@@ -30,6 +30,9 @@ find_package(LibKompareDiff2 REQUIRED)
 include_directories (${LIBKOMPAREDIFF2_INCLUDE_DIR})
 include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
 
+set(KOMPARE_LIB_VERSION 5)
+set(KOMPARE_LIB_SOVERSION 5)
+
 add_subdirectory( doc )
 add_subdirectory( interfaces )
 add_subdirectory( libdialogpages )

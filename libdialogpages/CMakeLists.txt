@@ -22,8 +22,8 @@ target_link_libraries(komparedialogpages
     ${LIBKOMPAREDIFF2_LIBRARIES}
 )
 
-set_target_properties(komparedialogpages PROPERTIES VERSION ${GENERIC_LIB_VERSION}
-SOVERSION ${GENERIC_LIB_SOVERSION} )
+set_target_properties(komparedialogpages PROPERTIES VERSION ${KOMPARE_LIB_VERSION}
+SOVERSION ${KOMPARE_LIB_SOVERSION} )
 
 install(TARGETS komparedialogpages ${INSTALL_TARGETS_DEFAULT_ARGS})
 

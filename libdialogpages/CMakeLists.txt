@@ -25,5 +25,5 @@ target_link_libraries(komparedialogpages
 set_target_properties(komparedialogpages PROPERTIES VERSION ${KOMPARE_LIB_VERSION}
 SOVERSION ${KOMPARE_LIB_SOVERSION} )
 
-install(TARGETS komparedialogpages ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS komparedialogpages ${INSTALL_TARGETS_DEFAULT_ARGS} LIBRARY NAMELINK_SKIP)
 

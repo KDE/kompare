@@ -131,6 +131,5 @@ Exec=kompare -o %U
 Icon=kompare
 X-DocPath=kompare/index.html
 Terminal=false
-X-DBUS-StartupType=Multi
 Categories=Qt;KDE;Development;
 InitialPreference=10

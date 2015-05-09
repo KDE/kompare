@@ -540,12 +540,15 @@ void KomparePart::saveDiff()
 	dlg.setModal( true );
 	dlg.setWindowTitle( i18n("Diff Options") );
 	QDialogButtonBox *buttons = new QDialogButtonBox( QDialogButtonBox::Save | QDialogButtonBox::Cancel, &dlg );
+	connect(buttons, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
+	connect(buttons, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
 	KompareSaveOptionsWidget* w = new KompareSaveOptionsWidget(
 	                                             m_info.localSource,
 	                                             m_info.localDestination,
 	                                             m_diffSettings, &dlg );
-	QHBoxLayout *layout = new QHBoxLayout(&dlg);
+	QVBoxLayout *layout = new QVBoxLayout(&dlg);
 	layout->addWidget( w );
+	layout->addWidget( buttons );
 	dlg.setLayout( layout );
 
 	if( dlg.exec() ) {

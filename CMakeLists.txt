@@ -74,6 +74,6 @@ install(TARGETS kompare  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 ########### install files ###############
 
 install( PROGRAMS kompare.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
-install( FILES kompareui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kompare )
+install( FILES kompareui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/kompare )
 install( FILES komparenavigationpart.desktop kompareviewpart.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
 

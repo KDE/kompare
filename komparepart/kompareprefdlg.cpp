@@ -19,9 +19,11 @@
 #include "kompareprefdlg.h"
 
 #include <QTabWidget>
+#include <QPushButton>
 
 #include <klocalizedstring.h>
 #include <khelpclient.h>
+#include <kstandardguiitem.h>
 
 #include "diffpage.h"
 #include "viewpage.h"
@@ -32,8 +34,10 @@ KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets )
 {
 	setFaceType( KPageDialog::List );
 	setWindowTitle( i18n( "Preferences" ) );
-	setStandardButtons( QDialogButtonBox::Help|QDialogButtonBox::Ok|QDialogButtonBox::Apply|QDialogButtonBox::Cancel );
+	setStandardButtons( QDialogButtonBox::Help|QDialogButtonBox::Reset|QDialogButtonBox::Ok|QDialogButtonBox::Apply|QDialogButtonBox::Cancel );
 	setModal( true );
+
+	KGuiItem::assign( button( QDialogButtonBox::Reset ), KStandardGuiItem::defaults() );
 
 	// ok i need some stuff in that pref dlg...
 	//setIconListAllVisible(true);
@@ -52,11 +56,11 @@ KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets )
 
 //	frame = addVBoxPage( i18n( "" ), i18n( "" ), UserIcon( "" ) );
 
-	connect( this, SIGNAL(defaultClicked()), SLOT(slotDefault()) );
-	connect( this, SIGNAL(helpClicked()), SLOT(slotHelp()) );
-	connect( this, SIGNAL(applyClicked()), SLOT(slotApply()) );
-	connect( this, SIGNAL(okClicked()), SLOT(slotOk()) );
-	connect( this, SIGNAL(cancelClicked()), SLOT(slotCancel()) );
+	connect( button( QDialogButtonBox::Reset ), &QPushButton::clicked, this, &KomparePrefDlg::slotDefault );
+	connect( button( QDialogButtonBox::Help ), &QPushButton::clicked, this, &KomparePrefDlg::slotHelp );
+	connect( button( QDialogButtonBox::Apply ), &QPushButton::clicked, this, &KomparePrefDlg::slotApply );
+	connect( button( QDialogButtonBox::Ok ), &QPushButton::clicked, this, &KomparePrefDlg::slotOk );
+	connect( button( QDialogButtonBox::Cancel ), &QPushButton::clicked, this, &KomparePrefDlg::slotCancel );
 
 	adjustSize();
 }

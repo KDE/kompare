@@ -37,7 +37,7 @@ install(TARGETS komparepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
 ########### install files ###############
 
 install( FILES komparepart.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
-install( FILES komparepartui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kompare )
+install( FILES komparepartui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/kompare )
 
 
 

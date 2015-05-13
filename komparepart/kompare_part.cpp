@@ -181,7 +181,7 @@ void KomparePart::setupActions()
 	m_diffRefresh = actionCollection()->addAction("file_refreshdiff", this, SLOT(slotRefreshDiff()));
 	m_diffRefresh->setIcon(QIcon::fromTheme("view-refresh"));
 	m_diffRefresh->setText(i18n("Refresh Diff"));
-	m_diffRefresh->setShortcuts(KStandardShortcut::reload());
+	actionCollection()->setDefaultShortcuts(m_diffRefresh, KStandardShortcut::reload());
 
 	m_print        = actionCollection()->addAction(KStandardAction::Print, this, SLOT( slotFilePrint() ));
 	m_printPreview = actionCollection()->addAction(KStandardAction::PrintPreview, this, SLOT( slotFilePrintPreview() ));

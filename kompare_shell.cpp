@@ -44,9 +44,9 @@
 #include "kompareinterface.h"
 #include "kompareurldialog.h"
 
-#define ID_N_OF_N_DIFFERENCES      1
-#define ID_N_OF_N_FILES            2
-#define ID_GENERAL                 3
+#define ID_N_OF_N_DIFFERENCES      0
+#define ID_N_OF_N_FILES            1
+#define ID_GENERAL                 2
 
 Q_LOGGING_CATEGORY(KOMPARESHELL, "kompareshell")
 
@@ -208,10 +208,10 @@ void KompareShell::setupActions()
 	a = actionCollection()->addAction("file_compare_files", this, SLOT(slotFileCompareFiles()));
 	a->setIcon(QIcon::fromTheme("document-open"));
 	a->setText(i18n("&Compare Files..."));
-	a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
+	actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_C));
 	a = actionCollection()->addAction("file_blend_url", this, SLOT(slotFileBlendURLAndDiff()));
 	a->setText(i18n("&Blend URL with Diff..."));
-	a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
+	actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_B));
 	actionCollection()->addAction(KStandardAction::Quit, this, SLOT( slotFileClose() ));
 
 	createStandardStatusBarAction();

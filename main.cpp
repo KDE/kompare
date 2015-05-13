@@ -83,6 +83,7 @@ int main(int argc, char *argv[])
 	aboutData.addCredit( i18n("Bernd Gehrmann"), i18n("Cervisia diff viewer"), "bernd@physik.hu-berlin.de" );
 
 	QApplication app(argc, argv);
+	app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kompare")));
 	QCommandLineParser parser;
 	KAboutData::setApplicationData(aboutData);
 	parser.addVersionOption();
@@ -119,7 +120,7 @@ int main(int argc, char *argv[])
 			qCDebug(KOMPARESHELL) << "Argument " << (i+1) << ": " << args.at( i ) ;
 		}
 
-		if ( parser.isSet( "e" ) )
+		if ( parser.isSet( "e <encoding>" ) )
 		{
 			// Encoding given...
 			// FIXME: Need to implement this...

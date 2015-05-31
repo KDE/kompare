@@ -22,6 +22,7 @@
 
 #include <QString>
 #include <QStringList>
+#include <QtPlugin>
 
 #include "kompareinterface_export.h"
 

@@ -3,6 +3,7 @@
 Type=Application
 Name=Kompare
 Name[af]=K-vergelyk
+Name[ast]=Kompare
 Name[bg]=Kompare
 Name[br]=Kompare
 Name[bs]=Kompare
@@ -66,6 +67,7 @@ Name[zh_CN]=Kompare
 Name[zh_TW]=Kompare
 GenericName=Diff/Patch Frontend
 GenericName[af]=Diff/Lap Voorprogram
+GenericName[ast]=Interfaz Diff/Patch
 GenericName[bg]=Интерфейс за Diff/Patch
 GenericName[bs]=Poređenje datoteka za KDE pomoću Diff/Patch
 GenericName[ca]=Frontal del Diff/Patch

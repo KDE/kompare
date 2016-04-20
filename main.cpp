@@ -71,6 +71,7 @@ QUrl urlFromArg(const QString& arg)
  */
 int main(int argc, char *argv[])
 {
+        KLocalizedString::setApplicationDomain("kompare");
 	KAboutData aboutData( "kompare",  i18n("Kompare"), version, i18n(description),
 	                      KAboutLicense::GPL,
 	                      i18n("(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler") );

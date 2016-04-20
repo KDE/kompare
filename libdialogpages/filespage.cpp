@@ -58,7 +58,7 @@ FilesPage::FilesPage() : QFrame()
 	QHBoxLayout* gb3Layout = new QHBoxLayout( m_thirdGB );
 	m_encodingComboBox = new KComboBox( false, m_thirdGB );
 	m_encodingComboBox->setObjectName( "encoding_combobox" );
-	m_encodingComboBox->insertItem( 0, "Default" );
+	m_encodingComboBox->insertItem( 0, i18n( "Default" ) );
 	m_encodingComboBox->insertItems( 1, KCharsets::charsets()->availableEncodingNames() );
 	gb3Layout->addWidget( m_encodingComboBox );
 

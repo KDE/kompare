@@ -1,3 +1,4 @@
+#define TRANSLATION_DOMAIN "kompare"
 
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../libdialogpages ${CMAKE_CURRENT_SOURCE_DIR}/../interfaces  )
 
@@ -15,7 +16,7 @@ set( komparepart_PART_SRCS
      kompareview.cpp )
 
 
-qt5_wrap_ui(komparepart_PART_SRCS komparesaveoptionsbase.ui )
+ki18n_wrap_ui(komparepart_PART_SRCS komparesaveoptionsbase.ui )
 
 add_library(komparepart MODULE ${komparepart_PART_SRCS})
 

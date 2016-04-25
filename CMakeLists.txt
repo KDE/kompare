@@ -33,6 +33,8 @@ include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
 set(KOMPARE_LIB_VERSION 5)
 set(KOMPARE_LIB_SOVERSION 5)
 
+add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
+
 add_subdirectory( doc )
 add_subdirectory( interfaces )
 add_subdirectory( libdialogpages )

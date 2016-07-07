@@ -1,8 +1,5 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
-   <!ENTITY kappname "&kompare;">
-   <!ENTITY version "4.4.0">
-   <!ENTITY package "kdesdk">
    <!ENTITY % addindex "IGNORE">
    <!ENTITY % English "INCLUDE">
 ]>
@@ -25,8 +22,8 @@
 
  <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2010-07-22</date>
-<releaseinfo>&version;</releaseinfo>
+<date>2016-07-05</date>
+<releaseinfo>4.1.3 (Applications 16.04)</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -35,7 +32,6 @@
 &kompare; is a &GUI; front-end program that enables differences between source files to be viewed and merged. 
 &kompare; can be used to compare differences on files or the contents of folders. &kompare; supports a variety 
 of diff formats and provide many options to customize the information level displayed.</para>
-<para>This document describes &kompare; version &version;.</para>
 </abstract>
 
 
@@ -58,7 +54,7 @@ see what changes have been made to a new version or copy of the file. Opening th
 application used to create it is one solution but, laborious, time consuming, and prone to error. This is where a program to show 
 differences, diffs for short, is useful.</para>
 
-<para>As would be expected, an appropriate name for such a program would be &quot;diff&quot;. As it happens, the program diff is installed on 
+<para>As would be expected, an appropriate name for such a program would be <quote>diff</quote>;. As it happens, the program diff is installed on
 most &Linux;-based systems and is used for exactly this purpose. Developers often use diff, as a command line tool, to show differences 
 between versions of a source code file. However, the use of diff is not limited to showing differences in code source files, 
 it can be used on many text-based file types.</para>
@@ -79,13 +75,13 @@ can be created that captures only the changes made. This can be sent to the seco
 
 <para>Using &kompare; the second person can view the diff file, compare it to the local copy of the document and apply the changes made by the first person. 
 So the process can go on for many versions of the document, each person making changes, creating diffs, distributing them and applying them.
-This process is commonly called &quot;patching&quot;, a term taken from the program named &quot;patch&quot; which is another command line 
+This process is commonly called <quote>patching</quote> , a term taken from the program named <quote>patch</quote>  which is another command line
 tool specifically designed for the purpose of applying diff files.</para>
 
 <para>It sometimes happens that people edit a file at the same time. In this situation it is likely that people will make changes in the document at 
 exactly the same line. This creates a problem because, without applied caution, people could be overwriting each others work as they apply the diff files they receive. 
 Fortunately the developers of the diff and patch programs took this into consideration and so these tools will not allow such changes to be applied without manual intervention. 
-When this state is reached, it is known as a &quot;conflict&quot;. &kompare; will display conflicts so that you can manually resolve them, deciding 
+When this state is reached, it is known as a <quote>conflict</quote> . &kompare; will display conflicts so that you can manually resolve them, deciding
 which changes should be applied to which file.</para>
 
 <para>&kompare; is also a great program for comparison of file changes on a folder level. When used to compare folders &kompare; recursively examines subfolders 
@@ -105,7 +101,7 @@ listed by &kompare; where easy navigation between the various files is possible.
 <sect2 id="starting-kompare">
 <title>Starting &kompare;</title>
 
-<para>A shortcut for starting &kompare; can be found in the K menu in the Development group 
+<para>A shortcut for starting &kompare; can be found in the application menu in the Development group
 <menuchoice><guimenu>Development</guimenu><guimenuitem>Kompare</guimenuitem></menuchoice>.</para>
 
 <para>When &kompare; starts the first thing it does is display a dialog from 
@@ -212,9 +208,11 @@ Naturally, increasing the area of one pane will decrease the area available to t
 </varlistentry>
 <varlistentry>
 <term>Docking</term>
-<listitem><para>The navigation panel can be undocked from the main interface by clicking the <inlinemediaobject>
+<listitem>
+<para>The navigation panel can be undocked from the main interface by clicking the <inlinemediaobject>
 <imageobject><imagedata fileref="undock.png" format="PNG"/></imageobject></inlinemediaobject> icon located top right of the panel. 
-This opens it in a window of its own, allowing you to move it across the screen. You can even hide the navigation panel by clicking the <inlinemediaobject><imageobject><imagedata fileref="dock.png" format="PNG"/></imageobject></inlinemediaobject> icon.
+This opens it in a window of its own, allowing you to move it across the screen.
+You can even hide the navigation panel by clicking the <inlinemediaobject><imageobject><imagedata fileref="dock.png" format="PNG"/></imageobject></inlinemediaobject> icon.
 To display a hidden navigation bar again, click with the &RMB; into the menubar and select <guilabel>Navigation</guilabel> from the context menu.
 </para></listitem>
 </varlistentry>
@@ -401,7 +399,7 @@ Then input the <guilabel>File/Folder</guilabel> and <guilabel>Diff Output</guila
 <chapter id="configure-preferences">
 <title>Configuring Preferences</title>
 
-<para>&kompare; enables users to set appearance preferences for difference formatting in the main interface and set behavioural properties of the diff program. 
+<para>&kompare; enables users to set appearance preferences for difference formatting in the main interface and set behavioral properties of the diff program. 
 The <guilabel>Preferences</guilabel> dialog can be accessed by selecting 
 <menuchoice><guimenu>Settings</guimenu><guisubmenu>Configure &kompare;...</guisubmenu></menuchoice>.</para>
 
@@ -417,7 +415,7 @@ and <guilabel>Fonts</guilabel> tabbed forms.</para>
 <sect2 id="appearance">
 <title>Appearance</title>
 <para>The <guilabel>Appearance</guilabel> form provides controls to manage the <guilabel>Colors</guilabel> used 
-to denote difference in the main interface, behaviour of the <guilabel>Mouse Wheel</guilabel> when jogging up and down 
+to denote difference in the main interface, behavior of the <guilabel>Mouse Wheel</guilabel> when jogging up and down 
 and how <guilabel>Tabs to Spaces</guilabel> conversion is managed.</para>
 <screenshot>
 <screeninfo>&kompare; Appearance Settings</screeninfo>
@@ -487,7 +485,7 @@ and how <guilabel>Tabs to Spaces</guilabel> conversion is managed.</para>
 <title>Diff Settings</title>
 <para>The <guimenu>Diff</guimenu> page in the <guilabel>Preferences</guilabel> dialog displays the <guilabel>Diff</guilabel>, 
 <guilabel>Format</guilabel>, <guilabel>Options</guilabel> and <guilabel>Exclude</guilabel> tabbed forms. These forms can be used to configure the 
-behavioural properties of the Diff program.</para>
+behavioral properties of the Diff program.</para>
 
 <sect2 id="diff">
 <title>Diff</title>
@@ -542,14 +540,7 @@ behavioural properties of the Diff program.</para>
 output is more compact than that of context as it omits redundant context lines.</para>
 </listitem>
 </varlistentry>
-<!-- not in 3.5.1
-<varlistentry>
-<term><guilabel>Side-by-side</guilabel></term>
-<listitem>
-<para>Use the side by side output format which displays files listed in two columns with a gutter between them. This option is only available from the <guilabel>Diff Options</guilabel> dialog (see <xref linkend="creating-a-diff"/>).</para>
-</listitem>
-</varlistentry>
--->
+
 </variablelist>
 <variablelist>
 <title>Lines of Context</title>
@@ -668,7 +659,10 @@ When this option is checked such changes are ignored.</para></listitem>
 <chapter id="command-reference">
 <title>Command Reference</title>
 
-<sect1 id="file-menu">
+<sect1 id="menu-items">
+
+<title>Menu Items</title>
+<sect2 id="file-menu">
 <title>The File Menu</title>
 <variablelist>
 <varlistentry>
@@ -718,6 +712,14 @@ When this option is checked such changes are ignored.</para></listitem>
 </varlistentry>
 
 <varlistentry>
+<term><menuchoice>
+<shortcut><keycap>F5</keycap></shortcut>
+<guimenu>File</guimenu><guimenuitem>Refresh Diff</guimenuitem></menuchoice></term>
+<listitem><para>Updates the difference of the original paths. Useful if you have applied
+some changes, saved them and want to see what is left.</para></listitem>
+</varlistentry>
+
+<varlistentry>
 <term><menuchoice><guimenu>File</guimenu><guimenuitem>Swap Source with Destination</guimenuitem></menuchoice></term>
 <listitem><para>Changes source and destination.</para></listitem>
 </varlistentry>
@@ -727,7 +729,7 @@ When this option is checked such changes are ignored.</para></listitem>
 <guimenu>File</guimenu><guimenuitem>Show Statistics</guimenuitem></menuchoice></term>
 <listitem><para>Displays the <guilabel>Display Statistics</guilabel> dialog.</para></listitem>
 </varlistentry>
-<!-- Print Print Preview in 4.5.1-->
+
 <varlistentry>
 <term><menuchoice>
 <shortcut>
@@ -737,9 +739,9 @@ When this option is checked such changes are ignored.</para></listitem>
 <listitem><para>Exits &kompare;.</para></listitem>
 </varlistentry>
 </variablelist>
-</sect1>
+</sect2>
 
-<sect1 id="difference-menu">
+<sect2 id="difference-menu">
 <title>The Difference Menu</title>
 <variablelist>
 <varlistentry>
@@ -810,44 +812,71 @@ When this option is checked such changes are ignored.</para></listitem>
 <listitem><para>Select the difference below the currently selected difference.</para></listitem>
 </varlistentry>
 </variablelist>
+</sect2>
+
+<sect2 id="settingshelpmenu">
+
+<title>The Settings and Help Menu</title>
+<para>
+&kompare; has the common &kde; <guimenu>Settings</guimenu> and <guimenu>Help</guimenu>
+menu items, for more information read the sections about the <ulink url="help:/fundamentals/ui.html#menus-settings"
+>Settings Menu</ulink> and <ulink url="help:/fundamentals/ui.html#menus-help">Help Menu</ulink>
+of the &kde; Fundamentals.
+</para>
+</sect2>
 </sect1>
 
-<sect1 id="settingsmenu">
-<title>The Settings Menu</title>
+<sect1 id="commandline-options">
+<title>Commandline Options</title>
+
 <variablelist>
 <varlistentry>
-<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Show Toolbar</guimenuitem></menuchoice></term>
-<listitem><para>Toggle the toolbar display ON/OFF.</para></listitem>
+<term>-c</term>
+<listitem><para>This will compare URL1 with URL2.</para></listitem>
 </varlistentry>
+
 <varlistentry>
-<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Show Statusbar</guimenuitem></menuchoice></term>
-<listitem><para>Toggle the status bar display ON/OFF.</para></listitem>
+<term><userinput><command>kompare</command>
+<option>-o</option></userinput></term>
+<listitem><para>This will open URL1 and expect it to be diff
+output. URL1 can also be a '-' and then it will
+read from standard input. Can be used for
+instance for <userinput><command>cvs diff | kompare -o -</command></userinput>. Kompare
+will do a check to see if it can find the
+original file(s) and then blend the original
+file(s) into the diffoutput and show that in
+the viewer. <option>-n</option> disables the check.</para></listitem>
 </varlistentry>
+
 <varlistentry>
-<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Show Text View</guimenuitem></menuchoice></term>
-<listitem><para>Display the <guilabel>Text View</guilabel> pane.</para></listitem>
+<term><userinput><command>kompare</command>
+<option>-b</option></userinput></term>
+<listitem><para>This will blend URL2 into URL1, URL2 is
+expected to be diff output and URL1 the file or
+folder that the diffoutput needs to be blended
+into.</para></listitem>
 </varlistentry>
+
 <varlistentry>
-<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Shortcuts...</guimenuitem></menuchoice></term>
-<listitem><para>Display the <guilabel>Configure Shortcuts</guilabel> dialog.</para></listitem>
+<term><userinput><command>kompare</command>
+<option>-n</option></userinput></term>
+<listitem><para>Disables the check for automatically finding
+the original file(s) when using '-' as URL with
+the <option>-o</option> option.</para></listitem>
 </varlistentry>
+
 <varlistentry>
-<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Toolbars...</guimenuitem></menuchoice></term>
-<listitem><para>Display the <guilabel>Configure Toolbar</guilabel>.</para></listitem>
+<term><userinput><command>kompare</command>
+<option>-e</option> <replaceable>encoding</replaceable></userinput></term>
+<listitem><para>Use this to specify the encoding when
+calling it from the command line. It will
+default to the local encoding if not
+specified.</para></listitem>
 </varlistentry>
-<varlistentry>
-<term><menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kompare;...</guimenuitem></menuchoice></term>
-<listitem><para>Display the &kompare; <guilabel>Preference</guilabel> dialog.</para></listitem>
-</varlistentry>
+
 </variablelist>
-</sect1>
 
-<sect1 id="help-menu">
-<title>The Help Menu</title>
-
-&help.menu.documentation;
-</sect1>
-</chapter>
+</sect1></chapter>
 
 <chapter id="credits">
 
@@ -871,27 +900,6 @@ Documentation Copyright &copy; 2007 Sean Wheller <email>sean@inwords.co.za</emai
 &underGPL;        	 <!-- GPL License -->
 
 </chapter>
-
-<appendix id="installation">
-<title>Installation</title>
-
-<sect1 id="getting-kapp">
-<title>How to obtain &kompare;</title>
-
-&install.intro.documentation;
-
-</sect1>
-
-
-<sect1 id="compilation">
-<title>Compilation and Installation</title>
-
-&install.compile.documentation;
-
-</sect1>
-
-
-</appendix>
 
 &documentation.index; 
 </book>

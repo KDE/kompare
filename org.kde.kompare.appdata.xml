@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop">
+  <id>org.kde.kompare.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <name>Kompare</name>
+  <summary>Diff/Patch Frontend</summary>
+  <description>
+    <p>
+      Kompare is a GUI front-end program that enables differences between source files to be viewed and merged. It can be used to compare differences on files or the contents of folders, and it supports a variety of diff formats and provide many options to customize the information level displayed.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Comparing differences on files or the contents of folders recursively.</li>
+      <li>Supports a variety of diff formats and provides many options to customize the information level displayed.</li>
+      <li>Creating and applying patches.</li>
+    </ul>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>http://kde.org/images/screenshots/kompare.png</image>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">http://kde.org/applications/development/kompare/</url>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kompare</url>
+  <url type="help">https://docs.kde.org/?application=kompare</url>
+  <project_group>KDE</project_group>
+  <provides>
+    <binary>kompare</binary>
+  </provides>
+</component>

@@ -76,6 +76,6 @@ install(TARGETS kompare  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 install( PROGRAMS org.kde.kompare.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES kompareui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/kompare )
 install( FILES komparenavigationpart.desktop kompareviewpart.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
-
+install( FILES org.kde.kompare.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR} )
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

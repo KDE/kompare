@@ -5,6 +5,7 @@
   <project_license>GPL-2.0+</project_license>
   <name>Kompare</name>
   <name xml:lang="ca">Kompare</name>
+  <name xml:lang="ca-valencia">Kompare</name>
   <name xml:lang="cs">Kompare</name>
   <name xml:lang="de">Kompare</name>
   <name xml:lang="en-GB">Kompare</name>
@@ -22,6 +23,7 @@
   <name xml:lang="x-test">xxKomparexx</name>
   <summary>Diff/Patch Frontend</summary>
   <summary xml:lang="ca">Frontal del Diff/Patch</summary>
+  <summary xml:lang="ca-valencia">Frontal del Diff/Patch</summary>
   <summary xml:lang="cs">Rozhraní pro Diff/Patch</summary>
   <summary xml:lang="de">Oberfläche für Diff und Patch</summary>
   <summary xml:lang="en-GB">Diff/Patch Frontend</summary>
@@ -42,6 +44,7 @@
       Kompare is a GUI front-end program that enables differences between source files to be viewed and merged. It can be used to compare differences on files or the contents of folders, and it supports a variety of diff formats and provide many options to customize the information level displayed.
     </p>
     <p xml:lang="ca">El Kompare és un programa de frontal per l'IGU que cerca les diferències entre fitxers de codi font per a que es puguin veure o fusionar. Es pot emprar per comparar diferències entre fitxers o en el contingut de carpetes. També admet diversos formats de «diff» i proporciona moltes opcions per personalitzar el nivell d'informació mostrada.</p>
+    <p xml:lang="ca-valencia">El Kompare és un programa de frontal per l'IGU que cerca les diferències entre fitxers de codi font per a que es puguen veure o fusionar. Es pot emprar per comparar diferències entre fitxers o en el contingut de carpetes. També admet diversos formats de «diff» i proporciona moltes opcions per personalitzar el nivell d'informació mostrada.</p>
     <p xml:lang="en-GB">Kompare is a GUI front-end program that enables differences between source files to be viewed and merged. It can be used to compare differences on files or the contents of folders, and it supports a variety of diff formats and provide many options to customize the information level displayed.</p>
     <p xml:lang="es">Kompare es un programa de interfaz gráfica de usuario que permite ver y fusionar las diferencias entre archivos de código fuente. Se puede usar para comparar las diferencias entre archivos o del contenido de carpetas. Permite distintos formatos de «diff» y proporciona muchas opciones para personalizar el nivel de información que muestra.</p>
     <p xml:lang="nl">Kompare; is een GUI front-end-programma dat het mogelijk maakt om de verschillen tussen bronbestanden te bekijken en samen te voegen. Het kan gebruikt worden om bestanden of de inhoud van mappen te vergelijken op verschillen en het ondersteunt een aantal verschillende diff formaten en heeft veel verschillende mogelijkheden voor het aanpassen van de hoeveelheid getoonde informatie.</p>
@@ -57,6 +60,7 @@
     <p xml:lang="x-test">xxKompare is a GUI front-end program that enables differences between source files to be viewed and merged. It can be used to compare differences on files or the contents of folders, and it supports a variety of diff formats and provide many options to customize the information level displayed.xx</p>
     <p>Features:</p>
     <p xml:lang="ca">Característiques:</p>
+    <p xml:lang="ca-valencia">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="en-GB">Features:</p>
@@ -75,6 +79,7 @@
     <ul>
       <li>Comparing differences on files or the contents of folders recursively.</li>
       <li xml:lang="ca">Compara diferències en fitxers o en el contingut de carpetes recursivament.</li>
+      <li xml:lang="ca-valencia">Compara diferències en fitxers o en el contingut de carpetes recursivament.</li>
       <li xml:lang="en-GB">Comparing differences on files or the contents of folders recursively.</li>
       <li xml:lang="es">Comparación de diferencias entre archivos o del contenido de carpetas (recursivamente).</li>
       <li xml:lang="nl">Verschillen in bestanden of de inhoud van mappen recursief vergelijken.</li>
@@ -90,6 +95,7 @@
       <li xml:lang="x-test">xxComparing differences on files or the contents of folders recursively.xx</li>
       <li>Supports a variety of diff formats and provides many options to customize the information level displayed.</li>
       <li xml:lang="ca">Permet diversos formats de «diff» i proporciona moltes opcions per personalitzar el nivell d'informació mostrada.</li>
+      <li xml:lang="ca-valencia">Permet diversos formats de «diff» i proporciona moltes opcions per personalitzar el nivell d'informació mostrada.</li>
       <li xml:lang="en-GB">Supports a variety of diff formats and provides many options to customise the information level displayed.</li>
       <li xml:lang="es">Permite distintos formatos de «diff» y proporciona muchas opciones para personalizar el nivel de información que muestra.</li>
       <li xml:lang="nl">Ondersteunt een variëteit van diff-formaten en beidt verschillende mogelijkheden voor het aanpassen van de hoeveelheid getoonde informatie.</li>
@@ -105,6 +111,7 @@
       <li xml:lang="x-test">xxSupports a variety of diff formats and provides many options to customize the information level displayed.xx</li>
       <li>Creating and applying patches.</li>
       <li xml:lang="ca">Creació i aplicació de pedaços.</li>
+      <li xml:lang="ca-valencia">Creació i aplicació de pedaços.</li>
       <li xml:lang="de">Patches erstellen und anwenden.</li>
       <li xml:lang="en-GB">Creating and applying patches.</li>
       <li xml:lang="es">Creación y aplicación de parches.</li>

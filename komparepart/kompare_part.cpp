@@ -39,6 +39,7 @@
 #include <ksharedconfig.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
+#include <kstandardguiitem.h>
 
 #include <kio/copyjob.h>
 #include <kio/statjob.h>
@@ -564,7 +565,7 @@ void KomparePart::saveDiff()
                                                     i18n("Patch Files (*.diff *.dif *.patch)") );
 			if ( QFile::exists( url.toLocalFile() ) )
 			{
-				int result = KMessageBox::warningYesNoCancel( widget(), i18n("The file exists or is write-protected; do you want to overwrite it?"), i18n("File Exists"), KGuiItem(i18n("Overwrite")), KGuiItem(i18n("Do Not Overwrite")) );
+				int result = KMessageBox::warningYesNoCancel( widget(), i18n("The file exists or is write-protected; do you want to overwrite it?"), i18n("File Exists"), KStandardGuiItem::overwrite(), KGuiItem(i18n("Do Not Overwrite")) );
 				if ( result == KMessageBox::Cancel )
 				{
 					break;

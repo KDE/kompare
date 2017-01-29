@@ -523,7 +523,7 @@ KompareListViewItemDelegate::~KompareListViewItemDelegate()
 void KompareListViewItemDelegate::paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
 {
 	int column = index.column();
-	QStyleOptionViewItemV4 changedOption = option;
+	QStyleOptionViewItem changedOption = option;
 	if( column == COL_LINE_NO )
 		changedOption.displayAlignment = Qt::AlignRight;
 	KompareListViewItem* item = static_cast<KompareListViewItem*>( static_cast<KompareListView*>( parent() )->itemFromIndex( index ) );
@@ -617,7 +617,7 @@ void KompareListViewItem::paintCell( QPainter* p, const QStyleOptionViewItem& op
 	// We have to paint the item which shines through or we'll end up with glitches.
 	KompareListViewItem* nextItem = (KompareListViewItem*)kompareListView()->itemBelow(this);
 	if( nextItem ) {
-		QStyleOptionViewItemV4 changedOption = option;
+		QStyleOptionViewItem changedOption = option;
 		changedOption.rect.translate( 0, height() );
 		nextItem->paintCell( p, changedOption, column );
 	}

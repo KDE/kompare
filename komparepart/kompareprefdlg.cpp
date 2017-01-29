@@ -154,5 +154,3 @@ void KomparePrefDlg::slotCancel()
 
 	//reject();
 }
-
-#include "kompareprefdlg.moc"

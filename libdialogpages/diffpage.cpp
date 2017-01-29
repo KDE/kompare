@@ -398,6 +398,4 @@ void DiffPage::addExcludeTab()
 	m_tabWidget->addTab( page, i18n( "Exclude" ) );
 }
 
-#include "diffpage.moc"
-
 //kate: replace-tabs 0; indent-width 4; tab-width 4;

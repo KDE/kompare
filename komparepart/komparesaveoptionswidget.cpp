@@ -221,5 +221,3 @@ void KompareSaveOptionsWidget::saveOptions()
 	m_settings->m_format = static_cast<Kompare::Format>( m_FormatBG->checkedId() );
 
 }
-
-#include "komparesaveoptionswidget.moc"

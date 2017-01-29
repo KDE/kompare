@@ -55,5 +55,3 @@ void FilesSettings::setGroup( const QString& groupName )
 {
 	m_configGroupName = groupName;
 }
-
-#include "filessettings.moc"

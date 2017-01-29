@@ -486,4 +486,3 @@ void KompareSplitter::slotConfigChanged()
 		view->update();
 	}
 }
-#include "komparesplitter.moc"

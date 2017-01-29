@@ -151,5 +151,3 @@ void FilesPage::setDefaults()
 	m_secondURLComboBox->setUrl( QUrl() );
 	m_encodingComboBox->setCurrentIndex( 0 ); // "Default"
 }
-
-#include "filespage.moc"

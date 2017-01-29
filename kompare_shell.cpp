@@ -56,7 +56,6 @@ KompareShell::KompareShell()
 	m_textViewWidget( 0 ),
 	m_eventLoopLocker( new QEventLoopLocker() )
 {
-	if ( !initialGeometrySet() )
 	resize( 800, 480 );
 
 	// set the shell's ui resource file

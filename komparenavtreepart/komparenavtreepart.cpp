@@ -26,10 +26,10 @@
 #include <kpluginfactory.h>
 #include <kiconloader.h>
 
-#include <difference.h>
-#include <diffmodel.h>
-#include <diffmodellist.h>
-#include <komparemodellist.h>
+#include <libkomparediff2/difference.h>
+#include <libkomparediff2/diffmodel.h>
+#include <libkomparediff2/diffmodellist.h>
+#include <libkomparediff2/komparemodellist.h>
 
 #define COL_SOURCE        0
 #define COL_DESTINATION   1

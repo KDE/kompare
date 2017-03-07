@@ -31,11 +31,12 @@
 
 #include <ksharedconfig.h>
 
-#include <diffmodel.h>
-#include <diffhunk.h>
-#include <difference.h>
+#include <libkomparediff2/diffmodel.h>
+#include <libkomparediff2/diffhunk.h>
+#include <libkomparediff2/difference.h>
+#include <libkomparediff2/komparemodellist.h>
+
 #include "viewsettings.h"
-#include <komparemodellist.h>
 #include "komparesplitter.h"
 
 #define COL_LINE_NO      0

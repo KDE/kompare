@@ -20,7 +20,7 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
-#include <settingsbase.h>
+#include <libkomparediff2/settingsbase.h>
 
 #include "dialogpages_export.h"
 

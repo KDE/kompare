@@ -40,7 +40,7 @@
 
 #include <kregexpeditorinterface.h>
 
-#include <diffsettings.h>
+#include <libkomparediff2/diffsettings.h>
 
 QUrl urlFromArg(const QString& arg)
 {

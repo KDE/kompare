@@ -11,15 +11,13 @@ set(dialogpages_PART_SRCS
 
 add_library(komparedialogpages SHARED ${dialogpages_PART_SRCS})
 
-include_directories(${LIBKOMPAREDIFF2_INCLUDE_DIR})
-
 generate_export_header(komparedialogpages BASE_NAME DIALOGPAGES)
 
 target_link_libraries(komparedialogpages
+    KompareDiff2
     KF5::Codecs
     KF5::Parts
     KF5::WidgetsAddons
-    ${LIBKOMPAREDIFF2_LIBRARIES}
 )
 
 set_target_properties(komparedialogpages PROPERTIES VERSION ${KOMPARE_LIB_VERSION}

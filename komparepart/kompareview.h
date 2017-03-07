@@ -19,7 +19,7 @@
 
 #include <QFrame>
 
-#include <komparemodellist.h>
+#include <libkomparediff2/komparemodellist.h>
 
 class ViewSettings;
 class KompareSplitter;

@@ -20,7 +20,7 @@
 #define KOMPARESHELL_H
 
 #include <kparts/mainwindow.h>
-#include <kompare.h>
+#include <libkomparediff2/kompare.h>
 
 #include <QLoggingCategory>
 

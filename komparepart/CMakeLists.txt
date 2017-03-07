@@ -24,8 +24,8 @@ add_library(komparepart MODULE ${komparepart_PART_SRCS})
 
 target_link_libraries(komparepart
     komparedialogpages
-    ${LIBKOMPAREDIFF2_LIBRARIES}
     kompareinterface
+    KompareDiff2
     KF5::ConfigWidgets
     KF5::CoreAddons
     KF5::JobWidgets

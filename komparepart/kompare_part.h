@@ -23,7 +23,7 @@
 #include <kparts/readwritepart.h>
 #include <QVariantList>
 #include <QLoggingCategory>
-#include <kompare.h>
+#include <libkomparediff2/kompare.h>
 
 #include "kompareinterface.h"
 

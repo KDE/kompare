@@ -26,8 +26,8 @@
 #include <QTreeWidgetItem>
 
 #include <kparts/readonlypart.h>
-#include <kompare.h>
-#include <diffmodellist.h>
+#include <libkomparediff2/kompare.h>
+#include <libkomparediff2/diffmodellist.h>
 
 Q_DECLARE_LOGGING_CATEGORY(KOMPARENAVVIEW)
 

@@ -21,8 +21,8 @@
 #include <QColor>
 #include <QWidget>
 
-#include <difference.h>
-#include <settingsbase.h>
+#include <libkomparediff2/difference.h>
+#include <libkomparediff2/settingsbase.h>
 
 #include "dialogpages_export.h"
 

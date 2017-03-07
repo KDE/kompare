@@ -26,8 +26,9 @@
 #include <kurlcombobox.h>
 #include <kurlrequester.h>
 
+#include <libkomparediff2/diffsettings.h>
+
 #include "diffpage.h"
-#include <diffsettings.h>
 #include "filespage.h"
 #include "filessettings.h"
 #include "viewpage.h"

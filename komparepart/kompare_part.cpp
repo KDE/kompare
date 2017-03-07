@@ -46,10 +46,11 @@
 #include <kio/filecopyjob.h>
 #include <kio/mkdirjob.h>
 
-#include <diffmodel.h>
+#include <libkomparediff2/diffmodel.h>
+#include <libkomparediff2/diffsettings.h>
+
 #include "komparelistview.h"
 #include "kompareconnectwidget.h"
-#include <diffsettings.h>
 #include "viewsettings.h"
 #include "kompareprefdlg.h"
 #include "komparesaveoptionswidget.h"

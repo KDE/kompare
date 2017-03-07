@@ -15,7 +15,7 @@ target_link_libraries(komparenavtreepart
     Qt5::Widgets
     KF5::Parts
     KF5::IconThemes
-    ${LIBKOMPAREDIFF2_LIBRARIES}
+    KompareDiff2
 )
 
 install(TARGETS komparenavtreepart  DESTINATION ${PLUGIN_INSTALL_DIR} )

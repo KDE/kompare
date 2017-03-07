@@ -26,8 +26,7 @@ find_package(KF5 REQUIRED COMPONENTS
     WidgetsAddons
 )
 
-find_package(LibKompareDiff2 REQUIRED)
-include_directories (${LIBKOMPAREDIFF2_INCLUDE_DIR})
+find_package(LibKompareDiff2 5.1 REQUIRED)
 include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
 
 set(KOMPARE_LIB_VERSION 5)
@@ -61,8 +60,8 @@ add_executable(kompare ${kompare_SRCS})
 
 target_link_libraries(kompare
     kompareinterface
-    ${LIBKOMPAREDIFF2_LIBRARIES}
     komparedialogpages
+    KompareDiff2
     KF5::TextEditor
     KF5::WidgetsAddons
     Qt5::Widgets

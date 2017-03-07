@@ -18,7 +18,7 @@
 #ifndef KOMPARESAVEOPTIONSWIDGET_H
 #define KOMPARESAVEOPTIONSWIDGET_H
 
-#include <kompare.h>
+#include <libkomparediff2/kompare.h>
 
 #include "komparesaveoptionsbase.h"
 

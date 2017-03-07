@@ -20,7 +20,7 @@
 
 #include <QSplitter>
 
-#include <komparemodellist.h>
+#include <libkomparediff2/komparemodellist.h>
 
 class QSplitterHandle;
 class QTimer;

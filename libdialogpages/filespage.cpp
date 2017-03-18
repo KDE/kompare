@@ -137,7 +137,7 @@ void FilesPage::open( KUrlComboBox *urlComboBox, bool selectFolders )
 	QUrl newUrl = selectFolders ? QFileDialog::getExistingDirectoryUrl( this,
 																	i18n( "Select Folder" ),
 																	currentUrl,
-																	QFileDialog::ShowDirsOnly & QFileDialog::ReadOnly )
+																	QFileDialog::ReadOnly )
 								: QFileDialog::getOpenFileUrl( this,
 															   i18n( "Select File" ),
 															   currentUrl );
@@ -186,7 +186,7 @@ void FilesPage::setURLsInComboBoxes()
 void FilesPage::setFirstURLRequesterMode( unsigned int mode )
 {
 	m_firstURLRequester->setMode( (KFile::Mode) mode );
-	if ( mode == (KFile::File | KFile::ExistingOnly) )
+    if ( (mode & KFile::Directory) == 0 )
 	{
 		QPushButton *button = findChild<QPushButton *>( "firstURLOpenFolder" );
 		button->setVisible( false );
@@ -196,7 +196,7 @@ void FilesPage::setFirstURLRequesterMode( unsigned int mode )
 void FilesPage::setSecondURLRequesterMode( unsigned int mode )
 {
 	m_secondURLRequester->setMode( (KFile::Mode) mode );
-	if ( mode == (KFile::File | KFile::ExistingOnly) )
+    if ( (mode & KFile::Directory) == 0 )
 	{
 		QPushButton *button = findChild<QPushButton *>( "secondURLOpenFolder" );
 		button->setVisible( false );

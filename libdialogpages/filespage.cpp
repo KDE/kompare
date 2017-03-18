@@ -40,6 +40,7 @@ FilesPage::FilesPage() : QFrame()
 	layout->addWidget( m_firstGB );
 	QHBoxLayout* gb1Layout = new QHBoxLayout( m_firstGB );
 	m_firstURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_firstGB );
+	m_firstURLComboBox->setMaxItems( 10 );
 	m_firstURLComboBox->setObjectName( "SourceURLComboBox" );
 	m_firstURLRequester = new KUrlRequester( m_firstURLComboBox, m_firstGB );
 	gb1Layout->addWidget( m_firstURLRequester );
@@ -49,6 +50,7 @@ FilesPage::FilesPage() : QFrame()
 	layout->addWidget( m_secondGB );
 	QHBoxLayout* gb2Layout = new QHBoxLayout( m_secondGB );
 	m_secondURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_secondGB );
+	m_secondURLComboBox->setMaxItems( 10 );
 	m_secondURLComboBox->setObjectName( "DestURLComboBox" );
 	m_secondURLRequester = new KUrlRequester( m_secondURLComboBox, m_secondGB );
 	gb2Layout->addWidget( m_secondURLRequester );
@@ -136,6 +138,10 @@ void FilesPage::restore()
 
 void FilesPage::apply()
 {
+	// set the current items as the first ones
+	m_firstURLComboBox->insertUrl( 0, QUrl( m_firstURLComboBox->currentText() ) );
+	m_secondURLComboBox->insertUrl( 0, QUrl( m_secondURLComboBox->currentText() ) );
+
 	m_settings->m_recentSources            = m_firstURLComboBox->urls();
 	m_settings->m_lastChosenSourceURL      = m_firstURLComboBox->currentText();
 	m_settings->m_recentDestinations       = m_secondURLComboBox->urls();

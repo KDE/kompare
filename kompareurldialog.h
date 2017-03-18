@@ -52,8 +52,9 @@ public:
 	void setFirstURLRequesterMode ( unsigned int mode );
 	void setSecondURLRequesterMode( unsigned int mode );
 
-protected slots:
-	virtual void slotButtonClicked( int button );
+public slots:
+	virtual void accept();
+	virtual void reject();
 
 private slots:
 	void slotEnableOk();

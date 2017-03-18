@@ -87,13 +87,17 @@ void KompareURLDialog::showEvent ( QShowEvent * event )
     }
 }
 
-void KompareURLDialog::slotButtonClicked( int button )
+void KompareURLDialog::reject()
 {
-	if ( button == QDialogButtonBox::Cancel )
-	{
-		reject();
-		return;
-	}
+    m_filesPage->restore();
+    m_diffPage->restore();
+    m_viewPage->restore();
+
+    QDialog::reject();
+}
+
+void KompareURLDialog::accept()
+{
 	// BUG: 124121 File with filenames to be excluded does not exist so diff complains and no diffs are generated
 	qCDebug(KOMPARESHELL) << "Test to see if the file is an actual file that is given in the file with filenames to exclude field" ;
 	if ( m_diffPage->m_excludeFileNameGroupBox->isChecked() )
@@ -123,7 +127,7 @@ void KompareURLDialog::slotButtonClicked( int button )
 
 	cfg->sync();
 
-	accept();
+    QDialog::accept();
 }
 
 void KompareURLDialog::slotEnableOk()

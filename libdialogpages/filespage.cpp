@@ -42,9 +42,29 @@ FilesPage::FilesPage() : QFrame()
 	m_firstURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_firstGB );
 	m_firstURLComboBox->setMaxItems( 10 );
 	m_firstURLComboBox->setObjectName( "SourceURLComboBox" );
-	m_firstURLRequester = new KUrlRequester( m_firstURLComboBox, m_firstGB );
-	gb1Layout->addWidget( m_firstURLRequester );
-	m_firstURLRequester->setFocus();
+	m_firstURLRequester = new KUrlRequester( m_firstURLComboBox, 0 );
+	gb1Layout->addWidget( m_firstURLComboBox );
+	m_firstURLComboBox->setFocus();
+
+	QPushButton* button = new QPushButton( "", this );
+	button->setIcon( QIcon::fromTheme("document-open") );
+	button->setToolTip( i18n( "Select File" ) );
+	button->setProperty( "combobox", "SourceURLComboBox" );
+	button->setProperty( "folder", false );
+	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
+	gb1Layout->addWidget( button );
+
+	button = new QPushButton( "", this );
+	button->setIcon( QIcon::fromTheme("folder-open") );
+	QSizePolicy sp = button->sizePolicy();
+	sp.setRetainSizeWhenHidden( true );
+	button->setSizePolicy( sp );
+	button->setObjectName( "firstURLOpenFolder" );
+	button->setToolTip( i18n( "Select Folder" ) );
+	button->setProperty( "combobox", "SourceURLComboBox" );
+	button->setProperty( "folder", true );
+	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
+	gb1Layout->addWidget( button );
 
 	m_secondGB = new QGroupBox( "This too moron !", this );
 	layout->addWidget( m_secondGB );
@@ -52,8 +72,29 @@ FilesPage::FilesPage() : QFrame()
 	m_secondURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_secondGB );
 	m_secondURLComboBox->setMaxItems( 10 );
 	m_secondURLComboBox->setObjectName( "DestURLComboBox" );
-	m_secondURLRequester = new KUrlRequester( m_secondURLComboBox, m_secondGB );
-	gb2Layout->addWidget( m_secondURLRequester );
+	m_secondURLRequester = new KUrlRequester( m_secondURLComboBox, 0 );
+	gb2Layout->addWidget( m_secondURLComboBox );
+
+	button = new QPushButton( "", this );
+	button->setIcon( QIcon::fromTheme("document-open") );
+	button->setToolTip( i18n( "Select File" ) );
+	button->setProperty( "combobox", "DestURLComboBox" );
+	button->setProperty( "folder", false );
+	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
+	gb2Layout->addWidget( button );
+
+	button = new QPushButton( "", this );
+	button->setIcon( QIcon::fromTheme("folder-open") );
+	button->setObjectName( "secondURLOpenFolder" );
+	sp = button->sizePolicy();
+	sp.setRetainSizeWhenHidden( true );
+	button->setSizePolicy( sp );
+	button->setToolTip( i18n( "Select Folder" ) );
+	button->setProperty( "combobox", "DestURLComboBox" );
+	button->setProperty( "folder", true );
+	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
+	gb2Layout->addWidget( button );
+
 
 	m_thirdGB = new QGroupBox( i18n( "Encoding" ), this );
 	layout->addWidget( m_thirdGB );
@@ -73,7 +114,39 @@ FilesPage::FilesPage() : QFrame()
 
 FilesPage::~FilesPage()
 {
+	delete m_firstURLRequester;
+	m_firstURLRequester = 0;
+	delete m_secondURLRequester;
+	m_secondURLRequester = 0;
 	m_settings = 0;
+}
+
+void FilesPage::open()
+{
+	QPushButton* button = ( QPushButton* ) sender();
+	bool selectFolders = button->property( "folder" ).toBool();
+	KUrlComboBox* urlComboBox = findChild<KUrlComboBox*>( button->property( "combobox" ).toString() );
+
+	open( urlComboBox, selectFolders );
+}
+
+void FilesPage::open( KUrlComboBox *urlComboBox, bool selectFolders )
+{
+	QUrl currentUrl = QUrl::fromUserInput( urlComboBox->currentText() );
+
+	QUrl newUrl = selectFolders ? QFileDialog::getExistingDirectoryUrl( this,
+																	i18n( "Select Folder" ),
+																	currentUrl,
+																	QFileDialog::ShowDirsOnly & QFileDialog::ReadOnly )
+								: QFileDialog::getOpenFileUrl( this,
+															   i18n( "Select File" ),
+															   currentUrl );
+	if ( !newUrl.isEmpty() )
+	{
+		// remove newUrl if already exists and add it as the first item
+		urlComboBox->setUrl( newUrl );
+	}
+
 }
 
 KUrlRequester* FilesPage::firstURLRequester() const
@@ -113,11 +186,21 @@ void FilesPage::setURLsInComboBoxes()
 void FilesPage::setFirstURLRequesterMode( unsigned int mode )
 {
 	m_firstURLRequester->setMode( (KFile::Mode) mode );
+	if ( mode == (KFile::File | KFile::ExistingOnly) )
+	{
+		QPushButton *button = findChild<QPushButton *>( "firstURLOpenFolder" );
+		button->setVisible( false );
+	}
 }
 
 void FilesPage::setSecondURLRequesterMode( unsigned int mode )
 {
 	m_secondURLRequester->setMode( (KFile::Mode) mode );
+	if ( mode == (KFile::File | KFile::ExistingOnly) )
+	{
+		QPushButton *button = findChild<QPushButton *>( "secondURLOpenFolder" );
+		button->setVisible( false );
+	}
 }
 
 void FilesPage::setSettings( FilesSettings* settings )

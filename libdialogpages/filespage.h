@@ -58,6 +58,9 @@ public:
 	virtual void apply();
 	virtual void setDefaults();
 
+private slots:
+	void open();
+
 private:
 	QGroupBox*     m_firstGB;
 	QGroupBox*     m_secondGB;
@@ -72,6 +75,9 @@ private:
 	KComboBox*     m_encodingComboBox;
 
 	FilesSettings* m_settings;
+
+private:
+	void open(KUrlComboBox* urlComboBox, bool selectFolders);
 };
 
 #endif

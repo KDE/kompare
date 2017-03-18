@@ -229,8 +229,8 @@ int main(int argc, char *argv[])
 
 			dialog.setGroup( "Recent Compare Files" );
 
-			dialog.setFirstURLRequesterMode( KFile::File|KFile::ExistingOnly );
-			dialog.setSecondURLRequesterMode( KFile::File|KFile::ExistingOnly );
+			dialog.setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
+			dialog.setSecondURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
 
 			if( dialog.exec() == QDialog::Accepted )
 			{

@@ -13,6 +13,7 @@ include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(ECMInstallIcons)
 include(GenerateExportHeader)
+include(ECMAddAppIcon)
 
 find_package(KF5 REQUIRED COMPONENTS
     CoreAddons
@@ -54,7 +55,8 @@ kompare_shell.cpp
 kompareurldialog.cpp
 )
 
-# kde4_add_app_icon(kompare_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/pics/hi*-app-kompare.png")
+file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/pics/*-apps-kompare.png")
+ecm_add_app_icon(kompare_SRCS ICONS ${ICONS_SRCS})
 
 add_executable(kompare ${kompare_SRCS})
 

@@ -11,6 +11,7 @@
   <name xml:lang="de">Kompare</name>
   <name xml:lang="en-GB">Kompare</name>
   <name xml:lang="es">Kompare</name>
+  <name xml:lang="fr">Kompare</name>
   <name xml:lang="gl">Kompare</name>
   <name xml:lang="it">Kompare</name>
   <name xml:lang="ko">Kompare</name>
@@ -34,6 +35,7 @@
   <summary xml:lang="de">Oberfläche für Diff und Patch</summary>
   <summary xml:lang="en-GB">Diff/Patch Frontend</summary>
   <summary xml:lang="es">Interfaz para diff/patch</summary>
+  <summary xml:lang="fr">Interface graphique pour « Diff » et « Patch »</summary>
   <summary xml:lang="gl">Interface para Diff e Patch</summary>
   <summary xml:lang="it">Interfaccia a Diff/Patch</summary>
   <summary xml:lang="ko">Diff/Patch 프론트엔드</summary>
@@ -58,6 +60,7 @@
     <p xml:lang="de">Kompare ist ein Programm mit grafischer Bedienungsoberfläche, um Abweichungen zwischen Textdateien zu betrachten und sie zusammenzuführen Kompare kann Abweichungen zwischen einzelnen Dateien oder zwischen Ordnern und deren Inhalt anzeigen.  unterstützt eine Vielzahl an Diff-Formaten und bietet viele Einstellungsmöglichkeiten für die Anzeige der Abweichungen.</p>
     <p xml:lang="en-GB">Kompare is a GUI front-end program that enables differences between source files to be viewed and merged. It can be used to compare differences on files or the contents of folders, and it supports a variety of diff formats and provide many options to customize the information level displayed.</p>
     <p xml:lang="es">Kompare es un programa de interfaz gráfica de usuario que permite ver y fusionar las diferencias entre archivos de código fuente. Se puede usar para comparar las diferencias entre archivos o del contenido de carpetas. Permite distintos formatos de «diff» y proporciona muchas opciones para personalizar el nivel de información que muestra.</p>
+    <p xml:lang="fr">Kompare est une interface graphique qui permet d'afficher les différences entre fichiers sources et de les fusionner. Il peut être utilisé pour comparer les différences entre fichiers ou les contenus de dossiers, il gère de nombreux formats de fichiers de différences et propose une multitude d'options de personnalisation du niveau d'informations affiché.</p>
     <p xml:lang="gl">Kompare é unha interface gráfica que permite visualizar e combinar diferenzas entre ficheiros de código. Pode usarse para comparar diferenzas entre ficheiros ou cartafoles, é compatíbel con varios formatos de diferenzas, e fornece moitas opcións para personalizar o nivel de información que se mostra.</p>
     <p xml:lang="it">Kompare è un programma a interfaccia grafica che permette di visualizzare e fondere le differenze tra file sorgente. Può essere usato per confrontare le differenze di file o dei contenuti di cartelle, e supporta vari formati di differenze; fornisce anche molte opzioni per personalizzare il livello di informazioni visualizzato.</p>
     <p xml:lang="ko">Kompare는 원본 파일간 차이점을 시각화하고 합칠 수 있는 GUI 프론트엔드 프로그램입니다. 파일 및 내용, 폴더의 차이점을 비교할 수 있으며 여러 Diff 형식을 지원하고 표시하는 정보를 사용자 정의할 수 있습니다.</p>
@@ -80,6 +83,7 @@
     <p xml:lang="de">Funktionen:</p>
     <p xml:lang="en-GB">Features:</p>
     <p xml:lang="es">Funciones:</p>
+    <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="ko">기능:</p>
@@ -102,6 +106,7 @@
       <li xml:lang="de">Vergleich des Unterschieds von Dateien oder rekursiven Ordnerinhalten.</li>
       <li xml:lang="en-GB">Comparing differences on files or the contents of folders recursively.</li>
       <li xml:lang="es">Comparación de diferencias entre archivos o del contenido de carpetas (recursivamente).</li>
+      <li xml:lang="fr">Comparer les différences entre fichiers ou récursivement entre contenus de dossiers</li>
       <li xml:lang="gl">Comparación de diferenzas entre ficheiros ou cartafoles.</li>
       <li xml:lang="it">Confronta ricorsivamente le differenze di file o di contenuti di cartelle.</li>
       <li xml:lang="ko">재귀적으로 파일과 폴더의 차이점을 비교합니다.</li>
@@ -123,6 +128,7 @@
       <li xml:lang="de">Unterstützt eine Vielzahl an Diff-Formaten und bietet viele Einstellungsmöglichkeiten für die Anzeige der Abweichungen.</li>
       <li xml:lang="en-GB">Supports a variety of diff formats and provides many options to customise the information level displayed.</li>
       <li xml:lang="es">Permite distintos formatos de «diff» y proporciona muchas opciones para personalizar el nivel de información que muestra.</li>
+      <li xml:lang="fr">Gère de nombreux formats de fichiers de différences et propose de nombreuses options de personnalisation du niveau d'informations affiché.</li>
       <li xml:lang="gl">Compatibilidade con varios formatos de diferenzas e moitas opcións para personalizar o nivel de información que se mostra.</li>
       <li xml:lang="it">Supporta vari formati di differenze, e fornisce anche molte opzioni per personalizzare il livello di informazioni visualizzato.</li>
       <li xml:lang="ko">여러 Diff 형식을 지원하고 표시하는 정보를 사용자 정의할 수 있습니다.</li>
@@ -144,6 +150,7 @@
       <li xml:lang="de">Patches erstellen und anwenden.</li>
       <li xml:lang="en-GB">Creating and applying patches.</li>
       <li xml:lang="es">Creación y aplicación de parches.</li>
+      <li xml:lang="fr">Créer et appliquer des correctifs</li>
       <li xml:lang="gl">Creación e aplicación de parches.</li>
       <li xml:lang="it">Creare ed applica le patch.</li>
       <li xml:lang="ko">패치를 만들고 적용합니다.</li>

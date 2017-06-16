@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 	aboutData.addCredit( i18n("Bernd Gehrmann"), i18n("Cervisia diff viewer"), "bernd@physik.hu-berlin.de" );
 
 	QApplication app(argc, argv);
-	app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kompare")));
+	app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kompare"), app.windowIcon()));
 	QCommandLineParser parser;
 	KAboutData::setApplicationData(aboutData);
 	parser.addVersionOption();

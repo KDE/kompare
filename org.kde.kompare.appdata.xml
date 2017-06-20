@@ -25,6 +25,7 @@
   <name xml:lang="sr-ijekavian">К‑поређење</name>
   <name xml:lang="sr-ijekavianlatin">K‑poređenje</name>
   <name xml:lang="sv">Kompare</name>
+  <name xml:lang="tr">Karşılaştır</name>
   <name xml:lang="uk">Kompare</name>
   <name xml:lang="x-test">xxKomparexx</name>
   <name xml:lang="zh-CN">Kompare</name>
@@ -49,6 +50,7 @@
   <summary xml:lang="sr-ijekavian">Прочеље за diff и patch</summary>
   <summary xml:lang="sr-ijekavianlatin">Pročelje za diff i patch</summary>
   <summary xml:lang="sv">Gränssnitt för Diff/Patch</summary>
+  <summary xml:lang="tr">Diff/Yama Önyüzü</summary>
   <summary xml:lang="uk">Оболонка до Diff/Patch</summary>
   <summary xml:lang="x-test">xxDiff/Patch Frontendxx</summary>
   <description>
@@ -97,6 +99,7 @@
     <p xml:lang="sr-ijekavian">Могућности:</p>
     <p xml:lang="sr-ijekavianlatin">Mogućnosti:</p>
     <p xml:lang="sv">Funktioner:</p>
+    <p xml:lang="tr">Özellikler:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
     <ul>
@@ -120,6 +123,7 @@
       <li xml:lang="sr-ijekavian">Поређење разлика међу фајловима или целим фасциклама рекурзивно.</li>
       <li xml:lang="sr-ijekavianlatin">Poređenje razlika među fajlovima ili celim fasciklama rekurzivno.</li>
       <li xml:lang="sv">Jämför skillnader mellan filer eller innehållet i kataloger rekursivt.</li>
+      <li xml:lang="tr">Dosyaların ya da dizinlerin özyinelemeli içeriğinin farklarının karşılaştırılması.</li>
       <li xml:lang="uk">Порівняння окремих файлів або вмісту цілих тек рекурсивно.</li>
       <li xml:lang="x-test">xxComparing differences on files or the contents of folders recursively.xx</li>
       <li>Supports a variety of diff formats and provides many options to customize the information level displayed.</li>
@@ -142,6 +146,7 @@
       <li xml:lang="sr-ijekavian">Подршка за многобројне формате разлика, многе опције за прилагођавање нивоа приказа информација.</li>
       <li xml:lang="sr-ijekavianlatin">Podrška za mnogobrojne formate razlika, mnoge opcije za prilagođavanje nivoa prikaza informacija.</li>
       <li xml:lang="sv">Stöder en mängd olika jämförelseformat, och tillhandahåller många alternativ för att anpassa informationsnivån som visas.</li>
+      <li xml:lang="tr">Bilgi görüntüleme seviyesini özelleştirebilmek için çeşitli diff biçimlerini destekler ve bir çok seçenek sağlar.</li>
       <li xml:lang="uk">У Kompare передбачено підтримку багатьох різних форматів різниці між файлами, у цій програми передбачено багато параметрів, за допомогою яких ви зможете налаштувати рівень показу інформації.</li>
       <li xml:lang="x-test">xxSupports a variety of diff formats and provides many options to customize the information level displayed.xx</li>
       <li>Creating and applying patches.</li>
@@ -164,6 +169,7 @@
       <li xml:lang="sr-ijekavian">Стварање и примењивање закрпа.</li>
       <li xml:lang="sr-ijekavianlatin">Stvaranje i primenjivanje zakrpa.</li>
       <li xml:lang="sv">Skapar och inför programfixar.</li>
+      <li xml:lang="tr">Yamaları oluşturma ve uygulama.</li>
       <li xml:lang="uk">Створення і накладання латок.</li>
       <li xml:lang="x-test">xxCreating and applying patches.xx</li>
     </ul>

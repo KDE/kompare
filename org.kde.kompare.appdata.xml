@@ -103,7 +103,6 @@
     <p xml:lang="tr">Özellikler:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
-    <p xml:lang="zh-CN">功能：</p>
     <ul>
       <li>Comparing differences on files or the contents of folders recursively.</li>
       <li xml:lang="ca">Compara diferències en fitxers o en el contingut de carpetes recursivament.</li>

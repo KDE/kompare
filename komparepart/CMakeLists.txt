@@ -1,4 +1,4 @@
-#define TRANSLATION_DOMAIN "kompare"
+add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../libdialogpages ${CMAKE_CURRENT_SOURCE_DIR}/../interfaces  )
 

@@ -1,5 +1,4 @@
-
-
+add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
 
 ########### next target ###############

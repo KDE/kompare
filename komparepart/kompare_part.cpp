@@ -64,10 +64,25 @@ K_PLUGIN_FACTORY( KomparePartFactory, registerPlugin<KomparePart>(); )
 ViewSettings* KomparePart::m_viewSettings = 0L;
 DiffSettings* KomparePart::m_diffSettings = 0L;
 
+static KAboutData createAboutData()
+{
+    KAboutData about(QStringLiteral("kompare"), i18n("KomparePart"), QStringLiteral("4.0"),
+                     QString(), KAboutLicense::GPL);
+    about.addAuthor(i18n("John Firebaugh"), i18n("Author"), "jfirebaugh@kde.org");
+    about.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), "bruggie@gmail.com" );
+    about.addAuthor(i18n("Kevin Kofler"), i18n("Author"), "kevin.kofler@chello.at" );
+    return about;
+}
+
 KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QVariantList & /*args*/ ) :
 	KParts::ReadWritePart(parent),
 	m_info()
 {
+	setComponentData(createAboutData());
+
+	// set our XML-UI resource file
+	setXMLFile(QStringLiteral("komparepartui.rc"));
+
 	if( !m_viewSettings ) {
 		m_viewSettings = new ViewSettings( 0 );
 	}
@@ -148,9 +163,6 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QVariant
 	connect( this, SIGNAL(configChanged()), m_splitter, SIGNAL(configChanged()) );
 
 	setupActions();
-
-	// set our XML-UI resource file
-	setXMLFile( "komparepartui.rc" );
 
 	// we are read-write by default -> uhm what if we are opened by lets say konq in RO mode ?
 	// Then we should not be doing this...
@@ -642,15 +654,6 @@ void KomparePart::slotPaintRequested( QPrinter* printer )
 
 	p.end();
 	qCDebug(KOMPAREPART) << "Done painting something...";
-}
-
-KAboutData* KomparePart::createAboutData()
-{
-    KAboutData *about = new KAboutData("kompare", i18n("KomparePart"), "4.0");
-    about->addAuthor(i18n("John Firebaugh"), i18n("Author"), "jfirebaugh@kde.org");
-    about->addAuthor(i18n("Otto Bruggeman"), i18n("Author"), "bruggie@gmail.com" );
-    about->addAuthor(i18n("Kevin Kofler"), i18n("Author"), "kevin.kofler@chello.at" );
-    return about;
 }
 
 void KomparePart::slotSetStatus( enum Kompare::Status status )

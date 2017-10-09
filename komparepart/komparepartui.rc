@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kompare_part" version="6">
+<kpartgui name="kompare_part" version="6" translationDomain="kompare">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_save"/>

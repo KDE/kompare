@@ -56,7 +56,7 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 	// If we found a common root, change to that directory and
 	// strip the common part from source and destination.
 	if( root.isValid() && root != KIO::upUrl(root) ) {
-		m_directoryRequester->setUrl( root.url() );
+		m_directoryRequester->setUrl(root);
 	}
 
 	connect( m_SmallerChangesCB,   SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );

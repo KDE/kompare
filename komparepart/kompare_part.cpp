@@ -574,7 +574,7 @@ void KomparePart::saveDiff()
 		while ( 1 )
 		{
 			QUrl url = QFileDialog::getSaveFileUrl( widget(), i18n( "Save .diff" ),
-                                                    m_info.destination.url(),
+                                                    m_info.destination,
                                                     i18n("Patch Files (*.diff *.dif *.patch)") );
 			if ( QFile::exists( url.toLocalFile() ) )
 			{

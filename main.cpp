@@ -35,7 +35,8 @@
 #include <QDebug>
 #include <QCommandLineParser>
 
-#include "kompare_part.h"
+#include "kompareinterface.h"
+
 #include "kompare_shell.h"
 #include "kompareurldialog.h"
 

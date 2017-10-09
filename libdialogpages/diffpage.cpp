@@ -307,7 +307,7 @@ void DiffPage::addOptionsTab()
 	m_ignoreRegExpCheckBox->setToolTip( i18n( "This option corresponds to the -I diff option." ) );
 	m_ignoreRegExpCheckBox->setWhatsThis( i18n( "When this checkbox is enabled, an option to diff is given that will make diff ignore lines that match the regular expression." ) );
 	groupLayout->addWidget( m_ignoreRegExpCheckBox );
-	m_ignoreRegExpEdit = new KLineEdit( QString::null, page);	//krazy:exclude=nullstrassign for old broken gcc
+	m_ignoreRegExpEdit = new KLineEdit(page);
 	m_ignoreRegExpEdit->setObjectName("regexplineedit" );
 	m_ignoreRegExpEdit->setToolTip( i18n( "Add the regular expression here that you want to use\nto ignore lines that match it." ) );
 	groupLayout->addWidget( m_ignoreRegExpEdit );

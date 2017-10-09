@@ -74,7 +74,7 @@ public:
 
 	void setSelectedDifference( const Diff2::Difference* diff, bool scroll );
 
-public slots:
+public Q_SLOTS:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void slotSetSelection( const Diff2::Difference* diff );
 	void setXOffset( int x );
@@ -84,7 +84,7 @@ public slots:
 	void slotApplyAllDifferences( bool apply );
 	void slotApplyDifference( const Diff2::Difference* diff, bool apply );
 
-signals:
+Q_SIGNALS:
 	void differenceClicked( const Diff2::Difference* diff );
 	void applyDifference( bool apply );
 	void resized();
@@ -122,7 +122,7 @@ public:
 	~KompareListViewFrame() override {};
 	KompareListView*     view() { return &m_view; };
 
-public slots:
+public Q_SLOTS:
 	void slotSetModel( const Diff2::DiffModel* model );
 
 private:

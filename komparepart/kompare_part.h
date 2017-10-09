@@ -132,7 +132,7 @@ public:
 	// All you have to do is connect the parts from your application.
 	// These just point to their counterpart in the KompareModelList or get called from their
 	// counterpart in KompareModelList.
-signals:
+Q_SIGNALS:
 	void modelsChanged( const Diff2::DiffModelList* models );
 
 	void setSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
@@ -154,7 +154,7 @@ signals:
 	void differenceClicked( int lineNumber );
 
 	// Stuff that can probably be removed by putting it in the part where it belongs in my opinion
-public slots:
+public Q_SLOTS:
 	/** Save all destinations. */
 	bool saveAll();
 
@@ -165,7 +165,7 @@ public slots:
 	void slotFilePrint();
 	void slotFilePrintPreview();
 
-signals:
+Q_SIGNALS:
 	void appliedChanged();
 	void diffURLChanged();
 	void kompareInfo( Kompare::Info* info );
@@ -183,7 +183,7 @@ protected:
 	// ... Uhm we return true without saving ???
 	bool saveFile() override { return true; };
 
-protected slots:
+protected Q_SLOTS:
 	void slotSetStatus( Kompare::Status status );
 	void slotShowError( QString error );
 

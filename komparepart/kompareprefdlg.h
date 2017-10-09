@@ -33,7 +33,7 @@ public:
 	KomparePrefDlg( ViewSettings*, DiffSettings* );
 	~KomparePrefDlg() override;
 
-protected slots:
+protected Q_SLOTS:
 	/** No descriptions */
 	virtual void slotOk();
 	/** No descriptions */
@@ -45,7 +45,7 @@ protected slots:
 	/** No descriptions */
 	virtual void slotCancel();
 
-signals:
+Q_SIGNALS:
 	void configChanged();
 
 private:

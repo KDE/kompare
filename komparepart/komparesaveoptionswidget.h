@@ -35,7 +35,7 @@ public:
 	void      saveOptions();
 	QString   directory() const;
 
-protected slots:
+protected Q_SLOTS:
 	void      updateCommandLine();
 
 private:

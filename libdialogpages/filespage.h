@@ -58,7 +58,7 @@ public:
 	virtual void apply();
 	virtual void setDefaults();
 
-private slots:
+private Q_SLOTS:
 	void open();
 
 private:

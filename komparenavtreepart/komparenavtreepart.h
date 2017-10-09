@@ -51,17 +51,17 @@ public:
 public:
 	bool openFile() override { return false; };
 
-public slots:
+public Q_SLOTS:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void slotSetSelection( const Diff2::Difference* diff );
 	void slotModelsChanged( const Diff2::DiffModelList* modelList );
 	void slotKompareInfo( Kompare::Info* info );
 
-signals:
+Q_SIGNALS:
 	void selectionChanged( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void selectionChanged( const Diff2::Difference* diff );
 
-private slots:
+private Q_SLOTS:
 	void slotSrcDirTreeSelectionChanged ( QTreeWidgetItem* item );
 	void slotDestDirTreeSelectionChanged( QTreeWidgetItem* item );
 	void slotFileListSelectionChanged   ( QTreeWidgetItem* item );

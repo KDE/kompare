@@ -52,11 +52,11 @@ public:
 	void setFirstURLRequesterMode ( unsigned int mode );
 	void setSecondURLRequesterMode( unsigned int mode );
 
-public slots:
+public Q_SLOTS:
 	void accept() override;
 	void reject() override;
 
-private slots:
+private Q_SLOTS:
 	void slotEnableOk();
 protected:
     void showEvent ( QShowEvent * event ) override;

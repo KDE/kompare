@@ -45,7 +45,7 @@ public:
 	KompareSplitter(ViewSettings *settings, QWidget *parent);
 	~KompareSplitter() override;
 
-signals:
+Q_SIGNALS:
 	void configChanged();
 
 	void scrollViewsToId( int id );
@@ -53,7 +53,7 @@ signals:
 
 	void selectionChanged( const Diff2::Difference* diff );
 
-public slots:
+public Q_SLOTS:
 	void slotScrollToId( int id );
 	void slotDelayedUpdateScrollBars();
 	void slotUpdateScrollBars();
@@ -77,7 +77,7 @@ protected:
 
 	ViewSettings* settings() const { return m_settings; }
 
-protected slots:
+protected Q_SLOTS:
 	void slotDelayedRepaintHandles();
 	void slotRepaintHandles();
 	void timerTimeout();

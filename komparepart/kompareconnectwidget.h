@@ -43,13 +43,13 @@ public:
 	KompareConnectWidget(ViewSettings* settings, QWidget* parent, const char* name = nullptr);
 	~KompareConnectWidget() override;
 
-public slots:
+public Q_SLOTS:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
 	void slotSetSelection( const Diff2::Difference* diff );
 
 	void slotDelayedRepaint();
 
-signals:
+Q_SIGNALS:
 	void selectionChanged(const Diff2::Difference* diff);
 
 protected:

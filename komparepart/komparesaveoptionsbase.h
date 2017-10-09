@@ -29,7 +29,7 @@ public:
     explicit KompareSaveOptionsBase(QWidget* parent = nullptr);
     ~KompareSaveOptionsBase() override;
 
-protected slots:
+protected Q_SLOTS:
     virtual void languageChange();
 
 };

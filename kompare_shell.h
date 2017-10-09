@@ -90,7 +90,7 @@ public:
 	 */
 	void blend( const QUrl& url1, const QUrl& diff );
 
-public slots:
+public Q_SLOTS:
 	void slotUpdateStatusBar( int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount );
 
 	KompareInterface* viewPart() const;
@@ -111,7 +111,7 @@ protected:
 	 */
 	void readProperties(const KConfigGroup &) override;
 
-private slots:
+private Q_SLOTS:
 	void slotSetStatusBarText( const QString& text ) override;
 	void slotFileOpen();
 	void slotFileCompareFiles();

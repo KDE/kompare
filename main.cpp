@@ -71,7 +71,9 @@ QUrl urlFromArg(const QString& arg)
  */
 int main(int argc, char *argv[])
 {
+	QApplication app(argc, argv);
         KLocalizedString::setApplicationDomain("kompare");
+
 	KAboutData aboutData( "kompare",  i18n("Kompare"), version, i18n(description),
 	                      KAboutLicense::GPL,
 	                      i18n("(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler") );
@@ -83,21 +85,22 @@ int main(int argc, char *argv[])
 	aboutData.addCredit( i18n("Malte Starostik"), i18n("A lot of good advice"), "malte@kde.org" );
 	aboutData.addCredit( i18n("Bernd Gehrmann"), i18n("Cervisia diff viewer"), "bernd@physik.hu-berlin.de" );
 
-	QApplication app(argc, argv);
-	app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kompare"), app.windowIcon()));
-	QCommandLineParser parser;
 	KAboutData::setApplicationData(aboutData);
+	app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kompare"), app.windowIcon()));
+
+	QCommandLineParser parser;
 	parser.addVersionOption();
 	parser.addHelpOption();
 	aboutData.setupCommandLine(&parser);
-
 	parser.addOption(QCommandLineOption("c", i18n("This will compare URL1 with URL2")));
 	parser.addOption(QCommandLineOption("o", i18n( "This will open URL1 and expect it to be diff output. URL1 can also be a '-' and then it will read from standard input. Can be used for instance for cvs diff | kompare -o -. Kompare will do a check to see if it can find the original file(s) and then blend the original file(s) into the diffoutput and show that in the viewer. -n disables the check." )));
 	parser.addOption(QCommandLineOption("b", i18n( "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 the file or folder that the diffoutput needs to be blended into. " )));
 	parser.addOption(QCommandLineOption("n", i18n( "Disables the check for automatically finding the original file(s) when using '-' as URL with the -o option." )));
 	parser.addOption(QCommandLineOption("e <encoding>", i18n( "Use this to specify the encoding when calling it from the command line. It will default to the local encoding if not specified." )));
+
 	parser.process(app);
 	aboutData.processCommandLine(&parser);
+
 	bool difault = false;
 
 	KompareShell* ks;

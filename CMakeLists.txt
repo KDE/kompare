@@ -43,6 +43,18 @@ set_package_properties(LibKompareDiff2 PROPERTIES
 set(KOMPARE_LIB_VERSION 5)
 set(KOMPARE_LIB_SOVERSION 5)
 
+add_definitions(
+    -DQT_DEPRECATED_WARNINGS
+    -DQT_DISABLE_DEPRECATED_BEFORE=0x050500
+    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
+    -DQT_STRICT_ITERATORS
+    -DQT_USE_QSTRINGBUILDER
+    -DQT_NO_CAST_TO_ASCII
+    -DQT_NO_CAST_FROM_ASCII
+    -DQT_NO_CAST_FROM_BYTEARRAY
+#     -DQT_NO_URL_CAST_FROM_STRING
+)
+
 add_subdirectory( doc )
 add_subdirectory( interfaces )
 add_subdirectory( libdialogpages )

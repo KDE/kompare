@@ -36,8 +36,8 @@
 
 Q_DECLARE_LOGGING_CATEGORY(KOMPARESHELL)
 
-KompareURLDialog::KompareURLDialog( QWidget *parent, Qt::WindowFlags flags )
-        : KPageDialog( parent, flags )
+KompareURLDialog::KompareURLDialog( QWidget *parent)
+        : KPageDialog(parent)
 {
 	setFaceType( List );
 	KSharedConfig::Ptr cfg = KSharedConfig::openConfig();

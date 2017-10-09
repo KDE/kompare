@@ -22,8 +22,8 @@
  *  Constructs a KompareSaveOptionsBase as a child of 'parent', with the
  *  name 'name' and widget flags set to 'f'.
  */
-KompareSaveOptionsBase::KompareSaveOptionsBase(QWidget* parent, Qt::WindowFlags fl)
-    : QWidget(parent, fl)
+KompareSaveOptionsBase::KompareSaveOptionsBase(QWidget* parent)
+    : QWidget(parent)
 {
     setupUi(this);
 

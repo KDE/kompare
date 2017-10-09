@@ -37,7 +37,7 @@ class KompareURLDialog : public KPageDialog
 	Q_OBJECT
 
 public:
-	explicit KompareURLDialog(QWidget *parent= nullptr, Qt::WindowFlags flags = {});
+	explicit KompareURLDialog(QWidget *parent= nullptr);
 	~KompareURLDialog() override;
 
 	QUrl getFirstURL() const;

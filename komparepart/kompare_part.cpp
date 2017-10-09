@@ -66,7 +66,7 @@ DiffSettings* KomparePart::m_diffSettings = 0L;
 
 static KAboutData createAboutData()
 {
-    KAboutData about(QStringLiteral("kompare"), i18n("KomparePart"), QStringLiteral("4.0"),
+    KAboutData about(QStringLiteral("komparepart"), i18n("KomparePart"), QStringLiteral("4.0"),
                      QString(), KAboutLicense::GPL);
     about.addAuthor(i18n("John Firebaugh"), i18n("Author"), "jfirebaugh@kde.org");
     about.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), "bruggie@gmail.com" );

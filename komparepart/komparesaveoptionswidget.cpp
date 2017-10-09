@@ -35,7 +35,7 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 	, m_destination( destination )
 	, m_FormatBG( new QButtonGroup(this) )
 {
-	setObjectName("save options");
+	setObjectName(QStringLiteral("save options"));
 
 	m_settings = settings;
 
@@ -100,25 +100,25 @@ QString KompareSaveOptionsWidget::directory() const
 
 void KompareSaveOptionsWidget::updateCommandLine()
 {
-	QString cmdLine = "diff";
+	QString cmdLine = QStringLiteral("diff");
 
-	QString options = "";
+	QString options;
 
 	switch( static_cast<Kompare::Format>( m_FormatBG->checkedId() ) ) {
 	case Kompare::Unified :
-		cmdLine += " -U " + QString::number( m_ContextLinesSB->value() );
+		cmdLine += QLatin1String(" -U ") + QString::number( m_ContextLinesSB->value() );
 		break;
 	case Kompare::Context :
-		cmdLine += " -C " + QString::number( m_ContextLinesSB->value() );
+		cmdLine += QLatin1String(" -C ") + QString::number( m_ContextLinesSB->value() );
 		break;
 	case Kompare::RCS :
-		options += 'n';
+		options += QLatin1Char('n');
 		break;
 	case Kompare::Ed :
-		options += 'e';
+		options += QLatin1Char('e');
 		break;
 	case Kompare::SideBySide:
-		options += 'y';
+		options += QLatin1Char('y');
 		break;
 	case Kompare::Normal :
 	case Kompare::UnknownFormat :
@@ -127,31 +127,31 @@ void KompareSaveOptionsWidget::updateCommandLine()
 	}
 
 	if ( m_SmallerChangesCB->isChecked() ) {
-		options += 'd';
+		options += QLatin1Char('d');
 	}
 
 	if ( m_LargeFilesCB->isChecked() ) {
-		options += 'H';
+		options += QLatin1Char('H');
 	}
 
 	if ( m_IgnoreCaseCB->isChecked() ){
-		options += 'i';
+		options += QLatin1Char('i');
 	}
 
 	if ( m_ExpandTabsCB->isChecked() ) {
-		options += 't';
+		options += QLatin1Char('t');
 	}
 
 	if ( m_IgnoreEmptyLinesCB->isChecked() ) {
-		options += 'B';
+		options += QLatin1Char('B');
 	}
 
 	if ( m_IgnoreWhiteSpaceCB->isChecked() ) {
-		options += 'b';
+		options += QLatin1Char('b');
 	}
 
 	if ( m_FunctionNamesCB->isChecked() ) {
-		options += 'p';
+		options += QLatin1Char('p');
 	}
 
 //	if (  ) {
@@ -159,25 +159,25 @@ void KompareSaveOptionsWidget::updateCommandLine()
 //	}
 
 	if ( m_RecursiveCB->isChecked() ) {
-		options += 'r';
+		options += QLatin1Char('r');
 	}
 
 	if( m_NewFilesCB->isChecked() ) {
-		options += 'N';
+		options += QLatin1Char('N');
 	}
 
 //	if( m_AllTextCB->isChecked() ) {
-//		options += 'a';
+//		options += QLatin1Char('a');
 //	}
 
 	if( options.length() > 0 ) {
-		cmdLine += " -" + options;
+		cmdLine += QStringLiteral(" -") + options;
 	}
 
 	QDir dir( directory() );
-	cmdLine += " -- ";
+	cmdLine += QStringLiteral(" -- ");
 	cmdLine += dir.relativeFilePath( m_source );
-	cmdLine += ' ';
+	cmdLine += QLatin1Char(' ');
 	cmdLine += dir.relativeFilePath( m_destination );
 
 	m_CommandLineLabel->setText( cmdLine );

@@ -40,10 +40,10 @@ KompareConnectWidgetFrame::KompareConnectWidgetFrame( ViewSettings* settings,
                                                       const char* name ) :
 	QSplitterHandle(Qt::Horizontal, (QSplitter *)parent),
 	m_wid ( settings, this, name ),
-	m_label ( " ", this ), // putting a space here because Qt 4 computes different size hints for empty labels
+	m_label(QStringLiteral(" "), this), // putting a space here because Qt 4 computes different size hints for empty labels
 	m_layout ( this )
 {
-	setObjectName( name );
+	setObjectName(QLatin1String(name));
 	setSizePolicy ( QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Ignored) );
 	m_wid.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored) );
 	m_label.setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed) );
@@ -107,7 +107,7 @@ KompareConnectWidget::KompareConnectWidget( ViewSettings* settings, QWidget* par
 	m_selectedModel(nullptr),
 	m_selectedDifference(nullptr)
 {
-	setObjectName(name);
+	setObjectName(QLatin1String(name));
 //	connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( slotDelayedRepaint() ) );
 	setAttribute( Qt::WA_NoSystemBackground, true );
 	setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum ) );

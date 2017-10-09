@@ -131,7 +131,7 @@ ViewPage::ViewPage() : QFrame()
 	m_fontCombo = new QFontComboBox;
 	layfont->addWidget( label );
 	layfont->addWidget( m_fontCombo );
-	m_fontCombo->setObjectName( "fontcombo" );
+	m_fontCombo->setObjectName(QStringLiteral("fontcombo"));
 	label->setBuddy( m_fontCombo );
 
 	label = new QLabel( i18n( "Size:" ) );

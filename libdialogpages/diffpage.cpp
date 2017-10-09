@@ -78,7 +78,7 @@ void DiffPage::setSettings( DiffSettings* setts )
 {
 	m_settings = setts;
 
-	m_diffURLRequester->setUrl( m_settings->m_diffProgram );
+	m_diffURLRequester->setUrl(QUrl::fromLocalFile(m_settings->m_diffProgram));
 
 	m_newFilesCheckBox->setChecked          ( m_settings->m_newFiles );
 	m_smallerCheckBox->setChecked           ( m_settings->m_createSmallerDiff );
@@ -152,7 +152,7 @@ void DiffPage::apply()
 
 void DiffPage::setDefaults()
 {
-	m_diffURLRequester->setUrl( QUrl( "diff" ) );
+	m_diffURLRequester->setUrl(QUrl::fromLocalFile(QStringLiteral("diff")));
 	m_newFilesCheckBox->setChecked( true );
 	m_smallerCheckBox->setChecked( true );
 	m_largerCheckBox->setChecked( true );
@@ -178,7 +178,7 @@ void DiffPage::setDefaults()
 void DiffPage::slotShowRegExpEditor()
 {
 	if ( ! m_ignoreRegExpDialog )
-		m_ignoreRegExpDialog = KServiceTypeTrader::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor", QString(), this );
+		m_ignoreRegExpDialog = KServiceTypeTrader::createInstanceFromQuery<QDialog>(QStringLiteral("KRegExpEditor/KRegExpEditor"), QString(), this );
 
 	KRegExpEditorInterface *iface = qobject_cast<KRegExpEditorInterface *>( m_ignoreRegExpDialog );
 
@@ -215,7 +215,7 @@ void DiffPage::addDiffTab()
 	m_diffProgramGroup->setTitle( i18n( "Diff Program" ) );
 
 	m_diffURLRequester = new KUrlRequester( m_diffProgramGroup);
-	m_diffURLRequester->setObjectName("diffURLRequester" );
+	m_diffURLRequester->setObjectName(QStringLiteral("diffURLRequester"));
 	m_diffURLRequester->setWhatsThis( i18n( "You can select a different diff program here. On Solaris the standard diff program does not support all the options that the GNU version does. This way you can select that version." ) );
 	bgLayout->addWidget( m_diffURLRequester );
 
@@ -300,7 +300,7 @@ void DiffPage::addOptionsTab()
 
 	QHBoxLayout* groupLayout = new QHBoxLayout();
 	layout->addLayout( groupLayout );
-	groupLayout->setObjectName( "regexp_horizontal_layout" );
+	groupLayout->setObjectName(QStringLiteral("regexp_horizontal_layout"));
 	groupLayout->setSpacing( -1 );
 
 	m_ignoreRegExpCheckBox = new QCheckBox( i18n( "Ignore regexp:" ), page );
@@ -308,15 +308,15 @@ void DiffPage::addOptionsTab()
 	m_ignoreRegExpCheckBox->setWhatsThis( i18n( "When this checkbox is enabled, an option to diff is given that will make diff ignore lines that match the regular expression." ) );
 	groupLayout->addWidget( m_ignoreRegExpCheckBox );
 	m_ignoreRegExpEdit = new KLineEdit(page);
-	m_ignoreRegExpEdit->setObjectName("regexplineedit" );
+	m_ignoreRegExpEdit->setObjectName(QStringLiteral("regexplineedit"));
 	m_ignoreRegExpEdit->setToolTip( i18n( "Add the regular expression here that you want to use\nto ignore lines that match it." ) );
 	groupLayout->addWidget( m_ignoreRegExpEdit );
 
-	if ( !KServiceTypeTrader::self()->query("KRegExpEditor/KRegExpEditor").isEmpty() )
+	if ( !KServiceTypeTrader::self()->query(QStringLiteral("KRegExpEditor/KRegExpEditor")).isEmpty() )
 	{
 		// Ok editor is available, use it
 		QPushButton* ignoreRegExpEditButton = new QPushButton( i18n( "&Edit..." ), page);
-		ignoreRegExpEditButton->setObjectName( "regexp_editor_button" );
+		ignoreRegExpEditButton->setObjectName(QStringLiteral("regexp_editor_button"));
 		ignoreRegExpEditButton->setToolTip( i18n( "Clicking this will open a regular expression dialog where\nyou can graphically create regular expressions." ) );
 		groupLayout->addWidget( ignoreRegExpEditButton );
 		connect( ignoreRegExpEditButton, SIGNAL( clicked() ), this, SLOT( slotShowRegExpEditor() ) );
@@ -366,7 +366,7 @@ void DiffPage::addExcludeTab()
 	m_excludeFilePatternGroupBox->setToolTip( i18n( "If this is checked you can enter a shell pattern in the text box on the right or select entries from the list." ) );
 	m_excludeFilePatternEditListBox = new KEditListWidget;
 	excludeFileLayout->addWidget( m_excludeFilePatternEditListBox );
-	m_excludeFilePatternEditListBox->setObjectName( "exclude_file_pattern_editlistbox" );
+	m_excludeFilePatternEditListBox->setObjectName(QStringLiteral("exclude_file_pattern_editlistbox"));
 	m_excludeFilePatternEditListBox->setButtons( KEditListWidget::Add|KEditListWidget::Remove );
 	m_excludeFilePatternEditListBox->setCheckAtEntering( false );
 	m_excludeFilePatternEditListBox->setToolTip( i18n( "Here you can enter or remove a shell pattern or select one or more entries from the list." ) );
@@ -383,11 +383,11 @@ void DiffPage::addExcludeTab()
 	m_excludeFileNameGroupBox->setToolTip( i18n( "If this is checked you can enter a filename in the combo box below." ) );
 	m_excludeFileURLComboBox  = new KUrlComboBox( KUrlComboBox::Files, true );
 	excludeFileLayout->addWidget( m_excludeFileURLComboBox );
-	m_excludeFileURLComboBox->setObjectName( "exclude_file_urlcombo" );
+	m_excludeFileURLComboBox->setObjectName(QStringLiteral("exclude_file_urlcombo"));
 	m_excludeFileURLComboBox->setToolTip( i18n( "Here you can enter the URL of a file with shell patterns to ignore during the comparison of the folders." ) );
 	m_excludeFileURLRequester = new KUrlRequester( m_excludeFileURLComboBox,m_excludeFileNameGroupBox );
 	excludeFileLayout->addWidget( m_excludeFileURLRequester );
-	m_excludeFileURLRequester->setObjectName("exclude_file_name_urlrequester" );
+	m_excludeFileURLRequester->setObjectName(QStringLiteral("exclude_file_name_urlrequester"));
 	m_excludeFileURLRequester->setToolTip( i18n( "Any file you select in the dialog that pops up when you click it will be put in the dialog to the left of this button." ) );
 	layout->addWidget( m_excludeFileNameGroupBox );
 

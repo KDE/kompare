@@ -57,7 +57,7 @@ KompareListViewFrame::KompareListViewFrame( bool isSource,
                                             const char* name ):
 	QFrame ( parent ),
 	m_view ( isSource, settings, this, name ),
-	m_label ( isSource?"Source":"Dest", this ),
+	m_label ( isSource?QStringLiteral("Source"):QStringLiteral("Dest"), this ),
 	m_layout ( this )
 {
 	setSizePolicy ( QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored) );
@@ -88,12 +88,12 @@ void KompareListViewFrame::slotSetModel( const DiffModel* model )
 	{
 		if( view()->isSource() ) {
 			if( !model->sourceRevision().isEmpty() )
-				m_label.setText( model->sourceFile() + " (" + model->sourceRevision() + ')' );
+				m_label.setText( model->sourceFile() + QLatin1String(" (") + model->sourceRevision() + QLatin1Char(')'));
 			else
 				m_label.setText( model->sourceFile() );
 		} else {
 			if( !model->destinationRevision().isEmpty() )
-				m_label.setText( model->destinationFile() + " (" + model->destinationRevision() + ')' );
+				m_label.setText( model->destinationFile() + QLatin1String(" (") + model->destinationRevision() + QLatin1Char(')'));
 			else
 				m_label.setText( model->destinationFile() );
 		}
@@ -112,7 +112,7 @@ KompareListView::KompareListView( bool isSource,
 	m_selectedModel(nullptr),
 	m_selectedDifference(nullptr)
 {
-	setObjectName( name );
+	setObjectName(QLatin1String(name));
 	setItemDelegate( new KompareListViewItemDelegate( this ) );
 	setHeaderHidden( true );
 	setColumnCount( 3 ); // Line Number, Main, Blank
@@ -896,7 +896,7 @@ void KompareListViewLineItem::expandTabs(QString& text, int tabstop, int startPo
 {
 	int index;
 	while((index = text.indexOf(QChar(9)))!= -1)
-		text.replace(index, 1, QString(tabstop-((startPos+index)%tabstop),' '));
+		text.replace(index, 1, QString(tabstop-((startPos+index)%tabstop), QLatin1Char(' ')));
 }
 
 KompareListViewDiffItem* KompareListViewLineItem::diffItemParent() const

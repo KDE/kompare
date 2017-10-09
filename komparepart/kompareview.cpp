@@ -23,6 +23,6 @@
 KompareView::KompareView(ViewSettings *settings, QWidget *parent) :
 	QFrame( parent )
 {
-	setObjectName( "scrollFrame" );
+	setObjectName(QStringLiteral("scrollFrame"));
 	m_splitter = new KompareSplitter( settings, this );
 }

@@ -59,13 +59,13 @@ KompareShell::KompareShell()
 	resize( 800, 480 );
 
 	// set the shell's ui resource file
-	setXMLFile("kompareui.rc");
+	setXMLFile(QStringLiteral("kompareui.rc"));
 
 	// then, setup our actions
 	setupActions();
 	setupStatusBar();
 
-	m_viewPart = KMimeTypeTrader::createInstanceFromQuery<KParts::ReadWritePart>("text/x-patch", "Kompare/ViewPart", this);
+	m_viewPart = KMimeTypeTrader::createInstanceFromQuery<KParts::ReadWritePart>(QStringLiteral("text/x-patch"), QStringLiteral("Kompare/ViewPart"), this);
 
 	if ( m_viewPart )
 	{
@@ -82,11 +82,11 @@ KompareShell::KompareShell()
 	}
 
 	m_navTreeDock = new QDockWidget( i18n( "Navigation" ), this );
-	m_navTreeDock->setObjectName( "Navigation" );
+	m_navTreeDock->setObjectName(QStringLiteral("Navigation"));
 
 	// This part is implemented in KompareNavTreePart
 	m_navTreePart = KServiceTypeTrader::createInstanceFromQuery<KParts::ReadOnlyPart>
-		("KParts/ReadOnlyPart", "'Kompare/NavigationPart' in ServiceTypes", m_navTreeDock);
+		(QStringLiteral("KParts/ReadOnlyPart"), QStringLiteral("'Kompare/NavigationPart' in ServiceTypes"), m_navTreeDock);
 
 	if ( m_navTreePart )
 	{
@@ -142,7 +142,7 @@ KompareShell::KompareShell()
 	         this, SLOT(slotSetDiffString(const QString&)) );
 
 	// Read basic main-view settings, and set to autosave
-	setAutoSaveSettings( "General Options" );
+	setAutoSaveSettings(QStringLiteral("General Options"));
 }
 
 KompareShell::~KompareShell()
@@ -204,11 +204,11 @@ void KompareShell::setupActions()
 	QAction *a;
 	a = actionCollection()->addAction(KStandardAction::Open, this, SLOT(slotFileOpen()));
 	a->setText( i18n( "&Open Diff..." ) );
-	a = actionCollection()->addAction("file_compare_files", this, SLOT(slotFileCompareFiles()));
-	a->setIcon(QIcon::fromTheme("document-open"));
+	a = actionCollection()->addAction(QStringLiteral("file_compare_files"), this, SLOT(slotFileCompareFiles()));
+	a->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
 	a->setText(i18n("&Compare Files..."));
 	actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_C));
-	a = actionCollection()->addAction("file_blend_url", this, SLOT(slotFileBlendURLAndDiff()));
+	a = actionCollection()->addAction(QStringLiteral("file_blend_url"), this, SLOT(slotFileBlendURLAndDiff()));
 	a->setText(i18n("&Blend URL with Diff..."));
 	actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_B));
 	actionCollection()->addAction(KStandardAction::Quit, this, SLOT( slotFileClose() ));
@@ -218,7 +218,7 @@ void KompareShell::setupActions()
 	m_showTextView = new KToggleAction(i18n("Show T&ext View"), this);
 // needs a KGuiItem, also the doc says explicitly not to do this
 //	m_showTextView->setCheckedState(i18n("Hide T&ext View"));
-	actionCollection()->addAction("options_show_text_view", m_showTextView);
+	actionCollection()->addAction(QStringLiteral("options_show_text_view"), m_showTextView);
 	connect(m_showTextView, SIGNAL(triggered(bool)), SLOT(slotShowTextView()));
 
 	KStandardAction::keyBindings(this, SLOT(optionsConfigureKeys()), actionCollection());
@@ -293,20 +293,20 @@ void KompareShell::readProperties(const KConfigGroup &config)
 	// in 'saveProperties'
 
 	QString mode = config.readEntry( "Mode", "ComparingFiles" );
-	if ( mode == "ComparingFiles" )
+	if ( mode == QLatin1String("ComparingFiles"))
 	{
 		m_mode  = Kompare::ComparingFiles;
-		m_sourceURL  = config.readPathEntry( "SourceUrl", "" );
-		m_destinationURL = config.readPathEntry( "DestinationFile", "" );
+		m_sourceURL  = config.readPathEntry("SourceUrl", QString());
+		m_destinationURL = config.readPathEntry("DestinationFile", QString());
 
 		viewPart()->readProperties( const_cast<KConfig *>(config.config()) );
 
 		viewPart()->compareFiles( m_sourceURL, m_destinationURL );
 	}
-	else if ( mode == "ShowingDiff" )
+	else if ( mode == QLatin1String("ShowingDiff"))
 	{
 		m_mode = Kompare::ShowingDiff;
-		m_diffURL = config.readPathEntry( "DiffUrl", "" );
+		m_diffURL = config.readPathEntry("DiffUrl", QString());
 
 		viewPart()->readProperties( const_cast<KConfig *>(config.config()) );
 
@@ -323,7 +323,7 @@ void KompareShell::readProperties(const KConfigGroup &config)
 void KompareShell::slotFileOpen()
 {
 	// FIXME: use different filedialog which gets encoding
-	QUrl url = QFileDialog::getOpenFileUrl( this, QString(), QUrl(), QMimeDatabase().mimeTypeForName("text/x-patch").filterString() );
+	QUrl url = QFileDialog::getOpenFileUrl( this, QString(), QUrl(), QMimeDatabase().mimeTypeForName(QStringLiteral("text/x-patch")).filterString() );
 	if( !url.isEmpty() ) {
 		KompareShell* shell = new KompareShell();
 		shell->show();
@@ -344,7 +344,7 @@ void KompareShell::slotFileBlendURLAndDiff()
 	okButton->setToolTip( i18n( "Blend this file or folder with the diff output"  ) );
 	okButton->setWhatsThis( i18n( "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. " ) );
 
-	dialog.setGroup( "Recent Blend Files" );
+	dialog.setGroup(QStringLiteral("Recent Blend Files"));
 
 	dialog.setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
 	// diff output can not be a directory
@@ -374,7 +374,7 @@ void KompareShell::slotFileCompareFiles()
 	okButton->setToolTip( i18n( "Compare these files or folders" ) );
 	okButton->setWhatsThis( i18n( "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. " ) );
 
-	dialog.setGroup( "Recent Compare Files" );
+	dialog.setGroup(QStringLiteral("Recent Compare Files"));
 
 	dialog.setFirstURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
 	dialog.setSecondURLRequesterMode( KFile::File|KFile::Directory|KFile::ExistingOnly );
@@ -407,16 +407,16 @@ void KompareShell::slotShowTextView()
 
 		// FIXME: proper error checking
 		m_textViewWidget = new QDockWidget( i18n( "Text View" ), this );
-		m_textViewWidget->setObjectName( "Text View" );
+		m_textViewWidget->setObjectName(QStringLiteral("Text View"));
 // 		m_textViewWidget = createDockWidget( i18n("Text View"), SmallIcon( "text-x-generic") );
 		m_textViewPart = KServiceTypeTrader::createInstanceFromQuery<KTextEditor::Document>(
-		                 QString::fromLatin1("KTextEditor/Document"),
+		                 QStringLiteral("KTextEditor/Document"),
 		                 this, this, QString(), QVariantList(), &error );
 		if ( m_textViewPart )
 		{
 			m_textView = qobject_cast<KTextEditor::View*>( m_textViewPart->createView( this ) );
 			m_textViewWidget->setWidget( static_cast<QWidget*>(m_textView) );
-	 		m_textViewPart->setHighlightingMode( "Diff" );
+			m_textViewPart->setHighlightingMode(QStringLiteral("Diff"));
 	 		m_textViewPart->setText( m_diffString );
 		}
 		m_textViewWidget->show();

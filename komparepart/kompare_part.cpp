@@ -68,9 +68,9 @@ static KAboutData createAboutData()
 {
     KAboutData about(QStringLiteral("komparepart"), i18n("KomparePart"), QStringLiteral("4.0"),
                      QString(), KAboutLicense::GPL);
-    about.addAuthor(i18n("John Firebaugh"), i18n("Author"), "jfirebaugh@kde.org");
-    about.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), "bruggie@gmail.com" );
-    about.addAuthor(i18n("Kevin Kofler"), i18n("Author"), "kevin.kofler@chello.at" );
+    about.addAuthor(i18n("John Firebaugh"), i18n("Author"), QStringLiteral("jfirebaugh@kde.org"));
+    about.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), QStringLiteral("bruggie@gmail.com"));
+    about.addAuthor(i18n("Kevin Kofler"), i18n("Author"), QStringLiteral("kevin.kofler@chello.at"));
     return about;
 }
 
@@ -183,17 +183,17 @@ void KomparePart::setupActions()
 {
 	// create our actions
 
-	m_saveAll = actionCollection()->addAction("file_save_all", this, SLOT(saveAll()));
-	m_saveAll->setIcon(QIcon::fromTheme("document-save-all"));
+	m_saveAll = actionCollection()->addAction(QStringLiteral("file_save_all"), this, SLOT(saveAll()));
+	m_saveAll->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
 	m_saveAll->setText(i18n("Save &All"));
-	m_saveDiff = actionCollection()->addAction("file_save_diff", this, SLOT(saveDiff()));
+	m_saveDiff = actionCollection()->addAction(QStringLiteral("file_save_diff"), this, SLOT(saveDiff()));
 	m_saveDiff->setText(i18n("Save &Diff..."));
-	m_swap = actionCollection()->addAction("file_swap", this, SLOT(slotSwap()));
+	m_swap = actionCollection()->addAction(QStringLiteral("file_swap"), this, SLOT(slotSwap()));
 	m_swap->setText(i18n("Swap Source with Destination"));
-	m_diffStats = actionCollection()->addAction("file_diffstats", this, SLOT(slotShowDiffstats()));
+	m_diffStats = actionCollection()->addAction(QStringLiteral("file_diffstats"), this, SLOT(slotShowDiffstats()));
 	m_diffStats->setText(i18n("Show Statistics"));
-	m_diffRefresh = actionCollection()->addAction("file_refreshdiff", this, SLOT(slotRefreshDiff()));
-	m_diffRefresh->setIcon(QIcon::fromTheme("view-refresh"));
+	m_diffRefresh = actionCollection()->addAction(QStringLiteral("file_refreshdiff"), this, SLOT(slotRefreshDiff()));
+	m_diffRefresh->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
 	m_diffRefresh->setText(i18n("Refresh Diff"));
 	actionCollection()->setDefaultShortcuts(m_diffRefresh, KStandardShortcut::reload());
 
@@ -289,7 +289,7 @@ bool KomparePart::exists( const QString& url )
 bool KomparePart::fetchURL( const QUrl& url, bool addToSource )
 {
 	// Default value if there is an error is "", we rely on it!
-	QString tempFileName( "" );
+	QString tempFileName;
 	// Only in case of error do we set result to false, don't forget!!
 	bool result = true;
 	QTemporaryDir* tmpDir = nullptr;
@@ -304,7 +304,7 @@ bool KomparePart::fetchURL( const QUrl& url, bool addToSource )
             node = statJob->statResult();
             if ( !node.isDir() )
             {
-                tmpDir = new QTemporaryDir(QDir::tempPath() + "/kompare");
+                tmpDir = new QTemporaryDir(QDir::tempPath() + QLatin1String("/kompare"));
                 tmpDir->setAutoRemove( true );
                 tempFileName = tmpDir->path() + QLatin1Char('/') + url.fileName();
                 KIO::FileCopyJob* copyJob = KIO::file_copy( url, QUrl::fromLocalFile( tempFileName ) );
@@ -313,13 +313,13 @@ bool KomparePart::fetchURL( const QUrl& url, bool addToSource )
                 {
                     qDebug() << "download error " << copyJob->errorString();
                     slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.toDisplayString() ) );
-                    tempFileName = ""; // Not sure if download has already touched this tempFileName when there is an error
+                    tempFileName.clear(); // Not sure if download has already touched this tempFileName when there is an error
                     result = false;
                 }
             }
             else
             {
-                tmpDir = new QTemporaryDir(QDir::tempPath() + "/kompare");
+                tmpDir = new QTemporaryDir(QDir::tempPath() + QLatin1String("/kompare"));
                 tmpDir->setAutoRemove( true ); // Yes this is the default but just to make sure
                 KIO::CopyJob *copyJob = KIO::copy( url, QUrl::fromLocalFile( tmpDir->path() ));
                 KJobWidgets::setWindow( copyJob, widget() );
@@ -340,17 +340,17 @@ bool KomparePart::fetchURL( const QUrl& url, bool addToSource )
                     QStringList entries = dir.entryList( QDir::Dirs | QDir::NoDotAndDotDot );
                     if ( entries.size() == 1 ) // More than 1 entry in here means big problems!!!
                     {
-                        if ( !tempFileName.endsWith( '/' ) )
-                            tempFileName += '/';
+                        if (!tempFileName.endsWith(QLatin1Char('/')))
+                            tempFileName += QLatin1Char('/');
                         tempFileName += entries.at( 0 );
-                        tempFileName += '/';
+                        tempFileName += QLatin1Char('/');
                     }
                     else
                     {
                         qCDebug(KOMPAREPART) << "Yikes, nothing downloaded?";
                         delete tmpDir;
                         tmpDir = nullptr;
-                        tempFileName = "";
+                        tempFileName.clear();
                         result = false;
                     }
                 }
@@ -393,7 +393,7 @@ void KomparePart::cleanUpTemporaryFiles()
 			delete m_info.sourceQTempDir;
 			m_info.sourceQTempDir = nullptr;
 		}
-		m_info.localSource = "";
+		m_info.localSource.clear();
 	}
 	if ( !m_info.localDestination.isEmpty() )
 	{
@@ -402,7 +402,7 @@ void KomparePart::cleanUpTemporaryFiles()
 			delete m_info.destinationQTempDir;
 			m_info.destinationQTempDir = nullptr;
 		}
-		m_info.localDestination = "";
+		m_info.localDestination.clear();
 	}
 }
 
@@ -550,7 +550,7 @@ bool KomparePart::saveAll()
 void KomparePart::saveDiff()
 {
 	QDialog dlg( widget() );
-	dlg.setObjectName( "save_options" );
+	dlg.setObjectName(QStringLiteral("save_options"));
 	dlg.setModal( true );
 	dlg.setWindowTitle( i18n("Diff Options") );
 	QDialogButtonBox *buttons = new QDialogButtonBox( QDialogButtonBox::Save | QDialogButtonBox::Cancel, &dlg );
@@ -692,7 +692,7 @@ void KomparePart::updateCaption()
 	case Kompare::ComparingDirs :
 	case Kompare::BlendingFile :
 	case Kompare::BlendingDir :
-		text = source + " -- " + destination; // no need to translate this " -- "
+		text = source + QLatin1String(" -- ") + destination; // no need to translate this " -- "
 		break;
 	case Kompare::ShowingDiff :
 		text = source;
@@ -847,8 +847,8 @@ void KomparePart::slotShowDiffstats( void )
 	int noOfHunks;
 	int noOfDiffs;
 
-	oldFile = m_modelList->selectedModel() ? m_modelList->selectedModel()->sourceFile()  : QString( "" );
-	newFile = m_modelList->selectedModel() ? m_modelList->selectedModel()->destinationFile() : QString( "" );
+	oldFile = m_modelList->selectedModel() ? m_modelList->selectedModel()->sourceFile()  : QString();
+	newFile = m_modelList->selectedModel() ? m_modelList->selectedModel()->destinationFile() : QString();
 
 	if ( m_modelList->selectedModel() )
 	{
@@ -876,7 +876,7 @@ void KomparePart::slotShowDiffstats( void )
 	}
 	else
 	{
-		diffFormat = "";
+		diffFormat.clear();
 	}
 
 	filesInDiff = m_modelList->modelCount();

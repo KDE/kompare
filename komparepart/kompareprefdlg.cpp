@@ -44,13 +44,13 @@ KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets )
 
 	m_viewPage = new ViewPage();
 	KPageWidgetItem *item = addPage( m_viewPage, i18n( "View" ) );
-	item->setIcon( QIcon::fromTheme( "preferences-desktop-theme" ) );
+	item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-theme")));
 	item->setHeader( i18n( "View Settings" ) );
 	m_viewPage->setSettings( viewSets );
 
 	m_diffPage = new DiffPage();
 	item = addPage( m_diffPage, i18n( "Diff" ) );
-	item->setIcon( QIcon::fromTheme( "text-x-patch" ) );
+	item->setIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
 	item->setHeader( i18n( "Diff Settings" ) );
 	m_diffPage->setSettings( diffSets );
 
@@ -90,13 +90,13 @@ void KomparePrefDlg::slotHelp()
 		switch ( currentTab )
 		{
 		case 0:
-			KHelpClient::invokeHelp( "appearance" );
+			KHelpClient::invokeHelp(QStringLiteral("appearance"));
 			break;
 		case 1:
-			KHelpClient::invokeHelp( "fonts" );
+			KHelpClient::invokeHelp(QStringLiteral("fonts"));
 			break;
 		default:
-			KHelpClient::invokeHelp( "view-settings" );
+			KHelpClient::invokeHelp(QStringLiteral("view-settings"));
 		}
 	}
 	else if ( dynamic_cast<DiffPage*>(currentpage) )
@@ -106,23 +106,23 @@ void KomparePrefDlg::slotHelp()
 		switch ( currentTab )
 		{
 		case 0:
-			KHelpClient::invokeHelp( "diff" );
+			KHelpClient::invokeHelp(QStringLiteral("diff"));
 			break;
 		case 1:
-			KHelpClient::invokeHelp( "diff-format" );
+			KHelpClient::invokeHelp(QStringLiteral("diff-format"));
 			break;
 		case 2:
-			KHelpClient::invokeHelp( "options" );
+			KHelpClient::invokeHelp(QStringLiteral("options"));
 			break;
 		case 3:
-			KHelpClient::invokeHelp( "exclude" );
+			KHelpClient::invokeHelp(QStringLiteral("exclude"));
 			break;
 		default:
-			KHelpClient::invokeHelp( "diff-settings" );
+			KHelpClient::invokeHelp(QStringLiteral("diff-settings"));
 		}
 	}
 	else // Fallback since we had not added the code for the page/tab or forgotten about it
-		KHelpClient::invokeHelp( "configure-preferences" );
+		KHelpClient::invokeHelp(QStringLiteral("configure-preferences"));
 }
 
 /** No descriptions */

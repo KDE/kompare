@@ -36,61 +36,61 @@ FilesPage::FilesPage() : QFrame()
 {
 	QVBoxLayout* layout = new QVBoxLayout( this );
 
-	m_firstGB = new QGroupBox( "You have to set this moron :)", this );
+	m_firstGB = new QGroupBox(QStringLiteral("You have to set this moron :)"), this ); // whut?
 	layout->addWidget( m_firstGB );
 	QHBoxLayout* gb1Layout = new QHBoxLayout( m_firstGB );
 	m_firstURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_firstGB );
 	m_firstURLComboBox->setMaxItems( 10 );
-	m_firstURLComboBox->setObjectName( "SourceURLComboBox" );
+	m_firstURLComboBox->setObjectName(QStringLiteral("SourceURLComboBox"));
 	m_firstURLRequester = new KUrlRequester(m_firstURLComboBox, nullptr);
 	gb1Layout->addWidget( m_firstURLComboBox );
 	m_firstURLComboBox->setFocus();
 
-	QPushButton* button = new QPushButton( "", this );
-	button->setIcon( QIcon::fromTheme("document-open") );
+	QPushButton* button = new QPushButton(this);
+	button->setIcon( QIcon::fromTheme(QStringLiteral("document-open")));
 	button->setToolTip( i18n( "Select File" ) );
-	button->setProperty( "combobox", "SourceURLComboBox" );
+	button->setProperty("combobox", QStringLiteral("SourceURLComboBox"));
 	button->setProperty( "folder", false );
 	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
 	gb1Layout->addWidget( button );
 
-	button = new QPushButton( "", this );
-	button->setIcon( QIcon::fromTheme("folder-open") );
+	button = new QPushButton(this);
+	button->setIcon( QIcon::fromTheme(QStringLiteral("folder-open")));
 	QSizePolicy sp = button->sizePolicy();
 	sp.setRetainSizeWhenHidden( true );
 	button->setSizePolicy( sp );
-	button->setObjectName( "firstURLOpenFolder" );
+	button->setObjectName(QStringLiteral("firstURLOpenFolder"));
 	button->setToolTip( i18n( "Select Folder" ) );
-	button->setProperty( "combobox", "SourceURLComboBox" );
+	button->setProperty("combobox", QStringLiteral("SourceURLComboBox"));
 	button->setProperty( "folder", true );
 	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
 	gb1Layout->addWidget( button );
 
-	m_secondGB = new QGroupBox( "This too moron !", this );
+	m_secondGB = new QGroupBox(QStringLiteral("This too moron !"), this ); // whut again?
 	layout->addWidget( m_secondGB );
 	QHBoxLayout* gb2Layout = new QHBoxLayout( m_secondGB );
 	m_secondURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_secondGB );
 	m_secondURLComboBox->setMaxItems( 10 );
-	m_secondURLComboBox->setObjectName( "DestURLComboBox" );
+	m_secondURLComboBox->setObjectName(QStringLiteral("DestURLComboBox"));
 	m_secondURLRequester = new KUrlRequester(m_secondURLComboBox, nullptr);
 	gb2Layout->addWidget( m_secondURLComboBox );
 
-	button = new QPushButton( "", this );
-	button->setIcon( QIcon::fromTheme("document-open") );
+	button = new QPushButton(this);
+	button->setIcon( QIcon::fromTheme(QStringLiteral("document-open")));
 	button->setToolTip( i18n( "Select File" ) );
-	button->setProperty( "combobox", "DestURLComboBox" );
+	button->setProperty("combobox", QStringLiteral("DestURLComboBox"));
 	button->setProperty( "folder", false );
 	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
 	gb2Layout->addWidget( button );
 
-	button = new QPushButton( "", this );
-	button->setIcon( QIcon::fromTheme("folder-open") );
-	button->setObjectName( "secondURLOpenFolder" );
+	button = new QPushButton(this);
+	button->setIcon( QIcon::fromTheme(QStringLiteral("folder-open")));
+	button->setObjectName(QStringLiteral("secondURLOpenFolder"));
 	sp = button->sizePolicy();
 	sp.setRetainSizeWhenHidden( true );
 	button->setSizePolicy( sp );
 	button->setToolTip( i18n( "Select Folder" ) );
-	button->setProperty( "combobox", "DestURLComboBox" );
+	button->setProperty("combobox", QStringLiteral("DestURLComboBox"));
 	button->setProperty( "folder", true );
 	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
 	gb2Layout->addWidget( button );
@@ -100,7 +100,7 @@ FilesPage::FilesPage() : QFrame()
 	layout->addWidget( m_thirdGB );
 	QHBoxLayout* gb3Layout = new QHBoxLayout( m_thirdGB );
 	m_encodingComboBox = new KComboBox( false, m_thirdGB );
-	m_encodingComboBox->setObjectName( "encoding_combobox" );
+	m_encodingComboBox->setObjectName(QStringLiteral("encoding_combobox"));
 	m_encodingComboBox->insertItem( 0, i18n( "Default" ) );
 	m_encodingComboBox->insertItems( 1, KCharsets::charsets()->availableEncodingNames() );
 	gb3Layout->addWidget( m_encodingComboBox );
@@ -188,7 +188,7 @@ void FilesPage::setFirstURLRequesterMode( unsigned int mode )
 	m_firstURLRequester->setMode( (KFile::Mode) mode );
     if ( (mode & KFile::Directory) == 0 )
 	{
-		QPushButton *button = findChild<QPushButton *>( "firstURLOpenFolder" );
+		QPushButton *button = findChild<QPushButton *>(QStringLiteral("firstURLOpenFolder"));
 		button->setVisible( false );
 	}
 }
@@ -198,7 +198,7 @@ void FilesPage::setSecondURLRequesterMode( unsigned int mode )
 	m_secondURLRequester->setMode( (KFile::Mode) mode );
     if ( (mode & KFile::Directory) == 0 )
 	{
-		QPushButton *button = findChild<QPushButton *>( "secondURLOpenFolder" );
+		QPushButton *button = findChild<QPushButton *>(QStringLiteral("secondURLOpenFolder"));
 		button->setVisible( false );
 	}
 }

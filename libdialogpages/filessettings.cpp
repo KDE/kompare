@@ -34,9 +34,9 @@ void FilesSettings::loadSettings( KConfig* config )
 	KConfigGroup group( config, m_configGroupName );
 
 	m_recentSources            = group.readEntry( "Recent Sources", QStringList() );
-	m_lastChosenSourceURL      = group.readEntry    ( "LastChosenSourceListEntry", "" );
+	m_lastChosenSourceURL      = group.readEntry("LastChosenSourceListEntry", QString());
 	m_recentDestinations       = group.readEntry( "Recent Destinations", QStringList() );
-	m_lastChosenDestinationURL = group.readEntry    ( "LastChosenDestinationListEntry", "" );
+	m_lastChosenDestinationURL = group.readEntry("LastChosenDestinationListEntry", QString());
 	m_encoding                 = group.readEntry    ( "Encoding", "default" );
 }
 

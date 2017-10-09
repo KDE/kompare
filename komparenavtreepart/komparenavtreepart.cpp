@@ -51,8 +51,8 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parentWidget, QObject* parent, 
 	m_destRootItem(nullptr),
 	m_selectedModel(nullptr),
 	m_selectedDifference(nullptr),
-	m_source( "" ),
-	m_destination( "" ),
+	m_source(),
+	m_destination(),
 	m_info(nullptr)
 {
 	m_splitter = new QSplitter( Qt::Horizontal, parentWidget );
@@ -165,10 +165,10 @@ void KompareNavTreePart::buildTreeInMemory()
 		srcBase = model->sourcePath();
 		destBase = model->destinationPath();
 		// FIXME: these tests will not work on windows, we need something else
-		if ( srcBase[0] != '/' )
-			srcBase = "";
-		if ( destBase[0] != '/' )
-			destBase = "";
+		if (srcBase[0] != QLatin1Char('/'))
+			srcBase.clear();
+		if (destBase[0] != QLatin1Char('/'))
+			destBase.clear();
 		break;
 	case Kompare::ComparingFiles:
 		srcBase  = model->sourcePath();
@@ -176,11 +176,11 @@ void KompareNavTreePart::buildTreeInMemory()
 		break;
 	case Kompare::ComparingDirs:
 		srcBase = m_info->localSource;
-		if ( !srcBase.endsWith( '/' ) )
-			srcBase += '/';
+		if ( !srcBase.endsWith(QLatin1Char('/')) )
+			srcBase += QLatin1Char('/');
 		destBase = m_info->localDestination;
-		if ( !destBase.endsWith( '/' ) )
-			destBase += '/';
+		if ( !destBase.endsWith(QLatin1Char('/')) )
+			destBase += QLatin1Char('/');
 		break;
 	case Kompare::BlendingFile:
 	case Kompare::BlendingDir:
@@ -238,7 +238,7 @@ QString KompareNavTreePart::compareFromEndAndReturnSame(
 			break;
 	}
 
-	if ( srcLen != 0 && destLen != 0 && result.startsWith( '/' ) )
+	if (srcLen != 0 && destLen != 0 && result.startsWith(QLatin1Char('/')))
 		result = result.remove( 0, 1 ); // strip leading /, we need it later
 
 	return result;
@@ -477,7 +477,7 @@ void KChangeLVI::setDifferenceText()
 		break;
 	default:
 		qCDebug(KOMPARENAVVIEW) << "Unknown or Unchanged enum value when checking for diff->type() in KChangeLVI's constructor" ;
-		text = "";
+		text.clear();
 	}
 
 	setText( 2, text );
@@ -524,7 +524,7 @@ KFileLVI::KFileLVI( QTreeWidget* parent, DiffModel* model ) : QTreeWidgetItem( p
 
 bool KFileLVI::hasExtension(const QString& extensions, const QString& fileName)
 {
-	QStringList extList = extensions.split(' ');
+	QStringList extList = extensions.split(QLatin1Char(' '));
 	foreach (const QString &ext, extList) {
 		if ( fileName.endsWith(ext, Qt::CaseInsensitive) ) {
 			return true;
@@ -536,65 +536,65 @@ bool KFileLVI::hasExtension(const QString& extensions, const QString& fileName)
 const QString KFileLVI::getIcon(const QString& fileName)
 {
 	// C++, C
-	if ( hasExtension( ".h .hpp", fileName ) ) {
-		return "text-x-c++hdr";
+	if ( hasExtension(QStringLiteral(".h .hpp"), fileName)) {
+		return QStringLiteral("text-x-c++hdr");
 	}
-	if ( hasExtension( ".cpp", fileName ) ) {
-		return "text-x-c++src";
+	if ( hasExtension(QStringLiteral(".cpp"), fileName)) {
+		return QStringLiteral("text-x-c++src");
 	}
-	if ( hasExtension( ".c", fileName ) ) {
-		return "text-x-csrc";
+	if ( hasExtension(QStringLiteral(".c"), fileName)) {
+		return QStringLiteral("text-x-csrc");
 	}
 	// Python
-	if ( hasExtension( ".py .pyw", fileName ) ) {
-		return "text-x-python";
+	if ( hasExtension(QStringLiteral(".py .pyw"), fileName)) {
+		return QStringLiteral("text-x-python");
 	}
 	// C#
-	if ( hasExtension( ".cs", fileName ) ) {
-		return "text-x-csharp";
+	if ( hasExtension(QStringLiteral(".cs"), fileName)) {
+		return QStringLiteral("text-x-csharp");
 	}
 	// Objective-C
-	if ( hasExtension( ".m", fileName ) ) {
-		return "text-x-objcsrc";
+	if ( hasExtension(QStringLiteral(".m"), fileName)) {
+		return QStringLiteral("text-x-objcsrc");
 	}
 	// Java
-	if ( hasExtension( ".java", fileName ) ) {
-		return "text-x-java";
+	if ( hasExtension(QStringLiteral(".java"), fileName)) {
+		return QStringLiteral("text-x-java");
 	}
 	// Script
-	if ( hasExtension( ".sh", fileName ) ) {
-		return "text-x-script";
+	if ( hasExtension(QStringLiteral(".sh"), fileName)) {
+		return QStringLiteral("text-x-script");
 	}
 	// Makefile
-	if ( hasExtension( ".cmake Makefile", fileName ) ) {
-		return "text-x-makefile";
+	if ( hasExtension(QStringLiteral(".cmake Makefile"), fileName)) {
+		return QStringLiteral("text-x-makefile");
 	}
 	// Ada
-	if ( hasExtension( ".ada .ads .adb", fileName ) ) {
-		return "text-x-adasrc";
+	if ( hasExtension(QStringLiteral(".ada .ads .adb"), fileName)) {
+		return QStringLiteral("text-x-adasrc");
 	}
 	// Pascal
-	if ( hasExtension( ".pas", fileName ) ) {
-		return "text-x-pascal";
+	if ( hasExtension(QStringLiteral(".pas"), fileName)) {
+		return QStringLiteral("text-x-pascal");
 	}
 	// Patch
-	if ( hasExtension( ".diff", fileName ) ) {
-		return "text-x-patch";
+	if ( hasExtension(QStringLiteral(".diff"), fileName)) {
+		return QStringLiteral("text-x-patch");
 	}
 	// Tcl
-	if ( hasExtension( ".tcl", fileName ) ) {
-		return "text-x-tcl";
+	if ( hasExtension(QStringLiteral(".tcl"), fileName)) {
+		return QStringLiteral("text-x-tcl");
 	}
 	// Text
-	if ( hasExtension( ".txt", fileName ) ) {
-		return "text-plain";
+	if ( hasExtension(QStringLiteral(".txt"), fileName)) {
+		return QStringLiteral("text-plain");
 	}
 	// Xml
-	if ( hasExtension( ".xml", fileName ) ) {
-		return "text-xml";
+	if ( hasExtension(QStringLiteral(".xml"), fileName)) {
+		return QStringLiteral("text-xml");
 	}
 	// unknown or no file extension
-	return "text-plain";
+	return QStringLiteral("text-plain");
 }
 
 void KFileLVI::fillChangesList( QTreeWidget* changesList, QHash<const Diff2::Difference*, KChangeLVI*>* diffToChangeItemDict )
@@ -623,7 +623,7 @@ KDirLVI::KDirLVI( QTreeWidget* parent, QString& dir ) : QTreeWidgetItem( parent 
 //	qCDebug(KOMPARENAVVIEW) << "KDirLVI (QTreeWidget) constructor called with dir = " << dir ;
 	m_rootItem = true;
 	m_dirName = dir;
-	setIcon( 0, SmallIcon( "folder" ) );
+	setIcon(0, SmallIcon(QStringLiteral("folder")));
 	setExpanded( true );
 	if ( m_dirName.isEmpty() )
 		setText( 0, i18n( "Unknown" ) );
@@ -636,7 +636,7 @@ KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : QTreeWidgetItem( parent )
 //	qCDebug(KOMPARENAVVIEW) << "KDirLVI (KDirLVI) constructor called with dir = " << dir ;
 	m_rootItem = false;
 	m_dirName = dir;
-	setIcon( 0, SmallIcon( "folder" ) );
+	setIcon( 0, SmallIcon(QStringLiteral("folder")));
 	setExpanded( true );
 	setText( 0, m_dirName );
 }
@@ -662,7 +662,7 @@ void KDirLVI::addModel( QString& path, DiffModel* model, QHash<const Diff2::Diff
 
 	KDirLVI* child;
 
-	QString dir = path.mid( 0, path.indexOf( "/", 0 ) + 1 );
+	QString dir = path.mid(0, path.indexOf(QLatin1Char('/'), 0) + 1);
 	child = findChild( dir );
 	if ( !child )
 	{
@@ -766,9 +766,9 @@ KDirLVI::~KDirLVI()
 
 static KAboutData aboutData()
 {
-    KAboutData about("komparenavtreepart", i18n("KompareNavTreePart"), "1.2");
-    about.addAuthor(i18n("John Firebaugh"), i18n("Author"), "jfirebaugh@kde.org");
-    about.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), "bruggie@gmail.com" );
+    KAboutData about(QStringLiteral("komparenavtreepart"), i18n("KompareNavTreePart"), QStringLiteral("1.2"));
+    about.addAuthor(i18n("John Firebaugh"), i18n("Author"), QStringLiteral("jfirebaugh@kde.org"));
+    about.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), QStringLiteral("bruggie@gmail.com"));
     return about;
 }
 

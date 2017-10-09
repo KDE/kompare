@@ -24,7 +24,6 @@
 #include <klocalizedstring.h>
 #include <kaboutdata.h>
 #include <kpluginfactory.h>
-#include <kiconloader.h>
 
 #include <libkomparediff2/difference.h>
 #include <libkomparediff2/diffmodel.h>
@@ -518,8 +517,8 @@ KFileLVI::KFileLVI( QTreeWidget* parent, DiffModel* model ) : QTreeWidgetItem( p
 
 	setText( 0, src );
 	setText( 1, dst );
-	setIcon( 0, SmallIcon( getIcon( src ) ) );
-	setIcon( 1, SmallIcon( getIcon( dst ) ) );
+	setIcon(0, QIcon::fromTheme(getIcon(src)));
+	setIcon(1, QIcon::fromTheme(getIcon(dst)));
 }
 
 bool KFileLVI::hasExtension(const QString& extensions, const QString& fileName)
@@ -623,7 +622,7 @@ KDirLVI::KDirLVI( QTreeWidget* parent, QString& dir ) : QTreeWidgetItem( parent 
 //	qCDebug(KOMPARENAVVIEW) << "KDirLVI (QTreeWidget) constructor called with dir = " << dir ;
 	m_rootItem = true;
 	m_dirName = dir;
-	setIcon(0, SmallIcon(QStringLiteral("folder")));
+	setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
 	setExpanded( true );
 	if ( m_dirName.isEmpty() )
 		setText( 0, i18n( "Unknown" ) );
@@ -636,7 +635,7 @@ KDirLVI::KDirLVI( KDirLVI* parent, QString& dir ) : QTreeWidgetItem( parent )
 //	qCDebug(KOMPARENAVVIEW) << "KDirLVI (KDirLVI) constructor called with dir = " << dir ;
 	m_rootItem = false;
 	m_dirName = dir;
-	setIcon( 0, SmallIcon(QStringLiteral("folder")));
+	setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
 	setExpanded( true );
 	setText( 0, m_dirName );
 }

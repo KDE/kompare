@@ -85,8 +85,6 @@ public:
 	// Do we really want to expose this ???
 	const Diff2::KompareModelList* model() const { return m_modelList; };
 
-	static KAboutData *createAboutData();
-
 public:
 	// Reimplemented from the KompareInterface
 	/**

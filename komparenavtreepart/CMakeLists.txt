@@ -1,16 +1,8 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../komparepart)
-
-
-########### next target ###############
-
 set(komparenavtreepart_PART_SRCS komparenavtreepart.cpp )
 
-
 add_library(komparenavtreepart MODULE ${komparenavtreepart_PART_SRCS})
-
-
 
 target_link_libraries(komparenavtreepart
     Qt5::Widgets
@@ -19,10 +11,6 @@ target_link_libraries(komparenavtreepart
     KompareDiff2
 )
 
-install(TARGETS komparenavtreepart  DESTINATION ${PLUGIN_INSTALL_DIR} )
-
-
-########### install files ###############
-
-install( FILES komparenavtreepart.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install(TARGETS komparenavtreepart  DESTINATION ${KDE_INSTALL_PLUGINDIR})
+install(FILES komparenavtreepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR})
 

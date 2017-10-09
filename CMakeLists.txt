@@ -1,13 +1,12 @@
 cmake_minimum_required(VERSION 2.8.12)
+
 project(kompare)
 
-# search packages used by KDE
-include(FeatureSummary)
-find_package(Qt5 REQUIRED COMPONENTS Core PrintSupport Widgets)
-
-find_package(ECM 0.0.9 NO_MODULE REQUIRED)
+set(ECM_MIN_VERSION "5.25.0")
+find_package(ECM ${ECM_MIN_VERSION} NO_MODULE REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
+include(FeatureSummary)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
@@ -15,7 +14,15 @@ include(ECMInstallIcons)
 include(GenerateExportHeader)
 include(ECMAddAppIcon)
 
-find_package(KF5 REQUIRED COMPONENTS
+set(QT_MIN_VERSION "5.5.0")
+find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
+    Core
+    PrintSupport
+    Widgets
+)
+
+set(KF5_MIN_VERSION "5.25.0")
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     CoreAddons
     Codecs
     DocTools
@@ -27,8 +34,11 @@ find_package(KF5 REQUIRED COMPONENTS
     WidgetsAddons
 )
 
-find_package(LibKompareDiff2 5.1 REQUIRED)
-include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
+find_package(LibKompareDiff2 5.1 CONFIG)
+set_package_properties(LibKompareDiff2 PROPERTIES
+    TYPE REQUIRED
+)
+
 
 set(KOMPARE_LIB_VERSION 5)
 set(KOMPARE_LIB_SOVERSION 5)
@@ -40,23 +50,19 @@ add_subdirectory( komparenavtreepart )
 add_subdirectory( komparepart )
 add_subdirectory( pics )
 
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/komparepart
-                     ${CMAKE_CURRENT_SOURCE_DIR}/libdialogpages
-                     ${CMAKE_CURRENT_SOURCE_DIR}/interfaces
-                     ${CMAKE_CURRENT_SOURCE_DIR}/komparenavtreepart
-                     ${CMAKE_CURRENT_SOURCE_DIR}/komparepart)
-
-
-########### next target ###############
-
 set(kompare_SRCS
-main.cpp
-kompare_shell.cpp
-kompareurldialog.cpp
+    main.cpp
+    kompare_shell.cpp
+    kompareurldialog.cpp
 )
 
-file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/pics/*-apps-kompare.png")
-ecm_add_app_icon(kompare_SRCS ICONS ${ICONS_SRCS})
+ecm_add_app_icon(kompare_SRCS ICONS
+    pics/16-apps-kompare.png
+    pics/22-apps-kompare.png
+    pics/32-apps-kompare.png
+    pics/48-apps-kompare.png
+    pics/128-apps-kompare.png
+)
 
 add_executable(kompare ${kompare_SRCS})
 
@@ -69,14 +75,11 @@ target_link_libraries(kompare
     Qt5::Widgets
 )
 
-install(TARGETS kompare  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install(TARGETS kompare  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
+install(PROGRAMS org.kde.kompare.desktop  DESTINATION  ${KDE_INSTALL_APPDIR})
+install(FILES org.kde.kompare.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+install(FILES kompareui.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/kompare)
+install(FILES komparenavigationpart.desktop kompareviewpart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICETYPES5DIR})
 
-########### install files ###############
-
-install( PROGRAMS org.kde.kompare.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
-install( FILES kompareui.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/kompare )
-install( FILES komparenavigationpart.desktop kompareviewpart.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
-install( FILES org.kde.kompare.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR} )
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
-

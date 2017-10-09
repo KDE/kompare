@@ -51,7 +51,7 @@ class KompareListView : public QTreeWidget
 	friend class KompareListViewItemDelegate;
 
 public:
-	KompareListView( bool isSource, ViewSettings* settings, QWidget* parent, const char* name = 0 );
+	KompareListView(bool isSource, ViewSettings* settings, QWidget* parent, const char* name = nullptr);
 	~KompareListView() override;
 
 	KompareListViewItem* itemAtIndex( int i );
@@ -118,7 +118,7 @@ class KompareListViewFrame : public QFrame
 	Q_OBJECT
 
 public:
-	KompareListViewFrame( bool isSource, ViewSettings* settings, KompareSplitter* parent, const char* name = 0 );
+	KompareListViewFrame(bool isSource, ViewSettings* settings, KompareSplitter* parent, const char* name = nullptr);
 	~KompareListViewFrame() override {};
 	KompareListView*     view() { return &m_view; };
 

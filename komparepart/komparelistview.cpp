@@ -109,8 +109,8 @@ KompareListView::KompareListView( bool isSource,
 	m_isSource( isSource ),
 	m_settings( settings ),
 	m_scrollId( -1 ),
-	m_selectedModel( 0 ),
-	m_selectedDifference( 0 )
+	m_selectedModel(nullptr),
+	m_selectedDifference(nullptr)
 {
 	setObjectName( name );
 	setItemDelegate( new KompareListViewItemDelegate( this ) );
@@ -130,9 +130,9 @@ KompareListView::KompareListView( bool isSource,
 
 KompareListView::~KompareListView()
 {
-	m_settings = 0;
-	m_selectedModel = 0;
-	m_selectedDifference = 0;
+	m_settings = nullptr;
+	m_selectedModel = nullptr;
+	m_selectedDifference = nullptr;
 }
 
 KompareListViewItem* KompareListView::itemAtIndex( int i )
@@ -144,7 +144,7 @@ int KompareListView::firstVisibleDifference()
 {
 	QTreeWidgetItem* item = itemAt( QPoint( 0, 0 ) );
 
-	if( item == 0 )
+	if( item == nullptr )
 	{
 		qCDebug(KOMPAREPART) << "no item at viewport coordinates (0,0)" ;
 	}
@@ -166,7 +166,7 @@ int KompareListView::lastVisibleDifference()
 {
 	QTreeWidgetItem* item = itemAt( QPoint( 0, visibleHeight() - 1 ) );
 
-	if( item == 0 )
+	if( item == nullptr )
 	{
 		qCDebug(KOMPAREPART) << "no item at viewport coordinates (0," << visibleHeight() - 1 << ")" ;
 		// find last item
@@ -276,7 +276,7 @@ void KompareListView::scrollToId( int id )
 {
 //	qCDebug(KOMPAREPART) << "ScrollToID : Scroll to id : " << id ;
 	int n = topLevelItemCount();
-	KompareListViewItem* item = 0;
+	KompareListViewItem* item = nullptr;
 	if( n ) {
 		int i = 1;
 		for( ; i<n; i++ ) {
@@ -378,7 +378,7 @@ void KompareListView::slotSetSelection( const DiffModel* model, const Difference
 	DiffHunkListConstIterator hunkIt = model->hunks()->begin();
 	DiffHunkListConstIterator hEnd   = model->hunks()->end();
 
-	KompareListViewItem* item = 0;
+	KompareListViewItem* item = nullptr;
 	m_nextPaintOffset = 0;
 
 	for ( ; hunkIt != hEnd; ++hunkIt )
@@ -415,10 +415,10 @@ KompareListViewDiffItem* KompareListView::diffItemAt( const QPoint& pos )
 {
 	KompareListViewItem* item = static_cast<KompareListViewItem*>( itemAt( pos ) );
 	if( !item )
-		return 0;
+		return nullptr;
 	switch( item->type() ) {
 		case KompareListViewItem::Hunk:
-			if( item->paintHeight() ) return 0; // no diff item here
+			if( item->paintHeight() ) return nullptr; // no diff item here
 			// zero height (fake 1 pixel height), so a diff item shines through
 			return static_cast<KompareListViewDiffItem*>( itemBelow( item ) );
 		case KompareListViewItem::Line:
@@ -429,7 +429,7 @@ KompareListViewDiffItem* KompareListView::diffItemAt( const QPoint& pos )
 		case KompareListViewItem::Diff:
 			return static_cast<KompareListViewDiffItem*>( item );
 		default:
-			return 0;
+			return nullptr;
 	}
 }
 
@@ -627,8 +627,8 @@ void KompareListViewItem::paintCell( QPainter* p, const QStyleOptionViewItem& op
 KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, Difference* difference )
 	: KompareListViewItem( parent, Diff ),
 	m_difference( difference ),
-	m_sourceItem( 0L ),
-	m_destItem( 0L )
+	m_sourceItem(nullptr),
+	m_destItem(nullptr)
 {
 	init();
 }
@@ -636,15 +636,15 @@ KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, Diffe
 KompareListViewDiffItem::KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Difference* difference )
 	: KompareListViewItem( parent, after, Diff ),
 	m_difference( difference ),
-	m_sourceItem( 0L ),
-	m_destItem( 0L )
+	m_sourceItem(nullptr),
+	m_destItem(nullptr)
 {
 	init();
 }
 
 KompareListViewDiffItem::~KompareListViewDiffItem()
 {
-	m_difference = 0;
+	m_difference = nullptr;
 }
 
 void KompareListViewDiffItem::init()
@@ -681,7 +681,7 @@ int KompareListViewDiffItem::maxHeight()
 
 KompareListViewLineContainerItem::KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource )
 	: KompareListViewItem( parent, Container ),
-	m_blankLineItem( 0 ),
+	m_blankLineItem(nullptr),
 	m_isSource( isSource )
 {
 //	qCDebug(KOMPAREPART) << "isSource ? " << (isSource ? " Yes!" : " No!") ;
@@ -742,7 +742,7 @@ KompareListViewLineItem::KompareListViewLineItem( KompareListViewLineContainerIt
 
 KompareListViewLineItem::~KompareListViewLineItem()
 {
-	m_text = 0;
+	m_text = nullptr;
 }
 
 void KompareListViewLineItem::init( int line, DifferenceString* text )
@@ -940,7 +940,7 @@ KompareListViewHunkItem::KompareListViewHunkItem( KompareListView* parent, Kompa
 
 KompareListViewHunkItem::~KompareListViewHunkItem()
 {
-	m_hunk = 0;
+	m_hunk = nullptr;
 }
 
 int KompareListViewHunkItem::maxHeight()

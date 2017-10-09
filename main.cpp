@@ -220,7 +220,7 @@ int main(int argc, char *argv[])
 
 		if ( difault )
 		{
-			KompareURLDialog dialog( 0 );
+			KompareURLDialog dialog(nullptr);
 
 			dialog.setWindowTitle( i18n("Compare Files or Folders") );
 			dialog.setFirstGroupBoxTitle( i18n( "Source" ) );

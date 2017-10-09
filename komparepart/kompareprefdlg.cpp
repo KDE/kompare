@@ -30,7 +30,7 @@
 
 // implementation
 
-KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets ) : KPageDialog( 0 )
+KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets ) : KPageDialog(nullptr)
 {
 	setFaceType( KPageDialog::List );
 	setWindowTitle( i18n( "Preferences" ) );

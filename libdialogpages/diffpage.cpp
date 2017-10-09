@@ -54,7 +54,7 @@ QUrl urlFromArg(const QString& arg)
 #endif
 }
 
-DiffPage::DiffPage() : QFrame(), m_ignoreRegExpDialog( 0 )
+DiffPage::DiffPage() : QFrame(), m_ignoreRegExpDialog(nullptr)
 {
 	QVBoxLayout *layout = new QVBoxLayout( this );
 	m_tabWidget = new QTabWidget( this );
@@ -71,7 +71,7 @@ DiffPage::DiffPage() : QFrame(), m_ignoreRegExpDialog( 0 )
 
 DiffPage::~DiffPage()
 {
-	m_settings = 0;
+	m_settings = nullptr;
 }
 
 void DiffPage::setSettings( DiffSettings* setts )

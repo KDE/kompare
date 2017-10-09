@@ -52,8 +52,8 @@ Q_LOGGING_CATEGORY(KOMPARESHELL, "kompareshell")
 
 KompareShell::KompareShell()
 	: KParts::MainWindow( ),
-	m_textViewPart( 0 ),
-	m_textViewWidget( 0 ),
+	m_textViewPart(nullptr),
+	m_textViewWidget(nullptr),
 	m_eventLoopLocker( new QEventLoopLocker() )
 {
 	resize( 800, 480 );
@@ -148,7 +148,7 @@ KompareShell::KompareShell()
 KompareShell::~KompareShell()
 {
 	delete m_eventLoopLocker;
-	m_eventLoopLocker = 0;
+	m_eventLoopLocker = nullptr;
 }
 
 bool KompareShell::queryClose()
@@ -233,7 +233,7 @@ void KompareShell::setupStatusBar()
 	statusBar()->insertPermanentWidget( ID_N_OF_N_DIFFERENCES, m_differencesLabel, 0);
 	statusBar()->insertPermanentWidget( ID_N_OF_N_FILES, m_filesLabel, 0);
 
-	m_generalLabel = new KSqueezedTextLabel( "", 0 );
+	m_generalLabel = new KSqueezedTextLabel(QString(), nullptr);
 	statusBar()->addWidget( m_generalLabel, 1 );
 	m_generalLabel->setAlignment( Qt::AlignLeft );
 }

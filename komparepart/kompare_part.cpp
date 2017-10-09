@@ -61,8 +61,8 @@ Q_LOGGING_CATEGORY(KOMPAREPART, "komparepart")
 
 K_PLUGIN_FACTORY( KomparePartFactory, registerPlugin<KomparePart>(); )
 
-ViewSettings* KomparePart::m_viewSettings = 0L;
-DiffSettings* KomparePart::m_diffSettings = 0L;
+ViewSettings* KomparePart::m_viewSettings = nullptr;
+DiffSettings* KomparePart::m_diffSettings = nullptr;
 
 static KAboutData createAboutData()
 {
@@ -84,10 +84,10 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QVariant
 	setXMLFile(QStringLiteral("komparepartui.rc"));
 
 	if( !m_viewSettings ) {
-		m_viewSettings = new ViewSettings( 0 );
+		m_viewSettings = new ViewSettings(nullptr);
 	}
 	if( !m_diffSettings ) {
-		m_diffSettings = new DiffSettings( 0 );
+		m_diffSettings = new DiffSettings(nullptr);
 	}
 
 	readProperties( KSharedConfig::openConfig().data() );
@@ -292,7 +292,7 @@ bool KomparePart::fetchURL( const QUrl& url, bool addToSource )
 	QString tempFileName( "" );
 	// Only in case of error do we set result to false, don't forget!!
 	bool result = true;
-	QTemporaryDir* tmpDir = 0;
+	QTemporaryDir* tmpDir = nullptr;
 
 	if ( !url.isLocalFile() )
 	{
@@ -327,7 +327,7 @@ bool KomparePart::fetchURL( const QUrl& url, bool addToSource )
                 {
                     slotShowError( i18n( "<qt>The URL <b>%1</b> cannot be downloaded.</qt>", url.toDisplayString() ) );
                     delete tmpDir;
-                    tmpDir = 0;
+                    tmpDir = nullptr;
                     result = false;
                 }
                 else
@@ -349,7 +349,7 @@ bool KomparePart::fetchURL( const QUrl& url, bool addToSource )
                     {
                         qCDebug(KOMPAREPART) << "Yikes, nothing downloaded?";
                         delete tmpDir;
-                        tmpDir = 0;
+                        tmpDir = nullptr;
                         tempFileName = "";
                         result = false;
                     }
@@ -388,19 +388,19 @@ void KomparePart::cleanUpTemporaryFiles()
 	qCDebug(KOMPAREPART) << "Cleaning temporary files.";
 	if ( !m_info.localSource.isEmpty() )
 	{
-		if ( m_info.sourceQTempDir != 0 )
+		if (m_info.sourceQTempDir)
 		{
 			delete m_info.sourceQTempDir;
-			m_info.sourceQTempDir = 0;
+			m_info.sourceQTempDir = nullptr;
 		}
 		m_info.localSource = "";
 	}
 	if ( !m_info.localDestination.isEmpty() )
 	{
-		if ( m_info.destinationQTempDir != 0  )
+		if (!m_info.destinationQTempDir)
 		{
 			delete m_info.destinationQTempDir;
-			m_info.destinationQTempDir = 0;
+			m_info.destinationQTempDir = nullptr;
 		}
 		m_info.localDestination = "";
 	}
@@ -614,7 +614,7 @@ void KomparePart::slotFilePrint()
 {
 	QPrinter printer;
 	printer.setOrientation( QPrinter::Landscape );
-	QPrintDialog* dlg = new QPrintDialog( &printer, 0 );
+	QPrintDialog* dlg = new QPrintDialog(&printer, nullptr);
 
 	if ( dlg->exec() == QDialog::Accepted )
 	{
@@ -885,13 +885,13 @@ void KomparePart::slotShowDiffstats( void )
 	noOfDiffs = m_modelList->selectedModel() ? m_modelList->selectedModel()->differenceCount() : 0;
 
 	if ( m_modelList->modelCount() == 0 ) { // no diff loaded yet
-		KMessageBox::information( 0L, i18n(
+		KMessageBox::information(nullptr, i18n(
 		    "No diff file, or no 2 files have been diffed. "
 		    "Therefore no stats are available."),
-		    i18n("Diff Statistics"), QString(), 0 );
+		    i18n("Diff Statistics"), QString(), nullptr);
 	}
 	else if ( m_modelList->modelCount() == 1 ) { // 1 file in diff, or 2 files compared
-		KMessageBox::information( 0L, i18n(
+		KMessageBox::information(nullptr, i18n(
 		    "Statistics:\n"
 		    "\n"
 		    "Old file: %1\n"
@@ -902,9 +902,9 @@ void KomparePart::slotShowDiffstats( void )
 		    "Number of differences: %5",
 		     oldFile, newFile, diffFormat,
 		     noOfHunks, noOfDiffs),
-		    i18n("Diff Statistics"), QString(), 0 );
+		    i18n("Diff Statistics"), QString(), nullptr);
 	} else { // more than 1 file in diff, or 2 directories compared
-		KMessageBox::information( 0L, ki18n(
+		KMessageBox::information(nullptr, ki18n(
 		    "Statistics:\n"
 		    "\n"
 		    "Number of files in diff file: %1\n"
@@ -918,7 +918,7 @@ void KomparePart::slotShowDiffstats( void )
 		    .subs(filesInDiff).subs(diffFormat).subs(oldFile)
 		    .subs(newFile).subs(noOfHunks).subs(noOfDiffs)
                     .toString(),
-		    i18n("Diff Statistics"), QString(), 0 );
+		    i18n("Diff Statistics"), QString(), nullptr);
 	}
 }
 

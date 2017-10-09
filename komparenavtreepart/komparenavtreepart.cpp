@@ -41,19 +41,19 @@ Q_LOGGING_CATEGORY(KOMPARENAVVIEW, "komparenavview")
 
 KompareNavTreePart::KompareNavTreePart( QWidget* parentWidget, QObject* parent, const QVariantList& )
 	: KParts::ReadOnlyPart( parent ),
-	m_splitter( 0 ),
-	m_modelList( 0 ),
-	m_srcDirTree( 0 ),
-	m_destDirTree( 0 ),
-	m_fileList( 0 ),
-	m_changesList( 0 ),
-	m_srcRootItem( 0 ),
-	m_destRootItem( 0 ),
-	m_selectedModel( 0 ),
-	m_selectedDifference( 0 ),
+	m_splitter(nullptr),
+	m_modelList(nullptr),
+	m_srcDirTree(nullptr),
+	m_destDirTree(nullptr),
+	m_fileList(nullptr),
+	m_changesList(nullptr),
+	m_srcRootItem(nullptr),
+	m_destRootItem(nullptr),
+	m_selectedModel(nullptr),
+	m_selectedDifference(nullptr),
 	m_source( "" ),
 	m_destination( "" ),
-	m_info( 0 )
+	m_info(nullptr)
 {
 	m_splitter = new QSplitter( Qt::Horizontal, parentWidget );
 
@@ -97,9 +97,9 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parentWidget, QObject* parent, 
 
 KompareNavTreePart::~KompareNavTreePart()
 {
-	m_modelList = 0;
-	m_selectedModel = 0;
-	m_selectedDifference = 0;
+	m_modelList = nullptr;
+	m_selectedModel = nullptr;
+	m_selectedDifference = nullptr;
 }
 
 void KompareNavTreePart::slotKompareInfo( struct Kompare::Info* info )
@@ -140,7 +140,7 @@ void KompareNavTreePart::buildTreeInMemory()
 		return; // avoids a crash on clear()
 	}
 
-	if ( m_info == 0 )
+	if (!m_info)
 	{
 		qCDebug(KOMPARENAVVIEW) << "No Info... weird shit..." ;
 		return;
@@ -151,7 +151,7 @@ void KompareNavTreePart::buildTreeInMemory()
 
 	DiffModel* model;
 	model = m_modelList->first();
-	m_selectedModel = 0L;
+	m_selectedModel = nullptr;
 
 	switch ( m_info->mode )
 	{
@@ -678,7 +678,7 @@ KDirLVI* KDirLVI::findChild( QString dir )
 {
 //	qCDebug(KOMPARENAVVIEW) << "KDirLVI::findChild called with dir = " << dir ;
 	KDirLVI* child;
-	if ( ( child = static_cast<KDirLVI*>(this->child(0)) ) != 0L )
+	if ((child = static_cast<KDirLVI*>(this->child(0))) != nullptr)
 	{ // has children, check if dir already exists, if so addModel
 		QTreeWidgetItemIterator it(child);
 		while (*it) {
@@ -690,7 +690,7 @@ KDirLVI* KDirLVI::findChild( QString dir )
 		}
 	}
 
-	return 0L;
+	return nullptr;
 }
 
 void KDirLVI::fillFileList( QTreeWidget* fileList, QHash<const Diff2::DiffModel*, KFileLVI*>* modelToFileItemDict )
@@ -745,7 +745,7 @@ KDirLVI* KDirLVI::setSelected( QString dir )
 	}
 	KDirLVI* child = static_cast<KDirLVI*>(this->child(0));
 	if ( !child )
-		return 0L;
+		return nullptr;
 
 	QTreeWidgetItemIterator it(child);
 	while (*it) {
@@ -756,7 +756,7 @@ KDirLVI* KDirLVI::setSelected( QString dir )
 		++it;
 	}
 
-	return 0L;
+	return nullptr;
 }
 
 KDirLVI::~KDirLVI()

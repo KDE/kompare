@@ -40,7 +40,7 @@ class KompareConnectWidget : public QWidget
 	Q_OBJECT
 
 public:
-	KompareConnectWidget( ViewSettings* settings, QWidget* parent, const char* name = 0 );
+	KompareConnectWidget(ViewSettings* settings, QWidget* parent, const char* name = nullptr);
 	~KompareConnectWidget() override;
 
 public slots:
@@ -67,7 +67,7 @@ class KompareConnectWidgetFrame : public QSplitterHandle
 {
 	Q_OBJECT
 public:
-	KompareConnectWidgetFrame( ViewSettings* settings, KompareSplitter* parent, const char* name = 0 );
+	KompareConnectWidgetFrame(ViewSettings* settings, KompareSplitter* parent, const char* name = nullptr);
 	~KompareConnectWidgetFrame() override;
 
 	QSize sizeHint() const override;

@@ -42,7 +42,7 @@ FilesPage::FilesPage() : QFrame()
 	m_firstURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_firstGB );
 	m_firstURLComboBox->setMaxItems( 10 );
 	m_firstURLComboBox->setObjectName( "SourceURLComboBox" );
-	m_firstURLRequester = new KUrlRequester( m_firstURLComboBox, 0 );
+	m_firstURLRequester = new KUrlRequester(m_firstURLComboBox, nullptr);
 	gb1Layout->addWidget( m_firstURLComboBox );
 	m_firstURLComboBox->setFocus();
 
@@ -72,7 +72,7 @@ FilesPage::FilesPage() : QFrame()
 	m_secondURLComboBox = new KUrlComboBox( KUrlComboBox::Both, true, m_secondGB );
 	m_secondURLComboBox->setMaxItems( 10 );
 	m_secondURLComboBox->setObjectName( "DestURLComboBox" );
-	m_secondURLRequester = new KUrlRequester( m_secondURLComboBox, 0 );
+	m_secondURLRequester = new KUrlRequester(m_secondURLComboBox, nullptr);
 	gb2Layout->addWidget( m_secondURLComboBox );
 
 	button = new QPushButton( "", this );
@@ -115,10 +115,10 @@ FilesPage::FilesPage() : QFrame()
 FilesPage::~FilesPage()
 {
 	delete m_firstURLRequester;
-	m_firstURLRequester = 0;
+	m_firstURLRequester = nullptr;
 	delete m_secondURLRequester;
-	m_secondURLRequester = 0;
-	m_settings = 0;
+	m_secondURLRequester = nullptr;
+	m_settings = nullptr;
 }
 
 void FilesPage::open()

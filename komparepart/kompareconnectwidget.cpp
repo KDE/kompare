@@ -104,8 +104,8 @@ void KompareConnectWidgetFrame::mouseReleaseEvent( QMouseEvent *e )
 KompareConnectWidget::KompareConnectWidget( ViewSettings* settings, QWidget* parent, const char* name )
 	: QWidget(parent),
 	m_settings( settings ),
-	m_selectedModel( 0 ),
-	m_selectedDifference( 0 )
+	m_selectedModel(nullptr),
+	m_selectedDifference(nullptr)
 {
 	setObjectName(name);
 //	connect( m_settings, SIGNAL( settingsChanged() ), this, SLOT( slotDelayedRepaint() ) );
@@ -116,9 +116,9 @@ KompareConnectWidget::KompareConnectWidget( ViewSettings* settings, QWidget* par
 
 KompareConnectWidget::~KompareConnectWidget()
 {
-	m_settings = 0;
-	m_selectedModel = 0;
-	m_selectedDifference = 0;
+	m_settings = nullptr;
+	m_selectedModel = nullptr;
+	m_selectedDifference = nullptr;
 }
 
 void KompareConnectWidget::slotSetSelection( const DiffModel* model, const Difference* diff )
@@ -166,8 +166,8 @@ void KompareConnectWidget::paintEvent( QPaintEvent* /* e */ )
 
 	KompareSplitter* splitter = static_cast<KompareSplitter*>( parent()->parent() );
 	int count = splitter->count();
-	KompareListView *leftView = count >= 2 ? static_cast<KompareListViewFrame*>( splitter->widget(0) )->view() : 0;
-	KompareListView *rightView = count >= 2 ? static_cast<KompareListViewFrame*>( splitter->widget(1) )->view() : 0;
+	KompareListView *leftView = count >= 2 ? static_cast<KompareListViewFrame*>( splitter->widget(0) )->view() : nullptr;
+	KompareListView *rightView = count >= 2 ? static_cast<KompareListViewFrame*>( splitter->widget(1) )->view() : nullptr;
 
 	if ( m_selectedModel && leftView && rightView )
 	{

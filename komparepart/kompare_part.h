@@ -70,17 +70,17 @@ public:
 	/**
 	* Destructor
 	*/
-	virtual ~KomparePart();
+	~KomparePart() override;
 
 	// Sessionmanagement stuff, added to the kompare iface
 	// because they are not in the Part class where they belong
 	// Should be added when bic changes are allowed again (kde 4.0)
-	virtual int readProperties( KConfig *config );
-	virtual int saveProperties( KConfig *config );
+	int readProperties( KConfig *config ) override;
+	int saveProperties( KConfig *config ) override;
 	// this one is called when the shell_app is about to close.
 	// we need it now to save the properties of the part when apps don't (can't)
 	// use the readProperties and saveProperties methods
-	virtual bool queryClose();
+	bool queryClose() override;
 
 	// Do we really want to expose this ???
 	const Diff2::KompareModelList* model() const { return m_modelList; };
@@ -90,43 +90,43 @@ public:
 	/**
 	 * Open and parse the diff file at diffUrl.
 	 */
-	virtual bool openDiff( const QUrl& diffUrl );
+	bool openDiff( const QUrl& diffUrl ) override;
 
 	/** Added on request of Harald Fernengel */
-	virtual bool openDiff( const QString& diffOutput );
+	bool openDiff( const QString& diffOutput ) override;
 
 	/** Open and parse the diff3 file at diff3Url */
-	virtual bool openDiff3( const QUrl& diff3URL );
+	bool openDiff3( const QUrl& diff3URL ) override;
 
 	/** Open and parse the file diff3Output with the output of diff3 */
-	virtual bool openDiff3( const QString& diff3Output );
+	bool openDiff3( const QString& diff3Output ) override;
 
 	/** Compare, with diff, source with destination */
-	virtual void compare( const QUrl& sourceFile, const QUrl& destinationFile );
+	void compare( const QUrl& sourceFile, const QUrl& destinationFile ) override;
 
 	/** Compare a Source file to a custom Destination string */
-	virtual void compareFileString( const QUrl & sourceFile, const QString & destination);
+	void compareFileString( const QUrl & sourceFile, const QString & destination) override;
 
 	/** Compare a custom Source string to a Destination file */
-	virtual void compareStringFile( const QString & source, const QUrl & destinationFile);
+	void compareStringFile( const QString & source, const QUrl & destinationFile) override;
 
 	/** Compare, with diff, source with destination */
-	virtual void compareFiles( const QUrl& sourceFile, const QUrl& destinationFile );
+	void compareFiles( const QUrl& sourceFile, const QUrl& destinationFile ) override;
 
 	/** Compare, with diff, source with destination */
-	virtual void compareDirs ( const QUrl& sourceDir, const QUrl& destinationDir );
+	void compareDirs ( const QUrl& sourceDir, const QUrl& destinationDir ) override;
 
 	/** Compare, with diff3, originalFile with changedFile1 and changedFile2 */
-	virtual void compare3Files( const QUrl& originalFile, const QUrl& changedFile1, const QUrl& changedFile2 );
+	void compare3Files( const QUrl& originalFile, const QUrl& changedFile1, const QUrl& changedFile2 ) override;
 
 	/** This will show the file and the file with the diff applied */
-	virtual void openFileAndDiff( const QUrl& file, const QUrl& diffFile );
+	void openFileAndDiff( const QUrl& file, const QUrl& diffFile ) override;
 
 	/** This will show the directory and the directory with the diff applied */
-	virtual void openDirAndDiff ( const QUrl& dir,  const QUrl& diffFile );
+	void openDirAndDiff ( const QUrl& dir,  const QUrl& diffFile ) override;
 
 	/** Reimplementing this because this one knows more about the real part then the interface */
-	virtual void setEncoding( const QString& encoding );
+	void setEncoding( const QString& encoding ) override;
 
 	// This is the interpart interface, it is signal and slot based so no "real" interface here
 	// All you have to do is connect the parts from your application.
@@ -179,9 +179,9 @@ protected:
 	 * when using openURL( const QUrl& ) or in our case also openDiff( const QUrl& );
 	 * return true when everything went ok, false if there were problems
 	 */
-	virtual bool openFile();
+	bool openFile() override;
 	// ... Uhm we return true without saving ???
-	virtual bool saveFile() { return true; };
+	bool saveFile() override { return true; };
 
 protected slots:
 	void slotSetStatus( Kompare::Status status );

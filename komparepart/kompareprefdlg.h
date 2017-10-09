@@ -31,7 +31,7 @@ class KomparePrefDlg : public KPageDialog
 Q_OBJECT
 public:
 	KomparePrefDlg( ViewSettings*, DiffSettings* );
-	~KomparePrefDlg();
+	~KomparePrefDlg() override;
 
 protected slots:
 	/** No descriptions */

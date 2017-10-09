@@ -68,7 +68,7 @@ public:
 	/**
 	 * Default Destructor
 	 */
-	virtual ~KompareShell();
+	~KompareShell() override;
 
 	/**
 	 * Use this method to load whatever file/URL you have
@@ -96,23 +96,23 @@ public slots:
 	KompareInterface* viewPart() const;
 
 protected:
-	virtual bool queryClose();
+	bool queryClose() override;
 
 	/**
 	 * This method is called when it is time for the app to save its
 	 * properties for session management purposes.
 	 */
-	void saveProperties(KConfigGroup &);
+	void saveProperties(KConfigGroup &) override;
 
 	/**
 	 * This method is called when this app is restored.  The KConfig
 	 * object points to the session management config file that was saved
 	 * with @ref saveProperties
 	 */
-	void readProperties(const KConfigGroup &);
+	void readProperties(const KConfigGroup &) override;
 
 private slots:
-	void slotSetStatusBarText( const QString& text );
+	void slotSetStatusBarText( const QString& text ) override;
 	void slotFileOpen();
 	void slotFileCompareFiles();
 	void slotFileBlendURLAndDiff();

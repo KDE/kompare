@@ -46,10 +46,10 @@ class KompareNavTreePart : public KParts::ReadOnlyPart
 
 public:
 	explicit KompareNavTreePart( QWidget* parentWidget, QObject* parent, const QVariantList& args );
-	virtual ~KompareNavTreePart();
+	~KompareNavTreePart() override;
 
 public:
-	virtual bool openFile() { return false; };
+	bool openFile() override { return false; };
 
 public slots:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
@@ -118,10 +118,10 @@ class KChangeLVI : public QTreeWidgetItem
 {
 public:
 	KChangeLVI( QTreeWidget* parent, Diff2::Difference* diff );
-	~KChangeLVI();
+	~KChangeLVI() override;
 public:
 	Diff2::Difference* difference() { return m_difference; };
-	virtual bool operator<( const QTreeWidgetItem& item ) const;
+	bool operator<( const QTreeWidgetItem& item ) const override;
 
 	void setDifferenceText();
 private:
@@ -132,7 +132,7 @@ class KFileLVI : public QTreeWidgetItem
 {
 public:
 	KFileLVI( QTreeWidget* parent, Diff2::DiffModel* model );
-	~KFileLVI();
+	~KFileLVI() override;
 public:
 	Diff2::DiffModel* model() { return m_model; };
 	void fillChangesList( QTreeWidget* changesList, QHash<const Diff2::Difference*, KChangeLVI*>* diffToChangeItemDict );
@@ -148,7 +148,7 @@ class KDirLVI : public QTreeWidgetItem
 public:
 	KDirLVI( KDirLVI* parent, QString& dir );
 	KDirLVI( QTreeWidget* parent, QString& dir );
-	~KDirLVI();
+	~KDirLVI() override;
 public:
 	void addModel( QString& dir, Diff2::DiffModel* model, QHash<const Diff2::DiffModel*, KDirLVI*>* modelToDirItemDict );
 	QString& dirName() { return m_dirName; };

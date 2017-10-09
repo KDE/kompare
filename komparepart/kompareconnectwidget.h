@@ -41,7 +41,7 @@ class KompareConnectWidget : public QWidget
 
 public:
 	KompareConnectWidget( ViewSettings* settings, QWidget* parent, const char* name = 0 );
-	~KompareConnectWidget();
+	~KompareConnectWidget() override;
 
 public slots:
 	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
@@ -53,7 +53,7 @@ signals:
 	void selectionChanged(const Diff2::Difference* diff);
 
 protected:
-	void paintEvent( QPaintEvent* e );
+	void paintEvent( QPaintEvent* e ) override;
 	QPainterPath makeBezier( int l, int r ) const;
 
 private:
@@ -68,15 +68,15 @@ class KompareConnectWidgetFrame : public QSplitterHandle
 	Q_OBJECT
 public:
 	KompareConnectWidgetFrame( ViewSettings* settings, KompareSplitter* parent, const char* name = 0 );
-	~KompareConnectWidgetFrame();
+	~KompareConnectWidgetFrame() override;
 
-	QSize sizeHint() const;
+	QSize sizeHint() const override;
 
 	KompareConnectWidget*     wid() { return &m_wid; }
 
 protected:
 	// stop the parent QSplitterHandle painting
-	void paintEvent( QPaintEvent* /* e */ ) { }
+	void paintEvent( QPaintEvent* /* e */ ) override { }
 
 #if 0
 	void mouseMoveEvent( QMouseEvent * );

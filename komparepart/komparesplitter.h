@@ -43,7 +43,7 @@ class KompareSplitter : public QSplitter
 
 public:
 	KompareSplitter(ViewSettings *settings, QWidget *parent);
-	~KompareSplitter();
+	~KompareSplitter() override;
 
 signals:
 	void configChanged();
@@ -59,7 +59,7 @@ public slots:
 	void slotUpdateScrollBars();
 	void slotDelayedUpdateVScrollValue();
 	void slotUpdateVScrollValue();
-	void keyPressEvent( QKeyEvent* e );
+	void keyPressEvent( QKeyEvent* e ) override;
 
 	void slotApplyDifference( bool apply );
 	void slotApplyAllDifferences( bool apply );
@@ -73,7 +73,7 @@ public slots:
 	void slotConfigChanged();
 
 protected:
-	void wheelEvent( QWheelEvent* e );
+	void wheelEvent( QWheelEvent* e ) override;
 
 	ViewSettings* settings() const { return m_settings; }
 
@@ -84,7 +84,7 @@ protected slots:
 
 private:
 	// override from QSplitter
-	QSplitterHandle* createHandle();
+	QSplitterHandle* createHandle() override;
 
 	void               setCursor( int id, const QCursor& cursor );
 	void               unsetCursor( int id );

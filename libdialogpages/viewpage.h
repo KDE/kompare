@@ -36,7 +36,7 @@ class DIALOGPAGES_EXPORT ViewPage : public QFrame
 Q_OBJECT
 public:
 	ViewPage();
-	~ViewPage();
+	~ViewPage() override;
 
 public:
 	void setSettings( ViewSettings* );

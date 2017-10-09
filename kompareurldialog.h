@@ -38,7 +38,7 @@ class KompareURLDialog : public KPageDialog
 
 public:
 	explicit KompareURLDialog( QWidget *parent= 0, Qt::WindowFlags flags= 0 );
-	~KompareURLDialog();
+	~KompareURLDialog() override;
 
 	QUrl getFirstURL() const;
 	QUrl getSecondURL() const;
@@ -53,13 +53,13 @@ public:
 	void setSecondURLRequesterMode( unsigned int mode );
 
 public slots:
-	virtual void accept();
-	virtual void reject();
+	void accept() override;
+	void reject() override;
 
 private slots:
 	void slotEnableOk();
 protected:
-    void showEvent ( QShowEvent * event );
+    void showEvent ( QShowEvent * event ) override;
 private:
 	FilesPage*     m_filesPage;
 	FilesSettings* m_filesSettings;

@@ -27,7 +27,7 @@ class KompareSaveOptionsBase : public QWidget, public Ui::KompareSaveOptionsBase
 
 public:
     explicit KompareSaveOptionsBase(QWidget* parent = 0, Qt::WindowFlags fl = 0);
-    ~KompareSaveOptionsBase();
+    ~KompareSaveOptionsBase() override;
 
 protected slots:
     virtual void languageChange();

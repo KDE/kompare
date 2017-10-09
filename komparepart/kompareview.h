@@ -30,7 +30,7 @@ class KompareView : public QFrame
 
 public:
 	KompareView(ViewSettings *settings, QWidget *parent);
-	~KompareView() {}
+	~KompareView() override {}
 	KompareSplitter *splitter() { return m_splitter; }
 
 private:

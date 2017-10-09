@@ -36,7 +36,7 @@ class DIALOGPAGES_EXPORT FilesPage : public QFrame
 Q_OBJECT
 public:
 	FilesPage();
-	virtual ~FilesPage();
+	~FilesPage() override;
 
 public:
 	KUrlRequester* firstURLRequester() const;

@@ -43,7 +43,7 @@ class DIALOGPAGES_EXPORT DiffPage : public QFrame
 Q_OBJECT
 public:
 	DiffPage();
-	~DiffPage();
+	~DiffPage() override;
 
 public:
 	void setSettings( DiffSettings* );

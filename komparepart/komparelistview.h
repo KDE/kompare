@@ -52,7 +52,7 @@ class KompareListView : public QTreeWidget
 
 public:
 	KompareListView( bool isSource, ViewSettings* settings, QWidget* parent, const char* name = 0 );
-	virtual ~KompareListView();
+	~KompareListView() override;
 
 	KompareListViewItem* itemAtIndex( int i );
 	int                  firstVisibleDifference();
@@ -90,12 +90,12 @@ signals:
 	void resized();
 
 protected:
-	virtual void wheelEvent( QWheelEvent* e );
-	virtual void resizeEvent( QResizeEvent* e );
-	virtual void mousePressEvent ( QMouseEvent * e );
-	virtual void mouseDoubleClickEvent ( QMouseEvent* );
-	virtual void mouseReleaseEvent ( QMouseEvent * ) {};
-	virtual void mouseMoveEvent ( QMouseEvent * ) {};
+	void wheelEvent( QWheelEvent* e ) override;
+	void resizeEvent( QResizeEvent* e ) override;
+	void mousePressEvent ( QMouseEvent * e ) override;
+	void mouseDoubleClickEvent ( QMouseEvent* ) override;
+	void mouseReleaseEvent ( QMouseEvent * ) override {};
+	void mouseMoveEvent ( QMouseEvent * ) override {};
 
 private:
 	QRect totalVisualItemRect( QTreeWidgetItem* item );
@@ -119,7 +119,7 @@ class KompareListViewFrame : public QFrame
 
 public:
 	KompareListViewFrame( bool isSource, ViewSettings* settings, KompareSplitter* parent, const char* name = 0 );
-	virtual ~KompareListViewFrame() {};
+	~KompareListViewFrame() override {};
 	KompareListView*     view() { return &m_view; };
 
 public slots:
@@ -137,9 +137,9 @@ class KompareListViewItemDelegate : public QStyledItemDelegate
 
 public:
 	KompareListViewItemDelegate( QObject* parent );
-	virtual ~KompareListViewItemDelegate();
-	virtual void paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const;
-	virtual QSize sizeHint( const QStyleOptionViewItem& option, const QModelIndex& index ) const;
+	~KompareListViewItemDelegate() override;
+	void paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const override;
+	QSize sizeHint( const QStyleOptionViewItem& option, const QModelIndex& index ) const override;
 };
 
 class KompareListViewItem : public QTreeWidgetItem
@@ -178,13 +178,13 @@ class KompareListViewDiffItem : public KompareListViewItem
 public:
 	KompareListViewDiffItem( KompareListView* parent, Diff2::Difference* difference );
 	KompareListViewDiffItem( KompareListView* parent, KompareListViewItem* after, Diff2::Difference* difference );
-	~KompareListViewDiffItem();
+	~KompareListViewDiffItem() override;
 
 	void applyDifference( bool apply );
 
 	Diff2::Difference* difference() { return m_difference; };
 
-	virtual int maxHeight();
+	int maxHeight() override;
 
 private:
 	void init();
@@ -203,9 +203,9 @@ class KompareListViewLineContainerItem : public KompareListViewItem
 {
 public:
 	KompareListViewLineContainerItem( KompareListViewDiffItem* parent, bool isSource );
-	~KompareListViewLineContainerItem();
+	~KompareListViewLineContainerItem() override;
 
-	virtual int maxHeight() { return 0; }
+	int maxHeight() override { return 0; }
 
 	KompareListViewDiffItem* diffItemParent() const;
 
@@ -224,11 +224,11 @@ class KompareListViewLineItem : public KompareListViewItem
 public:
 	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, Diff2::DifferenceString* text );
 	KompareListViewLineItem( KompareListViewLineContainerItem* parent, int line, Diff2::DifferenceString* text, int type );
-	~KompareListViewLineItem();
+	~KompareListViewLineItem() override;
 
-	virtual int maxHeight() { return 0; }
+	int maxHeight() override { return 0; }
 
-	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column );
+	void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column ) override;
 
 	KompareListViewDiffItem* diffItemParent() const;
 
@@ -249,7 +249,7 @@ public:
 	KompareListViewBlankLineItem( KompareListViewLineContainerItem* parent );
 
 protected:
-	virtual void paintText( QPainter* p, const QColor& bg, int column, int width, int align );
+	void paintText( QPainter* p, const QColor& bg, int column, int width, int align ) override;
 };
 
 class KompareListViewHunkItem : public KompareListViewItem
@@ -257,11 +257,11 @@ class KompareListViewHunkItem : public KompareListViewItem
 public:
 	KompareListViewHunkItem( KompareListView* parent, Diff2::DiffHunk* hunk, bool zeroHeight = false );
 	KompareListViewHunkItem( KompareListView* parent, KompareListViewItem* after, Diff2::DiffHunk* hunk, bool zeroHeight= false );
-	~KompareListViewHunkItem();
+	~KompareListViewHunkItem() override;
 
-	virtual void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column );
+	void paintCell( QPainter* p, const QStyleOptionViewItem& option, int column ) override;
 
-	virtual int maxHeight();
+	int maxHeight() override;
 
 private:
 	bool             m_zeroHeight;

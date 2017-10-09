@@ -25,7 +25,8 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 
-#include <kparts/readonlypart.h>
+#include <KParts/ReadOnlyPart>
+
 #include <libkomparediff2/kompare.h>
 #include <libkomparediff2/diffmodellist.h>
 

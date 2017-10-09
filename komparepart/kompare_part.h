@@ -20,7 +20,8 @@
 #ifndef KOMPAREPART_H
 #define KOMPAREPART_H
 
-#include <kparts/readwritepart.h>
+#include <KParts/ReadWritePart>
+
 #include <QVariantList>
 #include <QLoggingCategory>
 #include <libkomparediff2/kompare.h>

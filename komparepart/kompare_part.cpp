@@ -30,21 +30,21 @@
 #include <QTemporaryDir>
 #include <QTemporaryFile>
 
-#include <kaboutdata.h>
-#include <kactioncollection.h>
-#include <kjobwidgets.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kpluginfactory.h>
-#include <ksharedconfig.h>
-#include <kstandardaction.h>
-#include <kstandardshortcut.h>
-#include <kstandardguiitem.h>
+#include <KAboutData>
+#include <KActionCollection>
+#include <KJobWidgets>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KPluginFactory>
+#include <KSharedConfig>
+#include <KStandardAction>
+#include <KStandardShortcut>
+#include <KStandardGuiItem>
 
-#include <kio/copyjob.h>
-#include <kio/statjob.h>
-#include <kio/filecopyjob.h>
-#include <kio/mkdirjob.h>
+#include <KIO/CopyJob>
+#include <KIO/StatJob>
+#include <KIO/FileCopyJob>
+#include <KIO/MkdirJob>
 
 #include <libkomparediff2/diffmodel.h>
 #include <libkomparediff2/diffsettings.h>

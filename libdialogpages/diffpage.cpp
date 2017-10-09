@@ -29,14 +29,14 @@
 #include <QToolTip>
 #include <QButtonGroup>
 
-#include <kcombobox.h>
-#include <keditlistwidget.h>
-#include <klineedit.h>
-#include <klocalizedstring.h>
-#include <ksharedconfig.h>
-#include <kurlcombobox.h>
-#include <kurlrequester.h>
-#include <kservicetypetrader.h>
+#include <KComboBox>
+#include <KEditListWidget>
+#include <KLineEdit>
+#include <KLocalizedString>
+#include <KSharedConfig>
+#include <KUrlComboBox>
+#include <KUrlRequester>
+#include <KServiceTypeTrader>
 
 #include <kregexpeditorinterface.h>
 

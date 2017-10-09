@@ -17,8 +17,8 @@
 
 #include "filessettings.h"
 
-#include <kconfig.h>
-#include <kconfiggroup.h>
+#include <KConfig>
+#include <KConfigGroup>
 
 FilesSettings::FilesSettings( QWidget* parent )
 	: SettingsBase( parent )

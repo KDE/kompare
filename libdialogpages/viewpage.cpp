@@ -28,9 +28,9 @@
 #include <QFontComboBox>
 #include <QTabWidget>
 
-#include <kcolorbutton.h>
-#include <klocalizedstring.h>
-#include <ksharedconfig.h>
+#include <KColorButton>
+#include <KLocalizedString>
+#include <KSharedConfig>
 
 #include "viewsettings.h"
 

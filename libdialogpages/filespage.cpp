@@ -22,11 +22,11 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-#include <kcharsets.h>
-#include <kconfig.h>
-#include <klocalizedstring.h>
-#include <kurlcombobox.h>
-#include <kurlrequester.h>
+#include <KCharsets>
+#include <KConfig>
+#include <KLocalizedString>
+#include <KUrlComboBox>
+#include <KUrlRequester>
 
 #include "filessettings.h"
 

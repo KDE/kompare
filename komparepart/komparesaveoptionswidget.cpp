@@ -23,8 +23,8 @@
 #include <QRadioButton>
 #include <QSpinBox>
 
-#include <kio/global.h>
-#include <kurlrequester.h>
+#include <KIO/Global>
+#include <KUrlRequester>
 
 #include <libkomparediff2/diffsettings.h>
 

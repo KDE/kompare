@@ -21,9 +21,9 @@
 #include <QDebug>
 #include <QTreeWidgetItemIterator>
 
-#include <klocalizedstring.h>
-#include <kaboutdata.h>
-#include <kpluginfactory.h>
+#include <KLocalizedString>
+#include <KAboutData>
+#include <KPluginFactory>
 
 #include <libkomparediff2/difference.h>
 #include <libkomparediff2/diffmodel.h>

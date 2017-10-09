@@ -25,21 +25,21 @@
 #include <QPushButton>
 #include <QStatusBar>
 
-#include <ktexteditor/document.h>
-#include <ktexteditor/view.h>
-#include <kedittoolbar.h>
-#include <kfile.h>
-#include <kshortcutsdialog.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <ksqueezedtextlabel.h>
-#include <kstandardaction.h>
-#include <kmimetypetrader.h>
-#include <kservicetypetrader.h>
-#include <ksharedconfig.h>
-#include <ktoggleaction.h>
-#include <kactioncollection.h>
-#include <kconfiggroup.h>
+#include <KTextEditor/Document>
+#include <KTextEditor/View>
+#include <KEditToolBar>
+#include <KFile>
+#include <KShortcutsDialog>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KSqueezedTextLabel>
+#include <KStandardAction>
+#include <KMimeTypeTrader>
+#include <KServiceTypeTrader>
+#include <KSharedConfig>
+#include <KToggleAction>
+#include <KActionCollection>
+#include <KConfigGroup>
 
 #include "kompareinterface.h"
 #include "kompareurldialog.h"

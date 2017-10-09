@@ -20,11 +20,11 @@
 
 #include <QGroupBox>
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <ksharedconfig.h>
-#include <kurlcombobox.h>
-#include <kurlrequester.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KSharedConfig>
+#include <KUrlComboBox>
+#include <KUrlRequester>
 
 #include <libkomparediff2/diffsettings.h>
 

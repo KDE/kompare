@@ -24,11 +24,11 @@
  * @author Kevin Kofler   <kevin.kofler@chello.at>
  */
 
-#include <kaboutdata.h>
+#include <KAboutData>
 
-#include <kfile.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KFile>
+#include <KLocalizedString>
+#include <KMessageBox>
 
 #include <QApplication>
 #include <QPushButton>

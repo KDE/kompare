@@ -21,8 +21,8 @@
 #include <QFont>
 #include <QFontDatabase>
 
-#include <kconfig.h>
-#include <kconfiggroup.h>
+#include <KConfig>
+#include <KConfigGroup>
 
 using namespace Diff2;
 

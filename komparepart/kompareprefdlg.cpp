@@ -21,9 +21,9 @@
 #include <QTabWidget>
 #include <QPushButton>
 
-#include <klocalizedstring.h>
-#include <khelpclient.h>
-#include <kstandardguiitem.h>
+#include <KLocalizedString>
+#include <KHelpClient>
+#include <KStandardGuiItem>
 
 #include "diffpage.h"
 #include "viewpage.h"

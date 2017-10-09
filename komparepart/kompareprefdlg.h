@@ -19,7 +19,7 @@
 #ifndef KOMPAREPREFDLG_H
 #define KOMPAREPREFDLG_H
 
-#include <kpagedialog.h>
+#include <KPageDialog>
 
 class DiffPage;
 class DiffSettings;

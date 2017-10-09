@@ -29,7 +29,7 @@
 #include <QWheelEvent>
 #include <QScrollBar>
 
-#include <ksharedconfig.h>
+#include <KSharedConfig>
 
 #include <libkomparediff2/diffmodel.h>
 #include <libkomparediff2/diffhunk.h>

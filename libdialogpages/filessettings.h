@@ -30,7 +30,7 @@ class DIALOGPAGES_EXPORT FilesSettings : public SettingsBase
 {
 Q_OBJECT
 public:
-	FilesSettings( QWidget* parent );
+	explicit FilesSettings(QWidget* parent);
 	~FilesSettings() override;
 
 public:

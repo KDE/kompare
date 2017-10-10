@@ -136,7 +136,7 @@ class KompareListViewItemDelegate : public QStyledItemDelegate
 	Q_OBJECT
 
 public:
-	KompareListViewItemDelegate( QObject* parent );
+	explicit KompareListViewItemDelegate(QObject* parent);
 	~KompareListViewItemDelegate() override;
 	void paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const override;
 	QSize sizeHint( const QStyleOptionViewItem& option, const QModelIndex& index ) const override;
@@ -246,7 +246,7 @@ private:
 class KompareListViewBlankLineItem : public KompareListViewLineItem
 {
 public:
-	KompareListViewBlankLineItem( KompareListViewLineContainerItem* parent );
+	explicit KompareListViewBlankLineItem(KompareListViewLineContainerItem* parent);
 
 protected:
 	void paintText( QPainter* p, const QColor& bg, int column, int width, int align ) override;

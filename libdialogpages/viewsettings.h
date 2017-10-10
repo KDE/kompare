@@ -35,7 +35,7 @@ public:
 	static const QColor default_addColor;
 	static const QColor default_appliedColor;
 
-	ViewSettings( QWidget* parent );
+	explicit ViewSettings(QWidget* parent);
 	~ViewSettings() override;
 public:
 	// some virtual functions that will be overloaded from the base class

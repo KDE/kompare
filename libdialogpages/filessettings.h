@@ -17,8 +17,8 @@
 #ifndef FILESSETTINGS_H
 #define FILESSETTINGS_H
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QString>
+#include <QStringList>
 
 #include <libkomparediff2/settingsbase.h>
 

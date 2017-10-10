@@ -23,7 +23,7 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QStyle>
-#include <QtCore/QTimer>
+#include <QTimer>
 #include <QPaintEvent>
 #include <QFrame>
 #include <QMouseEvent>

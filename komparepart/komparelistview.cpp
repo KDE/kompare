@@ -22,8 +22,8 @@
 #include <QLoggingCategory>
 #include <QStyle>
 #include <QPainter>
-#include <QtCore/QRegExp>
-#include <QtCore/QTimer>
+#include <QRegExp>
+#include <QTimer>
 #include <QResizeEvent>
 #include <QMouseEvent>
 #include <QWheelEvent>

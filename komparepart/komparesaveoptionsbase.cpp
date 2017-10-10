@@ -17,7 +17,7 @@
 
 #include "komparesaveoptionsbase.h"
 
-#include <QtCore/QVariant>
+#include <QVariant>
 /*
  *  Constructs a KompareSaveOptionsBase as a child of 'parent', with the
  *  name 'name' and widget flags set to 'f'.

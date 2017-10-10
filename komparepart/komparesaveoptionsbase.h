@@ -17,7 +17,7 @@
 #ifndef KOMPARESAVEOPTIONSBASE_H
 #define KOMPARESAVEOPTIONSBASE_H
 
-#include <QtCore/QVariant>
+#include <QVariant>
 
 #include "ui_komparesaveoptionsbase.h"
 

@@ -19,7 +19,7 @@
 #ifndef KOMPARENAVTREEPART_H
 #define KOMPARENAVTREEPART_H
 
-#include <QtCore/QHash>
+#include <QHash>
 #include <QLoggingCategory>
 #include <QSplitter>
 #include <QTreeWidget>

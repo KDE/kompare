@@ -17,7 +17,7 @@
 ***************************************************************************/
 #include "kompare_shell.h"
 
-#include <QtCore/QTextStream>
+#include <QTextStream>
 #include <QDockWidget>
 #include <QEventLoopLocker>
 #include <QFileDialog>

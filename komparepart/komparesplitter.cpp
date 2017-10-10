@@ -20,10 +20,10 @@
 
 // qt
 #include <QStyle>
-#include <QtCore/QString>
-#include <QtCore/QTimer>
+#include <QString>
+#include <QTimer>
 #include <QScrollBar>
-#include <QtCore/QMap>
+#include <QMap>
 #include <QSplitter>
 #include <QApplication>
 #include <QPainter>
@@ -31,8 +31,8 @@
 #include <QKeyEvent>
 #include <QGridLayout>
 #include <QResizeEvent>
-#include <QtCore/QChildEvent>
-#include <QtCore/QEvent>
+#include <QChildEvent>
+#include <QEvent>
 #include <QWheelEvent>
 
 // kde

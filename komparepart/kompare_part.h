@@ -23,9 +23,9 @@
 #include <KParts/ReadWritePart>
 
 #include <QVariantList>
-#include <QLoggingCategory>
 #include <libkomparediff2/kompare.h>
 
+#include <komparepartdebug.h>
 #include "kompareinterface.h"
 
 class QAction;
@@ -45,8 +45,6 @@ class DiffSettings;
 class ViewSettings;
 class KompareSplitter;
 class KompareView;
-
-Q_DECLARE_LOGGING_CATEGORY(KOMPAREPART)
 
 /**
  * This is a "Part".  It does all the real work in a KPart

@@ -30,13 +30,13 @@
 #include <libkomparediff2/diffmodellist.h>
 #include <libkomparediff2/komparemodellist.h>
 
+#include <komparenavviewdebug.h>
+
 #define COL_SOURCE        0
 #define COL_DESTINATION   1
 #define COL_DIFFERENCE    2
 
 using namespace Diff2;
-
-Q_LOGGING_CATEGORY(KOMPARENAVVIEW, "komparenavview")
 
 KompareNavTreePart::KompareNavTreePart( QWidget* parentWidget, QObject* parent, const QVariantList& )
 	: KParts::ReadOnlyPart( parent ),

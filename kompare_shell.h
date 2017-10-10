@@ -23,9 +23,7 @@
 
 #include <libkomparediff2/kompare.h>
 
-#include <QLoggingCategory>
-
-Q_DECLARE_LOGGING_CATEGORY(KOMPARESHELL)
+#include <kompareshelldebug.h>
 
 class KompareInterface;
 namespace KParts {

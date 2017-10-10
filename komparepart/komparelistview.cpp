@@ -19,7 +19,6 @@
 
 #include "komparelistview.h"
 
-#include <QLoggingCategory>
 #include <QStyle>
 #include <QPainter>
 #include <QRegExp>
@@ -36,6 +35,7 @@
 #include <libkomparediff2/difference.h>
 #include <libkomparediff2/komparemodellist.h>
 
+#include <komparepartdebug.h>
 #include "viewsettings.h"
 #include "komparesplitter.h"
 
@@ -48,8 +48,6 @@
 #define ITEM_MARGIN 3
 
 using namespace Diff2;
-
-Q_DECLARE_LOGGING_CATEGORY(KOMPAREPART)
 
 KompareListViewFrame::KompareListViewFrame( bool isSource,
                                             ViewSettings* settings,

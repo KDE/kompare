@@ -13,6 +13,7 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(ECMInstallIcons)
 include(GenerateExportHeader)
 include(ECMAddAppIcon)
+include(ECMQtDeclareLoggingCategory)
 
 set(QT_MIN_VERSION "5.5.0")
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
@@ -66,6 +67,11 @@ set(kompare_SRCS
     main.cpp
     kompare_shell.cpp
     kompareurldialog.cpp
+)
+ecm_qt_declare_logging_category(kompare_SRCS
+    HEADER kompareshelldebug.h
+    IDENTIFIER KOMPARESHELL
+    CATEGORY_NAME "kompareshell"
 )
 
 ecm_add_app_icon(kompare_SRCS ICONS

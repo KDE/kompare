@@ -10,6 +10,12 @@ set( komparepart_PART_SRCS
      komparesaveoptionswidget.cpp
      kompareview.cpp )
 
+ecm_qt_declare_logging_category(komparepart_PART_SRCS
+    HEADER komparepartdebug.h
+    IDENTIFIER KOMPAREPART
+    CATEGORY_NAME "komparepart"
+)
+
 ki18n_wrap_ui(komparepart_PART_SRCS komparesaveoptionsbase.ui )
 
 add_library(komparepart MODULE ${komparepart_PART_SRCS})

@@ -48,8 +48,6 @@
 #define ID_N_OF_N_FILES            1
 #define ID_GENERAL                 2
 
-Q_LOGGING_CATEGORY(KOMPARESHELL, "kompareshell")
-
 KompareShell::KompareShell()
 	: KParts::MainWindow( ),
 	m_textViewPart(nullptr),

@@ -49,6 +49,7 @@
 #include <libkomparediff2/diffmodel.h>
 #include <libkomparediff2/diffsettings.h>
 
+#include <komparepartdebug.h>
 #include "komparelistview.h"
 #include "kompareconnectwidget.h"
 #include "viewsettings.h"
@@ -56,8 +57,6 @@
 #include "komparesaveoptionswidget.h"
 #include "komparesplitter.h"
 #include "kompareview.h"
-
-Q_LOGGING_CATEGORY(KOMPAREPART, "komparepart")
 
 K_PLUGIN_FACTORY( KomparePartFactory, registerPlugin<KomparePart>(); )
 

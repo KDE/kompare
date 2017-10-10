@@ -2,6 +2,12 @@ add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
 set(komparenavtreepart_PART_SRCS komparenavtreepart.cpp )
 
+ecm_qt_declare_logging_category(komparenavtreepart_PART_SRCS
+    HEADER komparenavviewdebug.h
+    IDENTIFIER KOMPARENAVVIEW
+    CATEGORY_NAME "komparenavview"
+)
+
 add_library(komparenavtreepart MODULE ${komparenavtreepart_PART_SRCS})
 
 target_link_libraries(komparenavtreepart

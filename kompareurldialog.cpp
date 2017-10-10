@@ -28,13 +28,13 @@
 
 #include <libkomparediff2/diffsettings.h>
 
+#include <kompareshelldebug.h>
 #include "diffpage.h"
 #include "filespage.h"
 #include "filessettings.h"
 #include "viewpage.h"
 #include "viewsettings.h"
 
-Q_DECLARE_LOGGING_CATEGORY(KOMPARESHELL)
 
 KompareURLDialog::KompareURLDialog( QWidget *parent)
         : KPageDialog(parent)

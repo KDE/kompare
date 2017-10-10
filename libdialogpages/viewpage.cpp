@@ -24,7 +24,7 @@
 #include <QLayout>
 #include <QSpinBox>
 #include <QVBoxLayout>
-#include <QGridLayout>
+#include <QFormLayout>
 #include <QFontComboBox>
 #include <QTabWidget>
 
@@ -38,7 +38,7 @@ ViewPage::ViewPage() : QFrame()
 {
 	QWidget*     page;
 	QVBoxLayout* layout;
-	QGridLayout* gridLayout;
+	QFormLayout* formLayout;
 	QGroupBox*   colorGroupBox;
 	QGroupBox*   snolGroupBox;
 	QGroupBox*   tabGroupBox;
@@ -55,64 +55,44 @@ ViewPage::ViewPage() : QFrame()
 	colorGroupBox = new QGroupBox( page );
 	colorGroupBox->setTitle( i18n( "Colors" ) );
 	layout->addWidget( colorGroupBox );
-	gridLayout = new QGridLayout( colorGroupBox );
+	formLayout = new QFormLayout(colorGroupBox);
 
 	// add the removeColor
-	label = new QLabel( i18n( "Removed color:" ), colorGroupBox );
 	m_removedColorButton = new KColorButton( colorGroupBox );
-	label->setBuddy( m_removedColorButton );
-	gridLayout->addWidget( label, 0, 0 );
-	gridLayout->addWidget( m_removedColorButton, 0, 1 );
+	formLayout->addRow(i18n("Removed color:"), m_removedColorButton);
 
 	// add the changeColor
-	label = new QLabel( i18n( "Changed color:" ), colorGroupBox );
 	m_changedColorButton = new KColorButton( colorGroupBox );
-	label->setBuddy( m_changedColorButton );
-	gridLayout->addWidget( label, 1, 0 );
-	gridLayout->addWidget( m_changedColorButton, 1, 1 );
+	formLayout->addRow(i18n("Changed color:"), m_changedColorButton);
 
 	// add the addColor
-	label = new QLabel( i18n( "Added color:" ), colorGroupBox );
 	m_addedColorButton = new KColorButton( colorGroupBox );
-	label->setBuddy( m_addedColorButton );
-	gridLayout->addWidget( label, 2, 0 );
-	gridLayout->addWidget( m_addedColorButton, 2, 1 );
+	formLayout->addRow(i18n("Added color:"), m_addedColorButton);
 
 	// add the appliedColor
-	label = new QLabel( i18n( "Applied color:" ), colorGroupBox );
 	m_appliedColorButton = new KColorButton( colorGroupBox );
-	label->setBuddy( m_appliedColorButton );
-	gridLayout->addWidget( label, 3, 0 );
-	gridLayout->addWidget( m_appliedColorButton, 3, 1 );
+	formLayout->addRow(i18n("Applied color:"), m_appliedColorButton);
 
 	// scroll number of lines (snol)
 	snolGroupBox = new QGroupBox( page );
-	QHBoxLayout *snolLayout = new QHBoxLayout;
-	snolGroupBox->setLayout( snolLayout );
 	snolGroupBox->setTitle( i18n( "Mouse Wheel" ) );
 	layout->addWidget( snolGroupBox );
+	QFormLayout* snolLayout = new QFormLayout(snolGroupBox);
 
-	label = new QLabel( i18n( "Number of lines:" ) );
-	snolLayout->addWidget( label );
 	m_snolSpinBox    = new QSpinBox( snolGroupBox );
 	m_snolSpinBox->setRange( 0, 50 );
-	snolLayout->addWidget( m_snolSpinBox );
-	label->setBuddy( m_snolSpinBox );
+	snolLayout->addRow(i18n("Number of lines:"), m_snolSpinBox);
 
 	// Temporarily here for testing...
 	// number of spaces for a tab character stuff
 	tabGroupBox = new QGroupBox( page );
-	QHBoxLayout *tabLayout = new QHBoxLayout;
-	tabGroupBox->setLayout( tabLayout );
 	tabGroupBox->setTitle( i18n( "Tabs to Spaces" ) );
 	layout->addWidget( tabGroupBox );
+	QFormLayout* tabLayout = new QFormLayout(tabGroupBox);
 
-	label = new QLabel( i18n( "Number of spaces to convert a tab character to:" ) );
-	tabLayout->addWidget( label );
 	m_tabSpinBox = new QSpinBox( tabGroupBox );
 	m_tabSpinBox->setRange( 1, 16 );
-	tabLayout->addWidget( m_tabSpinBox );
-	label->setBuddy( m_tabSpinBox );
+	tabLayout->addRow(i18n("Number of spaces to convert a tab character to:"), m_tabSpinBox);
 
 	layout->addStretch( 1 );
 
@@ -122,24 +102,17 @@ ViewPage::ViewPage() : QFrame()
 	layout = new QVBoxLayout( page );
 
 	QGroupBox* gb = new QGroupBox( page );
-	QHBoxLayout *layfont = new QHBoxLayout;
-	gb->setLayout( layfont );
+	QFormLayout* layfont = new QFormLayout(gb);
 	gb->setTitle( i18n( "Text Font" ) );
 	layout->addWidget( gb );
 
-	label = new QLabel( i18n( "Font:" ) );
 	m_fontCombo = new QFontComboBox;
-	layfont->addWidget( label );
-	layfont->addWidget( m_fontCombo );
+	layfont->addRow(i18n("Font:"), m_fontCombo);
 	m_fontCombo->setObjectName(QStringLiteral("fontcombo"));
-	label->setBuddy( m_fontCombo );
 
-	label = new QLabel( i18n( "Size:" ) );
-	layfont->addWidget( label );
 	m_fontSizeSpinBox = new QSpinBox( gb );
 	m_fontSizeSpinBox->setRange( 6, 24 );
-	layfont->addWidget( m_fontSizeSpinBox );
-	label->setBuddy( m_fontSizeSpinBox );
+	layfont->addRow(i18n("Size:"), m_fontSizeSpinBox);
 
 	layout->addStretch( 1 );
 

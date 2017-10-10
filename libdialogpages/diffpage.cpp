@@ -25,6 +25,7 @@
 #include <QSpinBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QFormLayout>
 #include <QTabWidget>
 #include <QToolTip>
 #include <QButtonGroup>
@@ -249,20 +250,15 @@ void DiffPage::addFormatTab()
 
 	// #lines of context (loc)
 	QGroupBox* groupBox = new QGroupBox( page );
-	QHBoxLayout *groupLayout = new QHBoxLayout;
-	groupBox->setLayout( groupLayout );
 	layout->addWidget( groupBox );
+	QFormLayout* groupLayout = new QFormLayout(groupBox);
 	groupBox->setTitle( i18n( "Lines of Context" ) );
 	groupBox->setWhatsThis( i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
 
-	QLabel* label = new QLabel( i18n( "Number of context lines:" ));
-	groupLayout->addWidget( label );
-	label->setWhatsThis( i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
 	m_locSpinBox = new QSpinBox( groupBox );
 	m_locSpinBox->setRange( 0, 100 );
-	groupLayout->addWidget( m_locSpinBox );
+	groupLayout->addRow(i18n("Number of context lines:"), m_locSpinBox);
 	m_locSpinBox->setWhatsThis( i18n( "The number of context lines is normally 2 or 3. This makes the diff readable and applicable in most cases. More than 3 lines will only bloat the diff unnecessarily." ) );
-	label->setBuddy( m_locSpinBox );
 
 	layout->addStretch( 1 );
 

@@ -416,7 +416,7 @@ void KomparePart::compare( const QUrl& source, const QUrl& destination )
 	m_info.destination = destination;
 
 	// FIXME: (Not urgent) But turn this into an enum, for now i cant find a nice name for the enum that has Source and Destination as values
-	// For now we do not do error checking, user has already been notified and if the localString is empty then we dont diff
+	// For now we do not do error checking, user has already been notified and if the localString is empty then we do not diff
 	fetchURL( source, true );
 	fetchURL( destination, false );
 
@@ -463,7 +463,7 @@ void KomparePart::compareFiles( const QUrl& sourceFile, const QUrl& destinationF
 	m_info.destination = destinationFile;
 
 	// FIXME: (Not urgent) But turn this into an enum, for now i cant find a nice name for the enum that has Source and Destination as values
-	// For now we do not do error checking, user has already been notified and if the localString is empty then we dont diff
+	// For now we do not do error checking, user has already been notified and if the localString is empty then we do not diff
 	fetchURL( sourceFile, true );
 	fetchURL( destinationFile, false );
 

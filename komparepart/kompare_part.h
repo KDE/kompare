@@ -213,6 +213,9 @@ private:
 	// name now but it is private anyway so can not be used from outside
 	bool fetchURL( const QUrl& url, bool isSource );
 
+private Q_SLOTS:
+	void onContextMenuRequested(const QPoint& pos);
+
 private:
 	// Uhm why were these static again ???
 	// Ah yes, so multiple instances of kompare use the

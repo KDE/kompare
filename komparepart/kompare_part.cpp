@@ -23,6 +23,7 @@
 #include <QDialog>
 #include <QLayout>
 #include <QWidget>
+#include <QMenu>
 #include <QPainter>
 #include <QPrinter>
 #include <QPrintDialog>
@@ -39,6 +40,7 @@
 #include <KStandardAction>
 #include <KStandardShortcut>
 #include <KStandardGuiItem>
+#include <KXMLGUIFactory>
 
 #include <KIO/CopyJob>
 #include <KIO/StatJob>
@@ -79,6 +81,9 @@ KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KAboutDat
 	readProperties( KSharedConfig::openConfig().data() );
 
 	m_view = new KompareView ( m_viewSettings, parentWidget );
+	m_view->setContextMenuPolicy(Qt::CustomContextMenu);
+	connect(m_view, &QWidget::customContextMenuRequested,
+	        this, &KomparePart::onContextMenuRequested);
 	setWidget( m_view );
 	m_splitter = m_view->splitter();
 
@@ -669,6 +674,13 @@ void KomparePart::slotSetStatus( enum Kompare::Status status )
 	default:
 		break;
 	}
+}
+
+void KomparePart::onContextMenuRequested(const QPoint& pos)
+{
+	QMenu *popup = static_cast<QMenu*>(factory()->container(QStringLiteral("mainPopUp"), this));
+	if (popup)
+	   popup->exec(m_view->mapToGlobal(pos));
 }
 
 void KomparePart::updateCaption()

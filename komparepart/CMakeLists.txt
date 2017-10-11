@@ -2,6 +2,7 @@ add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
 set( komparepart_PART_SRCS
      kompare_part.cpp
+     kompare_partfactory.cpp
      kompareconnectwidget.cpp
      komparesplitter.cpp
      komparelistview.cpp

@@ -35,7 +35,6 @@
 #include <KJobWidgets>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KPluginFactory>
 #include <KSharedConfig>
 #include <KStandardAction>
 #include <KStandardShortcut>
@@ -58,26 +57,14 @@
 #include "komparesplitter.h"
 #include "kompareview.h"
 
-K_PLUGIN_FACTORY( KomparePartFactory, registerPlugin<KomparePart>(); )
-
 ViewSettings* KomparePart::m_viewSettings = nullptr;
 DiffSettings* KomparePart::m_diffSettings = nullptr;
 
-static KAboutData createAboutData()
-{
-    KAboutData about(QStringLiteral("komparepart"), i18n("KomparePart"), QStringLiteral("4.0"),
-                     QString(), KAboutLicense::GPL);
-    about.addAuthor(i18n("John Firebaugh"), i18n("Author"), QStringLiteral("jfirebaugh@kde.org"));
-    about.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), QStringLiteral("bruggie@gmail.com"));
-    about.addAuthor(i18n("Kevin Kofler"), i18n("Author"), QStringLiteral("kevin.kofler@chello.at"));
-    return about;
-}
-
-KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QVariantList & /*args*/ ) :
+KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KAboutData& aboutData, Modus modus) :
 	KParts::ReadWritePart(parent),
 	m_info()
 {
-	setComponentData(createAboutData());
+	setComponentData(aboutData);
 
 	// set our XML-UI resource file
 	setXMLFile(QStringLiteral("komparepartui.rc"));
@@ -96,7 +83,7 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QVariant
 	m_splitter = m_view->splitter();
 
 	// This creates the "Model creator" and connects the signals and slots
-	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_splitter, this, "komparemodellist" , KParts::ReadWritePart::isReadWrite());
+	m_modelList = new Diff2::KompareModelList( m_diffSettings, m_splitter, this, "komparemodellist" , (modus == ReadWriteModus));
 
 	Q_FOREACH(QAction* action, m_modelList->actionCollection()->actions())
 	{
@@ -161,11 +148,11 @@ KomparePart::KomparePart( QWidget *parentWidget, QObject *parent, const QVariant
 	         m_splitter, SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
 	connect( this, SIGNAL(configChanged()), m_splitter, SIGNAL(configChanged()) );
 
-	setupActions();
+	setupActions(modus);
 
 	// we are read-write by default -> uhm what if we are opened by lets say konq in RO mode ?
 	// Then we should not be doing this...
-	setReadWrite( true );
+	setReadWrite((modus == ReadWriteModus));
 
 	// we are not modified since we haven't done anything yet
 	setModified( false );
@@ -178,17 +165,23 @@ KomparePart::~KomparePart()
 	cleanUpTemporaryFiles();
 }
 
-void KomparePart::setupActions()
+void KomparePart::setupActions(Modus modus)
 {
 	// create our actions
 
-	m_saveAll = actionCollection()->addAction(QStringLiteral("file_save_all"), this, SLOT(saveAll()));
-	m_saveAll->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
-	m_saveAll->setText(i18n("Save &All"));
-	m_saveDiff = actionCollection()->addAction(QStringLiteral("file_save_diff"), this, SLOT(saveDiff()));
-	m_saveDiff->setText(i18n("Save &Diff..."));
-	m_swap = actionCollection()->addAction(QStringLiteral("file_swap"), this, SLOT(slotSwap()));
-	m_swap->setText(i18n("Swap Source with Destination"));
+	if (modus == ReadWriteModus) {
+		m_saveAll = actionCollection()->addAction(QStringLiteral("file_save_all"), this, SLOT(saveAll()));
+		m_saveAll->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
+		m_saveAll->setText(i18n("Save &All"));
+		m_saveDiff = actionCollection()->addAction(QStringLiteral("file_save_diff"), this, SLOT(saveDiff()));
+		m_saveDiff->setText(i18n("Save &Diff..."));
+		m_swap = actionCollection()->addAction(QStringLiteral("file_swap"), this, SLOT(slotSwap()));
+		m_swap->setText(i18n("Swap Source with Destination"));
+	} else {
+		m_saveAll = nullptr;
+		m_saveDiff = nullptr;
+		m_swap = nullptr;
+	}
 	m_diffStats = actionCollection()->addAction(QStringLiteral("file_diffstats"), this, SLOT(slotShowDiffstats()));
 	m_diffStats->setText(i18n("Show Statistics"));
 	m_diffRefresh = actionCollection()->addAction(QStringLiteral("file_refreshdiff"), this, SLOT(slotRefreshDiff()));
@@ -203,9 +196,9 @@ void KomparePart::setupActions()
 
 void KomparePart::updateActions()
 {
-	m_saveAll->setEnabled     ( m_modelList->hasUnsavedChanges() );
-	m_saveDiff->setEnabled    ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
-	m_swap->setEnabled        ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
+	if (m_saveAll) m_saveAll->setEnabled   ( m_modelList->hasUnsavedChanges() );
+	if (m_saveDiff) m_saveDiff->setEnabled ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
+	if (m_swap) m_swap->setEnabled         ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
 	m_diffRefresh->setEnabled ( m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs );
 	m_diffStats->setEnabled   ( m_modelList->modelCount() > 0 );
 	m_print->setEnabled       ( m_modelList->modelCount() > 0 ); // If modellist has models then we have something to print, it's that simple.
@@ -944,6 +937,12 @@ bool KomparePart::queryClose()
 	return true;
 }
 
+void KomparePart::setReadWrite(bool readWrite)
+{
+    m_modelList->setReadWrite(readWrite);
+    KParts::ReadWritePart::setReadWrite(readWrite);
+}
+
 int KomparePart::readProperties( KConfig *config )
 {
 	m_viewSettings->loadSettings( config );
@@ -969,5 +968,3 @@ void KomparePart::optionsPreferences()
 	if ( pref.exec() )
 		emit configChanged();
 }
-
-#include "kompare_part.moc"

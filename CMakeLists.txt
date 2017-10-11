@@ -35,7 +35,7 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     WidgetsAddons
 )
 
-find_package(LibKompareDiff2 5.1 CONFIG)
+find_package(LibKompareDiff2 5.2 CONFIG)
 set_package_properties(LibKompareDiff2 PROPERTIES
     TYPE REQUIRED
 )

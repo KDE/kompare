@@ -61,10 +61,15 @@ class KomparePart : public KParts::ReadWritePart,
 	Q_OBJECT
 	Q_INTERFACES(KompareInterface)
 public:
+	enum Modus {
+	    ReadOnlyModus = 0,
+	    ReadWriteModus = 1
+	};
+
 	/**
 	* Default constructor
 	*/
-	KomparePart( QWidget *parentWidget, QObject *parent, const QVariantList & /*args*/);
+	KomparePart(QWidget* parentWidget, QObject* parent, const KAboutData& aboutData, Modus modus);
 
 	/**
 	* Destructor
@@ -80,6 +85,7 @@ public:
 	// we need it now to save the properties of the part when apps don't (can't)
 	// use the readProperties and saveProperties methods
 	bool queryClose() override;
+        void setReadWrite(bool readWrite) override;
 
 	// Do we really want to expose this ???
 	const Diff2::KompareModelList* model() const { return m_modelList; };
@@ -200,7 +206,7 @@ protected Q_SLOTS:
 
 private:
 	void cleanUpTemporaryFiles();
-	void setupActions();
+	void setupActions(Modus modus);
 	bool exists( const QString& url );
 	bool isDirectory( const QUrl& url );
 	// FIXME (like in cpp file not urgent) Replace with enum, cant find a proper

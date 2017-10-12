@@ -72,12 +72,12 @@ KompareListViewFrame::KompareListViewFrame( bool isSource,
 	m_layout.addWidget(bottomLine);
 	m_layout.addWidget(&m_view);
 
-	connect( &m_view, SIGNAL(differenceClicked(const Diff2::Difference*)),
-	         parent, SLOT(slotDifferenceClicked(const Diff2::Difference*)) );
+	connect(&m_view, &KompareListView::differenceClicked,
+	        parent, &KompareSplitter::slotDifferenceClicked);
 
-	connect( parent, SIGNAL(scrollViewsToId(int)), &m_view, SLOT(scrollToId(int)) );
-	connect( parent, SIGNAL(setXOffset(int)), &m_view, SLOT(setXOffset(int)) );
-	connect( &m_view, SIGNAL(resized()), parent, SLOT(slotUpdateScrollBars()) );
+	connect(parent, &KompareSplitter::scrollViewsToId, &m_view, &KompareListView::scrollToId);
+	connect(parent, &KompareSplitter::setXOffset, &m_view, &KompareListView::setXOffset);
+	connect(&m_view, &KompareListView::resized, parent, &KompareSplitter::slotUpdateScrollBars);
 }
 
 void KompareListViewFrame::slotSetModel( const DiffModel* model )

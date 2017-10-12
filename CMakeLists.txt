@@ -22,7 +22,7 @@ find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Widgets
 )
 
-set(KF5_MIN_VERSION "5.25.0")
+set(KF5_MIN_VERSION "5.28.0")
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     CoreAddons
     Codecs

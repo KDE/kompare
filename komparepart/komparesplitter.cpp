@@ -77,19 +77,19 @@ KompareSplitter::KompareSplitter( ViewSettings *settings, QWidget *parent ) :
 	setOpaqueResize( true );
 	setFocusPolicy( Qt::WheelFocus );
 
-	connect( this, SIGNAL(configChanged()), SLOT(slotConfigChanged()) );
-	connect( this, SIGNAL(configChanged()), SLOT(slotDelayedRepaintHandles()) );
-	connect( this, SIGNAL(configChanged()), SLOT(slotDelayedUpdateScrollBars()) );
+	connect(this, &KompareSplitter::configChanged, this, &KompareSplitter::slotConfigChanged);
+	connect(this, &KompareSplitter::configChanged, this, &KompareSplitter::slotDelayedRepaintHandles);
+	connect(this, &KompareSplitter::configChanged, this, &KompareSplitter::slotDelayedUpdateScrollBars);
 
 	// scrolling
-	connect( m_vScroll, SIGNAL(valueChanged(int)), SLOT(slotScrollToId(int)) );
-	connect( m_vScroll, SIGNAL(sliderMoved(int)),  SLOT(slotScrollToId(int)) );
-	connect( m_hScroll, SIGNAL(valueChanged(int)), SIGNAL(setXOffset(int)) );
-	connect( m_hScroll, SIGNAL(sliderMoved(int)),  SIGNAL(setXOffset(int)) );
+	connect(m_vScroll, &QScrollBar::valueChanged, this, &KompareSplitter::slotScrollToId);
+	connect(m_vScroll, &QScrollBar::sliderMoved,  this, &KompareSplitter::slotScrollToId);
+	connect(m_hScroll, &QScrollBar::valueChanged, this, &KompareSplitter::setXOffset);
+	connect(m_hScroll, &QScrollBar::sliderMoved,  this, &KompareSplitter::setXOffset);
 
 	m_scrollTimer=new QTimer(this);
 	m_restartTimer = false;
-	connect (m_scrollTimer, SIGNAL(timeout()), SLOT(timerTimeout()) );
+	connect(m_scrollTimer, &QTimer::timeout, this, &KompareSplitter::timerTimeout);
 
 	// we need to receive childEvents now so that d->list is ready for when
 	// slotSetSelection(...) arrives
@@ -110,7 +110,7 @@ QSplitterHandle* KompareSplitter::createHandle()
 
 void KompareSplitter::slotDelayedRepaintHandles()
 {
-	QTimer::singleShot(0, this, SLOT(slotRepaintHandles()));
+	QTimer::singleShot(0, this, &KompareSplitter::slotRepaintHandles);
 }
 
 void KompareSplitter::slotRepaintHandles()
@@ -156,7 +156,7 @@ void KompareSplitter::slotScrollToId( int id )
 
 void KompareSplitter::slotDelayedUpdateScrollBars()
 {
-	QTimer::singleShot( 0, this, SLOT( slotUpdateScrollBars() ) );
+	QTimer::singleShot(0, this, &KompareSplitter::slotUpdateScrollBars);
 }
 
 void KompareSplitter::slotUpdateScrollBars()
@@ -208,7 +208,7 @@ void KompareSplitter::slotUpdateScrollBars()
 
 void KompareSplitter::slotDelayedUpdateVScrollValue()
 {
-	QTimer::singleShot( 0, this, SLOT( slotUpdateVScrollValue() ) );
+	QTimer::singleShot(0, this, &KompareSplitter::slotUpdateVScrollValue);
 }
 
 void KompareSplitter::slotUpdateVScrollValue()

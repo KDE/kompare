@@ -141,7 +141,7 @@ void KompareConnectWidget::slotSetSelection( const DiffModel* model, const Diffe
 
 void KompareConnectWidget::slotDelayedRepaint()
 {
-	QTimer::singleShot( 0, this, SLOT( repaint() ) );
+	QTimer::singleShot(0, this, static_cast<void(KompareConnectWidget::*)()>(&KompareConnectWidget::repaint));
 }
 
 void KompareConnectWidget::slotSetSelection( const Difference* diff )

@@ -68,10 +68,10 @@ KompareURLDialog::KompareURLDialog( QWidget *parent)
 
 	adjustSize();
 
-	connect( m_filesPage->firstURLRequester(), SIGNAL( textChanged( const QString& ) ),
-	         this, SLOT( slotEnableOk() ) );
-	connect( m_filesPage->secondURLRequester(), SIGNAL( textChanged( const QString& ) ),
-	         this, SLOT( slotEnableOk() ) );
+	connect(m_filesPage->firstURLRequester(), &KUrlRequester::textChanged,
+	        this, &KompareURLDialog::slotEnableOk);
+	connect(m_filesPage->secondURLRequester(), &KUrlRequester::textChanged,
+	        this, &KompareURLDialog::slotEnableOk);
 
 }
 

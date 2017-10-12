@@ -59,6 +59,8 @@
 #include "komparesplitter.h"
 #include "kompareview.h"
 
+using namespace Diff2;
+
 ViewSettings* KomparePart::m_viewSettings = nullptr;
 DiffSettings* KomparePart::m_diffSettings = nullptr;
 
@@ -94,64 +96,70 @@ KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KAboutDat
 	{
 		actionCollection()->addAction(action->objectName(), action);
 	}
-	connect( m_modelList, SIGNAL(status( Kompare::Status )),
-	         this, SLOT(slotSetStatus( Kompare::Status )) );
-	connect( m_modelList, SIGNAL(setStatusBarModelInfo( int, int, int, int, int )),
-	         this, SIGNAL(setStatusBarModelInfo( int, int, int, int, int )) );
-	connect( m_modelList, SIGNAL(error( QString )),
-	         this, SLOT(slotShowError( QString )) );
-	connect( m_modelList, SIGNAL(applyAllDifferences( bool )),
-	         this, SLOT(updateActions()) );
-	connect( m_modelList, SIGNAL(applyDifference( bool )),
-	         this, SLOT(updateActions()) );
-	connect( m_modelList, SIGNAL(applyAllDifferences( bool )),
-	         this, SIGNAL(appliedChanged()) );
-	connect( m_modelList, SIGNAL(applyDifference( bool )),
-	         this, SIGNAL(appliedChanged()) );
-	connect( m_modelList, SIGNAL(updateActions()), this, SLOT(updateActions()) );
+	connect(m_modelList, &KompareModelList::status,
+	        this, &KomparePart::slotSetStatus);
+	connect(m_modelList, &KompareModelList::setStatusBarModelInfo,
+	        this, &KomparePart::setStatusBarModelInfo);
+	connect(m_modelList, &KompareModelList::error,
+	        this, &KomparePart::slotShowError);
+	connect(m_modelList, &KompareModelList::applyAllDifferences,
+	        this, &KomparePart::updateActions);
+	connect(m_modelList, static_cast<void(KompareModelList::*)(bool)>(&KompareModelList::applyDifference),
+	        this, &KomparePart::updateActions);
+	connect(m_modelList, &KompareModelList::applyAllDifferences,
+	        this, &KomparePart::appliedChanged);
+	connect(m_modelList, static_cast<void(KompareModelList::*)(bool)>(&KompareModelList::applyDifference),
+	        this, &KomparePart::appliedChanged);
+	connect(m_modelList, &KompareModelList::updateActions, this, &KomparePart::updateActions);
 
 	// This is the stuff to connect the "interface" of the kompare part to the model inside
-	connect( m_modelList, SIGNAL(modelsChanged(const Diff2::DiffModelList*)),
-	         this, SIGNAL(modelsChanged(const Diff2::DiffModelList*)) );
+	connect(m_modelList, &KompareModelList::modelsChanged,
+	        this, &KomparePart::modelsChanged);
 
-	connect( m_modelList, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)),
-	         this, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)) );
-	connect( this, SIGNAL(selectionChanged(const Diff2::DiffModel*, const Diff2::Difference*)),
-	         m_modelList, SLOT(slotSelectionChanged(const Diff2::DiffModel*, const Diff2::Difference*)) );
+	typedef void(KompareModelList::*void_KompareModelList_argModelDiff)(const DiffModel*, const Difference*);
+	typedef void(KompareModelList::*void_KompareModelList_argDiffBool)(const Difference*, bool);
+	typedef void(KompareSplitter::*void_KompareSplitter_argModelDiff)(const DiffModel*, const Difference*);
+	typedef void(KompareSplitter::*void_KompareSplitter_argDiffBool)(const Difference*, bool);
+	typedef void(KomparePart::*void_KomparePart_argModelDiff)(const DiffModel*, const Difference*);
+	typedef void(KomparePart::*void_KomparePart_argDiffBool)(const Difference*, bool);
+	connect(m_modelList, static_cast<void_KompareModelList_argModelDiff>(&KompareModelList::setSelection),
+	        this, static_cast<void_KomparePart_argModelDiff>(&KomparePart::setSelection));
+	connect(this, static_cast<void_KomparePart_argModelDiff>(&KomparePart::selectionChanged),
+	        m_modelList, static_cast<void_KompareModelList_argModelDiff>(&KompareModelList::slotSelectionChanged));
 
-	connect( m_modelList, SIGNAL(setSelection(const Diff2::Difference*)),
-	         this, SIGNAL(setSelection(const Diff2::Difference*)) );
-	connect( this, SIGNAL(selectionChanged(const Diff2::Difference*)),
-	         m_modelList, SLOT(slotSelectionChanged(const Diff2::Difference*)) );
+	connect(m_modelList, static_cast<void(KompareModelList::*)(const Difference*)>(&KompareModelList::setSelection),
+	        this, static_cast<void(KomparePart::*)(const Difference*)>(&KomparePart::setSelection));
+	connect(this, static_cast<void(KomparePart::*)(const Difference*)>(&KomparePart::selectionChanged),
+	         m_modelList, static_cast<void(KompareModelList::*)(const Difference*)>(&KompareModelList::slotSelectionChanged));
 
-	connect( m_modelList, SIGNAL(applyDifference(bool)),
-	         this, SIGNAL(applyDifference(bool)) );
-	connect( m_modelList, SIGNAL(applyAllDifferences(bool)),
-	         this, SIGNAL(applyAllDifferences(bool)) );
-	connect( m_modelList, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
-	         this, SIGNAL(applyDifference(const Diff2::Difference*, bool)) );
-	connect( m_modelList, SIGNAL(diffString(const QString&)),
-	         this, SIGNAL(diffString(const QString&)) );
+	connect(m_modelList, static_cast<void(KompareModelList::*)(bool)>(&KompareModelList::applyDifference),
+	        this, static_cast<void(KomparePart::*)(bool)>(&KomparePart::applyDifference));
+	connect(m_modelList, &KompareModelList::applyAllDifferences,
+	        this, &KomparePart::applyAllDifferences);
+	connect(m_modelList, static_cast<void_KompareModelList_argDiffBool>(&KompareModelList::applyDifference),
+	        this, static_cast<void_KomparePart_argDiffBool>(&KomparePart::applyDifference));
+	connect(m_modelList, &KompareModelList::diffString,
+	        this, &KomparePart::diffString);
 
-	connect( this, SIGNAL(kompareInfo(Kompare::Info*)), m_modelList, SLOT(slotKompareInfo(Kompare::Info*)) );
+	connect(this, &KomparePart::kompareInfo, m_modelList, &KompareModelList::slotKompareInfo);
 
 	// Here we connect the splitter to the modellist
-	connect( m_modelList, SIGNAL(setSelection(const Diff2::DiffModel*, const Diff2::Difference*)),
-	         m_splitter,  SLOT(slotSetSelection(const Diff2::DiffModel*, const Diff2::Difference*)) );
+	connect(m_modelList, static_cast<void_KompareModelList_argModelDiff>(&KompareModelList::setSelection),
+	        m_splitter,  static_cast<void_KompareSplitter_argModelDiff>(&KompareSplitter::slotSetSelection));
 //	connect( m_splitter,  SIGNAL(selectionChanged(const Diff2::Difference*, const Diff2::Difference*)),
 //	         m_modelList, SLOT(slotSelectionChanged(const Diff2::Difference*, const Diff2::Difference*)) );
-	connect( m_modelList, SIGNAL(setSelection(const Diff2::Difference*)),
-	         m_splitter,  SLOT(slotSetSelection(const Diff2::Difference*)) );
-	connect( m_splitter,  SIGNAL(selectionChanged(const Diff2::Difference*)),
-	         m_modelList, SLOT(slotSelectionChanged(const Diff2::Difference*)) );
+	connect(m_modelList, static_cast<void(KompareModelList::*)(const Difference*)>(&KompareModelList::setSelection),
+	        m_splitter,  static_cast<void(KompareSplitter::*)(const Difference*)>(&KompareSplitter::slotSetSelection));
+	connect(m_splitter,  static_cast<void(KompareSplitter::*)(const Difference*)>(&KompareSplitter::selectionChanged),
+	        m_modelList, static_cast<void(KompareModelList::*)(const Difference*)>(&KompareModelList::slotSelectionChanged));
 
-	connect( m_modelList, SIGNAL(applyDifference(bool)),
-	         m_splitter, SLOT(slotApplyDifference(bool)) );
-	connect( m_modelList, SIGNAL(applyAllDifferences(bool)),
-	         m_splitter, SLOT(slotApplyAllDifferences(bool)) );
-	connect( m_modelList, SIGNAL(applyDifference(const Diff2::Difference*, bool)),
-	         m_splitter, SLOT(slotApplyDifference(const Diff2::Difference*, bool)) );
-	connect( this, SIGNAL(configChanged()), m_splitter, SIGNAL(configChanged()) );
+	connect(m_modelList, static_cast<void(KompareModelList::*)(bool)>(&KompareModelList::applyDifference),
+	         m_splitter, static_cast<void(KompareSplitter::*)(bool)>(&KompareSplitter::slotApplyDifference));
+	connect(m_modelList, &KompareModelList::applyAllDifferences,
+	         m_splitter, &KompareSplitter::slotApplyAllDifferences);
+	connect(m_modelList, static_cast<void_KompareModelList_argDiffBool>(&KompareModelList::applyDifference),
+                m_splitter, static_cast<void_KompareSplitter_argDiffBool>(&KompareSplitter::slotApplyDifference));
+	connect(this, &KomparePart::configChanged, m_splitter, &KompareSplitter::configChanged);
 
 	setupActions(modus);
 
@@ -175,28 +183,28 @@ void KomparePart::setupActions(Modus modus)
 	// create our actions
 
 	if (modus == ReadWriteModus) {
-		m_saveAll = actionCollection()->addAction(QStringLiteral("file_save_all"), this, SLOT(saveAll()));
+		m_saveAll = actionCollection()->addAction(QStringLiteral("file_save_all"), this, &KomparePart::saveAll);
 		m_saveAll->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
 		m_saveAll->setText(i18n("Save &All"));
-		m_saveDiff = actionCollection()->addAction(QStringLiteral("file_save_diff"), this, SLOT(saveDiff()));
+		m_saveDiff = actionCollection()->addAction(QStringLiteral("file_save_diff"), this, &KomparePart::saveDiff);
 		m_saveDiff->setText(i18n("Save &Diff..."));
-		m_swap = actionCollection()->addAction(QStringLiteral("file_swap"), this, SLOT(slotSwap()));
+		m_swap = actionCollection()->addAction(QStringLiteral("file_swap"), this, &KomparePart::slotSwap);
 		m_swap->setText(i18n("Swap Source with Destination"));
 	} else {
 		m_saveAll = nullptr;
 		m_saveDiff = nullptr;
 		m_swap = nullptr;
 	}
-	m_diffStats = actionCollection()->addAction(QStringLiteral("file_diffstats"), this, SLOT(slotShowDiffstats()));
+	m_diffStats = actionCollection()->addAction(QStringLiteral("file_diffstats"), this, &KomparePart::slotShowDiffstats);
 	m_diffStats->setText(i18n("Show Statistics"));
-	m_diffRefresh = actionCollection()->addAction(QStringLiteral("file_refreshdiff"), this, SLOT(slotRefreshDiff()));
+	m_diffRefresh = actionCollection()->addAction(QStringLiteral("file_refreshdiff"), this, &KomparePart::slotRefreshDiff);
 	m_diffRefresh->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
 	m_diffRefresh->setText(i18n("Refresh Diff"));
 	actionCollection()->setDefaultShortcuts(m_diffRefresh, KStandardShortcut::reload());
 
-	m_print        = actionCollection()->addAction(KStandardAction::Print, this, SLOT( slotFilePrint() ));
-	m_printPreview = actionCollection()->addAction(KStandardAction::PrintPreview, this, SLOT( slotFilePrintPreview() ));
-	KStandardAction::preferences(this, SLOT(optionsPreferences()), actionCollection());
+	m_print        = KStandardAction::print(this, &KomparePart::slotFilePrint, actionCollection());
+	m_printPreview = KStandardAction::printPreview(this, &KomparePart::slotFilePrintPreview, actionCollection());
+	KStandardAction::preferences(this, &KomparePart::optionsPreferences, actionCollection());
 }
 
 void KomparePart::updateActions()
@@ -628,7 +636,7 @@ void KomparePart::slotFilePrintPreview()
 	printer.setOrientation( QPrinter::Landscape );
 	QPrintPreviewDialog dlg( &printer );
 
-	connect( &dlg, SIGNAL(paintRequested(QPrinter*)), this, SLOT(slotPaintRequested(QPrinter*)) );
+	connect( &dlg, &QPrintPreviewDialog::paintRequested, this, &KomparePart::slotPaintRequested);
 
 	dlg.exec();
 }
@@ -975,7 +983,7 @@ void KomparePart::optionsPreferences()
 	// show preferences
 	KomparePrefDlg pref( m_viewSettings, m_diffSettings );
 
-	connect( &pref, SIGNAL(configChanged()), this, SIGNAL(configChanged()) );
+	connect(&pref, &KomparePrefDlg::configChanged, this, &KomparePart::configChanged);
 
 	if ( pref.exec() )
 		emit configChanged();

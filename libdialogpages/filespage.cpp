@@ -51,7 +51,7 @@ FilesPage::FilesPage() : QFrame()
 	button->setToolTip( i18n( "Select File" ) );
 	button->setProperty("combobox", QStringLiteral("SourceURLComboBox"));
 	button->setProperty( "folder", false );
-	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
+	connect(button, &QPushButton::clicked, this, &FilesPage::open);
 	gb1Layout->addWidget( button );
 
 	button = new QPushButton(this);
@@ -63,7 +63,7 @@ FilesPage::FilesPage() : QFrame()
 	button->setToolTip( i18n( "Select Folder" ) );
 	button->setProperty("combobox", QStringLiteral("SourceURLComboBox"));
 	button->setProperty( "folder", true );
-	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
+	connect(button, &QPushButton::clicked, this, &FilesPage::open);
 	gb1Layout->addWidget( button );
 
 	m_secondGB = new QGroupBox(QStringLiteral("This too moron !"), this ); // whut again?
@@ -80,7 +80,7 @@ FilesPage::FilesPage() : QFrame()
 	button->setToolTip( i18n( "Select File" ) );
 	button->setProperty("combobox", QStringLiteral("DestURLComboBox"));
 	button->setProperty( "folder", false );
-	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
+	connect(button, &QPushButton::clicked, this, &FilesPage::open);
 	gb2Layout->addWidget( button );
 
 	button = new QPushButton(this);
@@ -92,7 +92,7 @@ FilesPage::FilesPage() : QFrame()
 	button->setToolTip( i18n( "Select Folder" ) );
 	button->setProperty("combobox", QStringLiteral("DestURLComboBox"));
 	button->setProperty( "folder", true );
-	connect( button, SIGNAL(clicked()), this, SLOT(open()) );
+	connect(button, &QPushButton::clicked, this, &FilesPage::open);
 	gb2Layout->addWidget( button );
 
 
@@ -127,10 +127,10 @@ void FilesPage::open()
 	bool selectFolders = button->property( "folder" ).toBool();
 	KUrlComboBox* urlComboBox = findChild<KUrlComboBox*>( button->property( "combobox" ).toString() );
 
-	open( urlComboBox, selectFolders );
+	doOpen(urlComboBox, selectFolders);
 }
 
-void FilesPage::open( KUrlComboBox *urlComboBox, bool selectFolders )
+void FilesPage::doOpen(KUrlComboBox *urlComboBox, bool selectFolders)
 {
 	QUrl currentUrl = QUrl::fromUserInput( urlComboBox->currentText() );
 

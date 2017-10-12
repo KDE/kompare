@@ -315,7 +315,7 @@ void DiffPage::addOptionsTab()
 		ignoreRegExpEditButton->setObjectName(QStringLiteral("regexp_editor_button"));
 		ignoreRegExpEditButton->setToolTip( i18n( "Clicking this will open a regular expression dialog where\nyou can graphically create regular expressions." ) );
 		groupLayout->addWidget( ignoreRegExpEditButton );
-		connect( ignoreRegExpEditButton, SIGNAL( clicked() ), this, SLOT( slotShowRegExpEditor() ) );
+		connect(ignoreRegExpEditButton, &QPushButton::clicked, this, &DiffPage::slotShowRegExpEditor);
 	}
 
 	QGroupBox* moreOptionButtonGroup = new QGroupBox( page );
@@ -369,7 +369,7 @@ void DiffPage::addExcludeTab()
 	layout->addWidget( m_excludeFilePatternGroupBox );
 
 
-	connect( m_excludeFilePatternGroupBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFilePatternToggled(bool)));
+	connect(m_excludeFilePatternGroupBox, &QGroupBox::toggled, this, &DiffPage::slotExcludeFilePatternToggled);
 
 	m_excludeFileNameGroupBox = new QGroupBox( page );
 	m_excludeFileNameGroupBox->setCheckable( true );
@@ -387,7 +387,7 @@ void DiffPage::addExcludeTab()
 	m_excludeFileURLRequester->setToolTip( i18n( "Any file you select in the dialog that pops up when you click it will be put in the dialog to the left of this button." ) );
 	layout->addWidget( m_excludeFileNameGroupBox );
 
-	connect( m_excludeFileNameGroupBox, SIGNAL(toggled(bool)), this, SLOT(slotExcludeFileToggled(bool)));
+	connect(m_excludeFileNameGroupBox, &QGroupBox::toggled, this, &DiffPage::slotExcludeFileToggled);
 
 	layout->addStretch( 1 );
 

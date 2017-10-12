@@ -84,14 +84,14 @@ KompareNavTreePart::KompareNavTreePart( QWidget* parentWidget, QObject* parent, 
 	m_changesList->setSortingEnabled( true );
 	m_changesList->sortByColumn( 0, Qt::AscendingOrder );
 
-	connect( m_srcDirTree, SIGNAL(currentItemChanged( QTreeWidgetItem*, QTreeWidgetItem* )),
-	         this, SLOT(slotSrcDirTreeSelectionChanged( QTreeWidgetItem* )) );
-	connect( m_destDirTree, SIGNAL(currentItemChanged( QTreeWidgetItem*, QTreeWidgetItem* )),
-	         this, SLOT(slotDestDirTreeSelectionChanged( QTreeWidgetItem* )) );
-	connect( m_fileList, SIGNAL(currentItemChanged( QTreeWidgetItem*, QTreeWidgetItem* )),
-	         this, SLOT(slotFileListSelectionChanged( QTreeWidgetItem* )) );
-	connect( m_changesList, SIGNAL(currentItemChanged( QTreeWidgetItem*, QTreeWidgetItem* )),
-	         this, SLOT(slotChangesListSelectionChanged( QTreeWidgetItem* )) );
+	connect(m_srcDirTree, &QTreeWidget::currentItemChanged,
+	        this, &KompareNavTreePart::slotSrcDirTreeSelectionChanged);
+	connect(m_destDirTree, &QTreeWidget::currentItemChanged,
+	        this, &KompareNavTreePart::slotDestDirTreeSelectionChanged);
+	connect(m_fileList, &QTreeWidget::currentItemChanged,
+	        this, &KompareNavTreePart::slotFileListSelectionChanged);
+	connect(m_changesList, &QTreeWidget::currentItemChanged,
+	        this, &KompareNavTreePart::slotChangesListSelectionChanged);
 }
 
 KompareNavTreePart::~KompareNavTreePart()

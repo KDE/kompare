@@ -200,16 +200,16 @@ void KompareShell::blend( const QUrl& url1, const QUrl& diff )
 void KompareShell::setupActions()
 {
 	QAction *a;
-	a = actionCollection()->addAction(KStandardAction::Open, this, SLOT(slotFileOpen()));
+	a = KStandardAction::open(this, &KompareShell::slotFileOpen, actionCollection());
 	a->setText( i18n( "&Open Diff..." ) );
-	a = actionCollection()->addAction(QStringLiteral("file_compare_files"), this, SLOT(slotFileCompareFiles()));
+	a = actionCollection()->addAction(QStringLiteral("file_compare_files"), this, &KompareShell::slotFileCompareFiles);
 	a->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
 	a->setText(i18n("&Compare Files..."));
 	actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_C));
-	a = actionCollection()->addAction(QStringLiteral("file_blend_url"), this, SLOT(slotFileBlendURLAndDiff()));
+	a = actionCollection()->addAction(QStringLiteral("file_blend_url"), this, &KompareShell::slotFileBlendURLAndDiff);
 	a->setText(i18n("&Blend URL with Diff..."));
 	actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_B));
-	actionCollection()->addAction(KStandardAction::Quit, this, SLOT( slotFileClose() ));
+	KStandardAction::quit(this, &KompareShell::slotFileClose, actionCollection());
 
 	createStandardStatusBarAction();
 	setStandardToolBarMenuEnabled(true);
@@ -217,10 +217,10 @@ void KompareShell::setupActions()
 // needs a KGuiItem, also the doc says explicitly not to do this
 //	m_showTextView->setCheckedState(i18n("Hide T&ext View"));
 	actionCollection()->addAction(QStringLiteral("options_show_text_view"), m_showTextView);
-	connect(m_showTextView, SIGNAL(triggered(bool)), SLOT(slotShowTextView()));
+	connect(m_showTextView, &KToggleAction::triggered, this, &KompareShell::slotShowTextView);
 
-	KStandardAction::keyBindings(this, SLOT(optionsConfigureKeys()), actionCollection());
-	KStandardAction::configureToolbars(this, SLOT(optionsConfigureToolbars()), actionCollection());
+	KStandardAction::keyBindings(this, &KompareShell::optionsConfigureKeys, actionCollection());
+	KStandardAction::configureToolbars(this, &KompareShell::optionsConfigureToolbars, actionCollection());
 }
 
 void KompareShell::setupStatusBar()
@@ -418,7 +418,8 @@ void KompareShell::slotShowTextView()
 	 		m_textViewPart->setText( m_diffString );
 		}
 		m_textViewWidget->show();
-		connect( m_textViewWidget, SIGNAL(visibilityChanged(bool)), SLOT(slotVisibilityChanged(bool)) );
+		connect(m_textViewWidget, &QDockWidget::visibilityChanged,
+		        this, &KompareShell::slotVisibilityChanged);
 	}
 	else if ( m_textViewWidget->isVisible() )
 		m_textViewWidget->hide();
@@ -458,7 +459,7 @@ void KompareShell::optionsConfigureToolbars()
 	saveMainWindowSettings(group);
 	// use the standard toolbar editor
 	KEditToolBar dlg(factory());
-	connect(&dlg,SIGNAL(newToolbarConfig()),this,SLOT(newToolbarConfig()));
+	connect(&dlg, &KEditToolBar::newToolbarConfig, this, &KompareShell::newToolbarConfig);
 	dlg.exec();
 }
 

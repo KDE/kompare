@@ -62,6 +62,9 @@ private Q_SLOTS:
 	void open();
 
 private:
+	void doOpen(KUrlComboBox* urlComboBox, bool selectFolders);
+
+private:
 	QGroupBox*     m_firstGB;
 	QGroupBox*     m_secondGB;
 	QGroupBox*     m_thirdGB;
@@ -75,9 +78,6 @@ private:
 	KComboBox*     m_encodingComboBox;
 
 	FilesSettings* m_settings;
-
-private:
-	void open(KUrlComboBox* urlComboBox, bool selectFolders);
 };
 
 #endif

@@ -59,23 +59,24 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget( QString source, QString dest
 		m_directoryRequester->setUrl(root);
 	}
 
-	connect( m_SmallerChangesCB,   SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_LargeFilesCB,       SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_IgnoreCaseCB,       SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_ExpandTabsCB,       SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_IgnoreEmptyLinesCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_IgnoreWhiteSpaceCB, SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_FunctionNamesCB,    SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_RecursiveCB,        SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_NewFilesCB,         SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_ContextRB,          SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_EdRB,               SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_NormalRB,           SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_RCSRB,              SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_UnifiedRB,          SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_SideBySideRB,       SIGNAL(toggled(bool)), SLOT(updateCommandLine()) );
-	connect( m_ContextLinesSB,     SIGNAL(valueChanged(int)), SLOT(updateCommandLine()) );
-	connect( m_directoryRequester, SIGNAL(textChanged(const QString&)), SLOT(updateCommandLine()) );
+	connect(m_SmallerChangesCB,   &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_LargeFilesCB,       &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_IgnoreCaseCB,       &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_ExpandTabsCB,       &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_IgnoreEmptyLinesCB, &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_IgnoreWhiteSpaceCB, &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_FunctionNamesCB,    &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_RecursiveCB,        &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_NewFilesCB,         &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_ContextRB,          &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_EdRB,               &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_NormalRB,           &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_RCSRB,              &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_UnifiedRB,          &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_SideBySideRB,       &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_ContextLinesSB,     static_cast<void(QSpinBox::*)(const QString&)>(&QSpinBox::valueChanged),
+	        this, &KompareSaveOptionsWidget::updateCommandLine);
+	connect(m_directoryRequester, &KUrlRequester::textChanged, this, &KompareSaveOptionsWidget::updateCommandLine);
 
 	m_FormatBG->setExclusive(true);
 	m_FormatBG->addButton(m_ContextRB, Kompare::Context);

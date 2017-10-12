@@ -20,7 +20,6 @@
 
 #include <QCheckBox>
 #include <QGroupBox>
-#include <QLabel>
 #include <QLayout>
 #include <QSpinBox>
 #include <QVBoxLayout>
@@ -42,7 +41,6 @@ ViewPage::ViewPage() : QFrame()
 	QGroupBox*   colorGroupBox;
 	QGroupBox*   snolGroupBox;
 	QGroupBox*   tabGroupBox;
-	QLabel*      label;
 
 	m_tabWidget = new QTabWidget( this );
 	layout = new QVBoxLayout( this );

@@ -1,5 +1,5 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kompare_part" version="7" translationDomain="kompare">
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="kompare_part" version="7" translationDomain="kompare">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_save"/>
@@ -57,4 +57,4 @@
   <Action name="difference_previous"/>
   <Action name="difference_next"/>
 </Menu>
-</kpartgui>
+</gui>

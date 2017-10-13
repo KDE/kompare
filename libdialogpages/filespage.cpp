@@ -30,8 +30,6 @@
 
 #include "filessettings.h"
 
-QUrl urlFromArg(const QString& arg);
-
 FilesPage::FilesPage() : QFrame()
 {
     QVBoxLayout* layout = new QVBoxLayout(this);
@@ -178,8 +176,8 @@ void FilesPage::setURLsInComboBoxes()
 {
 //     qDebug() << "first : " << m_firstURLComboBox->currentText() ;
 //     qDebug() << "second: " << m_secondURLComboBox->currentText() ;
-    m_firstURLComboBox->setUrl(urlFromArg(m_firstURLComboBox->currentText()));
-    m_secondURLComboBox->setUrl(urlFromArg(m_secondURLComboBox->currentText()));
+    m_firstURLComboBox->setUrl(QUrl::fromUserInput(m_firstURLComboBox->currentText(), QDir::currentPath(), QUrl::AssumeLocalFile));
+    m_secondURLComboBox->setUrl(QUrl::fromUserInput(m_secondURLComboBox->currentText(), QDir::currentPath(), QUrl::AssumeLocalFile));
 }
 
 
@@ -208,9 +206,9 @@ void FilesPage::setSettings(FilesSettings* settings)
     m_settings = settings;
 
     m_firstURLComboBox->setUrls(m_settings->m_recentSources);
-    m_firstURLComboBox->setUrl(urlFromArg(m_settings->m_lastChosenSourceURL));
+    m_firstURLComboBox->setUrl(QUrl::fromUserInput(m_settings->m_lastChosenSourceURL, QDir::currentPath(), QUrl::AssumeLocalFile));
     m_secondURLComboBox->setUrls(m_settings->m_recentDestinations);
-    m_secondURLComboBox->setUrl(urlFromArg(m_settings->m_lastChosenDestinationURL));
+    m_secondURLComboBox->setUrl(QUrl::fromUserInput(m_settings->m_lastChosenDestinationURL, QDir::currentPath(), QUrl::AssumeLocalFile));
     m_encodingComboBox->setCurrentIndex(m_encodingComboBox->findText(m_settings->m_encoding, Qt::MatchFixedString));
 }
 

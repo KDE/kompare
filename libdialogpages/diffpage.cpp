@@ -43,18 +43,6 @@
 
 #include <libkomparediff2/diffsettings.h>
 
-QUrl urlFromArg(const QString& arg)
-{
-#if QT_VERSION >= 0x050400
-    return QUrl::fromUserInput(arg, QDir::currentPath(), QUrl::AssumeLocalFile);
-#else
-    // Logic from QUrl::fromUserInput(QString, QString, UserInputResolutionOptions)
-    return (QUrl(arg, QUrl::TolerantMode).isRelative() && !QDir::isAbsolutePath(arg))
-           ? QUrl::fromLocalFile(QDir::current().absoluteFilePath(arg))
-           : QUrl::fromUserInput(arg);
-#endif
-}
-
 DiffPage::DiffPage() : QFrame(), m_ignoreRegExpDialog(nullptr)
 {
     QVBoxLayout* layout = new QVBoxLayout(this);
@@ -106,7 +94,7 @@ void DiffPage::setSettings(DiffSettings* setts)
     m_excludeFileNameGroupBox->setChecked(m_settings->m_excludeFilesFile);
     slotExcludeFileToggled(m_settings->m_excludeFilesFile);
     m_excludeFileURLComboBox->setUrls(m_settings->m_excludeFilesFileHistoryList);
-    m_excludeFileURLComboBox->setUrl(urlFromArg(m_settings->m_excludeFilesFileURL));
+    m_excludeFileURLComboBox->setUrl(QUrl::fromUserInput(m_settings->m_excludeFilesFileURL, QDir::currentPath(), QUrl::AssumeLocalFile));
 }
 
 DiffSettings* DiffPage::settings()

@@ -40,18 +40,6 @@
 #include "kompare_shell.h"
 #include "kompareurldialog.h"
 
-QUrl urlFromArg(const QString& arg)
-{
-#if QT_VERSION >= 0x050400
-    return QUrl::fromUserInput(arg, QDir::currentPath(), QUrl::AssumeLocalFile);
-#else
-    // Logic from QUrl::fromUserInput(QString, QString, UserInputResolutionOptions)
-    return (QUrl(arg, QUrl::TolerantMode).isRelative() && !QDir::isAbsolutePath(arg))
-           ? QUrl::fromLocalFile(QDir::current().absoluteFilePath(arg))
-           : QUrl::fromUserInput(arg);
-#endif
-}
-
 /**
  * Setting up the KAboutData structure.
  * Parsing and handling of the given command line arguments.
@@ -133,7 +121,7 @@ int main(int argc, char* argv[])
                 if (args.at(0) == QLatin1String("-"))
                     ks->openStdin();
                 else
-                    ks->openDiff(urlFromArg(args.at(0)));
+                    ks->openDiff(QUrl::fromUserInput(args.at(0), QDir::currentPath(), QUrl::AssumeLocalFile));
                 difault = false;
             }
         }
@@ -148,9 +136,9 @@ int main(int argc, char* argv[])
             else
             {
                 ks->show();
-                QUrl url0 = urlFromArg(args.at(0));
+                QUrl url0 = QUrl::fromUserInput(args.at(0), QDir::currentPath(), QUrl::AssumeLocalFile);
                 qCDebug(KOMPARESHELL) << "URL0 = " << url0.url() ;
-                QUrl url1 = urlFromArg(args.at(1));
+                QUrl url1 = QUrl::fromUserInput(args.at(1), QDir::currentPath(), QUrl::AssumeLocalFile);
                 qCDebug(KOMPARESHELL) << "URL1 = " << url1.url() ;
                 ks->compare(url0, url1);
                 difault = false;
@@ -168,9 +156,9 @@ int main(int argc, char* argv[])
             {
                 ks->show();
                 qCDebug(KOMPARESHELL) << "blend..." ;
-                QUrl url0 = urlFromArg(args.at(0));
+                QUrl url0 = QUrl::fromUserInput(args.at(0), QDir::currentPath(), QUrl::AssumeLocalFile);
                 qCDebug(KOMPARESHELL) << "URL0 = " << url0.url() ;
-                QUrl url1 = urlFromArg(args.at(1));
+                QUrl url1 = QUrl::fromUserInput(args.at(1), QDir::currentPath(), QUrl::AssumeLocalFile);
                 qCDebug(KOMPARESHELL) << "URL1 = " << url1.url() ;
                 ks->blend(url0, url1);
                 difault = false;
@@ -184,7 +172,7 @@ int main(int argc, char* argv[])
             if (args.at(0) == QLatin1String("-"))
                 ks->openStdin();
             else
-                ks->openDiff(urlFromArg(args.at(0)));
+                ks->openDiff(QUrl::fromUserInput(args.at(0), QDir::currentPath(), QUrl::AssumeLocalFile));
 
             difault = false;
         }
@@ -194,9 +182,9 @@ int main(int argc, char* argv[])
             // and not blending because that is almost impossible to detect
             ks->show();
             qCDebug(KOMPARESHELL) << "Dunno, we'll have to figure it out later, trying compare for now..." ;
-            QUrl url0 = urlFromArg(args.at(0));
+            QUrl url0 = QUrl::fromUserInput(args.at(0), QDir::currentPath(), QUrl::AssumeLocalFile);
             qCDebug(KOMPARESHELL) << "URL0 = " << url0.url() ;
-            QUrl url1 = urlFromArg(args.at(1));
+            QUrl url1 = QUrl::fromUserInput(args.at(1), QDir::currentPath(), QUrl::AssumeLocalFile);
             qCDebug(KOMPARESHELL) << "URL1 = " << url1.url() ;
             ks->compare(url0, url1);
             difault = false;

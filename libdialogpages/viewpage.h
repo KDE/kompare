@@ -33,34 +33,34 @@ class ViewSettings;
 
 class DIALOGPAGES_EXPORT ViewPage : public QFrame
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-	ViewPage();
-	~ViewPage() override;
+    ViewPage();
+    ~ViewPage() override;
 
 public:
-	void setSettings( ViewSettings* );
-	ViewSettings* settings( void );
+    void setSettings(ViewSettings*);
+    ViewSettings* settings(void);
 
 public:
-	ViewSettings* m_settings;
+    ViewSettings* m_settings;
 
 public:
-	virtual void restore();
-	virtual void apply();
-	virtual void setDefaults();
+    virtual void restore();
+    virtual void apply();
+    virtual void setDefaults();
 
 public:
-	KColorButton* m_removedColorButton;
-	KColorButton* m_changedColorButton;
-	KColorButton* m_addedColorButton;
-	KColorButton* m_appliedColorButton;
-	// snol == scroll number of lines
-	QSpinBox*     m_snolSpinBox;
-	QSpinBox*     m_tabSpinBox;
-	QFontComboBox*   m_fontCombo;
-	QSpinBox*     m_fontSizeSpinBox;
-	QTabWidget*   m_tabWidget;
+    KColorButton* m_removedColorButton;
+    KColorButton* m_changedColorButton;
+    KColorButton* m_addedColorButton;
+    KColorButton* m_appliedColorButton;
+    // snol == scroll number of lines
+    QSpinBox*     m_snolSpinBox;
+    QSpinBox*     m_tabSpinBox;
+    QFontComboBox*   m_fontCombo;
+    QSpinBox*     m_fontSizeSpinBox;
+    QTabWidget*   m_tabWidget;
 };
 
 #endif

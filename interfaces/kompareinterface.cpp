@@ -6,7 +6,7 @@
   published by the Free Software Foundation; either version 2 of
   the License or (at your option) version 3 or any later version
   accepted by the membership of KDE e.V. (or its successor approved
-  by the membership of KDE e.V.), which shall act as a proxy 
+  by the membership of KDE e.V.), which shall act as a proxy
   defined in Section 14 of version 3 of the license.
 
   This program is distributed in the hope that it will be useful,
@@ -22,13 +22,13 @@
 class KompareInterfacePrivate
 {
 public:
-	KompareInterfacePrivate();
-	~KompareInterfacePrivate();
-	KompareInterfacePrivate( const KompareInterfacePrivate& );
-	KompareInterfacePrivate& operator=( const KompareInterfacePrivate& );
+    KompareInterfacePrivate();
+    ~KompareInterfacePrivate();
+    KompareInterfacePrivate(const KompareInterfacePrivate&);
+    KompareInterfacePrivate& operator=(const KompareInterfacePrivate&);
 
 protected:
-	// Add all variables for the KompareInterface class here and access them through the kip pointer
+    // Add all variables for the KompareInterface class here and access them through the kip pointer
 };
 
 KompareInterfacePrivate::KompareInterfacePrivate()
@@ -39,38 +39,38 @@ KompareInterfacePrivate::~KompareInterfacePrivate()
 {
 }
 
-KompareInterfacePrivate::KompareInterfacePrivate( const KompareInterfacePrivate& /*kip*/ )
+KompareInterfacePrivate::KompareInterfacePrivate(const KompareInterfacePrivate& /*kip*/)
 {
 }
 
-KompareInterfacePrivate& KompareInterfacePrivate::operator=(const KompareInterfacePrivate& /*kip*/ )
+KompareInterfacePrivate& KompareInterfacePrivate::operator=(const KompareInterfacePrivate& /*kip*/)
 {
-	return *this;
+    return *this;
 }
 
 KompareInterface::KompareInterface()
 {
-	kip = new KompareInterfacePrivate();
+    kip = new KompareInterfacePrivate();
 }
 
 KompareInterface::~KompareInterface()
 {
-	delete kip;
+    delete kip;
 }
 
-KompareInterface::KompareInterface( const KompareInterface& ki )
+KompareInterface::KompareInterface(const KompareInterface& ki)
 {
-	kip = new KompareInterfacePrivate( *(ki.kip) );
+    kip = new KompareInterfacePrivate(*(ki.kip));
 }
 
-KompareInterface& KompareInterface::operator=( const KompareInterface& ki )
+KompareInterface& KompareInterface::operator=(const KompareInterface& ki)
 {
-	kip = ki.kip;
-	return *this;
+    kip = ki.kip;
+    return *this;
 }
 
-void KompareInterface::setEncoding( const QString& encoding )
+void KompareInterface::setEncoding(const QString& encoding)
 {
-	m_encoding = encoding;
+    m_encoding = encoding;
 }
 

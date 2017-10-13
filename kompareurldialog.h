@@ -34,39 +34,39 @@ class ViewSettings;
  */
 class KompareURLDialog : public KPageDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit KompareURLDialog(QWidget *parent= nullptr);
-	~KompareURLDialog() override;
+    explicit KompareURLDialog(QWidget* parent = nullptr);
+    ~KompareURLDialog() override;
 
-	QUrl getFirstURL() const;
-	QUrl getSecondURL() const;
-	QString encoding() const;
+    QUrl getFirstURL() const;
+    QUrl getSecondURL() const;
+    QString encoding() const;
 
-	void setFirstGroupBoxTitle ( const QString& title );
-	void setSecondGroupBoxTitle( const QString& title );
+    void setFirstGroupBoxTitle(const QString& title);
+    void setSecondGroupBoxTitle(const QString& title);
 
-	void setGroup( const QString& groupName );
+    void setGroup(const QString& groupName);
 
-	void setFirstURLRequesterMode ( unsigned int mode );
-	void setSecondURLRequesterMode( unsigned int mode );
+    void setFirstURLRequesterMode(unsigned int mode);
+    void setSecondURLRequesterMode(unsigned int mode);
 
 public Q_SLOTS:
-	void accept() override;
-	void reject() override;
+    void accept() override;
+    void reject() override;
 
 private Q_SLOTS:
-	void slotEnableOk();
+    void slotEnableOk();
 protected:
-    void showEvent ( QShowEvent * event ) override;
+    void showEvent(QShowEvent* event) override;
 private:
-	FilesPage*     m_filesPage;
-	FilesSettings* m_filesSettings;
-	DiffPage*      m_diffPage;
-	DiffSettings*  m_diffSettings;
-	ViewPage*      m_viewPage;
-	ViewSettings*  m_viewSettings;
+    FilesPage*     m_filesPage;
+    FilesSettings* m_filesSettings;
+    DiffPage*      m_diffPage;
+    DiffSettings*  m_diffSettings;
+    ViewPage*      m_viewPage;
+    ViewSettings*  m_viewSettings;
 };
 
 #endif

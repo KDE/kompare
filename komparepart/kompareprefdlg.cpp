@@ -30,39 +30,39 @@
 
 // implementation
 
-KomparePrefDlg::KomparePrefDlg( ViewSettings* viewSets, DiffSettings* diffSets ) : KPageDialog(nullptr)
+KomparePrefDlg::KomparePrefDlg(ViewSettings* viewSets, DiffSettings* diffSets) : KPageDialog(nullptr)
 {
-	setFaceType( KPageDialog::List );
-	setWindowTitle( i18n( "Preferences" ) );
-	setStandardButtons( QDialogButtonBox::Help|QDialogButtonBox::Reset|QDialogButtonBox::Ok|QDialogButtonBox::Apply|QDialogButtonBox::Cancel );
-	setModal( true );
+    setFaceType(KPageDialog::List);
+    setWindowTitle(i18n("Preferences"));
+    setStandardButtons(QDialogButtonBox::Help | QDialogButtonBox::Reset | QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel);
+    setModal(true);
 
-	KGuiItem::assign( button( QDialogButtonBox::Reset ), KStandardGuiItem::defaults() );
+    KGuiItem::assign(button(QDialogButtonBox::Reset), KStandardGuiItem::defaults());
 
-	// ok i need some stuff in that pref dlg...
-	//setIconListAllVisible(true);
+    // ok i need some stuff in that pref dlg...
+    //setIconListAllVisible(true);
 
-	m_viewPage = new ViewPage();
-	KPageWidgetItem *item = addPage( m_viewPage, i18n( "View" ) );
-	item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-theme")));
-	item->setHeader( i18n( "View Settings" ) );
-	m_viewPage->setSettings( viewSets );
+    m_viewPage = new ViewPage();
+    KPageWidgetItem* item = addPage(m_viewPage, i18n("View"));
+    item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-theme")));
+    item->setHeader(i18n("View Settings"));
+    m_viewPage->setSettings(viewSets);
 
-	m_diffPage = new DiffPage();
-	item = addPage( m_diffPage, i18n( "Diff" ) );
-	item->setIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
-	item->setHeader( i18n( "Diff Settings" ) );
-	m_diffPage->setSettings( diffSets );
+    m_diffPage = new DiffPage();
+    item = addPage(m_diffPage, i18n("Diff"));
+    item->setIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
+    item->setHeader(i18n("Diff Settings"));
+    m_diffPage->setSettings(diffSets);
 
-//	frame = addVBoxPage( i18n( "" ), i18n( "" ), UserIcon( "" ) );
+//     frame = addVBoxPage(i18n(""), i18n(""), UserIcon(""));
 
-	connect( button( QDialogButtonBox::Reset ), &QPushButton::clicked, this, &KomparePrefDlg::slotDefault );
-	connect( button( QDialogButtonBox::Help ), &QPushButton::clicked, this, &KomparePrefDlg::slotHelp );
-	connect( button( QDialogButtonBox::Apply ), &QPushButton::clicked, this, &KomparePrefDlg::slotApply );
-	connect( button( QDialogButtonBox::Ok ), &QPushButton::clicked, this, &KomparePrefDlg::slotOk );
-	connect( button( QDialogButtonBox::Cancel ), &QPushButton::clicked, this, &KomparePrefDlg::slotCancel );
+    connect(button(QDialogButtonBox::Reset), &QPushButton::clicked, this, &KomparePrefDlg::slotDefault);
+    connect(button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KomparePrefDlg::slotHelp);
+    connect(button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &KomparePrefDlg::slotApply);
+    connect(button(QDialogButtonBox::Ok), &QPushButton::clicked, this, &KomparePrefDlg::slotOk);
+    connect(button(QDialogButtonBox::Cancel), &QPushButton::clicked, this, &KomparePrefDlg::slotCancel);
 
-	adjustSize();
+    adjustSize();
 }
 
 KomparePrefDlg::~KomparePrefDlg()
@@ -73,84 +73,84 @@ KomparePrefDlg::~KomparePrefDlg()
 /** No descriptions */
 void KomparePrefDlg::slotDefault()
 {
-	// restore all defaults in the options...
-	m_viewPage->setDefaults();
-	m_diffPage->setDefaults();
+    // restore all defaults in the options...
+    m_viewPage->setDefaults();
+    m_diffPage->setDefaults();
 }
 
 /** No descriptions */
 void KomparePrefDlg::slotHelp()
 {
-	// figure out the current active page
-	QWidget* currentpage = currentPage()->widget();
-	if ( dynamic_cast<ViewPage*>(currentpage) )
-	{
-		// figure out the active tab
-		int currentTab = static_cast<ViewPage*>(currentpage)->m_tabWidget->currentIndex();
-		switch ( currentTab )
-		{
-		case 0:
-			KHelpClient::invokeHelp(QStringLiteral("appearance"));
-			break;
-		case 1:
-			KHelpClient::invokeHelp(QStringLiteral("fonts"));
-			break;
-		default:
-			KHelpClient::invokeHelp(QStringLiteral("view-settings"));
-		}
-	}
-	else if ( dynamic_cast<DiffPage*>(currentpage) )
-	{
-		// figure out the active tab
-		int currentTab = static_cast<DiffPage*>(currentpage)->m_tabWidget->currentIndex();
-		switch ( currentTab )
-		{
-		case 0:
-			KHelpClient::invokeHelp(QStringLiteral("diff"));
-			break;
-		case 1:
-			KHelpClient::invokeHelp(QStringLiteral("diff-format"));
-			break;
-		case 2:
-			KHelpClient::invokeHelp(QStringLiteral("options"));
-			break;
-		case 3:
-			KHelpClient::invokeHelp(QStringLiteral("exclude"));
-			break;
-		default:
-			KHelpClient::invokeHelp(QStringLiteral("diff-settings"));
-		}
-	}
-	else // Fallback since we had not added the code for the page/tab or forgotten about it
-		KHelpClient::invokeHelp(QStringLiteral("configure-preferences"));
+    // figure out the current active page
+    QWidget* currentpage = currentPage()->widget();
+    if (dynamic_cast<ViewPage*>(currentpage))
+    {
+        // figure out the active tab
+        int currentTab = static_cast<ViewPage*>(currentpage)->m_tabWidget->currentIndex();
+        switch (currentTab)
+        {
+        case 0:
+            KHelpClient::invokeHelp(QStringLiteral("appearance"));
+            break;
+        case 1:
+            KHelpClient::invokeHelp(QStringLiteral("fonts"));
+            break;
+        default:
+            KHelpClient::invokeHelp(QStringLiteral("view-settings"));
+        }
+    }
+    else if (dynamic_cast<DiffPage*>(currentpage))
+    {
+        // figure out the active tab
+        int currentTab = static_cast<DiffPage*>(currentpage)->m_tabWidget->currentIndex();
+        switch (currentTab)
+        {
+        case 0:
+            KHelpClient::invokeHelp(QStringLiteral("diff"));
+            break;
+        case 1:
+            KHelpClient::invokeHelp(QStringLiteral("diff-format"));
+            break;
+        case 2:
+            KHelpClient::invokeHelp(QStringLiteral("options"));
+            break;
+        case 3:
+            KHelpClient::invokeHelp(QStringLiteral("exclude"));
+            break;
+        default:
+            KHelpClient::invokeHelp(QStringLiteral("diff-settings"));
+        }
+    }
+    else // Fallback since we had not added the code for the page/tab or forgotten about it
+        KHelpClient::invokeHelp(QStringLiteral("configure-preferences"));
 }
 
 /** No descriptions */
 void KomparePrefDlg::slotApply()
 {
-	// well apply the settings that are currently selected
-	m_viewPage->apply();
-	m_diffPage->apply();
+    // well apply the settings that are currently selected
+    m_viewPage->apply();
+    m_diffPage->apply();
 
-	emit configChanged();
+    emit configChanged();
 }
 
 /** No descriptions */
 void KomparePrefDlg::slotOk()
 {
-	// Apply the settings that are currently selected
-	m_viewPage->apply();
-	m_diffPage->apply();
+    // Apply the settings that are currently selected
+    m_viewPage->apply();
+    m_diffPage->apply();
 
-	//accept();
+    //accept();
 }
 
 /** No descriptions */
 void KomparePrefDlg::slotCancel()
 {
-	// discard the current settings and use the present ones
-	m_viewPage->restore();
-	m_diffPage->restore();
+    // discard the current settings and use the present ones
+    m_viewPage->restore();
+    m_diffPage->restore();
 
-	//reject();
+    //reject();
 }

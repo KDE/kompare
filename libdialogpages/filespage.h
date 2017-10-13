@@ -33,51 +33,51 @@ class FilesSettings;
 
 class DIALOGPAGES_EXPORT FilesPage : public QFrame
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-	FilesPage();
-	~FilesPage() override;
-
-public:
-	KUrlRequester* firstURLRequester() const;
-	KUrlRequester* secondURLRequester() const;
-
-	QString encoding() const;
-
-	void setFirstGroupBoxTitle ( const QString& title );
-	void setSecondGroupBoxTitle( const QString& title );
-
-	void setURLsInComboBoxes();
-
-	void setFirstURLRequesterMode( unsigned int mode );
-	void setSecondURLRequesterMode( unsigned int mode );
+    FilesPage();
+    ~FilesPage() override;
 
 public:
-	virtual void setSettings( FilesSettings* settings );
-	virtual void restore();
-	virtual void apply();
-	virtual void setDefaults();
+    KUrlRequester* firstURLRequester() const;
+    KUrlRequester* secondURLRequester() const;
+
+    QString encoding() const;
+
+    void setFirstGroupBoxTitle(const QString& title);
+    void setSecondGroupBoxTitle(const QString& title);
+
+    void setURLsInComboBoxes();
+
+    void setFirstURLRequesterMode(unsigned int mode);
+    void setSecondURLRequesterMode(unsigned int mode);
+
+public:
+    virtual void setSettings(FilesSettings* settings);
+    virtual void restore();
+    virtual void apply();
+    virtual void setDefaults();
 
 private Q_SLOTS:
-	void open();
+    void open();
 
 private:
-	void doOpen(KUrlComboBox* urlComboBox, bool selectFolders);
+    void doOpen(KUrlComboBox* urlComboBox, bool selectFolders);
 
 private:
-	QGroupBox*     m_firstGB;
-	QGroupBox*     m_secondGB;
-	QGroupBox*     m_thirdGB;
-	KUrlComboBox*  m_firstURLComboBox;
-	KUrlComboBox*  m_secondURLComboBox;
-	KUrlRequester* m_firstURLRequester;
-	KUrlRequester* m_secondURLRequester;
-	// Use this bool to lock the connection between both KUrlRequesters.
-	// This prevents annoying behaviour
-	bool           m_URLChanged;
-	KComboBox*     m_encodingComboBox;
+    QGroupBox*     m_firstGB;
+    QGroupBox*     m_secondGB;
+    QGroupBox*     m_thirdGB;
+    KUrlComboBox*  m_firstURLComboBox;
+    KUrlComboBox*  m_secondURLComboBox;
+    KUrlRequester* m_firstURLRequester;
+    KUrlRequester* m_secondURLRequester;
+    // Use this bool to lock the connection between both KUrlRequesters.
+    // This prevents annoying behaviour
+    bool           m_URLChanged;
+    KComboBox*     m_encodingComboBox;
 
-	FilesSettings* m_settings;
+    FilesSettings* m_settings;
 };
 
 #endif

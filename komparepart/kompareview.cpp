@@ -20,9 +20,9 @@
 // kompare
 #include "komparesplitter.h"
 
-KompareView::KompareView(ViewSettings *settings, QWidget *parent) :
-	QFrame( parent )
+KompareView::KompareView(ViewSettings* settings, QWidget* parent) :
+    QFrame(parent)
 {
-	setObjectName(QStringLiteral("scrollFrame"));
-	m_splitter = new KompareSplitter( settings, this );
+    setObjectName(QStringLiteral("scrollFrame"));
+    m_splitter = new KompareSplitter(settings, this);
 }

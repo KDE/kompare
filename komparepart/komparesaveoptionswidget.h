@@ -27,24 +27,24 @@ class QButtonGroup;
 
 class KompareSaveOptionsWidget : public KompareSaveOptionsBase
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-	KompareSaveOptionsWidget( QString source, QString destination, DiffSettings* settings, QWidget* parent );
-	~KompareSaveOptionsWidget() override;
+    KompareSaveOptionsWidget(QString source, QString destination, DiffSettings* settings, QWidget* parent);
+    ~KompareSaveOptionsWidget() override;
 
-	void      saveOptions();
-	QString   directory() const;
+    void      saveOptions();
+    QString   directory() const;
 
 protected Q_SLOTS:
-	void      updateCommandLine();
+    void      updateCommandLine();
 
 private:
-	void      loadOptions();
+    void      loadOptions();
 
-	DiffSettings*   m_settings;
-	QString         m_source;
-	QString         m_destination;
-	QButtonGroup*   m_FormatBG;
+    DiffSettings*   m_settings;
+    QString         m_source;
+    QString         m_destination;
+    QButtonGroup*   m_FormatBG;
 };
 
 #endif

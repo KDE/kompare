@@ -26,14 +26,14 @@ class KompareSplitter;
 
 class KompareView : public QFrame
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	KompareView(ViewSettings *settings, QWidget *parent);
-	~KompareView() override {}
-	KompareSplitter *splitter() { return m_splitter; }
+    KompareView(ViewSettings* settings, QWidget* parent);
+    ~KompareView() override {}
+    KompareSplitter* splitter() { return m_splitter; }
 
 private:
-	KompareSplitter *m_splitter;
+    KompareSplitter* m_splitter;
 };
 #endif //_KOMPARESPLITTER_H_

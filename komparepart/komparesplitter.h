@@ -39,83 +39,83 @@ class KompareConnectWidget;
 
 class KompareSplitter : public QSplitter
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	KompareSplitter(ViewSettings *settings, QWidget *parent);
-	~KompareSplitter() override;
+    KompareSplitter(ViewSettings* settings, QWidget* parent);
+    ~KompareSplitter() override;
 
 Q_SIGNALS:
-	void configChanged();
+    void configChanged();
 
-	void scrollViewsToId( int id );
-	void setXOffset( int x );
+    void scrollViewsToId(int id);
+    void setXOffset(int x);
 
-	void selectionChanged( const Diff2::Difference* diff );
+    void selectionChanged(const Diff2::Difference* diff);
 
 public Q_SLOTS:
-	void slotScrollToId( int id );
-	void slotDelayedUpdateScrollBars();
-	void slotUpdateScrollBars();
-	void slotDelayedUpdateVScrollValue();
-	void slotUpdateVScrollValue();
-	void keyPressEvent( QKeyEvent* e ) override;
+    void slotScrollToId(int id);
+    void slotDelayedUpdateScrollBars();
+    void slotUpdateScrollBars();
+    void slotDelayedUpdateVScrollValue();
+    void slotUpdateVScrollValue();
+    void keyPressEvent(QKeyEvent* e) override;
 
-	void slotApplyDifference( bool apply );
-	void slotApplyAllDifferences( bool apply );
-	void slotApplyDifference( const Diff2::Difference* diff, bool apply );
+    void slotApplyDifference(bool apply);
+    void slotApplyAllDifferences(bool apply);
+    void slotApplyDifference(const Diff2::Difference* diff, bool apply);
 
-	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
-	void slotSetSelection( const Diff2::Difference* diff );
+    void slotSetSelection(const Diff2::DiffModel* model, const Diff2::Difference* diff);
+    void slotSetSelection(const Diff2::Difference* diff);
 
-	void slotDifferenceClicked( const Diff2::Difference* diff );
+    void slotDifferenceClicked(const Diff2::Difference* diff);
 
-	void slotConfigChanged();
+    void slotConfigChanged();
 
 protected:
-	void wheelEvent( QWheelEvent* e ) override;
+    void wheelEvent(QWheelEvent* e) override;
 
-	ViewSettings* settings() const { return m_settings; }
+    ViewSettings* settings() const { return m_settings; }
 
 protected Q_SLOTS:
-	void slotDelayedRepaintHandles();
-	void slotRepaintHandles();
-	void timerTimeout();
+    void slotDelayedRepaintHandles();
+    void slotRepaintHandles();
+    void timerTimeout();
 
 private:
-	// override from QSplitter
-	QSplitterHandle* createHandle() override;
+    // override from QSplitter
+    QSplitterHandle* createHandle() override;
 
-	void               setCursor( int id, const QCursor& cursor );
-	void               unsetCursor( int id );
+    void               setCursor(int id, const QCursor& cursor);
+    void               unsetCursor(int id);
 
 protected:
-	KompareListView* listView( int index );
-	KompareConnectWidget* connectWidget( int index );
+    KompareListView* listView(int index);
+    KompareConnectWidget* connectWidget(int index);
 
 private:
 
-	// Scrollbars. all this just for the goddamn scrollbars. i hate them.
-	int  scrollId();
-	int  lineHeight();
-	int  pageSize();
-	bool needVScrollBar();
-	int  minVScrollId();
-	int  maxVScrollId();
-	bool needHScrollBar();
-	int  minHScrollId();
-	int  maxHScrollId();
-	int  maxContentsX();
-	int  minVisibleWidth();
+    // Scrollbars. all this just for the goddamn scrollbars. i hate them.
+    int  scrollId();
+    int  lineHeight();
+    int  pageSize();
+    bool needVScrollBar();
+    int  minVScrollId();
+    int  maxVScrollId();
+    bool needHScrollBar();
+    int  minHScrollId();
+    int  maxHScrollId();
+    int  maxContentsX();
+    int  minVisibleWidth();
 
-	QTimer*            m_scrollTimer;
-	bool               m_restartTimer;
-	int                m_scrollTo;
+    QTimer*            m_scrollTimer;
+    bool               m_restartTimer;
+    int                m_scrollTo;
 
-	ViewSettings*      m_settings;
-	QScrollBar*        m_vScroll;
-	QScrollBar*        m_hScroll;
+    ViewSettings*      m_settings;
+    QScrollBar*        m_vScroll;
+    QScrollBar*        m_hScroll;
 
-	friend class KompareConnectWidgetFrame;
+    friend class KompareConnectWidgetFrame;
 };
 #endif //_KOMPARESPLITTER_H_

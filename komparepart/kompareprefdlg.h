@@ -28,29 +28,29 @@ class ViewSettings;
 
 class KomparePrefDlg : public KPageDialog
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-	KomparePrefDlg( ViewSettings*, DiffSettings* );
-	~KomparePrefDlg() override;
+    KomparePrefDlg(ViewSettings*, DiffSettings*);
+    ~KomparePrefDlg() override;
 
 protected Q_SLOTS:
-	/** No descriptions */
-	virtual void slotOk();
-	/** No descriptions */
-	virtual void slotApply();
-	/** No descriptions */
-	virtual void slotHelp();
-	/** No descriptions */
-	virtual void slotDefault();
-	/** No descriptions */
-	virtual void slotCancel();
+    /** No descriptions */
+    virtual void slotOk();
+    /** No descriptions */
+    virtual void slotApply();
+    /** No descriptions */
+    virtual void slotHelp();
+    /** No descriptions */
+    virtual void slotDefault();
+    /** No descriptions */
+    virtual void slotCancel();
 
 Q_SIGNALS:
-	void configChanged();
+    void configChanged();
 
 private:
-	ViewPage* m_viewPage;
-	DiffPage* m_diffPage;
+    ViewPage* m_viewPage;
+    DiffPage* m_diffPage;
 };
 
 #endif

@@ -37,57 +37,57 @@ class KompareSplitter;
 
 class KompareConnectWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	KompareConnectWidget(ViewSettings* settings, QWidget* parent, const char* name = nullptr);
-	~KompareConnectWidget() override;
+    KompareConnectWidget(ViewSettings* settings, QWidget* parent, const char* name = nullptr);
+    ~KompareConnectWidget() override;
 
 public Q_SLOTS:
-	void slotSetSelection( const Diff2::DiffModel* model, const Diff2::Difference* diff );
-	void slotSetSelection( const Diff2::Difference* diff );
+    void slotSetSelection(const Diff2::DiffModel* model, const Diff2::Difference* diff);
+    void slotSetSelection(const Diff2::Difference* diff);
 
-	void slotDelayedRepaint();
+    void slotDelayedRepaint();
 
 Q_SIGNALS:
-	void selectionChanged(const Diff2::Difference* diff);
+    void selectionChanged(const Diff2::Difference* diff);
 
 protected:
-	void paintEvent( QPaintEvent* e ) override;
-	QPainterPath makeBezier( int l, int r ) const;
+    void paintEvent(QPaintEvent* e) override;
+    QPainterPath makeBezier(int l, int r) const;
 
 private:
-	ViewSettings*             m_settings;
+    ViewSettings*             m_settings;
 
-	const Diff2::DiffModel*   m_selectedModel;
-	const Diff2::Difference*  m_selectedDifference;
+    const Diff2::DiffModel*   m_selectedModel;
+    const Diff2::Difference*  m_selectedDifference;
 };
 
 class KompareConnectWidgetFrame : public QSplitterHandle
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	KompareConnectWidgetFrame(ViewSettings* settings, KompareSplitter* parent, const char* name = nullptr);
-	~KompareConnectWidgetFrame() override;
+    KompareConnectWidgetFrame(ViewSettings* settings, KompareSplitter* parent, const char* name = nullptr);
+    ~KompareConnectWidgetFrame() override;
 
-	QSize sizeHint() const override;
+    QSize sizeHint() const override;
 
-	KompareConnectWidget*     wid() { return &m_wid; }
+    KompareConnectWidget*     wid() { return &m_wid; }
 
 protected:
-	// stop the parent QSplitterHandle painting
-	void paintEvent( QPaintEvent* /* e */ ) override { }
+    // stop the parent QSplitterHandle painting
+    void paintEvent(QPaintEvent* /* e */) override { }
 
 #if 0
-	void mouseMoveEvent( QMouseEvent * );
-	void mousePressEvent( QMouseEvent * );
-	void mouseReleaseEvent( QMouseEvent * );
+    void mouseMoveEvent(QMouseEvent*);
+    void mousePressEvent(QMouseEvent*);
+    void mouseReleaseEvent(QMouseEvent*);
 #endif
 
 private:
-	KompareConnectWidget      m_wid;
-	QLabel                    m_label;
-	QVBoxLayout               m_layout;
+    KompareConnectWidget      m_wid;
+    QLabel                    m_label;
+    QVBoxLayout               m_layout;
 };
 
 #endif

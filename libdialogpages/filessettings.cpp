@@ -20,8 +20,8 @@
 #include <KConfig>
 #include <KConfigGroup>
 
-FilesSettings::FilesSettings( QWidget* parent )
-	: SettingsBase( parent )
+FilesSettings::FilesSettings(QWidget* parent)
+    : SettingsBase(parent)
 {
 }
 
@@ -29,29 +29,29 @@ FilesSettings::~FilesSettings()
 {
 }
 
-void FilesSettings::loadSettings( KConfig* config )
+void FilesSettings::loadSettings(KConfig* config)
 {
-	KConfigGroup group( config, m_configGroupName );
+    KConfigGroup group(config, m_configGroupName);
 
-	m_recentSources            = group.readEntry( "Recent Sources", QStringList() );
-	m_lastChosenSourceURL      = group.readEntry("LastChosenSourceListEntry", QString());
-	m_recentDestinations       = group.readEntry( "Recent Destinations", QStringList() );
-	m_lastChosenDestinationURL = group.readEntry("LastChosenDestinationListEntry", QString());
-	m_encoding                 = group.readEntry    ( "Encoding", "default" );
+    m_recentSources            = group.readEntry("Recent Sources", QStringList());
+    m_lastChosenSourceURL      = group.readEntry("LastChosenSourceListEntry", QString());
+    m_recentDestinations       = group.readEntry("Recent Destinations", QStringList());
+    m_lastChosenDestinationURL = group.readEntry("LastChosenDestinationListEntry", QString());
+    m_encoding                 = group.readEntry("Encoding", "default");
 }
 
-void FilesSettings::saveSettings( KConfig* config )
+void FilesSettings::saveSettings(KConfig* config)
 {
-	KConfigGroup group( config, m_configGroupName );
-	group.writeEntry( "Recent Sources", m_recentSources );
-	group.writeEntry( "Recent Destinations", m_recentDestinations );
-	group.writeEntry( "LastChosenSourceListEntry", m_lastChosenSourceURL );
-	group.writeEntry( "LastChosenDestinationListEntry", m_lastChosenDestinationURL );
-	group.writeEntry( "Encoding", m_encoding );
-	config->sync();
+    KConfigGroup group(config, m_configGroupName);
+    group.writeEntry("Recent Sources", m_recentSources);
+    group.writeEntry("Recent Destinations", m_recentDestinations);
+    group.writeEntry("LastChosenSourceListEntry", m_lastChosenSourceURL);
+    group.writeEntry("LastChosenDestinationListEntry", m_lastChosenDestinationURL);
+    group.writeEntry("Encoding", m_encoding);
+    config->sync();
 }
 
-void FilesSettings::setGroup( const QString& groupName )
+void FilesSettings::setGroup(const QString& groupName)
 {
-	m_configGroupName = groupName;
+    m_configGroupName = groupName;
 }

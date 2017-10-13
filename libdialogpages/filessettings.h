@@ -1,8 +1,8 @@
 /***************************************************************************
-				filessettings.h
-				---------------
-	begin			: Sun Apr 18 2004
-	Copyright 2004 Otto Bruggeman <otto.bruggeman@home.nl>
+                                filessettings.cpp
+                                -----------------
+        begin                   : Sun Apr 18 2004
+        Copyright 2004 Otto Bruggeman <otto.bruggeman@home.nl>
 ****************************************************************************/
 
 /***************************************************************************
@@ -28,26 +28,26 @@ class KConfig;
 
 class DIALOGPAGES_EXPORT FilesSettings : public SettingsBase
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-	explicit FilesSettings(QWidget* parent);
-	~FilesSettings() override;
-
-public:
-	// some virtual functions that will be overloaded from the base class
-	void loadSettings( KConfig* config ) override;
-	void saveSettings( KConfig* config ) override;
-
-	void setGroup( const QString& groupName );
+    explicit FilesSettings(QWidget* parent);
+    ~FilesSettings() override;
 
 public:
-	QString     m_configGroupName;
+    // some virtual functions that will be overloaded from the base class
+    void loadSettings(KConfig* config) override;
+    void saveSettings(KConfig* config) override;
 
-	QStringList m_recentSources;
-	QString     m_lastChosenSourceURL;
-	QStringList m_recentDestinations;
-	QString     m_lastChosenDestinationURL;
-	QString     m_encoding;
+    void setGroup(const QString& groupName);
+
+public:
+    QString     m_configGroupName;
+
+    QStringList m_recentSources;
+    QString     m_lastChosenSourceURL;
+    QStringList m_recentDestinations;
+    QString     m_lastChosenDestinationURL;
+    QString     m_encoding;
 };
 
 #endif // FILESSETTINGS_H

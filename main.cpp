@@ -80,8 +80,6 @@ int main(int argc, char* argv[])
     app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kompare"), app.windowIcon()));
 
     QCommandLineParser parser;
-    parser.addVersionOption();
-    parser.addHelpOption();
     aboutData.setupCommandLine(&parser);
     parser.addOption(QCommandLineOption(QStringLiteral("c"), i18n("This will compare URL1 with URL2")));
     parser.addOption(QCommandLineOption(QStringLiteral("o"), i18n("This will open URL1 and expect it to be diff output. URL1 can also be a '-' and then it will read from standard input. Can be used for instance for cvs diff | kompare -o -. Kompare will do a check to see if it can find the original file(s) and then blend the original file(s) into the diffoutput and show that in the viewer. -n disables the check.")));

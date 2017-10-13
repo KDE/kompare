@@ -195,7 +195,7 @@ QRect KompareListView::totalVisualItemRect(QTreeWidgetItem* item)
 {
     QRect total = visualItemRect(item);
     int n = item->childCount();
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         QTreeWidgetItem* child = item->child(i);
         if (!child->isHidden())
             total = total.united(totalVisualItemRect(child));
@@ -277,7 +277,7 @@ void KompareListView::scrollToId(int id)
     KompareListViewItem* item = nullptr;
     if (n) {
         int i = 1;
-        for (; i < n; i++) {
+        for (; i < n; ++i) {
             if (((KompareListViewItem*)topLevelItem(i))->scrollId() > id)
                 break;
         }
@@ -694,7 +694,7 @@ KompareListViewLineContainerItem::KompareListViewLineContainerItem(KompareListVi
         return;
     }
 
-    for (int i = 0; i < lines; i++, line++) {
+    for (int i = 0; i < lines; ++i, ++line) {
         new KompareListViewLineItem(this, line, lineAt(i));
     }
 }

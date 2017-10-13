@@ -96,7 +96,7 @@ int main(int argc, char* argv[])
         ks->setObjectName(QStringLiteral("FirstKompareShell"));
 
         qCDebug(KOMPARESHELL) << "Arg Count = " << args.count() ;
-        for (int i = 0; i < args.count(); i++)
+        for (int i = 0; i < args.count(); ++i)
         {
             qCDebug(KOMPARESHELL) << "Argument " << (i + 1) << ": " << args.at(i) ;
         }

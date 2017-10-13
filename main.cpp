@@ -40,17 +40,6 @@
 #include "kompare_shell.h"
 #include "kompareurldialog.h"
 
-/**
- * Program description.
- */
-static const char description[] =
-	I18N_NOOP("A program to view the differences between files and optionally generate a diff" );
-
-/**
- * Version number.
- */
-static const char version[] = "4.1.3";
-
 QUrl urlFromArg(const QString& arg)
 {
 #if QT_VERSION >= 0x050400
@@ -75,7 +64,8 @@ int main(int argc, char *argv[])
 	QApplication app(argc, argv);
         KLocalizedString::setApplicationDomain("kompare");
 
-	KAboutData aboutData(QStringLiteral("kompare"),  i18n("Kompare"), QLatin1String(version), i18n(description),
+	KAboutData aboutData(QStringLiteral("kompare"),  i18n("Kompare"), QStringLiteral("4.1.3"),
+	                      i18n("A program to view the differences between files and optionally generate a diff"),
 	                      KAboutLicense::GPL,
 	                      i18n("(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler") );
 	aboutData.addAuthor(i18n("John Firebaugh"), i18n("Author"), QStringLiteral("jfirebaugh@kde.org"));

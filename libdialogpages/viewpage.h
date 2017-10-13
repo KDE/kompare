@@ -40,7 +40,7 @@ public:
 
 public:
     void setSettings(ViewSettings*);
-    ViewSettings* settings(void);
+    ViewSettings* settings();
 
 public:
     ViewSettings* m_settings;

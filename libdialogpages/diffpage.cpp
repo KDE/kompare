@@ -109,7 +109,7 @@ void DiffPage::setSettings(DiffSettings* setts)
     m_excludeFileURLComboBox->setUrl(urlFromArg(m_settings->m_excludeFilesFileURL));
 }
 
-DiffSettings* DiffPage::settings(void)
+DiffSettings* DiffPage::settings()
 {
     return m_settings;
 }

@@ -100,7 +100,7 @@ protected:
 private:
     QRect totalVisualItemRect(QTreeWidgetItem* item);
     KompareListViewDiffItem* diffItemAt(const QPoint& pos);
-    void renumberLines(void);
+    void renumberLines();
 
     QList<KompareListViewDiffItem*> m_items;
     QHash<const Diff2::Difference*, KompareListViewDiffItem*> m_itemDict;

@@ -47,7 +47,7 @@ public:
 
 public:
     void setSettings(DiffSettings*);
-    DiffSettings* settings(void);
+    DiffSettings* settings();
 
 public:
     virtual void restore();

@@ -137,7 +137,7 @@ void ViewPage::setSettings(ViewSettings* setts)
     m_fontSizeSpinBox->setValue(m_settings->m_font.pointSize());
 }
 
-ViewSettings* ViewPage::settings(void)
+ViewSettings* ViewPage::settings()
 {
     return m_settings;
 }

@@ -847,7 +847,7 @@ void KomparePart::slotRefreshDiff()
     m_modelList->refresh();
 }
 
-void KomparePart::slotShowDiffstats(void)
+void KomparePart::slotShowDiffstats()
 {
     // Fetch all the args needed for komparestatsmessagebox
     // oldfile, newfile, diffformat, noofhunks, noofdiffs

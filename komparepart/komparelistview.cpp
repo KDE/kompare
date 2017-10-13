@@ -451,7 +451,7 @@ void KompareListView::mouseDoubleClickEvent(QMouseEvent* e)
     }
 }
 
-void KompareListView::renumberLines(void)
+void KompareListView::renumberLines()
 {
 //     qCDebug(KOMPAREPART) << "Begin" ;
     unsigned int newLineNo = 1;

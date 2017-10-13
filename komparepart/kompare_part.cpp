@@ -783,7 +783,7 @@ void KomparePart::compareAndUpdateAll()
     updateActions();
 }
 
-void KomparePart::slotShowError(QString error)
+void KomparePart::slotShowError(const QString& error)
 {
     KMessageBox::error(widget(), error);
 }

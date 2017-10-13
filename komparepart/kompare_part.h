@@ -190,7 +190,7 @@ protected:
 
 protected Q_SLOTS:
     void slotSetStatus(Kompare::Status status);
-    void slotShowError(QString error);
+    void slotShowError(const QString& error);
 
     void slotSwap();
     void slotShowDiffstats();

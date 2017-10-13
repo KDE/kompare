@@ -617,7 +617,7 @@ KFileLVI::~KFileLVI()
 {
 }
 
-KDirLVI::KDirLVI(QTreeWidget* parent, QString& dir) : QTreeWidgetItem(parent)
+KDirLVI::KDirLVI(QTreeWidget* parent, const QString& dir) : QTreeWidgetItem(parent)
 {
 //     qCDebug(KOMPARENAVVIEW) << "KDirLVI (QTreeWidget) constructor called with dir = " << dir ;
     m_rootItem = true;
@@ -630,7 +630,7 @@ KDirLVI::KDirLVI(QTreeWidget* parent, QString& dir) : QTreeWidgetItem(parent)
         setText(0, m_dirName);
 }
 
-KDirLVI::KDirLVI(KDirLVI* parent, QString& dir) : QTreeWidgetItem(parent)
+KDirLVI::KDirLVI(KDirLVI* parent, const QString& dir) : QTreeWidgetItem(parent)
 {
 //     qCDebug(KOMPARENAVVIEW) << "KDirLVI (KDirLVI) constructor called with dir = " << dir ;
     m_rootItem = false;
@@ -673,7 +673,7 @@ void KDirLVI::addModel(QString& path, DiffModel* model, QHash<const Diff2::DiffM
     child->addModel(path, model, modelToDirItemDict);
 }
 
-KDirLVI* KDirLVI::findChild(QString dir)
+KDirLVI* KDirLVI::findChild(const QString& dir)
 {
 //     qCDebug(KOMPARENAVVIEW) << "KDirLVI::findChild called with dir = " << dir ;
     KDirLVI* child;
@@ -728,8 +728,9 @@ QString KDirLVI::fullPath(QString& path)
     return path;
 }
 
-KDirLVI* KDirLVI::setSelected(QString dir)
+KDirLVI* KDirLVI::setSelected(const QString& _dir)
 {
+    QString dir(_dir);
 //     qCDebug(KOMPARENAVVIEW) << "KDirLVI::setSelected called with dir = " << dir ;
 
     // root item's dirName is never taken into account... remember that

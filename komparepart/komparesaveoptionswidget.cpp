@@ -28,8 +28,8 @@
 
 #include <libkomparediff2/diffsettings.h>
 
-KompareSaveOptionsWidget::KompareSaveOptionsWidget(QString source, QString destination,
-        DiffSettings* settings, QWidget* parent)
+KompareSaveOptionsWidget::KompareSaveOptionsWidget(const QString& source, const QString& destination,
+                                                   DiffSettings* settings, QWidget* parent)
     : KompareSaveOptionsBase(parent)
     , m_source(source)
     , m_destination(destination)

@@ -29,7 +29,8 @@ class KompareSaveOptionsWidget : public KompareSaveOptionsBase
 {
     Q_OBJECT
 public:
-    KompareSaveOptionsWidget(QString source, QString destination, DiffSettings* settings, QWidget* parent);
+    KompareSaveOptionsWidget(const QString& source, const QString& destination,
+                             DiffSettings* settings, QWidget* parent);
     ~KompareSaveOptionsWidget() override;
 
     void      saveOptions();

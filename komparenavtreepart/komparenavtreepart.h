@@ -144,22 +144,22 @@ private:
 class KDirLVI : public QTreeWidgetItem
 {
 public:
-    KDirLVI(KDirLVI* parent, QString& dir);
-    KDirLVI(QTreeWidget* parent, QString& dir);
+    KDirLVI(KDirLVI* parent, const QString& dir);
+    KDirLVI(QTreeWidget* parent, const QString& dir);
     ~KDirLVI() override;
 public:
     void addModel(QString& dir, Diff2::DiffModel* model, QHash<const Diff2::DiffModel*, KDirLVI*>* modelToDirItemDict);
     QString& dirName() { return m_dirName; };
     QString fullPath(QString& path);
 
-    KDirLVI* setSelected(QString dir);
+    KDirLVI* setSelected(const QString& dir);
     void setSelected(bool selected) { QTreeWidgetItem::setSelected(selected); }
 
     void fillFileList(QTreeWidget* fileList, QHash<const Diff2::DiffModel*, KFileLVI*>* modelToFileItemDict);
     bool isRootItem() { return m_rootItem; };
 
 private:
-    KDirLVI* findChild(QString dir);
+    KDirLVI* findChild(const QString& dir);
 private:
     Diff2::DiffModelList m_modelList;
     QString m_dirName;

@@ -285,12 +285,6 @@ bool KomparePart::openDiff3(const QString& diff3Output)
     return false;
 }
 
-bool KomparePart::exists(const QString& url)
-{
-    QFileInfo fi(url);
-    return fi.exists();
-}
-
 bool KomparePart::fetchURL(const QUrl& url, bool addToSource)
 {
     // Default value if there is an error is "", we rely on it!
@@ -365,10 +359,9 @@ bool KomparePart::fetchURL(const QUrl& url, bool addToSource)
     else
     {
         // is Local already, check if exists
-        if (exists(url.toLocalFile()))
+        if (QFile::exists(url.toLocalFile())) {
             tempFileName = url.toLocalFile();
-        else
-        {
+        } else {
             slotShowError(i18n("<qt>The URL <b>%1</b> does not exist on your system.</qt>", url.toDisplayString()));
             result = false;
         }
@@ -581,8 +574,7 @@ void KomparePart::saveDiff()
             QUrl url = QFileDialog::getSaveFileUrl(widget(), i18n("Save .diff"),
                                                    m_info.destination,
                                                    i18n("Patch Files (*.diff *.dif *.patch)"));
-            if (QFile::exists(url.toLocalFile()))
-            {
+            if (url.isLocalFile() && QFile::exists(url.toLocalFile())) {
                 int result = KMessageBox::warningYesNoCancel(widget(), i18n("The file exists or is write-protected; do you want to overwrite it?"), i18n("File Exists"), KStandardGuiItem::overwrite(), KGuiItem(i18n("Do Not Overwrite")));
                 if (result == KMessageBox::Cancel)
                 {

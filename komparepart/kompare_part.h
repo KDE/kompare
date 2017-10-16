@@ -207,7 +207,6 @@ protected Q_SLOTS:
 private:
     void cleanUpTemporaryFiles();
     void setupActions(Modus modus);
-    bool exists(const QString& url);
     bool isDirectory(const QUrl& url);
     // FIXME (like in cpp file not urgent) Replace with enum, cant find a proper
     // name now but it is private anyway so can not be used from outside

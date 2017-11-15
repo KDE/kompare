@@ -18,6 +18,7 @@
   <name xml:lang="nl">Kompare</name>
   <name xml:lang="pl">Kompare</name>
   <name xml:lang="pt">Kompare</name>
+  <name xml:lang="ru">Kompare</name>
   <name xml:lang="sk">Kompare</name>
   <name xml:lang="sl">Kompare</name>
   <name xml:lang="sr">К‑поређење</name>
@@ -43,6 +44,7 @@
   <summary xml:lang="nl">Diff/Patch-hulpprogramma</summary>
   <summary xml:lang="pl">Interfejs dla diff i patch</summary>
   <summary xml:lang="pt">Interface para o Diff/Patch</summary>
+  <summary xml:lang="ru">Утилита сравнения файлов</summary>
   <summary xml:lang="sk">Rozhranie Diff/Patch</summary>
   <summary xml:lang="sl">Začelje za diff/patch</summary>
   <summary xml:lang="sr">Прочеље за diff и patch</summary>
@@ -94,6 +96,7 @@
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
+    <p xml:lang="ru">Возможности:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sl">Zmožnosti:</p>
     <p xml:lang="sr">Могућности:</p>

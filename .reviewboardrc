@@ -1,3 +1,0 @@
-REVIEWBOARD_URL = "https://git.reviewboard.kde.org"
-REPOSITORY = "kompare"
-BRANCH = "master"

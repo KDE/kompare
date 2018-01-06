@@ -62,6 +62,7 @@ add_subdirectory( libdialogpages )
 add_subdirectory( komparenavtreepart )
 add_subdirectory( komparepart )
 add_subdirectory( pics )
+add_subdirectory( servicemenus )
 
 set(kompare_SRCS
     main.cpp

@@ -8,7 +8,10 @@ X-KDE-RequiredNumberOfUrls=2
 [Desktop Action kompare]
 Name=Compare Files
 Name[ca]=Compara fitxers
+Name[nl]=Bestanden vergelijken
 Name[pt]=Comparar os Ficheiros
+Name[sl]=Primerjaj datoteki
+Name[sv]=Jämför filer
 Name[uk]=Порівняти файли
 Name[x-test]=xxCompare Filesxx
 Icon=kompare

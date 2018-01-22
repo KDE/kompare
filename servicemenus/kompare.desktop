@@ -8,6 +8,8 @@ X-KDE-RequiredNumberOfUrls=2
 [Desktop Action kompare]
 Name=Compare Files
 Name[ca]=Compara fitxers
+Name[ca@valencia]=Compara fitxers
+Name[gl]=Comparar os ficheiros
 Name[nl]=Bestanden vergelijken
 Name[pt]=Comparar os Ficheiros
 Name[sl]=Primerjaj datoteki

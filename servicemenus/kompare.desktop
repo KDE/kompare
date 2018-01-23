@@ -16,5 +16,6 @@ Name[sl]=Primerjaj datoteki
 Name[sv]=Jämför filer
 Name[uk]=Порівняти файли
 Name[x-test]=xxCompare Filesxx
+Name[zh_CN]=比较文件
 Icon=kompare
 Exec=kompare -c %U >/dev/null

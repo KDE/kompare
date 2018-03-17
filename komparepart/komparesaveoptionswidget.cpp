@@ -18,6 +18,7 @@
 
 #include "komparesaveoptionswidget.h"
 
+#include <QButtonGroup>
 #include <QCheckBox>
 #include <QLabel>
 #include <QRadioButton>

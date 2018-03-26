@@ -30,6 +30,7 @@
   <name xml:lang="uk">Kompare</name>
   <name xml:lang="x-test">xxKomparexx</name>
   <name xml:lang="zh-CN">Kompare</name>
+  <name xml:lang="zh-TW">Kompare</name>
   <summary>Diff/Patch Frontend</summary>
   <summary xml:lang="ca">Frontal del Diff/Patch</summary>
   <summary xml:lang="ca-valencia">Frontal del Diff/Patch</summary>
@@ -56,6 +57,7 @@
   <summary xml:lang="uk">Оболонка до Diff/Patch</summary>
   <summary xml:lang="x-test">xxDiff/Patch Frontendxx</summary>
   <summary xml:lang="zh-CN">Diff/Patch 前端</summary>
+  <summary xml:lang="zh-TW">差異 / 補丁後端</summary>
   <description>
     <p>
       Kompare is a GUI front-end program that enables differences between source files to be viewed and merged. It can be used to compare differences on files or the contents of folders, and it supports a variety of diff formats and provide many options to customize the information level displayed.
@@ -82,6 +84,7 @@
     <p xml:lang="tr">Kompare, kaynak dosyalar arasında görülecek ve birleştirilecek farklılıkları gösteren bir GUI ön uç programıdır. Dosyalar üzerindeki farklılıkları veya klasörlerin içeriğini karşılaştırmak için kullanılabilir, çeşitli fark biçimlerini destekler ve görüntülenen bilgi düzeyini özelleştirmek için pek çok seçenek sunar.</p>
     <p xml:lang="uk">Kompare є програмою — графічним інтерфейсом користувача, за допомогою якої ви можете переглядати різницю між текстами файлів та об’єднувати тексти файлів. Kompare можна використовувати для порівняння вмісту як файлів, так і тек. У Kompare передбачено підтримку багатьох різних форматів різниці між файлами, у цій програми передбачено багато параметрів, за допомогою яких ви зможете налаштувати рівень показу інформації.</p>
     <p xml:lang="x-test">xxKompare is a GUI front-end program that enables differences between source files to be viewed and merged. It can be used to compare differences on files or the contents of folders, and it supports a variety of diff formats and provide many options to customize the information level displayed.xx</p>
+    <p xml:lang="zh-TW">Kompare 是一個 GUI 後端程序，允許檢視與合併與原始檔案的差異性。它可以用來比較檔案或資料夾的檔案的差異，且它支援多個差異格式並提供許多選項來自訂資訊顯示的等級。</p>
     <p>Features:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
@@ -108,6 +111,7 @@
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="x-test">xxFeatures:xx</p>
     <p xml:lang="zh-CN">功能：</p>
+    <p xml:lang="zh-TW">功能：</p>
     <ul>
       <li>Comparing differences on files or the contents of folders recursively.</li>
       <li xml:lang="ca">Compara diferències en fitxers o en el contingut de carpetes recursivament.</li>
@@ -132,6 +136,7 @@
       <li xml:lang="tr">Dosyaların ya da dizinlerin özyinelemeli içeriğinin farklarının karşılaştırılması.</li>
       <li xml:lang="uk">Порівняння окремих файлів або вмісту цілих тек рекурсивно.</li>
       <li xml:lang="x-test">xxComparing differences on files or the contents of folders recursively.xx</li>
+      <li xml:lang="zh-TW">遞迴比較檔案或資料夾內檔案的差異</li>
       <li>Supports a variety of diff formats and provides many options to customize the information level displayed.</li>
       <li xml:lang="ca">Permet diversos formats de «diff» i proporciona moltes opcions per personalitzar el nivell d'informació mostrada.</li>
       <li xml:lang="ca-valencia">Permet diversos formats de «diff» i proporciona moltes opcions per personalitzar el nivell d'informació mostrada.</li>
@@ -155,6 +160,7 @@
       <li xml:lang="tr">Bilgi görüntüleme seviyesini özelleştirebilmek için çeşitli diff biçimlerini destekler ve bir çok seçenek sağlar.</li>
       <li xml:lang="uk">У Kompare передбачено підтримку багатьох різних форматів різниці між файлами, у цій програми передбачено багато параметрів, за допомогою яких ви зможете налаштувати рівень показу інформації.</li>
       <li xml:lang="x-test">xxSupports a variety of diff formats and provides many options to customize the information level displayed.xx</li>
+      <li xml:lang="zh-TW">支援各種的差異格式、並提供許多的選項以自訂訊息等級顯示。</li>
       <li>Creating and applying patches.</li>
       <li xml:lang="ca">Creació i aplicació de pedaços.</li>
       <li xml:lang="ca-valencia">Creació i aplicació de pedaços.</li>
@@ -178,6 +184,7 @@
       <li xml:lang="tr">Yamaları oluşturma ve uygulama.</li>
       <li xml:lang="uk">Створення і накладання латок.</li>
       <li xml:lang="x-test">xxCreating and applying patches.xx</li>
+      <li xml:lang="zh-TW">建立、套用補丁</li>
     </ul>
   </description>
   <screenshots>

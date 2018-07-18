@@ -18,6 +18,7 @@
   <name xml:lang="nl">Kompare</name>
   <name xml:lang="pl">Kompare</name>
   <name xml:lang="pt">Kompare</name>
+  <name xml:lang="pt-BR">Kompare</name>
   <name xml:lang="ru">Kompare</name>
   <name xml:lang="sk">Kompare</name>
   <name xml:lang="sl">Kompare</name>
@@ -45,6 +46,7 @@
   <summary xml:lang="nl">Diff/Patch-hulpprogramma</summary>
   <summary xml:lang="pl">Interfejs dla diff i patch</summary>
   <summary xml:lang="pt">Interface para o Diff/Patch</summary>
+  <summary xml:lang="pt-BR">Interface do diff/patch</summary>
   <summary xml:lang="ru">Утилита сравнения файлов</summary>
   <summary xml:lang="sk">Rozhranie Diff/Patch</summary>
   <summary xml:lang="sl">Začelje za diff/patch</summary>
@@ -100,6 +102,7 @@
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
+    <p xml:lang="pt-BR">Recursos:</p>
     <p xml:lang="ru">Возможности:</p>
     <p xml:lang="sk">Funkcie:</p>
     <p xml:lang="sl">Zmožnosti:</p>
@@ -177,6 +180,7 @@
       <li xml:lang="nl">Aanmaken en gebruiken van patches.</li>
       <li xml:lang="pl">Tworzenie i stosowanie łat.</li>
       <li xml:lang="pt">Criação e aplicação de modificações ('patches').</li>
+      <li xml:lang="pt-BR">Criando e aplicando correções.</li>
       <li xml:lang="sk">Vytváranie a používanie záplat.</li>
       <li xml:lang="sl">Ustvarjanje in uveljavljanje popravkov.</li>
       <li xml:lang="sr">Стварање и примењивање закрпа.</li>

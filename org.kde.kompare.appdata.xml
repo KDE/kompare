@@ -16,6 +16,7 @@
   <name xml:lang="it">Kompare</name>
   <name xml:lang="ko">Kompare</name>
   <name xml:lang="nl">Kompare</name>
+  <name xml:lang="nn">Kompare</name>
   <name xml:lang="pl">Kompare</name>
   <name xml:lang="pt">Kompare</name>
   <name xml:lang="pt-BR">Kompare</name>
@@ -44,6 +45,7 @@
   <summary xml:lang="it">Interfaccia a Diff/Patch</summary>
   <summary xml:lang="ko">Diff/Patch 프론트엔드</summary>
   <summary xml:lang="nl">Diff/Patch-hulpprogramma</summary>
+  <summary xml:lang="nn">Diff-/Patch-grensesnitt</summary>
   <summary xml:lang="pl">Interfejs dla diff i patch</summary>
   <summary xml:lang="pt">Interface para o Diff/Patch</summary>
   <summary xml:lang="pt-BR">Interface do diff/patch</summary>
@@ -100,6 +102,7 @@
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
+    <p xml:lang="nn">Funksjonar:</p>
     <p xml:lang="pl">Możliwości:</p>
     <p xml:lang="pt">Funcionalidades:</p>
     <p xml:lang="pt-BR">Recursos:</p>
@@ -128,6 +131,7 @@
       <li xml:lang="it">Confronta ricorsivamente le differenze di file o di contenuti di cartelle.</li>
       <li xml:lang="ko">재귀적으로 파일과 폴더의 차이점을 비교합니다.</li>
       <li xml:lang="nl">Verschillen in bestanden of de inhoud van mappen recursief vergelijken.</li>
+      <li xml:lang="nn">Samanlikning av fil- eller mappeinnhald (rekursivt).</li>
       <li xml:lang="pl">Porównywanie różnic w plikach lub zawartościach katalogów, rekursywnie.</li>
       <li xml:lang="pt">Comparação das diferenças nos ficheiros ou no conteúdo recursivo de pastas.</li>
       <li xml:lang="sk">Porovnávanie rozdielov v súboroch alebo obsah priečinkov rekurzívne.</li>
@@ -178,6 +182,7 @@
       <li xml:lang="it">Creare ed applica le patch.</li>
       <li xml:lang="ko">패치를 만들고 적용합니다.</li>
       <li xml:lang="nl">Aanmaken en gebruiken van patches.</li>
+      <li xml:lang="nn">Kan laga og bruk patch-filer.</li>
       <li xml:lang="pl">Tworzenie i stosowanie łat.</li>
       <li xml:lang="pt">Criação e aplicação de modificações ('patches').</li>
       <li xml:lang="pt-BR">Criando e aplicando correções.</li>

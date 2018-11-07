@@ -203,6 +203,7 @@
   <url type="homepage">http://kde.org/applications/development/kompare/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kompare</url>
   <url type="help">https://docs.kde.org/?application=kompare</url>
+  <url type="donation">https://www.kde.org/community/donations/?app=kompare&amp;source=appdata</url>
   <project_group>KDE</project_group>
   <provides>
     <binary>kompare</binary>

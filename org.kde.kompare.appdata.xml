@@ -204,10 +204,10 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>http://kde.org/images/screenshots/kompare.png</image>
+      <image>https://kde.org/images/screenshots/kompare.png</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">http://kde.org/applications/development/kompare/</url>
+  <url type="homepage">https://kde.org/applications/development/kompare/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kompare</url>
   <url type="help">https://docs.kde.org/?application=kompare</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kompare&amp;source=appdata</url>

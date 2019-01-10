@@ -31,7 +31,7 @@ target_link_libraries(komparepart
     Qt5::PrintSupport
 )
 
-install(TARGETS komparepart  DESTINATION ${KDE_INSTALL_PLUGINDIR})
+install(TARGETS komparepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/parts)
 
 install(FILES komparepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR})
 install(FILES komparepartui.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/komparepart)

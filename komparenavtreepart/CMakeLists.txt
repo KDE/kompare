@@ -17,6 +17,6 @@ target_link_libraries(komparenavtreepart
     KompareDiff2
 )
 
-install(TARGETS komparenavtreepart  DESTINATION ${KDE_INSTALL_PLUGINDIR})
+install(TARGETS komparenavtreepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/parts)
 install(FILES komparenavtreepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR})
 

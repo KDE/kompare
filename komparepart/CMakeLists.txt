@@ -32,6 +32,7 @@ target_link_libraries(komparepart
 )
 
 install(TARGETS komparepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/parts)
+kcoreaddons_desktop_to_json(komparepart komparepart.desktop)
 
 install(FILES komparepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR})
 install(FILES komparepartui.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/komparepart)

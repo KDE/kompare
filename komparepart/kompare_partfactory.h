@@ -24,7 +24,7 @@
 class KomparePartFactory : public KPluginFactory
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.KPluginFactory")
+    Q_PLUGIN_METADATA(IID "org.kde.KPluginFactory" FILE "komparepart.json")
     Q_INTERFACES(KPluginFactory)
 
 public:

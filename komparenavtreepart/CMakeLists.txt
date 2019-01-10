@@ -9,6 +9,7 @@ ecm_qt_declare_logging_category(komparenavtreepart_PART_SRCS
 )
 
 add_library(komparenavtreepart MODULE ${komparenavtreepart_PART_SRCS})
+kcoreaddons_desktop_to_json(komparenavtreepart komparenavtreepart.desktop)
 
 target_link_libraries(komparenavtreepart
     Qt5::Widgets

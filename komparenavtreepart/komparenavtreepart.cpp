@@ -772,8 +772,7 @@ static KAboutData aboutData()
     return about;
 }
 
-K_PLUGIN_FACTORY(KompareNavTreePartFactory,
-                 registerPlugin<KompareNavTreePart>();
-                )
+K_PLUGIN_FACTORY_WITH_JSON(KompareNavTreePartFactory, "komparenavtreepart.json",
+                           registerPlugin<KompareNavTreePart>();)
 
 #include "komparenavtreepart.moc"

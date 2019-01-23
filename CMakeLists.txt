@@ -2,8 +2,10 @@ cmake_minimum_required(VERSION 3.0)
 
 project(kompare)
 
-set(ECM_MIN_VERSION "5.35.0")
-find_package(ECM ${ECM_MIN_VERSION} NO_MODULE REQUIRED)
+set(QT_MIN_VERSION "5.5.0")
+set(KF5_MIN_VERSION "5.35.0")
+
+find_package(ECM ${KF5_MIN_VERSION} NO_MODULE REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
 
 include(FeatureSummary)
@@ -15,14 +17,12 @@ include(GenerateExportHeader)
 include(ECMAddAppIcon)
 include(ECMQtDeclareLoggingCategory)
 
-set(QT_MIN_VERSION "5.5.0")
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Core
     PrintSupport
     Widgets
 )
 
-set(KF5_MIN_VERSION "5.28.0")
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     CoreAddons
     Codecs

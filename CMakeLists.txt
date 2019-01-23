@@ -4,7 +4,7 @@ project(kompare)
 
 set(ECM_MIN_VERSION "5.35.0")
 find_package(ECM ${ECM_MIN_VERSION} NO_MODULE REQUIRED)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
 
 include(FeatureSummary)
 include(KDEInstallDirs)

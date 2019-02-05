@@ -130,6 +130,7 @@ MimeType=text/x-patch;
 Exec=kompare -o %U
 Icon=kompare
 X-DocPath=kompare/index.html
+StartupWMClass=kompare
 Terminal=false
 Categories=Qt;KDE;Development;
 InitialPreference=10

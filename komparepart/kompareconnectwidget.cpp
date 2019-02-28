@@ -54,7 +54,7 @@ KompareConnectWidgetFrame::KompareConnectWidgetFrame(ViewSettings* settings,
     bottomLine->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed));
     bottomLine->setFixedHeight(1);
     m_layout.setSpacing(0);
-    m_layout.setMargin(0);
+    m_layout.setContentsMargins(0, 0, 0, 0);
     m_layout.addWidget(&m_label);
     m_layout.addWidget(bottomLine);
     m_layout.addWidget(&m_wid);

@@ -523,8 +523,8 @@ KFileLVI::KFileLVI(QTreeWidget* parent, DiffModel* model) : QTreeWidgetItem(pare
 
 bool KFileLVI::hasExtension(const QString& extensions, const QString& fileName)
 {
-    QStringList extList = extensions.split(QLatin1Char(' '));
-    foreach (const QString& ext, extList) {
+    const QStringList extList = extensions.split(QLatin1Char(' '));
+    for (const QString& ext : extList) {
         if (fileName.endsWith(ext, Qt::CaseInsensitive)) {
             return true;
         }

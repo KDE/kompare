@@ -92,8 +92,8 @@ KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KAboutDat
     // This creates the "Model creator" and connects the signals and slots
     m_modelList = new Diff2::KompareModelList(m_diffSettings, m_splitter, this, "komparemodellist" , (modus == ReadWriteModus));
 
-    Q_FOREACH (QAction* action, m_modelList->actionCollection()->actions())
-    {
+    const auto modelListActions = m_modelList->actionCollection()->actions();
+    for (QAction* action : modelListActions) {
         actionCollection()->addAction(action->objectName(), action);
     }
     connect(m_modelList, &KompareModelList::status,

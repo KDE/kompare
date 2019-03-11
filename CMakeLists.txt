@@ -75,6 +75,10 @@ ecm_qt_declare_logging_category(kompare_SRCS
     CATEGORY_NAME "kompareshell"
 )
 
+qt5_add_resources(kompare_SRCS
+    kompare_shell.qrc
+)
+
 ecm_add_app_icon(kompare_SRCS ICONS
     pics/16-apps-kompare.png
     pics/22-apps-kompare.png
@@ -98,7 +102,6 @@ install(TARGETS kompare  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(PROGRAMS org.kde.kompare.desktop  DESTINATION  ${KDE_INSTALL_APPDIR})
 install(FILES org.kde.kompare.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
-install(FILES kompareui.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/kompare)
 install(FILES komparenavigationpart.desktop kompareviewpart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICETYPES5DIR})
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

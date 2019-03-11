@@ -19,6 +19,10 @@ ecm_qt_declare_logging_category(komparepart_PART_SRCS
 
 ki18n_wrap_ui(komparepart_PART_SRCS komparesaveoptionsbase.ui )
 
+qt5_add_resources(komparepart_PART_SRCS
+    kompare_part.qrc
+)
+
 add_library(komparepart MODULE ${komparepart_PART_SRCS})
 
 target_link_libraries(komparepart
@@ -35,4 +39,3 @@ install(TARGETS komparepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/parts)
 kcoreaddons_desktop_to_json(komparepart komparepart.desktop)
 
 install(FILES komparepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR})
-install(FILES komparepartui.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/komparepart)

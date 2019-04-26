@@ -67,7 +67,7 @@ void DiffPage::setSettings(DiffSettings* setts)
 {
     m_settings = setts;
 
-    m_diffURLRequester->setUrl(QUrl::fromLocalFile(m_settings->m_diffProgram));
+    m_diffURLRequester->setText(m_settings->m_diffProgram);
 
     m_newFilesCheckBox->setChecked(m_settings->m_newFiles);
     m_smallerCheckBox->setChecked(m_settings->m_createSmallerDiff);
@@ -109,7 +109,7 @@ void DiffPage::restore()
 
 void DiffPage::apply()
 {
-    m_settings->m_diffProgram                    = m_diffURLRequester->url().toLocalFile();
+    m_settings->m_diffProgram                    = m_diffURLRequester->text();
 
     m_settings->m_newFiles                       = m_newFilesCheckBox->isChecked();
     m_settings->m_largeFiles                     = m_largerCheckBox->isChecked();
@@ -141,7 +141,7 @@ void DiffPage::apply()
 
 void DiffPage::setDefaults()
 {
-    m_diffURLRequester->setUrl(QUrl::fromLocalFile(QStringLiteral("diff")));
+    m_diffURLRequester->setText(QString());
     m_newFilesCheckBox->setChecked(true);
     m_smallerCheckBox->setChecked(true);
     m_largerCheckBox->setChecked(true);
@@ -203,9 +203,11 @@ void DiffPage::addDiffTab()
     QVBoxLayout* bgLayout = new QVBoxLayout(m_diffProgramGroup);
     m_diffProgramGroup->setTitle(i18n("Diff Program"));
 
+    // using the "text" property over the "url" property, to also allow plain executable names instead of full path
     m_diffURLRequester = new KUrlRequester(m_diffProgramGroup);
     m_diffURLRequester->setObjectName(QStringLiteral("diffURLRequester"));
     m_diffURLRequester->setWhatsThis(i18n("You can select a different diff program here. On Solaris the standard diff program does not support all the options that the GNU version does. This way you can select that version."));
+    m_diffURLRequester->setPlaceholderText(QStringLiteral("diff"));
     bgLayout->addWidget(m_diffURLRequester);
 
     layout->addStretch(1);

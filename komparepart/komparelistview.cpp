@@ -855,7 +855,11 @@ void KompareListViewLineItem::paintText(QPainter* p, const QColor& bg, int colum
 //                     p->setPen( Qt::black );
                     brush = normalBrush;
                 }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+                chunkWidth = p->fontMetrics().horizontalAdvance(textChunk);
+#else
                 chunkWidth = p->fontMetrics().width(textChunk);
+#endif
                 p->fillRect(offset, 0, chunkWidth, paintHeight(), brush);
                 p->drawText(offset, 0,
                             chunkWidth, paintHeight(),
@@ -872,7 +876,11 @@ void KompareListViewLineItem::paintText(QPainter* p, const QColor& bg, int colum
             QFont font(p->font());
             font.setBold(false);
             p->setFont(font);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+            chunkWidth = p->fontMetrics().horizontalAdvance(textChunk);
+#else
             chunkWidth = p->fontMetrics().width(textChunk);
+#endif
             p->fillRect(offset, 0, chunkWidth, paintHeight(), normalBrush);
             p->drawText(offset, 0,
                         chunkWidth, paintHeight(),

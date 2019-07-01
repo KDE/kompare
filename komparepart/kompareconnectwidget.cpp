@@ -226,7 +226,7 @@ void KompareConnectWidget::paintEvent(QPaintEvent* /* e */)
 
                 if (selected)
                 {
-                    p->setPen(bg.dark(135));
+                    p->setPen(bg.darker(135));
                     p->setBrush(Qt::NoBrush);
                     p->drawPath(topBezier);
                     p->drawPath(bottomBezier.toReversed());

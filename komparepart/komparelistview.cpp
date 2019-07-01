@@ -791,7 +791,7 @@ void KompareListViewLineItem::paintCell(QPainter* p, const QStyleOptionViewItem&
     if (diffItemParent()->isCurrent())
     {
         p->translate(0.5, 0.5);
-        p->setPen(bg.dark(135));
+        p->setPen(bg.darker(135));
         QTreeWidgetItem* parentItem = parent();
         if (this == parentItem->child(0))
             p->drawLine(0, 0, width, 0);

@@ -58,6 +58,13 @@ public:
     virtual void apply();
     virtual void setDefaults();
 
+Q_SIGNALS:
+    // Signal when we set a url from browse buttons.
+    // Since KUrlComboBox::setUrl doesn't emit textChanged we need to notify
+    // the main dialog that we set a url programatically so it can enable OK
+    // if there's a path in both boxes...
+    void urlChanged();
+
 private Q_SLOTS:
     void open();
 

@@ -143,6 +143,7 @@ void FilesPage::doOpen(KUrlComboBox* urlComboBox, bool selectFolders)
     {
         // remove newUrl if already exists and add it as the first item
         urlComboBox->setUrl(newUrl);
+        emit urlChanged();
     }
 
 }

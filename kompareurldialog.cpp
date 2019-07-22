@@ -72,7 +72,8 @@ KompareURLDialog::KompareURLDialog(QWidget* parent)
             this, &KompareURLDialog::slotEnableOk);
     connect(m_filesPage->secondURLRequester(), &KUrlRequester::textChanged,
             this, &KompareURLDialog::slotEnableOk);
-
+    connect(m_filesPage, &FilesPage::urlChanged,
+            this, &KompareURLDialog::slotEnableOk);
 }
 
 KompareURLDialog::~KompareURLDialog()

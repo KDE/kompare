@@ -67,6 +67,8 @@ int main(int argc, char* argv[])
     KAboutData::setApplicationData(aboutData);
     app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kompare"), app.windowIcon()));
 
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);
     parser.addOption(QCommandLineOption(QStringLiteral("c"), i18n("This will compare URL1 with URL2")));

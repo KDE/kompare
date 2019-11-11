@@ -459,7 +459,7 @@ void KompareShell::optionsConfigureToolbars()
     saveMainWindowSettings(group);
     // use the standard toolbar editor
     KEditToolBar dlg(factory());
-    connect(&dlg, &KEditToolBar::newToolbarConfig, this, &KompareShell::newToolbarConfig);
+    connect(&dlg, &KEditToolBar::newToolBarConfig, this, &KompareShell::newToolbarConfig);
     dlg.exec();
 }
 

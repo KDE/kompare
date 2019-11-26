@@ -249,15 +249,15 @@ void KompareSplitter::keyPressEvent(QKeyEvent* e)
 
 void KompareSplitter::wheelEvent(QWheelEvent* e)
 {
-    if (e->orientation() == Qt::Vertical)
+    if (e->angleDelta().y() != 0)
     {
         if (e->modifiers() & Qt::ControlModifier) {
-            if (e->delta() < 0)   // scroll down one page
+            if (e->angleDelta().y() < 0)   // scroll down one page
                 m_vScroll->triggerAction(QAbstractSlider::SliderPageStepAdd);
             else // scroll up one page
                 m_vScroll->triggerAction(QAbstractSlider::SliderPageStepSub);
         } else {
-            if (e->delta() < 0)   // scroll down
+            if (e->angleDelta().y() < 0)   // scroll down
                 m_vScroll->triggerAction(QAbstractSlider::SliderSingleStepAdd);
             else // scroll up
                 m_vScroll->triggerAction(QAbstractSlider::SliderSingleStepSub);
@@ -266,12 +266,12 @@ void KompareSplitter::wheelEvent(QWheelEvent* e)
     else
     {
         if (e->modifiers() & Qt::ControlModifier) {
-            if (e->delta() < 0)   // scroll right one page
+            if (e->angleDelta().y() < 0)   // scroll right one page
                 m_hScroll->triggerAction(QAbstractSlider::SliderPageStepAdd);
             else // scroll left one page
                 m_hScroll->triggerAction(QAbstractSlider::SliderPageStepSub);
         } else {
-            if (e->delta() < 0)   // scroll to the right
+            if (e->angleDelta().y() < 0)   // scroll to the right
                 m_hScroll->triggerAction(QAbstractSlider::SliderSingleStepAdd);
             else // scroll to the left
                 m_hScroll->triggerAction(QAbstractSlider::SliderSingleStepSub);

@@ -294,8 +294,8 @@ void KompareShell::readProperties(const KConfigGroup& config)
     if (mode == QLatin1String("ComparingFiles"))
     {
         m_mode  = Kompare::ComparingFiles;
-        m_sourceURL  = config.readPathEntry("SourceUrl", QString());
-        m_destinationURL = config.readPathEntry("DestinationFile", QString());
+        m_sourceURL  = QUrl::fromLocalFile(config.readPathEntry("SourceUrl", QString()));
+        m_destinationURL = QUrl::fromLocalFile(config.readPathEntry("DestinationFile", QString()));
 
         viewPart()->readProperties(const_cast<KConfig*>(config.config()));
 
@@ -304,7 +304,7 @@ void KompareShell::readProperties(const KConfigGroup& config)
     else if (mode == QLatin1String("ShowingDiff"))
     {
         m_mode = Kompare::ShowingDiff;
-        m_diffURL = config.readPathEntry("DiffUrl", QString());
+        m_diffURL = QUrl::fromLocalFile(config.readPathEntry("DiffUrl", QString()));
 
         viewPart()->readProperties(const_cast<KConfig*>(config.config()));
 

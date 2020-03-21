@@ -21,6 +21,7 @@
 
 #include <QApplication>
 #include <QPainter>
+#include <QPainterPath>
 #include <QPixmap>
 #include <QStyle>
 #include <QTimer>

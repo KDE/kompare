@@ -233,4 +233,8 @@
   <provides>
     <binary>kompare</binary>
   </provides>
+  <launchable type="desktop-id">org.kde.kompare.desktop</launchable>
+  <categories>
+    <category>Development</category>
+  </categories>
 </component>

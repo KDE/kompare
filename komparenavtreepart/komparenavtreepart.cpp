@@ -59,26 +59,33 @@ KompareNavTreePart::KompareNavTreePart(QWidget* parentWidget, QObject* parent, c
     setWidget(m_splitter);
 
     m_srcDirTree = new QTreeWidget(m_splitter);
-    m_srcDirTree->setHeaderLabel(i18n("Source Folder"));
+    m_srcDirTree->setHeaderLabel(i18nc("@title:column", "Source Folder"));
     m_srcDirTree->setRootIsDecorated(false);
     m_srcDirTree->setSortingEnabled(true);
     m_srcDirTree->sortByColumn(0, Qt::AscendingOrder);
 
     m_destDirTree = new QTreeWidget(m_splitter);
-    m_destDirTree->setHeaderLabel(i18n("Destination Folder"));
+    m_destDirTree->setHeaderLabel(i18nc("@title:column", "Destination Folder"));
     m_destDirTree->setRootIsDecorated(false);
     m_destDirTree->setSortingEnabled(true);
     m_destDirTree->sortByColumn(0, Qt::AscendingOrder);
 
     m_fileList = new QTreeWidget(m_splitter);
-    m_fileList->setHeaderLabels(QStringList() << i18n("Source File") << i18n("Destination File"));
+    m_fileList->setHeaderLabels(QStringList {
+        i18nc("@title:column", "Source File"),
+        i18nc("@title:column", "Destination File")
+    } );
     m_fileList->setAllColumnsShowFocus(true);
     m_fileList->setRootIsDecorated(false);
     m_fileList->setSortingEnabled(true);
     m_fileList->sortByColumn(0, Qt::AscendingOrder);
 
     m_changesList = new QTreeWidget(m_splitter);
-    m_changesList->setHeaderLabels(QStringList() << i18n("Source Line") << i18n("Destination Line") << i18n("Difference"));
+    m_changesList->setHeaderLabels(QStringList {
+        i18nc("@title:column", "Source Line"),
+        i18nc("@title:column", "Destination Line"),
+        i18nc("@title:column", "Difference"),
+    } );
     m_changesList->setAllColumnsShowFocus(true);
     m_changesList->setRootIsDecorated(false);
     m_changesList->setSortingEnabled(true);
@@ -625,7 +632,7 @@ KDirLVI::KDirLVI(QTreeWidget* parent, const QString& dir) : QTreeWidgetItem(pare
     setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
     setExpanded(true);
     if (m_dirName.isEmpty())
-        setText(0, i18n("Unknown"));
+        setText(0, i18nc("@item directory name not known", "Unknown"));
     else
         setText(0, m_dirName);
 }

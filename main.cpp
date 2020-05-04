@@ -200,14 +200,14 @@ int main(int argc, char* argv[])
         {
             KompareURLDialog dialog(nullptr);
 
-            dialog.setWindowTitle(i18n("Compare Files or Folders"));
-            dialog.setFirstGroupBoxTitle(i18n("Source"));
-            dialog.setSecondGroupBoxTitle(i18n("Destination"));
+            dialog.setWindowTitle(i18nc("@title:window", "Compare Files or Folders"));
+            dialog.setFirstGroupBoxTitle(i18nc("@title:group", "Source"));
+            dialog.setSecondGroupBoxTitle(i18nc("@title:group", "Destination"));
 
             QPushButton* okButton = dialog.button(QDialogButtonBox::Ok);
-            okButton->setText(i18n("Compare"));
-            okButton->setToolTip(i18n("Compare these files or folders"));
-            okButton->setWhatsThis(i18n("If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. "));
+            okButton->setText(i18nc("@action:button", "Compare"));
+            okButton->setToolTip(i18nc("@info:tooltip", "Compare these files or folders"));
+            okButton->setWhatsThis(i18nc("@info:whatsthis", "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. "));
 
             dialog.setGroup(QStringLiteral("Recent Compare Files"));
 

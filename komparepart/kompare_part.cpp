@@ -185,21 +185,21 @@ void KomparePart::setupActions(Modus modus)
     if (modus == ReadWriteModus) {
         m_saveAll = actionCollection()->addAction(QStringLiteral("file_save_all"), this, &KomparePart::saveAll);
         m_saveAll->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
-        m_saveAll->setText(i18n("Save &All"));
+        m_saveAll->setText(i18nc("@action", "Save &All"));
         m_saveDiff = actionCollection()->addAction(QStringLiteral("file_save_diff"), this, &KomparePart::saveDiff);
-        m_saveDiff->setText(i18n("Save &Diff..."));
+        m_saveDiff->setText(i18nc("@action", "Save &Diff..."));
         m_swap = actionCollection()->addAction(QStringLiteral("file_swap"), this, &KomparePart::slotSwap);
-        m_swap->setText(i18n("Swap Source with Destination"));
+        m_swap->setText(i18nc("@action", "Swap Source with Destination"));
     } else {
         m_saveAll = nullptr;
         m_saveDiff = nullptr;
         m_swap = nullptr;
     }
     m_diffStats = actionCollection()->addAction(QStringLiteral("file_diffstats"), this, &KomparePart::slotShowDiffstats);
-    m_diffStats->setText(i18n("Show Statistics"));
+    m_diffStats->setText(i18nc("@action", "Show Statistics"));
     m_diffRefresh = actionCollection()->addAction(QStringLiteral("file_refreshdiff"), this, &KomparePart::slotRefreshDiff);
     m_diffRefresh->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
-    m_diffRefresh->setText(i18n("Refresh Diff"));
+    m_diffRefresh->setText(i18nc("@action", "Refresh Diff"));
     actionCollection()->setDefaultShortcuts(m_diffRefresh, KStandardShortcut::reload());
 
     m_print        = KStandardAction::print(this, &KomparePart::slotFilePrint, actionCollection());
@@ -550,7 +550,7 @@ void KomparePart::saveDiff()
     QDialog dlg(widget());
     dlg.setObjectName(QStringLiteral("save_options"));
     dlg.setModal(true);
-    dlg.setWindowTitle(i18n("Diff Options"));
+    dlg.setWindowTitle(i18nc("@title:window", "Diff Options"));
     QDialogButtonBox* buttons = new QDialogButtonBox(QDialogButtonBox::Save | QDialogButtonBox::Cancel, &dlg);
     connect(buttons, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
     connect(buttons, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
@@ -571,11 +571,11 @@ void KomparePart::saveDiff()
 
         while (1)
         {
-            QUrl url = QFileDialog::getSaveFileUrl(widget(), i18n("Save .diff"),
+            QUrl url = QFileDialog::getSaveFileUrl(widget(), i18nc("@title:window", "Save .diff"),
                                                    m_info.destination,
                                                    i18n("Patch Files (*.diff *.dif *.patch)"));
             if (url.isLocalFile() && QFile::exists(url.toLocalFile())) {
-                int result = KMessageBox::warningYesNoCancel(widget(), i18n("The file exists or is write-protected; do you want to overwrite it?"), i18n("File Exists"), KStandardGuiItem::overwrite(), KGuiItem(i18n("Do Not Overwrite")));
+                int result = KMessageBox::warningYesNoCancel(widget(), i18n("The file exists or is write-protected; do you want to overwrite it?"), i18nc("@window:title", "File Exists"), KStandardGuiItem::overwrite(), KGuiItem(i18nc("@action:button", "Do Not Overwrite")));
                 if (result == KMessageBox::Cancel)
                 {
                     break;
@@ -659,10 +659,10 @@ void KomparePart::slotSetStatus(enum Kompare::Status status)
 
     switch (status) {
     case Kompare::RunningDiff:
-        emit setStatusBarText(i18n("Running diff..."));
+        emit setStatusBarText(i18nc("@info:status", "Running diff..."));
         break;
     case Kompare::Parsing:
-        emit setStatusBarText(i18n("Parsing diff output..."));
+        emit setStatusBarText(i18nc("@info:status", "Parsing diff output..."));
         break;
     case Kompare::FinishedParsing:
         updateStatus();
@@ -718,25 +718,25 @@ void KomparePart::updateStatus()
     switch (m_info.mode)
     {
     case Kompare::ComparingFiles :
-        text = i18n("Comparing file %1 with file %2" ,
+        text = i18nc("@info:status", "Comparing file %1 with file %2" ,
                     source,
                     destination);
         break;
     case Kompare::ComparingDirs :
-        text = i18n("Comparing files in %1 with files in %2" ,
+        text = i18nc("@info:status", "Comparing files in %1 with files in %2" ,
                     source,
                     destination);
         break;
     case Kompare::ShowingDiff :
-        text = i18n("Viewing diff output from %1", source);
+        text = i18nc("@info:status", "Viewing diff output from %1", source);
         break;
     case Kompare::BlendingFile :
-        text = i18n("Blending diff output from %1 into file %2" ,
+        text = i18nc("@info:status", "Blending diff output from %1 into file %2" ,
                     source,
                     destination);
         break;
     case Kompare::BlendingDir :
-        text = i18n("Blending diff output from %1 into folder %2" ,
+        text = i18nc("@info:status", "Blending diff output from %1 into folder %2" ,
                     m_info.source.toDisplayString(),
                     m_info.destination.toDisplayString());
         break;
@@ -789,7 +789,7 @@ void KomparePart::slotSwap()
                         widget(),
                         i18n("You have made changes to the destination file(s).\n"
                              "Would you like to save them?"),
-                        i18n("Save Changes?"),
+                        i18nc("@title:window", "Save Changes?"),
                         KStandardGuiItem::save(),
                         KStandardGuiItem::discard()
                     );
@@ -820,7 +820,7 @@ void KomparePart::slotRefreshDiff()
                         widget(),
                         i18n("You have made changes to the destination file(s).\n"
                              "Would you like to save them?"),
-                        i18n("Save Changes?"),
+                        i18nc("@title:window", "Save Changes?"),
                         KStandardGuiItem::save(),
                         KStandardGuiItem::discard()
                     );
@@ -858,23 +858,23 @@ void KomparePart::slotShowDiffstats()
     {
         switch (m_info.format) {
         case Kompare::Unified :
-            diffFormat = i18n("Unified");
+            diffFormat = i18nc("@item diff format", "Unified");
             break;
         case Kompare::Context :
-            diffFormat = i18n("Context");
+            diffFormat = i18nc("@item diff format", "Context");
             break;
         case Kompare::RCS :
-            diffFormat = i18n("RCS");
+            diffFormat = i18nc("@item diff format", "RCS");
             break;
         case Kompare::Ed :
-            diffFormat = i18n("Ed");
+            diffFormat = i18nc("@item diff format", "Ed");
             break;
         case Kompare::Normal :
-            diffFormat = i18n("Normal");
+            diffFormat = i18nc("@item diff format", "Normal");
             break;
         case Kompare::UnknownFormat :
         default:
-            diffFormat = i18n("Unknown");
+            diffFormat = i18nc("@item diff format", "Unknown");
             break;
         }
     }
@@ -892,7 +892,7 @@ void KomparePart::slotShowDiffstats()
         KMessageBox::information(nullptr, i18n(
             "No diff file, or no 2 files have been diffed. "
             "Therefore no stats are available."),
-            i18n("Diff Statistics"), QString(), nullptr);
+            i18nc("@title:window", "Diff Statistics"), QString(), nullptr);
     }
     else if (m_modelList->modelCount() == 1) {   // 1 file in diff, or 2 files compared
         KMessageBox::information(nullptr, i18n(
@@ -906,7 +906,7 @@ void KomparePart::slotShowDiffstats()
             "Number of differences: %5",
             oldFile, newFile, diffFormat,
             noOfHunks, noOfDiffs),
-            i18n("Diff Statistics"), QString(), nullptr);
+            i18nc("@title:window", "Diff Statistics"), QString(), nullptr);
     } else { // more than 1 file in diff, or 2 directories compared
         KMessageBox::information(nullptr, ki18n(
             "Statistics:\n"
@@ -922,7 +922,7 @@ void KomparePart::slotShowDiffstats()
             .subs(filesInDiff).subs(diffFormat).subs(oldFile)
             .subs(newFile).subs(noOfHunks).subs(noOfDiffs)
             .toString(),
-            i18n("Diff Statistics"), QString(), nullptr);
+            i18nc("@title:window", "Diff Statistics"), QString(), nullptr);
     }
 }
 
@@ -935,7 +935,7 @@ bool KomparePart::queryClose()
                     widget(),
                     i18n("You have made changes to the destination file(s).\n"
                          "Would you like to save them?"),
-                    i18n("Save Changes?"),
+                    i18nc("@title:window", "Save Changes?"),
                     KStandardGuiItem::save(),
                     KStandardGuiItem::discard()
                 );

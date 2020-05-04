@@ -79,7 +79,7 @@ KompareShell::KompareShell()
         exit(2);
     }
 
-    m_navTreeDock = new QDockWidget(i18n("Navigation"), this);
+    m_navTreeDock = new QDockWidget(i18nc("@title:window", "Navigation"), this);
     m_navTreeDock->setObjectName(QStringLiteral("Navigation"));
 
     // This part is implemented in KompareNavTreePart
@@ -201,19 +201,19 @@ void KompareShell::setupActions()
 {
     QAction* a;
     a = KStandardAction::open(this, &KompareShell::slotFileOpen, actionCollection());
-    a->setText(i18n("&Open Diff..."));
+    a->setText(i18nc("@action", "&Open Diff..."));
     a = actionCollection()->addAction(QStringLiteral("file_compare_files"), this, &KompareShell::slotFileCompareFiles);
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
-    a->setText(i18n("&Compare Files..."));
+    a->setText(i18nc("@action", "&Compare Files..."));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_C));
     a = actionCollection()->addAction(QStringLiteral("file_blend_url"), this, &KompareShell::slotFileBlendURLAndDiff);
-    a->setText(i18n("&Blend URL with Diff..."));
+    a->setText(i18nc("@action", "&Blend URL with Diff..."));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_B));
     KStandardAction::quit(this, &KompareShell::slotFileClose, actionCollection());
 
     createStandardStatusBarAction();
     setStandardToolBarMenuEnabled(true);
-    m_showTextView = new KToggleAction(i18n("Show T&ext View"), this);
+    m_showTextView = new KToggleAction(i18nc("@action", "Show T&ext View"), this);
 // needs a KGuiItem, also the doc says explicitly not to do this
 //     m_showTextView->setCheckedState(i18n("Hide T&ext View"));
     actionCollection()->addAction(QStringLiteral("options_show_text_view"), m_showTextView);
@@ -333,14 +333,14 @@ void KompareShell::slotFileBlendURLAndDiff()
 {
     KompareURLDialog dialog(this);
 
-    dialog.setWindowTitle(i18n("Blend File/Folder with diff Output"));
-    dialog.setFirstGroupBoxTitle(i18n("File/Folder"));
-    dialog.setSecondGroupBoxTitle(i18n("Diff Output"));
+    dialog.setWindowTitle(i18nc("@title:window", "Blend File/Folder with diff Output"));
+    dialog.setFirstGroupBoxTitle(i18nc("@title:group", "File/Folder"));
+    dialog.setSecondGroupBoxTitle(i18nc("@title:group", "Diff Output"));
 
     QPushButton* okButton = dialog.button(QDialogButtonBox::Ok);
-    okButton->setText(i18n("Blend"));
-    okButton->setToolTip(i18n("Blend this file or folder with the diff output"));
-    okButton->setWhatsThis(i18n("If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. "));
+    okButton->setText(i18nc("@action:button", "Blend"));
+    okButton->setToolTip(i18nc("@info:tooltip", "Blend this file or folder with the diff output"));
+    okButton->setWhatsThis(i18nc("@infor:whatsthis", "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. "));
 
     dialog.setGroup(QStringLiteral("Recent Blend Files"));
 
@@ -363,14 +363,14 @@ void KompareShell::slotFileCompareFiles()
 {
     KompareURLDialog dialog(this);
 
-    dialog.setWindowTitle(i18n("Compare Files or Folders"));
-    dialog.setFirstGroupBoxTitle(i18n("Source"));
-    dialog.setSecondGroupBoxTitle(i18n("Destination"));
+    dialog.setWindowTitle(i18nc("@title:window", "Compare Files or Folders"));
+    dialog.setFirstGroupBoxTitle(i18nc("@title:group", "Source"));
+    dialog.setSecondGroupBoxTitle(i18nc("@title:group", "Destination"));
 
     QPushButton* okButton = dialog.button(QDialogButtonBox::Ok);
-    okButton->setText(i18n("Compare"));
-    okButton->setToolTip(i18n("Compare these files or folders"));
-    okButton->setWhatsThis(i18n("If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. "));
+    okButton->setText(i18nc("@action:button", "Compare"));
+    okButton->setToolTip(i18nc("@info:tooltip", "Compare these files or folders"));
+    okButton->setWhatsThis(i18nc("@info:whatsthis", "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. "));
 
     dialog.setGroup(QStringLiteral("Recent Compare Files"));
 
@@ -404,7 +404,7 @@ void KompareShell::slotShowTextView()
         QString error;
 
         // FIXME: proper error checking
-        m_textViewWidget = new QDockWidget(i18n("Text View"), this);
+        m_textViewWidget = new QDockWidget(i18nc("@title:window", "Text View"), this);
         m_textViewWidget->setObjectName(QStringLiteral("Text View"));
 //         m_textViewWidget = createDockWidget(i18n("Text View"), SmallIcon("text-x-generic"));
         m_textViewPart = KServiceTypeTrader::createInstanceFromQuery<KTextEditor::Document>(

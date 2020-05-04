@@ -33,7 +33,7 @@
 KomparePrefDlg::KomparePrefDlg(ViewSettings* viewSets, DiffSettings* diffSets) : KPageDialog(nullptr)
 {
     setFaceType(KPageDialog::List);
-    setWindowTitle(i18n("Preferences"));
+    setWindowTitle(i18nc("@title:window", "Preferences"));
     setStandardButtons(QDialogButtonBox::Help | QDialogButtonBox::Reset | QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel);
     setModal(true);
 
@@ -43,15 +43,15 @@ KomparePrefDlg::KomparePrefDlg(ViewSettings* viewSets, DiffSettings* diffSets) :
     //setIconListAllVisible(true);
 
     m_viewPage = new ViewPage();
-    KPageWidgetItem* item = addPage(m_viewPage, i18n("View"));
+    KPageWidgetItem* item = addPage(m_viewPage, i18nc("@title:tab", "View"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-theme")));
-    item->setHeader(i18n("View Settings"));
+    item->setHeader(i18nc("@title", "View Settings"));
     m_viewPage->setSettings(viewSets);
 
     m_diffPage = new DiffPage();
-    item = addPage(m_diffPage, i18n("Diff"));
+    item = addPage(m_diffPage, i18nc("@title:tab", "Diff"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
-    item->setHeader(i18n("Diff Settings"));
+    item->setHeader(i18nc("@title", "Diff Settings"));
     m_diffPage->setSettings(diffSets);
 
 //     frame = addVBoxPage(i18n(""), i18n(""), UserIcon(""));

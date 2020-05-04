@@ -46,7 +46,7 @@ FilesPage::FilesPage() : QFrame()
 
     QPushButton* button = new QPushButton(this);
     button->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
-    button->setToolTip(i18n("Select File"));
+    button->setToolTip(i18nc("@info:tooltip", "Select file"));
     button->setProperty("combobox", QStringLiteral("SourceURLComboBox"));
     button->setProperty("folder", false);
     connect(button, &QPushButton::clicked, this, &FilesPage::open);
@@ -58,7 +58,7 @@ FilesPage::FilesPage() : QFrame()
     sp.setRetainSizeWhenHidden(true);
     button->setSizePolicy(sp);
     button->setObjectName(QStringLiteral("firstURLOpenFolder"));
-    button->setToolTip(i18n("Select Folder"));
+    button->setToolTip(i18nc("@info:tooltip", "Select folder"));
     button->setProperty("combobox", QStringLiteral("SourceURLComboBox"));
     button->setProperty("folder", true);
     connect(button, &QPushButton::clicked, this, &FilesPage::open);
@@ -75,7 +75,7 @@ FilesPage::FilesPage() : QFrame()
 
     button = new QPushButton(this);
     button->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
-    button->setToolTip(i18n("Select File"));
+    button->setToolTip(i18nc("@info:tooltip", "Select file"));
     button->setProperty("combobox", QStringLiteral("DestURLComboBox"));
     button->setProperty("folder", false);
     connect(button, &QPushButton::clicked, this, &FilesPage::open);
@@ -87,19 +87,19 @@ FilesPage::FilesPage() : QFrame()
     sp = button->sizePolicy();
     sp.setRetainSizeWhenHidden(true);
     button->setSizePolicy(sp);
-    button->setToolTip(i18n("Select Folder"));
+    button->setToolTip(i18nc("@info:tooltip", "Select folder"));
     button->setProperty("combobox", QStringLiteral("DestURLComboBox"));
     button->setProperty("folder", true);
     connect(button, &QPushButton::clicked, this, &FilesPage::open);
     gb2Layout->addWidget(button);
 
 
-    m_thirdGB = new QGroupBox(i18n("Encoding"), this);
+    m_thirdGB = new QGroupBox(i18nc("@title:group", "Encoding"), this);
     layout->addWidget(m_thirdGB);
     QHBoxLayout* gb3Layout = new QHBoxLayout(m_thirdGB);
     m_encodingComboBox = new KComboBox(false, m_thirdGB);
     m_encodingComboBox->setObjectName(QStringLiteral("encoding_combobox"));
-    m_encodingComboBox->insertItem(0, i18n("Default"));
+    m_encodingComboBox->insertItem(0, i18nc("@item:inlistbox encoding", "Default"));
     m_encodingComboBox->insertItems(1, KCharsets::charsets()->availableEncodingNames());
     gb3Layout->addWidget(m_encodingComboBox);
 
@@ -133,11 +133,11 @@ void FilesPage::doOpen(KUrlComboBox* urlComboBox, bool selectFolders)
     QUrl currentUrl = QUrl::fromUserInput(urlComboBox->currentText());
 
     QUrl newUrl = selectFolders ? QFileDialog::getExistingDirectoryUrl(this,
-                                                                       i18n("Select Folder"),
+                                                                       i18nc("@title:window", "Select Folder"),
                                                                        currentUrl,
                                                                        QFileDialog::ReadOnly)
                                 : QFileDialog::getOpenFileUrl(this,
-                                                              i18n("Select File"),
+                                                              i18nc("@title:window", "Select File"),
                                                               currentUrl);
     if (!newUrl.isEmpty())
     {

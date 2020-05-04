@@ -51,70 +51,70 @@ ViewPage::ViewPage() : QFrame()
 
     // add a groupbox
     colorGroupBox = new QGroupBox(page);
-    colorGroupBox->setTitle(i18n("Colors"));
+    colorGroupBox->setTitle(i18nc("@title:group", "Colors"));
     layout->addWidget(colorGroupBox);
     formLayout = new QFormLayout(colorGroupBox);
 
     // add the removeColor
     m_removedColorButton = new KColorButton(colorGroupBox);
-    formLayout->addRow(i18n("Removed color:"), m_removedColorButton);
+    formLayout->addRow(i18nc("@label:chooser", "Removed color:"), m_removedColorButton);
 
     // add the changeColor
     m_changedColorButton = new KColorButton(colorGroupBox);
-    formLayout->addRow(i18n("Changed color:"), m_changedColorButton);
+    formLayout->addRow(i18nc("@label:chooser", "Changed color:"), m_changedColorButton);
 
     // add the addColor
     m_addedColorButton = new KColorButton(colorGroupBox);
-    formLayout->addRow(i18n("Added color:"), m_addedColorButton);
+    formLayout->addRow(i18nc("@label:chooser", "Added color:"), m_addedColorButton);
 
     // add the appliedColor
     m_appliedColorButton = new KColorButton(colorGroupBox);
-    formLayout->addRow(i18n("Applied color:"), m_appliedColorButton);
+    formLayout->addRow(i18nc("@label:chooser", "Applied color:"), m_appliedColorButton);
 
     // scroll number of lines (snol)
     snolGroupBox = new QGroupBox(page);
-    snolGroupBox->setTitle(i18n("Mouse Wheel"));
+    snolGroupBox->setTitle(i18nc("@title:group", "Mouse Wheel"));
     layout->addWidget(snolGroupBox);
     QFormLayout* snolLayout = new QFormLayout(snolGroupBox);
 
     m_snolSpinBox = new QSpinBox(snolGroupBox);
     m_snolSpinBox->setRange(0, 50);
-    snolLayout->addRow(i18n("Number of lines:"), m_snolSpinBox);
+    snolLayout->addRow(i18nc("@label:spinbox", "Number of lines:"), m_snolSpinBox);
 
     // Temporarily here for testing...
     // number of spaces for a tab character stuff
     tabGroupBox = new QGroupBox(page);
-    tabGroupBox->setTitle(i18n("Tabs to Spaces"));
+    tabGroupBox->setTitle(i18nc("@title:group", "Tabs to Spaces"));
     layout->addWidget(tabGroupBox);
     QFormLayout* tabLayout = new QFormLayout(tabGroupBox);
 
     m_tabSpinBox = new QSpinBox(tabGroupBox);
     m_tabSpinBox->setRange(1, 16);
-    tabLayout->addRow(i18n("Number of spaces to convert a tab character to:"), m_tabSpinBox);
+    tabLayout->addRow(i18nc("@label:spinbox", "Number of spaces to convert a tab character to:"), m_tabSpinBox);
 
     layout->addStretch(1);
 
-    m_tabWidget->addTab(page, i18n("Appearance"));
+    m_tabWidget->addTab(page, i18nc("@title:tab", "Appearance"));
 
     page   = new QWidget(m_tabWidget);
     layout = new QVBoxLayout(page);
 
     QGroupBox* gb = new QGroupBox(page);
     QFormLayout* layfont = new QFormLayout(gb);
-    gb->setTitle(i18n("Text Font"));
+    gb->setTitle(i18nc("@title:group", "Text Font"));
     layout->addWidget(gb);
 
     m_fontCombo = new QFontComboBox;
-    layfont->addRow(i18n("Font:"), m_fontCombo);
+    layfont->addRow(i18nc("@label:listbox", "Font:"), m_fontCombo);
     m_fontCombo->setObjectName(QStringLiteral("fontcombo"));
 
     m_fontSizeSpinBox = new QSpinBox(gb);
     m_fontSizeSpinBox->setRange(6, 24);
-    layfont->addRow(i18n("Size:"), m_fontSizeSpinBox);
+    layfont->addRow(i18nc("@label:spinbox", "Size:"), m_fontSizeSpinBox);
 
     layout->addStretch(1);
 
-    m_tabWidget->addTab(page, i18n("Fonts"));
+    m_tabWidget->addTab(page, i18nc("@title:tab", "Fonts"));
 }
 
 ViewPage::~ViewPage()

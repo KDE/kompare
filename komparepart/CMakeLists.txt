@@ -14,7 +14,9 @@ set( komparepart_PART_SRCS
 ecm_qt_declare_logging_category(komparepart_PART_SRCS
     HEADER komparepartdebug.h
     IDENTIFIER KOMPAREPART
-    CATEGORY_NAME "komparepart"
+    CATEGORY_NAME "kompare.part"
+    DESCRIPTION "Kompare KParts plugin"
+    EXPORT kompare
 )
 
 ki18n_wrap_ui(komparepart_PART_SRCS komparesaveoptionsbase.ui )

@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.0)
 
 project(kompare)
 
-set(QT_MIN_VERSION "5.9.0")
-set(KF5_MIN_VERSION "5.53.0")
+set(QT_MIN_VERSION "5.12.0")
+set(KF_MIN_VERSION "5.68.0")
 
 find_package(ECM ${KF5_MIN_VERSION} NO_MODULE REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
@@ -76,7 +76,9 @@ set(kompare_SRCS
 ecm_qt_declare_logging_category(kompare_SRCS
     HEADER kompareshelldebug.h
     IDENTIFIER KOMPARESHELL
-    CATEGORY_NAME "kompareshell"
+    CATEGORY_NAME "kompare.shell"
+    DESCRIPTION "Kompare App Shell"
+    EXPORT kompare
 )
 
 qt5_add_resources(kompare_SRCS
@@ -107,5 +109,11 @@ install(TARGETS kompare  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(PROGRAMS org.kde.kompare.desktop  DESTINATION  ${KDE_INSTALL_APPDIR})
 install(FILES org.kde.kompare.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 install(FILES komparenavigationpart.desktop kompareviewpart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICETYPES5DIR})
+
+ecm_qt_install_logging_categories(
+    EXPORT kompare
+    FILE kompare.categories
+    DESTINATION "${KDE_INSTALL_LOGGINGCATEGORIESDIR}"
+)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

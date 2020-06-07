@@ -436,7 +436,7 @@ void KompareListView::mousePressEvent(QMouseEvent* e)
     QPoint vp = e->pos();
     KompareListViewDiffItem* diffItem = diffItemAt(vp);
     if (diffItem && diffItem->difference()->type() != Difference::Unchanged) {
-        emit differenceClicked(diffItem->difference());
+        Q_EMIT differenceClicked(diffItem->difference());
     }
 }
 
@@ -446,8 +446,8 @@ void KompareListView::mouseDoubleClickEvent(QMouseEvent* e)
     KompareListViewDiffItem* diffItem = diffItemAt(vp);
     if (diffItem && diffItem->difference()->type() != Difference::Unchanged) {
         // FIXME: make a new signal that does both
-        emit differenceClicked(diffItem->difference());
-        emit applyDifference(!diffItem->difference()->applied());
+        Q_EMIT differenceClicked(diffItem->difference());
+        Q_EMIT applyDifference(!diffItem->difference()->applied());
     }
 }
 
@@ -507,7 +507,7 @@ void KompareListView::wheelEvent(QWheelEvent* e)
 void KompareListView::resizeEvent(QResizeEvent* e)
 {
     QTreeWidget::resizeEvent(e);
-    emit resized();
+    Q_EMIT resized();
 }
 
 KompareListViewItemDelegate::KompareListViewItemDelegate(QObject* parent)

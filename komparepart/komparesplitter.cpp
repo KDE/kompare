@@ -129,7 +129,7 @@ void KompareSplitter::timerTimeout()
 
     slotDelayedRepaintHandles();
 
-    emit scrollViewsToId(m_scrollTo);
+    Q_EMIT scrollViewsToId(m_scrollTo);
     slotRepaintHandles();
     m_vScroll->setValue(m_scrollTo);
 }
@@ -147,7 +147,7 @@ void KompareSplitter::slotScrollToId(int id)
     }
     else
     {
-        emit scrollViewsToId(id);
+        Q_EMIT scrollViewsToId(id);
         slotRepaintHandles();
         m_vScroll->setValue(id);
         m_scrollTimer->start(30);
@@ -474,7 +474,7 @@ void KompareSplitter::slotDifferenceClicked(const Difference* diff)
     const int end = count();
     for (int i = 0; i < end; ++i)
         listView(i)->setSelectedDifference(diff, false);
-    emit selectionChanged(diff);
+    Q_EMIT selectionChanged(diff);
 }
 
 void KompareSplitter::slotConfigChanged()

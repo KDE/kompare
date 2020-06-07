@@ -132,7 +132,7 @@ void KomparePrefDlg::slotApply()
     m_viewPage->apply();
     m_diffPage->apply();
 
-    emit configChanged();
+    Q_EMIT configChanged();
 }
 
 /** No descriptions */

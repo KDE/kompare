@@ -407,7 +407,7 @@ void KompareNavTreePart::slotFileListSelectionChanged(QTreeWidgetItem* item)
         m_selectedDifference = (static_cast<KChangeLVI*>(m_changesList->currentItem()))->difference();
     }
 
-    emit selectionChanged(m_selectedModel, m_selectedDifference);
+    Q_EMIT selectionChanged(m_selectedModel, m_selectedDifference);
 }
 
 void KompareNavTreePart::slotChangesListSelectionChanged(QTreeWidgetItem* item)
@@ -420,7 +420,7 @@ void KompareNavTreePart::slotChangesListSelectionChanged(QTreeWidgetItem* item)
     KChangeLVI* change = static_cast<KChangeLVI*>(item);
     m_selectedDifference = change->difference();
 
-    emit selectionChanged(m_selectedDifference);
+    Q_EMIT selectionChanged(m_selectedDifference);
 }
 
 void KompareNavTreePart::slotApplyDifference(bool /*apply*/)

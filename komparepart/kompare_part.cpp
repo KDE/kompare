@@ -233,7 +233,7 @@ bool KomparePart::openDiff(const QUrl& url)
     bool result = false;
     fetchURL(url, true);
 
-    emit kompareInfo(&m_info);
+    Q_EMIT kompareInfo(&m_info);
 
     if (!m_info.localSource.isEmpty())
     {
@@ -257,7 +257,7 @@ bool KomparePart::openDiff(const QString& diffOutput)
 
     m_info.mode = Kompare::ShowingDiff;
 
-    emit kompareInfo(&m_info);
+    Q_EMIT kompareInfo(&m_info);
 
     if (m_modelList->parseAndOpenDiff(diffOutput) == 0)
     {
@@ -418,7 +418,7 @@ void KomparePart::compare(const QUrl& source, const QUrl& destination)
     fetchURL(source, true);
     fetchURL(destination, false);
 
-    emit kompareInfo(&m_info);
+    Q_EMIT kompareInfo(&m_info);
 
     compareAndUpdateAll();
 }
@@ -433,7 +433,7 @@ void KomparePart::compareFileString(const QUrl& sourceFile, const QString& desti
 
     fetchURL(sourceFile, true);
 
-    emit kompareInfo(&m_info);
+    Q_EMIT kompareInfo(&m_info);
 
     compareAndUpdateAll();
 }
@@ -448,7 +448,7 @@ void KomparePart::compareStringFile(const QString& source, const QUrl& destinati
 
     fetchURL(destinationFile, false);
 
-    emit kompareInfo(&m_info);
+    Q_EMIT kompareInfo(&m_info);
 
     compareAndUpdateAll();
 }
@@ -465,7 +465,7 @@ void KomparePart::compareFiles(const QUrl& sourceFile, const QUrl& destinationFi
     fetchURL(sourceFile, true);
     fetchURL(destinationFile, false);
 
-    emit kompareInfo(&m_info);
+    Q_EMIT kompareInfo(&m_info);
 
     compareAndUpdateAll();
 }
@@ -480,7 +480,7 @@ void KomparePart::compareDirs(const QUrl& sourceDirectory, const QUrl& destinati
     fetchURL(sourceDirectory, true);
     fetchURL(destinationDirectory, false);
 
-    emit kompareInfo(&m_info);
+    Q_EMIT kompareInfo(&m_info);
 
     compareAndUpdateAll();
 }
@@ -502,7 +502,7 @@ void KomparePart::openFileAndDiff(const QUrl& file, const QUrl& diffFile)
     fetchURL(diffFile, false);
     m_info.mode = Kompare::BlendingFile;
 
-    emit kompareInfo(&m_info);
+    Q_EMIT kompareInfo(&m_info);
 
     compareAndUpdateAll();
 }
@@ -516,7 +516,7 @@ void KomparePart::openDirAndDiff(const QUrl& dir,  const QUrl& diffFile)
     fetchURL(diffFile, false);
     m_info.mode = Kompare::BlendingDir;
 
-    emit kompareInfo(&m_info);
+    Q_EMIT kompareInfo(&m_info);
 
     if (!m_info.localSource.isEmpty() && !m_info.localDestination.isEmpty())
     {
@@ -659,17 +659,17 @@ void KomparePart::slotSetStatus(enum Kompare::Status status)
 
     switch (status) {
     case Kompare::RunningDiff:
-        emit setStatusBarText(i18nc("@info:status", "Running diff..."));
+        Q_EMIT setStatusBarText(i18nc("@info:status", "Running diff..."));
         break;
     case Kompare::Parsing:
-        emit setStatusBarText(i18nc("@info:status", "Parsing diff output..."));
+        Q_EMIT setStatusBarText(i18nc("@info:status", "Parsing diff output..."));
         break;
     case Kompare::FinishedParsing:
         updateStatus();
         break;
     case Kompare::FinishedWritingDiff:
         updateStatus();
-        emit diffURLChanged();
+        Q_EMIT diffURLChanged();
         break;
     default:
         break;
@@ -705,7 +705,7 @@ void KomparePart::updateCaption()
         break;
     }
 
-    emit setWindowCaption(text);
+    Q_EMIT setWindowCaption(text);
 }
 
 void KomparePart::updateStatus()
@@ -744,7 +744,7 @@ void KomparePart::updateStatus()
         break;
     }
 
-    emit setStatusBarText(text);
+    Q_EMIT setStatusBarText(text);
 }
 
 void KomparePart::compareAndUpdateAll()
@@ -959,7 +959,7 @@ int KomparePart::readProperties(KConfig* config)
 {
     m_viewSettings->loadSettings(config);
     m_diffSettings->loadSettings(config);
-    emit configChanged();
+    Q_EMIT configChanged();
     return 0;
 }
 
@@ -978,5 +978,5 @@ void KomparePart::optionsPreferences()
     connect(&pref, &KomparePrefDlg::configChanged, this, &KomparePart::configChanged);
 
     if (pref.exec())
-        emit configChanged();
+        Q_EMIT configChanged();
 }

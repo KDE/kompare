@@ -55,7 +55,6 @@ public:
     virtual void setDefaults();
 
 protected Q_SLOTS:
-    void slotShowRegExpEditor();
     void slotExcludeFilePatternToggled(bool);
     void slotExcludeFileToggled(bool);
 

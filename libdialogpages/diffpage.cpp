@@ -37,9 +37,6 @@
 #include <KSharedConfig>
 #include <KUrlComboBox>
 #include <KUrlRequester>
-#include <KServiceTypeTrader>
-
-#include <kregexpeditorinterface.h>
 
 #include <libkomparediff2/diffsettings.h>
 
@@ -164,23 +161,6 @@ void DiffPage::setDefaults()
     m_excludeFileNameGroupBox->setChecked(false);
 }
 
-void DiffPage::slotShowRegExpEditor()
-{
-    if (! m_ignoreRegExpDialog)
-        m_ignoreRegExpDialog = KServiceTypeTrader::createInstanceFromQuery<QDialog>(QStringLiteral("KRegExpEditor/KRegExpEditor"), QString(), this);
-
-    KRegExpEditorInterface* iface = qobject_cast<KRegExpEditorInterface*>(m_ignoreRegExpDialog);
-
-    if (!iface)
-        return;
-
-    iface->setRegExp(m_ignoreRegExpEdit->text());
-    bool ok = m_ignoreRegExpDialog->exec();
-
-    if (ok)
-        m_ignoreRegExpEdit->setText(iface->regExp());
-}
-
 void DiffPage::slotExcludeFilePatternToggled(bool on)
 {
     m_excludeFilePatternEditListBox->setEnabled(on);
@@ -297,16 +277,6 @@ void DiffPage::addOptionsTab()
     m_ignoreRegExpEdit->setObjectName(QStringLiteral("regexplineedit"));
     m_ignoreRegExpEdit->setToolTip(i18nc("@info:tooltip", "Add the regular expression here that you want to use\nto ignore lines that match it."));
     groupLayout->addWidget(m_ignoreRegExpEdit);
-
-    if (!KServiceTypeTrader::self()->query(QStringLiteral("KRegExpEditor/KRegExpEditor")).isEmpty())
-    {
-        // Ok editor is available, use it
-        QPushButton* ignoreRegExpEditButton = new QPushButton(i18nc("@action:button", "&Edit..."), page);
-        ignoreRegExpEditButton->setObjectName(QStringLiteral("regexp_editor_button"));
-        ignoreRegExpEditButton->setToolTip(i18nc("@info:tooltip", "Clicking this will open a regular expression dialog where\nyou can graphically create regular expressions."));
-        groupLayout->addWidget(ignoreRegExpEditButton);
-        connect(ignoreRegExpEditButton, &QPushButton::clicked, this, &DiffPage::slotShowRegExpEditor);
-    }
 
     QGroupBox* moreOptionButtonGroup = new QGroupBox(page);
     layout->addWidget(moreOptionButtonGroup);

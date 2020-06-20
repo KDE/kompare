@@ -60,6 +60,7 @@ add_definitions(
     -DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x054700
     -DKF_DEPRECATED_WARNINGS_SINCE=0x060000
 )
+
 add_subdirectory( doc )
 add_subdirectory( interfaces )
 add_subdirectory( libdialogpages )

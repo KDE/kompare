@@ -7,6 +7,7 @@
   <name xml:lang="ca">Kompare</name>
   <name xml:lang="ca-valencia">Kompare</name>
   <name xml:lang="cs">Kompare</name>
+  <name xml:lang="da">Kompare</name>
   <name xml:lang="de">Kompare</name>
   <name xml:lang="el">Kompare</name>
   <name xml:lang="en-GB">Kompare</name>
@@ -37,8 +38,8 @@
   <name xml:lang="zh-CN">Kompare</name>
   <name xml:lang="zh-TW">Kompare</name>
   <summary>Diff/Patch Frontend</summary>
-  <summary xml:lang="ca">Frontal del Diff/Patch</summary>
-  <summary xml:lang="ca-valencia">Frontal del Diff/Patch</summary>
+  <summary xml:lang="ca">Frontal per al «diff»/«patch»</summary>
+  <summary xml:lang="ca-valencia">Frontal per al «diff»/«patch»</summary>
   <summary xml:lang="cs">Rozhraní pro Diff/Patch</summary>
   <summary xml:lang="de">Oberfläche für Diff und Patch</summary>
   <summary xml:lang="el">Πρόγραμμα Diff/Patch</summary>
@@ -73,8 +74,8 @@
     <p>
       Kompare is a GUI front-end program that enables differences between source files to be viewed and merged. It can be used to compare differences on files or the contents of folders, and it supports a variety of diff formats and provide many options to customize the information level displayed.
     </p>
-    <p xml:lang="ca">El Kompare és un programa de frontal per l'IGU que cerca les diferències entre fitxers de codi font perquè es puguin veure o fusionar. Es pot emprar per comparar diferències entre fitxers o en el contingut de carpetes. També admet diversos formats de «diff» i proporciona moltes opcions per personalitzar el nivell d'informació mostrada.</p>
-    <p xml:lang="ca-valencia">El Kompare és un programa de frontal per l'IGU que cerca les diferències entre fitxers de codi font perquè es puguen veure o fusionar. Es pot emprar per comparar diferències entre fitxers o en el contingut de carpetes. També admet diversos formats de «diff» i proporciona moltes opcions per personalitzar el nivell d'informació mostrada.</p>
+    <p xml:lang="ca">El Kompare és un programa de frontal amb IGU que cerca les diferències entre fitxers de codi font perquè es puguin veure o fusionar. Es pot emprar per a comparar diferències entre fitxers o en el contingut de carpetes. També admet una varietat de formats de «diff» i proporciona moltes opcions per a personalitzar el nivell de la informació mostrada.</p>
+    <p xml:lang="ca-valencia">El Kompare és un programa de frontal amb IGU que cerca les diferències entre fitxers de codi font perquè es puguen veure o fusionar. Es pot emprar per a comparar diferències entre fitxers o en el contingut de carpetes. També admet una varietat de formats de «diff» i proporciona moltes opcions per a personalitzar el nivell de la informació mostrada.</p>
     <p xml:lang="de">Kompare ist ein Programm mit grafischer Bedienungsoberfläche, um Abweichungen zwischen Textdateien zu betrachten und sie zusammenzuführen Kompare kann Abweichungen zwischen einzelnen Dateien oder zwischen Ordnern und deren Inhalt anzeigen.  unterstützt eine Vielzahl an Diff-Formaten und bietet viele Einstellungsmöglichkeiten für die Anzeige der Abweichungen.</p>
     <p xml:lang="en-GB">Kompare is a GUI front-end program that enables differences between source files to be viewed and merged. It can be used to compare differences on files or the contents of folders, and it supports a variety of diff formats and provide many options to customize the information level displayed.</p>
     <p xml:lang="es">Kompare es un programa de interfaz gráfica de usuario que permite ver y fusionar las diferencias entre archivos de código fuente. Se puede usar para comparar las diferencias entre archivos o del contenido de carpetas. Permite distintos formatos de «diff» y proporciona muchas opciones para personalizar el nivel de información que muestra.</p>
@@ -138,8 +139,8 @@
     <p xml:lang="zh-TW">功能：</p>
     <ul>
       <li>Comparing differences on files or the contents of folders recursively.</li>
-      <li xml:lang="ca">Compara diferències en fitxers o en el contingut de carpetes recursivament.</li>
-      <li xml:lang="ca-valencia">Compara diferències en fitxers o en el contingut de carpetes recursivament.</li>
+      <li xml:lang="ca">Compara recursivament les diferències en els fitxers o en el contingut de les carpetes.</li>
+      <li xml:lang="ca-valencia">Compara recursivament les diferències en els fitxers o en el contingut de les carpetes.</li>
       <li xml:lang="de">Vergleich des Unterschieds von Dateien oder rekursiven Ordnerinhalten.</li>
       <li xml:lang="el">Συγκρίνοντας τις διαφορές στα αρχεία ή τα περιεχόμενα των φακέλων αναδρομικά.</li>
       <li xml:lang="en-GB">Comparing differences on files or the contents of folders recursively.</li>
@@ -170,8 +171,8 @@
       <li xml:lang="zh-CN">递归比较文件或文件夹内容的差异。</li>
       <li xml:lang="zh-TW">遞迴比較檔案或資料夾內檔案的差異</li>
       <li>Supports a variety of diff formats and provides many options to customize the information level displayed.</li>
-      <li xml:lang="ca">Permet diversos formats de «diff» i proporciona moltes opcions per personalitzar el nivell d'informació mostrada.</li>
-      <li xml:lang="ca-valencia">Permet diversos formats de «diff» i proporciona moltes opcions per personalitzar el nivell d'informació mostrada.</li>
+      <li xml:lang="ca">Permet una varietat de formats de «diff» i proporciona moltes opcions per a personalitzar el nivell de la informació mostrada.</li>
+      <li xml:lang="ca-valencia">Permet una varietat de formats de «diff» i proporciona moltes opcions per a personalitzar el nivell de la informació mostrada.</li>
       <li xml:lang="de">Unterstützt eine Vielzahl an Diff-Formaten und bietet viele Einstellungsmöglichkeiten für die Anzeige der Abweichungen.</li>
       <li xml:lang="en-GB">Supports a variety of diff formats and provides many options to customise the information level displayed.</li>
       <li xml:lang="es">Permite distintos formatos de «diff» y proporciona muchas opciones para personalizar el nivel de información que muestra.</li>

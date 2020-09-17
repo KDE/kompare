@@ -26,6 +26,7 @@
 #include <QMenu>
 #include <QPainter>
 #include <QPrinter>
+#include <QPageLayout>
 #include <QPrintDialog>
 #include <QPrintPreviewDialog>
 #include <QTemporaryDir>
@@ -610,7 +611,7 @@ void KomparePart::saveDiff()
 void KomparePart::slotFilePrint()
 {
     QPrinter printer;
-    printer.setOrientation(QPrinter::Landscape);
+    printer.setPageOrientation(QPageLayout::Landscape);
     QPrintDialog* dlg = new QPrintDialog(&printer, nullptr);
 
     if (dlg->exec() == QDialog::Accepted)
@@ -625,7 +626,7 @@ void KomparePart::slotFilePrint()
 void KomparePart::slotFilePrintPreview()
 {
     QPrinter printer;
-    printer.setOrientation(QPrinter::Landscape);
+    printer.setPageOrientation(QPageLayout::Landscape);
     QPrintPreviewDialog dlg(&printer);
 
     connect(&dlg, &QPrintPreviewDialog::paintRequested, this, &KomparePart::slotPaintRequested);

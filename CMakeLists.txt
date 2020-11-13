@@ -72,66 +72,8 @@ add_definitions(
     -DKF_DEPRECATED_WARNINGS_SINCE=0x060000
 )
 
-ecm_setup_version(${Kompare_VERSION}
-    VARIABLE_PREFIX KOMPARE
-    VERSION_HEADER kompare_version.h
-)
-
-add_subdirectory( doc )
-add_subdirectory( interfaces )
-add_subdirectory( libdialogpages )
-add_subdirectory( komparenavtreepart )
-add_subdirectory( komparepart )
-add_subdirectory( pics )
-add_subdirectory( servicemenus )
-
-set(kompare_SRCS
-    main.cpp
-    kompare_shell.cpp
-    kompareurldialog.cpp
-)
-ecm_qt_declare_logging_category(kompare_SRCS
-    HEADER kompareshelldebug.h
-    IDENTIFIER KOMPARESHELL
-    CATEGORY_NAME "kompare.shell"
-    DESCRIPTION "Kompare App Shell"
-    EXPORT kompare
-)
-
-qt5_add_resources(kompare_SRCS
-    kompare_shell.qrc
-)
-
-ecm_add_app_icon(kompare_SRCS ICONS
-    pics/16-apps-kompare.png
-    pics/22-apps-kompare.png
-    pics/32-apps-kompare.png
-    pics/48-apps-kompare.png
-    pics/128-apps-kompare.png
-)
-
-add_executable(kompare ${kompare_SRCS})
-
-target_link_libraries(kompare
-    kompareinterface
-    komparedialogpages
-    KompareDiff2
-    KF5::TextEditor
-    KF5::WidgetsAddons
-    Qt5::Widgets
-)
-
-install(TARGETS kompare  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
-
-install(PROGRAMS org.kde.kompare.desktop  DESTINATION  ${KDE_INSTALL_APPDIR})
-install(FILES org.kde.kompare.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
-install(FILES komparenavigationpart.desktop kompareviewpart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICETYPES5DIR})
-
-ecm_qt_install_logging_categories(
-    EXPORT kompare
-    FILE kompare.categories
-    DESTINATION "${KDE_INSTALL_LOGGINGCATEGORIESDIR}"
-)
+add_subdirectory(doc)
+add_subdirectory(src)
 
 ki18n_install(po)
 kdoctools_install(po)

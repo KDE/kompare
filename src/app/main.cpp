@@ -37,7 +37,7 @@
 
 #include "kompareinterface.h"
 
-#include "kompare_version.h"
+#include "../kompare_version.h"
 #include "kompare_shell.h"
 #include "kompareurldialog.h"
 

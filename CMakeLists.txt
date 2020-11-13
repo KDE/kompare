@@ -1,6 +1,16 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(kompare)
+# Release Service version, managed by release script
+set (RELEASE_SERVICE_VERSION_MAJOR "20")
+set (RELEASE_SERVICE_VERSION_MINOR "11")
+set (RELEASE_SERVICE_VERSION_MICRO "80")
+set (RELEASE_SERVICE_COMPACT_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}${RELEASE_SERVICE_VERSION_MINOR}${RELEASE_SERVICE_VERSION_MICRO}")
+
+# Bump KOMPARE_BASE_VERSION once new features are added
+set(KOMPARE_BASE_VERSION "4.1")
+set(KOMPARE_VERSION "${KOMPARE_BASE_VERSION}.${RELEASE_SERVICE_COMPACT_VERSION}")
+
+project(Kompare VERSION ${KOMPARE_VERSION})
 
 set(QT_MIN_VERSION "5.12.0")
 set(KF_MIN_VERSION "5.68.0")
@@ -16,6 +26,7 @@ include(ECMInstallIcons)
 include(GenerateExportHeader)
 include(ECMAddAppIcon)
 include(ECMQtDeclareLoggingCategory)
+include(ECMSetupVersion)
 
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Core
@@ -59,6 +70,11 @@ add_definitions(
     -DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT
     -DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x054700
     -DKF_DEPRECATED_WARNINGS_SINCE=0x060000
+)
+
+ecm_setup_version(${Kompare_VERSION}
+    VARIABLE_PREFIX KOMPARE
+    VERSION_HEADER kompare_version.h
 )
 
 add_subdirectory( doc )

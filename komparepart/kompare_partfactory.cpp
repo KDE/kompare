@@ -17,6 +17,7 @@
 #include "kompare_partfactory.h"
 
 #include "kompare_part.h"
+#include "../kompare_version.h"
 
 // KF
 #include <KLocalizedString>
@@ -24,7 +25,7 @@
 KomparePartFactory::KomparePartFactory()
     : m_aboutData(QStringLiteral("komparepart"),
                   i18n("KomparePart"),
-                  QStringLiteral("4.0"),
+                  QStringLiteral(KOMPARE_VERSION_STRING),
                   QString(),
                   KAboutLicense::GPL
                  )

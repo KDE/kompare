@@ -31,12 +31,26 @@
 #include <libkomparediff2/komparemodellist.h>
 
 #include <komparenavviewdebug.h>
+#include "../kompare_version.h"
 
 #define COL_SOURCE        0
 #define COL_DESTINATION   1
 #define COL_DIFFERENCE    2
 
 using namespace Diff2;
+
+
+static KAboutData aboutData()
+{
+    KAboutData about(
+        QStringLiteral("komparenavtreepart"),
+        i18n("KompareNavTreePart"),
+        QStringLiteral(KOMPARE_VERSION_STRING)
+    );
+    about.addAuthor(i18n("John Firebaugh"), i18n("Author"), QStringLiteral("jfirebaugh@kde.org"));
+    about.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), QStringLiteral("bruggie@gmail.com"));
+    return about;
+}
 
 KompareNavTreePart::KompareNavTreePart(QWidget* parentWidget, QObject* parent, const QVariantList&)
     : KParts::ReadOnlyPart(parent),
@@ -54,6 +68,8 @@ KompareNavTreePart::KompareNavTreePart(QWidget* parentWidget, QObject* parent, c
       m_destination(),
       m_info(nullptr)
 {
+    setComponentData(aboutData());
+
     m_splitter = new QSplitter(Qt::Horizontal, parentWidget);
 
     setWidget(m_splitter);
@@ -769,14 +785,6 @@ KDirLVI* KDirLVI::setSelected(const QString& _dir)
 KDirLVI::~KDirLVI()
 {
     m_modelList.clear();
-}
-
-static KAboutData aboutData()
-{
-    KAboutData about(QStringLiteral("komparenavtreepart"), i18n("KompareNavTreePart"), QStringLiteral("1.2"));
-    about.addAuthor(i18n("John Firebaugh"), i18n("Author"), QStringLiteral("jfirebaugh@kde.org"));
-    about.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), QStringLiteral("bruggie@gmail.com"));
-    return about;
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(KompareNavTreePartFactory, "komparenavtreepart.json",

@@ -50,6 +50,8 @@
  */
 int main(int argc, char* argv[])
 {
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+
     QApplication app(argc, argv);
     KLocalizedString::setApplicationDomain("kompare");
 
@@ -68,8 +70,6 @@ int main(int argc, char* argv[])
 
     KAboutData::setApplicationData(aboutData);
     app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kompare"), app.windowIcon()));
-
-    app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);

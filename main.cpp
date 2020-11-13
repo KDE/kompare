@@ -37,6 +37,7 @@
 
 #include "kompareinterface.h"
 
+#include "kompare_version.h"
 #include "kompare_shell.h"
 #include "kompareurldialog.h"
 
@@ -52,7 +53,8 @@ int main(int argc, char* argv[])
     QApplication app(argc, argv);
     KLocalizedString::setApplicationDomain("kompare");
 
-    KAboutData aboutData(QStringLiteral("kompare"),  i18n("Kompare"), QStringLiteral("4.1.3"),
+    KAboutData aboutData(QStringLiteral("kompare"),  i18n("Kompare"),
+                         QStringLiteral(KOMPARE_VERSION_STRING),
                          i18n("A program to view the differences between files and optionally generate a diff"),
                          KAboutLicense::GPL,
                          i18n("(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"));

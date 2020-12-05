@@ -50,7 +50,9 @@ int main(int argc, char* argv[])
                          QStringLiteral(KOMPARE_VERSION_STRING),
                          i18n("A program to view the differences between files and optionally generate a diff"),
                          KAboutLicense::GPL,
-                         i18n("(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"));
+                         i18n("(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"),
+                         QString(),
+                         QStringLiteral("https://commits.kde.org/kompare"));
     aboutData.addAuthor(i18n("John Firebaugh"), i18n("Author"), QStringLiteral("jfirebaugh@kde.org"));
     aboutData.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), QStringLiteral("bruggie@gmail.com"));
     aboutData.addAuthor(i18n("Jeff Snyder"), i18n("Developer"), QStringLiteral("jeff@caffeinated.me.uk"));

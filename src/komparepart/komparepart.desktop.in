@@ -69,3 +69,11 @@ X-KDE-Library=kf5/parts/komparepart
 Type=Service
 Icon=kompare
 InitialPreference=10
+
+X-KDE-PluginInfo-Name=komparepart
+X-KDE-PluginInfo-Version=@Kompare_VERSION@
+X-KDE-PluginInfo-License=GPLv2+
+X-KDE-PluginInfo-Copyright=
+X-KDE-PluginInfo-Authors=John Firebaugh,Otto Bruggeman,Kevin Kofler
+X-KDE-PluginInfo-Emails=jfirebaugh@kde.org,bruggie@gmail.com,kevin.kofler@chello.at
+X-KDE-PluginInfo-Website=https://commits.kde.org/kompare

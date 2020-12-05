@@ -1,5 +1,7 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
+configure_file(komparepart.desktop.in ${CMAKE_CURRENT_BINARY_DIR}/komparepart.desktop @ONLY)
+
 set( komparepart_PART_SRCS
      kompare_part.cpp
      kompare_partfactory.cpp
@@ -38,6 +40,6 @@ target_link_libraries(komparepart
 )
 
 install(TARGETS komparepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/parts)
-kcoreaddons_desktop_to_json(komparepart komparepart.desktop)
+kcoreaddons_desktop_to_json(komparepart ${CMAKE_CURRENT_BINARY_DIR}/komparepart.desktop)
 
-install(FILES komparepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/komparepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR})

@@ -1,5 +1,7 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
+configure_file(komparenavtreepart.desktop.in ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.desktop @ONLY)
+
 set(komparenavtreepart_PART_SRCS komparenavtreepart.cpp )
 
 ecm_qt_declare_logging_category(komparenavtreepart_PART_SRCS
@@ -11,7 +13,7 @@ ecm_qt_declare_logging_category(komparenavtreepart_PART_SRCS
 )
 
 add_library(komparenavtreepart MODULE ${komparenavtreepart_PART_SRCS})
-kcoreaddons_desktop_to_json(komparenavtreepart komparenavtreepart.desktop)
+kcoreaddons_desktop_to_json(komparenavtreepart ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.desktop)
 
 target_link_libraries(komparenavtreepart
     Qt5::Widgets
@@ -21,5 +23,5 @@ target_link_libraries(komparenavtreepart
 )
 
 install(TARGETS komparenavtreepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/parts)
-install(FILES komparenavtreepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR})
 

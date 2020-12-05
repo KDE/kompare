@@ -22,7 +22,11 @@
 #include <QTemporaryDir>
 #include <QTemporaryFile>
 
+#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+#include <KPluginMetaData>
+#else
 #include <KAboutData>
+#endif
 #include <KActionCollection>
 #include <KJobWidgets>
 #include <KLocalizedString>
@@ -55,11 +59,19 @@ using namespace Diff2;
 ViewSettings* KomparePart::m_viewSettings = nullptr;
 DiffSettings* KomparePart::m_diffSettings = nullptr;
 
+#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KPluginMetaData& metaData, Modus modus) :
+#else
 KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KAboutData& aboutData, Modus modus) :
+#endif
     KParts::ReadWritePart(parent),
     m_info()
 {
+#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+    setMetaData(metaData);
+#else
     setComponentData(aboutData);
+#endif
 
     // set our XML-UI resource file
     setXMLFile(QStringLiteral("komparepartui.rc"));

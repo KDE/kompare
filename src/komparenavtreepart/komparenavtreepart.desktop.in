@@ -64,3 +64,11 @@ ServiceTypes=Kompare/NavigationPart
 X-KDE-Library=kf5/parts/komparenavtreepart
 Type=Service
 Icon=kompare
+
+X-KDE-PluginInfo-Name=komparenavtreepart
+X-KDE-PluginInfo-Version=@Kompare_VERSION@
+X-KDE-PluginInfo-License=GPLv2+
+X-KDE-PluginInfo-Copyright=
+X-KDE-PluginInfo-Authors=John Firebaugh,Otto Bruggeman,Kevin Kofler
+X-KDE-PluginInfo-Emails=jfirebaugh@kde.org,bruggie@gmail.com,kevin.kofler@chello.at
+X-KDE-PluginInfo-Website=https://commits.kde.org/kompare

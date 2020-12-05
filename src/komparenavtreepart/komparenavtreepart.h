@@ -9,13 +9,15 @@
 #ifndef KOMPARENAVTREEPART_H
 #define KOMPARENAVTREEPART_H
 
+// Qt
 #include <QHash>
 #include <QSplitter>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
-
+// KF
+#include <kparts_version.h>
 #include <KParts/ReadOnlyPart>
-
+// libkomparediff2
 #include <libkomparediff2/kompare.h>
 #include <libkomparediff2/diffmodellist.h>
 
@@ -33,7 +35,12 @@ class KompareNavTreePart : public KParts::ReadOnlyPart
     Q_OBJECT
 
 public:
-    explicit KompareNavTreePart(QWidget* parentWidget, QObject* parent, const QVariantList& args);
+    explicit KompareNavTreePart(QWidget* parentWidget, QObject* parent,
+#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+                                const KPluginMetaData& metaData, const QVariantList& args);
+#else
+                                const QVariantList& args);
+#endif
     ~KompareNavTreePart() override;
 
 public:

@@ -10,20 +10,26 @@
 #ifndef KOMPAREPART_H
 #define KOMPAREPART_H
 
-#include <KParts/ReadWritePart>
-
-#include <QVariantList>
-#include <libkomparediff2/kompare.h>
-
 #include <komparepartdebug.h>
 #include "kompareinterface.h"
+// libkomparediff2
+#include <libkomparediff2/kompare.h>
+// KF
+#include <kparts_version.h>
+#include <KParts/ReadWritePart>
+// Qt
+#include <QVariantList>
 
 class QAction;
 class QPrinter;
 class QUrl;
 class QWidget;
 
+#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+class KPluginMetaData;
+#else
 class KAboutData;
+#endif
 
 namespace Diff2 {
 class Difference;
@@ -59,7 +65,11 @@ public:
     /**
     * Default constructor
     */
+#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+    KomparePart(QWidget* parentWidget, QObject* parent, const KPluginMetaData& metaData, Modus modus);
+#else
     KomparePart(QWidget* parentWidget, QObject* parent, const KAboutData& aboutData, Modus modus);
+#endif
 
     /**
     * Destructor

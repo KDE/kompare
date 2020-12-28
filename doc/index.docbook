@@ -54,7 +54,7 @@ see what changes have been made to a new version or copy of the file. Opening th
 application used to create it is one solution but, laborious, time consuming, and prone to error. This is where a program to show 
 differences, diffs for short, is useful.</para>
 
-<para>As would be expected, an appropriate name for such a program would be <quote>diff</quote>;. As it happens, the program diff is installed on
+<para>As would be expected, an appropriate name for such a program would be <quote>diff</quote>. As it happens, the program <ulink url="https://www.gnu.org/software/diffutils/">diff</ulink> is installed on
 most &Linux;-based systems and is used for exactly this purpose. Developers often use diff, as a command line tool, to show differences 
 between versions of a source code file. However, the use of diff is not limited to showing differences in code source files, 
 it can be used on many text-based file types.</para>

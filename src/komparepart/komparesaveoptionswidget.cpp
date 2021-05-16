@@ -65,13 +65,8 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget(const QString& source, const 
     connect(m_RCSRB,              &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
     connect(m_UnifiedRB,          &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
     connect(m_SideBySideRB,       &QCheckBox::toggled, this, &KompareSaveOptionsWidget::updateCommandLine);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     connect(m_ContextLinesSB,     &QSpinBox::textChanged,
             this, &KompareSaveOptionsWidget::updateCommandLine);
-#else
-    connect(m_ContextLinesSB,     static_cast<void(QSpinBox::*)(const QString&)>(&QSpinBox::valueChanged),
-            this, &KompareSaveOptionsWidget::updateCommandLine);
-#endif
     connect(m_directoryRequester, &KUrlRequester::textChanged, this, &KompareSaveOptionsWidget::updateCommandLine);
 
     m_FormatBG->setExclusive(true);

@@ -10,9 +10,6 @@
 // KF
 #include <KPluginFactory>
 #include <kparts_version.h>
-#if KPARTS_VERSION < QT_VERSION_CHECK(5, 77, 0)
-#include <KAboutData>
-#endif
 
 
 class KomparePartFactory : public KPluginFactory
@@ -28,11 +25,6 @@ public:
     QObject* create(const char* iface,
                     QWidget* parentWidget, QObject* parent,
                     const QVariantList& args, const QString& keyword) override;
-
-#if KPARTS_VERSION < QT_VERSION_CHECK(5, 77, 0)
-private:
-    KAboutData m_aboutData;
-#endif
 };
 
 #endif

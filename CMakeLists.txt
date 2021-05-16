@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.16)
 
 # Release Service version, managed by release script
 set (RELEASE_SERVICE_VERSION_MAJOR "21")
@@ -12,21 +12,22 @@ set(KOMPARE_VERSION "${KOMPARE_BASE_VERSION}.${RELEASE_SERVICE_COMPACT_VERSION}"
 
 project(Kompare VERSION ${KOMPARE_VERSION})
 
-set(QT_MIN_VERSION "5.12.0")
-set(KF_MIN_VERSION "5.68.0")
+set(QT_MIN_VERSION "5.15.0")
+set(KF_MIN_VERSION "5.83.0")
 
 find_package(ECM ${KF5_MIN_VERSION} NO_MODULE REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
 
-include(FeatureSummary)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
+
 include(ECMInstallIcons)
-include(GenerateExportHeader)
 include(ECMAddAppIcon)
 include(ECMQtDeclareLoggingCategory)
 include(ECMSetupVersion)
+include(GenerateExportHeader)
+include(FeatureSummary)
 
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Core
@@ -68,7 +69,8 @@ add_definitions(
 #     -DQT_NO_URL_CAST_FROM_STRING
     -DQT_NO_FOREACH
     -DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT
-    -DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x054700
+    -DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055200
+    -DKSERVICE_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055100 # KMimeTypeTrader deprecated in 5.82
     -DKF_DEPRECATED_WARNINGS_SINCE=0x060000
 )
 

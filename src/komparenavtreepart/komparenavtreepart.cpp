@@ -12,11 +12,7 @@
 #include <QTreeWidgetItemIterator>
 
 #include <KLocalizedString>
-#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
 #include <KPluginMetaData>
-#else
-#include <KAboutData>
-#endif
 #include <KPluginFactory>
 
 #include <libkomparediff2/difference.h>
@@ -25,9 +21,6 @@
 #include <libkomparediff2/komparemodellist.h>
 
 #include <komparenavviewdebug.h>
-#if KPARTS_VERSION < QT_VERSION_CHECK(5, 77, 0)
-#include "../kompare_version.h"
-#endif
 
 #define COL_SOURCE        0
 #define COL_DESTINATION   1
@@ -35,27 +28,8 @@
 
 using namespace Diff2;
 
-
-#if KPARTS_VERSION < QT_VERSION_CHECK(5, 77, 0)
-static KAboutData aboutData()
-{
-    KAboutData about(
-        QStringLiteral("komparenavtreepart"),
-        i18n("KompareNavTreePart"),
-        QStringLiteral(KOMPARE_VERSION_STRING)
-    );
-    about.addAuthor(i18n("John Firebaugh"), i18n("Author"), QStringLiteral("jfirebaugh@kde.org"));
-    about.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), QStringLiteral("bruggie@gmail.com"));
-    return about;
-}
-#endif
-
 KompareNavTreePart::KompareNavTreePart(QWidget* parentWidget, QObject* parent,
-#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
                                        const KPluginMetaData& metaData, const QVariantList&)
-#else
-                                       const QVariantList&)
-#endif
     : KParts::ReadOnlyPart(parent),
       m_splitter(nullptr),
       m_modelList(nullptr),
@@ -71,11 +45,7 @@ KompareNavTreePart::KompareNavTreePart(QWidget* parentWidget, QObject* parent,
       m_destination(),
       m_info(nullptr)
 {
-#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
     setMetaData(metaData);
-#else
-    setComponentData(aboutData());
-#endif
 
     m_splitter = new QSplitter(Qt::Horizontal, parentWidget);
 

@@ -36,11 +36,7 @@ class KompareNavTreePart : public KParts::ReadOnlyPart
 
 public:
     explicit KompareNavTreePart(QWidget* parentWidget, QObject* parent,
-#if KPARTS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
                                 const KPluginMetaData& metaData, const QVariantList& args);
-#else
-                                const QVariantList& args);
-#endif
     ~KompareNavTreePart() override;
 
 public:

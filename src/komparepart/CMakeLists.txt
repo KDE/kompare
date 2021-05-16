@@ -2,18 +2,23 @@ add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
 configure_file(komparepart.desktop.in ${CMAKE_CURRENT_BINARY_DIR}/komparepart.desktop @ONLY)
 
-set( komparepart_PART_SRCS
-     kompare_part.cpp
-     kompare_partfactory.cpp
-     kompareconnectwidget.cpp
-     komparesplitter.cpp
-     komparelistview.cpp
-     kompareprefdlg.cpp
-     komparesaveoptionsbase.cpp
-     komparesaveoptionswidget.cpp
-     kompareview.cpp )
+add_library(komparepart MODULE)
 
-ecm_qt_declare_logging_category(komparepart_PART_SRCS
+target_sources(komparepart PRIVATE
+    kompare_part.cpp
+    kompare_partfactory.cpp
+    kompareconnectwidget.cpp
+    komparesplitter.cpp
+    komparelistview.cpp
+    kompareprefdlg.cpp
+    komparesaveoptionsbase.cpp
+    komparesaveoptionswidget.cpp
+    kompareview.cpp
+
+    kompare_part.qrc
+)
+
+ecm_qt_declare_logging_category(komparepart
     HEADER komparepartdebug.h
     IDENTIFIER KOMPAREPART
     CATEGORY_NAME "kompare.part"
@@ -21,13 +26,7 @@ ecm_qt_declare_logging_category(komparepart_PART_SRCS
     EXPORT kompare
 )
 
-ki18n_wrap_ui(komparepart_PART_SRCS komparesaveoptionsbase.ui )
-
-qt5_add_resources(komparepart_PART_SRCS
-    kompare_part.qrc
-)
-
-add_library(komparepart MODULE ${komparepart_PART_SRCS})
+ki18n_wrap_ui(komparepart komparesaveoptionsbase.ui)
 
 target_link_libraries(komparepart
     komparedialogpages

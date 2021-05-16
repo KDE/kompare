@@ -1,9 +1,14 @@
-set(kompare_SRCS
+add_executable(kompare)
+
+target_sources(kompare PRIVATE
     main.cpp
     kompare_shell.cpp
     kompareurldialog.cpp
+
+    kompare_shell.qrc
 )
-ecm_qt_declare_logging_category(kompare_SRCS
+
+ecm_qt_declare_logging_category(kompare
     HEADER kompareshelldebug.h
     IDENTIFIER KOMPARESHELL
     CATEGORY_NAME "kompare.shell"
@@ -11,19 +16,13 @@ ecm_qt_declare_logging_category(kompare_SRCS
     EXPORT kompare
 )
 
-qt5_add_resources(kompare_SRCS
-    kompare_shell.qrc
-)
-
-ecm_add_app_icon(kompare_SRCS ICONS
+ecm_add_app_icon(kompare ICONS
     ../icons/16-apps-kompare.png
     ../icons/22-apps-kompare.png
     ../icons/32-apps-kompare.png
     ../icons/48-apps-kompare.png
     ../icons/128-apps-kompare.png
 )
-
-add_executable(kompare ${kompare_SRCS})
 
 target_link_libraries(kompare
     kompareinterface

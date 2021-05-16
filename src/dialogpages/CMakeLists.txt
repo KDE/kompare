@@ -1,13 +1,14 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
-set(dialogpages_PART_SRCS
-	filessettings.cpp
-	viewsettings.cpp
-	diffpage.cpp
-	filespage.cpp
-	viewpage.cpp )
+add_library(komparedialogpages SHARED)
 
-add_library(komparedialogpages SHARED ${dialogpages_PART_SRCS})
+target_sources(komparedialogpages PRIVATE
+    filessettings.cpp
+    viewsettings.cpp
+    diffpage.cpp
+    filespage.cpp
+    viewpage.cpp
+)
 
 generate_export_header(komparedialogpages BASE_NAME DIALOGPAGES)
 
@@ -19,8 +20,9 @@ target_link_libraries(komparedialogpages
         KF5::WidgetsAddons
 )
 
-set_target_properties(komparedialogpages PROPERTIES VERSION ${KOMPARE_LIB_VERSION}
-SOVERSION ${KOMPARE_LIB_SOVERSION} )
+set_target_properties(komparedialogpages PROPERTIES
+    VERSION   ${KOMPARE_LIB_VERSION}
+    SOVERSION ${KOMPARE_LIB_SOVERSION}
+)
 
 install(TARGETS komparedialogpages ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} LIBRARY NAMELINK_SKIP)
-

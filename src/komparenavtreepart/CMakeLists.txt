@@ -2,9 +2,13 @@ add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
 configure_file(komparenavtreepart.desktop.in ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.desktop @ONLY)
 
-set(komparenavtreepart_PART_SRCS komparenavtreepart.cpp )
+add_library(komparenavtreepart MODULE)
 
-ecm_qt_declare_logging_category(komparenavtreepart_PART_SRCS
+target_sources(komparenavtreepart PRIVATE
+    komparenavtreepart.cpp
+)
+
+ecm_qt_declare_logging_category(komparenavtreepart
     HEADER komparenavviewdebug.h
     IDENTIFIER KOMPARENAVVIEW
     CATEGORY_NAME "kompare.navview"
@@ -12,7 +16,6 @@ ecm_qt_declare_logging_category(komparenavtreepart_PART_SRCS
     EXPORT kompare
 )
 
-add_library(komparenavtreepart MODULE ${komparenavtreepart_PART_SRCS})
 kcoreaddons_desktop_to_json(komparenavtreepart ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.desktop)
 
 target_link_libraries(komparenavtreepart

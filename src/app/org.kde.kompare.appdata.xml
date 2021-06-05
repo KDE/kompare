@@ -255,9 +255,9 @@
     <category>Development</category>
   </categories>
   <releases>
+    <release version="4.1.21042" date="2021-06-10"/>
     <release version="4.1.21041" date="2021-05-13"/>
     <release version="4.1.21040" date="2021-04-22"/>
     <release version="4.1.20123" date="2021-03-04"/>
-    <release version="4.1.20122" date="2021-02-04"/>
   </releases>
 </component>

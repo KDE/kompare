@@ -174,6 +174,26 @@ void KompareShell::openStdin()
 
 void KompareShell::compare(const QUrl& source, const QUrl& destination)
 {
+    // In order to know if source and destination are the same one
+    bool sourceIsDest = false;
+
+    if (source.toDisplayString() == destination.toDisplayString()) {
+        sourceIsDest = true;
+    } else {
+        if (source.isLocalFile() && destination.isLocalFile()) {
+            if (QFileInfo(source.path()).canonicalFilePath() == QFileInfo(destination.path()).canonicalFilePath()) {
+                sourceIsDest = true;
+            }
+        }
+    }
+
+    if (sourceIsDest) {
+        if (KMessageBox::warningContinueCancel(this,
+            i18n("Warning: Something is going to be compared with itself!")) != KMessageBox::Continue) {
+                return;
+        }
+    }
+
     m_sourceURL = source;
     m_destinationURL = destination;
 

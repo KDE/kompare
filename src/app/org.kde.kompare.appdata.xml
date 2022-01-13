@@ -265,6 +265,7 @@
     <binary>kompare</binary>
   </provides>
   <launchable type="desktop-id">org.kde.kompare.desktop</launchable>
+  <content_rating type="oars-1.1"/>
   <categories>
     <category>Development</category>
   </categories>

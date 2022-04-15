@@ -69,7 +69,7 @@
   <summary xml:lang="sr-ijekavian">Прочеље за diff и patch</summary>
   <summary xml:lang="sr-ijekavianlatin">Pročelje za diff i patch</summary>
   <summary xml:lang="sv">Gränssnitt för Diff/Patch</summary>
-  <summary xml:lang="tr">Diff/Yama Önyüzü</summary>
+  <summary xml:lang="tr">Diff/Yama Ön Yüzü</summary>
   <summary xml:lang="uk">Оболонка до Diff/Patch</summary>
   <summary xml:lang="x-test">xxDiff/Patch Frontendxx</summary>
   <summary xml:lang="zh-CN">Diff/Patch 前端</summary>
@@ -210,7 +210,7 @@
       <li xml:lang="sr-ijekavian">Подршка за многобројне формате разлика, многе опције за прилагођавање нивоа приказа информација.</li>
       <li xml:lang="sr-ijekavianlatin">Podrška za mnogobrojne formate razlika, mnoge opcije za prilagođavanje nivoa prikaza informacija.</li>
       <li xml:lang="sv">Stöder en mängd olika jämförelseformat, och tillhandahåller många alternativ för att anpassa informationsnivån som visas.</li>
-      <li xml:lang="tr">Bilgi görüntüleme seviyesini özelleştirebilmek için çeşitli diff biçimlerini destekler ve bir çok seçenek sağlar.</li>
+      <li xml:lang="tr">Bilgi görüntüleme düzeyini özelleştirebilmek için çeşitli diff biçimlerini destekler ve bir çok seçenek sağlar.</li>
       <li xml:lang="uk">У Kompare передбачено підтримку багатьох різних форматів різниці між файлами, у цій програми передбачено багато параметрів, за допомогою яких ви зможете налаштувати рівень показу інформації.</li>
       <li xml:lang="x-test">xxSupports a variety of diff formats and provides many options to customize the information level displayed.xx</li>
       <li xml:lang="zh-CN">支持多种不同的格式，并提供许多选项来自定义显示的信息级别。</li>

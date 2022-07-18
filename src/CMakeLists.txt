@@ -18,9 +18,3 @@ ecm_qt_install_logging_categories(
     FILE kompare.categories
     DESTINATION "${KDE_INSTALL_LOGGINGCATEGORIESDIR}"
 )
-
-install(FILES
-    komparenavigationpart.desktop
-    kompareviewpart.desktop
-    DESTINATION  ${KDE_INSTALL_KSERVICETYPESDIR}
-)

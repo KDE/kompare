@@ -25,7 +25,6 @@
 #include <KMessageBox>
 #include <KSqueezedTextLabel>
 #include <KStandardAction>
-#include <KMimeTypeTrader>
 #include <KServiceTypeTrader>
 #include <KSharedConfig>
 #include <KToggleAction>
@@ -54,10 +53,11 @@ KompareShell::KompareShell()
     setupActions();
     setupStatusBar();
 
-    m_viewPart = KMimeTypeTrader::createInstanceFromQuery<KParts::ReadWritePart>(QStringLiteral("text/x-patch"), QStringLiteral("Kompare/ViewPart"), this);
+    const auto viewPartLoadResult = KPluginFactory::instantiatePlugin<KParts::ReadWritePart>(KPluginMetaData(QStringLiteral("kf5/parts/komparepart")), this);
 
-    if (m_viewPart)
+    if (viewPartLoadResult)
     {
+        m_viewPart = viewPartLoadResult.plugin;
         setCentralWidget(m_viewPart->widget());
         // and integrate the part's GUI with the shell's
         createGUI(m_viewPart);
@@ -66,7 +66,7 @@ KompareShell::KompareShell()
     {
         // if we couldn't load our Part, we exit since the Shell by
         // itself can't do anything useful
-        KMessageBox::error(this, i18n("Could not load our KompareViewPart."));
+        KMessageBox::error(this, i18n("Could not load our KompareViewPart: %1", viewPartLoadResult.errorString));
         exit(2);
     }
 
@@ -74,11 +74,12 @@ KompareShell::KompareShell()
     m_navTreeDock->setObjectName(QStringLiteral("Navigation"));
 
     // This part is implemented in KompareNavTreePart
-    m_navTreePart = KServiceTypeTrader::createInstanceFromQuery<KParts::ReadOnlyPart>
-                    (QStringLiteral("KParts/ReadOnlyPart"), QStringLiteral("'Kompare/NavigationPart' in ServiceTypes"), m_navTreeDock);
 
-    if (m_navTreePart)
+    const auto navPartLoadResult = KPluginFactory::instantiatePlugin<KParts::ReadOnlyPart>(KPluginMetaData(QStringLiteral("kf5/parts/komparenavtreepart")), m_navTreeDock);
+
+    if (navPartLoadResult)
     {
+        m_navTreePart = navPartLoadResult.plugin;
         m_navTreeDock->setWidget(m_navTreePart->widget());
         addDockWidget(Qt::TopDockWidgetArea, m_navTreeDock);
 //          m_navTreeDock->manualDock( m_mainViewDock, KDockWidget::DockTop, 20 );
@@ -87,7 +88,7 @@ KompareShell::KompareShell()
     {
         // if we couldn't load our Part, we exit since the Shell by
         // itself can't do anything useful
-        KMessageBox::error(this, i18n("Could not load our KompareNavigationPart."));
+        KMessageBox::error(this, i18n("Could not load our KompareNavigationPart: %1", navPartLoadResult.errorString));
         exit(4);
     }
 

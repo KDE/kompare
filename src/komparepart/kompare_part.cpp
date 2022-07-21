@@ -676,8 +676,8 @@ void KomparePart::onContextMenuRequested(const QPoint& pos)
 
 void KomparePart::updateCaption()
 {
-    QString source = m_info.source.toDisplayString();
-    QString destination = m_info.destination.toDisplayString();
+    QString source = m_info.source.toDisplayString(QUrl::PreferLocalFile);
+    QString destination = m_info.destination.toDisplayString(QUrl::PreferLocalFile);
 
     QString text;
 
@@ -701,8 +701,8 @@ void KomparePart::updateCaption()
 
 void KomparePart::updateStatus()
 {
-    QString source = m_info.source.toDisplayString();
-    QString destination = m_info.destination.toDisplayString();
+    QString source = m_info.source.toDisplayString(QUrl::PreferLocalFile);
+    QString destination = m_info.destination.toDisplayString(QUrl::PreferLocalFile);
 
     QString text;
 

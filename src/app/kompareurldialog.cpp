@@ -98,7 +98,7 @@ void KompareURLDialog::accept()
         if (QFileInfo(m_diffPage->m_excludeFileURLComboBox->currentText()).isDir())
         {
             qCDebug(KOMPARESHELL) << "Don't enter directory names where filenames are expected..." ;
-            KMessageBox::sorry(this, i18n("File used for excluding files cannot be found, please specify another file."));
+            KMessageBox::error(this, i18n("File used for excluding files cannot be found, please specify another file."));
             reject();
             return;
         }

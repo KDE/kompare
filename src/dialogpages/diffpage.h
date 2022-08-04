@@ -10,13 +10,13 @@
 #define DIFFPAGE_H
 
 #include <QFrame>
+#include <QStringList>
 
 #include "dialogpages_export.h"
 
 class QCheckBox;
 class QDialog;
 class QSpinBox;
-class QStringList;
 class QButtonGroup;
 class QGroupBox;
 class QTabWidget;

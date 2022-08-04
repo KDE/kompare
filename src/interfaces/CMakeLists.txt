@@ -10,7 +10,7 @@ generate_export_header(kompareinterface BASE_NAME KOMPAREINTERFACE)
 
 target_link_libraries(kompareinterface
     PUBLIC
-        Qt5::Core
+        Qt::Core
 )
 
 set_target_properties(kompareinterface PROPERTIES

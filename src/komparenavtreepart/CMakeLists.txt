@@ -19,12 +19,12 @@ ecm_qt_declare_logging_category(komparenavtreepart
 kcoreaddons_desktop_to_json(komparenavtreepart ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.desktop)
 
 target_link_libraries(komparenavtreepart
-    Qt5::Widgets
+    Qt::Widgets
     KF5::Parts
     KF5::IconThemes
     KompareDiff2
 )
 
-install(TARGETS komparenavtreepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/parts)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR})
+install(TARGETS komparenavtreepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/parts)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICESDIR})
 

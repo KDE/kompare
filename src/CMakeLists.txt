@@ -22,5 +22,5 @@ ecm_qt_install_logging_categories(
 install(FILES
     komparenavigationpart.desktop
     kompareviewpart.desktop
-    DESTINATION  ${KDE_INSTALL_KSERVICETYPES5DIR}
+    DESTINATION  ${KDE_INSTALL_KSERVICETYPESDIR}
 )

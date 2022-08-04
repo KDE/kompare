@@ -30,7 +30,7 @@ target_link_libraries(kompare
     KompareDiff2
     KF5::TextEditor
     KF5::WidgetsAddons
-    Qt5::Widgets
+    Qt::Widgets
 )
 
 install(TARGETS kompare  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

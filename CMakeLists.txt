@@ -12,8 +12,8 @@ set(KOMPARE_VERSION "${KOMPARE_BASE_VERSION}.${RELEASE_SERVICE_COMPACT_VERSION}"
 
 project(Kompare VERSION ${KOMPARE_VERSION})
 
-set(QT_MIN_VERSION "5.15.0")
-set(KF5_MIN_VERSION "5.85.0")
+set(QT_MIN_VERSION "5.15.2")
+set(KF5_MIN_VERSION "5.90.0")
 
 find_package(ECM ${KF5_MIN_VERSION} NO_MODULE REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
@@ -29,7 +29,7 @@ include(ECMSetupVersion)
 include(GenerateExportHeader)
 include(FeatureSummary)
 
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Core
     PrintSupport
     Widgets

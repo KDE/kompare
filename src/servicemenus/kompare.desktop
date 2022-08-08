@@ -1,5 +1,4 @@
 [Desktop Entry]
-ServiceTypes=KonqPopupMenu/Plugin
 Actions=kompare
 Type=Service
 MimeType=inode/directory;application/octet-stream;

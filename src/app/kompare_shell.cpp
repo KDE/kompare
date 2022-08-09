@@ -177,7 +177,8 @@ void KompareShell::compare(const QUrl& source, const QUrl& destination)
     // In order to know if source and destination are the same one
     bool sourceIsDest = false;
 
-    if (source.toDisplayString() == destination.toDisplayString()) {
+    // If the QUrls are the same
+    if (source == destination) {
         sourceIsDest = true;
     } else {
         if (source.isLocalFile() && destination.isLocalFile()) {

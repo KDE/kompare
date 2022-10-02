@@ -1,0 +1,1473 @@
+# translation of kompare.po to Lithuanian
+#
+# Ričardas Čepas <rch@online.lt>, 2003.
+# Donatas Glodenis <dgvirtual@akl.lt>, 2004-2005.
+# Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>, 2011.
+# Liudas Ališauskas <liudas@akmc.lt>, 2013.
+# Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>, 2017.
+msgid ""
+msgstr ""
+"Project-Id-Version: kompare\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"PO-Revision-Date: 2017-06-28 10:15+0200\n"
+"Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
+"Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
+"%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
+"X-Generator: Lokalize 2.0\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Eugenijus Paulauskas, Ričardas Čepas"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "eugenijus@agvila.lt, rch@online.lt"
+
+#: app/kompare_shell.cpp:69
+#, kde-format
+msgid "Could not load our KompareViewPart."
+msgstr "Nepavyko įkelti mūsų KompareViewPart."
+
+#: app/kompare_shell.cpp:73
+#, fuzzy, kde-format
+#| msgid "Navigation"
+msgctxt "@title:window"
+msgid "Navigation"
+msgstr "Navigacija"
+
+#: app/kompare_shell.cpp:90
+#, kde-format
+msgid "Could not load our KompareNavigationPart."
+msgstr "Nepavyko įkelti mūsų KompareNavigationPart."
+
+#: app/kompare_shell.cpp:195
+#, fuzzy, kde-format
+#| msgid "&Open Diff..."
+msgctxt "@action"
+msgid "&Open Diff..."
+msgstr "&Atverti skirtumą..."
+
+#: app/kompare_shell.cpp:198
+#, fuzzy, kde-format
+#| msgid "&Compare Files..."
+msgctxt "@action"
+msgid "&Compare Files..."
+msgstr "&Palyginti failus..."
+
+#: app/kompare_shell.cpp:201
+#, fuzzy, kde-format
+#| msgid "&Blend URL with Diff..."
+msgctxt "@action"
+msgid "&Blend URL with Diff..."
+msgstr "&Sumaišyti URL su skirtumu..."
+
+#: app/kompare_shell.cpp:207
+#, fuzzy, kde-format
+#| msgid "Show T&ext View"
+msgctxt "@action"
+msgid "Show T&ext View"
+msgstr "&Teksto rodinys"
+
+#: app/kompare_shell.cpp:220
+#, kde-format
+msgid " 0 of 0 differences "
+msgstr " 0 iš 0 skirtumų"
+
+#: app/kompare_shell.cpp:221
+#, kde-format
+msgid " 0 of 0 files "
+msgstr " 0 iš 0 failų "
+
+#: app/kompare_shell.cpp:238
+#, kde-format
+msgid " %2 of %1 file "
+msgid_plural " %2 of %1 files "
+msgstr[0] " %2 iš %1 failo "
+msgstr[1] " %2 iš %1 failų "
+msgstr[2] " %2 iš %1 failų "
+msgstr[3] " %2 iš %1 failo "
+
+#: app/kompare_shell.cpp:240
+#, kde-format
+msgid " %1 file "
+msgid_plural " %1 files "
+msgstr[0] " %1 failas "
+msgstr[1] " %1 failai "
+msgstr[2] " %1 failų "
+msgstr[3] " %1 failas "
+
+#: app/kompare_shell.cpp:243
+#, kde-format
+msgid " %2 of %1 difference, %3 applied "
+msgid_plural " %2 of %1 differences, %3 applied "
+msgstr[0] " %2 iš %1 skirtumo, %3 pritaikyta "
+msgstr[1] " %2 iš %1 skirtumų, %3 pritaikyta "
+msgstr[2] " %2 iš %1 skirtumų, %3 pritaikyta "
+msgstr[3] " %2 iš %1 skirtumo, %3 pritaikyta "
+
+#: app/kompare_shell.cpp:246
+#, kde-format
+msgid " %1 difference "
+msgid_plural " %1 differences "
+msgstr[0] " %1 skirtumas "
+msgstr[1] " %1 skirtumai "
+msgstr[2] " %1 skirtumų "
+msgstr[3] " %1 skirtumas "
+
+#: app/kompare_shell.cpp:327
+#, fuzzy, kde-format
+#| msgid "Blend File/Folder with diff Output"
+msgctxt "@title:window"
+msgid "Blend File/Folder with diff Output"
+msgstr "Maišyti failą/aplanką su skirtumo išvestimi"
+
+#: app/kompare_shell.cpp:328
+#, fuzzy, kde-format
+#| msgid "File/Folder"
+msgctxt "@title:group"
+msgid "File/Folder"
+msgstr "Failas/Aplankas"
+
+#: app/kompare_shell.cpp:329
+#, fuzzy, kde-format
+#| msgid "Diff Output"
+msgctxt "@title:group"
+msgid "Diff Output"
+msgstr "Diff rezultatas (skirtumai)"
+
+#: app/kompare_shell.cpp:332
+#, fuzzy, kde-format
+#| msgid "Blend"
+msgctxt "@action:button"
+msgid "Blend"
+msgstr "Maišyti"
+
+#: app/kompare_shell.cpp:333
+#, fuzzy, kde-format
+#| msgid "Blend this file or folder with the diff output"
+msgctxt "@info:tooltip"
+msgid "Blend this file or folder with the diff output"
+msgstr "Maišyti šį failą ar aplanką su skirtumo išvestimi"
+
+#: app/kompare_shell.cpp:334
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
+#| "then this button will be enabled and pressing it will start a comparison "
+#| "of the entered files or folders. "
+msgctxt "@infor:whatsthis"
+msgid ""
+"If you have entered a file or folder name and a file that contains diff "
+"output in the fields in this dialog then this button will be enabled and "
+"pressing it will open kompare's main view where the output of the entered "
+"file or files from the folder are mixed with the diff output so you can then "
+"apply the difference(s) to a file or to the files. "
+msgstr ""
+"Jei įvedėte dviejų failų vardus ar du aplankus šio dialogo laukuose, tada "
+"šis mygtukas pasidarys prieinamu ir jį paspaudus bus pradėtas įvestų failų "
+"ar aplankų palyginimas."
+
+#: app/kompare_shell.cpp:357 app/main.cpp:199
+#, fuzzy, kde-format
+#| msgid "Compare Files or Folders"
+msgctxt "@title:window"
+msgid "Compare Files or Folders"
+msgstr "Palyginti failus arba aplankus"
+
+#: app/kompare_shell.cpp:358 app/main.cpp:200
+#, fuzzy, kde-format
+#| msgid "Source"
+msgctxt "@title:group"
+msgid "Source"
+msgstr "Šaltinis"
+
+#: app/kompare_shell.cpp:359 app/main.cpp:201
+#, fuzzy, kde-format
+#| msgid "Destination"
+msgctxt "@title:group"
+msgid "Destination"
+msgstr "Paskirties vieta"
+
+#: app/kompare_shell.cpp:362 app/main.cpp:204
+#, fuzzy, kde-format
+#| msgid "Compare"
+msgctxt "@action:button"
+msgid "Compare"
+msgstr "Palyginti"
+
+#: app/kompare_shell.cpp:363 app/main.cpp:205
+#, fuzzy, kde-format
+#| msgid "Compare these files or folders"
+msgctxt "@info:tooltip"
+msgid "Compare these files or folders"
+msgstr "Palyginti šiuos failus arba aplankus"
+
+#: app/kompare_shell.cpp:364 app/main.cpp:206
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
+#| "then this button will be enabled and pressing it will start a comparison "
+#| "of the entered files or folders. "
+msgctxt "@info:whatsthis"
+msgid ""
+"If you have entered 2 filenames or 2 folders in the fields in this dialog "
+"then this button will be enabled and pressing it will start a comparison of "
+"the entered files or folders. "
+msgstr ""
+"Jei įvedėte dviejų failų vardus ar du aplankus šio dialogo laukuose, tada "
+"šis mygtukas pasidarys prieinamu ir jį paspaudus bus pradėtas įvestų failų "
+"ar aplankų palyginimas."
+
+#: app/kompare_shell.cpp:398
+#, fuzzy, kde-format
+#| msgid "Text View"
+msgctxt "@title:window"
+msgid "Text View"
+msgstr "Teksto vaizdas"
+
+#. i18n: ectx: Menu (file)
+#: app/kompareui.rc:4 komparepart/komparepartui.rc:4
+#, kde-format
+msgid "&File"
+msgstr "&Failas"
+
+#. i18n: ectx: Menu (settings)
+#: app/kompareui.rc:14 komparepart/komparepartui.rc:29
+#, kde-format
+msgid "&Settings"
+msgstr "&Nuostatos"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: app/kompareui.rc:27
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Pagrindinė įrankinė"
+
+#: app/kompareurldialog.cpp:37
+#, fuzzy, kde-format
+#| msgid "Files"
+msgctxt "@title:tab"
+msgid "Files"
+msgstr "Failai"
+
+#: app/kompareurldialog.cpp:39
+#, kde-format
+msgid "Here you can enter the files you want to compare."
+msgstr "Čia galite nurodyti palygintinus failus."
+
+#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:42
+#, fuzzy, kde-format
+#| msgid "Diff"
+msgctxt "@title:tab"
+msgid "Diff"
+msgstr "Diff"
+
+#: app/kompareurldialog.cpp:47
+#, kde-format
+msgid "Here you can change the options for comparing the files."
+msgstr "Čia galite keisti palyginimo parinktis."
+
+#: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
+#, fuzzy, kde-format
+#| msgid "Appearance"
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "Išvaizda"
+
+#: app/kompareurldialog.cpp:55
+#, kde-format
+msgid "Here you can change the options for the view."
+msgstr "Čia galite keisti žiūryklės parinktis."
+
+#: app/kompareurldialog.cpp:101
+#, kde-format
+msgid ""
+"File used for excluding files cannot be found, please specify another file."
+msgstr ""
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Kompare"
+msgstr "Kompare"
+
+#: app/main.cpp:52
+#, kde-format
+msgid ""
+"A program to view the differences between files and optionally generate a "
+"diff"
+msgstr "Programa, skirta skirtumų tarp failų peržiūrai, gali generuoti „diff“."
+
+#: app/main.cpp:54
+#, kde-format
+msgid ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+msgstr ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+
+#: app/main.cpp:57
+#, kde-format
+msgid "John Firebaugh"
+msgstr "John Firebaugh"
+
+#: app/main.cpp:57 app/main.cpp:58
+#, kde-format
+msgid "Author"
+msgstr "Autorius"
+
+#: app/main.cpp:58
+#, kde-format
+msgid "Otto Bruggeman"
+msgstr "Otto Bruggeman"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Jeff Snyder"
+msgstr "Jeff Snyder"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Developer"
+msgstr "Programuotojas"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Kevin Kofler"
+msgstr "Kevin Kofler"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Maintainer"
+msgstr "Prižiūrėtojas"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Chris Luetchford"
+msgstr "Chris Luetchford"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Kompare icon artist"
+msgstr ""
+
+#: app/main.cpp:62
+#, kde-format
+msgid "Malte Starostik"
+msgstr "Malte Starostik"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "A lot of good advice"
+msgstr ""
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Bernd Gehrmann"
+msgstr "Bernd Gehrmann"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Cervisia diff viewer"
+msgstr "Cervisia „diff“ skirtumų žiūriklis"
+
+#: app/main.cpp:70
+#, kde-format
+msgid "This will compare URL1 with URL2"
+msgstr ""
+
+#: app/main.cpp:71
+#, kde-format
+msgid ""
+"This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
+"and then it will read from standard input. Can be used for instance for cvs "
+"diff | kompare -o -. Kompare will do a check to see if it can find the "
+"original file(s) and then blend the original file(s) into the diffoutput and "
+"show that in the viewer. -n disables the check."
+msgstr ""
+
+#: app/main.cpp:72
+#, kde-format
+msgid ""
+"This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
+"the file or folder that the diffoutput needs to be blended into. "
+msgstr ""
+
+#: app/main.cpp:73
+#, kde-format
+msgid ""
+"Disables the check for automatically finding the original file(s) when using "
+"'-' as URL with the -o option."
+msgstr ""
+
+#: app/main.cpp:74
+#, kde-format
+msgid ""
+"Use this to specify the encoding when calling it from the command line. It "
+"will default to the local encoding if not specified."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:174
+#, fuzzy, kde-format
+#| msgid "Diff Program"
+msgctxt "@title:group"
+msgid "Diff Program"
+msgstr "Diff programa"
+
+#: dialogpages/diffpage.cpp:179
+#, kde-format
+msgid ""
+"You can select a different diff program here. On Solaris the standard diff "
+"program does not support all the options that the GNU version does. This way "
+"you can select that version."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:196
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"Select the format of the output generated by diff. Unified is the one that "
+"is used most frequently because it is very readable. The KDE developers like "
+"this format the best so use it for sending patches."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:199
+#, fuzzy, kde-format
+#| msgid "Output Format"
+msgctxt "@title:group"
+msgid "Output Format"
+msgstr "Išvesties formatas"
+
+#: dialogpages/diffpage.cpp:201
+#, fuzzy, kde-format
+#| msgid "Context"
+msgctxt "@option:radio format type"
+msgid "Context"
+msgstr "Kontekstas"
+
+#: dialogpages/diffpage.cpp:204
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgctxt "@option:radio format type"
+msgid "Normal"
+msgstr "Normalus"
+
+#: dialogpages/diffpage.cpp:207
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgctxt "@option:radio format type"
+msgid "Unified"
+msgstr "Unifikuotas"
+
+#: dialogpages/diffpage.cpp:215
+#, fuzzy, kde-format
+#| msgid "Lines of Context"
+msgctxt "@title:group"
+msgid "Lines of Context"
+msgstr "Konteksto eilutės"
+
+#: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"The number of context lines is normally 2 or 3. This makes the diff readable "
+"and applicable in most cases. More than 3 lines will only bloat the diff "
+"unnecessarily."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:220
+#, fuzzy, kde-format
+#| msgid "Number of context lines:"
+msgctxt "@label:spinbox"
+msgid "Number of context lines:"
+msgstr "Konteksto eilučių skaičius:"
+
+#: dialogpages/diffpage.cpp:225
+#, fuzzy, kde-format
+#| msgid "Format"
+msgctxt "@title:tab"
+msgid "Format"
+msgstr "Formatas"
+
+#: dialogpages/diffpage.cpp:237
+#, fuzzy, kde-format
+#| msgid "General"
+msgctxt "@title:group"
+msgid "General"
+msgstr "Bendros"
+
+#: dialogpages/diffpage.cpp:239
+#, fuzzy, kde-format
+#| msgid "&Treat new files as empty"
+msgctxt "@option:check"
+msgid "&Treat new files as empty"
+msgstr "Naujus failus laikyti tuščiais"
+
+#: dialogpages/diffpage.cpp:240
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -N diff option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:241
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will treat a file that only exists in one of "
+"the directories as empty in the other directory. This means that the file is "
+"compared with an empty file and because of this will appear as one big "
+"insertion or deletion."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:244
+#, fuzzy, kde-format
+#| msgid "&Look for smaller changes"
+msgctxt "@option:check"
+msgid "&Look for smaller changes"
+msgstr "&Žiūrėti smulkius pakeitimus"
+
+#: dialogpages/diffpage.cpp:245
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -d diff option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:246
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will try a little harder (at the cost of more "
+"memory) to find fewer changes."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:248
+#, fuzzy, kde-format
+#| msgid "O&ptimize for large files"
+msgctxt "@option:check"
+msgid "O&ptimize for large files"
+msgstr "O&ptimizuoti dideliems failams"
+
+#: dialogpages/diffpage.cpp:249
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -H diff option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:250
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option lets diff makes better diffs when using large files. The "
+"definition of large is nowhere to be found though."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:252
+#, fuzzy, kde-format
+#| msgid "&Ignore changes in case"
+msgctxt "@option:check"
+msgid "&Ignore changes in case"
+msgstr "&Ignoruoti raidžių dydžio pokyčius"
+
+#: dialogpages/diffpage.cpp:253
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -i diff option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:254
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option to ignore changes in case enabled, diff will not indicate a "
+"difference when something in one file is changed into SoMEthing in the other "
+"file."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:262
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore regexp:"
+msgstr ""
+
+#: dialogpages/diffpage.cpp:263
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -I diff option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:264
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"When this checkbox is enabled, an option to diff is given that will make "
+"diff ignore lines that match the regular expression."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:268
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Add the regular expression here that you want to use\n"
+"to ignore lines that match it."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:274
+#, fuzzy, kde-format
+#| msgid "Whitespace"
+msgctxt "@title:group"
+msgid "Whitespace"
+msgstr "Tarpai"
+
+#: dialogpages/diffpage.cpp:276
+#, fuzzy, kde-format
+#| msgid "E&xpand tabs to spaces in output"
+msgctxt "@option:check"
+msgid "E&xpand tabs to spaces in output"
+msgstr "Išpl&ėsti tabuliacijas į tarpus išvedime"
+
+#: dialogpages/diffpage.cpp:277
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -t diff option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:278
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option does not always produce the right result. Due to this expansion "
+"Kompare may have problems applying the change to the destination file."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:280
+#, fuzzy, kde-format
+#| msgid "I&gnore added or removed empty lines"
+msgctxt "@option:check"
+msgid "I&gnore added or removed empty lines"
+msgstr "I&gnoruoti įdėtas arba pašalintas tuščias eilutes"
+
+#: dialogpages/diffpage.cpp:281
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -B diff option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:282
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This can be very useful in situations where code has been reorganized and "
+"empty lines have been added or removed to improve legibility."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:284
+#, fuzzy, kde-format
+#| msgid "Ig&nore changes in the amount of whitespace"
+msgctxt "@option:check"
+msgid "Ig&nore changes in the amount of whitespace"
+msgstr "Ig&noruoti pokyčius tarpuose"
+
+#: dialogpages/diffpage.cpp:285
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -b diff option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:286
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you are uninterested in differences arising due to, for example, changes "
+"in indentation, then use this option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:288
+#, fuzzy, kde-format
+#| msgid "Ign&ore all whitespace"
+msgctxt "@option:check"
+msgid "Ign&ore all whitespace"
+msgstr "Ignoruoti pokyčius tarpuose"
+
+#: dialogpages/diffpage.cpp:289
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -w diff option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:290
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This is useful for seeing the significant changes without being overwhelmed "
+"by all the white space changes."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:292
+#, fuzzy, kde-format
+#| msgid "Igno&re changes due to tab expansion"
+msgctxt "@option:check"
+msgid "Igno&re changes due to tab expansion"
+msgstr "Ignoruoti pokyčius tabuliacijų išplėtimuose"
+
+#: dialogpages/diffpage.cpp:293
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -E diff option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:294
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If there is a change because tabs have been expanded into spaces in the "
+"other file, then this option will make sure that these do not show up. "
+"Kompare currently has some problems applying such changes so be careful when "
+"you use this option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:299
+#, fuzzy, kde-format
+#| msgid "Options"
+msgctxt "@title:tab"
+msgid "Options"
+msgstr "Parinktys"
+
+#: dialogpages/diffpage.cpp:311
+#, kde-format
+msgctxt "@title:group"
+msgid "File Pattern to Exclude"
+msgstr ""
+
+#: dialogpages/diffpage.cpp:312
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"If this is checked you can enter a shell pattern in the text box on the "
+"right or select entries from the list."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:318
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter or remove a shell pattern or select one or more entries "
+"from the list."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:328
+#, kde-format
+msgctxt "@title:group"
+msgid "File with Filenames to Exclude"
+msgstr ""
+
+#: dialogpages/diffpage.cpp:329
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "If this is checked you can enter a filename in the combo box below."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:333
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter the URL of a file with shell patterns to ignore during "
+"the comparison of the folders."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:337
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Any file you select in the dialog that pops up when you click it will be put "
+"in the dialog to the left of this button."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:344
+#, fuzzy, kde-format
+#| msgid "Exclude"
+msgctxt "@title:tab"
+msgid "Exclude"
+msgstr "Neįtraukti"
+
+#: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
+#, fuzzy, kde-format
+#| msgid "Select File"
+msgctxt "@info:tooltip"
+msgid "Select file"
+msgstr "Pasirinkti failą"
+
+#: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
+#, fuzzy, kde-format
+#| msgid "Select Folder"
+msgctxt "@info:tooltip"
+msgid "Select folder"
+msgstr "Pasirinkite aplanką"
+
+#: dialogpages/filespage.cpp:87
+#, fuzzy, kde-format
+#| msgid "Encoding"
+msgctxt "@title:group"
+msgid "Encoding"
+msgstr "Kodavimas"
+
+#: dialogpages/filespage.cpp:92
+#, fuzzy, kde-format
+#| msgid "Default"
+msgctxt "@item:inlistbox encoding"
+msgid "Default"
+msgstr "Numatytasis"
+
+#: dialogpages/filespage.cpp:126
+#, fuzzy, kde-format
+#| msgid "Select Folder"
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr "Pasirinkite aplanką"
+
+#: dialogpages/filespage.cpp:130
+#, fuzzy, kde-format
+#| msgid "Select File"
+msgctxt "@title:window"
+msgid "Select File"
+msgstr "Pasirinkti failą"
+
+#: dialogpages/viewpage.cpp:44
+#, fuzzy, kde-format
+#| msgid "Colors"
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "Spalvos"
+
+#: dialogpages/viewpage.cpp:50
+#, fuzzy, kde-format
+#| msgid "Removed color:"
+msgctxt "@label:chooser"
+msgid "Removed color:"
+msgstr "Pašalinta spalva:"
+
+#: dialogpages/viewpage.cpp:54
+#, fuzzy, kde-format
+#| msgid "Changed color:"
+msgctxt "@label:chooser"
+msgid "Changed color:"
+msgstr "Pakeista spalva:"
+
+#: dialogpages/viewpage.cpp:58
+#, fuzzy, kde-format
+#| msgid "Added color:"
+msgctxt "@label:chooser"
+msgid "Added color:"
+msgstr "Įdėta spalva:"
+
+#: dialogpages/viewpage.cpp:62
+#, fuzzy, kde-format
+#| msgid "Applied color:"
+msgctxt "@label:chooser"
+msgid "Applied color:"
+msgstr "Pritaikyta spalva:"
+
+#: dialogpages/viewpage.cpp:66
+#, fuzzy, kde-format
+#| msgid "Mouse Wheel"
+msgctxt "@title:group"
+msgid "Mouse Wheel"
+msgstr "Pelės ratukas"
+
+#: dialogpages/viewpage.cpp:72
+#, fuzzy, kde-format
+#| msgid "Number of lines:"
+msgctxt "@label:spinbox"
+msgid "Number of lines:"
+msgstr "Eilučių skaičius:"
+
+#: dialogpages/viewpage.cpp:77
+#, fuzzy, kde-format
+#| msgid "Tabs to Spaces"
+msgctxt "@title:group"
+msgid "Tabs to Spaces"
+msgstr "Tabuliacijas pakeisti tarpais"
+
+#: dialogpages/viewpage.cpp:83
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of spaces to convert a tab character to:"
+msgstr ""
+
+#: dialogpages/viewpage.cpp:94
+#, fuzzy, kde-format
+#| msgid "Text Font"
+msgctxt "@title:group"
+msgid "Text Font"
+msgstr "Teksto šriftas"
+
+#: dialogpages/viewpage.cpp:98
+#, fuzzy, kde-format
+#| msgid "Font:"
+msgctxt "@label:listbox"
+msgid "Font:"
+msgstr "Šriftas:"
+
+#: dialogpages/viewpage.cpp:103
+#, fuzzy, kde-format
+#| msgid "Size:"
+msgctxt "@label:spinbox"
+msgid "Size:"
+msgstr "Dydis:"
+
+#: dialogpages/viewpage.cpp:107
+#, fuzzy, kde-format
+#| msgid "Fonts"
+msgctxt "@title:tab"
+msgid "Fonts"
+msgstr "Šriftai"
+
+#: komparenavtreepart/komparenavtreepart.cpp:55
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@title:column"
+msgid "Source Folder"
+msgstr "Šaltinio aplankas"
+
+#: komparenavtreepart/komparenavtreepart.cpp:61
+#, fuzzy, kde-format
+#| msgid "Destination Folder"
+msgctxt "@title:column"
+msgid "Destination Folder"
+msgstr "Paskirties aplankas"
+
+#: komparenavtreepart/komparenavtreepart.cpp:68
+#, fuzzy, kde-format
+#| msgid "Source File"
+msgctxt "@title:column"
+msgid "Source File"
+msgstr "Šaltinio failas"
+
+#: komparenavtreepart/komparenavtreepart.cpp:69
+#, fuzzy, kde-format
+#| msgid "Destination File"
+msgctxt "@title:column"
+msgid "Destination File"
+msgstr "Paskirties failas"
+
+#: komparenavtreepart/komparenavtreepart.cpp:78
+#, fuzzy, kde-format
+#| msgid "Source Line"
+msgctxt "@title:column"
+msgid "Source Line"
+msgstr "Šaltinio eilutė"
+
+#: komparenavtreepart/komparenavtreepart.cpp:79
+#, fuzzy, kde-format
+#| msgid "Destination Line"
+msgctxt "@title:column"
+msgid "Destination Line"
+msgstr "Paskirties eilutė"
+
+#: komparenavtreepart/komparenavtreepart.cpp:80
+#, fuzzy, kde-format
+#| msgid "Difference"
+msgctxt "@title:column"
+msgid "Difference"
+msgstr "Skirtumas"
+
+#: komparenavtreepart/komparenavtreepart.cpp:455
+#, kde-format
+msgid "Applied: Changes made to %1 line undone"
+msgid_plural "Applied: Changes made to %1 lines undone"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: komparenavtreepart/komparenavtreepart.cpp:458
+#, kde-format
+msgid "Changed %1 line"
+msgid_plural "Changed %1 lines"
+msgstr[0] "Pakeista %1 eilutė"
+msgstr[1] "Pakeistos %1 eilutės"
+msgstr[2] "Pakeista %1 eilučių"
+msgstr[3] "Pakeista %1 eilutė"
+
+#: komparenavtreepart/komparenavtreepart.cpp:463
+#, kde-format
+msgid "Applied: Insertion of %1 line undone"
+msgid_plural "Applied: Insertion of %1 lines undone"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: komparenavtreepart/komparenavtreepart.cpp:466
+#, kde-format
+msgid "Inserted %1 line"
+msgid_plural "Inserted %1 lines"
+msgstr[0] "Įterpta %1 eilutė"
+msgstr[1] "Įterptos %1 eilutės"
+msgstr[2] "Įterptų %1 eilučių"
+msgstr[3] "Įterpta %1 eilutė"
+
+#: komparenavtreepart/komparenavtreepart.cpp:471
+#, kde-format
+msgid "Applied: Deletion of %1 line undone"
+msgid_plural "Applied: Deletion of %1 lines undone"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: komparenavtreepart/komparenavtreepart.cpp:474
+#, kde-format
+msgid "Deleted %1 line"
+msgid_plural "Deleted %1 lines"
+msgstr[0] "Pašalinta %1 eilutė"
+msgstr[1] "Pašalintos %1 eilutės"
+msgstr[2] "Pašalinta %1 eilučių"
+msgstr[3] "Pašalinta %1 eilutė"
+
+#: komparenavtreepart/komparenavtreepart.cpp:628
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "@item directory name not known"
+msgid "Unknown"
+msgstr "Nežinoma"
+
+#: komparepart/kompare_part.cpp:179
+#, fuzzy, kde-format
+#| msgid "Save &All"
+msgctxt "@action"
+msgid "Save &All"
+msgstr "Į&rašyti viską"
+
+#: komparepart/kompare_part.cpp:181
+#, fuzzy, kde-format
+#| msgid "Save &Diff..."
+msgctxt "@action"
+msgid "Save &Diff..."
+msgstr "Įrašyti &Diff..."
+
+#: komparepart/kompare_part.cpp:183
+#, fuzzy, kde-format
+#| msgid "Swap Source with Destination"
+msgctxt "@action"
+msgid "Swap Source with Destination"
+msgstr "Sukeisti šaltinį su paskirtimi"
+
+#: komparepart/kompare_part.cpp:190
+#, fuzzy, kde-format
+#| msgid "Show Statistics"
+msgctxt "@action"
+msgid "Show Statistics"
+msgstr "Rodyti statistiką"
+
+#: komparepart/kompare_part.cpp:193
+#, fuzzy, kde-format
+#| msgid "Refresh Diff"
+msgctxt "@action"
+msgid "Refresh Diff"
+msgstr "Atnaujinti skirtumą"
+
+#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#, kde-format
+msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
+msgstr "<qt>URL <b>%1</b> negali būti atsiųstas.</qt>"
+
+#: komparepart/kompare_part.cpp:356
+#, kde-format
+msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
+msgstr "<qt>URL <b>%1</b> neegzistuoja Jūsų sistemoje.</qt>"
+
+#: komparepart/kompare_part.cpp:544
+#, fuzzy, kde-format
+#| msgid "Diff Options"
+msgctxt "@title:window"
+msgid "Diff Options"
+msgstr "Diff parinktys"
+
+#: komparepart/kompare_part.cpp:565
+#, fuzzy, kde-format
+#| msgid "Save .diff"
+msgctxt "@title:window"
+msgid "Save .diff"
+msgstr "Įrašyti .diff"
+
+#: komparepart/kompare_part.cpp:567
+#, kde-format
+msgid "Patch Files (*.diff *.dif *.patch)"
+msgstr "Pataisų failai (*.diff *.dif *.patch)"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgid "The file exists or is write-protected; do you want to overwrite it?"
+msgstr "Failas egzistuoja arba apsaugotas nuo įrašymo; ar norite jį perrašyti?"
+
+#: komparepart/kompare_part.cpp:569
+#, fuzzy, kde-format
+#| msgid "File Exists"
+msgctxt "@window:title"
+msgid "File Exists"
+msgstr "Failas jau yra"
+
+#: komparepart/kompare_part.cpp:569
+#, fuzzy, kde-format
+#| msgid "Do Not Overwrite"
+msgctxt "@action:button"
+msgid "Do Not Overwrite"
+msgstr "Neperrašyti"
+
+#: komparepart/kompare_part.cpp:653
+#, fuzzy, kde-format
+#| msgid "Running diff..."
+msgctxt "@info:status"
+msgid "Running diff..."
+msgstr "Paleidžiamas diff..."
+
+#: komparepart/kompare_part.cpp:656
+#, fuzzy, kde-format
+#| msgid "Parsing diff output..."
+msgctxt "@info:status"
+msgid "Parsing diff output..."
+msgstr "Nagrinėjamas diff..."
+
+#: komparepart/kompare_part.cpp:712
+#, fuzzy, kde-format
+#| msgid "Comparing file %1 with file %2"
+msgctxt "@info:status"
+msgid "Comparing file %1 with file %2"
+msgstr "Palyginamas failas %1 su failu %2"
+
+#: komparepart/kompare_part.cpp:717
+#, fuzzy, kde-format
+#| msgid "Comparing files in %1 with files in %2"
+msgctxt "@info:status"
+msgid "Comparing files in %1 with files in %2"
+msgstr "Palyginami failai iš %1 su failais iš %2"
+
+#: komparepart/kompare_part.cpp:722
+#, fuzzy, kde-format
+#| msgid "Parsing diff output..."
+msgctxt "@info:status"
+msgid "Viewing diff output from %1"
+msgstr "Nagrinėjamas diff..."
+
+#: komparepart/kompare_part.cpp:725
+#, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into file %2"
+msgstr ""
+
+#: komparepart/kompare_part.cpp:730
+#, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into folder %2"
+msgstr ""
+
+#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
+#: komparepart/kompare_part.cpp:927
+#, kde-format
+msgid ""
+"You have made changes to the destination file(s).\n"
+"Would you like to save them?"
+msgstr ""
+"Jūs padarėte pakeitimų paskirties vietoje.\n"
+"Ar norite juos išsaugoti?"
+
+#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
+#: komparepart/kompare_part.cpp:929
+#, fuzzy, kde-format
+#| msgid "Save Changes?"
+msgctxt "@title:window"
+msgid "Save Changes?"
+msgstr "Įrašyti pakeitimus?"
+
+#: komparepart/kompare_part.cpp:852
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgctxt "@item diff format"
+msgid "Unified"
+msgstr "Unifikuotas"
+
+#: komparepart/kompare_part.cpp:855
+#, fuzzy, kde-format
+#| msgid "Context"
+msgctxt "@item diff format"
+msgid "Context"
+msgstr "Kontekstas"
+
+#: komparepart/kompare_part.cpp:858
+#, fuzzy, kde-format
+#| msgid "RCS"
+msgctxt "@item diff format"
+msgid "RCS"
+msgstr "RCS"
+
+#: komparepart/kompare_part.cpp:861
+#, fuzzy, kde-format
+#| msgid "Ed"
+msgctxt "@item diff format"
+msgid "Ed"
+msgstr "Ed"
+
+#: komparepart/kompare_part.cpp:864
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgctxt "@item diff format"
+msgid "Normal"
+msgstr "Normalus"
+
+#: komparepart/kompare_part.cpp:868
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "@item diff format"
+msgid "Unknown"
+msgstr "Nežinoma"
+
+#: komparepart/kompare_part.cpp:884
+#, kde-format
+msgid ""
+"No diff file, or no 2 files have been diffed. Therefore no stats are "
+"available."
+msgstr ""
+"Nėra diff failo arba nebuvo palyginta dviejų failų, todėl nėra prieinamos "
+"statistikos."
+
+#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:916
+#, fuzzy, kde-format
+#| msgid "Diff Statistics"
+msgctxt "@title:window"
+msgid "Diff Statistics"
+msgstr "Diff statistika"
+
+#: komparepart/kompare_part.cpp:890
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Old file: %1\n"
+"New file: %2\n"
+"\n"
+"Format: %3\n"
+"Number of hunks: %4\n"
+"Number of differences: %5"
+msgstr ""
+"Statistika:\n"
+"\n"
+"Senas failas : %1\n"
+"Naujas failas : %2\n"
+"\n"
+"Formatas : %3\n"
+"Gabalų skaičius : %4\n"
+"Skirtumų skaičius : %5"
+
+#: komparepart/kompare_part.cpp:903
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Number of files in diff file: %1\n"
+"Format: %2\n"
+"\n"
+"Current old file: %3\n"
+"Current new file: %4\n"
+"\n"
+"Number of hunks: %5\n"
+"Number of differences: %6"
+msgstr ""
+"Statistika:\n"
+"\n"
+"Failų skaičius diff  faile: %1\n"
+"Formatas: %2\n"
+"\n"
+"Dabartinis senas failas: %3\n"
+"Dabartinis naujas failas: %4\n"
+"\n"
+"Gabalų skaičius: %5\n"
+"Skirtumų skaičius: %6"
+
+#. i18n: ectx: Menu (difference)
+#: komparepart/komparepartui.rc:17
+#, kde-format
+msgid "&Difference"
+msgstr "&Skirtumai"
+
+#: komparepart/kompareprefdlg.cpp:26
+#, fuzzy, kde-format
+#| msgid "Preferences"
+msgctxt "@title:window"
+msgid "Preferences"
+msgstr "Pasirinkimai"
+
+#: komparepart/kompareprefdlg.cpp:36
+#, fuzzy, kde-format
+#| msgid "View"
+msgctxt "@title:tab"
+msgid "View"
+msgstr "Rodymas"
+
+#: komparepart/kompareprefdlg.cpp:38
+#, fuzzy, kde-format
+#| msgid "View Settings"
+msgctxt "@title"
+msgid "View Settings"
+msgstr "Rodymo nuostatos"
+
+#: komparepart/kompareprefdlg.cpp:44
+#, fuzzy, kde-format
+#| msgid "Diff Settings"
+msgctxt "@title"
+msgid "Diff Settings"
+msgstr "Diff nuostatos"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
+#: komparepart/komparesaveoptionsbase.ui:29
+#, kde-format
+msgid "Format"
+msgstr "Formatas"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
+#: komparepart/komparesaveoptionsbase.ui:35
+#, fuzzy, kde-format
+#| msgid "Context"
+msgid "&Context"
+msgstr "Kontekstas"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
+#: komparepart/komparesaveoptionsbase.ui:42
+#, kde-format
+msgid "Ed"
+msgstr "Ed"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
+#: komparepart/komparesaveoptionsbase.ui:49
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgid "&Normal"
+msgstr "Normalus"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
+#: komparepart/komparesaveoptionsbase.ui:56
+#, kde-format
+msgid "RCS"
+msgstr "RCS"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
+#: komparepart/komparesaveoptionsbase.ui:63
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgid "&Unified"
+msgstr "Unifikuotas"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
+#: komparepart/komparesaveoptionsbase.ui:73
+#, fuzzy, kde-format
+#| msgid "Side-by-side"
+msgid "&Side-by-side"
+msgstr "Šonas prie šono"
+
+#. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
+#: komparepart/komparesaveoptionsbase.ui:85
+#, kde-format
+msgid "Number of context lines:"
+msgstr "Konteksto eilučių skaičius:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
+#: komparepart/komparesaveoptionsbase.ui:126
+#, kde-format
+msgid "Options"
+msgstr "Parinktys"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_SmallerChangesCB)
+#: komparepart/komparesaveoptionsbase.ui:132
+#, kde-format
+msgid "Look for smaller changes"
+msgstr "Žiūrėti smulkesnių pakeitimų"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:142
+#, kde-format
+msgid "Optimize for large files"
+msgstr "Optimizuoti dideliems failams"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
+#: komparepart/komparesaveoptionsbase.ui:152
+#, kde-format
+msgid "Ignore changes in case"
+msgstr "Ignoruoti raidžių dydžio pokyčius"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
+#: komparepart/komparesaveoptionsbase.ui:159
+#, kde-format
+msgid "Expand tabs to spaces"
+msgstr "Išplėsti tab'us į tarpus"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
+#: komparepart/komparesaveoptionsbase.ui:166
+#, kde-format
+msgid "Ignore added or removed empty lines"
+msgstr "Ignoruoti įdėtas arba pašalintas tuščias eilutes"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
+#: komparepart/komparesaveoptionsbase.ui:173
+#, kde-format
+msgid "Ignore changes in whitespace"
+msgstr "Ignoruoti pokyčius tarpuose"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
+#: komparepart/komparesaveoptionsbase.ui:180
+#, kde-format
+msgid "Show function names"
+msgstr "Rodyti funkcijų vardus"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
+#: komparepart/komparesaveoptionsbase.ui:190
+#, kde-format
+msgid "Compare folders recursively"
+msgstr "Lyginti aplankus rekursyviniu būdu"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:200
+#, kde-format
+msgid "Treat new files as empty"
+msgstr "Naujus failus laikyti tuščiais"
+
+#. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
+#: komparepart/komparesaveoptionsbase.ui:222
+#, kde-format
+msgid "Run Diff In"
+msgstr "Paleisti diff"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
+#: komparepart/komparesaveoptionsbase.ui:247
+#, kde-format
+msgid "Command Line"
+msgstr "Komandų eilutė"
+
+#. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
+#: komparepart/komparesaveoptionsbase.ui:256
+#, kde-format
+msgid "cd dir && diff -udHprNa -- source destination"
+msgstr "cd dir && diff -udHprNa -- šaltinis paskirtis"
+
+#~ msgid "KompareNavTreePart"
+#~ msgstr "KompareNavTreePart"
+
+#~ msgid "KomparePart"
+#~ msgstr "KomparePart"
+
+#, fuzzy
+#~| msgid "&Edit..."
+#~ msgctxt "@action:button"
+#~ msgid "&Edit..."
+#~ msgstr "&Keisti..."
+
+#~ msgid "Overwrite"
+#~ msgstr "Perrašyti"

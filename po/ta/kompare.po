@@ -1,0 +1,1638 @@
+# translation of kompare.po to
+# translation of kompare.po to
+# translation of kompare.po to
+# translation of kompare.po to
+# translation of kompare.po to Tamil
+# Copyright (C) 2004 Free Software Foundation, Inc.
+#
+# Vasee Vaseeharan <vasee@ieee.org>, 2004.
+# Ambalam <tamilpc@ambalam.com>, 2004.
+# root <root@localhost.localdomain>, 2004.
+# Kishore G <kishore96@gmail.com>, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: kompare\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"PO-Revision-Date: 2021-01-18 19:04+0530\n"
+"Last-Translator: Kishore G <kishore96@gmail.com>\n"
+"Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
+"Language: ta\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 20.12.1\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "மு. கோபிகிருஷ்ணன்"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "m_gopikrishnan@hotmail.com"
+
+#: app/kompare_shell.cpp:69
+#, kde-format
+msgid "Could not load our KompareViewPart."
+msgstr "நம் Kompare பார்வைப் பகுதியை ஏற்ற இயலவில்லை."
+
+#: app/kompare_shell.cpp:73
+#, kde-format
+msgctxt "@title:window"
+msgid "Navigation"
+msgstr ""
+
+#: app/kompare_shell.cpp:90
+#, kde-format
+msgid "Could not load our KompareNavigationPart."
+msgstr "நம் KompareNavigationPartஐ ஏற்ற இயலவில்லை."
+
+#: app/kompare_shell.cpp:195
+#, fuzzy, kde-format
+#| msgid "&Open Diff..."
+msgctxt "@action"
+msgid "&Open Diff..."
+msgstr "Diffஐ திற..."
+
+#: app/kompare_shell.cpp:198
+#, fuzzy, kde-format
+#| msgid "&Compare Files..."
+msgctxt "@action"
+msgid "&Compare Files..."
+msgstr "கோப்புகளை ஒப்பிடு..."
+
+#: app/kompare_shell.cpp:201
+#, fuzzy, kde-format
+#| msgid "&Blend URL with Diff..."
+msgctxt "@action"
+msgid "&Blend URL with Diff..."
+msgstr "URL லில் Diffஐ கலக்கு..."
+
+#: app/kompare_shell.cpp:207
+#, fuzzy, kde-format
+#| msgid "Show T&ext View"
+msgctxt "@action"
+msgid "Show T&ext View"
+msgstr "உரைக்காட்சி காட்டு"
+
+#: app/kompare_shell.cpp:220
+#, kde-format
+msgid " 0 of 0 differences "
+msgstr "0 of 0 மாறபாடுகள்"
+
+#: app/kompare_shell.cpp:221
+#, kde-format
+msgid " 0 of 0 files "
+msgstr "0 of 0 கோப்புகள்"
+
+#: app/kompare_shell.cpp:238
+#, kde-format
+msgid " %2 of %1 file "
+msgid_plural " %2 of %1 files "
+msgstr[0] "%1 இல் %2 கோப்பு"
+msgstr[1] "%1 இல் %2 கோப்புகள் "
+
+#: app/kompare_shell.cpp:240
+#, kde-format
+msgid " %1 file "
+msgid_plural " %1 files "
+msgstr[0] "%1 கோப்பு "
+msgstr[1] "%1 கோப்புகள் "
+
+#: app/kompare_shell.cpp:243
+#, kde-format
+msgid " %2 of %1 difference, %3 applied "
+msgid_plural " %2 of %1 differences, %3 applied "
+msgstr[0] "மாறுபாடு %1 ன் %2, %3 பயன்படுத்தப்பட்டது"
+msgstr[1] "மாறுபாடுகள் %1 ன் %2, %3 பயன்படுத்தப்பட்டது"
+
+#: app/kompare_shell.cpp:246
+#, kde-format
+msgid " %1 difference "
+msgid_plural " %1 differences "
+msgstr[0] "%1 வித்தியாசம் "
+msgstr[1] "%1 வித்தியாசங்கள்"
+
+#: app/kompare_shell.cpp:327
+#, fuzzy, kde-format
+#| msgid "Blend File/Folder with diff Output"
+msgctxt "@title:window"
+msgid "Blend File/Folder with diff Output"
+msgstr "கோப்பு அல்லது அடைவில் diffன் வெளியீட்டை கலக்கு"
+
+#: app/kompare_shell.cpp:328
+#, fuzzy, kde-format
+#| msgid "File/Folder"
+msgctxt "@title:group"
+msgid "File/Folder"
+msgstr "கோப்பு அல்லது ஆவணம்"
+
+#: app/kompare_shell.cpp:329
+#, fuzzy, kde-format
+#| msgid "Diff Output"
+msgctxt "@title:group"
+msgid "Diff Output"
+msgstr "Diffன் வெளியீடு"
+
+#: app/kompare_shell.cpp:332
+#, fuzzy, kde-format
+#| msgid "Blend"
+msgctxt "@action:button"
+msgid "Blend"
+msgstr "கலவை"
+
+#: app/kompare_shell.cpp:333
+#, fuzzy, kde-format
+#| msgid "Blend this file or folder with the diff output"
+msgctxt "@info:tooltip"
+msgid "Blend this file or folder with the diff output"
+msgstr "இந்த கோப்பு அல்லது ஆவணத்தில் diffன் வெளியீட்டை கலக்கு"
+
+#: app/kompare_shell.cpp:334
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you have entered a file or folder name and a file that contains diff "
+#| "output in the fields in this dialog then this button will be enabled and "
+#| "pressing it will open kompare's main view where the output of the entered "
+#| "file or files from the folder are mixed with the diff output so you can "
+#| "then apply the difference(s) to a file or to the files. "
+msgctxt "@infor:whatsthis"
+msgid ""
+"If you have entered a file or folder name and a file that contains diff "
+"output in the fields in this dialog then this button will be enabled and "
+"pressing it will open kompare's main view where the output of the entered "
+"file or files from the folder are mixed with the diff output so you can then "
+"apply the difference(s) to a file or to the files. "
+msgstr ""
+"இந்த உரையாடலின் புலங்களில் நீங்கள் ஒரு கோப்பின் அல்லது ஆவணத்தின் பெயரையும், diffன் "
+"வெளியீட்டை கொண்டிருக்கும் ஒரு கோப்பின் பெயரையும் உள்ளிட்டிருந்தால் இந்தப் பொத்தான் செயல்படுத்த "
+"ஏதுவாகும். இதனை அழுத்தினால், Kompareன் பிரதான காட்சி திறக்கப்பட்டு, நீங்கள் உள்ளிட்ட "
+"கோப்பின் அல்லது ஆவணத்திலிருக்கும் கோப்புகளின் வெளியீடுகள் diffன் வெளியீட்டோடு கலக்கப்படும். "
+"பிறகு நீங்கள் மாறுபாடுகளை ஒரு கோப்புக்கோ/ கோப்புகளுக்கோ பயன்படுத்தலாம்."
+
+#: app/kompare_shell.cpp:357 app/main.cpp:199
+#, fuzzy, kde-format
+#| msgid "Compare Files or Folders"
+msgctxt "@title:window"
+msgid "Compare Files or Folders"
+msgstr "ஆவணங்களையோ கோப்புகளையோ ஒப்பிடு"
+
+#: app/kompare_shell.cpp:358 app/main.cpp:200
+#, fuzzy, kde-format
+#| msgid "Source"
+msgctxt "@title:group"
+msgid "Source"
+msgstr "மூலம்"
+
+#: app/kompare_shell.cpp:359 app/main.cpp:201
+#, fuzzy, kde-format
+#| msgid "Destination"
+msgctxt "@title:group"
+msgid "Destination"
+msgstr "சேருமிடம்"
+
+#: app/kompare_shell.cpp:362 app/main.cpp:204
+#, fuzzy, kde-format
+#| msgid "Compare"
+msgctxt "@action:button"
+msgid "Compare"
+msgstr "ஒப்பிடு"
+
+#: app/kompare_shell.cpp:363 app/main.cpp:205
+#, fuzzy, kde-format
+#| msgid "Compare these files or folders"
+msgctxt "@info:tooltip"
+msgid "Compare these files or folders"
+msgstr "இந்த கோப்புகளையோ ஆவணங்களையோ ஒப்பிடு"
+
+#: app/kompare_shell.cpp:364 app/main.cpp:206
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
+#| "then this button will be enabled and pressing it will start a comparison "
+#| "of the entered files or folders. "
+msgctxt "@info:whatsthis"
+msgid ""
+"If you have entered 2 filenames or 2 folders in the fields in this dialog "
+"then this button will be enabled and pressing it will start a comparison of "
+"the entered files or folders. "
+msgstr ""
+"இந்த உரையாடலின் புலங்களில் இரண்டு கோப்புகளின் அல்லது இரண்டு ஆவணங்களின் பெயர்களை நீங்கள் "
+"உள்ளிட்டிருந்தால், இந்த பொத்தான் செயல்படுத்த ஏதுவாகும். இதனை அழுத்தினால், உள்ளிட்ட "
+"கோப்புகளின் அல்லது ஆவணங்களின் ஒப்பீடு ஆரம்பமாகும்."
+
+#: app/kompare_shell.cpp:398
+#, fuzzy, kde-format
+#| msgid "Text View"
+msgctxt "@title:window"
+msgid "Text View"
+msgstr "உரைக்காட்சி"
+
+#. i18n: ectx: Menu (file)
+#: app/kompareui.rc:4 komparepart/komparepartui.rc:4
+#, fuzzy, kde-format
+msgid "&File"
+msgstr "&கோப்புகள்"
+
+#. i18n: ectx: Menu (settings)
+#: app/kompareui.rc:14 komparepart/komparepartui.rc:29
+#, fuzzy, kde-format
+msgid "&Settings"
+msgstr "அமைப்புகளை காணுங்கள்"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: app/kompareui.rc:27
+#, kde-format
+msgid "Main Toolbar"
+msgstr "பிரதான கருவிப்பட்டை"
+
+#: app/kompareurldialog.cpp:37
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Files"
+msgstr "&கோப்புகள்"
+
+#: app/kompareurldialog.cpp:39
+#, kde-format
+msgid "Here you can enter the files you want to compare."
+msgstr "இங்கு நீங்கள் ஒப்பிட விரும்புகிற கோப்புகளை பதிவு செய்யலாம்"
+
+#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:42
+#, fuzzy, kde-format
+#| msgid "Diff"
+msgctxt "@title:tab"
+msgid "Diff"
+msgstr "வித்தியாசம்"
+
+#: app/kompareurldialog.cpp:47
+#, kde-format
+msgid "Here you can change the options for comparing the files."
+msgstr "கோப்புகளை ஒப்பிடுதலுக்கான விருப்பங்களை இங்கு மாற்றலாம்"
+
+#: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
+#, fuzzy, kde-format
+#| msgid "A&ppearance"
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "தோற்றம்"
+
+#: app/kompareurldialog.cpp:55
+#, kde-format
+msgid "Here you can change the options for the view."
+msgstr "காட்சி மாற்றத்திற்கான விருப்பங்களை இங்கு மாற்றலாம்."
+
+#: app/kompareurldialog.cpp:101
+#, kde-format
+msgid ""
+"File used for excluding files cannot be found, please specify another file."
+msgstr ""
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Kompare"
+msgstr "Kompare"
+
+#: app/main.cpp:52
+#, kde-format
+msgid ""
+"A program to view the differences between files and optionally generate a "
+"diff"
+msgstr ""
+"கோப்புகளுக்கிடையே மாறுபாடுகளை கண்டறிய, தேவையானால் ஒரு diff ஐ உருவாக்க, உதவும் ஒரு "
+"நிரல்."
+
+#: app/main.cpp:54
+#, fuzzy, kde-format
+#| msgid "(c) 2001-2004, John Firebaugh and Otto Bruggeman"
+msgid ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+msgstr "(c) 2001-2004,  ஜான் பையர்பாக் மற்றும் ஒட்டோ பிரக்மேன்"
+
+#: app/main.cpp:57
+#, kde-format
+msgid "John Firebaugh"
+msgstr ""
+
+#: app/main.cpp:57 app/main.cpp:58
+#, kde-format
+msgid "Author"
+msgstr "எழுதியவர்"
+
+#: app/main.cpp:58
+#, kde-format
+msgid "Otto Bruggeman"
+msgstr ""
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Jeff Snyder"
+msgstr ""
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Developer"
+msgstr ""
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Kevin Kofler"
+msgstr ""
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Maintainer"
+msgstr ""
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Chris Luetchford"
+msgstr ""
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Kompare icon artist"
+msgstr "கோம்பேர் சின்னத்தின் கலைஞர்"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "Malte Starostik"
+msgstr ""
+
+#: app/main.cpp:62
+#, kde-format
+msgid "A lot of good advice"
+msgstr "நிறைந்த நல்லறிவுரைகள்"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Bernd Gehrmann"
+msgstr ""
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Cervisia diff viewer"
+msgstr "Cervisia diff காட்டீ"
+
+#: app/main.cpp:70
+#, kde-format
+msgid "This will compare URL1 with URL2"
+msgstr "இது URL1ஐ URL2வோடு ஒப்பிடும்."
+
+#: app/main.cpp:71
+#, kde-format
+msgid ""
+"This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
+"and then it will read from standard input. Can be used for instance for cvs "
+"diff | kompare -o -. Kompare will do a check to see if it can find the "
+"original file(s) and then blend the original file(s) into the diffoutput and "
+"show that in the viewer. -n disables the check."
+msgstr ""
+"இது URL1ஐ diffன் வெளியீடாகக்கருதி திறக்கும். URL1 '-' ஆகவும் இருக்கலாம். அப்போது இது "
+"வழக்க உள்ளீட்டுக்கருவியிலிருந்து படிக்கும். உதாரணமாக,  cvs diff | kompare -o - என்று "
+"உபயோகிக்கலாம். இந்த உபயோகத்தில், Kompare மூல கோப்புகளை கண்டுபிடிக்க முடியுமா என "
+"சோதித்துவிட்டு, கண்டுபிடித்த மூல கோப்புகளை diffன் வெளியீட்டோடு கலவை செய்து "
+"காட்சிகாட்டியில் காண்பிக்கும். -n சோதனையை செயலிழக்கச் செய்துவிடும்."
+
+#: app/main.cpp:72
+#, kde-format
+msgid ""
+"This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
+"the file or folder that the diffoutput needs to be blended into. "
+msgstr ""
+"இது URL2ஐ URL1க்குள் கலக்கும். URL2 diffன் வெளியீடாகவும்,  URL1 இவ்வெளியீடு கலக்கப்பட "
+"வேண்டிய கோப்பு அல்லது ஆவணமாகவும் இருக்கும் என எதிர்பார்க்கப்படுகிறது."
+
+#: app/main.cpp:73
+#, kde-format
+msgid ""
+"Disables the check for automatically finding the original file(s) when using "
+"'-' as URL with the -o option."
+msgstr ""
+"-o தேர்வுடன் '-'ஐ URL ஆக பயன்படுத்தும் போது,  மூலமான கோப்புகளை தானே கண்டுபிடிக்கச் "
+"செய்யும் சோதனையை செயலிழக்கச் செய்துவிடும்."
+
+#: app/main.cpp:74
+#, kde-format
+msgid ""
+"Use this to specify the encoding when calling it from the command line. It "
+"will default to the local encoding if not specified."
+msgstr ""
+"கட்டளை வரியில் இருந்து அழைக்கும் பொழுது செயலாக்கலை குறிப்பிட இதை பயன்படுத்து. "
+"குறிப்பிடாவிடில் சாதாரண செயலாக்கத்திற்கு இது முன்னிருப்பாக இருக்கும்."
+
+#: dialogpages/diffpage.cpp:174
+#, fuzzy, kde-format
+#| msgid "Diff Program"
+msgctxt "@title:group"
+msgid "Diff Program"
+msgstr "Diff நிரல்"
+
+#: dialogpages/diffpage.cpp:179
+#, kde-format
+msgid ""
+"You can select a different diff program here. On Solaris the standard diff "
+"program does not support all the options that the GNU version does. This way "
+"you can select that version."
+msgstr ""
+"பலவித diff நிரலை இங்கே நீங்கள் தேர்வு செய்யலாம். சொலாரிஸில் நிரந்தர diff நிரல் GNU "
+"பதிப்பு தரும் அனைத்து தேர்வுகளையும் அனுமதிக்காது. இதில் நீங்கள் அந்த பதிப்பை தேர்வு "
+"செய்யலாம்."
+
+#: dialogpages/diffpage.cpp:196
+#, fuzzy, kde-format
+#| msgid ""
+#| "Select the format of the output generated by diff. Unified is the one "
+#| "that is used most frequently because it is very readable. The KDE "
+#| "developers like this format the best so use it for sending patches."
+msgctxt "@info:whatsthis"
+msgid ""
+"Select the format of the output generated by diff. Unified is the one that "
+"is used most frequently because it is very readable. The KDE developers like "
+"this format the best so use it for sending patches."
+msgstr ""
+"diff உருவாக்கிய வெளியீட்டின் வடிவத்தை தேர்வு செய்யவும். ஒன்றுசேர்ப்பு இதுதான் அதிகமாக "
+"உபயோகிக்கப்படுகிறது ஏனென்றால் அது படிக்க சுலபமானது. ஒட்டுகளை அனுப்ப KDE உருவாக்காளர் "
+"இந்த வடிவங்களை மிகவும் விரும்புவார்கள்."
+
+#: dialogpages/diffpage.cpp:199
+#, fuzzy, kde-format
+#| msgid "Output Format"
+msgctxt "@title:group"
+msgid "Output Format"
+msgstr "வெளியீட்டு வடிவம்"
+
+#: dialogpages/diffpage.cpp:201
+#, fuzzy, kde-format
+#| msgid "Context"
+msgctxt "@option:radio format type"
+msgid "Context"
+msgstr "சூழல்"
+
+#: dialogpages/diffpage.cpp:204
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgctxt "@option:radio format type"
+msgid "Normal"
+msgstr "இயல்பான"
+
+#: dialogpages/diffpage.cpp:207
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgctxt "@option:radio format type"
+msgid "Unified"
+msgstr "ஒருங்கிணைக்கப்பட்ட"
+
+#: dialogpages/diffpage.cpp:215
+#, fuzzy, kde-format
+#| msgid "Lines of Context"
+msgctxt "@title:group"
+msgid "Lines of Context"
+msgstr "சூழல் வரிகள்"
+
+#: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
+#, fuzzy, kde-format
+#| msgid ""
+#| "The number of context lines is normally 2 or 3. This makes the diff "
+#| "readable and applicable in most cases. More than 3 lines will only bloat "
+#| "the diff unnecessarily."
+msgctxt "@info:whatsthis"
+msgid ""
+"The number of context lines is normally 2 or 3. This makes the diff readable "
+"and applicable in most cases. More than 3 lines will only bloat the diff "
+"unnecessarily."
+msgstr ""
+"சாதரணமாக சுழல் உறையில் 2 அல்லது 3 வரிகள் இருக்கும். இது diffஐ படிக்க மற்றும் இணைக்க "
+"மிகவும் உதவுகிறது. 3 வரிகளுக்கு மேல் இருந்தால் தான் diff தேவையில்லாமல் பாதிக்கப்படும்."
+
+#: dialogpages/diffpage.cpp:220
+#, fuzzy, kde-format
+#| msgid "Number of context lines:"
+msgctxt "@label:spinbox"
+msgid "Number of context lines:"
+msgstr "சூழல் வரிகளின் எண்ணிக்கை:"
+
+#: dialogpages/diffpage.cpp:225
+#, fuzzy, kde-format
+#| msgid "Format"
+msgctxt "@title:tab"
+msgid "Format"
+msgstr "வடிவம்"
+
+#: dialogpages/diffpage.cpp:237
+#, fuzzy, kde-format
+#| msgid "General"
+msgctxt "@title:group"
+msgid "General"
+msgstr "பொது"
+
+#: dialogpages/diffpage.cpp:239
+#, fuzzy, kde-format
+#| msgid "Treat new files as empty"
+msgctxt "@option:check"
+msgid "&Treat new files as empty"
+msgstr "புது கோப்புகளை காலி எனக்கொள்"
+
+#: dialogpages/diffpage.cpp:240
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -I diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -N diff option."
+msgstr "இந்த தேர்வு -I வித்தியாச விருப்பத்தை குறிக்கும்"
+
+#: dialogpages/diffpage.cpp:241
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will treat a file that only exists in one of "
+"the directories as empty in the other directory. This means that the file is "
+"compared with an empty file and because of this will appear as one big "
+"insertion or deletion."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:244
+#, fuzzy, kde-format
+#| msgid "&Look for smaller changes"
+msgctxt "@option:check"
+msgid "&Look for smaller changes"
+msgstr "சிறு மாறுபாடுகளையும் எடுத்துக்கொள்"
+
+#: dialogpages/diffpage.cpp:245
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -d diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -d diff option."
+msgstr "இந்த தேர்வு -d வித்தியாச விருப்பத்தைக் குறிக்கும்"
+
+#: dialogpages/diffpage.cpp:246
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will try a little harder (at the cost of more "
+"memory) to find fewer changes."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:248
+#, fuzzy, kde-format
+#| msgid "O&ptimize for large files"
+msgctxt "@option:check"
+msgid "O&ptimize for large files"
+msgstr "பெரிய கோப்புகளுக்காக உகப்பாக்கு"
+
+#: dialogpages/diffpage.cpp:249
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -H diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -H diff option."
+msgstr "இந்த தேர்வு -H வித்தியாச விருப்பத்தைக் குறிக்கும்"
+
+#: dialogpages/diffpage.cpp:250
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option lets diff makes better diffs when using large files. The "
+"definition of large is nowhere to be found though."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:252
+#, fuzzy, kde-format
+#| msgid "&Ignore changes in case"
+msgctxt "@option:check"
+msgid "&Ignore changes in case"
+msgstr "எழுத்து வகை மாறுபாடுகளை தவிர்"
+
+#: dialogpages/diffpage.cpp:253
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -i diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -i diff option."
+msgstr "இந்த தேர்வு -i வித்தியாச விருப்பத்தைக் குறிக்கும்"
+
+#: dialogpages/diffpage.cpp:254
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option to ignore changes in case enabled, diff will not indicate a "
+"difference when something in one file is changed into SoMEthing in the other "
+"file."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:262
+#, fuzzy, kde-format
+#| msgid "Ignore regexp:"
+msgctxt "@option:check"
+msgid "Ignore regexp:"
+msgstr "regexp ஐ தவிர்:"
+
+#: dialogpages/diffpage.cpp:263
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -I diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -I diff option."
+msgstr "இந்த தேர்வு -I வித்தியாச விருப்பத்தை குறிக்கும்"
+
+#: dialogpages/diffpage.cpp:264
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"When this checkbox is enabled, an option to diff is given that will make "
+"diff ignore lines that match the regular expression."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:268
+#, fuzzy, kde-format
+#| msgid ""
+#| "Add the regular expression here that you want to use\n"
+#| "to ignore lines that match it."
+msgctxt "@info:tooltip"
+msgid ""
+"Add the regular expression here that you want to use\n"
+"to ignore lines that match it."
+msgstr ""
+"நீங்கள் பொருந்திய வரிகளை நீக்க பயன்படுத்த விரும்பும்\n"
+"சாதரன தொடர்களை இங்கு உள்ளிடவும்."
+
+#: dialogpages/diffpage.cpp:274
+#, fuzzy, kde-format
+#| msgid "Whitespace"
+msgctxt "@title:group"
+msgid "Whitespace"
+msgstr "வெள்ளை இடைவெளி"
+
+#: dialogpages/diffpage.cpp:276
+#, fuzzy, kde-format
+#| msgid "E&xpand tabs to spaces in output"
+msgctxt "@option:check"
+msgid "E&xpand tabs to spaces in output"
+msgstr "வெளியீட்டில் தத்தல்களை இடைவெளிகளாக விரி&வாக்கு"
+
+#: dialogpages/diffpage.cpp:277
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -t diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -t diff option."
+msgstr "இந்த விருப்பம் -டி வித்தியாச விருப்பத்தைக் குறிக்கும்"
+
+#: dialogpages/diffpage.cpp:278
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option does not always produce the right result. Due to this expansion "
+"Kompare may have problems applying the change to the destination file."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:280
+#, fuzzy, kde-format
+#| msgid "I&gnore added or removed empty lines"
+msgctxt "@option:check"
+msgid "I&gnore added or removed empty lines"
+msgstr "சேர்க்கப்பட்ட அல்லது நீக்கப்பட்ட வெற்று வரிகளை தவிர்"
+
+#: dialogpages/diffpage.cpp:281
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -B diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -B diff option."
+msgstr "இந்த விருப்பம் -B வித்தியாச விருப்பத்தை குறிக்கும்"
+
+#: dialogpages/diffpage.cpp:282
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This can be very useful in situations where code has been reorganized and "
+"empty lines have been added or removed to improve legibility."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:284
+#, fuzzy, kde-format
+#| msgid "Ig&nore changes in the amount of whitespace"
+msgctxt "@option:check"
+msgid "Ig&nore changes in the amount of whitespace"
+msgstr "வெள்ளை இடைவெளியின் தொகையில் மாறுபாடுகளை தவிர்"
+
+#: dialogpages/diffpage.cpp:285
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -b diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -b diff option."
+msgstr "இந்த விருப்பம் -b வித்தியாச விருப்பத்தைக் குறிக்கும்"
+
+#: dialogpages/diffpage.cpp:286
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you are uninterested in differences arising due to, for example, changes "
+"in indentation, then use this option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:288
+#, fuzzy, kde-format
+#| msgid "Ign&ore all whitespace"
+msgctxt "@option:check"
+msgid "Ign&ore all whitespace"
+msgstr "இடைவெளிகள் அனைத்தையும் தவிர்"
+
+#: dialogpages/diffpage.cpp:289
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -w diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -w diff option."
+msgstr "இந்த விருப்பம் -w வித்தியாச விருப்பத்தைக் குறிக்கும்"
+
+#: dialogpages/diffpage.cpp:290
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This is useful for seeing the significant changes without being overwhelmed "
+"by all the white space changes."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:292
+#, fuzzy, kde-format
+#| msgid "Igno&re changes due to tab expansion"
+msgctxt "@option:check"
+msgid "Igno&re changes due to tab expansion"
+msgstr "தத்தல் விரிவாக்கத்தினால் ஆன மாற்றங்களை தவிர்"
+
+#: dialogpages/diffpage.cpp:293
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -E diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -E diff option."
+msgstr "இந்த விருப்பம் -E வித்தியாச விருப்பத்தைக் குறிக்கும்"
+
+#: dialogpages/diffpage.cpp:294
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If there is a change because tabs have been expanded into spaces in the "
+"other file, then this option will make sure that these do not show up. "
+"Kompare currently has some problems applying such changes so be careful when "
+"you use this option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:299
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Options"
+msgstr "விருப்பங்கள்"
+
+#: dialogpages/diffpage.cpp:311
+#, fuzzy, kde-format
+#| msgid "File Pattern to Exclude"
+msgctxt "@title:group"
+msgid "File Pattern to Exclude"
+msgstr "அகற்ற வேண்டிய கோப்பு மாதிரி"
+
+#: dialogpages/diffpage.cpp:312
+#, fuzzy, kde-format
+#| msgid ""
+#| "If this is checked you can enter a shell pattern in the text box on the "
+#| "right or select entries from the list."
+msgctxt "@info:tooltip"
+msgid ""
+"If this is checked you can enter a shell pattern in the text box on the "
+"right or select entries from the list."
+msgstr ""
+"இது குறிக்கப்பட்டால் வலது உரை பெட்டியில் உறையக தோரணத்தை உள்ளிடலாம் அல்லது பட்டியில் "
+"இருந்து உள்ளிடுகலை தேர்வு செய்யலாம்."
+
+#: dialogpages/diffpage.cpp:318
+#, fuzzy, kde-format
+#| msgid ""
+#| "Here you can enter or remove a shell pattern or select one or more "
+#| "entries from the list."
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter or remove a shell pattern or select one or more entries "
+"from the list."
+msgstr ""
+"இங்கு நீங்கள் உறையக தோரணத்தை நீக்கவோ அல்லது உள்ளிடலாம் அல்லது ஒன்றுக்கு மேற்பட்ட உள்ளிடுதலை "
+"பட்டியலில் இருந்து தேர்வு செய்யலாம்."
+
+#: dialogpages/diffpage.cpp:328
+#, fuzzy, kde-format
+#| msgid "File with Filenames to Exclude"
+msgctxt "@title:group"
+msgid "File with Filenames to Exclude"
+msgstr "அகற்றப்படவேண்டிய கோப்புப்பெயர்களுடன் கூடிய கோப்புகள்"
+
+#: dialogpages/diffpage.cpp:329
+#, fuzzy, kde-format
+#| msgid ""
+#| "If this is checked you can enter a filename in the combo box on the right."
+msgctxt "@info:tooltip"
+msgid "If this is checked you can enter a filename in the combo box below."
+msgstr ""
+"நீங்கள் இதனை தேர்வு செய்து இருந்தால் வலது பக்கத்தில் இருக்கும் சேர்க்கைப் பெட்டியில் கோப்பின் "
+"பெயரை பதிவு செய்யவும்"
+
+#: dialogpages/diffpage.cpp:333
+#, fuzzy, kde-format
+#| msgid ""
+#| "Here you can enter the URL of a file with shell patterns to ignore during "
+#| "the comparison of the folders."
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter the URL of a file with shell patterns to ignore during "
+"the comparison of the folders."
+msgstr ""
+"அடைவு ஒற்றுமை பார்க்கையில் தவிர்க்க உறையக தோரணத்துடன் கோப்பின் URLலை நீங்கள் இங்கேயே "
+"உள்ளிடலாம்."
+
+#: dialogpages/diffpage.cpp:337
+#, fuzzy, kde-format
+#| msgid ""
+#| "Any file you select in the dialog that pops up when you click it will be "
+#| "put in the dialog to the left of this button."
+msgctxt "@info:tooltip"
+msgid ""
+"Any file you select in the dialog that pops up when you click it will be put "
+"in the dialog to the left of this button."
+msgstr ""
+"தோன்றும் உரையாடலில் தேர்வு செய்யும் எந்த புலமாக இருந்தாலும் நீங்கள் சொடுக்கும் பொழுது அது "
+"உரையாடலில் உள்ள இடது பொத்தானில் போடப்படும்."
+
+#: dialogpages/diffpage.cpp:344
+#, fuzzy, kde-format
+#| msgid "&Exclude"
+msgctxt "@title:tab"
+msgid "Exclude"
+msgstr "சேர்க்காத"
+
+#: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
+#, fuzzy, kde-format
+#| msgid "N&ext File"
+msgctxt "@info:tooltip"
+msgid "Select file"
+msgstr "அடுத்திருக்கும் கோப்பு"
+
+#: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@info:tooltip"
+msgid "Select folder"
+msgstr "மூல ஆவணம்"
+
+#: dialogpages/filespage.cpp:87
+#, kde-format
+msgctxt "@title:group"
+msgid "Encoding"
+msgstr ""
+
+#: dialogpages/filespage.cpp:92
+#, kde-format
+msgctxt "@item:inlistbox encoding"
+msgid "Default"
+msgstr ""
+
+#: dialogpages/filespage.cpp:126
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr "மூல ஆவணம்"
+
+#: dialogpages/filespage.cpp:130
+#, fuzzy, kde-format
+#| msgid "N&ext File"
+msgctxt "@title:window"
+msgid "Select File"
+msgstr "அடுத்திருக்கும் கோப்பு"
+
+#: dialogpages/viewpage.cpp:44
+#, fuzzy, kde-format
+#| msgid "Colors"
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "வண்ணங்கள்"
+
+#: dialogpages/viewpage.cpp:50
+#, fuzzy, kde-format
+#| msgid "Removed color:"
+msgctxt "@label:chooser"
+msgid "Removed color:"
+msgstr "நீக்கப்பட்ட வண்ணம்:"
+
+#: dialogpages/viewpage.cpp:54
+#, fuzzy, kde-format
+#| msgid "Changed color:"
+msgctxt "@label:chooser"
+msgid "Changed color:"
+msgstr "மாற்றப்பட்ட வண்ணம்:"
+
+#: dialogpages/viewpage.cpp:58
+#, fuzzy, kde-format
+#| msgid "Added color:"
+msgctxt "@label:chooser"
+msgid "Added color:"
+msgstr "சேர்க்கப்பட்ட வண்ணம்:"
+
+#: dialogpages/viewpage.cpp:62
+#, fuzzy, kde-format
+#| msgid "Applied color:"
+msgctxt "@label:chooser"
+msgid "Applied color:"
+msgstr "பயன்படுத்தப்பட்ட வண்ணம்:"
+
+#: dialogpages/viewpage.cpp:66
+#, fuzzy, kde-format
+#| msgid "Mouse Wheel"
+msgctxt "@title:group"
+msgid "Mouse Wheel"
+msgstr "சுட்டியின் சக்கரம்"
+
+#: dialogpages/viewpage.cpp:72
+#, fuzzy, kde-format
+#| msgid "Number of lines:"
+msgctxt "@label:spinbox"
+msgid "Number of lines:"
+msgstr "வரிகளின் எண்ணிக்கை:"
+
+#: dialogpages/viewpage.cpp:77
+#, fuzzy, kde-format
+#| msgid "Tabs to Spaces"
+msgctxt "@title:group"
+msgid "Tabs to Spaces"
+msgstr "தத்தல்களை இடைவெளிகளாக்க"
+
+#: dialogpages/viewpage.cpp:83
+#, fuzzy, kde-format
+#| msgid "Number of spaces to convert a tab character to:"
+msgctxt "@label:spinbox"
+msgid "Number of spaces to convert a tab character to:"
+msgstr "ஒரு தத்தல் எழுத்தை மாற்ற தேவையான இடைவெளிகளின் எண்ணிக்கை:"
+
+#: dialogpages/viewpage.cpp:94
+#, fuzzy, kde-format
+#| msgid "Text Font"
+msgctxt "@title:group"
+msgid "Text Font"
+msgstr "உரை எழுத்துருக்கள்"
+
+#: dialogpages/viewpage.cpp:98
+#, fuzzy, kde-format
+#| msgid "Font:"
+msgctxt "@label:listbox"
+msgid "Font:"
+msgstr "எழுத்துரு:"
+
+#: dialogpages/viewpage.cpp:103
+#, fuzzy, kde-format
+#| msgid "Size:"
+msgctxt "@label:spinbox"
+msgid "Size:"
+msgstr "அளவு:"
+
+#: dialogpages/viewpage.cpp:107
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Fonts"
+msgstr "எழுத்துரு:"
+
+#: komparenavtreepart/komparenavtreepart.cpp:55
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@title:column"
+msgid "Source Folder"
+msgstr "மூல ஆவணம்"
+
+#: komparenavtreepart/komparenavtreepart.cpp:61
+#, fuzzy, kde-format
+#| msgid "Destination Folder"
+msgctxt "@title:column"
+msgid "Destination Folder"
+msgstr "சேரும் ஆவணம்"
+
+#: komparenavtreepart/komparenavtreepart.cpp:68
+#, fuzzy, kde-format
+#| msgid "Source File"
+msgctxt "@title:column"
+msgid "Source File"
+msgstr "மூலக்கோப்பு"
+
+#: komparenavtreepart/komparenavtreepart.cpp:69
+#, fuzzy, kde-format
+#| msgid "Destination File"
+msgctxt "@title:column"
+msgid "Destination File"
+msgstr "சேரும் கோப்பு"
+
+#: komparenavtreepart/komparenavtreepart.cpp:78
+#, fuzzy, kde-format
+#| msgid "Source Line"
+msgctxt "@title:column"
+msgid "Source Line"
+msgstr "மூல வரி"
+
+#: komparenavtreepart/komparenavtreepart.cpp:79
+#, fuzzy, kde-format
+#| msgid "Destination Line"
+msgctxt "@title:column"
+msgid "Destination Line"
+msgstr "சேரும் வரி"
+
+#: komparenavtreepart/komparenavtreepart.cpp:80
+#, fuzzy, kde-format
+#| msgid "Difference"
+msgctxt "@title:column"
+msgid "Difference"
+msgstr "மாறுபாடு"
+
+#: komparenavtreepart/komparenavtreepart.cpp:455
+#, fuzzy, kde-format
+#| msgid "Applied: Changes made to %1 line undone"
+#| msgid_plural "Applied: Changes made to  %1 lines undone"
+msgid "Applied: Changes made to %1 line undone"
+msgid_plural "Applied: Changes made to %1 lines undone"
+msgstr[0] "அமைக்கபட்ட: %1 வரி மாற்றங்களை அமைத்தது நிறைவேறவில்லை"
+msgstr[1] "அமைக்கபட்ட: %1 வரி மாற்றங்களை அமைத்தது நிறைவேறவில்லை"
+
+#: komparenavtreepart/komparenavtreepart.cpp:458
+#, kde-format
+msgid "Changed %1 line"
+msgid_plural "Changed %1 lines"
+msgstr[0] "%1 வரி மாற்றப்பட்டது"
+msgstr[1] "%1 வரிகள் மாற்றப்பட்டன"
+
+#: komparenavtreepart/komparenavtreepart.cpp:463
+#, kde-format
+msgid "Applied: Insertion of %1 line undone"
+msgid_plural "Applied: Insertion of %1 lines undone"
+msgstr[0] "அமைக்கப்பட்ட: %1 வரி சேர்க்கை நடக்கவில்லை"
+msgstr[1] "அமைக்கப்பட்ட: %1 வரி சேர்க்கை நடக்கவில்லை"
+
+#: komparenavtreepart/komparenavtreepart.cpp:466
+#, kde-format
+msgid "Inserted %1 line"
+msgid_plural "Inserted %1 lines"
+msgstr[0] "%1 வரி சொருகப்பட்டது"
+msgstr[1] "%1 வரிகள் சொருகப்பட்டன"
+
+#: komparenavtreepart/komparenavtreepart.cpp:471
+#, kde-format
+msgid "Applied: Deletion of %1 line undone"
+msgid_plural "Applied: Deletion of %1 lines undone"
+msgstr[0] "அமைக்கப்பட்ட: %1 வரி நீக்கம் நடக்கவில்லை"
+msgstr[1] "அமைக்கப்பட்ட: %1 வரிகள் நீக்கம் நடக்கவில்லை"
+
+#: komparenavtreepart/komparenavtreepart.cpp:474
+#, kde-format
+msgid "Deleted %1 line"
+msgid_plural "Deleted %1 lines"
+msgstr[0] "%1 நீக்கப்பட்ட வரி"
+msgstr[1] "%1 நீக்கப்பட்ட வரிகள்"
+
+#: komparenavtreepart/komparenavtreepart.cpp:628
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "@item directory name not known"
+msgid "Unknown"
+msgstr "தெரியாத"
+
+#: komparepart/kompare_part.cpp:179
+#, fuzzy, kde-format
+#| msgid "Save &All"
+msgctxt "@action"
+msgid "Save &All"
+msgstr "அனைத்தையும் சேமி"
+
+#: komparepart/kompare_part.cpp:181
+#, fuzzy, kde-format
+#| msgid "Save .&diff..."
+msgctxt "@action"
+msgid "Save &Diff..."
+msgstr "சேமி. &வேறுபாடு..."
+
+#: komparepart/kompare_part.cpp:183
+#, fuzzy, kde-format
+#| msgid "Swap Source with Destination"
+msgctxt "@action"
+msgid "Swap Source with Destination"
+msgstr "மூலத்தையும் சேருமிடத்தையும் இடமாற்றம் செய்"
+
+#: komparepart/kompare_part.cpp:190
+#, fuzzy, kde-format
+#| msgid "Show Statistics"
+msgctxt "@action"
+msgid "Show Statistics"
+msgstr "புள்ளிவிவரம் காட்டு"
+
+#: komparepart/kompare_part.cpp:193
+#, kde-format
+msgctxt "@action"
+msgid "Refresh Diff"
+msgstr ""
+
+#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#, fuzzy, kde-format
+msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
+msgstr "URL <b>%1</b>ஐ இறக்குமதி செய்ய முடியவில்லை."
+
+#: komparepart/kompare_part.cpp:356
+#, fuzzy, kde-format
+msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
+msgstr " URL <b>%1</b> உங்கள் முறைமையில் இல்லை."
+
+#: komparepart/kompare_part.cpp:544
+#, fuzzy, kde-format
+#| msgid "Diff Options"
+msgctxt "@title:window"
+msgid "Diff Options"
+msgstr "Diff விருப்பங்கள்"
+
+#: komparepart/kompare_part.cpp:565
+#, fuzzy, kde-format
+#| msgid "Save .diff"
+msgctxt "@title:window"
+msgid "Save .diff"
+msgstr ".வித்தியாசத்தையை சேமி"
+
+#: komparepart/kompare_part.cpp:567
+#, fuzzy, kde-format
+#| msgid "*.diff *.dif *.patch|Patch Files"
+msgid "Patch Files (*.diff *.dif *.patch)"
+msgstr "*.diff *.dif *.patch|Patch files"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgid "The file exists or is write-protected; do you want to overwrite it?"
+msgstr ""
+"கோப்பு உள்ளது அல்லது எழுது பாதுக்காக்கப்பட்டுள்ளது; அதின் மீது எழுத விரும்புகிறீர்களா?"
+
+#: komparepart/kompare_part.cpp:569
+#, fuzzy, kde-format
+#| msgid "File Exists"
+msgctxt "@window:title"
+msgid "File Exists"
+msgstr "கோப்பு உள்ளது"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgctxt "@action:button"
+msgid "Do Not Overwrite"
+msgstr ""
+
+#: komparepart/kompare_part.cpp:653
+#, fuzzy, kde-format
+#| msgid "Running diff..."
+msgctxt "@info:status"
+msgid "Running diff..."
+msgstr "diff இயக்கப்படுகிறது..."
+
+#: komparepart/kompare_part.cpp:656
+#, fuzzy, kde-format
+#| msgid "Parsing diff output..."
+msgctxt "@info:status"
+msgid "Parsing diff output..."
+msgstr "diffன் வெளியீடு பிரித்தாயப்படுகிறது..."
+
+#: komparepart/kompare_part.cpp:712
+#, fuzzy, kde-format
+#| msgid "Comparing file %1 with file %2"
+msgctxt "@info:status"
+msgid "Comparing file %1 with file %2"
+msgstr "கோப்பு %1ம்  கோப்பு %2ம் ஒப்பிடப்படுகின்றன "
+
+#: komparepart/kompare_part.cpp:717
+#, fuzzy, kde-format
+#| msgid "Comparing files in %1 with files in %2"
+msgctxt "@info:status"
+msgid "Comparing files in %1 with files in %2"
+msgstr "%1ல் உள்ள கோப்புகள் %2ல் உள்ள கோப்புகளோடு ஒப்பிடப்படுகின்றன"
+
+#: komparepart/kompare_part.cpp:722
+#, fuzzy, kde-format
+#| msgid "Viewing diff output from %1"
+msgctxt "@info:status"
+msgid "Viewing diff output from %1"
+msgstr "%1லிருந்து diffன் வெளியீடு காணப்பிக்கப்படுகிறது"
+
+#: komparepart/kompare_part.cpp:725
+#, fuzzy, kde-format
+#| msgid "Blending diff output from %1 into file %2"
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into file %2"
+msgstr "%1ல் இருக்கும் diffன் வெளியீடு கோப்பு %2க்குள் கலக்கப்படுகிறது"
+
+#: komparepart/kompare_part.cpp:730
+#, fuzzy, kde-format
+#| msgid "Blending diff output from %1 into folder %2"
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into folder %2"
+msgstr "%1ல் இருக்கும் diffன் வெளியீடு ஆவணம் %2க்குள் கலக்கப்படுகிறது"
+
+#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
+#: komparepart/kompare_part.cpp:927
+#, kde-format
+msgid ""
+"You have made changes to the destination file(s).\n"
+"Would you like to save them?"
+msgstr ""
+"கோப்பு(கள்)  சேருமிடத்துக்கு மாற்றங்கள் நீங்கள் செய்துள்ளீர்.\n"
+"அவற்றை நீங்கள் சேமிக்க விரும்புகிறீர்களா?"
+
+#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
+#: komparepart/kompare_part.cpp:929
+#, fuzzy, kde-format
+#| msgid "Save Changes?"
+msgctxt "@title:window"
+msgid "Save Changes?"
+msgstr "மாற்றங்களை சேமிக்கவா?"
+
+#: komparepart/kompare_part.cpp:852
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgctxt "@item diff format"
+msgid "Unified"
+msgstr "ஒருங்கிணைக்கப்பட்ட"
+
+#: komparepart/kompare_part.cpp:855
+#, fuzzy, kde-format
+#| msgid "Context"
+msgctxt "@item diff format"
+msgid "Context"
+msgstr "சூழல்"
+
+#: komparepart/kompare_part.cpp:858
+#, fuzzy, kde-format
+#| msgid "RCS"
+msgctxt "@item diff format"
+msgid "RCS"
+msgstr "RCS"
+
+#: komparepart/kompare_part.cpp:861
+#, fuzzy, kde-format
+#| msgid "Ed"
+msgctxt "@item diff format"
+msgid "Ed"
+msgstr "Ed"
+
+#: komparepart/kompare_part.cpp:864
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgctxt "@item diff format"
+msgid "Normal"
+msgstr "இயல்பான"
+
+#: komparepart/kompare_part.cpp:868
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "@item diff format"
+msgid "Unknown"
+msgstr "தெரியாத"
+
+#: komparepart/kompare_part.cpp:884
+#, kde-format
+msgid ""
+"No diff file, or no 2 files have been diffed. Therefore no stats are "
+"available."
+msgstr ""
+"diff கோப்பு இல்லை, அல்லது எந்த இரு கோப்புகளும் diff  செய்யப்படவில்லை. எனவே "
+"புள்ளிவிவரங்கள் கிடையாது."
+
+#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:916
+#, fuzzy, kde-format
+#| msgid "Diff Statistics"
+msgctxt "@title:window"
+msgid "Diff Statistics"
+msgstr "Diff புள்ளிவிவரம்"
+
+#: komparepart/kompare_part.cpp:890
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Old file: %1\n"
+"New file: %2\n"
+"\n"
+"Format: %3\n"
+"Number of hunks: %4\n"
+"Number of differences: %5"
+msgstr ""
+"புள்ளிவிவரங்கள்:\n"
+"\n"
+"பழைய கோப்பு: %1\n"
+"புதிய கோப்பு: %2\n"
+"\n"
+"வடிவம்: %3\n"
+"hunkகளின் எண்ணிக்கை: %4\n"
+"மாறுபாடுகளின் எண்ணிக்கை: %5"
+
+#: komparepart/kompare_part.cpp:903
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Number of files in diff file: %1\n"
+"Format: %2\n"
+"\n"
+"Current old file: %3\n"
+"Current new file: %4\n"
+"\n"
+"Number of hunks: %5\n"
+"Number of differences: %6"
+msgstr ""
+"புள்ளிவிவரம்:\n"
+"\n"
+"diff கோப்பில் உள்ள கோப்புகளின் எண்ணிக்கை: %1\n"
+"வடிவம்: %2\n"
+"\n"
+"த்ற்போதைய பழைய கோப்பு: %3 \n"
+"தற்போதைய புதிய கோப்பு: %4\n"
+"\n"
+"hunkகளின் எண்ணிக்கை: %5\n"
+"மாறுபாடுகளின் எண்ணிக்கை: %6"
+
+#. i18n: ectx: Menu (difference)
+#: komparepart/komparepartui.rc:17
+#, kde-format
+msgid "&Difference"
+msgstr "மாறுபாடு"
+
+#: komparepart/kompareprefdlg.cpp:26
+#, fuzzy, kde-format
+#| msgid "Preferences"
+msgctxt "@title:window"
+msgid "Preferences"
+msgstr "விருப்பங்கள்"
+
+#: komparepart/kompareprefdlg.cpp:36
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "View"
+msgstr "உரைக்காட்சி"
+
+#: komparepart/kompareprefdlg.cpp:38
+#, fuzzy, kde-format
+#| msgid "View Settings"
+msgctxt "@title"
+msgid "View Settings"
+msgstr "அமைப்புகளை காணுங்கள்"
+
+#: komparepart/kompareprefdlg.cpp:44
+#, fuzzy, kde-format
+#| msgid "Diff Settings"
+msgctxt "@title"
+msgid "Diff Settings"
+msgstr "Diffன் அமைப்புகள்"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
+#: komparepart/komparesaveoptionsbase.ui:29
+#, kde-format
+msgid "Format"
+msgstr "வடிவம்"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
+#: komparepart/komparesaveoptionsbase.ui:35
+#, fuzzy, kde-format
+#| msgid "Context"
+msgid "&Context"
+msgstr "சூழல்"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
+#: komparepart/komparesaveoptionsbase.ui:42
+#, kde-format
+msgid "Ed"
+msgstr "Ed"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
+#: komparepart/komparesaveoptionsbase.ui:49
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgid "&Normal"
+msgstr "இயல்பான"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
+#: komparepart/komparesaveoptionsbase.ui:56
+#, kde-format
+msgid "RCS"
+msgstr "RCS"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
+#: komparepart/komparesaveoptionsbase.ui:63
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgid "&Unified"
+msgstr "ஒருங்கிணைக்கப்பட்ட"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
+#: komparepart/komparesaveoptionsbase.ui:73
+#, fuzzy, kde-format
+#| msgid "Side-by-side"
+msgid "&Side-by-side"
+msgstr "கூடவே சேர்த்து"
+
+#. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
+#: komparepart/komparesaveoptionsbase.ui:85
+#, kde-format
+msgid "Number of context lines:"
+msgstr "சூழல் வரிகளின் எண்ணிக்கை:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
+#: komparepart/komparesaveoptionsbase.ui:126
+#, fuzzy, kde-format
+msgid "Options"
+msgstr "விருப்பங்கள்"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_SmallerChangesCB)
+#: komparepart/komparesaveoptionsbase.ui:132
+#, kde-format
+msgid "Look for smaller changes"
+msgstr "சிறு மாறுபாடுகளையும் எடுத்துக்கொள்"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:142
+#, kde-format
+msgid "Optimize for large files"
+msgstr "பெரிய கோப்புகளுக்காக உகப்பாக்கு"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
+#: komparepart/komparesaveoptionsbase.ui:152
+#, kde-format
+msgid "Ignore changes in case"
+msgstr "எழுத்து வகை மாறுபாடுகளை தவிர்"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
+#: komparepart/komparesaveoptionsbase.ui:159
+#, kde-format
+msgid "Expand tabs to spaces"
+msgstr "தத்தல்களை இடைவெளிகளாக விரிவாக்கு"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
+#: komparepart/komparesaveoptionsbase.ui:166
+#, kde-format
+msgid "Ignore added or removed empty lines"
+msgstr "சேர்க்கப்பட்ட அல்லது நீக்கப்பட்ட வெற்று வரிகளை தவிர்"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
+#: komparepart/komparesaveoptionsbase.ui:173
+#, kde-format
+msgid "Ignore changes in whitespace"
+msgstr "இடைவெளி மாறுபாடுகளை தவிர்"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
+#: komparepart/komparesaveoptionsbase.ui:180
+#, kde-format
+msgid "Show function names"
+msgstr "செயல்பாடுகளின் பெயர்களை காட்டு"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
+#: komparepart/komparesaveoptionsbase.ui:190
+#, kde-format
+msgid "Compare folders recursively"
+msgstr "ஆவணங்களுக்குள் உள்ள ஆவணங்களையும் ஒப்பிடு"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:200
+#, kde-format
+msgid "Treat new files as empty"
+msgstr "புது கோப்புகளை காலி எனக்கொள்"
+
+#. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
+#: komparepart/komparesaveoptionsbase.ui:222
+#, kde-format
+msgid "Run Diff In"
+msgstr "Diffஐ இதில் இயக்கு"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
+#: komparepart/komparesaveoptionsbase.ui:247
+#, kde-format
+msgid "Command Line"
+msgstr "ஆணை வரி"
+
+#. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
+#: komparepart/komparesaveoptionsbase.ui:256
+#, kde-format
+msgid "cd dir && diff -udHprNa -- source destination"
+msgstr "cd dir && diff -udHprNa -- source destination"
+
+#~ msgid "KompareNavTreePart"
+#~ msgstr "KompareNavTreePart"
+
+#~ msgid "KomparePart"
+#~ msgstr "KomparePart"
+
+#, fuzzy
+#~| msgid "&Edit..."
+#~ msgctxt "@action:button"
+#~ msgid "&Edit..."
+#~ msgstr "திருத்து..."
+
+#, fuzzy
+#~| msgid ""
+#~| "Clicking this will open a regular expression dialog where\n"
+#~| "you can graphically create regular expressions."
+#~ msgctxt "@info:tooltip"
+#~ msgid ""
+#~ "Clicking this will open a regular expression dialog where\n"
+#~ "you can graphically create regular expressions."
+#~ msgstr ""
+#~ "இதை சொடுக்குவதால் சாதாரண தொடர் உரையாடலை திறந்து விடும்\n"
+#~ "அதில் நீங்கள் வரைகலையாக சாதாரன் தொடர்களை நீங்கள் உருவாக்கலாம்."
+
+#~ msgid "Compare these files or folder"
+#~ msgstr "இந்த கோப்புகளையோ ஆவணங்களையோ ஒப்பிடு"
+
+#~ msgid "&Apply Difference"
+#~ msgstr "மாறுபாட்டை பயன்படுத்து"
+
+#~ msgid "Un&apply Difference"
+#~ msgstr "பயன்படுத்திய மாறுபாட்டை ரத்து செய்"
+
+#~ msgid "App&ly All"
+#~ msgstr "அனைத்தையும் பயன்படுத்து"
+
+#~ msgid "&Unapply All"
+#~ msgstr "பயன்படுத்திய அனைத்தையும் ரத்து செய்"
+
+#~ msgid "P&revious File"
+#~ msgstr "முன்னிருக்கும் கோப்பு"
+
+#~ msgid "&Previous Difference"
+#~ msgstr "முன்னிருக்கும் மாறுபாடு"
+
+#~ msgid "&Next Difference"
+#~ msgstr "அடுத்திருக்கும் மாறுபாடு"
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>No models or no differences, this file: <b>%1</b>, is not a valid "
+#~ "diff file.</qt>"
+#~ msgstr ""
+#~ "மாதிரிகளோ அல்லது மாறுபாடுகளோ இல்லை, இந்த கோப்பு: <b>%1</b>, ஒரு தக்க diff "
+#~ "கோப்பு அல்ல"
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>."
+#~ "</qt>"
+#~ msgstr ""
+#~ "<b>%1</b>diffல் இருந்து <b>%2</b> கோப்புக்கு பயன்படுத்தும்போது பிரச்சினைகள் ஏற்பட்டன."
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</"
+#~ "b>.</qt>"
+#~ msgstr ""
+#~ "<b>%1</b> diffல் இருந்து <b>%2</b> ஆவணத்திருக்கு பயன்படுத்தும்போது பிரச்சினைகள் "
+#~ "ஏற்பட்டன."
+
+#~ msgid "Could not open a temporary file."
+#~ msgstr "ஒரு தற்காலிக கோப்பினை திறக்க இயலவில்லை."
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>"
+#~ msgstr "தற்காலிக கோப்புக்குள் எழுத இயலவில்லை."
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>Could not create destination directory <b>%1</b>.\n"
+#~ "The file has not been saved.</qt>"
+#~ msgstr "தற்காலிக கோப்புக்குள் எழுத இயலவில்லை."
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>Could not upload the temporary file to the destination location <b>"
+#~ "%1</b>. The temporary file is still available under: <b>%2</b>. You can "
+#~ "manually copy it to the right place.</qt>"
+#~ msgstr ""
+#~ "<b>%1</b> சேருமிடத்தில் தற்காலிக கோப்பினை ஏற்ற இயலவில்லை. எனினும் தற்காலிக கோப்பு "
+#~ "<b>%2</b> கீழ் இன்னும் உள்ளது. இதனை நீங்கள் கைமுறையாக சரியான இடத்துக்கு "
+#~ "படியேடுக்கலாம்."
+
+#~ msgid "Could not parse diff output."
+#~ msgstr "diffன் வெளியீட்டை பிரித்தாய இயலவில்லை."
+
+#~ msgid "The files are identical."
+#~ msgstr "இந்த கோப்புகள் ஒரே மாதிரியாக உள்ளன."
+
+#~ msgid "Could not write to the temporary file."
+#~ msgstr "தற்காலிக கோப்புக்குள் எழுத இயலவில்லை."
+
+#~ msgid "Could not find our KompareViewPart."
+#~ msgstr "நம் Kompare பார்வைப் பகுதியை கண்டுபிடிக்க இயலவில்லை."
+
+#~ msgid "Could not find our KompareNavigationPart."
+#~ msgstr "நம் KompareNavigationPartஐ கண்டுபிடிக்க இயலவில்லை."
+
+#~ msgid "A&ppearance"
+#~ msgstr "தோற்றம்"
+
+#~ msgid "&Diff"
+#~ msgstr "&Diff"
+
+#~ msgid "&Format"
+#~ msgstr "வடிவம்"
+
+#~ msgid "O&ptions"
+#~ msgstr "விருப்பங்கள்"
+
+#~ msgid "Hide T&ext View"
+#~ msgstr "உரைக்காட்சியை மறைத்திடுக"

@@ -1,0 +1,1623 @@
+# translation of kompare.po to Tajik
+# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
+# 2004, infoDev, a World Bank organization
+# 2004, Khujand Computer Technologies, Inc.
+# 2004, Youth Opportunities, NGO
+# Victor Ibragimov <youth_opportunities@tajikngo.org>, 2005, 2019.
+msgid ""
+msgstr ""
+"Project-Id-Version: kompare\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"PO-Revision-Date: 2019-09-29 12:28+0500\n"
+"Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
+"Language-Team: English <kde-i18n-doc@kde.org>\n"
+"Language: tg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 19.04.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+"НПО \"Имкониятҳои ҷавонон\" ва Khujand Computer Technologies, Inc. USA, "
+"Роҷер Ковакс, Виктор Ибрагимов, Марина Колючева"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+"youth_opportunities@tajikngo.org,,rkovacs@khujand.org,,MarinaKL@tajikngo.org"
+
+#: app/kompare_shell.cpp:69
+#, kde-format
+msgid "Could not load our KompareViewPart."
+msgstr "Компоненти KompareViewPart пурбор карда нашуда истодааст."
+
+#: app/kompare_shell.cpp:73
+#, kde-format
+msgctxt "@title:window"
+msgid "Navigation"
+msgstr ""
+
+#: app/kompare_shell.cpp:90
+#, kde-format
+msgid "Could not load our KompareNavigationPart."
+msgstr "Компоненти KompareNavigationPart пурбор карда намешавад."
+
+#: app/kompare_shell.cpp:195
+#, fuzzy, kde-format
+#| msgid "&Open Diff..."
+msgctxt "@action"
+msgid "&Open Diff..."
+msgstr "&Кушодани Diff..."
+
+#: app/kompare_shell.cpp:198
+#, fuzzy, kde-format
+#| msgid "&Compare Files..."
+msgctxt "@action"
+msgid "&Compare Files..."
+msgstr "&Муқоисаи Файлҳо..."
+
+#: app/kompare_shell.cpp:201
+#, fuzzy, kde-format
+#| msgid "&Blend URL with Diff..."
+msgctxt "@action"
+msgid "&Blend URL with Diff..."
+msgstr "&Якҷоя кардани URL бо Diff..."
+
+#: app/kompare_shell.cpp:207
+#, fuzzy, kde-format
+#| msgid "Show T&ext View"
+msgctxt "@action"
+msgid "Show T&ext View"
+msgstr "Ба намуди мат&н нишон додан"
+
+#: app/kompare_shell.cpp:220
+#, kde-format
+msgid " 0 of 0 differences "
+msgstr "0 аз 0 фарқиятҳо "
+
+#: app/kompare_shell.cpp:221
+#, kde-format
+msgid " 0 of 0 files "
+msgstr "0 аз 0 файлҳо "
+
+#: app/kompare_shell.cpp:238
+#, kde-format
+msgid " %2 of %1 file "
+msgid_plural " %2 of %1 files "
+msgstr[0] " %2 аз %1 файл "
+msgstr[1] " %2 аз %1 файлҳо"
+
+#: app/kompare_shell.cpp:240
+#, kde-format
+msgid " %1 file "
+msgid_plural " %1 files "
+msgstr[0] " %1 файл "
+msgstr[1] " %1 файлҳо"
+
+#: app/kompare_shell.cpp:243
+#, kde-format
+msgid " %2 of %1 difference, %3 applied "
+msgid_plural " %2 of %1 differences, %3 applied "
+msgstr[0] " %2 аз %1 фарқият, %3 тақрибан "
+msgstr[1] " %2 аз %1 фарқиятҳо, %3 тақрибан "
+
+#: app/kompare_shell.cpp:246
+#, kde-format
+msgid " %1 difference "
+msgid_plural " %1 differences "
+msgstr[0] " %1 фарқият "
+msgstr[1] " %1 фарқиятҳо"
+
+#: app/kompare_shell.cpp:327
+#, fuzzy, kde-format
+#| msgid "Blend File/Folder with diff Output"
+msgctxt "@title:window"
+msgid "Blend File/Folder with diff Output"
+msgstr "Якҷоя кардани файл/каталог бо diff Output"
+
+#: app/kompare_shell.cpp:328
+#, fuzzy, kde-format
+#| msgid "File/Folder"
+msgctxt "@title:group"
+msgid "File/Folder"
+msgstr "Файл/каталог"
+
+#: app/kompare_shell.cpp:329
+#, fuzzy, kde-format
+#| msgid "Diff Output"
+msgctxt "@title:group"
+msgid "Diff Output"
+msgstr "Баромадани Diff"
+
+#: app/kompare_shell.cpp:332
+#, fuzzy, kde-format
+#| msgid "Blend"
+msgctxt "@action:button"
+msgid "Blend"
+msgstr "Якҷоя кардан"
+
+#: app/kompare_shell.cpp:333
+#, fuzzy, kde-format
+#| msgid "Blend this file or folder with the diff output"
+msgctxt "@info:tooltip"
+msgid "Blend this file or folder with the diff output"
+msgstr "Якҷоя кардани ин файл ё ин ки каталог бо хулосаи diff "
+
+#: app/kompare_shell.cpp:334
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you have entered a file or folder name and a file that contains diff "
+#| "output in the fields in this dialog then this button will be enabled and "
+#| "pressing it will open kompare's main view where the output of the entered "
+#| "file or files from the folder are mixed with the diff output so you can "
+#| "then apply the difference(s) to a file or to the files. "
+msgctxt "@infor:whatsthis"
+msgid ""
+"If you have entered a file or folder name and a file that contains diff "
+"output in the fields in this dialog then this button will be enabled and "
+"pressing it will open kompare's main view where the output of the entered "
+"file or files from the folder are mixed with the diff output so you can then "
+"apply the difference(s) to a file or to the files. "
+msgstr ""
+"Агар шумо ба файл ё номи папка ва файле, ки diff -и хуруҷ дар майдонҳо дар "
+"ин диалог ворид гардед баъд ин тугма тавоно месозад ва зер карда мешавад,он "
+"кушода мешавад намуди kompare-и асоси дар он ҷое,ки хуруҷи ворид гаштаи файл "
+"ё файлҳои папка омехта мешавад бо diff хуруҷ,шумо метавонед баъд "
+"дигаргуниҳоро ба файл ё файлҳо гузоред. "
+
+#: app/kompare_shell.cpp:357 app/main.cpp:199
+#, fuzzy, kde-format
+#| msgid "Compare Files or Folders"
+msgctxt "@title:window"
+msgid "Compare Files or Folders"
+msgstr "Муқоиса кардани файлҳо ё каталогҳо"
+
+#: app/kompare_shell.cpp:358 app/main.cpp:200
+#, fuzzy, kde-format
+#| msgid "Source"
+msgctxt "@title:group"
+msgid "Source"
+msgstr "Манбаъ"
+
+#: app/kompare_shell.cpp:359 app/main.cpp:201
+#, fuzzy, kde-format
+#| msgid "Destination"
+msgctxt "@title:group"
+msgid "Destination"
+msgstr "Муайян шуда"
+
+#: app/kompare_shell.cpp:362 app/main.cpp:204
+#, fuzzy, kde-format
+#| msgid "Compare"
+msgctxt "@action:button"
+msgid "Compare"
+msgstr "Муқоиса кардан"
+
+#: app/kompare_shell.cpp:363 app/main.cpp:205
+#, fuzzy, kde-format
+#| msgid "Compare these files or folders"
+msgctxt "@info:tooltip"
+msgid "Compare these files or folders"
+msgstr "Ин файлҳо ё ин ки каталогҳоро муқоиса кунед"
+
+#: app/kompare_shell.cpp:364 app/main.cpp:206
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
+#| "then this button will be enabled and pressing it will start a comparison "
+#| "of the entered files or folders. "
+msgctxt "@info:whatsthis"
+msgid ""
+"If you have entered 2 filenames or 2 folders in the fields in this dialog "
+"then this button will be enabled and pressing it will start a comparison of "
+"the entered files or folders. "
+msgstr ""
+"Агар шумо 2 файли ё 2 каталоги дар фосилаи ин диалог ворид кардед, он вақт "
+"ин тугма дастрас шуда ва дар вақти пахш кардани ӯ муқоисаи файлҳои ё "
+"каталогҳои нишондодаро сар мекунад. "
+
+#: app/kompare_shell.cpp:398
+#, fuzzy, kde-format
+#| msgid "Text View"
+msgctxt "@title:window"
+msgid "Text View"
+msgstr "Аз назар гузаронидани матн"
+
+#. i18n: ectx: Menu (file)
+#: app/kompareui.rc:4 komparepart/komparepartui.rc:4
+#, fuzzy, kde-format
+msgid "&File"
+msgstr "&Файлҳо"
+
+#. i18n: ectx: Menu (settings)
+#: app/kompareui.rc:14 komparepart/komparepartui.rc:29
+#, fuzzy, kde-format
+msgid "&Settings"
+msgstr "Ҷур кардани намудҳо"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: app/kompareui.rc:27
+#, kde-format
+msgid "Main Toolbar"
+msgstr ""
+
+#: app/kompareurldialog.cpp:37
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Files"
+msgstr "&Файлҳо"
+
+#: app/kompareurldialog.cpp:39
+#, kde-format
+msgid "Here you can enter the files you want to compare."
+msgstr "Дар инҷо файл барои муқоиса кардан ворид мешавад."
+
+#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:42
+#, fuzzy, kde-format
+#| msgid "Diff"
+msgctxt "@title:tab"
+msgid "Diff"
+msgstr "Фарқият"
+
+#: app/kompareurldialog.cpp:47
+#, kde-format
+msgid "Here you can change the options for comparing the files."
+msgstr "Дар инҷо параметрҳо барои муқоиса, танзим карда мешавад."
+
+#: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
+#, fuzzy, kde-format
+#| msgid "A&ppearance"
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "Т&ақдимот"
+
+#: app/kompareurldialog.cpp:55
+#, kde-format
+msgid "Here you can change the options for the view."
+msgstr "Дар инҷо параметрҳои визуалӣ танзим карда мешаванд."
+
+#: app/kompareurldialog.cpp:101
+#, kde-format
+msgid ""
+"File used for excluding files cannot be found, please specify another file."
+msgstr ""
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Kompare"
+msgstr ""
+
+#: app/main.cpp:52
+#, kde-format
+msgid ""
+"A program to view the differences between files and optionally generate a "
+"diff"
+msgstr "Барнома барои намоиши фарқият байни файлҳо ва эҷод кардани файли diff"
+
+#: app/main.cpp:54
+#, fuzzy, kde-format
+#| msgid "(c) 2001-2004, John Firebaugh and Otto Bruggeman"
+msgid ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+msgstr ""
+"(c) 2001-2004, Джон Файербаух (John Firebaugh) ва Отто Брюггеман (Otto "
+"Bruggeman)"
+
+#: app/main.cpp:57
+#, kde-format
+msgid "John Firebaugh"
+msgstr ""
+
+#: app/main.cpp:57 app/main.cpp:58
+#, kde-format
+msgid "Author"
+msgstr "Муаллиф"
+
+#: app/main.cpp:58
+#, kde-format
+msgid "Otto Bruggeman"
+msgstr ""
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Jeff Snyder"
+msgstr ""
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Developer"
+msgstr ""
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Kevin Kofler"
+msgstr ""
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Maintainer"
+msgstr ""
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Chris Luetchford"
+msgstr ""
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Kompare icon artist"
+msgstr "Нишонаҳо"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "Malte Starostik"
+msgstr ""
+
+#: app/main.cpp:62
+#, kde-format
+msgid "A lot of good advice"
+msgstr "Бисёр маслиҳатҳои хуб"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Bernd Gehrmann"
+msgstr ""
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Cervisia diff viewer"
+msgstr "Тамошои фарқият дар Cervisia"
+
+#: app/main.cpp:70
+#, kde-format
+msgid "This will compare URL1 with URL2"
+msgstr "Баробаркунӣ \"Бадарға1\" бо \"Бадарғаи2\""
+
+#: app/main.cpp:71
+#, kde-format
+msgid ""
+"This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
+"and then it will read from standard input. Can be used for instance for cvs "
+"diff | kompare -o -. Kompare will do a check to see if it can find the "
+"original file(s) and then blend the original file(s) into the diffoutput and "
+"show that in the viewer. -n disables the check."
+msgstr ""
+"Интихоб кунед формати парвариш аз тарафи diff барқарор ёфта шуда. Муттаҳид "
+"онест,ки онро гоҳ-гоҳ истифода бурда мешавад барои он ,ки онро хондан "
+"метавонед. Ба коркунандаҳои KDE ин формат хеле маъқул аст, аз зуртарин барои "
+"фиристондани."
+
+#: app/main.cpp:72
+#, kde-format
+msgid ""
+"This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
+"the file or folder that the diffoutput needs to be blended into. "
+msgstr ""
+"Ин метавонад URL2 бо URL1 омехта шавад, URL2 умед дорад, ки diff хуруҷ шавад "
+"ва URL1 файл ё папка, ки diff хуруҷ омехта шуда мӯҳтоҷи мекашад. "
+
+#: app/main.cpp:73
+#, kde-format
+msgid ""
+"Disables the check for automatically finding the original file(s) when using "
+"'-' as URL with the -o option."
+msgstr ""
+"Тафтиши ҷустуҷӯи худкорсозии файл(ҳо) аслӣ дар вақти истифодаи - дар сифати "
+"манба бо интихоби -о, бекор мешавад."
+
+#: app/main.cpp:74
+#, kde-format
+msgid ""
+"Use this to specify the encoding when calling it from the command line. It "
+"will default to the local encoding if not specified."
+msgstr ""
+"Инро барои нишон додани рамз гузори истифода баред,вақто,ки фарохондани он "
+"аз рахи фармон аст.Ин пешфарз ба рамз гузории маҳалӣ агар нишон дода набошад."
+
+#: dialogpages/diffpage.cpp:174
+#, fuzzy, kde-format
+#| msgid "Diff Program"
+msgctxt "@title:group"
+msgid "Diff Program"
+msgstr "барномаи diff"
+
+#: dialogpages/diffpage.cpp:179
+#, kde-format
+msgid ""
+"You can select a different diff program here. On Solaris the standard diff "
+"program does not support all the options that the GNU version does. This way "
+"you can select that version."
+msgstr ""
+"Шумо метавонед интихоб кунед барномаи diff-и ҳархеларо дар инҷо.Дар Solaris "
+"стандарти барномаи diff тарафдори намекунад ҳамаи интихоботро ,ки тафсири "
+"GNU тарафдори мекунад.Бо ин роҳ шумо метавонед тафсирро интихоб намоед."
+
+#: dialogpages/diffpage.cpp:196
+#, fuzzy, kde-format
+#| msgid ""
+#| "Select the format of the output generated by diff. Unified is the one "
+#| "that is used most frequently because it is very readable. The KDE "
+#| "developers like this format the best so use it for sending patches."
+msgctxt "@info:whatsthis"
+msgid ""
+"Select the format of the output generated by diff. Unified is the one that "
+"is used most frequently because it is very readable. The KDE developers like "
+"this format the best so use it for sending patches."
+msgstr ""
+"Интихоб кунед формати парвариш аз тарафи diff барқарор ёфта шуда. Муттаҳид "
+"онест,ки онро гоҳ-гоҳ истифода бурда мешавад барои он ,ки онро хондан "
+"метавонед. Ба коркунандаҳои KDE ин формат хеле маъқул аст, аз зуртарин барои "
+"фиристондани."
+
+#: dialogpages/diffpage.cpp:199
+#, fuzzy, kde-format
+#| msgid "Output Format"
+msgctxt "@title:group"
+msgid "Output Format"
+msgstr "Формат парвариши"
+
+#: dialogpages/diffpage.cpp:201
+#, fuzzy, kde-format
+#| msgid "Context"
+msgctxt "@option:radio format type"
+msgid "Context"
+msgstr "Контекст"
+
+#: dialogpages/diffpage.cpp:204
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgctxt "@option:radio format type"
+msgid "Normal"
+msgstr "Оддӣ"
+
+#: dialogpages/diffpage.cpp:207
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgctxt "@option:radio format type"
+msgid "Unified"
+msgstr "Муттаҳид"
+
+#: dialogpages/diffpage.cpp:215
+#, fuzzy, kde-format
+#| msgid "Lines of Context"
+msgctxt "@title:group"
+msgid "Lines of Context"
+msgstr "Хатҳои контекст"
+
+#: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
+#, fuzzy, kde-format
+#| msgid ""
+#| "The number of context lines is normally 2 or 3. This makes the diff "
+#| "readable and applicable in most cases. More than 3 lines will only bloat "
+#| "the diff unnecessarily."
+msgctxt "@info:whatsthis"
+msgid ""
+"The number of context lines is normally 2 or 3. This makes the diff readable "
+"and applicable in most cases. More than 3 lines will only bloat the diff "
+"unnecessarily."
+msgstr ""
+"Андозаи хатҳои контексти оддӣ 2-то ё 3-то мебошанд. Ин имкон медиҳад diff-ро "
+"хондан ва дар бисёр корҳо зарур аст. Зиёда аз 3 хатҳо танҳо diff-ро беҳуда "
+"дам мекунад."
+
+#: dialogpages/diffpage.cpp:220
+#, fuzzy, kde-format
+#| msgid "Number of context lines:"
+msgctxt "@label:spinbox"
+msgid "Number of context lines:"
+msgstr "Андозаи хатҳо контексти:"
+
+#: dialogpages/diffpage.cpp:225
+#, fuzzy, kde-format
+#| msgid "Format"
+msgctxt "@title:tab"
+msgid "Format"
+msgstr "Андоза"
+
+#: dialogpages/diffpage.cpp:237
+#, fuzzy, kde-format
+#| msgid "General"
+msgctxt "@title:group"
+msgid "General"
+msgstr "Ҳамагӣ"
+
+#: dialogpages/diffpage.cpp:239
+#, fuzzy, kde-format
+#| msgid "Treat new files as empty"
+msgctxt "@option:check"
+msgid "&Treat new files as empty"
+msgstr "Аҳамият додани файлҳои нав ба мисли холӣ"
+
+#: dialogpages/diffpage.cpp:240
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -I diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -N diff option."
+msgstr "Ин интихоб ҷавоб медиҳад ба калиди -I."
+
+#: dialogpages/diffpage.cpp:241
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will treat a file that only exists in one of "
+"the directories as empty in the other directory. This means that the file is "
+"compared with an empty file and because of this will appear as one big "
+"insertion or deletion."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:244
+#, fuzzy, kde-format
+#| msgid "&Look for smaller changes"
+msgctxt "@option:check"
+msgid "&Look for smaller changes"
+msgstr "&Кофтани тағиротҳои хурд"
+
+#: dialogpages/diffpage.cpp:245
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -d diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -d diff option."
+msgstr "Ҷавоб медиҳад ба калидӣ -d."
+
+#: dialogpages/diffpage.cpp:246
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will try a little harder (at the cost of more "
+"memory) to find fewer changes."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:248
+#, fuzzy, kde-format
+#| msgid "O&ptimize for large files"
+msgctxt "@option:check"
+msgid "O&ptimize for large files"
+msgstr "М&уносиб кардан барои файлҳои калон"
+
+#: dialogpages/diffpage.cpp:249
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -H diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -H diff option."
+msgstr "Ҷавоб медиҳад ба калиди -H."
+
+#: dialogpages/diffpage.cpp:250
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option lets diff makes better diffs when using large files. The "
+"definition of large is nowhere to be found though."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:252
+#, fuzzy, kde-format
+#| msgid "&Ignore changes in case"
+msgctxt "@option:check"
+msgid "&Ignore changes in case"
+msgstr "&Аҳамият надодан ба тағиротҳо кор"
+
+#: dialogpages/diffpage.cpp:253
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -i diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -i diff option."
+msgstr "Ҷавоб медиҳад ба калиди-i."
+
+#: dialogpages/diffpage.cpp:254
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option to ignore changes in case enabled, diff will not indicate a "
+"difference when something in one file is changed into SoMEthing in the other "
+"file."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:262
+#, fuzzy, kde-format
+#| msgid "Ignore regexp:"
+msgctxt "@option:check"
+msgid "Ignore regexp:"
+msgstr "Аҳамият надодан ба regexp:"
+
+#: dialogpages/diffpage.cpp:263
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -I diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -I diff option."
+msgstr "Ин интихоб ҷавоб медиҳад ба калиди -I."
+
+#: dialogpages/diffpage.cpp:264
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"When this checkbox is enabled, an option to diff is given that will make "
+"diff ignore lines that match the regular expression."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:268
+#, fuzzy, kde-format
+#| msgid ""
+#| "Add the regular expression here that you want to use\n"
+#| "to ignore lines that match it."
+msgctxt "@info:tooltip"
+msgid ""
+"Add the regular expression here that you want to use\n"
+"to ignore lines that match it."
+msgstr ""
+"Якҷо кунед иборози мунтазамро дар инҷо барои ,ки шумо мехоҳед истифода "
+"бурдан \n"
+"аҳамият надодан ба хатҳое,ки онро ҷамъ мекунанд."
+
+#: dialogpages/diffpage.cpp:274
+#, fuzzy, kde-format
+#| msgid "Whitespace"
+msgctxt "@title:group"
+msgid "Whitespace"
+msgstr "Фосилаҳо"
+
+#: dialogpages/diffpage.cpp:276
+#, fuzzy, kde-format
+#| msgid "E&xpand tabs to spaces in output"
+msgctxt "@option:check"
+msgid "E&xpand tabs to spaces in output"
+msgstr "Д&ароред фосилаҳоро аз ҷои нишонаҳои табулясивӣ"
+
+#: dialogpages/diffpage.cpp:277
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -t diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -t diff option."
+msgstr "Ҷавоб медиҳад ба калиди -t."
+
+#: dialogpages/diffpage.cpp:278
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option does not always produce the right result. Due to this expansion "
+"Kompare may have problems applying the change to the destination file."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:280
+#, fuzzy, kde-format
+#| msgid "I&gnore added or removed empty lines"
+msgctxt "@option:check"
+msgid "I&gnore added or removed empty lines"
+msgstr "А&ҳамият надодан ба якҷо шудаги ё нест шудагии хатҳо холи"
+
+#: dialogpages/diffpage.cpp:281
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -B diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -B diff option."
+msgstr "Ҷавоб медиҳад ба калиди-B."
+
+#: dialogpages/diffpage.cpp:282
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This can be very useful in situations where code has been reorganized and "
+"empty lines have been added or removed to improve legibility."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:284
+#, fuzzy, kde-format
+#| msgid "Ig&nore changes in the amount of whitespace"
+msgctxt "@option:check"
+msgid "Ig&nore changes in the amount of whitespace"
+msgstr "А&ҳамият надодан ба тағиротҳо дар андозаи фосилаҳо"
+
+#: dialogpages/diffpage.cpp:285
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -b diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -b diff option."
+msgstr "Ҷавоб медиҳад ба калиди -b."
+
+#: dialogpages/diffpage.cpp:286
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you are uninterested in differences arising due to, for example, changes "
+"in indentation, then use this option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:288
+#, fuzzy, kde-format
+#| msgid "Ign&ore all whitespace"
+msgctxt "@option:check"
+msgid "Ign&ore all whitespace"
+msgstr "А&ҳамият надодан ба ҳамаи фосилаҳо"
+
+#: dialogpages/diffpage.cpp:289
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -w diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -w diff option."
+msgstr "Ҷавоб медиҳад ба калиди -w."
+
+#: dialogpages/diffpage.cpp:290
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This is useful for seeing the significant changes without being overwhelmed "
+"by all the white space changes."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:292
+#, fuzzy, kde-format
+#| msgid "Igno&re changes due to tab expansion"
+msgctxt "@option:check"
+msgid "Igno&re changes due to tab expansion"
+msgstr "А&ҳамият надодан ба фазои фосила"
+
+#: dialogpages/diffpage.cpp:293
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -E diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -E diff option."
+msgstr "Ҷавоб медиҳад ба калиди -E."
+
+#: dialogpages/diffpage.cpp:294
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If there is a change because tabs have been expanded into spaces in the "
+"other file, then this option will make sure that these do not show up. "
+"Kompare currently has some problems applying such changes so be careful when "
+"you use this option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:299
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Options"
+msgstr "П&араметрҳо"
+
+#: dialogpages/diffpage.cpp:311
+#, fuzzy, kde-format
+#| msgid "File Pattern to Exclude"
+msgctxt "@title:group"
+msgid "File Pattern to Exclude"
+msgstr "Қолиб бо ном барои махсус"
+
+#: dialogpages/diffpage.cpp:312
+#, fuzzy, kde-format
+#| msgid ""
+#| "If this is checked you can enter a shell pattern in the text box on the "
+#| "right or select entries from the list."
+msgctxt "@info:tooltip"
+msgid ""
+"If this is checked you can enter a shell pattern in the text box on the "
+"right or select entries from the list."
+msgstr ""
+"Агар ин тафтиш шуда бошад шумо метавонед ба намунаи пардозандаи фармонҳо дар "
+"қуттии матнии рост ё аз рӯйхат ҷудокардаи дохилшудаҳоро дохил кунед."
+
+#: dialogpages/diffpage.cpp:318
+#, fuzzy, kde-format
+#| msgid ""
+#| "Here you can enter or remove a shell pattern or select one or more "
+#| "entries from the list."
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter or remove a shell pattern or select one or more entries "
+"from the list."
+msgstr ""
+"Дар ин ҷо шумо метавонед ворид гардед ё намунаи пардозандаи фармонҳоро ё ин "
+"ки як ё зиёда воридгаштаҳои ҷудо кардаро аз рӯйхат нест кунед."
+
+#: dialogpages/diffpage.cpp:328
+#, fuzzy, kde-format
+#| msgid "File with Filenames to Exclude"
+msgctxt "@title:group"
+msgid "File with Filenames to Exclude"
+msgstr "Файл бо номҳои файл барои хориҷ кардан"
+
+#: dialogpages/diffpage.cpp:329
+#, fuzzy, kde-format
+#| msgid ""
+#| "If this is checked you can enter a filename in the combo box on the right."
+msgctxt "@info:tooltip"
+msgid "If this is checked you can enter a filename in the combo box below."
+msgstr ""
+"Агар ин тафтиш карда шуда бошад шумо метавонед ба номфайли дар combo қуттии "
+"рост буда дохил шавед."
+
+#: dialogpages/diffpage.cpp:333
+#, fuzzy, kde-format
+#| msgid ""
+#| "Here you can enter the URL of a file with shell patterns to ignore during "
+#| "the comparison of the folders."
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter the URL of a file with shell patterns to ignore during "
+"the comparison of the folders."
+msgstr ""
+"Дар ин ҷо шумо метавонед ба файли URL дароед бо варақаи мисолҳо дар вақти "
+"муқоисакунии папкаҳо аҳамият дода нашавад."
+
+#: dialogpages/diffpage.cpp:337
+#, fuzzy, kde-format
+#| msgid ""
+#| "Any file you select in the dialog that pops up when you click it will be "
+#| "put in the dialog to the left of this button."
+msgctxt "@info:tooltip"
+msgid ""
+"Any file you select in the dialog that pops up when you click it will be put "
+"in the dialog to the left of this button."
+msgstr ""
+"Ягон файли шумо дар диалог ҷудокарда,ки дар боло ногаҳон пайдо мешавад вақте,"
+"ки шумо онро дар диалог гузошта тугмаи чапи онро пахш мекунед."
+
+#: dialogpages/diffpage.cpp:344
+#, fuzzy, kde-format
+#| msgid "&Exclude"
+msgctxt "@title:tab"
+msgid "Exclude"
+msgstr "&Хориҷ кардан"
+
+#: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
+#, fuzzy, kde-format
+#| msgid "N&ext File"
+msgctxt "@info:tooltip"
+msgid "Select file"
+msgstr "&Файли оянда"
+
+#: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@info:tooltip"
+msgid "Select folder"
+msgstr "Каталог-манбаъ"
+
+#: dialogpages/filespage.cpp:87
+#, kde-format
+msgctxt "@title:group"
+msgid "Encoding"
+msgstr ""
+
+#: dialogpages/filespage.cpp:92
+#, kde-format
+msgctxt "@item:inlistbox encoding"
+msgid "Default"
+msgstr ""
+
+#: dialogpages/filespage.cpp:126
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr "Каталог-манбаъ"
+
+#: dialogpages/filespage.cpp:130
+#, fuzzy, kde-format
+#| msgid "N&ext File"
+msgctxt "@title:window"
+msgid "Select File"
+msgstr "&Файли оянда"
+
+#: dialogpages/viewpage.cpp:44
+#, fuzzy, kde-format
+#| msgid "Colors"
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "Рангҳо"
+
+#: dialogpages/viewpage.cpp:50
+#, fuzzy, kde-format
+#| msgid "Removed color:"
+msgctxt "@label:chooser"
+msgid "Removed color:"
+msgstr "Ранги дур кардашуда:"
+
+#: dialogpages/viewpage.cpp:54
+#, fuzzy, kde-format
+#| msgid "Changed color:"
+msgctxt "@label:chooser"
+msgid "Changed color:"
+msgstr "Ранги тағир гардида:"
+
+#: dialogpages/viewpage.cpp:58
+#, fuzzy, kde-format
+#| msgid "Added color:"
+msgctxt "@label:chooser"
+msgid "Added color:"
+msgstr "Ранги якҷо шуда:"
+
+#: dialogpages/viewpage.cpp:62
+#, fuzzy, kde-format
+#| msgid "Applied color:"
+msgctxt "@label:chooser"
+msgid "Applied color:"
+msgstr "Ранги тағир карда шуда:"
+
+#: dialogpages/viewpage.cpp:66
+#, fuzzy, kde-format
+#| msgid "Mouse Wheel"
+msgctxt "@title:group"
+msgid "Mouse Wheel"
+msgstr "Чархаки муш"
+
+#: dialogpages/viewpage.cpp:72
+#, fuzzy, kde-format
+#| msgid "Number of lines:"
+msgctxt "@label:spinbox"
+msgid "Number of lines:"
+msgstr "Андозаи хатҳо:"
+
+#: dialogpages/viewpage.cpp:77
+#, fuzzy, kde-format
+#| msgid "Tabs to Spaces"
+msgctxt "@title:group"
+msgid "Tabs to Spaces"
+msgstr "Табуляторҳо ба фосилаҳо"
+
+#: dialogpages/viewpage.cpp:83
+#, fuzzy, kde-format
+#| msgid "Number of spaces to convert a tab character to:"
+msgctxt "@label:spinbox"
+msgid "Number of spaces to convert a tab character to:"
+msgstr "Андозаи фосилаҳо барои табдил додани характери табулясия:"
+
+#: dialogpages/viewpage.cpp:94
+#, fuzzy, kde-format
+#| msgid "Text Font"
+msgctxt "@title:group"
+msgid "Text Font"
+msgstr "Шрифти текст"
+
+#: dialogpages/viewpage.cpp:98
+#, fuzzy, kde-format
+#| msgid "Font:"
+msgctxt "@label:listbox"
+msgid "Font:"
+msgstr "Шрифт:"
+
+#: dialogpages/viewpage.cpp:103
+#, fuzzy, kde-format
+#| msgid "Size:"
+msgctxt "@label:spinbox"
+msgid "Size:"
+msgstr "Андоза:"
+
+#: dialogpages/viewpage.cpp:107
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Fonts"
+msgstr "Шрифт:"
+
+#: komparenavtreepart/komparenavtreepart.cpp:55
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@title:column"
+msgid "Source Folder"
+msgstr "Каталог-манбаъ"
+
+#: komparenavtreepart/komparenavtreepart.cpp:61
+#, fuzzy, kde-format
+#| msgid "Destination Folder"
+msgctxt "@title:column"
+msgid "Destination Folder"
+msgstr "Каталог-муайянкунӣ"
+
+#: komparenavtreepart/komparenavtreepart.cpp:68
+#, fuzzy, kde-format
+#| msgid "Source File"
+msgctxt "@title:column"
+msgid "Source File"
+msgstr "Файли ибтидоӣ"
+
+#: komparenavtreepart/komparenavtreepart.cpp:69
+#, fuzzy, kde-format
+#| msgid "Destination File"
+msgctxt "@title:column"
+msgid "Destination File"
+msgstr "Файли муайянкунӣ"
+
+#: komparenavtreepart/komparenavtreepart.cpp:78
+#, fuzzy, kde-format
+#| msgid "Source Line"
+msgctxt "@title:column"
+msgid "Source Line"
+msgstr "Сатри ибтидоӣ"
+
+#: komparenavtreepart/komparenavtreepart.cpp:79
+#, fuzzy, kde-format
+#| msgid "Destination Line"
+msgctxt "@title:column"
+msgid "Destination Line"
+msgstr "Сатри муайянкунӣ"
+
+#: komparenavtreepart/komparenavtreepart.cpp:80
+#, fuzzy, kde-format
+#| msgid "Difference"
+msgctxt "@title:column"
+msgid "Difference"
+msgstr "Фарқият"
+
+#: komparenavtreepart/komparenavtreepart.cpp:455
+#, fuzzy, kde-format
+#| msgid "Applied: Changes made to %1 line undone"
+#| msgid_plural "Applied: Changes made to  %1 lines undone"
+msgid "Applied: Changes made to %1 line undone"
+msgid_plural "Applied: Changes made to %1 lines undone"
+msgstr[0] "Татбиқ карда шуд: Тағйири %1 сатр бекор карда шуд"
+msgstr[1] "Татбиқ карда шуд:Тағйири %1 сатрҳо бекор карда шуданд"
+
+#: komparenavtreepart/komparenavtreepart.cpp:458
+#, kde-format
+msgid "Changed %1 line"
+msgid_plural "Changed %1 lines"
+msgstr[0] "Тағйири %1 сатр"
+msgstr[1] "Тағйири %1 сатрҳо"
+
+#: komparenavtreepart/komparenavtreepart.cpp:463
+#, kde-format
+msgid "Applied: Insertion of %1 line undone"
+msgid_plural "Applied: Insertion of %1 lines undone"
+msgstr[0] "Татбиқ карда шуд: Вориди %1 сатр бекор карда шуд"
+msgstr[1] "Татбиқ карда шуд: Вориди %1 сатрҳо бекор карда шуданд"
+
+#: komparenavtreepart/komparenavtreepart.cpp:466
+#, kde-format
+msgid "Inserted %1 line"
+msgid_plural "Inserted %1 lines"
+msgstr[0] "Ниҳодани %1 сатр"
+msgstr[1] "Ниҳодани %1 сатрҳо"
+
+#: komparenavtreepart/komparenavtreepart.cpp:471
+#, kde-format
+msgid "Applied: Deletion of %1 line undone"
+msgid_plural "Applied: Deletion of %1 lines undone"
+msgstr[0] "Татбиқ карда шуд: Нобуд кардани of %1 сатр бекор карда шуд"
+msgstr[1] "Татбиқ карда шуд: Нобуд кардани of %1 сатрҳо бекор карда шуданд"
+
+#: komparenavtreepart/komparenavtreepart.cpp:474
+#, kde-format
+msgid "Deleted %1 line"
+msgid_plural "Deleted %1 lines"
+msgstr[0] "Сатрро %1 нест кардан"
+msgstr[1] "Сатрҳоро %1 нест кардан"
+
+#: komparenavtreepart/komparenavtreepart.cpp:628
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "@item directory name not known"
+msgid "Unknown"
+msgstr "Номаълум"
+
+#: komparepart/kompare_part.cpp:179
+#, fuzzy, kde-format
+#| msgid "Save &All"
+msgctxt "@action"
+msgid "Save &All"
+msgstr "Ҳамаро &дар хотир гузоштан"
+
+#: komparepart/kompare_part.cpp:181
+#, fuzzy, kde-format
+#| msgid "Save .&diff..."
+msgctxt "@action"
+msgid "Save &Diff..."
+msgstr "Дар хотир гузоштани &фарқият..."
+
+#: komparepart/kompare_part.cpp:183
+#, fuzzy, kde-format
+#| msgid "Swap Source with Destination"
+msgctxt "@action"
+msgid "Swap Source with Destination"
+msgstr "Ивази ҷойҳои сарчашмаҳо ва таъинот"
+
+#: komparepart/kompare_part.cpp:190
+#, fuzzy, kde-format
+#| msgid "Show Statistics"
+msgctxt "@action"
+msgid "Show Statistics"
+msgstr "Нишон додани статистикаҳо"
+
+#: komparepart/kompare_part.cpp:193
+#, kde-format
+msgctxt "@action"
+msgid "Refresh Diff"
+msgstr ""
+
+#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#, kde-format
+msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
+msgstr "<qt>Ин URL <b>%1</b> фаровир карда намешавад.</qt>"
+
+#: komparepart/kompare_part.cpp:356
+#, kde-format
+msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
+msgstr "<qt>Ин URL <b>%1</b> дар низоми Шумо вуҷуд надорад.</qt>"
+
+#: komparepart/kompare_part.cpp:544
+#, fuzzy, kde-format
+#| msgid "Diff Options"
+msgctxt "@title:window"
+msgid "Diff Options"
+msgstr "Параметрҳои Diff"
+
+#: komparepart/kompare_part.cpp:565
+#, fuzzy, kde-format
+#| msgid "Save .diff"
+msgctxt "@title:window"
+msgid "Save .diff"
+msgstr "Дар хотир гузоштани Diff"
+
+#: komparepart/kompare_part.cpp:567
+#, fuzzy, kde-format
+#| msgid "*.diff *.dif *.patch|Patch Files"
+msgid "Patch Files (*.diff *.dif *.patch)"
+msgstr ".diff *.dif *.patch|Файлҳои фарқиятӣ"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgid "The file exists or is write-protected; do you want to overwrite it?"
+msgstr "Файл аллакай вуҷуд дорад.Шумо мехоҳед онро иваз намоед?"
+
+#: komparepart/kompare_part.cpp:569
+#, fuzzy, kde-format
+#| msgid "File Exists"
+msgctxt "@window:title"
+msgid "File Exists"
+msgstr "Файл аллакай вуҷуд дорад"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgctxt "@action:button"
+msgid "Do Not Overwrite"
+msgstr ""
+
+#: komparepart/kompare_part.cpp:653
+#, fuzzy, kde-format
+#| msgid "Running diff..."
+msgctxt "@info:status"
+msgid "Running diff..."
+msgstr "Сар дода шуд diff..."
+
+#: komparepart/kompare_part.cpp:656
+#, fuzzy, kde-format
+#| msgid "Parsing diff output..."
+msgctxt "@info:status"
+msgid "Parsing diff output..."
+msgstr "Коркарди парвариши diff..."
+
+#: komparepart/kompare_part.cpp:712
+#, fuzzy, kde-format
+#| msgid "Comparing file %1 with file %2"
+msgctxt "@info:status"
+msgid "Comparing file %1 with file %2"
+msgstr "Муқоиса кардани файли %1 бо файли %2"
+
+#: komparepart/kompare_part.cpp:717
+#, fuzzy, kde-format
+#| msgid "Comparing files in %1 with files in %2"
+msgctxt "@info:status"
+msgid "Comparing files in %1 with files in %2"
+msgstr "Муқоса кардани файлҳо дар %1 бо файлҳои дар %2"
+
+#: komparepart/kompare_part.cpp:722
+#, fuzzy, kde-format
+#| msgid "Viewing diff output from %1"
+msgctxt "@info:status"
+msgid "Viewing diff output from %1"
+msgstr "Аз назар гузарондани парвариши diff аз %1"
+
+#: komparepart/kompare_part.cpp:725
+#, fuzzy, kde-format
+#| msgid "Blending diff output from %1 into file %2"
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into file %2"
+msgstr "Якҷо шавии парвариши diff аз файли %1 ба файли %2"
+
+#: komparepart/kompare_part.cpp:730
+#, fuzzy, kde-format
+#| msgid "Blending diff output from %1 into folder %2"
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into folder %2"
+msgstr "Якҷо шавии парвариши diff аз %1 ба папкаи %2"
+
+#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
+#: komparepart/kompare_part.cpp:927
+#, kde-format
+msgid ""
+"You have made changes to the destination file(s).\n"
+"Would you like to save them?"
+msgstr ""
+"Таъиноти файл иваз гардидааст \n"
+"Шумо мехоҳед онро дар хотира гузоред?"
+
+#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
+#: komparepart/kompare_part.cpp:929
+#, fuzzy, kde-format
+#| msgid "Save Changes?"
+msgctxt "@title:window"
+msgid "Save Changes?"
+msgstr "Тағиротҳоро хотиргузорӣ кунем?"
+
+#: komparepart/kompare_part.cpp:852
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgctxt "@item diff format"
+msgid "Unified"
+msgstr "Муттаҳид"
+
+#: komparepart/kompare_part.cpp:855
+#, fuzzy, kde-format
+#| msgid "Context"
+msgctxt "@item diff format"
+msgid "Context"
+msgstr "Контекст"
+
+#: komparepart/kompare_part.cpp:858
+#, fuzzy, kde-format
+#| msgid "RCS"
+msgctxt "@item diff format"
+msgid "RCS"
+msgstr "RCS"
+
+#: komparepart/kompare_part.cpp:861
+#, fuzzy, kde-format
+#| msgid "Ed"
+msgctxt "@item diff format"
+msgid "Ed"
+msgstr "Ed"
+
+#: komparepart/kompare_part.cpp:864
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgctxt "@item diff format"
+msgid "Normal"
+msgstr "Оддӣ"
+
+#: komparepart/kompare_part.cpp:868
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "@item diff format"
+msgid "Unknown"
+msgstr "Номаълум"
+
+#: komparepart/kompare_part.cpp:884
+#, kde-format
+msgid ""
+"No diff file, or no 2 files have been diffed. Therefore no stats are "
+"available."
+msgstr ""
+"Файли diff нест ё муқоисашави бароварда шуд на ба ду файлҳо.Статистика "
+"дастрас нест."
+
+#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:916
+#, fuzzy, kde-format
+#| msgid "Diff Statistics"
+msgctxt "@title:window"
+msgid "Diff Statistics"
+msgstr "Фарқияти статистикави"
+
+#: komparepart/kompare_part.cpp:890
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Old file: %1\n"
+"New file: %2\n"
+"\n"
+"Format: %3\n"
+"Number of hunks: %4\n"
+"Number of differences: %5"
+msgstr ""
+"Статистикаҳо:\n"
+"\n"
+"Файли кӯҳна: %1\n"
+"Файли нав: %2\n"
+"\n"
+"Формат\t %3\n"
+"Андозаи тағирнашуда: %4\n"
+"Андозаи фарқиятҳо: %5"
+
+#: komparepart/kompare_part.cpp:903
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Number of files in diff file: %1\n"
+"Format: %2\n"
+"\n"
+"Current old file: %3\n"
+"Current new file: %4\n"
+"\n"
+"Number of hunks: %5\n"
+"Number of differences: %6"
+msgstr ""
+"Статистикаҳо:\n"
+"\n"
+"Андозаи файлҳо дар файли фарқияти: %1\n"
+"Формат: %2\n"
+"\n"
+"Файли кӯҳнаи ҳозира: %3\n"
+"Файли нави ҳозира: %4\n"
+"\n"
+"Андозаи тағир нашида: %5\n"
+"Андозаи фарқиятҳо: %6"
+
+#. i18n: ectx: Menu (difference)
+#: komparepart/komparepartui.rc:17
+#, kde-format
+msgid "&Difference"
+msgstr "&Фарқият"
+
+#: komparepart/kompareprefdlg.cpp:26
+#, fuzzy, kde-format
+#| msgid "Preferences"
+msgctxt "@title:window"
+msgid "Preferences"
+msgstr "Параметрҳо"
+
+#: komparepart/kompareprefdlg.cpp:36
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "View"
+msgstr "Аз назар гузаронидани матн"
+
+#: komparepart/kompareprefdlg.cpp:38
+#, fuzzy, kde-format
+#| msgid "View Settings"
+msgctxt "@title"
+msgid "View Settings"
+msgstr "Ҷур кардани намудҳо"
+
+#: komparepart/kompareprefdlg.cpp:44
+#, fuzzy, kde-format
+#| msgid "Diff Settings"
+msgctxt "@title"
+msgid "Diff Settings"
+msgstr "Ҷур кардани фарқиятҳо"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
+#: komparepart/komparesaveoptionsbase.ui:29
+#, kde-format
+msgid "Format"
+msgstr "Андоза"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
+#: komparepart/komparesaveoptionsbase.ui:35
+#, fuzzy, kde-format
+#| msgid "Context"
+msgid "&Context"
+msgstr "Контекст"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
+#: komparepart/komparesaveoptionsbase.ui:42
+#, kde-format
+msgid "Ed"
+msgstr "Ed"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
+#: komparepart/komparesaveoptionsbase.ui:49
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgid "&Normal"
+msgstr "Оддӣ"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
+#: komparepart/komparesaveoptionsbase.ui:56
+#, kde-format
+msgid "RCS"
+msgstr "RCS"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
+#: komparepart/komparesaveoptionsbase.ui:63
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgid "&Unified"
+msgstr "Муттаҳид"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
+#: komparepart/komparesaveoptionsbase.ui:73
+#, fuzzy, kde-format
+#| msgid "Side-by-side"
+msgid "&Side-by-side"
+msgstr "Назди якдигар"
+
+#. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
+#: komparepart/komparesaveoptionsbase.ui:85
+#, kde-format
+msgid "Number of context lines:"
+msgstr "Андозаи хатҳо контексти:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
+#: komparepart/komparesaveoptionsbase.ui:126
+#, fuzzy, kde-format
+msgid "Options"
+msgstr "П&араметрҳо"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_SmallerChangesCB)
+#: komparepart/komparesaveoptionsbase.ui:132
+#, kde-format
+msgid "Look for smaller changes"
+msgstr "Ҷустуҷӯи дигаргуниҳои хурд"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:142
+#, kde-format
+msgid "Optimize for large files"
+msgstr "Муносиб кардан барои файлҳои калон"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
+#: komparepart/komparesaveoptionsbase.ui:152
+#, kde-format
+msgid "Ignore changes in case"
+msgstr "Аҳамият надодани дигаргунӣ дар феҳристи ҳарфҳо"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
+#: komparepart/komparesaveoptionsbase.ui:159
+#, kde-format
+msgid "Expand tabs to spaces"
+msgstr "Иваз кардани ҷадвалбандиҳо ба фосилаҳо"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
+#: komparepart/komparesaveoptionsbase.ui:166
+#, kde-format
+msgid "Ignore added or removed empty lines"
+msgstr "Аҳамият надодани сатрҳои холии иловашуда ё ин ки нестшуда"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
+#: komparepart/komparesaveoptionsbase.ui:173
+#, kde-format
+msgid "Ignore changes in whitespace"
+msgstr "Аҳамият надодани ивазшавии фосилаҳо"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
+#: komparepart/komparesaveoptionsbase.ui:180
+#, kde-format
+msgid "Show function names"
+msgstr "Номҳои вазифаҳоро нишон додан"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
+#: komparepart/komparesaveoptionsbase.ui:190
+#, kde-format
+msgid "Compare folders recursively"
+msgstr "Муқоиса кардани каталогҳо бозгашт "
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:200
+#, kde-format
+msgid "Treat new files as empty"
+msgstr "Аҳамият додани файлҳои нав ба мисли холӣ"
+
+#. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
+#: komparepart/komparesaveoptionsbase.ui:222
+#, kde-format
+msgid "Run Diff In"
+msgstr "Сар додани Diff ба"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
+#: komparepart/komparesaveoptionsbase.ui:247
+#, kde-format
+msgid "Command Line"
+msgstr "Сатри командӣ"
+
+#. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
+#: komparepart/komparesaveoptionsbase.ui:256
+#, kde-format
+msgid "cd dir && diff -udHprNa -- source destination"
+msgstr "cd dir && diff -udHprNa - манбаъи фармон"
+
+#, fuzzy
+#~| msgid "&Edit..."
+#~ msgctxt "@action:button"
+#~ msgid "&Edit..."
+#~ msgstr "&Вироиш кунед..."
+
+#, fuzzy
+#~| msgid ""
+#~| "Clicking this will open a regular expression dialog where\n"
+#~| "you can graphically create regular expressions."
+#~ msgctxt "@info:tooltip"
+#~ msgid ""
+#~ "Clicking this will open a regular expression dialog where\n"
+#~ "you can graphically create regular expressions."
+#~ msgstr ""
+#~ "Бо пазш кардани кушода мешавад диалоги ибрози мунтазам дар куҷо\n"
+#~ "шумо метавонед бо графика сохтан иброзиҳои мунтазамро."
+
+#~ msgid "Compare these files or folder"
+#~ msgstr "Муқоиса кардани ин файлҳо ё каталогҳо"
+
+#~ msgid "&Apply Difference"
+#~ msgstr "&Истифодабарии фарқиятҳо"
+
+#~ msgid "Un&apply Difference"
+#~ msgstr "&Барҳамдиҳии фарқиятҳо"
+
+#~ msgid "App&ly All"
+#~ msgstr "Ҳамаро &истифода баред"
+
+#~ msgid "&Unapply All"
+#~ msgstr "Ҳамаро и&стифода набаред"
+
+#~ msgid "P&revious File"
+#~ msgstr "&Файли пешина"
+
+#~ msgid "&Previous Difference"
+#~ msgstr "&Фарқиятҳои пешина"
+
+#~ msgid "&Next Difference"
+#~ msgstr "&Фарқиятҳои оянда"
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>No models or no differences, this file: <b>%1</b>, is not a valid "
+#~ "diff file.</qt>"
+#~ msgstr ""
+#~ "На амсила ва на фарқият нест. Ин файл <b>%1</b> файли андозаи diff "
+#~ "намебошад."
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>."
+#~ "</qt>"
+#~ msgstr ""
+#~ "Чанд проблемаҳо буданд барои истифодабарии diff <b>%1</b> ба файли <b>%2</"
+#~ "b>."
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</"
+#~ "b>.</qt>"
+#~ msgstr ""
+#~ "Дар вақти истифодаи diff ба чанд проблемаҳо шуд<b>%1</b> ба каталоги <b>"
+#~ "%2</b>."
+
+#~ msgid "Could not open a temporary file."
+#~ msgstr "Файли муввақатӣ кашода намешавад."
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>"
+#~ msgstr "Ба файли муввақатӣ навишта намешавад."
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>Could not upload the temporary file to the destination location <b>"
+#~ "%1</b>. The temporary file is still available under: <b>%2</b>. You can "
+#~ "manually copy it to the right place.</qt>"
+#~ msgstr ""
+#~ "Наметавонад файли мувафақро ба ҷои номгуфта<b>%1</b>бор кунед. Файли ҷори "
+#~ "буда ҳоло ҳам ҳақиқатан дар таг: <b>%2</b>. Шумо метавонед дастурро дастӣ "
+#~ "нусхабардорӣ намоед."
+
+#~ msgid "Could not parse diff output."
+#~ msgstr "Баромади diff такмил дода намешавад."
+
+#~ msgid "The files are identical."
+#~ msgstr "Файлҳо мутобиқ ҳастанд."
+
+#~ msgid "Could not write to the temporary file."
+#~ msgstr "Ба файли муввақатӣ навишта намешавад."
+
+#~ msgid "Could not find our KompareViewPart."
+#~ msgstr "Компоненти KompareViewPart ёфта нашуд."
+
+#~ msgid "Could not find our KompareNavigationPart."
+#~ msgstr "Компоненти KompareNavigationPart ёфта намешавад."
+
+#~ msgid "A&ppearance"
+#~ msgstr "Т&ақдимот"
+
+#~ msgid "&Format"
+#~ msgstr "&Формат"
+
+#~ msgid "O&ptions"
+#~ msgstr "П&араметрҳо"
+
+#~ msgid "Hide T&ext View"
+#~ msgstr "Пинҳ&он кардани аз назар гузаронии матн"

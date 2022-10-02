@@ -1,0 +1,1697 @@
+#
+# Tamas Szanto <tszanto@interware.hu>, 2001.
+# Tamas Krutki, 2011.
+# Kristóf Kiszel <ulysses@kubuntu.org>, 2011.
+# Balázs Úr <urbalazs@gmail.com>, 2012, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: KDE 4.2\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"PO-Revision-Date: 2013-04-09 23:49+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.5\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Szántó Tamás"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "tszanto@interware.hu"
+
+#: app/kompare_shell.cpp:69
+#, kde-format
+msgid "Could not load our KompareViewPart."
+msgstr "A KompareViewPart objektumot nem sikerült betölteni."
+
+#: app/kompare_shell.cpp:73
+#, fuzzy, kde-format
+#| msgid "Navigation"
+msgctxt "@title:window"
+msgid "Navigation"
+msgstr "Navigálás"
+
+#: app/kompare_shell.cpp:90
+#, kde-format
+msgid "Could not load our KompareNavigationPart."
+msgstr "A KompareNavigationPart objektumot nem sikerült betölteni."
+
+#: app/kompare_shell.cpp:195
+#, fuzzy, kde-format
+#| msgid "&Open Diff..."
+msgctxt "@action"
+msgid "&Open Diff..."
+msgstr "Diff fájl me&gnyitása..."
+
+#: app/kompare_shell.cpp:198
+#, fuzzy, kde-format
+#| msgid "&Compare Files..."
+msgctxt "@action"
+msgid "&Compare Files..."
+msgstr "Fájlok össze&hasonlítása..."
+
+#: app/kompare_shell.cpp:201
+#, fuzzy, kde-format
+#| msgid "&Blend URL with Diff..."
+msgctxt "@action"
+msgid "&Blend URL with Diff..."
+msgstr "URL össze&olvasztása diff fájllal..."
+
+#: app/kompare_shell.cpp:207
+#, fuzzy, kde-format
+#| msgid "Show T&ext View"
+msgctxt "@action"
+msgid "Show T&ext View"
+msgstr "Szöveges né&zet"
+
+#: app/kompare_shell.cpp:220
+#, kde-format
+msgid " 0 of 0 differences "
+msgstr " 0 / 0 eltérés "
+
+#: app/kompare_shell.cpp:221
+#, kde-format
+msgid " 0 of 0 files "
+msgstr " 0 / 0 fájl "
+
+#: app/kompare_shell.cpp:238
+#, kde-format
+msgid " %2 of %1 file "
+msgid_plural " %2 of %1 files "
+msgstr[0] " %2 / %1 fájl "
+msgstr[1] " %2 / %1 fájl "
+
+#: app/kompare_shell.cpp:240
+#, kde-format
+msgid " %1 file "
+msgid_plural " %1 files "
+msgstr[0] " %1 fájl "
+msgstr[1] " %1 fájl "
+
+#: app/kompare_shell.cpp:243
+#, kde-format
+msgid " %2 of %1 difference, %3 applied "
+msgid_plural " %2 of %1 differences, %3 applied "
+msgstr[0] " %2 / %1 eltérés, %3 alkalmazva "
+msgstr[1] " %2 / %1 eltérés, %3 alkalmazva "
+
+#: app/kompare_shell.cpp:246
+#, kde-format
+msgid " %1 difference "
+msgid_plural " %1 differences "
+msgstr[0] " %1 eltérés "
+msgstr[1] " %1 eltérés "
+
+#: app/kompare_shell.cpp:327
+#, fuzzy, kde-format
+#| msgid "Blend File/Folder with diff Output"
+msgctxt "@title:window"
+msgid "Blend File/Folder with diff Output"
+msgstr "Fájl vagy mappa összeolvasztása diff-kimenettel"
+
+#: app/kompare_shell.cpp:328
+#, fuzzy, kde-format
+#| msgid "File/Folder"
+msgctxt "@title:group"
+msgid "File/Folder"
+msgstr "Fájl/mappa"
+
+#: app/kompare_shell.cpp:329
+#, fuzzy, kde-format
+#| msgid "Diff Output"
+msgctxt "@title:group"
+msgid "Diff Output"
+msgstr "Diff-kimenet"
+
+#: app/kompare_shell.cpp:332
+#, fuzzy, kde-format
+#| msgid "Blend"
+msgctxt "@action:button"
+msgid "Blend"
+msgstr "Összeolvasztás"
+
+#: app/kompare_shell.cpp:333
+#, fuzzy, kde-format
+#| msgid "Blend this file or folder with the diff output"
+msgctxt "@info:tooltip"
+msgid "Blend this file or folder with the diff output"
+msgstr "Ez a fájl vagy mappa lesz összeolvasztva a diff-kimenettel"
+
+#: app/kompare_shell.cpp:334
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you have entered a file or folder name and a file that contains diff "
+#| "output in the fields in this dialog then this button will be enabled and "
+#| "pressing it will open kompare's main view where the output of the entered "
+#| "file or files from the folder are mixed with the diff output so you can "
+#| "then apply the difference(s) to a file or to the files. "
+msgctxt "@infor:whatsthis"
+msgid ""
+"If you have entered a file or folder name and a file that contains diff "
+"output in the fields in this dialog then this button will be enabled and "
+"pressing it will open kompare's main view where the output of the entered "
+"file or files from the folder are mixed with the diff output so you can then "
+"apply the difference(s) to a file or to the files. "
+msgstr ""
+"Ha megadott egy fájl- vagy mappanevet és egy diff-kimenetet tartalmazó fájl "
+"nevét, akkor ez a gomb lenyomhatóvá válik. Lenyomásakor a program "
+"összeolvasztja a fájl(ok) és a diff-kimenet tartalmát, és az eredményt "
+"megjeleníti a program főablakában."
+
+#: app/kompare_shell.cpp:357 app/main.cpp:199
+#, fuzzy, kde-format
+#| msgid "Compare Files or Folders"
+msgctxt "@title:window"
+msgid "Compare Files or Folders"
+msgstr "Fájlok vagy mappák összehasonlítása"
+
+#: app/kompare_shell.cpp:358 app/main.cpp:200
+#, fuzzy, kde-format
+#| msgid "Source"
+msgctxt "@title:group"
+msgid "Source"
+msgstr "Forrás"
+
+#: app/kompare_shell.cpp:359 app/main.cpp:201
+#, fuzzy, kde-format
+#| msgid "Destination"
+msgctxt "@title:group"
+msgid "Destination"
+msgstr "Cél"
+
+#: app/kompare_shell.cpp:362 app/main.cpp:204
+#, fuzzy, kde-format
+#| msgid "Compare"
+msgctxt "@action:button"
+msgid "Compare"
+msgstr "Összehasonlítás"
+
+#: app/kompare_shell.cpp:363 app/main.cpp:205
+#, fuzzy, kde-format
+#| msgid "Compare these files or folders"
+msgctxt "@info:tooltip"
+msgid "Compare these files or folders"
+msgstr "A fájlok vagy mappák összehasonlítása"
+
+#: app/kompare_shell.cpp:364 app/main.cpp:206
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
+#| "then this button will be enabled and pressing it will start a comparison "
+#| "of the entered files or folders. "
+msgctxt "@info:whatsthis"
+msgid ""
+"If you have entered 2 filenames or 2 folders in the fields in this dialog "
+"then this button will be enabled and pressing it will start a comparison of "
+"the entered files or folders. "
+msgstr ""
+"Ha 2 fájlnevet vagy mappanevet adott meg ebben az ablakban, akkor ez a gomb "
+"lenyomhatóvá válik. Lenyomásakor a program összehasonlítja a két fájl vagy "
+"mappa tartalmát. "
+
+#: app/kompare_shell.cpp:398
+#, fuzzy, kde-format
+#| msgid "Text View"
+msgctxt "@title:window"
+msgid "Text View"
+msgstr "Szöveges nézet"
+
+#. i18n: ectx: Menu (file)
+#: app/kompareui.rc:4 komparepart/komparepartui.rc:4
+#, kde-format
+msgid "&File"
+msgstr "&Fájl"
+
+#. i18n: ectx: Menu (settings)
+#: app/kompareui.rc:14 komparepart/komparepartui.rc:29
+#, kde-format
+msgid "&Settings"
+msgstr "&Beállítások"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: app/kompareui.rc:27
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Alap eszköztár"
+
+#: app/kompareurldialog.cpp:37
+#, fuzzy, kde-format
+#| msgid "Files"
+msgctxt "@title:tab"
+msgid "Files"
+msgstr "Fájlok"
+
+#: app/kompareurldialog.cpp:39
+#, kde-format
+msgid "Here you can enter the files you want to compare."
+msgstr "Itt lehet megadni az összehasonlítani kívánt fájlok neveit."
+
+#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:42
+#, fuzzy, kde-format
+#| msgid "Diff"
+msgctxt "@title:tab"
+msgid "Diff"
+msgstr "Diff"
+
+#: app/kompareurldialog.cpp:47
+#, kde-format
+msgid "Here you can change the options for comparing the files."
+msgstr "Itt lehet beállítani a fájlok összehasonlítási opcióit."
+
+#: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
+#, fuzzy, kde-format
+#| msgid "Appearance"
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "Megjelenés"
+
+#: app/kompareurldialog.cpp:55
+#, kde-format
+msgid "Here you can change the options for the view."
+msgstr "Itt lehet megváltoztatni a nézet beállításait."
+
+#: app/kompareurldialog.cpp:101
+#, kde-format
+msgid ""
+"File used for excluding files cannot be found, please specify another file."
+msgstr ""
+"A kihagyandó fájlok neveit tartalmazó fájl nem található, kérem adjon meg "
+"egy másikat."
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Kompare"
+msgstr "Kompare"
+
+#: app/main.cpp:52
+#, kde-format
+msgid ""
+"A program to view the differences between files and optionally generate a "
+"diff"
+msgstr ""
+"Fájlok közötti eltérések megjelenítésére és az eltérések diff formátumban "
+"történő elkészítésére alkalmas program"
+
+#: app/main.cpp:54
+#, kde-format
+msgid ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+msgstr ""
+"© John Firebaugh, 2001-2004., © Otto Bruggeman, 2001-2005,2009., © Jeff "
+"Snyder, 2004-2005., © Kevin Kofler, 2007-2012."
+
+#: app/main.cpp:57
+#, kde-format
+msgid "John Firebaugh"
+msgstr "John Firebaugh"
+
+#: app/main.cpp:57 app/main.cpp:58
+#, kde-format
+msgid "Author"
+msgstr "Szerző"
+
+#: app/main.cpp:58
+#, kde-format
+msgid "Otto Bruggeman"
+msgstr "Otto Bruggeman"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Jeff Snyder"
+msgstr "Jeff Snyder"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Developer"
+msgstr "Fejlesztő"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Kevin Kofler"
+msgstr "Kevin Kofler"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Maintainer"
+msgstr "Karbantartó"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Chris Luetchford"
+msgstr "Chris Luetchford"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Kompare icon artist"
+msgstr "A Kompare ikonjainak készítője"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "Malte Starostik"
+msgstr "Malte Starostik"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "A lot of good advice"
+msgstr "Sok-sok jótanács"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Bernd Gehrmann"
+msgstr "Bernd Gehrmann"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Cervisia diff viewer"
+msgstr "Diff-nézegető a Cervisiához"
+
+#: app/main.cpp:70
+#, kde-format
+msgid "This will compare URL1 with URL2"
+msgstr "URL1 és URL2 lesz összehasonlítva"
+
+#: app/main.cpp:71
+#, kde-format
+msgid ""
+"This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
+"and then it will read from standard input. Can be used for instance for cvs "
+"diff | kompare -o -. Kompare will do a check to see if it can find the "
+"original file(s) and then blend the original file(s) into the diffoutput and "
+"show that in the viewer. -n disables the check."
+msgstr ""
+"Megnyitja az URL1 címet diff-kimenetként. Az URL1 helyére '-' is írható - "
+"ilyenkor a standard kimenetről fog a program olvasni. Használható például "
+"így: cvs diff | kompare -o -. A program leellenőrzi, hogy az eredeti fájlok "
+"megtalálhatók-e, összeolvasztja azokat a diff-kimenettel és az eredményt "
+"megjeleníti. A -n opcióval le lehet tiltani ezt az ellenőrzést."
+
+#: app/main.cpp:72
+#, kde-format
+msgid ""
+"This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
+"the file or folder that the diffoutput needs to be blended into. "
+msgstr ""
+"Beolvasztja az URL2 tartalmát az URL1-be. Az URL2 a feltételezés szerint "
+"diff-kimenetre mutat, az URL1 pedig arra a fájlra vagy mappára, amelynek "
+"tartalmával össze kell olvasztani a diff fájlt. "
+
+#: app/main.cpp:73
+#, kde-format
+msgid ""
+"Disables the check for automatically finding the original file(s) when using "
+"'-' as URL with the -o option."
+msgstr ""
+"Letiltja az ellenőrzést az eredeti fájlok automatikus megkeresésekor, ha a "
+"'-' URL-ként van megadva, az -o opcióval."
+
+#: app/main.cpp:74
+#, kde-format
+msgid ""
+"Use this to specify the encoding when calling it from the command line. It "
+"will default to the local encoding if not specified."
+msgstr ""
+"Parancssoros indítás esetén itt lehet megadni a kívánt kódolást. Ha nem ad "
+"meg semmit, a helyi kódolást használja majd a program."
+
+#: dialogpages/diffpage.cpp:174
+#, fuzzy, kde-format
+#| msgid "Diff Program"
+msgctxt "@title:group"
+msgid "Diff Program"
+msgstr "Diff program"
+
+#: dialogpages/diffpage.cpp:179
+#, kde-format
+msgid ""
+"You can select a different diff program here. On Solaris the standard diff "
+"program does not support all the options that the GNU version does. This way "
+"you can select that version."
+msgstr ""
+"Itt lehet másik diff programot választani. Például a Solaris operációs "
+"rendszerhez adott diff program nem támogatja a GNU-s változat összes "
+"argumentumát. Így viszont könnyen lehet más programot használni."
+
+#: dialogpages/diffpage.cpp:196
+#, fuzzy, kde-format
+#| msgid ""
+#| "Select the format of the output generated by diff. Unified is the one "
+#| "that is used most frequently because it is very readable. The KDE "
+#| "developers like this format the best so use it for sending patches."
+msgctxt "@info:whatsthis"
+msgid ""
+"Select the format of the output generated by diff. Unified is the one that "
+"is used most frequently because it is very readable. The KDE developers like "
+"this format the best so use it for sending patches."
+msgstr ""
+"Válassza ki, mi legyen a diff kimeneti formátuma. Az 'egyesített' formátumot "
+"használják leggyakrabban, mert az a legolvashatóbb. A KDE fejlesztői is ezt "
+"a formátumot preferálják patch-ek küldésekor."
+
+#: dialogpages/diffpage.cpp:199
+#, fuzzy, kde-format
+#| msgid "Output Format"
+msgctxt "@title:group"
+msgid "Output Format"
+msgstr "Kimeneti formátum"
+
+#: dialogpages/diffpage.cpp:201
+#, fuzzy, kde-format
+#| msgid "Context"
+msgctxt "@option:radio format type"
+msgid "Context"
+msgstr "Kontextus"
+
+#: dialogpages/diffpage.cpp:204
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgctxt "@option:radio format type"
+msgid "Normal"
+msgstr "normál"
+
+#: dialogpages/diffpage.cpp:207
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgctxt "@option:radio format type"
+msgid "Unified"
+msgstr "Egyesített"
+
+#: dialogpages/diffpage.cpp:215
+#, fuzzy, kde-format
+#| msgid "Lines of Context"
+msgctxt "@title:group"
+msgid "Lines of Context"
+msgstr "Kontextussorok"
+
+#: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
+#, fuzzy, kde-format
+#| msgid ""
+#| "The number of context lines is normally 2 or 3. This makes the diff "
+#| "readable and applicable in most cases. More than 3 lines will only bloat "
+#| "the diff unnecessarily."
+msgctxt "@info:whatsthis"
+msgid ""
+"The number of context lines is normally 2 or 3. This makes the diff readable "
+"and applicable in most cases. More than 3 lines will only bloat the diff "
+"unnecessarily."
+msgstr ""
+"A kontextussorok száma általában 2 vagy 3. Így a diff kiemenet könynen "
+"felhasználható és olvasható lesz. 3-nál több kontextussor általában nem "
+"indokolt, mert a fájlméretet túlzottan megnöveli."
+
+#: dialogpages/diffpage.cpp:220
+#, fuzzy, kde-format
+#| msgid "Number of context lines:"
+msgctxt "@label:spinbox"
+msgid "Number of context lines:"
+msgstr "A kontextussorok száma:"
+
+#: dialogpages/diffpage.cpp:225
+#, fuzzy, kde-format
+#| msgid "Format"
+msgctxt "@title:tab"
+msgid "Format"
+msgstr "Formátum"
+
+#: dialogpages/diffpage.cpp:237
+#, fuzzy, kde-format
+#| msgid "General"
+msgctxt "@title:group"
+msgid "General"
+msgstr "Általános"
+
+#: dialogpages/diffpage.cpp:239
+#, fuzzy, kde-format
+#| msgid "&Treat new files as empty"
+msgctxt "@option:check"
+msgid "&Treat new files as empty"
+msgstr "Az új fájlok üresnek &tekintése"
+
+#: dialogpages/diffpage.cpp:240
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -N diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -N diff option."
+msgstr "Ez a diff -N opciónak felel meg."
+
+#: dialogpages/diffpage.cpp:241
+#, fuzzy, kde-format
+#| msgid ""
+#| "With this option enabled diff will treat a file that only exists in one "
+#| "of the directories as empty in the other directory. This means that the "
+#| "file is compared with an empty file and because of this will appear as "
+#| "one big insertion or deletion."
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will treat a file that only exists in one of "
+"the directories as empty in the other directory. This means that the file is "
+"compared with an empty file and because of this will appear as one big "
+"insertion or deletion."
+msgstr ""
+"Ha ez az opció be van kapcsolva, a diff a csak egyik mappában létező "
+"fájlokat üres fájlnak fogja tekinteni a másik mappában. Ez azt jelenti, hogy "
+"a létező fájl egy üres fájllal lesz összehasonlítva, így egy nagy "
+"beszúrásként vagy törlésként fog feltűnni."
+
+#: dialogpages/diffpage.cpp:244
+#, fuzzy, kde-format
+#| msgid "&Look for smaller changes"
+msgctxt "@option:check"
+msgid "&Look for smaller changes"
+msgstr "K&isebb változások keresése"
+
+#: dialogpages/diffpage.cpp:245
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -d diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -d diff option."
+msgstr "Ez a diff -d opciónak felel meg."
+
+#: dialogpages/diffpage.cpp:246
+#, fuzzy, kde-format
+#| msgid ""
+#| "With this option enabled diff will try a little harder (at the cost of "
+#| "more memory) to find fewer changes."
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will try a little harder (at the cost of more "
+"memory) to find fewer changes."
+msgstr ""
+"Ha ez az opció be van kapcsolva, a diff megpróbál kevesebb változtatást "
+"találni (nagyobb memóriahasználat árán)."
+
+#: dialogpages/diffpage.cpp:248
+#, fuzzy, kde-format
+#| msgid "O&ptimize for large files"
+msgctxt "@option:check"
+msgid "O&ptimize for large files"
+msgstr "Optimalizálás n&agy fájlokra"
+
+#: dialogpages/diffpage.cpp:249
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -H diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -H diff option."
+msgstr "Ez a diff -H opciónak felel meg."
+
+#: dialogpages/diffpage.cpp:250
+#, fuzzy, kde-format
+#| msgid ""
+#| "This option lets diff makes better diffs when using large files. The "
+#| "definition of large is nowhere to be found though."
+msgctxt "@info:whatsthis"
+msgid ""
+"This option lets diff makes better diffs when using large files. The "
+"definition of large is nowhere to be found though."
+msgstr ""
+"Ezzel az opcióval a diff jobb diff-fájlokat tud létrehozni nagy fájlok "
+"használatakor. A nagy fájl pontos definíciójáról nincs információ."
+
+#: dialogpages/diffpage.cpp:252
+#, fuzzy, kde-format
+#| msgid "&Ignore changes in case"
+msgctxt "@option:check"
+msgid "&Ignore changes in case"
+msgstr "Nem nagy&betűérzékeny"
+
+#: dialogpages/diffpage.cpp:253
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -i diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -i diff option."
+msgstr "Ez a diff -i opciónak felel meg."
+
+#: dialogpages/diffpage.cpp:254
+#, fuzzy, kde-format
+#| msgid ""
+#| "With this option to ignore changes in case enabled, diff will not "
+#| "indicate a difference when something in one file is changed into "
+#| "SoMEthing in the other file."
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option to ignore changes in case enabled, diff will not indicate a "
+"difference when something in one file is changed into SoMEthing in the other "
+"file."
+msgstr ""
+"Ha ez az opció be van kapcsolva, a diff figyelmen kívül hagyja a kis- és "
+"nagybetűk közti különbséget, így ha egy fájlban valami megváltozik VaLAmiRe, "
+"a diff nem fog különbséget észlelni."
+
+#: dialogpages/diffpage.cpp:262
+#, fuzzy, kde-format
+#| msgid "Ignore regexp:"
+msgctxt "@option:check"
+msgid "Ignore regexp:"
+msgstr "Reg. kif. figyelmen kívül hagyása:"
+
+#: dialogpages/diffpage.cpp:263
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -I diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -I diff option."
+msgstr "Ez a diff -I opciónak felel meg."
+
+#: dialogpages/diffpage.cpp:264
+#, fuzzy, kde-format
+#| msgid ""
+#| "When this checkbox is enabled, an option to diff is given that will make "
+#| "diff ignore lines that match the regular expression."
+msgctxt "@info:whatsthis"
+msgid ""
+"When this checkbox is enabled, an option to diff is given that will make "
+"diff ignore lines that match the regular expression."
+msgstr ""
+"Ha engedélyezve van, akkor a diff meg fog kapni egy paramétert ami a "
+"reguláris kifejezésre illeszkedő sorok kihagyására utasítja."
+
+#: dialogpages/diffpage.cpp:268
+#, fuzzy, kde-format
+#| msgid ""
+#| "Add the regular expression here that you want to use\n"
+#| "to ignore lines that match it."
+msgctxt "@info:tooltip"
+msgid ""
+"Add the regular expression here that you want to use\n"
+"to ignore lines that match it."
+msgstr ""
+"Ide kell beírni a reguláris kifejezést, amelyhez illeszkedő\n"
+"sorok ki lesznek hagyva a feldolgozásból."
+
+#: dialogpages/diffpage.cpp:274
+#, fuzzy, kde-format
+#| msgid "Whitespace"
+msgctxt "@title:group"
+msgid "Whitespace"
+msgstr "Elválasztókarakterek"
+
+#: dialogpages/diffpage.cpp:276
+#, fuzzy, kde-format
+#| msgid "E&xpand tabs to spaces in output"
+msgctxt "@option:check"
+msgid "E&xpand tabs to spaces in output"
+msgstr "A tab&ulátorok szóközökké alakítása a kimenetben"
+
+#: dialogpages/diffpage.cpp:277
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -t diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -t diff option."
+msgstr "Ez a diff -t opciónak felel meg."
+
+#: dialogpages/diffpage.cpp:278
+#, fuzzy, kde-format
+#| msgid ""
+#| "This option does not always produce the right result. Due to this "
+#| "expansion Kompare may have problems applying the change to the "
+#| "destination file."
+msgctxt "@info:whatsthis"
+msgid ""
+"This option does not always produce the right result. Due to this expansion "
+"Kompare may have problems applying the change to the destination file."
+msgstr ""
+"Ez az opció nem mindig ad jó eredményt. Emiatt a kiterjesztés miatt a "
+"Kompare-nek lehetnek problémái a változtatás alkalmazásával a célfájlon."
+
+#: dialogpages/diffpage.cpp:280
+#, fuzzy, kde-format
+#| msgid "I&gnore added or removed empty lines"
+msgctxt "@option:check"
+msgid "I&gnore added or removed empty lines"
+msgstr "A hozzáadott/törölt üres sorok figye&lmen kívül hagyása"
+
+#: dialogpages/diffpage.cpp:281
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -B diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -B diff option."
+msgstr "Ez a diff -B opciónak felel meg."
+
+#: dialogpages/diffpage.cpp:282
+#, fuzzy, kde-format
+#| msgid ""
+#| "This can be very useful in situations where code has been reorganized and "
+#| "empty lines have been added or removed to improve legibility."
+msgctxt "@info:whatsthis"
+msgid ""
+"This can be very useful in situations where code has been reorganized and "
+"empty lines have been added or removed to improve legibility."
+msgstr ""
+"Ez nagyon hasznos lehet azokban az esetekben amikor egy adott kód át lett "
+"szervezve és üres sorok lettek hozzáadva vagy eltávolítva az olvashatóság "
+"érdekében."
+
+#: dialogpages/diffpage.cpp:284
+#, fuzzy, kde-format
+#| msgid "Ig&nore changes in the amount of whitespace"
+msgctxt "@option:check"
+msgid "Ig&nore changes in the amount of whitespace"
+msgstr ""
+"Nem kell &változásnak tekinteni, ha csak az elválasztókarakterek száma "
+"változott meg"
+
+#: dialogpages/diffpage.cpp:285
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -b diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -b diff option."
+msgstr "Ez a diff -b opciónak felel meg."
+
+#: dialogpages/diffpage.cpp:286
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you are uninterested in differences arising due to, for example, "
+#| "changes in indentation, then use this option."
+msgctxt "@info:whatsthis"
+msgid ""
+"If you are uninterested in differences arising due to, for example, changes "
+"in indentation, then use this option."
+msgstr ""
+"Használja ezt az opciót ha nem fontosak a például a behúzás "
+"megváltoztatásakor keletkezett különbségek."
+
+#: dialogpages/diffpage.cpp:288
+#, fuzzy, kde-format
+#| msgid "Ign&ore all whitespace"
+msgctxt "@option:check"
+msgid "Ign&ore all whitespace"
+msgstr "Az üres karakterek f&igyelmen kívül hagyása"
+
+#: dialogpages/diffpage.cpp:289
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -w diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -w diff option."
+msgstr "Ez a diff -w opciónak felel meg."
+
+#: dialogpages/diffpage.cpp:290
+#, fuzzy, kde-format
+#| msgid ""
+#| "This is useful for seeing the significant changes without being "
+#| "overwhelmed by all the white space changes."
+msgctxt "@info:whatsthis"
+msgid ""
+"This is useful for seeing the significant changes without being overwhelmed "
+"by all the white space changes."
+msgstr ""
+"Ez hasznos a valóban lényeges változtatások áttekintéséhez, amelyek így nem "
+"vesznek el a sok, üreshely-karaktereket érintő változtatás között."
+
+#: dialogpages/diffpage.cpp:292
+#, fuzzy, kde-format
+#| msgid "Igno&re changes due to tab expansion"
+msgctxt "@option:check"
+msgid "Igno&re changes due to tab expansion"
+msgstr "A tab&ulátorok kibontása miatti változások figyelmen kívül hagyása"
+
+#: dialogpages/diffpage.cpp:293
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -E diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -E diff option."
+msgstr "Ez a diff -E opciónak felel meg."
+
+#: dialogpages/diffpage.cpp:294
+#, fuzzy, kde-format
+#| msgid ""
+#| "If there is a change because tabs have been expanded into spaces in the "
+#| "other file, then this option will make sure that these do not show up. "
+#| "Kompare currently has some problems applying such changes so be careful "
+#| "when you use this option."
+msgctxt "@info:whatsthis"
+msgid ""
+"If there is a change because tabs have been expanded into spaces in the "
+"other file, then this option will make sure that these do not show up. "
+"Kompare currently has some problems applying such changes so be careful when "
+"you use this option."
+msgstr ""
+"Ez az opció gondoskodik arról, hogy a tabok szóközökre való cseréjéből adódó "
+"eltérések ne jelenjenek meg. Jelenleg a Kompare-rel előfordulhatnak "
+"problémák ilyen változások alkalmazásakor, ezért legyen óvatos amikor ezt az "
+"opciót használja."
+
+#: dialogpages/diffpage.cpp:299
+#, fuzzy, kde-format
+#| msgid "Options"
+msgctxt "@title:tab"
+msgid "Options"
+msgstr "Beállítások"
+
+#: dialogpages/diffpage.cpp:311
+#, fuzzy, kde-format
+#| msgid "File Pattern to Exclude"
+msgctxt "@title:group"
+msgid "File Pattern to Exclude"
+msgstr "Kizárandó fájlminták"
+
+#: dialogpages/diffpage.cpp:312
+#, fuzzy, kde-format
+#| msgid ""
+#| "If this is checked you can enter a shell pattern in the text box on the "
+#| "right or select entries from the list."
+msgctxt "@info:tooltip"
+msgid ""
+"If this is checked you can enter a shell pattern in the text box on the "
+"right or select entries from the list."
+msgstr ""
+"Ha ez az opció be van jelölve, a jobb oldali szövegmezőben megadható egy "
+"névminta vagy kiválaszthatók bejegyzések a listából."
+
+#: dialogpages/diffpage.cpp:318
+#, fuzzy, kde-format
+#| msgid ""
+#| "Here you can enter or remove a shell pattern or select one or more "
+#| "entries from the list."
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter or remove a shell pattern or select one or more entries "
+"from the list."
+msgstr ""
+"Itt lehet fájlnévmintákat felvenni vagy eltávolítani, ill. bejegyzéseket a "
+"listából kiválasztani."
+
+#: dialogpages/diffpage.cpp:328
+#, fuzzy, kde-format
+#| msgid "File with Filenames to Exclude"
+msgctxt "@title:group"
+msgid "File with Filenames to Exclude"
+msgstr "Fájlok kizárása névminta alapján"
+
+#: dialogpages/diffpage.cpp:329
+#, fuzzy, kde-format
+#| msgid "If this is checked you can enter a filename in the combo box below."
+msgctxt "@info:tooltip"
+msgid "If this is checked you can enter a filename in the combo box below."
+msgstr ""
+"Ha bejelöli ezt az opciót, a lenti kombinált listában meg lehet adni egy "
+"fájlnevet."
+
+#: dialogpages/diffpage.cpp:333
+#, fuzzy, kde-format
+#| msgid ""
+#| "Here you can enter the URL of a file with shell patterns to ignore during "
+#| "the comparison of the folders."
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter the URL of a file with shell patterns to ignore during "
+"the comparison of the folders."
+msgstr ""
+"Itt lehet megadni egy olyan fájl URL-jét, mely mappák összehasonlításakor "
+"figyelmen kívül hagyni kívánt fájlok névmintáit tartalmazza."
+
+#: dialogpages/diffpage.cpp:337
+#, fuzzy, kde-format
+#| msgid ""
+#| "Any file you select in the dialog that pops up when you click it will be "
+#| "put in the dialog to the left of this button."
+msgctxt "@info:tooltip"
+msgid ""
+"Any file you select in the dialog that pops up when you click it will be put "
+"in the dialog to the left of this button."
+msgstr ""
+"Az itt kiválasztott fájlok (rákattintás után) nevei a nyomógombtól balra "
+"látható részre kerülnek."
+
+#: dialogpages/diffpage.cpp:344
+#, fuzzy, kde-format
+#| msgid "Exclude"
+msgctxt "@title:tab"
+msgid "Exclude"
+msgstr "Kizárás"
+
+#: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
+#, fuzzy, kde-format
+#| msgid "N&ext File"
+msgctxt "@info:tooltip"
+msgid "Select file"
+msgstr "A következő &fájl"
+
+#: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@info:tooltip"
+msgid "Select folder"
+msgstr "Forrásmappa"
+
+#: dialogpages/filespage.cpp:87
+#, fuzzy, kde-format
+#| msgid "Encoding"
+msgctxt "@title:group"
+msgid "Encoding"
+msgstr "Kódolás"
+
+#: dialogpages/filespage.cpp:92
+#, kde-format
+msgctxt "@item:inlistbox encoding"
+msgid "Default"
+msgstr ""
+
+#: dialogpages/filespage.cpp:126
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr "Forrásmappa"
+
+#: dialogpages/filespage.cpp:130
+#, fuzzy, kde-format
+#| msgid "N&ext File"
+msgctxt "@title:window"
+msgid "Select File"
+msgstr "A következő &fájl"
+
+#: dialogpages/viewpage.cpp:44
+#, fuzzy, kde-format
+#| msgid "Colors"
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "Színek"
+
+#: dialogpages/viewpage.cpp:50
+#, fuzzy, kde-format
+#| msgid "Removed color:"
+msgctxt "@label:chooser"
+msgid "Removed color:"
+msgstr "Az eltávolított részek színe:"
+
+#: dialogpages/viewpage.cpp:54
+#, fuzzy, kde-format
+#| msgid "Changed color:"
+msgctxt "@label:chooser"
+msgid "Changed color:"
+msgstr "A módosított részek színe:"
+
+#: dialogpages/viewpage.cpp:58
+#, fuzzy, kde-format
+#| msgid "Added color:"
+msgctxt "@label:chooser"
+msgid "Added color:"
+msgstr "A hozzáadott részek színe:"
+
+#: dialogpages/viewpage.cpp:62
+#, fuzzy, kde-format
+#| msgid "Applied color:"
+msgctxt "@label:chooser"
+msgid "Applied color:"
+msgstr "Az alkalmazási szín:"
+
+#: dialogpages/viewpage.cpp:66
+#, fuzzy, kde-format
+#| msgid "Mouse Wheel"
+msgctxt "@title:group"
+msgid "Mouse Wheel"
+msgstr "Egérgörgő"
+
+#: dialogpages/viewpage.cpp:72
+#, fuzzy, kde-format
+#| msgid "Number of lines:"
+msgctxt "@label:spinbox"
+msgid "Number of lines:"
+msgstr "A sorok száma:"
+
+#: dialogpages/viewpage.cpp:77
+#, fuzzy, kde-format
+#| msgid "Tabs to Spaces"
+msgctxt "@title:group"
+msgid "Tabs to Spaces"
+msgstr "A tabulátorok szóközökké konvertálása"
+
+#: dialogpages/viewpage.cpp:83
+#, fuzzy, kde-format
+#| msgid "Number of spaces to convert a tab character to:"
+msgctxt "@label:spinbox"
+msgid "Number of spaces to convert a tab character to:"
+msgstr "Ennyi szóköz legyen egy tabulátorból:"
+
+#: dialogpages/viewpage.cpp:94
+#, fuzzy, kde-format
+#| msgid "Text Font"
+msgctxt "@title:group"
+msgid "Text Font"
+msgstr "A szöveg betűtípusa"
+
+#: dialogpages/viewpage.cpp:98
+#, fuzzy, kde-format
+#| msgid "Font:"
+msgctxt "@label:listbox"
+msgid "Font:"
+msgstr "Betűtípus:"
+
+#: dialogpages/viewpage.cpp:103
+#, fuzzy, kde-format
+#| msgid "Size:"
+msgctxt "@label:spinbox"
+msgid "Size:"
+msgstr "Méret:"
+
+#: dialogpages/viewpage.cpp:107
+#, fuzzy, kde-format
+#| msgid "Fonts"
+msgctxt "@title:tab"
+msgid "Fonts"
+msgstr "Betűtípusok"
+
+#: komparenavtreepart/komparenavtreepart.cpp:55
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@title:column"
+msgid "Source Folder"
+msgstr "Forrásmappa"
+
+#: komparenavtreepart/komparenavtreepart.cpp:61
+#, fuzzy, kde-format
+#| msgid "Destination Folder"
+msgctxt "@title:column"
+msgid "Destination Folder"
+msgstr "Célmappa"
+
+#: komparenavtreepart/komparenavtreepart.cpp:68
+#, fuzzy, kde-format
+#| msgid "Source File"
+msgctxt "@title:column"
+msgid "Source File"
+msgstr "Forrásfájl"
+
+#: komparenavtreepart/komparenavtreepart.cpp:69
+#, fuzzy, kde-format
+#| msgid "Destination File"
+msgctxt "@title:column"
+msgid "Destination File"
+msgstr "Célfájl"
+
+#: komparenavtreepart/komparenavtreepart.cpp:78
+#, fuzzy, kde-format
+#| msgid "Source Line"
+msgctxt "@title:column"
+msgid "Source Line"
+msgstr "Forrássor"
+
+#: komparenavtreepart/komparenavtreepart.cpp:79
+#, fuzzy, kde-format
+#| msgid "Destination Line"
+msgctxt "@title:column"
+msgid "Destination Line"
+msgstr "Célsor"
+
+#: komparenavtreepart/komparenavtreepart.cpp:80
+#, fuzzy, kde-format
+#| msgid "Difference"
+msgctxt "@title:column"
+msgid "Difference"
+msgstr "Eltérés"
+
+#: komparenavtreepart/komparenavtreepart.cpp:455
+#, kde-format
+msgid "Applied: Changes made to %1 line undone"
+msgid_plural "Applied: Changes made to %1 lines undone"
+msgstr[0] "Végrehajtva: %1 sor módosítása visszavonva"
+msgstr[1] "Végrehajtva: %1 sor módosítása visszavonva"
+
+#: komparenavtreepart/komparenavtreepart.cpp:458
+#, kde-format
+msgid "Changed %1 line"
+msgid_plural "Changed %1 lines"
+msgstr[0] "%1 sor változott meg"
+msgstr[1] "%1 sor változott meg"
+
+#: komparenavtreepart/komparenavtreepart.cpp:463
+#, kde-format
+msgid "Applied: Insertion of %1 line undone"
+msgid_plural "Applied: Insertion of %1 lines undone"
+msgstr[0] "Végrehajtva: %1 sor beszúrása visszavonva"
+msgstr[1] "Végrehajtva: %1 sor beszúrása visszavonva"
+
+#: komparenavtreepart/komparenavtreepart.cpp:466
+#, kde-format
+msgid "Inserted %1 line"
+msgid_plural "Inserted %1 lines"
+msgstr[0] "%1 sor lett beszúrva"
+msgstr[1] "%1 sor lett beszúrva"
+
+#: komparenavtreepart/komparenavtreepart.cpp:471
+#, kde-format
+msgid "Applied: Deletion of %1 line undone"
+msgid_plural "Applied: Deletion of %1 lines undone"
+msgstr[0] "Végrehajtva: %1 sor törlése visszavonva"
+msgstr[1] "Végrehajtva: %1 sor törlése visszavonva"
+
+#: komparenavtreepart/komparenavtreepart.cpp:474
+#, kde-format
+msgid "Deleted %1 line"
+msgid_plural "Deleted %1 lines"
+msgstr[0] "%1 sor lett kitörölve"
+msgstr[1] "%1 sor lett kitörölve"
+
+#: komparenavtreepart/komparenavtreepart.cpp:628
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "@item directory name not known"
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+#: komparepart/kompare_part.cpp:179
+#, fuzzy, kde-format
+#| msgid "Save &All"
+msgctxt "@action"
+msgid "Save &All"
+msgstr "Minden m&entése"
+
+#: komparepart/kompare_part.cpp:181
+#, fuzzy, kde-format
+#| msgid "Save &Diff..."
+msgctxt "@action"
+msgid "Save &Diff..."
+msgstr "&Diff fájl mentése..."
+
+#: komparepart/kompare_part.cpp:183
+#, fuzzy, kde-format
+#| msgid "Swap Source with Destination"
+msgctxt "@action"
+msgid "Swap Source with Destination"
+msgstr "A forrás és a cél felcserélése"
+
+#: komparepart/kompare_part.cpp:190
+#, fuzzy, kde-format
+#| msgid "Show Statistics"
+msgctxt "@action"
+msgid "Show Statistics"
+msgstr "Statisztika megjelenítése"
+
+#: komparepart/kompare_part.cpp:193
+#, fuzzy, kde-format
+#| msgid "Refresh Diff"
+msgctxt "@action"
+msgid "Refresh Diff"
+msgstr "Az eltérések frissítése"
+
+#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#, kde-format
+msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
+msgstr "<qt>A(z) <b>%1</b> URL-t nem lehet letölteni.</qt>"
+
+#: komparepart/kompare_part.cpp:356
+#, kde-format
+msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
+msgstr "<qt>A(z) <b>%1</b> URL nem létezik a rendszerben.</qt>"
+
+#: komparepart/kompare_part.cpp:544
+#, fuzzy, kde-format
+#| msgid "Diff Options"
+msgctxt "@title:window"
+msgid "Diff Options"
+msgstr "Összehasonlítási beállítások"
+
+#: komparepart/kompare_part.cpp:565
+#, fuzzy, kde-format
+#| msgid "Save .diff"
+msgctxt "@title:window"
+msgid "Save .diff"
+msgstr "A .diff fájl mentése"
+
+#: komparepart/kompare_part.cpp:567
+#, fuzzy, kde-format
+#| msgid "*.diff *.dif *.patch|Patch Files"
+msgid "Patch Files (*.diff *.dif *.patch)"
+msgstr "*.diff *.dif *.patch|Patch fájlok"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgid "The file exists or is write-protected; do you want to overwrite it?"
+msgstr "Már létezik ilyen fájl (lehet, hogy írásvédett) - felül szeretné írni?"
+
+#: komparepart/kompare_part.cpp:569
+#, fuzzy, kde-format
+#| msgid "File Exists"
+msgctxt "@window:title"
+msgid "File Exists"
+msgstr "A fájl már létezik"
+
+#: komparepart/kompare_part.cpp:569
+#, fuzzy, kde-format
+#| msgid "Do Not Overwrite"
+msgctxt "@action:button"
+msgid "Do Not Overwrite"
+msgstr "Nem kell felülírni"
+
+#: komparepart/kompare_part.cpp:653
+#, fuzzy, kde-format
+#| msgid "Running diff..."
+msgctxt "@info:status"
+msgid "Running diff..."
+msgstr "A diff futtatása..."
+
+#: komparepart/kompare_part.cpp:656
+#, fuzzy, kde-format
+#| msgid "Parsing diff output..."
+msgctxt "@info:status"
+msgid "Parsing diff output..."
+msgstr "A diff kimenetének feldolgozása..."
+
+#: komparepart/kompare_part.cpp:712
+#, fuzzy, kde-format
+#| msgid "Comparing file %1 with file %2"
+msgctxt "@info:status"
+msgid "Comparing file %1 with file %2"
+msgstr "Fájlok összehasonlítása: %1 és %2"
+
+#: komparepart/kompare_part.cpp:717
+#, fuzzy, kde-format
+#| msgid "Comparing files in %1 with files in %2"
+msgctxt "@info:status"
+msgid "Comparing files in %1 with files in %2"
+msgstr "Fájlok összehasonlítása - 1. mappa: %1, 2. mappa: %2"
+
+#: komparepart/kompare_part.cpp:722
+#, fuzzy, kde-format
+#| msgid "Viewing diff output from %1"
+msgctxt "@info:status"
+msgid "Viewing diff output from %1"
+msgstr "%1 diff kimenetének megtekintése"
+
+#: komparepart/kompare_part.cpp:725
+#, fuzzy, kde-format
+#| msgid "Blending diff output from %1 into file %2"
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into file %2"
+msgstr "A(z) %1 diff fájl összeolvasztása a(z) %2 fájllal"
+
+#: komparepart/kompare_part.cpp:730
+#, fuzzy, kde-format
+#| msgid "Blending diff output from %1 into folder %2"
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into folder %2"
+msgstr "A(z) %1 diff-kimenet beolvasztása ebbe a mappába: %2"
+
+#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
+#: komparepart/kompare_part.cpp:927
+#, kde-format
+msgid ""
+"You have made changes to the destination file(s).\n"
+"Would you like to save them?"
+msgstr ""
+"Módosításokat hajtott végre a célfájl(ok)ban.\n"
+"El szeretné menteni a változásokat?"
+
+#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
+#: komparepart/kompare_part.cpp:929
+#, fuzzy, kde-format
+#| msgid "Save Changes?"
+msgctxt "@title:window"
+msgid "Save Changes?"
+msgstr "El szeretné menteni a módosításokat?"
+
+#: komparepart/kompare_part.cpp:852
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgctxt "@item diff format"
+msgid "Unified"
+msgstr "Egyesített"
+
+#: komparepart/kompare_part.cpp:855
+#, fuzzy, kde-format
+#| msgid "Context"
+msgctxt "@item diff format"
+msgid "Context"
+msgstr "Kontextus"
+
+#: komparepart/kompare_part.cpp:858
+#, fuzzy, kde-format
+#| msgid "RCS"
+msgctxt "@item diff format"
+msgid "RCS"
+msgstr "RCS"
+
+#: komparepart/kompare_part.cpp:861
+#, fuzzy, kde-format
+#| msgid "Ed"
+msgctxt "@item diff format"
+msgid "Ed"
+msgstr "Ed"
+
+#: komparepart/kompare_part.cpp:864
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgctxt "@item diff format"
+msgid "Normal"
+msgstr "normál"
+
+#: komparepart/kompare_part.cpp:868
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "@item diff format"
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+#: komparepart/kompare_part.cpp:884
+#, kde-format
+msgid ""
+"No diff file, or no 2 files have been diffed. Therefore no stats are "
+"available."
+msgstr ""
+"Nincs .diff fájl vagy nem 2 fájl volt összehasonlítva, ezért nem számolható "
+"statisztika."
+
+#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:916
+#, fuzzy, kde-format
+#| msgid "Diff Statistics"
+msgctxt "@title:window"
+msgid "Diff Statistics"
+msgstr "Diff statisztika"
+
+#: komparepart/kompare_part.cpp:890
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Old file: %1\n"
+"New file: %2\n"
+"\n"
+"Format: %3\n"
+"Number of hunks: %4\n"
+"Number of differences: %5"
+msgstr ""
+"Statisztika:\n"
+"\n"
+"A régi fájl: %1\n"
+"Az új fájl: %2\n"
+"\n"
+"Formátum: %3\n"
+"A blokkok száma: %4\n"
+"Az eltérések száma: %5"
+
+#: komparepart/kompare_part.cpp:903
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Number of files in diff file: %1\n"
+"Format: %2\n"
+"\n"
+"Current old file: %3\n"
+"Current new file: %4\n"
+"\n"
+"Number of hunks: %5\n"
+"Number of differences: %6"
+msgstr ""
+"Statisztika:\n"
+"\n"
+"A diff fájlban található fájlok száma: %1\n"
+"Formátum: %2\n"
+"\n"
+"Az aktuális régi fájl: %3\n"
+"Az aktuális új fájl: %4\n"
+"\n"
+"A blokkok száma: %5\n"
+"Az eltérések száma: %6"
+
+#. i18n: ectx: Menu (difference)
+#: komparepart/komparepartui.rc:17
+#, kde-format
+msgid "&Difference"
+msgstr "El&térés"
+
+#: komparepart/kompareprefdlg.cpp:26
+#, fuzzy, kde-format
+#| msgid "Preferences"
+msgctxt "@title:window"
+msgid "Preferences"
+msgstr "Beállítások"
+
+#: komparepart/kompareprefdlg.cpp:36
+#, fuzzy, kde-format
+#| msgid "View"
+msgctxt "@title:tab"
+msgid "View"
+msgstr "Nézet"
+
+#: komparepart/kompareprefdlg.cpp:38
+#, fuzzy, kde-format
+#| msgid "View Settings"
+msgctxt "@title"
+msgid "View Settings"
+msgstr "Nézeti beállítások"
+
+#: komparepart/kompareprefdlg.cpp:44
+#, fuzzy, kde-format
+#| msgid "Diff Settings"
+msgctxt "@title"
+msgid "Diff Settings"
+msgstr "Diff-beállítások"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
+#: komparepart/komparesaveoptionsbase.ui:29
+#, kde-format
+msgid "Format"
+msgstr "Formátum"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
+#: komparepart/komparesaveoptionsbase.ui:35
+#, fuzzy, kde-format
+#| msgid "Context"
+msgid "&Context"
+msgstr "Kontextus"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
+#: komparepart/komparesaveoptionsbase.ui:42
+#, kde-format
+msgid "Ed"
+msgstr "Ed"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
+#: komparepart/komparesaveoptionsbase.ui:49
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgid "&Normal"
+msgstr "normál"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
+#: komparepart/komparesaveoptionsbase.ui:56
+#, kde-format
+msgid "RCS"
+msgstr "RCS"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
+#: komparepart/komparesaveoptionsbase.ui:63
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgid "&Unified"
+msgstr "Egyesített"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
+#: komparepart/komparesaveoptionsbase.ui:73
+#, fuzzy, kde-format
+#| msgid "Side-by-side"
+msgid "&Side-by-side"
+msgstr "Egymás mellett"
+
+#. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
+#: komparepart/komparesaveoptionsbase.ui:85
+#, kde-format
+msgid "Number of context lines:"
+msgstr "A kontextussorok száma:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
+#: komparepart/komparesaveoptionsbase.ui:126
+#, kde-format
+msgid "Options"
+msgstr "Beállítások"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_SmallerChangesCB)
+#: komparepart/komparesaveoptionsbase.ui:132
+#, kde-format
+msgid "Look for smaller changes"
+msgstr "Kisebb változások keresése"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:142
+#, kde-format
+msgid "Optimize for large files"
+msgstr "Optimalizálás nagy fájlokra"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
+#: komparepart/komparesaveoptionsbase.ui:152
+#, kde-format
+msgid "Ignore changes in case"
+msgstr "Nem nagybetűérzékeny"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
+#: komparepart/komparesaveoptionsbase.ui:159
+#, kde-format
+msgid "Expand tabs to spaces"
+msgstr "A tabulátorok szóközökké konvertálása"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
+#: komparepart/komparesaveoptionsbase.ui:166
+#, kde-format
+msgid "Ignore added or removed empty lines"
+msgstr "A felvett/eltávolított üres sorok figyelmen kívül hagyása"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
+#: komparepart/komparesaveoptionsbase.ui:173
+#, kde-format
+msgid "Ignore changes in whitespace"
+msgstr "Az üres helyek változásainak figyelmen kívül hagyása"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
+#: komparepart/komparesaveoptionsbase.ui:180
+#, kde-format
+msgid "Show function names"
+msgstr "A függvénynevek megjelenítése"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
+#: komparepart/komparesaveoptionsbase.ui:190
+#, kde-format
+msgid "Compare folders recursively"
+msgstr "Mappák összehasonlítása (az almappákat is)"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:200
+#, kde-format
+msgid "Treat new files as empty"
+msgstr "Az új fájlok üresnek tekintése"
+
+#. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
+#: komparepart/komparesaveoptionsbase.ui:222
+#, kde-format
+msgid "Run Diff In"
+msgstr "A diff futtatási mappája"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
+#: komparepart/komparesaveoptionsbase.ui:247
+#, kde-format
+msgid "Command Line"
+msgstr "Parancssor"
+
+#. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
+#: komparepart/komparesaveoptionsbase.ui:256
+#, kde-format
+msgid "cd dir && diff -udHprNa -- source destination"
+msgstr "cd mappanév && diff -udHprNa -- forrás cél"
+
+#~ msgid "KompareNavTreePart"
+#~ msgstr "KompareNavTreePart"
+
+#~ msgid "KomparePart"
+#~ msgstr "KomparePart"
+
+#, fuzzy
+#~| msgid "&Edit..."
+#~ msgctxt "@action:button"
+#~ msgid "&Edit..."
+#~ msgstr "Szer&kesztés..."
+
+#, fuzzy
+#~| msgid ""
+#~| "Clicking this will open a regular expression dialog where\n"
+#~| "you can graphically create regular expressions."
+#~ msgctxt "@info:tooltip"
+#~ msgid ""
+#~ "Clicking this will open a regular expression dialog where\n"
+#~ "you can graphically create regular expressions."
+#~ msgstr ""
+#~ "Ha ide kattint, megnyílik egy ablak, melyben grafikus\n"
+#~ "módon lehet reguláris kifejezéseket összeállítani."
+
+#~ msgid "Overwrite"
+#~ msgstr "Felülírás"
+
+#~ msgid "Compare these files or folder"
+#~ msgstr "A fájlok vagy mappák összehasonlítása"
+
+#~ msgid "&Apply Difference"
+#~ msgstr "Az eltérés al&kalmazása"
+
+#~ msgid "Un&apply Difference"
+#~ msgstr "Eltérés alkalmazásának v&isszavonása"
+
+#~ msgid "App&ly All"
+#~ msgstr "Alkalma&zás (teljes)"
+
+#~ msgid "&Unapply All"
+#~ msgstr "Az alkalmazások &visszavonása"
+
+#~ msgid "P&revious File"
+#~ msgstr "Az &előző fájl"
+
+#~ msgid "&Previous Difference"
+#~ msgstr "Az e&lőző eltérés"
+
+#~ msgid "&Next Difference"
+#~ msgstr "A köve&tkező eltérés"
+
+#~ msgid ""
+#~ "<qt>No models or no differences, this file: <b>%1</b>, is not a valid "
+#~ "diff file.</qt>"
+#~ msgstr ""
+#~ "<qt>Nincs modell vagy különbség, a(z) <b>%1</b> fájl nem diff-fájl.</qt>"
+
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>."
+#~ "</qt>"
+#~ msgstr ""
+#~ "<qt>Nem sikerült alkalmazni a(z) <b>%1</b> diff-fájlt a(z) <b>%2</b> "
+#~ "fájlra.</qt>"
+
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</"
+#~ "b>.</qt>"
+#~ msgstr ""
+#~ "<qt>Nem sikerült alkalmazni a(z) <b>%1</b> diff-kimenetet a(z) <b>%2</b> "
+#~ "mappára.</qt>"
+
+#~ msgid "Could not open a temporary file."
+#~ msgstr "Az egyik ideiglenes fájlt nem sikerült megnyitni."
+
+#~ msgid ""
+#~ "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>"
+#~ msgstr ""
+#~ "<qt>Nem sikerült írni a(z) <b>%1</b> ideiglenes fájlba, ezért le lesz "
+#~ "törölve.</qt>"
+
+#~ msgid ""
+#~ "<qt>Could not create destination directory <b>%1</b>.\n"
+#~ "The file has not been saved.</qt>"
+#~ msgstr ""
+#~ "<qt>Nem sikerült létrehozni a célmappát: <b>%1</b>.\n"
+#~ "A fájl nem lett elmentve.</qt>"
+
+#~ msgid ""
+#~ "<qt>Could not upload the temporary file to the destination location <b>"
+#~ "%1</b>. The temporary file is still available under: <b>%2</b>. You can "
+#~ "manually copy it to the right place.</qt>"
+#~ msgstr ""
+#~ "<qt>Nem sikerült feltölteni egy ideiglenes fájlt a távoli <b>%1</b> "
+#~ "címre. Az ideiglenes fájl még található itt: <b>%2</b>. Próbálja meg "
+#~ "átmásolni a fájlt a megfelelő helyre.</qt>"
+
+#~ msgid "Could not parse diff output."
+#~ msgstr "A diff kimenet feldolgozása nem sikerült."
+
+#~ msgid "The files are identical."
+#~ msgstr "A fájlok teljesen egyformák."
+
+#~ msgid "Could not write to the temporary file."
+#~ msgstr "Nem sikerült írni egy ideiglenes fájlba."
+
+#~ msgid ""
+#~ "The diff is malformed. Some lines could not be parsed and will not be "
+#~ "displayed in the diff view."
+#~ msgstr ""
+#~ "A diff formázása hibás. Néhány sort nem lehetett feldolgozni, ezért ezek "
+#~ "nem lesznek láthatóak megjelenítéskor."
+
+#~ msgid "Could not find our KompareViewPart."
+#~ msgstr "A KompareViewPart objektum nem található."
+
+#~ msgid "Could not find our KompareNavigationPart."
+#~ msgstr "A KompareNavigationPart objektum nem található."

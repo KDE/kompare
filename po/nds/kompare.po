@@ -1,0 +1,1712 @@
+# translation of kompare.po to Low Saxon
+# Translation of kompare.po to Low Saxon
+#
+# Heiko Evermann <heiko.evermann@gmx.de>, 2005.
+# Manfred Wiese <m.j.wiese@web.de>, 2006, 2008, 2009, 2010, 2011.
+# Sönke Dibbern <s_dibbern@web.de>, 2006, 2007, 2008, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: kompare\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"PO-Revision-Date: 2011-09-05 22:49+0200\n"
+"Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
+"Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
+"Language: nds\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Heiko Evermann, Manfred Wiese, Sönke Dibbern"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "Heiko.Evermann@gmx.de, m.j.wiese@web.de, s_dibbern@web.de"
+
+#: app/kompare_shell.cpp:69
+#, kde-format
+msgid "Could not load our KompareViewPart."
+msgstr "Komponent \"KompareViewPart\" lett sik nich laden."
+
+#: app/kompare_shell.cpp:73
+#, fuzzy, kde-format
+#| msgid "Navigation"
+msgctxt "@title:window"
+msgid "Navigation"
+msgstr "Stüern"
+
+#: app/kompare_shell.cpp:90
+#, kde-format
+msgid "Could not load our KompareNavigationPart."
+msgstr "Komponent \"KompareNavigationPart\" lett sik nich laden."
+
+#: app/kompare_shell.cpp:195
+#, fuzzy, kde-format
+#| msgid "&Open Diff..."
+msgctxt "@action"
+msgid "&Open Diff..."
+msgstr "Verscheeldatei &opmaken..."
+
+#: app/kompare_shell.cpp:198
+#, fuzzy, kde-format
+#| msgid "&Compare Files..."
+msgctxt "@action"
+msgid "&Compare Files..."
+msgstr "Dateien &verglieken..."
+
+#: app/kompare_shell.cpp:201
+#, fuzzy, kde-format
+#| msgid "&Blend URL with Diff..."
+msgctxt "@action"
+msgid "&Blend URL with Diff..."
+msgstr "URL mit Verscheel &mischen..."
+
+#: app/kompare_shell.cpp:207
+#, fuzzy, kde-format
+#| msgid "Show T&ext View"
+msgctxt "@action"
+msgid "Show T&ext View"
+msgstr "T&extansicht wiesen"
+
+#: app/kompare_shell.cpp:220
+#, kde-format
+msgid " 0 of 0 differences "
+msgstr " 0 vun 0 Verschelen "
+
+#: app/kompare_shell.cpp:221
+#, kde-format
+msgid " 0 of 0 files "
+msgstr " 0 vun 0 Dateien "
+
+#: app/kompare_shell.cpp:238
+#, kde-format
+msgid " %2 of %1 file "
+msgid_plural " %2 of %1 files "
+msgstr[0] "  %2 vun %1 Datei"
+msgstr[1] " %2 vun %1 Dateien"
+
+#: app/kompare_shell.cpp:240
+#, kde-format
+msgid " %1 file "
+msgid_plural " %1 files "
+msgstr[0] "  %1 Datei "
+msgstr[1] " %1 Dateien "
+
+#: app/kompare_shell.cpp:243
+#, kde-format
+msgid " %2 of %1 difference, %3 applied "
+msgid_plural " %2 of %1 differences, %3 applied "
+msgstr[0] " %2 vun %1 Verscheel, %3 anwendt "
+msgstr[1] " %2 vun %1 Verschelen, %3 anwendt "
+
+#: app/kompare_shell.cpp:246
+#, kde-format
+msgid " %1 difference "
+msgid_plural " %1 differences "
+msgstr[0] " %1 Verscheel "
+msgstr[1] " %1 Verschelen "
+
+#: app/kompare_shell.cpp:327
+#, fuzzy, kde-format
+#| msgid "Blend File/Folder with diff Output"
+msgctxt "@title:window"
+msgid "Blend File/Folder with diff Output"
+msgstr "Datei/Orner mit \"diff\"-Utgaav mischen"
+
+#: app/kompare_shell.cpp:328
+#, fuzzy, kde-format
+#| msgid "File/Folder"
+msgctxt "@title:group"
+msgid "File/Folder"
+msgstr "Datei/Orner"
+
+#: app/kompare_shell.cpp:329
+#, fuzzy, kde-format
+#| msgid "Diff Output"
+msgctxt "@title:group"
+msgid "Diff Output"
+msgstr "Diff-Utgaav"
+
+#: app/kompare_shell.cpp:332
+#, fuzzy, kde-format
+#| msgid "Blend"
+msgctxt "@action:button"
+msgid "Blend"
+msgstr "Mischen"
+
+#: app/kompare_shell.cpp:333
+#, fuzzy, kde-format
+#| msgid "Blend this file or folder with the diff output"
+msgctxt "@info:tooltip"
+msgid "Blend this file or folder with the diff output"
+msgstr "Disse Datei oder Orner mit de \"diff\"-Utgaav mischen"
+
+#: app/kompare_shell.cpp:334
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you have entered a file or folder name and a file that contains diff "
+#| "output in the fields in this dialog then this button will be enabled and "
+#| "pressing it will open kompare's main view where the output of the entered "
+#| "file or files from the folder are mixed with the diff output so you can "
+#| "then apply the difference(s) to a file or to the files. "
+msgctxt "@infor:whatsthis"
+msgid ""
+"If you have entered a file or folder name and a file that contains diff "
+"output in the fields in this dialog then this button will be enabled and "
+"pressing it will open kompare's main view where the output of the entered "
+"file or files from the folder are mixed with the diff output so you can then "
+"apply the difference(s) to a file or to the files. "
+msgstr ""
+"Wenn Du den Naam vun en Datei oder Orner un en Datei, de de \"diff\"-Utgaav "
+"bargt, in disse Dialoogfeller indragen hest, warrt disse Knoop anmaakt. Wenn "
+"Du em denn anklickst, geiht de Hööftansicht vun \"Kompare\" op, binnen de de "
+"Datei oder de Orner mit de Utgaav vun \"diff\" mischt warrt, so dat Du de "
+"Verschelen na de Datei(en) tofögen kannst. "
+
+#: app/kompare_shell.cpp:357 app/main.cpp:199
+#, fuzzy, kde-format
+#| msgid "Compare Files or Folders"
+msgctxt "@title:window"
+msgid "Compare Files or Folders"
+msgstr "Dateien oder Ornern verglieken"
+
+#: app/kompare_shell.cpp:358 app/main.cpp:200
+#, fuzzy, kde-format
+#| msgid "Source"
+msgctxt "@title:group"
+msgid "Source"
+msgstr "Born"
+
+#: app/kompare_shell.cpp:359 app/main.cpp:201
+#, fuzzy, kde-format
+#| msgid "Destination"
+msgctxt "@title:group"
+msgid "Destination"
+msgstr "Teel"
+
+#: app/kompare_shell.cpp:362 app/main.cpp:204
+#, fuzzy, kde-format
+#| msgid "Compare"
+msgctxt "@action:button"
+msgid "Compare"
+msgstr "Verglieken"
+
+#: app/kompare_shell.cpp:363 app/main.cpp:205
+#, fuzzy, kde-format
+#| msgid "Compare these files or folders"
+msgctxt "@info:tooltip"
+msgid "Compare these files or folders"
+msgstr "Disse Dateien oder Orner verglieken"
+
+#: app/kompare_shell.cpp:364 app/main.cpp:206
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
+#| "then this button will be enabled and pressing it will start a comparison "
+#| "of the entered files or folders. "
+msgctxt "@info:whatsthis"
+msgid ""
+"If you have entered 2 filenames or 2 folders in the fields in this dialog "
+"then this button will be enabled and pressing it will start a comparison of "
+"the entered files or folders. "
+msgstr ""
+"Wenn Du twee Dateinaams oder twee Ornern in disse Dialoogfeller ingeven "
+"hest, warrt disse Knoop anmaakt. En Vergliek vun de ingeven Dateien oder "
+"Ornern warrt start, wenn Du dor op klickst."
+
+#: app/kompare_shell.cpp:398
+#, fuzzy, kde-format
+#| msgid "Text View"
+msgctxt "@title:window"
+msgid "Text View"
+msgstr "Textansicht"
+
+#. i18n: ectx: Menu (file)
+#: app/kompareui.rc:4 komparepart/komparepartui.rc:4
+#, kde-format
+msgid "&File"
+msgstr "&Datei"
+
+#. i18n: ectx: Menu (settings)
+#: app/kompareui.rc:14 komparepart/komparepartui.rc:29
+#, kde-format
+msgid "&Settings"
+msgstr "&Instellen"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: app/kompareui.rc:27
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Hööft-Warktüüchbalken"
+
+#: app/kompareurldialog.cpp:37
+#, fuzzy, kde-format
+#| msgid "Files"
+msgctxt "@title:tab"
+msgid "Files"
+msgstr "Dateien"
+
+#: app/kompareurldialog.cpp:39
+#, kde-format
+msgid "Here you can enter the files you want to compare."
+msgstr "Hier kannst Du de Dateien ingeven, de Du verglieken wullt."
+
+#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:42
+#, fuzzy, kde-format
+#| msgid "Diff"
+msgctxt "@title:tab"
+msgid "Diff"
+msgstr "Verscheel"
+
+#: app/kompareurldialog.cpp:47
+#, kde-format
+msgid "Here you can change the options for comparing the files."
+msgstr "Hier kannst Du de Optschonen för den Dateivergliek ännern."
+
+#: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
+#, fuzzy, kde-format
+#| msgid "Appearance"
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "Utsehn"
+
+#: app/kompareurldialog.cpp:55
+#, kde-format
+msgid "Here you can change the options for the view."
+msgstr "Hier kannst Du de Optschonen för de Ansicht ännern."
+
+#: app/kompareurldialog.cpp:101
+#, kde-format
+msgid ""
+"File used for excluding files cannot be found, please specify another file."
+msgstr ""
+"De Datei mit utslaten Dateien lett sik nich finnen, giff bitte en an, de dat "
+"geven deit."
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Kompare"
+msgstr "Kompare"
+
+#: app/main.cpp:52
+#, kde-format
+msgid ""
+"A program to view the differences between files and optionally generate a "
+"diff"
+msgstr ""
+"En Programm för't Ankieken vun Datei-Verschelen un ok för't Opstellen vun "
+"Verscheel-Dateien"
+
+#: app/main.cpp:54
+#, fuzzy, kde-format
+#| msgid ""
+#| "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+#| "2004-2005 Jeff Snyder, (c) 2007-2008 Kevin Kofler"
+msgid ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+msgstr ""
+"© 2001-2004 John Firebaugh, © 2001-2005,2009 Otto Bruggeman, © 2004-2005 "
+"Jeff Snyder, © 2007-2008 Kevin Kofler"
+
+#: app/main.cpp:57
+#, kde-format
+msgid "John Firebaugh"
+msgstr "John Firebaugh"
+
+#: app/main.cpp:57 app/main.cpp:58
+#, kde-format
+msgid "Author"
+msgstr "Autor"
+
+#: app/main.cpp:58
+#, kde-format
+msgid "Otto Bruggeman"
+msgstr "Otto Bruggeman"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Jeff Snyder"
+msgstr "Jeff Snyder"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Developer"
+msgstr "Programmschriever"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Kevin Kofler"
+msgstr "Kevin Kofler"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Maintainer"
+msgstr "Pleger"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Chris Luetchford"
+msgstr "Chris Luetchford"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Kompare icon artist"
+msgstr "Maker vun't Kompare-Lüttbild"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "Malte Starostik"
+msgstr "Malte Starostik"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "A lot of good advice"
+msgstr "Vele gode Raatslääg"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Bernd Gehrmann"
+msgstr "Bernd Gehrmann"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Cervisia diff viewer"
+msgstr "Cervisia-Verscheelkieker"
+
+#: app/main.cpp:70
+#, kde-format
+msgid "This will compare URL1 with URL2"
+msgstr "URL1 mit URL2 verglieken"
+
+#: app/main.cpp:71
+#, kde-format
+msgid ""
+"This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
+"and then it will read from standard input. Can be used for instance for cvs "
+"diff | kompare -o -. Kompare will do a check to see if it can find the "
+"original file(s) and then blend the original file(s) into the diffoutput and "
+"show that in the viewer. -n disables the check."
+msgstr ""
+"Dit maakt URL1 op un verwacht, dat se en Utgaav vun \"diff\" is. URL1 kann "
+"ok en \"-\" wesen, denn warrt vun de Standardingaav leest. Dit lett sik t.B. "
+"för \"cvs diff | kompare -o -\" bruken. Kompare pröövt denn, wat dat de "
+"Orginaaldatei(en) finnen kann, mischt ehr mit de Verscheelutgaav, un wiest "
+"denn dat Resultaat. De Optschoon \"-n\" maakt disse Prööv ut."
+
+#: app/main.cpp:72
+#, kde-format
+msgid ""
+"This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
+"the file or folder that the diffoutput needs to be blended into. "
+msgstr ""
+"Dit mischt URL2 na URL1. URL2 mutt en Verscheeldatei wesen un URL1 de Datei "
+"oder Orner, na de(n) de Verschelen tomischt warrn schöölt. "
+
+#: app/main.cpp:73
+#, kde-format
+msgid ""
+"Disables the check for automatically finding the original file(s) when using "
+"'-' as URL with the -o option."
+msgstr ""
+"Maakt tosamen mit \"-\" as URL un de Optschoon \"-o\" de Prööv för't "
+"automaatsche Finnen vun de Orginaaldatei(en) ut."
+
+#: app/main.cpp:74
+#, kde-format
+msgid ""
+"Use this to specify the encoding when calling it from the command line. It "
+"will default to the local encoding if not specified."
+msgstr ""
+"Mit disse Optschoon lett sik de Koderen bi't Opropen vun de Befehlsreeg "
+"instellen. Wenn Nix instellt is, warrt de lokale Koderen bruukt."
+
+#: dialogpages/diffpage.cpp:174
+#, fuzzy, kde-format
+#| msgid "Diff Program"
+msgctxt "@title:group"
+msgid "Diff Program"
+msgstr "Verscheelprogramm"
+
+#: dialogpages/diffpage.cpp:179
+#, kde-format
+msgid ""
+"You can select a different diff program here. On Solaris the standard diff "
+"program does not support all the options that the GNU version does. This way "
+"you can select that version."
+msgstr ""
+"Hier kannst Du en anner Verscheelprogramm utsöken. Op Solaris ünnerstütt dat "
+"Standard-Verscheelprogramm nich all Optschonen vun de GNU-Verschoon. Hier "
+"kannst Du disse Verschoon utsöken."
+
+#: dialogpages/diffpage.cpp:196
+#, fuzzy, kde-format
+#| msgid ""
+#| "Select the format of the output generated by diff. Unified is the one "
+#| "that is used most frequently because it is very readable. The KDE "
+#| "developers like this format the best so use it for sending patches."
+msgctxt "@info:whatsthis"
+msgid ""
+"Select the format of the output generated by diff. Unified is the one that "
+"is used most frequently because it is very readable. The KDE developers like "
+"this format the best so use it for sending patches."
+msgstr ""
+"Söök dat Utgaavformaat vun \"diff\" ut. Dat tomehrst bruukte Formaat is "
+"\"Liekmaakt\", wiel dat eenfach to lesen is. De KDE-Schrieverslüüd möögt dat "
+"Formaat op't Leefst, bruuk dat also bitte för't Insennen vun Kodeplasters."
+
+#: dialogpages/diffpage.cpp:199
+#, fuzzy, kde-format
+#| msgid "Output Format"
+msgctxt "@title:group"
+msgid "Output Format"
+msgstr "Utgaavformaat"
+
+#: dialogpages/diffpage.cpp:201
+#, fuzzy, kde-format
+#| msgid "Context"
+msgctxt "@option:radio format type"
+msgid "Context"
+msgstr "Kontext"
+
+#: dialogpages/diffpage.cpp:204
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgctxt "@option:radio format type"
+msgid "Normal"
+msgstr "Normaal"
+
+#: dialogpages/diffpage.cpp:207
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgctxt "@option:radio format type"
+msgid "Unified"
+msgstr "Liekmaakt"
+
+#: dialogpages/diffpage.cpp:215
+#, fuzzy, kde-format
+#| msgid "Lines of Context"
+msgctxt "@title:group"
+msgid "Lines of Context"
+msgstr "Kontextregen"
+
+#: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
+#, fuzzy, kde-format
+#| msgid ""
+#| "The number of context lines is normally 2 or 3. This makes the diff "
+#| "readable and applicable in most cases. More than 3 lines will only bloat "
+#| "the diff unnecessarily."
+msgctxt "@info:whatsthis"
+msgid ""
+"The number of context lines is normally 2 or 3. This makes the diff readable "
+"and applicable in most cases. More than 3 lines will only bloat the diff "
+"unnecessarily."
+msgstr ""
+"De Tall vun Kontextregen is normalerwies twee oder dree. So lett sik de "
+"Verscheel tomehrst beter lesen un inspelen. Mehr as dree Regen maakt de "
+"Verscheeldatei bloots grötter as dat noot deit.."
+
+#: dialogpages/diffpage.cpp:220
+#, fuzzy, kde-format
+#| msgid "Number of context lines:"
+msgctxt "@label:spinbox"
+msgid "Number of context lines:"
+msgstr "Tall vun Kontextregen:"
+
+#: dialogpages/diffpage.cpp:225
+#, fuzzy, kde-format
+#| msgid "Format"
+msgctxt "@title:tab"
+msgid "Format"
+msgstr "Formaat"
+
+#: dialogpages/diffpage.cpp:237
+#, fuzzy, kde-format
+#| msgid "General"
+msgctxt "@title:group"
+msgid "General"
+msgstr "Allgemeen"
+
+#: dialogpages/diffpage.cpp:239
+#, fuzzy, kde-format
+#| msgid "&Treat new files as empty"
+msgctxt "@option:check"
+msgid "&Treat new files as empty"
+msgstr "Niege Dateien as leddig &behanneln"
+
+#: dialogpages/diffpage.cpp:240
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -N diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -N diff option."
+msgstr "Dit is liek as de Optschoon \"-N\" vun \"diff\"."
+
+#: dialogpages/diffpage.cpp:241
+#, fuzzy, kde-format
+#| msgid ""
+#| "With this option enabled diff will treat a file that only exists in one "
+#| "of the directories as empty in the other directory. This means that the "
+#| "file is compared with an empty file and because of this will appear as "
+#| "one big insertion or deletion."
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will treat a file that only exists in one of "
+"the directories as empty in the other directory. This means that the file is "
+"compared with an empty file and because of this will appear as one big "
+"insertion or deletion."
+msgstr ""
+"Mit disse Optschoon behannelt diff en Date, de dat bloots binnen een vun de "
+"Ornern gifft, in den anner Orner as leddig. Dat bedüüdt, dat de Datei mit en "
+"leddig Datei vergleken warrt un dorwegen as een groot Infögen oder Wegmaak "
+"opdukt."
+
+#: dialogpages/diffpage.cpp:244
+#, fuzzy, kde-format
+#| msgid "&Look for smaller changes"
+msgctxt "@option:check"
+msgid "&Look for smaller changes"
+msgstr "Na &lüttst Sett vun Ännern söken"
+
+#: dialogpages/diffpage.cpp:245
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -d diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -d diff option."
+msgstr "Dit is liek as de Optschoon \"-d\" vun \"diff\"."
+
+#: dialogpages/diffpage.cpp:246
+#, fuzzy, kde-format
+#| msgid ""
+#| "With this option enabled diff will try a little harder (at the cost of "
+#| "more memory) to find fewer changes."
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will try a little harder (at the cost of more "
+"memory) to find fewer changes."
+msgstr ""
+"Is dit anmaakt, versöcht \"diff\" dat wat stärker, dat sik weniger "
+"Verschelen finnen doot, man dat köst mehr Spieker."
+
+#: dialogpages/diffpage.cpp:248
+#, fuzzy, kde-format
+#| msgid "O&ptimize for large files"
+msgctxt "@option:check"
+msgid "O&ptimize for large files"
+msgstr "För grote Dateien &topassen"
+
+#: dialogpages/diffpage.cpp:249
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -H diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -H diff option."
+msgstr "Dit is liek as de Optschoon \"-H\" vun \"diff\"."
+
+#: dialogpages/diffpage.cpp:250
+#, fuzzy, kde-format
+#| msgid ""
+#| "This option lets diff makes better diffs when using large files. The "
+#| "definition of large is nowhere to be found though."
+msgctxt "@info:whatsthis"
+msgid ""
+"This option lets diff makes better diffs when using large files. The "
+"definition of large is nowhere to be found though."
+msgstr ""
+"Mit disse Optschoon maakt \"diff\" bi groot Dateien beter Diffs. Man nüms "
+"weet, wat »groot« nu nau heten deit."
+
+#: dialogpages/diffpage.cpp:252
+#, fuzzy, kde-format
+#| msgid "&Ignore changes in case"
+msgctxt "@option:check"
+msgid "&Ignore changes in case"
+msgstr "Ännern vun Groot-/Lüttschrieven ö&vergahn"
+
+#: dialogpages/diffpage.cpp:253
+#, fuzzy, kde-format
+#| msgid "This corresponds to the -i diff option."
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -i diff option."
+msgstr "Dit is liek as de Optschoon \"-i\" vun \"diff\"."
+
+#: dialogpages/diffpage.cpp:254
+#, fuzzy, kde-format
+#| msgid ""
+#| "With this option to ignore changes in case enabled, diff will not "
+#| "indicate a difference when something in one file is changed into "
+#| "SoMEthing in the other file."
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option to ignore changes in case enabled, diff will not indicate a "
+"difference when something in one file is changed into SoMEthing in the other "
+"file."
+msgstr ""
+"Mit disse Optschoon kiekt \"diff\" nich op Groot- un Lüttschrieven; »GROOT« "
+"binnen de een un »groot« binnen de anner Datei gellt denn as liek."
+
+#: dialogpages/diffpage.cpp:262
+#, fuzzy, kde-format
+#| msgid "Ignore regexp:"
+msgctxt "@option:check"
+msgid "Ignore regexp:"
+msgstr "Reguleer Utdruck för't Övergahn:"
+
+#: dialogpages/diffpage.cpp:263
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -I diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -I diff option."
+msgstr "Dit is liek as de Optschoon \"-I\" vun \"diff\"."
+
+#: dialogpages/diffpage.cpp:264
+#, fuzzy, kde-format
+#| msgid ""
+#| "When this checkbox is enabled, an option to diff is given that will make "
+#| "diff ignore lines that match the regular expression."
+msgctxt "@info:whatsthis"
+msgid ""
+"When this checkbox is enabled, an option to diff is given that will make "
+"diff ignore lines that match the regular expression."
+msgstr ""
+"Is dit anmaakt, övergeiht \"diff\" Regen, op de disse regulere Utdruck passt."
+
+#: dialogpages/diffpage.cpp:268
+#, fuzzy, kde-format
+#| msgid ""
+#| "Add the regular expression here that you want to use\n"
+#| "to ignore lines that match it."
+msgctxt "@info:tooltip"
+msgid ""
+"Add the regular expression here that you want to use\n"
+"to ignore lines that match it."
+msgstr ""
+"Föög hier den reguleren Utdruck in, mit den Du de Regen\n"
+"övergahn kannst, op de he passt."
+
+#: dialogpages/diffpage.cpp:274
+#, fuzzy, kde-format
+#| msgid "Whitespace"
+msgctxt "@title:group"
+msgid "Whitespace"
+msgstr "Freetekens"
+
+#: dialogpages/diffpage.cpp:276
+#, fuzzy, kde-format
+#| msgid "E&xpand tabs to spaces in output"
+msgctxt "@option:check"
+msgid "E&xpand tabs to spaces in output"
+msgstr "För de Utgaav Tabulator- na Freetekens ü&mwanneln"
+
+#: dialogpages/diffpage.cpp:277
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -t diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -t diff option."
+msgstr "Dit is liek as de Optschoon \"-t\" vun \"diff\"."
+
+#: dialogpages/diffpage.cpp:278
+#, fuzzy, kde-format
+#| msgid ""
+#| "This option does not always produce the right result. Due to this "
+#| "expansion Kompare may have problems applying the change to the "
+#| "destination file."
+msgctxt "@info:whatsthis"
+msgid ""
+"This option does not always produce the right result. Due to this expansion "
+"Kompare may have problems applying the change to the destination file."
+msgstr ""
+"Mit disse Optschoon is dat Resultaat nich jümmers richtig. Mit disse "
+"Verweidern mag Kompare Problemen bi't Bruken vun de Ännern för de Teeldatei "
+"hebben."
+
+#: dialogpages/diffpage.cpp:280
+#, fuzzy, kde-format
+#| msgid "I&gnore added or removed empty lines"
+msgctxt "@option:check"
+msgid "I&gnore added or removed empty lines"
+msgstr "Toföögte oder wegdaan leddige Regen över&gahn"
+
+#: dialogpages/diffpage.cpp:281
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -B diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -B diff option."
+msgstr "Dit is liek as de Optschoon \"-B\" vun \"diff\"."
+
+#: dialogpages/diffpage.cpp:282
+#, fuzzy, kde-format
+#| msgid ""
+#| "This can be very useful in situations where code has been reorganized and "
+#| "empty lines have been added or removed to improve legibility."
+msgctxt "@info:whatsthis"
+msgid ""
+"This can be very useful in situations where code has been reorganized and "
+"empty lines have been added or removed to improve legibility."
+msgstr ""
+"Dit is bannig goot, wenn Kode nieg organiseert wöör un leddig Regen vun "
+"wegen de Leesborkeit toföögt oder wegmaakt wöörn."
+
+#: dialogpages/diffpage.cpp:284
+#, fuzzy, kde-format
+#| msgid "Ig&nore changes in the amount of whitespace"
+msgctxt "@option:check"
+msgid "Ig&nore changes in the amount of whitespace"
+msgstr "Ännern vun de Tall vun Freetekens över&gahn"
+
+#: dialogpages/diffpage.cpp:285
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -b diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -b diff option."
+msgstr "Dit is liek as de Optschoon \"-b\" vun \"diff\"."
+
+#: dialogpages/diffpage.cpp:286
+#, fuzzy, kde-format
+#| msgid ""
+#| "If you are uninterested in differences arising due to, for example, "
+#| "changes in indentation, then use this option."
+msgctxt "@info:whatsthis"
+msgid ""
+"If you are uninterested in differences arising due to, for example, changes "
+"in indentation, then use this option."
+msgstr ""
+"Bruuk disse Opstchoon, wenn Du keen Vermaak hest an de Ännern bi a.B. de "
+"Inrücken."
+
+#: dialogpages/diffpage.cpp:288
+#, fuzzy, kde-format
+#| msgid "Ign&ore all whitespace"
+msgctxt "@option:check"
+msgid "Ign&ore all whitespace"
+msgstr "All Freetekens över&gahn"
+
+#: dialogpages/diffpage.cpp:289
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -w diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -w diff option."
+msgstr "Dit is liek as de Optschoon \"-w\" vun \"diff\"."
+
+#: dialogpages/diffpage.cpp:290
+#, fuzzy, kde-format
+#| msgid ""
+#| "This is useful for seeing the significant changes without being "
+#| "overwhelmed by all the white space changes."
+msgctxt "@info:whatsthis"
+msgid ""
+"This is useful for seeing the significant changes without being overwhelmed "
+"by all the white space changes."
+msgstr ""
+"Mit disse Optschoon kannst Du beter bekieken, wat sik redig ännert hett, un "
+"bruukst Di nich üm ännert Freerüüm quälen."
+
+#: dialogpages/diffpage.cpp:292
+#, fuzzy, kde-format
+#| msgid "Igno&re changes due to tab expansion"
+msgctxt "@option:check"
+msgid "Igno&re changes due to tab expansion"
+msgstr "Ännern dör Tabulator-Ümwanneln ö&vergahn"
+
+#: dialogpages/diffpage.cpp:293
+#, fuzzy, kde-format
+#| msgid "This option corresponds to the -E diff option."
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -E diff option."
+msgstr "Dit is liek as de Optschoon \"-E\" vun \"diff\"."
+
+#: dialogpages/diffpage.cpp:294
+#, fuzzy, kde-format
+#| msgid ""
+#| "If there is a change because tabs have been expanded into spaces in the "
+#| "other file, then this option will make sure that these do not show up. "
+#| "Kompare currently has some problems applying such changes so be careful "
+#| "when you use this option."
+msgctxt "@info:whatsthis"
+msgid ""
+"If there is a change because tabs have been expanded into spaces in the "
+"other file, then this option will make sure that these do not show up. "
+"Kompare currently has some problems applying such changes so be careful when "
+"you use this option."
+msgstr ""
+"Gifft dat Ännern, bi de Tab- to Freetekens ännert wöörn, warrt disse Ännern "
+"mit disse Optschoon nich wiest. Kompare hett opstunns Problemen bi't Bruken "
+"vun disse Ännern, wees also man vörsichtig mit disse Optschoon."
+
+#: dialogpages/diffpage.cpp:299
+#, fuzzy, kde-format
+#| msgid "Options"
+msgctxt "@title:tab"
+msgid "Options"
+msgstr "Optschonen"
+
+#: dialogpages/diffpage.cpp:311
+#, fuzzy, kde-format
+#| msgid "File Pattern to Exclude"
+msgctxt "@title:group"
+msgid "File Pattern to Exclude"
+msgstr "Dateimuster för't Utsluten"
+
+#: dialogpages/diffpage.cpp:312
+#, fuzzy, kde-format
+#| msgid ""
+#| "If this is checked you can enter a shell pattern in the text box on the "
+#| "right or select entries from the list."
+msgctxt "@info:tooltip"
+msgid ""
+"If this is checked you can enter a shell pattern in the text box on the "
+"right or select entries from the list."
+msgstr ""
+"Wenn dit aktiveert is, kannst Du en Konsool-Dateimuster in't Textfeld "
+"rechterhand ingeven, oder Indrääg ut de List utsöken."
+
+#: dialogpages/diffpage.cpp:318
+#, fuzzy, kde-format
+#| msgid ""
+#| "Here you can enter or remove a shell pattern or select one or more "
+#| "entries from the list."
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter or remove a shell pattern or select one or more entries "
+"from the list."
+msgstr ""
+"Hier kannst Du Konsool-Dateimustern ingeven oder wegmaken, oder een oder "
+"mehr Indrääg ut de List utsöken."
+
+#: dialogpages/diffpage.cpp:328
+#, fuzzy, kde-format
+#| msgid "File with Filenames to Exclude"
+msgctxt "@title:group"
+msgid "File with Filenames to Exclude"
+msgstr "Datei mit Dateinaams för't Utsluten"
+
+#: dialogpages/diffpage.cpp:329
+#, fuzzy, kde-format
+#| msgid "If this is checked you can enter a filename in the combo box below."
+msgctxt "@info:tooltip"
+msgid "If this is checked you can enter a filename in the combo box below."
+msgstr ""
+"Wenn dit aktiveert is, kannst Du en Dateinaam in't Utsöökfeld nerrn ingeven."
+
+#: dialogpages/diffpage.cpp:333
+#, fuzzy, kde-format
+#| msgid ""
+#| "Here you can enter the URL of a file with shell patterns to ignore during "
+#| "the comparison of the folders."
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter the URL of a file with shell patterns to ignore during "
+"the comparison of the folders."
+msgstr ""
+"Hier kannst Du de Adress vun en Datei mit Konsool-Dateimustern ingeven, de "
+"bi't Verglieken vun de Ornern övergahn warrn schöölt."
+
+#: dialogpages/diffpage.cpp:337
+#, fuzzy, kde-format
+#| msgid ""
+#| "Any file you select in the dialog that pops up when you click it will be "
+#| "put in the dialog to the left of this button."
+msgctxt "@info:tooltip"
+msgid ""
+"Any file you select in the dialog that pops up when you click it will be put "
+"in the dialog to the left of this button."
+msgstr ""
+"Elk Datei, de Du binnen den Dialoog utsöchst, de bi't Anklicken opdukt, "
+"warrt na den Dialoog linkerhand vun dissen Knoop toföögt."
+
+#: dialogpages/diffpage.cpp:344
+#, fuzzy, kde-format
+#| msgid "Exclude"
+msgctxt "@title:tab"
+msgid "Exclude"
+msgstr "Utsluten"
+
+#: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
+#, fuzzy, kde-format
+#| msgid "N&ext File"
+msgctxt "@info:tooltip"
+msgid "Select file"
+msgstr "&Nakamen Datei"
+
+#: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@info:tooltip"
+msgid "Select folder"
+msgstr "Bornorner"
+
+#: dialogpages/filespage.cpp:87
+#, fuzzy, kde-format
+#| msgid "Encoding"
+msgctxt "@title:group"
+msgid "Encoding"
+msgstr "Koderen"
+
+#: dialogpages/filespage.cpp:92
+#, kde-format
+msgctxt "@item:inlistbox encoding"
+msgid "Default"
+msgstr ""
+
+#: dialogpages/filespage.cpp:126
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr "Bornorner"
+
+#: dialogpages/filespage.cpp:130
+#, fuzzy, kde-format
+#| msgid "N&ext File"
+msgctxt "@title:window"
+msgid "Select File"
+msgstr "&Nakamen Datei"
+
+#: dialogpages/viewpage.cpp:44
+#, fuzzy, kde-format
+#| msgid "Colors"
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "Klören"
+
+#: dialogpages/viewpage.cpp:50
+#, fuzzy, kde-format
+#| msgid "Removed color:"
+msgctxt "@label:chooser"
+msgid "Removed color:"
+msgstr "Wegdaan Regen:"
+
+#: dialogpages/viewpage.cpp:54
+#, fuzzy, kde-format
+#| msgid "Changed color:"
+msgctxt "@label:chooser"
+msgid "Changed color:"
+msgstr "Ännerte Regen:"
+
+#: dialogpages/viewpage.cpp:58
+#, fuzzy, kde-format
+#| msgid "Added color:"
+msgctxt "@label:chooser"
+msgid "Added color:"
+msgstr "Toföögte Regen:"
+
+#: dialogpages/viewpage.cpp:62
+#, fuzzy, kde-format
+#| msgid "Applied color:"
+msgctxt "@label:chooser"
+msgid "Applied color:"
+msgstr "Övernahmen Regen:"
+
+#: dialogpages/viewpage.cpp:66
+#, fuzzy, kde-format
+#| msgid "Mouse Wheel"
+msgctxt "@title:group"
+msgid "Mouse Wheel"
+msgstr "Muusrad"
+
+#: dialogpages/viewpage.cpp:72
+#, fuzzy, kde-format
+#| msgid "Number of lines:"
+msgctxt "@label:spinbox"
+msgid "Number of lines:"
+msgstr "Reegtall:"
+
+#: dialogpages/viewpage.cpp:77
+#, fuzzy, kde-format
+#| msgid "Tabs to Spaces"
+msgctxt "@title:group"
+msgid "Tabs to Spaces"
+msgstr "Tabulatoren na Freetekens ümwanneln"
+
+#: dialogpages/viewpage.cpp:83
+#, fuzzy, kde-format
+#| msgid "Number of spaces to convert a tab character to:"
+msgctxt "@label:spinbox"
+msgid "Number of spaces to convert a tab character to:"
+msgstr "Freetekens, de för een Tabulator inwesselt warrt:"
+
+#: dialogpages/viewpage.cpp:94
+#, fuzzy, kde-format
+#| msgid "Text Font"
+msgctxt "@title:group"
+msgid "Text Font"
+msgstr "Text-Schriftoort"
+
+#: dialogpages/viewpage.cpp:98
+#, fuzzy, kde-format
+#| msgid "Font:"
+msgctxt "@label:listbox"
+msgid "Font:"
+msgstr "Schriftoort:"
+
+#: dialogpages/viewpage.cpp:103
+#, fuzzy, kde-format
+#| msgid "Size:"
+msgctxt "@label:spinbox"
+msgid "Size:"
+msgstr "Grött:"
+
+#: dialogpages/viewpage.cpp:107
+#, fuzzy, kde-format
+#| msgid "Fonts"
+msgctxt "@title:tab"
+msgid "Fonts"
+msgstr "Schriftoorden"
+
+#: komparenavtreepart/komparenavtreepart.cpp:55
+#, fuzzy, kde-format
+#| msgid "Source Folder"
+msgctxt "@title:column"
+msgid "Source Folder"
+msgstr "Bornorner"
+
+#: komparenavtreepart/komparenavtreepart.cpp:61
+#, fuzzy, kde-format
+#| msgid "Destination Folder"
+msgctxt "@title:column"
+msgid "Destination Folder"
+msgstr "Teelorner"
+
+#: komparenavtreepart/komparenavtreepart.cpp:68
+#, fuzzy, kde-format
+#| msgid "Source File"
+msgctxt "@title:column"
+msgid "Source File"
+msgstr "Borndatei"
+
+#: komparenavtreepart/komparenavtreepart.cpp:69
+#, fuzzy, kde-format
+#| msgid "Destination File"
+msgctxt "@title:column"
+msgid "Destination File"
+msgstr "Teeldatei"
+
+#: komparenavtreepart/komparenavtreepart.cpp:78
+#, fuzzy, kde-format
+#| msgid "Source Line"
+msgctxt "@title:column"
+msgid "Source Line"
+msgstr "Borntextreeg"
+
+#: komparenavtreepart/komparenavtreepart.cpp:79
+#, fuzzy, kde-format
+#| msgid "Destination Line"
+msgctxt "@title:column"
+msgid "Destination Line"
+msgstr "Teeltextreeg"
+
+#: komparenavtreepart/komparenavtreepart.cpp:80
+#, fuzzy, kde-format
+#| msgid "Difference"
+msgctxt "@title:column"
+msgid "Difference"
+msgstr "Verscheel"
+
+#: komparenavtreepart/komparenavtreepart.cpp:455
+#, fuzzy, kde-format
+#| msgid "Applied: Changes made to %1 line undone"
+#| msgid_plural "Applied: Changes made to  %1 lines undone"
+msgid "Applied: Changes made to %1 line undone"
+msgid_plural "Applied: Changes made to %1 lines undone"
+msgstr[0] "Anwendt: Ännern an %1 Reeg torüchnahmen"
+msgstr[1] "Anwendt: Ännern an %1 Regen torüchnahmen"
+
+#: komparenavtreepart/komparenavtreepart.cpp:458
+#, kde-format
+msgid "Changed %1 line"
+msgid_plural "Changed %1 lines"
+msgstr[0] "%1 Reeg ännert"
+msgstr[1] "%1 Regen ännert"
+
+#: komparenavtreepart/komparenavtreepart.cpp:463
+#, kde-format
+msgid "Applied: Insertion of %1 line undone"
+msgid_plural "Applied: Insertion of %1 lines undone"
+msgstr[0] "Anwendt: Infögen vun %1 Reeg torüchnahmen"
+msgstr[1] "Anwendt: Infögen vun %1 Regen torüchnahmen"
+
+#: komparenavtreepart/komparenavtreepart.cpp:466
+#, kde-format
+msgid "Inserted %1 line"
+msgid_plural "Inserted %1 lines"
+msgstr[0] "%1 Reeg toföögt"
+msgstr[1] "%1 Regen toföögt"
+
+#: komparenavtreepart/komparenavtreepart.cpp:471
+#, kde-format
+msgid "Applied: Deletion of %1 line undone"
+msgid_plural "Applied: Deletion of %1 lines undone"
+msgstr[0] "Anwendt: Wegdoon vun %1 Reeg torüchnahmen"
+msgstr[1] "Anwendt: Wegdoon vun %1 Regen torüchnahmen"
+
+#: komparenavtreepart/komparenavtreepart.cpp:474
+#, kde-format
+msgid "Deleted %1 line"
+msgid_plural "Deleted %1 lines"
+msgstr[0] "%1 Reeg wegdaan"
+msgstr[1] "%1 Regen wegdaan"
+
+#: komparenavtreepart/komparenavtreepart.cpp:628
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "@item directory name not known"
+msgid "Unknown"
+msgstr "Nich begäng"
+
+#: komparepart/kompare_part.cpp:179
+#, fuzzy, kde-format
+#| msgid "Save &All"
+msgctxt "@action"
+msgid "Save &All"
+msgstr "&All sekern"
+
+#: komparepart/kompare_part.cpp:181
+#, fuzzy, kde-format
+#| msgid "Save &Diff..."
+msgctxt "@action"
+msgid "Save &Diff..."
+msgstr "Verscheel-&Datei sekern..."
+
+#: komparepart/kompare_part.cpp:183
+#, fuzzy, kde-format
+#| msgid "Swap Source with Destination"
+msgctxt "@action"
+msgid "Swap Source with Destination"
+msgstr "Born un Teel tuschen"
+
+#: komparepart/kompare_part.cpp:190
+#, fuzzy, kde-format
+#| msgid "Show Statistics"
+msgctxt "@action"
+msgid "Show Statistics"
+msgstr "Statistik wiesen"
+
+#: komparepart/kompare_part.cpp:193
+#, fuzzy, kde-format
+#| msgid "Refresh Diff"
+msgctxt "@action"
+msgid "Refresh Diff"
+msgstr "Verscheel opfrischen"
+
+#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#, kde-format
+msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
+msgstr "<qt>De URL <b>%1</b> lett sik nich daalladen.</qt>"
+
+#: komparepart/kompare_part.cpp:356
+#, kde-format
+msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
+msgstr "<qt>De URL <b>%1</b> gifft dat op Dien Systeem nich.</qt>"
+
+#: komparepart/kompare_part.cpp:544
+#, fuzzy, kde-format
+#| msgid "Diff Options"
+msgctxt "@title:window"
+msgid "Diff Options"
+msgstr "Verscheel-Optschonen"
+
+#: komparepart/kompare_part.cpp:565
+#, fuzzy, kde-format
+#| msgid "Save .diff"
+msgctxt "@title:window"
+msgid "Save .diff"
+msgstr "\".diff\"-Datei sekern"
+
+#: komparepart/kompare_part.cpp:567
+#, fuzzy, kde-format
+#| msgid "*.diff *.dif *.patch|Patch Files"
+msgid "Patch Files (*.diff *.dif *.patch)"
+msgstr "*.diff *.dif *.patch|Kodeplaster-Dateien"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgid "The file exists or is write-protected; do you want to overwrite it?"
+msgstr ""
+"De Datei gifft dat al, oder se is schrievschuult; wullt Du ehr överschrieven?"
+
+#: komparepart/kompare_part.cpp:569
+#, fuzzy, kde-format
+#| msgid "File Exists"
+msgctxt "@window:title"
+msgid "File Exists"
+msgstr "Gifft Datei al"
+
+#: komparepart/kompare_part.cpp:569
+#, fuzzy, kde-format
+#| msgid "Do Not Overwrite"
+msgctxt "@action:button"
+msgid "Do Not Overwrite"
+msgstr "Nich överschrieven"
+
+#: komparepart/kompare_part.cpp:653
+#, fuzzy, kde-format
+#| msgid "Running diff..."
+msgctxt "@info:status"
+msgid "Running diff..."
+msgstr "\"Diff\" löppt..."
+
+#: komparepart/kompare_part.cpp:656
+#, fuzzy, kde-format
+#| msgid "Parsing diff output..."
+msgctxt "@info:status"
+msgid "Parsing diff output..."
+msgstr "Utgaav vun \"diff\" warrt inleest..."
+
+#: komparepart/kompare_part.cpp:712
+#, fuzzy, kde-format
+#| msgid "Comparing file %1 with file %2"
+msgctxt "@info:status"
+msgid "Comparing file %1 with file %2"
+msgstr "An't Verglieken vun Datei \"%1\" mit Datei \"%2\""
+
+#: komparepart/kompare_part.cpp:717
+#, fuzzy, kde-format
+#| msgid "Comparing files in %1 with files in %2"
+msgctxt "@info:status"
+msgid "Comparing files in %1 with files in %2"
+msgstr ""
+"An't Verglieken vun de Dateien binnen \"%1\" mit de Dateien binnen \"%2\""
+
+#: komparepart/kompare_part.cpp:722
+#, fuzzy, kde-format
+#| msgid "Viewing diff output from %1"
+msgctxt "@info:status"
+msgid "Viewing diff output from %1"
+msgstr "Utgaav vun \"diff\" för \"%1\""
+
+#: komparepart/kompare_part.cpp:725
+#, fuzzy, kde-format
+#| msgid "Blending diff output from %1 into file %2"
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into file %2"
+msgstr "De Verscheel-Utgaav för \"%1\" warrt na Datei \"%2\" tomischt"
+
+#: komparepart/kompare_part.cpp:730
+#, fuzzy, kde-format
+#| msgid "Blending diff output from %1 into folder %2"
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into folder %2"
+msgstr "De Verscheel-Utgaav för \"%1\" warrt na Orner \"%2\" tomischt"
+
+#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
+#: komparepart/kompare_part.cpp:927
+#, kde-format
+msgid ""
+"You have made changes to the destination file(s).\n"
+"Would you like to save them?"
+msgstr ""
+"Du hest de Teeldatei(en) ännert.\n"
+"Wullt Du ehr sekern?"
+
+#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
+#: komparepart/kompare_part.cpp:929
+#, fuzzy, kde-format
+#| msgid "Save Changes?"
+msgctxt "@title:window"
+msgid "Save Changes?"
+msgstr "Ännern sekern?"
+
+#: komparepart/kompare_part.cpp:852
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgctxt "@item diff format"
+msgid "Unified"
+msgstr "Liekmaakt"
+
+#: komparepart/kompare_part.cpp:855
+#, fuzzy, kde-format
+#| msgid "Context"
+msgctxt "@item diff format"
+msgid "Context"
+msgstr "Kontext"
+
+#: komparepart/kompare_part.cpp:858
+#, fuzzy, kde-format
+#| msgid "RCS"
+msgctxt "@item diff format"
+msgid "RCS"
+msgstr "RCS"
+
+#: komparepart/kompare_part.cpp:861
+#, fuzzy, kde-format
+#| msgid "Ed"
+msgctxt "@item diff format"
+msgid "Ed"
+msgstr "Ed-Skript"
+
+#: komparepart/kompare_part.cpp:864
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgctxt "@item diff format"
+msgid "Normal"
+msgstr "Normaal"
+
+#: komparepart/kompare_part.cpp:868
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "@item diff format"
+msgid "Unknown"
+msgstr "Nich begäng"
+
+#: komparepart/kompare_part.cpp:884
+#, kde-format
+msgid ""
+"No diff file, or no 2 files have been diffed. Therefore no stats are "
+"available."
+msgstr ""
+"Keen Statistik verföögbor, wiel dat keen Verscheel-Datei is oder de "
+"Verschelen nich ut twee Dateien kummt."
+
+#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:916
+#, fuzzy, kde-format
+#| msgid "Diff Statistics"
+msgctxt "@title:window"
+msgid "Diff Statistics"
+msgstr "Diff-Statistik"
+
+#: komparepart/kompare_part.cpp:890
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Old file: %1\n"
+"New file: %2\n"
+"\n"
+"Format: %3\n"
+"Number of hunks: %4\n"
+"Number of differences: %5"
+msgstr ""
+"Statistik:\n"
+"\n"
+"Ole Datei: %1\n"
+"Niege Datei: %2\n"
+"\n"
+"Formaat: %3\n"
+"Tall vun Stücken: %4\n"
+"Tall vun Verschelen: %5"
+
+#: komparepart/kompare_part.cpp:903
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Number of files in diff file: %1\n"
+"Format: %2\n"
+"\n"
+"Current old file: %3\n"
+"Current new file: %4\n"
+"\n"
+"Number of hunks: %5\n"
+"Number of differences: %6"
+msgstr ""
+"Statistik:\n"
+"\n"
+"Dateien binnen Verscheel-Datei: %1\n"
+"Formaat: %2\n"
+"\n"
+"Aktuelle ole Datei: %3\n"
+"Aktuelle niege Datei: %4\n"
+"\n"
+"Stücken: %5\n"
+"Verschelen: %6"
+
+#. i18n: ectx: Menu (difference)
+#: komparepart/komparepartui.rc:17
+#, kde-format
+msgid "&Difference"
+msgstr "&Verscheel"
+
+#: komparepart/kompareprefdlg.cpp:26
+#, fuzzy, kde-format
+#| msgid "Preferences"
+msgctxt "@title:window"
+msgid "Preferences"
+msgstr "Instellen"
+
+#: komparepart/kompareprefdlg.cpp:36
+#, fuzzy, kde-format
+#| msgid "View"
+msgctxt "@title:tab"
+msgid "View"
+msgstr "Ansicht"
+
+#: komparepart/kompareprefdlg.cpp:38
+#, fuzzy, kde-format
+#| msgid "View Settings"
+msgctxt "@title"
+msgid "View Settings"
+msgstr "Ansicht-Instellen"
+
+#: komparepart/kompareprefdlg.cpp:44
+#, fuzzy, kde-format
+#| msgid "Diff Settings"
+msgctxt "@title"
+msgid "Diff Settings"
+msgstr "Verscheel-Instellen"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
+#: komparepart/komparesaveoptionsbase.ui:29
+#, kde-format
+msgid "Format"
+msgstr "Formaat"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
+#: komparepart/komparesaveoptionsbase.ui:35
+#, fuzzy, kde-format
+#| msgid "Context"
+msgid "&Context"
+msgstr "Kontext"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
+#: komparepart/komparesaveoptionsbase.ui:42
+#, kde-format
+msgid "Ed"
+msgstr "Ed-Skript"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
+#: komparepart/komparesaveoptionsbase.ui:49
+#, fuzzy, kde-format
+#| msgid "Normal"
+msgid "&Normal"
+msgstr "Normaal"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
+#: komparepart/komparesaveoptionsbase.ui:56
+#, kde-format
+msgid "RCS"
+msgstr "RCS"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
+#: komparepart/komparesaveoptionsbase.ui:63
+#, fuzzy, kde-format
+#| msgid "Unified"
+msgid "&Unified"
+msgstr "Liekmaakt"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
+#: komparepart/komparesaveoptionsbase.ui:73
+#, fuzzy, kde-format
+#| msgid "Side-by-side"
+msgid "&Side-by-side"
+msgstr "Blangenanner"
+
+#. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
+#: komparepart/komparesaveoptionsbase.ui:85
+#, kde-format
+msgid "Number of context lines:"
+msgstr "Tall vun Kontextregen:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
+#: komparepart/komparesaveoptionsbase.ui:126
+#, kde-format
+msgid "Options"
+msgstr "Optschonen"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_SmallerChangesCB)
+#: komparepart/komparesaveoptionsbase.ui:132
+#, kde-format
+msgid "Look for smaller changes"
+msgstr "Na lüttst Sett vun Ännern söken"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:142
+#, kde-format
+msgid "Optimize for large files"
+msgstr "För grote Dateien topassen"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
+#: komparepart/komparesaveoptionsbase.ui:152
+#, kde-format
+msgid "Ignore changes in case"
+msgstr "Ännern vun Groot-/Lüttschrieven övergahn"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
+#: komparepart/komparesaveoptionsbase.ui:159
+#, kde-format
+msgid "Expand tabs to spaces"
+msgstr "Tabulator- na Freetekens ümwanneln"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
+#: komparepart/komparesaveoptionsbase.ui:166
+#, kde-format
+msgid "Ignore added or removed empty lines"
+msgstr "Toföögte oder wegdaan leddige Regen övergahn"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
+#: komparepart/komparesaveoptionsbase.ui:173
+#, kde-format
+msgid "Ignore changes in whitespace"
+msgstr "Freetekenännern övergahn"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
+#: komparepart/komparesaveoptionsbase.ui:180
+#, kde-format
+msgid "Show function names"
+msgstr "Funkschoonnaams wiesen"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
+#: komparepart/komparesaveoptionsbase.ui:190
+#, kde-format
+msgid "Compare folders recursively"
+msgstr "Ok all Ünnerornern verglieken"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:200
+#, kde-format
+msgid "Treat new files as empty"
+msgstr "Niege Dateien as leddig behanneln"
+
+#. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
+#: komparepart/komparesaveoptionsbase.ui:222
+#, kde-format
+msgid "Run Diff In"
+msgstr "\"diff\" starten in"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
+#: komparepart/komparesaveoptionsbase.ui:247
+#, kde-format
+msgid "Command Line"
+msgstr "Befehlsreeg"
+
+#. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
+#: komparepart/komparesaveoptionsbase.ui:256
+#, kde-format
+msgid "cd dir && diff -udHprNa -- source destination"
+msgstr "cd dir && diff -udHprNa -- Born Teel"
+
+#~ msgid "KompareNavTreePart"
+#~ msgstr "KompareNavTreePart"
+
+#~ msgid "KomparePart"
+#~ msgstr "KomparePart"
+
+#, fuzzy
+#~| msgid "&Edit..."
+#~ msgctxt "@action:button"
+#~ msgid "&Edit..."
+#~ msgstr "&Bewerken..."
+
+#, fuzzy
+#~| msgid ""
+#~| "Clicking this will open a regular expression dialog where\n"
+#~| "you can graphically create regular expressions."
+#~ msgctxt "@info:tooltip"
+#~ msgid ""
+#~ "Clicking this will open a regular expression dialog where\n"
+#~ "you can graphically create regular expressions."
+#~ msgstr ""
+#~ "Wenn Du hier klickst, dukt en Dialoog op, binnen den Du\n"
+#~ "reguleer Utdrück graafsch opstellen kannst."
+
+#~ msgid "Overwrite"
+#~ msgstr "Överschrieven"
+
+#~ msgid "Compare these files or folder"
+#~ msgstr "Disse Dateien oder Ornern verglieken"
+
+#~ msgid "&Apply Difference"
+#~ msgstr "Verscheel &anwennen"
+
+#~ msgid "Un&apply Difference"
+#~ msgstr "Verscheel &torüchnehmen"
+
+#~ msgid "App&ly All"
+#~ msgstr "All a&nwennen"
+
+#~ msgid "&Unapply All"
+#~ msgstr "All Ännern &torüchnehmen"
+
+#~ msgid "P&revious File"
+#~ msgstr "&Verleden Datei"
+
+#~ msgid "&Previous Difference"
+#~ msgstr "&Verleden Verscheel"
+
+#~ msgid "&Next Difference"
+#~ msgstr "&Nakamen Verscheel"
+
+#~ msgid ""
+#~ "<qt>No models or no differences, this file: <b>%1</b>, is not a valid "
+#~ "diff file.</qt>"
+#~ msgstr ""
+#~ "<qt>Keen Modellen oder keen Verschelen. De Datei <b>%1</b> is keen gellen "
+#~ "Verscheeldatei.</qt>"
+
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>."
+#~ "</qt>"
+#~ msgstr ""
+#~ "<qt>Bi't Anwennen vun den Verscheel <b>%1</b> op de Datei <b>%2</b> hett "
+#~ "dat Problemen geven.</qt>"
+
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</"
+#~ "b>.</qt>"
+#~ msgstr ""
+#~ "<qt>Bi't Anwennen vun den Verscheel <b>%1</b> na den Orner <b>%2</b> hett "
+#~ "dat Problemen geven.</qt>"
+
+#~ msgid "Could not open a temporary file."
+#~ msgstr "Temporeerdatei lett sik nich opmaken."
+
+#~ msgid ""
+#~ "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>"
+#~ msgstr ""
+#~ "<qt>Nich mööglich, na de Temporeerdatei <b>%1</b> to schrieven. Se warrt "
+#~ "wegdaan.</qt>"
+
+#~ msgid ""
+#~ "<qt>Could not create destination directory <b>%1</b>.\n"
+#~ "The file has not been saved.</qt>"
+#~ msgstr ""
+#~ "<qt>De Teelorner <b>%1</b> lett sik nich opstellen.\n"
+#~ "De Datei wöör nich sekert.</qt>"
+
+#~ msgid ""
+#~ "<qt>Could not upload the temporary file to the destination location <b>"
+#~ "%1</b>. The temporary file is still available under: <b>%2</b>. You can "
+#~ "manually copy it to the right place.</qt>"
+#~ msgstr ""
+#~ "<qt>De Temporeerdatei lett sik nich na den Teeloort <b>%1</b> hoochladen. "
+#~ "Dat gifft de Temporeerdatei noch ünner <b>%2</b>. Du kannst ehr vun Hand "
+#~ "na de richtige Steed koperen.</qt>"
+
+#~ msgid "Could not parse diff output."
+#~ msgstr "Diff-Utgaav lett sik nich inlesen."
+
+#~ msgid "The files are identical."
+#~ msgstr "De Dateien sünd liek."
+
+#~ msgid "Could not write to the temporary file."
+#~ msgstr "Nich mööglich, na de Temporeerdatei to schrieven."
+
+#~ msgid ""
+#~ "The diff is malformed. Some lines could not be parsed and will not be "
+#~ "displayed in the diff view."
+#~ msgstr ""
+#~ "De Verscheel is leeg. En poor Regen laat sik nich inlesen un warrt in de "
+#~ "Verscheelansicht nich wiest."
+
+#~ msgid "Could not find our KompareViewPart."
+#~ msgstr "Komponent \"KompareViewPart\" lett sik nich finnen."
+
+#~ msgid "Could not find our KompareNavigationPart."
+#~ msgstr "Komponent \"KompareNavigationPart\" lett sik nich finnen."
+
+#~ msgid "A&ppearance"
+#~ msgstr "&Utsehn"
+
+#~ msgid "&Diff"
+#~ msgstr "&Diff"
+
+#~ msgid "&Format"
+#~ msgstr "&Formaat"
+
+#~ msgid "O&ptions"
+#~ msgstr "O&ptschonen"

@@ -1,0 +1,1677 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % Dutch "INCLUDE">
+]>
+
+<book id="kompare" lang="&language;">
+
+<bookinfo>
+ <title
+>Het handboek van &kompare;</title>
+
+ <authorgroup>
+
+<author
+><firstname
+>Sean</firstname
+><surname
+>Wheller</surname
+><email
+>sean@inwords.co.za</email
+></author>
+ &Niels.Reedijk;&Freek.de.Kruijf;&Ronald.Stroethoff; 
+ </authorgroup>
+
+<copyright>
+<year
+>2007</year>
+<holder
+>Sean Wheller</holder>
+</copyright>
+
+ <legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2016-07-05</date>
+<releaseinfo
+>4.1.3 (Applications 16.04)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kompare; is een &GUI; front-end-programma dat het mogelijk maakt om de verschillen tussen bronbestanden te bekijken en samen te voegen. &kompare; kunt u gebruiken om bestanden of de inhoud van mappen te vergelijken op verschillen. &kompare; ondersteund een aantal verschillende diff formaten en heeft veel verschillende mogelijkheden voor het aanpassen van de hoeveelheid getoonde informatie.</para>
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Kompare</keyword>
+<keyword
+>Diff</keyword>
+<keyword
+>Samenvoegen</keyword>
+<keyword
+>Patch</keyword>
+<keyword
+>Brok (hunk)</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inleiding</title
+> 
+
+<para
+>Als twee of meer mensen een bestand bewerken en deze heen en weer versturen, dan is het vaak moeilijk om de verschillen tussen de verschillende versies te zien. Het openen van een nieuw kopie en het origineel naast elkaar in het gebruikte programma is een oplossing maar, bewerkelijk, tijdrovend, en gevoelig voor fouten. In deze situatie is een programma voor het tonen van de verschillen (afgekort diffs) er handig.</para>
+
+<para
+>Zoals te verwachten viel, is <quote
+>diff</quote
+> een toepasselijke naam voor een dergelijk programma. Het programma <ulink url="https://www.gnu.org/software/diffutils/"
+>diff</ulink
+> is op de meeste op &Linux; gebaseerde systemen geïnstalleerd om voor dit doel te kunnen gebruiken. Ontwikkelaars gebruiken vaak diff, als een commandoregel hulpmiddel, om de verschillen tussen meerdere versies van een broncode-bestand te kunnen zien. Maar, het gebruik van diff is niet beperkt tot het tonen van verschillen in broncode-bestanden, u kunt het gebruiken bij veel soorten tekstbestanden.</para>
+
+<para
+>Het gebruik van diff vanaf de commandoregel kan verwarrend zijn, de diff commando syntax leren en de uitkomst ontcijferen zal voor de meeste mensen verwarrend zijn. Dit is waar &kompare; van pas komt. Het geeft een grafisch front-end aan het diff programma, het interface toont bron-bestand en doel-bestand naast elkaar met alle verschillen automatisch gemarkeerd. Met dit als uitgangspunt, kunt u vervolgens wijzigingen in het ene bestand op een gecontroleerde manier in het andere bestand doorvoeren. U hoeft niet alle wijzigingen toe te passen en als u een wijziging toepast dan kunt u het altijd weer &apos;niet toegepast&apos; maken. Als alle verlangde wijzigingen zijn toegepast dan kunt u het resultaat opslaan en zijn ze in het originele bestand normaal te zien.</para>
+
+<para
+>Naast het tonen van verschillen tussen een bronbestand en een doelbestand, kunt u &kompare; ook gebruiken om een speciaal bestand genaamd &apos;diff&apos; te creëren en te bekijken. Dit bestand vat de verschillen tussen de twee bronnen samen in een enkel bestand dat u kunt gebruiken om de wijzigingen te bekijken en toe te passen op elk ander kopie van het bestand. Bijvoorbeeld, als twee mensen een document bewerken. De eerste persoon wil wijzigingen maken en verstuurt alleen de wijzigingen naar de tweede persoon. Normaal gesproken verstuurt de eerste persoon een complete kopie van het gewijzigde document naar de tweede persoon, die dan de gewijzigde en de niet gewijzigde versie met elkaar moet vergelijken. Het proces hiervoor komt veel overeen met wat we in de vorige paragrafen hebben beschreven. Om deze te wijzigen maakt de eerste persoon met &kompare; van het bestand een lokale kopie, maakt vervolgens hierin de wijzigingen en vergelijkt het origineel met de gewijzigde kopie. Door &kompare; te gebruiken is u een diff-bestand te creëren waar alleen de wijzigingen aanwezig zijn. Dit kan naar de tweede persoon verstuurt worden in plaats van het hele bestand waarin de wijzigingen zitten.</para>
+
+<para
+>Door &kompare; te gebruiken kan de tweede persoon het diff bestand bekijken, het met de lokale kopie van het document vergelijken en de wijzigingen toepassen gemaakt door de eerste persoon. Dit proces kan vele versies van de documentatie doorgaan, elk persoon maakt wijzigingen, creëert diffs, distribueert ze en past ze toe. Dit proces wordt meestal <quote
+>patching</quote
+> genoemd, een term dat afkomstig is van het programma <quote
+>patch</quote
+> wat een ander programma voor op de commandoregel is, speciaal ontworpen voor het toepassen van diff-bestanden.</para>
+
+<para
+>Het komt soms voor dat meerdere mensen tegelijk een bestand bewerken. In een dergelijk geval is het waarschijnlijk dat mensen tegelijk wijzigingen in het document aan dezelfde regel aanbrengen. Dit creëert een probleem omdat zonder extra oplettendheid, mensen elkaars werk kunnen overschrijven bij het toepassen van de ontvangen diff-bestanden. Gelukkig hebben de ontwikkelaars van de diff- en patch-programma´s dit in overweging genomen zodat deze programma´s dergelijke wijzigingen niet toestaan zonder handmatige interventie. Als een dergelijk status is bereikt dan is dat bekend als een <quote
+>conflict</quote
+>. &kompare; toont conflicten zodat u deze handmatig kan oplossen, beslissend welke wijzigingen op welke bestanden toegepast moeten worden.</para>
+
+<para
+>&kompare; is ook een geweldig programma voor het vergelijken van bestand-wijzigingen op map-niveau. Bij het gebruik van &kompare; voor het vergelijken van mappen onderzoekt het de submappen en de bestanden daarin voor verschillen. In dit geval, elk bestand waar verschillen zijn gevonden wordt automatisch en de verschillen getoond door &kompare; zodat makkelijke navigatie tussen de verschillende bestanden mogelijk is.</para>
+
+</chapter>
+
+<chapter id="using">
+<title
+>&kompare; gebruiken</title>
+
+<sect1 id="getting-started">
+<title
+>Grondbeginselen</title>
+
+<para
+>Deze sectie levert instructies voor het starten van &kompare; en levert een snelle weg naar het hoofdinterface van &kompare;.</para>
+
+<sect2 id="starting-kompare">
+<title
+>&kompare; opstarten</title>
+
+<para
+>Een route voor het starten van &kompare; kunt u vinden in het toepassingenmenu in de ontwikkelgroep <menuchoice
+><guimenu
+>Ontwikkeling</guimenu
+><guimenuitem
+>Kompare</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>Bij het starten van &kompare; is het eerste wat u ziet, een dialoogvenster waarin u de bestanden die u wilt vergelijken kunt selecteren. U kunt ook speciale instellingen voor de vergelijking en de weergave selecteren. Selecteer in het bestand-formulier voor de vergelijking een bron en een doel. Dit kunnen twee willekeurige bestanden, mappen of een &URL; en een bestand zijn. Nadat het bronbestand en het doelbestand zijn geselecteerd, klikt u op de knop <guibutton
+>Vergelijken</guibutton
+>.</para>
+
+<para
+>Nadat &kompare; de verschillen heeft vastgesteld, zal het deze in het hoofdvenster tonen. Bij het vergelijken van twee bestanden of een URL en een bestand duurt het proces maar enkele seconden. Maar, bij het vergelijken van mappen met veel submappen en bestanden kan dit proces een tijdje duren.</para>
+
+<para
+>Voor een uitleg van de beschikbare optie´s voor diff en het uiterlijk van de formulieren leest u <xref linkend="configure-preferences"/>.</para>
+</sect2>
+
+<sect2 id="main-interface">
+<title
+>Het hoofdinterface</title>
+
+<para
+>Deze sectie geeft een snelle rondleiding in het hoofdvenster dat bestaat uit de volgende onderdelen:</para>
+<itemizedlist>
+<listitem
+><para
+>Menu's</para
+></listitem>
+<listitem
+><para
+>Werkbalk</para
+></listitem>
+<listitem
+><para
+>Bron- en doel-mappen</para
+></listitem>
+<listitem
+><para
+>Bron- en doel-bestanden</para
+></listitem>
+<listitem
+><para
+>Bron- en doel-regel wijzigingen</para
+></listitem>
+<listitem
+><para
+>Venster met bron- en doel-tekst</para
+></listitem>
+<listitem
+><para
+>Statusbalk</para
+></listitem>
+</itemizedlist>
+
+<sect3 id="menus">
+<title
+>Menu's</title>
+<para
+>&kompare; heeft een menugestuurd interface. Uitleg over de menu items en hun opties is te vinden in <xref linkend="command-reference"/>.</para>
+</sect3>
+
+<sect3 id="toolbar">
+<title
+>Werkbalk</title>
+<para
+>De werkbalk van &kompare; heeft sneltoetsen voor de meest gebruikte diff en merge operaties.De oriëntatie van de werkbalk, tekst positie, pictogramgrootte en welke pictogrammen worden getoond kunt u aanpassen in het contextmenu van de werkbalk die u kunt openen door te klikken met de &RMB; op de werkbalk. Met het contextmenu van de werkbalk kunt u ook de verbergen. Als de werkbalk verborgen is en u wilt het weer zien, selecteer dan <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>Werkbalk tonen</guimenuitem
+></menuchoice
+>.</para>
+</sect3>
+
+<sect3 id="source-destination-folders">
+<title
+>Bron en doel mappen</title>
+<para
+>De panelen voor bronmap en doelmap tonen de mappen waar de te vergelijken bestanden geplaatst zijn. Als u veel submappen vergelijkt, dan krijgt u bij het selecteren van een map het eerste bestand te zien waar een verschil is gevonden tussen bron en doel.</para>
+</sect3>
+
+<sect3 id="source-destination-files">
+<title
+>Bron en doel mappen</title>
+<para
+>De bron en doel bestand paneel laat de bestanden zien waar een verschil is gevonden in de geselecteerde bron of doelmap. Als een map meerdere documenten met verschillen heeft, dan worden alle documenten met een verschil getoond. Het geselecteerde document wordt getoond.</para>
+</sect3>
+
+<sect3 id="source-destination-lines">
+<title
+>Bron- en doel-regel wijzigingen</title>
+<para
+>De bron- en doel-regel wijziging paneel laten de gevonden wijzigingen zien tussen de geselecteerde bron en doel documenten. Het selecteren van een record in het paneel markeert en selecteert het verschil. Dit is een handige methode voor het navigeren in en inspecteren van lange documenten met vele wijzigingen.</para>
+</sect3>
+
+<sect3 id="source-destination-view">
+<title
+>Venster met bron- en doel-tekst</title>
+<para
+>Het venster met bron en doeltekst is het belangrijkste venster van &kompare;. De inhoud en gemarkeerde verschillen van de geselecteerde bron en doelbestand zijn hier met regelnummers te zien.</para>
+</sect3>
+
+<sect3 id="text-view">
+<title
+>Tekstweergave</title>
+<para
+>De <guilabel
+>Tekstweergave</guilabel
+> is standaard niet zichtbaar. U kunt het openen door te selecteren <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>Tekstweergave tonen</guimenuitem
+></menuchoice
+>.</para>
+<!-- Other than a notepad, what is this text view good for?  -->
+</sect3>
+
+<sect3 id="statusbar">
+<title
+>Statusbalk</title>
+<para
+>De statusbalk geeft een overzicht van de geselecteerde bron en doelbestand of map die nu vergeleken worden. De statusbalk meldt ook het aantal in het huidige document gevonden wijzigingen en telt de toegepaste wijzigingen. Verder toont de statusbalk het totale aantal documenten met verschillen en het op dit moment uit deze verzameling geselecteerde document. Bijvoorbeeld, een vergelijking van twee mappen geeft 1890 bestanden met verschillen. Het geselecteerde document is nummer 18 van 1890.</para>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="viewing-differences">
+<title
+>Verschillen tonen</title>
+
+<sect2 id="managing-screen-real-estate">
+<title
+>Schermindeling beheer</title>
+<para
+>&kompare; verdeelt de schermruimte evenredig over het bronbestand en het doelbestand. Deze schermruimte heeft enkele hulpmiddelen voor optimaal gebruik tijdens het bekijken van de verschillen, zoals:</para>
+<variablelist>
+<varlistentry>
+<term
+>Tweevoudige schuifbalken</term>
+<listitem
+><para
+>Het meest duidelijke onderdeel is dat er schuifbalken zijn aan de rechterkant en de onderkant van het paneel. Door het gebruik van de schuifbalken is het mogelijk om door de vergelijking te bladeren.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Handgreep</term>
+<listitem
+><para
+>De verticale ruimte tussen het bron-paneel en het doel-paneel maakt het niet alleen makkelijker om in elk paneel van elke regel het begin en het eind te detecteren, maar het is ook een handgreep waarmee u de verdeling van de ruimte tussen bron-paneel en doel-paneel kunt wijzigen. Om het formaat van een van de panelen te wijzigingen, zweeft u met uw muis boven de handgreep, drukt vervolgens de muisknop in en versleept het naar links of rechts. het vergroten van het ene paneel zal vanzelfsprekend het andere paneel verkleinen.</para>
+<para
+>Een tweede horizontale handel is beschikbaar tussen het navigatiepaneel en het venster met bron en doeltekst.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Docking</term>
+<listitem>
+<para
+>Het navigatiepaneel kunt u losmaken van het hoofdvenster door te klikken op pictogram <inlinemediaobject
+> <imageobject
+><imagedata fileref="undock.png" format="PNG"/></imageobject
+></inlinemediaobject
+> dat u rechtsboven van het paneel vindt. Dit opent zelf een venster waarmee u het over het scherm kunt verplaatsen. U kunt zelfs het navigatiepaneel verbergen door te klikken op <inlinemediaobject
+><imageobject
+><imagedata fileref="dock.png" format="PNG"/></imageobject
+></inlinemediaobject
+> pictogram. Om een verborgen navigatiebalk weer zichtbaar te maken, klikt u met de &RMB; in de menubalk en selecteert vervolgens in het contextmenu <guilabel
+>Navigatie</guilabel
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Zichtbaarheid statusbalk</term>
+<listitem>
+<para
+>De statusbalk van het vensterpaneel kunt u aan en uit schakelen door het selecteren van <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>Statusbalk tonen</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="switching-source-and-destination-view">
+<title
+>Omwisselen bron en doel panelen</title>
+
+<para
+>Soms kan het handig zijn om te bepalen welk bestand de bron is waarvan u de wijzigingen toepast. Bijvoorbeeld, bij het vergelijken van twee gewijzigde versies van een bestand, kunt u ontdekken dat een bestand veel meer wijzigingen heeft dan de andere. Het bestand dat meer gewijzigd is, kan dan beter dienen als bron, omdat dan minder wijzigingen hoeft te worden toegepast.</para>
+<para
+>Selecteer in dat geval <menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>Bron en bestemming omwisselen</guimenuitem
+></menuchoice
+>. Dit zal de getoonde bestanden in alle panelen van &kompare; omwisselen.</para>
+</sect2>
+	
+<sect2 id="display-difference-statistics">
+<title
+>Verschil statistieken tonen</title>
+<para
+>Voor een snel overzicht van de verschillen, selecteert u <menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>Statistieken tonen</guimenuitem
+></menuchoice
+>. Dit zal het dialoog <guilabel
+>Diff statistieken</guilabel
+> openen. De volgende informatie is dan te zien:</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Oud bestand:</guilabel
+></term>
+<listitem
+><para
+>De bestandsnaam of wat is wat gewoonlijk het bronbestand of bestand dat niet is gewijzigd.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Nieuw bestand:</guilabel
+></term>
+<listitem
+><para
+>De bestandsnaam van wat meestal het doelbestand of gewijzigde bestand is en waar de wijzigingen op worden toegepast.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Opmaak:</guilabel
+></term>
+<listitem
+><para
+>Het gebruikte diff-formaat om de verschillen te tonen (zie <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Aantal brokken (hunks):</guilabel
+></term>
+<listitem>
+<para
+>Het aantal gevonden brokken (hunks) in het verschil.</para>
+<para
+>Een brok (hunk) is een aantal regels die zijn gemarkeerd als verschillend tussen bron en bestemming en kunnen contextregels bevatten afhankelijk van de waarde van <guilabel
+>Aantal contextregels</guilabel
+> in het verschilformaat (zie <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Number verschillen</guilabel
+></term>
+<listitem
+><para
+>Het actuele aantal gevonden verschillen, niet brokken. Een brok kan één of meer verschillen bevatten wanneer de reeks van veranderde regels en de contextregels van elke twee of meer wijzigingen elkaar overlappen.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="navigating-the-difference-view">
+<title
+>Het verschilvenster navigeren</title>
+<para
+>Met &kompare; is het mogelijk om snel door de verschillen te navigeren op bestand-niveau en door de bestandverschillen bij het vergelijken van een mappenstructuren.</para>
+
+<sect3 id="selecting-a-difference">
+<title
+>Een verschil selecteren</title>
+<para
+>Een verschil kan u selecteren door:</para>
+<itemizedlist>
+<listitem
+><para
+>Op een regel klikken in het paneel voor bron en doel regels (rechtsboven van het hoofdvenster).</para
+></listitem>
+<listitem
+><para
+>Op het gemarkeerde verschil in hoofdvenster klikken.</para
+></listitem>
+<listitem
+><para
+>Doorkruisen van de genoemde verschillen in een vergelijking (zie <xref linkend="traversing-differences"/>).</para
+></listitem>
+</itemizedlist>
+<para
+>Als een verschil is geselecteerd dan is het <quote
+>in focus</quote
+> en wordt het in een lichtere kleur getoond dan de niet geselecteerde verschillen.</para>
+</sect3>
+			
+<sect3 id="traversing-differences">
+<title
+>Verschillen doorkruisen</title>
+<para
+>Als een vergelijking veel verschillen vindt dan is de beste manier van recenseren het doorkruisen van de verschillen op een logische volgorde, meestal van boven naar onder.</para>
+<para
+>Standaard selecteert &kompare; in een vergelijking de eerst gevonden verschil. Door het selecteren van <menuchoice
+><guimenu
+>Verschil</guimenu
+><guimenuitem
+>Volgend verschil</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Omlaag</keycap
+></keycombo
+>) brengt u het verschil volgend op de geselecteerde in focus. Voor het selecteren van het verschil voor de huidige verschil selecteert u <menuchoice
+><guimenu
+>Verschil</guimenu
+><guimenuitem
+>Vorig verschil</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Omhoog</keycap
+></keycombo
+>).</para>
+<para
+>Op deze manier is het mogelijk om de verschillen op een ordelijke manier te doorkruisen, de verschillen na recensie wel of niet toe te passen. </para>
+</sect3>
+
+<sect3 id="switching-between-files">
+<title
+>Omschakelen tussen bestanden</title>
+<para
+>Als u een vergelijking op map-niveau uitvoert, dan kunnen er veel bestanden met verschillen worden gevonden. Een complete lijst van de vergeleken bestanden waarbij verschillen zijn gevonden kunt u vinden in de <quote
+>Brond en doel mappen</quote
+>, en <quote
+>Bron en doel bestanden</quote
+> panelen. Maar, van maar één vergelijking tegelijk laat &kompare; de verschillen tussen bron en doel zien.</para>
+<para
+>Om in dat scenario te wisselen tussen documenten zijn de volgende mogelijkheden beschikbaar:</para>
+<itemizedlist>
+<listitem
+><para
+>Selecteer het <quote
+>Bron en doel mappen</quote
+> paneel om de in de <quote
+>Bron en doel bestanden</quote
+> paneel gevonden verschillen te tonen, selecteer vervolgens een bestand.</para
+></listitem>
+<listitem
+><para
+>Selecteer <menuchoice
+><guimenu
+>Verschil</guimenu
+><guimenuitem
+>Vorig bestand</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+>) of <menuchoice
+><guimenu
+>Verschil</guimenu
+><guimenuitem
+>Volgend bestand</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>PgDown</keycap
+></keycombo
+>) om de vorige of volgende bestand met een gevonden verschil gevonden in het <quote
+>Bron en doel bestanden</quote
+> paneel te tonen.</para>
+</listitem>
+</itemizedlist>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="merging-differences">
+<title
+>Verschillen samenvoegen</title>
+
+<para
+>&kompare; maakt de taak van het toepassen en ongedaan maken van verschillen net zo simpel als wijzen en klikken. U kunt meerdere keren toepas en ongedaan maak operaties toepassen zolang alle uitgevoerde operaties nog in het geheugen zijn en nog niet naar de harde schijf weggeschreven.</para>
+
+<sect2 id="applying-a-difference">
+<title
+>Een verschil toepassen</title>
+<para
+>Om een verschil toe te passen, klikt u op het gemarkeerde verschil, en selecteer vervolgens <menuchoice
+><guimenu
+>Verschil</guimenu
+><guimenuitem
+>Verschil toepassen</guimenuitem
+></menuchoice
+> (<keycombo
+><keycap
+>Spatie</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-a-difference">
+<title
+>Een toegepaste verschil ongedaan maken </title>
+<para
+>Om een toegepaste verschil ongedaan te maken, klikt u op de eerder toegepaste verschil en selecteer vervolgens  <menuchoice
+><guimenu
+>Verschil</guimenu
+><guimenuitem
+>Toegepast verschil ongedaan maken</guimenuitem
+></menuchoice
+> (<keycombo
+>&Backspace;</keycombo
+>).</para>
+</sect2>
+	
+<sect2 id="applying-all-differences">
+<title
+>Alle verschillen toepassen</title>
+<para
+>Na recenseren van de verschillen tussen de bestanden en het besluit dat ze allemaal acceptabel zijn, is het mogelijk om ze allemaal in een enkele bewerking toe te passen door te klikken op <menuchoice
+><guimenu
+>Verschil</guimenu
+><guimenuitem
+>Alles toepassen</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-all-differences">
+<title
+>Alle toegepaste verschillen ongedaan maken</title>
+<para
+>Om alle toegepaste verschillen weer ongedaan te maken selecteert u <menuchoice
+><guimenu
+>Verschil</guimenu
+><guimenuitem
+>Alle toepassingen ongedaan maken</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="saving-changes">
+<title
+>Wijzigingen opslaan</title>
+<para
+>Nadat verschillen zijn toegepast kunnen ze opgeslagen worden door <menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>Opslaan</guimenuitem
+></menuchoice
+> of <menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>Alles opslaan</guimenuitem
+></menuchoice
+> te selecteren.</para>
+<para
+>Toegepaste verschillen worden zowel in het bron als het doelbestand opgeslagen.</para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-diff-files">
+<title
+>Werken met Diff-bestanden</title>
+<para
+>Diff-bestanden bevatten alleen de gemaakte wijzigingen tussen bestanden of een set bestanden binnen een mappenstructuur en kunnen al dan niet een aantal contextregels voor en na wijzigingen in regels bevatten. De som van een wijziging in een regel en zijn contextregels wordt een brok (hunk) genoemd. Een diff-bestand kan daarom meerdere brokken bevatten uit één of meer bestanden. Wanneer de contextregels van twee of meer brokken overlappen, dan worden zij als een enkel brok (hunk) beschouwd. Diff-bestanden kunnen worden gebruikt om:</para>
+<itemizedlist>
+<listitem
+><para
+>Pas de wijzigingen die de brokken (hunks) bevatten toe op een origineel bestand.</para
+></listitem>
+<listitem
+><para
+>Pas de wijzigingen die de brokken (hunks) bevatten toe op een bestand of een set originele bestanden in een mappensysteem.</para
+></listitem>
+<listitem
+><para
+>Gewijzigd voor toepassing op een origineel bestand of verzameling originele bestanden in mappenstructuur.</para
+></listitem>
+</itemizedlist>
+
+<sect2 id="creating-a-diff">
+<title
+>Een Diff creëren</title>
+<para
+>Om een diff-bestand te creëren, moet er eerst een vergelijking in &kompare; te zien zijn. Als dit het geval is, selecteer dan <menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>Diff opslaan...</guimenuitem
+></menuchoice
+> . Dit zal het dialoog <guilabel
+>Diff-opties</guilabel
+> openen (zie <xref linkend="diff-settings"/> voor meer informatie over diff formaten en opties). Na het instellen van deze opties, klikt u op de knop <guibutton
+>Opslaan</guibutton
+> en slaat de diff op in een bestand met de extensie <filename class="extension"
+>.diff</filename
+>.</para>
+</sect2>
+
+<sect2 id="displaying-a-diff">
+<title
+>Een Diff tonen</title>
+<para
+>Het is mogelijk om de inhoud van een diff-bestand te bekijken in &kompare; door het openen van het diff-bestand via <menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>Open Diff...</guimenuitem
+></menuchoice
+>.</para>
+<para
+>Bij het bekijken van een diff-bestand ziet u alleen de verschil-brokken tussen de bron en doel bestanden, vergeet niet dat u alleen de brokken ziet, de niet gewijzigde regels ziet u niet. In sommige gevallen gebeurt het dat er een diff-bestand met 0 regels context is gecreëerd. In dat geval krijgt u alleen de gewijzigde regels te zien.</para>
+<para
+>Als een diff-bestand brokken uit meerdere bestanden heeft, dan laat &kompare; de brokken uit elk bestand apart zien en kunt u tussen de bestanden heen en weer schakelen alsof het echte bestanden zijn ofschoon deze informatie uitsluitend uit de inhoud van het diff-bestand komt.</para>
+</sect2>
+
+<sect2 id="applying-a-diff">
+<title
+>De verschillen uit een Diff-bestand toepassen</title>
+<para
+>Tijdens het bekijken van verschillen in een diff-bestand is het mogelijk om de verschillen toe te passen net zoals u zou doen bij een vergelijking tussen bron en doelbestanden (zie <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+<sect2 id="blending-a-diff">
+<title
+>Vergelijken van een &URL; met een diff</title>
+<para
+>In het geval dat een diff-bestand is geleverd, is het mogelijk de brokken in het diff-bestand te vergelijken met een bestand of map. Om dit te doen selecteert u <menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>Invoegen van diff in URL-adres...</guimenuitem
+></menuchoice
+>. Voer vervolgens de paden van de <guilabel
+>Bestand/Map</guilabel
+> en <guilabel
+>Diff opties</guilabel
+> in.</para>
+<para
+>Tijdens het bekijken van verschillen tussen een bronbestand en een diff-bestand, is het mogelijk om het verschil op dezelfde manier toe te passen als bij het vergelijken van een bron en doel-bestanden (zie <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="configure-preferences">
+<title
+>Voorkeuren instellen</title>
+
+<para
+>In &kompare; is het voor gebruikers mogelijk om de voorkeur voor de diff-weergave in het hoofdvenster en het gedrag van het diff-programma in te stellen. Het dialoog <guilabel
+>Voorkeuren</guilabel
+> is toegankelijk door het selecteren <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guisubmenu
+>&kompare; instellen...</guisubmenu
+></menuchoice
+>.</para>
+
+<para
+>Om de voorkeur voor de weergave in te stellen, selecteert u het menu-item <guilabel
+>Weergave</guilabel
+>  (zie <xref linkend="view-settings"/>).</para>
+
+<para
+>Om de voorkeur voor het diff-programma in te stellen, selecteert u het menu-item <guilabel
+>Diff</guilabel
+>  (zie <xref linkend="diff-settings"/>).</para>
+
+<sect1 id="view-settings">
+<title
+>Weergave-instellingen</title>
+<para
+>De pagina <guimenu
+>Weergave</guimenu
+> in het dialoog <guilabel
+>Voorkeuren</guilabel
+> toont de formulieren <guilabel
+>Uiterlijk</guilabel
+> en <guilabel
+>Lettertypen</guilabel
+>.</para>
+
+<sect2 id="appearance">
+<title
+>Uiterlijk</title>
+<para
+>Het formulier over het <guilabel
+>Uiterlijk</guilabel
+> geeft controle over de gebruikte <guilabel
+>Kleuren</guilabel
+> om verschillen in het hoofdvenster aan te duiden, het gedrag van het <guilabel
+>Muiswiel</guilabel
+> bij het omhoog en omlaag joggen en hoe de omzetting van <guilabel
+>Tabs naar spaties</guilabel
+> is ingesteld.</para>
+<screenshot>
+<screeninfo
+>Instellingen voor weergave in &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Instellingen voor weergave in &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Kleuren</title>
+<para
+>Om de ingestelde kleuren voor het tonen van de verschillen aan te passen, klikt u op de gekleurde knop om het dialoog <guilabel
+>Kleur selecteren</guilabel
+> te openen om de volgende statussen aan te passen:</para>
+<varlistentry>
+<term
+><guilabel
+>Kleur voor verwijderen:</guilabel
+></term>
+<listitem
+><para
+>Regels die zijn verwijderd, niet bestaand, tussen bron en doel.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Kleur voor veranderingen:</guilabel
+></term>
+<listitem
+><para
+>Regels die zijn verandert, gewijzigd, tussen bron en doel. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Kleur voor toevoegen:</guilabel
+></term>
+<listitem
+><para
+>Regels die zijn toegevoegd tussen bron en doel.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Kleur voor toegepast:</guilabel
+></term>
+<listitem
+><para
+>Elk van de bovengenoemde statussen waar het verschil is toegepast tussen bron en doel.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Muiswiel</title>
+<varlistentry>
+<term
+><guilabel
+>Aantal regels:</guilabel
+></term>
+<listitem
+><para
+>Sprong van aantal regels voorwaarts of achterwaarts bij het draaien van de muiswiel.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Tabs naar spaties veranderen</title>
+<varlistentry>
+<term
+><guilabel
+>Aantal spaties waarin een tab teken moet worden omgezet</guilabel
+></term>
+<listitem
+><para
+>Zet elk tab karakter om naar een aantal spaties.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="fonts">
+<title
+>Lettertypen</title>
+<screenshot>
+<screeninfo
+>Instellingen van &kompare; voor lettertypen</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Instellingen van &kompare; voor lettertypen</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Stel hier het lettertype en grootte in voor het tonen van de verschillen.</para>
+</sect2>
+</sect1>
+
+<sect1 id="diff-settings">
+<title
+>Diff-instellingen</title>
+<para
+>De <guimenu
+>Diff</guimenu
+> pagina in het <guilabel
+>Voorkeuren</guilabel
+> dialoog toont de tabs <guilabel
+>Diff</guilabel
+>, <guilabel
+>Opmaak</guilabel
+>, <guilabel
+>Opties</guilabel
+> en <guilabel
+>Uitsluiten</guilabel
+>. U kunt deze formulieren gebruiken voor het configureren van het gedrag van het Diff-programma.</para>
+
+<sect2 id="diff">
+<title
+>Diff</title>
+<screenshot>
+<screeninfo
+>Diff-instellingen van &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Diff-instellingen van &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Het gebruikte commando om het diff-programma te starten (standaard <application
+>diff</application
+>).</para>
+</sect2>
+
+<sect2 id="diff-format">
+<title
+>Opmaak</title>
+<screenshot>
+<screeninfo
+>Opmaak-instellingen van &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Opmaak-instellingen van &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Aanpas mogelijkheden voor het <guilabel
+>Uitvoerformaat</guilabel
+> en het aantal <guilabel
+>Contextregels</guilabel
+>.</para>
+<variablelist>
+<title
+>Uitvoerformaat</title>
+<varlistentry>
+<term
+><guilabel
+>Context</guilabel
+></term>
+<listitem>
+<para
+>Het context uitvoerformaat voegt rond de regels die verschillen enkele regels context toe.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Normaal</guilabel
+></term>
+<listitem>
+<para
+>Het normale uitvoerformaat voegt rond de regels die verschillen geen regels context toe. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Unified</guilabel
+></term>
+<listitem>
+<para
+>Het unified uitvoerformaat is een variatie op het context formaat. Vanwege minder contextregels wordt als beter dan context beschouwd omdat de uitvoer compacter is.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+<variablelist>
+<title
+>Aantal contextregels</title>
+<varlistentry>
+<term
+><guilabel
+>Aantal contextregels</guilabel
+></term>
+<listitem>
+<para
+>Gebruik deze parameter bij het uitvoeren van een diff met context of unified uitvoerformaat om het aantal contextregels in te stellen.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="options">
+<title
+>Opties</title>
+<screenshot>
+<screeninfo
+>Instellingen voor opties in &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff3.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Instellingen voor opties in &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>In het tab-formulier <guilabel
+>Opties</guilabel
+> kunt u de ondersteunde mogelijkheden van het diff-programma instellen.</para>
+<variablelist>
+<title
+>Algemeen</title>
+<varlistentry>
+<term
+><guilabel
+>Nieuwe bestanden als leeg behandelen</guilabel
+></term>
+<listitem
+><para
+>Als deze optie is ingeschakeld, dan zal diff een bestand als leeg beschouwen in de ene map als deze alleen bestaat in de andere map. Dit betekent dat het bestand wordt vergeleken met een leeg bestand en daarom als één grote invoeging of verwijdering wordt gezien.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Zoek naar kleinere veranderingen</guilabel
+></term>
+<listitem
+><para
+>Forceert indien ingeschakeld diff tot het tonen van wijzigingen van hoofdlettergebruik, interpunctie, spaties, &etc;.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Voor grote bestanden optimaliseren</guilabel
+></term>
+<listitem
+><para
+>Indien ingeschakeld, forceert het diff tot het met grote snelheid verwerken van bestanden.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Veranderingen in hoofd-/kleine letters negeren</guilabel
+></term>
+<listitem
+><para
+>Indien ingeschakeld, negeert het wijzigingen in hoofdletter-gebruik.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Reguliere expressie negeren</guilabel
+></term>
+<listitem
+><para
+>Negeert regels die overeenkomen met een reguliere expressie.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Witruimte</title>
+<varlistentry>
+<term
+><guilabel
+>Tabs naar spaties expanderen in uitvoer</guilabel
+></term>
+<listitem
+><para
+>Indien ingeschakeld zal bij de uitvoer van diff de tab-karakters zijn omgezet naar het aantal spaties zoals dat is ingesteld in dialoog <guilabel
+>Voorkeuren</guilabel
+> <guimenu
+>Uiterlijk</guimenu
+> de optie <guilabel
+>Tabs naar spaties</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Toegevoegde of verwijderde lege regels negeren</guilabel
+></term>
+<listitem
+><para
+>Indien ingeschakeld dan worden regels met lengte nul voor het verschil tussen bron en doel genegeerd.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Wijzigingen in de hoeveelheid witruimte negeren</guilabel
+></term>
+<listitem
+><para
+>De hoeveelheid wit ruimte voor, achter en tussen regels kan variëren en is afhankelijk van de gebruikte editor. Indien ingeschakeld, dan worden zulke wijzigingen genegeerd.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Alle witruimte negeren</guilabel
+></term>
+<listitem
+><para
+>Indien ingeschakeld, dan worden verschillen in witruimte compleet genegeerd.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Veranderingen als gevolg van tabexpansie negeren</guilabel
+></term>
+<listitem
+><para
+>Indien ingeschakeld, dan worden witruimtes door tab-karakters genegeerd.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="exclude">
+<title
+>Uitsluiten</title>
+<para
+>In het formulier <guilabel
+>Uitsluiten</guilabel
+> kunt u gebruik maken van de filtermogelijkheden van het diff programma.</para>
+<screenshot>
+<screeninfo
+>Instellingen voor in uitsluitingen in &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff4.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Instellingen voor in uitsluitingen in &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Bestandsnaampatroon voor uitsluiting</title>
+<varlistentry>
+<term
+><guilabel
+>Bestandsnaampatroon voor uitsluiting</guilabel
+></term>
+<listitem
+><para
+>Sluit op basis van bestand-extensie bestanden uit.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Bestand met bestandsnamen om uit te sluiten</title>
+<varlistentry>
+<term
+><guilabel
+>Bestand met bestandsnamen om uit te sluiten</guilabel
+></term>
+<listitem
+><para
+>Stelt het filter in op basis van een extern beheerd bestand.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+</sect1>
+
+</chapter>
+
+<chapter id="command-reference">
+<title
+>Overzicht van de opdrachten</title>
+
+<sect1 id="menu-items">
+
+<title
+>Menu-items</title>
+<sect2 id="file-menu">
+<title
+>Het menu Bestand</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+><guimenuitem
+>Open Diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Toont het dialoog <guilabel
+>Openen</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+><guimenuitem
+>Bestanden vergelijken...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Toont het dialoog <guilabel
+>Bestanden of mappen vergelijken</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+><guimenuitem
+>Invoegen van diff in URL-adres...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Toont het dialoog <guilabel
+>Bestand/map mengen met diff uitvoer</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Opslaan</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Schrijft de toegepaste verschillen naar de geselecteerde bron en/of doel bestand.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Alles opslaan</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Schrijft de toegepaste verschillen naar alle bron en/of doel bestanden.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>Diff opslaan...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Toont het dialoog <guilabel
+>Diff-opties</guilabel
+> voor het instellen van het diff formaat en opties.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>F5</keycap
+></shortcut
+> <guimenu
+>Bestand</guimenu
+><guimenuitem
+>Diff verversen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Werkt de verschillen bij met de originele paden. Nuttig als u enige wijzigingen hebt toegepast en ze hebt opgeslagen en wilt zien wat er nog over is.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>Bron en bestemming omwisselen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Wisselt bron en doel.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>Statistieken tonen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Toont het dialoog <guilabel
+>Statistieken tonen</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Afsluiten</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Sluit &kompare; af.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="difference-menu">
+<title
+>Het menu Verschil</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Verschil</guimenu
+><guimenuitem
+>Alle toepassingen ongedaan maken</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Maak alle eerder toegepaste verschillen tussen bron en doel ongedaan.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Backspace;</shortcut
+> <guimenu
+>Verschil</guimenu
+><guimenuitem
+>Toegepast verschil ongedaan maken</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Maakt een toegepast geselecteerd verschil ongedaan.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>Spatie</keycap
+></shortcut
+> <guimenu
+>Verschil</guimenu
+><guimenuitem
+>Verschil toepassen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Past een geselecteerd verschil toe.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Verschil</guimenu
+><guimenuitem
+>Alles toepassen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Past alle verschillen tussen bron en doel toe.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Verschil</guimenu
+><guimenuitem
+>Vorig bestand</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Gaat terug naar het vorige bestand met verschillen en toont die in het hoofdvenster.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgDown</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Verschil</guimenu
+><guimenuitem
+>Volgend bestand</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Gaat terug naar het volgende bestand met verschillen en toont die in het hoofdvenster.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Up</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Verschil</guimenu
+><guimenuitem
+>Vorig verschil</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Gaat terug naar het vorige verschil,</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Down</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Verschil</guimenu
+><guimenuitem
+>Volgend verschil</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Gaat verder naar het volgende verschil,</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="settingshelpmenu">
+
+<title
+>De menu's Instellingen en Help</title>
+<para
+>&kompare; heeft de standaard &kde;-menu-items <guimenu
+>Instellingen</guimenu
+> en <guimenu
+>Help</guimenu
+>, lees voor meer informatie de secties over het <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Menu Instellingen</ulink
+> en <ulink url="help:/fundamentals/menus.html#menus-help"
+>Help Menu</ulink
+> van &kde; Fundamentals. </para>
+</sect2>
+</sect1>
+
+<sect1 id="commandline-options">
+<title
+>Opties op de opdrachtregel</title>
+
+<variablelist>
+<varlistentry>
+<term
+>-c</term>
+<listitem
+><para
+>Hiermee kunt URL-adres1 met URL-adres2 vergelijken.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-o</option
+></userinput
+></term>
+<listitem
+><para
+>Dit zal URL-adres openen en er wordt aangenomen dat dit bestand diff uitvoer bevat. URL-adres 1 kan ook een '-' zijn en dan word er van stdin (standaard invoer) gelezen. Dit kan bijvoorbeeld worden gebruikt voor <userinput
+><command
+>cvs diff | kompare -o -</command
+></userinput
+>. Kompare zal een controle uitvoeren om te kijken of het de originele bestanden kan vinden en dan de diff uitvoer in het originele bestand of bestanden in voegen en dat weergeven. De optie <option
+>-n</option
+> schakelt het automatisch zoeken uit.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-b</option
+></userinput
+></term>
+<listitem
+><para
+>Deze optie zal URL2 in URL1 invoegen, van URL2 word aangenomen dat het diff uitvoer is en dat URL1 het bestand of de map is waar de uitvoer ingevoegd moet worden.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-n</option
+></userinput
+></term>
+<listitem
+><para
+>Deze optie schakelt de controle op het vinden van het originele bestand of bestanden in de diff uitvoer uit wanneer er gebruikt word gemaakt van '-' als URL-adres met de optie <option
+>-o</option
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-e</option
+> <replaceable
+>codering</replaceable
+></userinput
+></term>
+<listitem
+><para
+>Gebruik dit om de codering te kiezen als u het vanaf de commandoregel aanroept. Als u niets specificeert zal de standaardcodering worden gebruikt.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1
+></chapter>
+
+<chapter id="credits">
+
+<title
+>Dankbetuigingen en licentie</title>
+
+<para
+>&kompare; </para>
+<para
+>Programma copyright 2001-2004, &John.Firebaugh; &John.Firebaugh.mail; en Otto Bruggeman <email
+>otto.bruggeman@home.nl</email
+> </para>
+
+<para
+>Documentation Copyright &copy; 2007 Sean Wheller <email
+>sean@inwords.co.za</email
+> </para>
+
+&meld.fouten;&vertaling.niels;&vertaling.freek;&vertaling.ronald; &underFDL; &underGPL; </chapter>
+
+&documentation.index; 
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

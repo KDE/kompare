@@ -1,0 +1,1393 @@
+# Translation of kompare to Norwegian Nynorsk
+#
+# Karl Ove Hufthammer <karl@huftis.org>, 2007, 2008, 2015, 2016, 2018, 2019, 2020.
+# Eirik U. Birkeland <eirbir@gmail.com>, 2008, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: kompare\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"PO-Revision-Date: 2020-08-11 21:12+0200\n"
+"Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
+"Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
+"Language: nn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 20.04.3\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Eirik U. Birkeland"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "eirbir@gmail.com"
+
+#: app/kompare_shell.cpp:69
+#, kde-format
+msgid "Could not load our KompareViewPart."
+msgstr "Klarte ikkje lasta KompareViewPart."
+
+#: app/kompare_shell.cpp:73
+#, kde-format
+msgctxt "@title:window"
+msgid "Navigation"
+msgstr "Navigasjon"
+
+#: app/kompare_shell.cpp:90
+#, kde-format
+msgid "Could not load our KompareNavigationPart."
+msgstr "Klarte ikkje lasta KompareNavigationPart."
+
+#: app/kompare_shell.cpp:195
+#, kde-format
+msgctxt "@action"
+msgid "&Open Diff..."
+msgstr "&Opna diff-fil …"
+
+#: app/kompare_shell.cpp:198
+#, kde-format
+msgctxt "@action"
+msgid "&Compare Files..."
+msgstr "&Samanlikna filer …"
+
+#: app/kompare_shell.cpp:201
+#, kde-format
+msgctxt "@action"
+msgid "&Blend URL with Diff..."
+msgstr "&Flett URL med diff-fil …"
+
+#: app/kompare_shell.cpp:207
+#, kde-format
+msgctxt "@action"
+msgid "Show T&ext View"
+msgstr "Vis &tekstvising"
+
+#: app/kompare_shell.cpp:220
+#, kde-format
+msgid " 0 of 0 differences "
+msgstr " 0 av 0 skilnadar "
+
+#: app/kompare_shell.cpp:221
+#, kde-format
+msgid " 0 of 0 files "
+msgstr " 0 av 0 filer "
+
+#: app/kompare_shell.cpp:238
+#, kde-format
+msgid " %2 of %1 file "
+msgid_plural " %2 of %1 files "
+msgstr[0] " %2 av %1 fil "
+msgstr[1] " %2 av %1 filer "
+
+#: app/kompare_shell.cpp:240
+#, kde-format
+msgid " %1 file "
+msgid_plural " %1 files "
+msgstr[0] " %1 fil "
+msgstr[1] " %1 filer "
+
+#: app/kompare_shell.cpp:243
+#, kde-format
+msgid " %2 of %1 difference, %3 applied "
+msgid_plural " %2 of %1 differences, %3 applied "
+msgstr[0] " %2 av %1 skilnadar, %3 lagd over "
+msgstr[1] " %2 av %1 skilnadar, %3 lagde over "
+
+#: app/kompare_shell.cpp:246
+#, kde-format
+msgid " %1 difference "
+msgid_plural " %1 differences "
+msgstr[0] " %1 skilnad "
+msgstr[1] " %1 skilnadar "
+
+#: app/kompare_shell.cpp:327
+#, kde-format
+msgctxt "@title:window"
+msgid "Blend File/Folder with diff Output"
+msgstr "Flett fil/mappe med utdata frå diff"
+
+#: app/kompare_shell.cpp:328
+#, kde-format
+msgctxt "@title:group"
+msgid "File/Folder"
+msgstr "Fil/mappe"
+
+#: app/kompare_shell.cpp:329
+#, kde-format
+msgctxt "@title:group"
+msgid "Diff Output"
+msgstr "Utdata frå diff"
+
+#: app/kompare_shell.cpp:332
+#, kde-format
+msgctxt "@action:button"
+msgid "Blend"
+msgstr "Flett"
+
+#: app/kompare_shell.cpp:333
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Blend this file or folder with the diff output"
+msgstr "Flett denne fila eller mappa med diff-dataa"
+
+#: app/kompare_shell.cpp:334
+#, kde-format
+msgctxt "@infor:whatsthis"
+msgid ""
+"If you have entered a file or folder name and a file that contains diff "
+"output in the fields in this dialog then this button will be enabled and "
+"pressing it will open kompare's main view where the output of the entered "
+"file or files from the folder are mixed with the diff output so you can then "
+"apply the difference(s) to a file or to the files. "
+msgstr ""
+"Dersom du har oppgjeve ei fil eller ei mappe og ei fil som inneheld utdata "
+"frå diff i dette dialogvindauget, er denne knappen tilgjengeleg. Dersom ein "
+"trykkjer på han, vert hovudvisinga i Kompare opna. Der er utdataa frå fila/"
+"filene fletta med utdataafrå diff slik at du kan leggja over skilnadene til "
+"fila/filene."
+
+#: app/kompare_shell.cpp:357 app/main.cpp:199
+#, kde-format
+msgctxt "@title:window"
+msgid "Compare Files or Folders"
+msgstr "Samanlikna filer eller mapper"
+
+#: app/kompare_shell.cpp:358 app/main.cpp:200
+#, kde-format
+msgctxt "@title:group"
+msgid "Source"
+msgstr "Kjelde"
+
+#: app/kompare_shell.cpp:359 app/main.cpp:201
+#, kde-format
+msgctxt "@title:group"
+msgid "Destination"
+msgstr "Mål"
+
+#: app/kompare_shell.cpp:362 app/main.cpp:204
+#, kde-format
+msgctxt "@action:button"
+msgid "Compare"
+msgstr "Samanlikna"
+
+#: app/kompare_shell.cpp:363 app/main.cpp:205
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Compare these files or folders"
+msgstr "Samanlikna desse filene og mappene"
+
+#: app/kompare_shell.cpp:364 app/main.cpp:206
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you have entered 2 filenames or 2 folders in the fields in this dialog "
+"then this button will be enabled and pressing it will start a comparison of "
+"the entered files or folders. "
+msgstr ""
+"Dersom du har valt to filer eller mapper i felta i dette dialogvindauget, "
+"vil denne knappen vera tilgjengeleg. Dersom du trykkjer på han, byrjar "
+"samanlikninga av dei valde filene eller mappene."
+
+#: app/kompare_shell.cpp:398
+#, kde-format
+msgctxt "@title:window"
+msgid "Text View"
+msgstr "Tekstvising"
+
+#. i18n: ectx: Menu (file)
+#: app/kompareui.rc:4 komparepart/komparepartui.rc:4
+#, kde-format
+msgid "&File"
+msgstr "&Fil"
+
+#. i18n: ectx: Menu (settings)
+#: app/kompareui.rc:14 komparepart/komparepartui.rc:29
+#, kde-format
+msgid "&Settings"
+msgstr "&Innstillingar"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: app/kompareui.rc:27
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Hovudverktøylinje"
+
+#: app/kompareurldialog.cpp:37
+#, kde-format
+msgctxt "@title:tab"
+msgid "Files"
+msgstr "Filer"
+
+#: app/kompareurldialog.cpp:39
+#, kde-format
+msgid "Here you can enter the files you want to compare."
+msgstr "Her vel du kva filer som skal samanliknast."
+
+#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:42
+#, kde-format
+msgctxt "@title:tab"
+msgid "Diff"
+msgstr "Diff"
+
+#: app/kompareurldialog.cpp:47
+#, kde-format
+msgid "Here you can change the options for comparing the files."
+msgstr "Her kan du endra på innstillingane for samanlikning av filer."
+
+#: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
+#, kde-format
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "Utsjånad"
+
+#: app/kompareurldialog.cpp:55
+#, kde-format
+msgid "Here you can change the options for the view."
+msgstr "Her kan du endra på innstillingane for utsjånad."
+
+#: app/kompareurldialog.cpp:101
+#, kde-format
+msgid ""
+"File used for excluding files cannot be found, please specify another file."
+msgstr "Klarar ikkje finna ekskluderingsfila. Du må oppgje ei anna fil."
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Kompare"
+msgstr "Kompare"
+
+#: app/main.cpp:52
+#, kde-format
+msgid ""
+"A program to view the differences between files and optionally generate a "
+"diff"
+msgstr ""
+"Eit program for å visa skilnadene mellom filer som òg kan laga diff-filer"
+
+#: app/main.cpp:54
+#, kde-format
+msgid ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+msgstr ""
+"© 2001–2004 John Firebaugh\n"
+"© 2001–2005 og 2009 Otto Bruggeman\n"
+"© 2004–2005 Jeff Snyder\n"
+"© 2007–2012 Kevin Kofler"
+
+#: app/main.cpp:57
+#, kde-format
+msgid "John Firebaugh"
+msgstr "John Firebaugh"
+
+#: app/main.cpp:57 app/main.cpp:58
+#, kde-format
+msgid "Author"
+msgstr "Opphavsperson"
+
+#: app/main.cpp:58
+#, kde-format
+msgid "Otto Bruggeman"
+msgstr "Otto Bruggeman"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Jeff Snyder"
+msgstr "Jeff Snyder"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Developer"
+msgstr "Utviklar"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Kevin Kofler"
+msgstr "Kevin Kofler"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Maintainer"
+msgstr "Vedlikehaldar"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Chris Luetchford"
+msgstr "Chris Luetchford"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Kompare icon artist"
+msgstr "Ikonteiknar for Kompare"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "Malte Starostik"
+msgstr "Malte Starostik"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "A lot of good advice"
+msgstr "Mange gode råd"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Bernd Gehrmann"
+msgstr "Bernd Gehrmann"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Cervisia diff viewer"
+msgstr "Diffvisar for Cervisia"
+
+#: app/main.cpp:70
+#, kde-format
+msgid "This will compare URL1 with URL2"
+msgstr "Dette samanliknar URL1 med URL2"
+
+#: app/main.cpp:71
+#, kde-format
+msgid ""
+"This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
+"and then it will read from standard input. Can be used for instance for cvs "
+"diff | kompare -o -. Kompare will do a check to see if it can find the "
+"original file(s) and then blend the original file(s) into the diffoutput and "
+"show that in the viewer. -n disables the check."
+msgstr ""
+"Dette opnar URL1, som bør vera utdata frå diff. URL1 kan også vera ein «-», "
+"og då vert det lese frå standard inndata. Kan for eksempel brukast slik: "
+"«cvs diff | kompare -o -». Kompare ser då etter om det kan finna "
+"originalfila/-filene og så flette denne/desse inn i utdataa frå diff og visa "
+"resultatet. -n slår av dette."
+
+#: app/main.cpp:72
+#, kde-format
+msgid ""
+"This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
+"the file or folder that the diffoutput needs to be blended into. "
+msgstr ""
+"Dette flettar URL2 med URL1, URL2 bør vera utdata frå diff og URL1 fila "
+"eller mappa som desse skal flettast inn i. "
+
+#: app/main.cpp:73
+#, kde-format
+msgid ""
+"Disables the check for automatically finding the original file(s) when using "
+"'-' as URL with the -o option."
+msgstr ""
+"Slår av automatisk søking etter originalfil(er) når «-» vert brukt som URL "
+"med valet -o."
+
+#: app/main.cpp:74
+#, kde-format
+msgid ""
+"Use this to specify the encoding when calling it from the command line. It "
+"will default to the local encoding if not specified."
+msgstr ""
+"Bruk dette til å oppgje teiknkoding ved bruk frå kommandolinja. Standard er "
+"lokal koding dersom ikkje anna er valt."
+
+#: dialogpages/diffpage.cpp:174
+#, kde-format
+msgctxt "@title:group"
+msgid "Diff Program"
+msgstr "Diff-program"
+
+#: dialogpages/diffpage.cpp:179
+#, kde-format
+msgid ""
+"You can select a different diff program here. On Solaris the standard diff "
+"program does not support all the options that the GNU version does. This way "
+"you can select that version."
+msgstr ""
+"Her kan du velja eit anna diff-program. Standard diff-program på Solaris "
+"støttar ikkje alle innstillingane som GNU-versjonen gjer. På denne måten kan "
+"du velja den versjonen du føretrekk."
+
+#: dialogpages/diffpage.cpp:196
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"Select the format of the output generated by diff. Unified is the one that "
+"is used most frequently because it is very readable. The KDE developers like "
+"this format the best so use it for sending patches."
+msgstr ""
+"Vel formatet på utdataa frå diff. «Sameint» er det mest brukte formatet, "
+"fordi det er så lett å lesa. KDE-utviklarane likar dette formatet best, så "
+"bruk det dersom du skal senda rettingar til dei."
+
+#: dialogpages/diffpage.cpp:199
+#, kde-format
+msgctxt "@title:group"
+msgid "Output Format"
+msgstr "Format på utdata"
+
+#: dialogpages/diffpage.cpp:201
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Context"
+msgstr "Kontekst"
+
+#: dialogpages/diffpage.cpp:204
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Normal"
+msgstr "Normal"
+
+#: dialogpages/diffpage.cpp:207
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Unified"
+msgstr "Sameint"
+
+#: dialogpages/diffpage.cpp:215
+#, kde-format
+msgctxt "@title:group"
+msgid "Lines of Context"
+msgstr "Kontekstlinjer"
+
+#: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"The number of context lines is normally 2 or 3. This makes the diff readable "
+"and applicable in most cases. More than 3 lines will only bloat the diff "
+"unnecessarily."
+msgstr ""
+"Talet på kontekstlinjer er vanlegvis to eller tre. Dette gjer diff-en lesbar "
+"og brukbar i dei fleste tilfelle. Meir enn tre linjer vil berre gjera diff-"
+"en unødvendig stor."
+
+#: dialogpages/diffpage.cpp:220
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of context lines:"
+msgstr "Talet på samanhengslinjer:"
+
+#: dialogpages/diffpage.cpp:225
+#, kde-format
+msgctxt "@title:tab"
+msgid "Format"
+msgstr "Format"
+
+#: dialogpages/diffpage.cpp:237
+#, kde-format
+msgctxt "@title:group"
+msgid "General"
+msgstr "Generelt"
+
+#: dialogpages/diffpage.cpp:239
+#, kde-format
+msgctxt "@option:check"
+msgid "&Treat new files as empty"
+msgstr "&Sjå på nye filer som tomme"
+
+#: dialogpages/diffpage.cpp:240
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -N diff option."
+msgstr "Dette tilsvarar valet -N ved køyring av diff på kommandolinja."
+
+#: dialogpages/diffpage.cpp:241
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will treat a file that only exists in one of "
+"the directories as empty in the other directory. This means that the file is "
+"compared with an empty file and because of this will appear as one big "
+"insertion or deletion."
+msgstr ""
+"Viss dette er slått på, vil diff-en sjå på filer som berre finst i éi av "
+"mappene som tomme i den andre. Dette tyder at fila vert samanlikna med ei "
+"tom fil, og difor vil dukka opp som éi stor innsetjing eller sletting."
+
+#: dialogpages/diffpage.cpp:244
+#, kde-format
+msgctxt "@option:check"
+msgid "&Look for smaller changes"
+msgstr "&Sjå etter mindre endringar"
+
+#: dialogpages/diffpage.cpp:245
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -d diff option."
+msgstr "Dette tilsvarar valet -v ved køyring av diff på kommandolinja."
+
+#: dialogpages/diffpage.cpp:246
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will try a little harder (at the cost of more "
+"memory) to find fewer changes."
+msgstr ""
+"Viss dette er slått på, vil diff-en prøve å finne færre endringar, ved bruk "
+"av meir minne."
+
+#: dialogpages/diffpage.cpp:248
+#, kde-format
+msgctxt "@option:check"
+msgid "O&ptimize for large files"
+msgstr "&Klargjer for store filer"
+
+#: dialogpages/diffpage.cpp:249
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -H diff option."
+msgstr "Dette tilsvarar valet -H ved køyring av diff på kommandolinja."
+
+#: dialogpages/diffpage.cpp:250
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option lets diff makes better diffs when using large files. The "
+"definition of large is nowhere to be found though."
+msgstr ""
+"Dette valet lèt diff-en laga betre diff-ar ved bruk av store filer. Men "
+"definisjonen på stor er ukjend."
+
+#: dialogpages/diffpage.cpp:252
+#, kde-format
+msgctxt "@option:check"
+msgid "&Ignore changes in case"
+msgstr "&Ignorer endring av små/store bokstavar"
+
+#: dialogpages/diffpage.cpp:253
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -i diff option."
+msgstr "Dette tilsvarar valet -i ved køyring av diff på kommandolinja."
+
+#: dialogpages/diffpage.cpp:254
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option to ignore changes in case enabled, diff will not indicate a "
+"difference when something in one file is changed into SoMEthing in the other "
+"file."
+msgstr ""
+"Viss dette valet for å ignorera endringar mellom store og små bokstavar er "
+"slått på, vil ikkje diff-en visa skilnad når noko i ei fil vert endra til "
+"NoKo i den andre."
+
+#: dialogpages/diffpage.cpp:262
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore regexp:"
+msgstr "Ignorer regulært uttrykk:"
+
+#: dialogpages/diffpage.cpp:263
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -I diff option."
+msgstr "Dette tilsvarar valet -I ved køyring av diff på kommandolinja."
+
+#: dialogpages/diffpage.cpp:264
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"When this checkbox is enabled, an option to diff is given that will make "
+"diff ignore lines that match the regular expression."
+msgstr ""
+"Viss dette er slått på, vil diff-en ignorera linjer som stemmer med det "
+"regulære uttrykket."
+
+#: dialogpages/diffpage.cpp:268
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Add the regular expression here that you want to use\n"
+"to ignore lines that match it."
+msgstr ""
+"Skriv inn det regulære uttrykket som skal brukast til\n"
+"å ignorera linjene som stemmer med det her."
+
+#: dialogpages/diffpage.cpp:274
+#, kde-format
+msgctxt "@title:group"
+msgid "Whitespace"
+msgstr "Tomrom"
+
+#: dialogpages/diffpage.cpp:276
+#, kde-format
+msgctxt "@option:check"
+msgid "E&xpand tabs to spaces in output"
+msgstr "G&jer om tabulatorar til mellomrom i utdataa"
+
+#: dialogpages/diffpage.cpp:277
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -t diff option."
+msgstr "Dette tilsvarar valet -t ved køyring av diff på kommandolinja."
+
+#: dialogpages/diffpage.cpp:278
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option does not always produce the right result. Due to this expansion "
+"Kompare may have problems applying the change to the destination file."
+msgstr ""
+"Dette valet gjev ikkje alltid rett resultat. Grunna denne utvidinga, kan "
+"Kompare ha problem med å ta i bruk endringa i målfila."
+
+#: dialogpages/diffpage.cpp:280
+#, kde-format
+msgctxt "@option:check"
+msgid "I&gnore added or removed empty lines"
+msgstr "I&gnorer tomme linjer som er lagde til eller fjerna"
+
+#: dialogpages/diffpage.cpp:281
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -B diff option."
+msgstr "Dette tilsvarar valet -B ved køyring av diff på kommandolinja."
+
+#: dialogpages/diffpage.cpp:282
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This can be very useful in situations where code has been reorganized and "
+"empty lines have been added or removed to improve legibility."
+msgstr ""
+"Dette kan vera nyttig i tilfelle der kjeldekode har vorte omorganisert og "
+"tomme linjer har vorte lagde til eller fjerna for å gjera han lettare å lesa."
+
+#: dialogpages/diffpage.cpp:284
+#, kde-format
+msgctxt "@option:check"
+msgid "Ig&nore changes in the amount of whitespace"
+msgstr "Ig&norer endringar i mengda tomrom"
+
+#: dialogpages/diffpage.cpp:285
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -b diff option."
+msgstr "Dette tilsvarar valet -b ved køyring av diff på kommandolinja."
+
+#: dialogpages/diffpage.cpp:286
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you are uninterested in differences arising due to, for example, changes "
+"in indentation, then use this option."
+msgstr ""
+"Viss du ikkje er interessert i endringar som gjeld, for eksempel, endringar "
+"i innrykk, kan du bruka dette valet."
+
+#: dialogpages/diffpage.cpp:288
+#, kde-format
+msgctxt "@option:check"
+msgid "Ign&ore all whitespace"
+msgstr "Ign&orer alt tomrom"
+
+#: dialogpages/diffpage.cpp:289
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -w diff option."
+msgstr "Dette tilsvarar valet -w ved køyring av diff på kommandolinja."
+
+#: dialogpages/diffpage.cpp:290
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This is useful for seeing the significant changes without being overwhelmed "
+"by all the white space changes."
+msgstr ""
+"Dette er nyttig når du vil sjå viktige endringar utan å verta forstyrra av "
+"alle endringane i tomrom."
+
+#: dialogpages/diffpage.cpp:292
+#, kde-format
+msgctxt "@option:check"
+msgid "Igno&re changes due to tab expansion"
+msgstr "Igno&rer endringar grunna omgjering av tabulatorar"
+
+#: dialogpages/diffpage.cpp:293
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -E diff option."
+msgstr "Dette tilsvarar valet -E ved køyring av diff på kommandolinja."
+
+#: dialogpages/diffpage.cpp:294
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If there is a change because tabs have been expanded into spaces in the "
+"other file, then this option will make sure that these do not show up. "
+"Kompare currently has some problems applying such changes so be careful when "
+"you use this option."
+msgstr ""
+"Viss ei endring skuldast at tabulatorar har vorte utvida til mellomrom i den "
+"andre fila, vil dette valet sørgja for at slike ikkje vert viste. Kompare "
+"har for tida problem med å ta i bruk slike endringar, så bruk dette valet "
+"med varsemd."
+
+#: dialogpages/diffpage.cpp:299
+#, kde-format
+msgctxt "@title:tab"
+msgid "Options"
+msgstr "Innstillingar"
+
+#: dialogpages/diffpage.cpp:311
+#, kde-format
+msgctxt "@title:group"
+msgid "File Pattern to Exclude"
+msgstr "Filmønster som skal utelatast"
+
+#: dialogpages/diffpage.cpp:312
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"If this is checked you can enter a shell pattern in the text box on the "
+"right or select entries from the list."
+msgstr ""
+"Dersom det er kryssa av her, kan du skriva inn eit skalmønster i tekstboksen "
+"til høgre, eller velja oppføringar frå lista."
+
+#: dialogpages/diffpage.cpp:318
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter or remove a shell pattern or select one or more entries "
+"from the list."
+msgstr ""
+"Her kan du leggja til eller fjerna eit skalmønster, eller velja éi eller "
+"fleire oppføringar frå lista."
+
+#: dialogpages/diffpage.cpp:328
+#, kde-format
+msgctxt "@title:group"
+msgid "File with Filenames to Exclude"
+msgstr "Fil med filnamn som skal utelatast"
+
+#: dialogpages/diffpage.cpp:329
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "If this is checked you can enter a filename in the combo box below."
+msgstr ""
+"Dersom det er kryssa av her, kan du skriva inn eit filnamn i boksen nedanfor."
+
+#: dialogpages/diffpage.cpp:333
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter the URL of a file with shell patterns to ignore during "
+"the comparison of the folders."
+msgstr ""
+"Her kan du skriva inn adressa til ei fil som inneheld skalmønster som skal "
+"ignorerast under samanlikninga av filene."
+
+#: dialogpages/diffpage.cpp:337
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Any file you select in the dialog that pops up when you click it will be put "
+"in the dialog to the left of this button."
+msgstr ""
+"Fila du vel i dialogvindauget som dukkar opp når du trykkjer på han, vert "
+"lagt til i tekstruta til venstre for denne knappen."
+
+#: dialogpages/diffpage.cpp:344
+#, kde-format
+msgctxt "@title:tab"
+msgid "Exclude"
+msgstr "Utelat"
+
+#: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select file"
+msgstr "Vel fil"
+
+#: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select folder"
+msgstr "Vel mappe"
+
+#: dialogpages/filespage.cpp:87
+#, kde-format
+msgctxt "@title:group"
+msgid "Encoding"
+msgstr "Teiknkoding"
+
+#: dialogpages/filespage.cpp:92
+#, kde-format
+msgctxt "@item:inlistbox encoding"
+msgid "Default"
+msgstr "Standard"
+
+#: dialogpages/filespage.cpp:126
+#, kde-format
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr "Vel mappe"
+
+#: dialogpages/filespage.cpp:130
+#, kde-format
+msgctxt "@title:window"
+msgid "Select File"
+msgstr "Vel fil"
+
+#: dialogpages/viewpage.cpp:44
+#, kde-format
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "Fargar"
+
+#: dialogpages/viewpage.cpp:50
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Removed color:"
+msgstr "Farge på det som er fjerna:"
+
+#: dialogpages/viewpage.cpp:54
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Changed color:"
+msgstr "Farge på det som er endra:"
+
+#: dialogpages/viewpage.cpp:58
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Added color:"
+msgstr "Farge på det som er lagt til:"
+
+#: dialogpages/viewpage.cpp:62
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Applied color:"
+msgstr "Farge på det som er lagt over:"
+
+#: dialogpages/viewpage.cpp:66
+#, kde-format
+msgctxt "@title:group"
+msgid "Mouse Wheel"
+msgstr "Rulling på musehjulet"
+
+#: dialogpages/viewpage.cpp:72
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of lines:"
+msgstr "Tal på linjer:"
+
+#: dialogpages/viewpage.cpp:77
+#, kde-format
+msgctxt "@title:group"
+msgid "Tabs to Spaces"
+msgstr "Mellomrom med tabulator"
+
+#: dialogpages/viewpage.cpp:83
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of spaces to convert a tab character to:"
+msgstr "Talet på mellomrom ein tabulator lagar:"
+
+#: dialogpages/viewpage.cpp:94
+#, kde-format
+msgctxt "@title:group"
+msgid "Text Font"
+msgstr "Tekstskrift"
+
+#: dialogpages/viewpage.cpp:98
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Font:"
+msgstr "Skrift:"
+
+#: dialogpages/viewpage.cpp:103
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Size:"
+msgstr "Storleik:"
+
+#: dialogpages/viewpage.cpp:107
+#, kde-format
+msgctxt "@title:tab"
+msgid "Fonts"
+msgstr "Skrifter"
+
+#: komparenavtreepart/komparenavtreepart.cpp:55
+#, kde-format
+msgctxt "@title:column"
+msgid "Source Folder"
+msgstr "Kjeldemappe"
+
+#: komparenavtreepart/komparenavtreepart.cpp:61
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination Folder"
+msgstr "Målmappe"
+
+#: komparenavtreepart/komparenavtreepart.cpp:68
+#, kde-format
+msgctxt "@title:column"
+msgid "Source File"
+msgstr "Kjeldefil"
+
+#: komparenavtreepart/komparenavtreepart.cpp:69
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination File"
+msgstr "Målfil"
+
+#: komparenavtreepart/komparenavtreepart.cpp:78
+#, kde-format
+msgctxt "@title:column"
+msgid "Source Line"
+msgstr "Kjeldelinje"
+
+#: komparenavtreepart/komparenavtreepart.cpp:79
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination Line"
+msgstr "Mållinje"
+
+#: komparenavtreepart/komparenavtreepart.cpp:80
+#, kde-format
+msgctxt "@title:column"
+msgid "Difference"
+msgstr "Skilnad"
+
+#: komparenavtreepart/komparenavtreepart.cpp:455
+#, kde-format
+msgid "Applied: Changes made to %1 line undone"
+msgid_plural "Applied: Changes made to %1 lines undone"
+msgstr[0] "Legg over: Endringar i %1 linje vart omgjorde"
+msgstr[1] "Legg over: Endringar i %1 linjer vart omgjorde"
+
+#: komparenavtreepart/komparenavtreepart.cpp:458
+#, kde-format
+msgid "Changed %1 line"
+msgid_plural "Changed %1 lines"
+msgstr[0] "Endra éi linje"
+msgstr[1] "Endra %1 linjer"
+
+#: komparenavtreepart/komparenavtreepart.cpp:463
+#, kde-format
+msgid "Applied: Insertion of %1 line undone"
+msgid_plural "Applied: Insertion of %1 lines undone"
+msgstr[0] "Legg over: Innsetjinga av éi linje vart omgjorde"
+msgstr[1] "Legg over: Innsetjinga av %1 linjer vart omgjorde"
+
+#: komparenavtreepart/komparenavtreepart.cpp:466
+#, kde-format
+msgid "Inserted %1 line"
+msgid_plural "Inserted %1 lines"
+msgstr[0] "Sette inn éi linje"
+msgstr[1] "Sette inn %1 linjer"
+
+#: komparenavtreepart/komparenavtreepart.cpp:471
+#, kde-format
+msgid "Applied: Deletion of %1 line undone"
+msgid_plural "Applied: Deletion of %1 lines undone"
+msgstr[0] "Legg over: Slettinga av éi linje vart omgjord"
+msgstr[1] "Legg over: Slettinga av %1 linjer vart omgjord"
+
+#: komparenavtreepart/komparenavtreepart.cpp:474
+#, kde-format
+msgid "Deleted %1 line"
+msgid_plural "Deleted %1 lines"
+msgstr[0] "Sletta éi linje"
+msgstr[1] "Sletta %1 linjer"
+
+#: komparenavtreepart/komparenavtreepart.cpp:628
+#, kde-format
+msgctxt "@item directory name not known"
+msgid "Unknown"
+msgstr "Ukjend"
+
+#: komparepart/kompare_part.cpp:179
+#, kde-format
+msgctxt "@action"
+msgid "Save &All"
+msgstr "L&agra alt"
+
+#: komparepart/kompare_part.cpp:181
+#, kde-format
+msgctxt "@action"
+msgid "Save &Diff..."
+msgstr "Lagra &diff-fil …"
+
+#: komparepart/kompare_part.cpp:183
+#, kde-format
+msgctxt "@action"
+msgid "Swap Source with Destination"
+msgstr "Byt om kjelde og mål"
+
+#: komparepart/kompare_part.cpp:190
+#, kde-format
+msgctxt "@action"
+msgid "Show Statistics"
+msgstr "Vis statistikk"
+
+#: komparepart/kompare_part.cpp:193
+#, kde-format
+msgctxt "@action"
+msgid "Refresh Diff"
+msgstr "Oppdater diff"
+
+#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#, kde-format
+msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
+msgstr "<qt>URL-en <b>%1</b> kan ikkje lastast ned.</qt>"
+
+#: komparepart/kompare_part.cpp:356
+#, kde-format
+msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
+msgstr "<qt>URL-en <b>%1</b> finst ikkje på systemet ditt.</qt>"
+
+#: komparepart/kompare_part.cpp:544
+#, kde-format
+msgctxt "@title:window"
+msgid "Diff Options"
+msgstr "Innstillingar for diff"
+
+#: komparepart/kompare_part.cpp:565
+#, kde-format
+msgctxt "@title:window"
+msgid "Save .diff"
+msgstr "Lagra .diff-fil"
+
+#: komparepart/kompare_part.cpp:567
+#, kde-format
+msgid "Patch Files (*.diff *.dif *.patch)"
+msgstr "Rettefiler (*.diff *.dif *.patch)"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgid "The file exists or is write-protected; do you want to overwrite it?"
+msgstr "Fila finst eller er skriveverna. Vil du skriva over ho?"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgctxt "@window:title"
+msgid "File Exists"
+msgstr "Fila finst"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgctxt "@action:button"
+msgid "Do Not Overwrite"
+msgstr "Ikkje skriv over"
+
+#: komparepart/kompare_part.cpp:653
+#, kde-format
+msgctxt "@info:status"
+msgid "Running diff..."
+msgstr "Køyrer diff …"
+
+#: komparepart/kompare_part.cpp:656
+#, kde-format
+msgctxt "@info:status"
+msgid "Parsing diff output..."
+msgstr "Tolkar utdata frå diff …"
+
+#: komparepart/kompare_part.cpp:712
+#, kde-format
+msgctxt "@info:status"
+msgid "Comparing file %1 with file %2"
+msgstr "Samanliknar fila %1 med fila %2"
+
+#: komparepart/kompare_part.cpp:717
+#, kde-format
+msgctxt "@info:status"
+msgid "Comparing files in %1 with files in %2"
+msgstr "Samanliknar filene i %1 med filene i %2"
+
+#: komparepart/kompare_part.cpp:722
+#, kde-format
+msgctxt "@info:status"
+msgid "Viewing diff output from %1"
+msgstr "Viser utdataa til diff frå %1"
+
+#: komparepart/kompare_part.cpp:725
+#, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into file %2"
+msgstr "Flettar utdataa til diff frå %1 inn i fila %2"
+
+#: komparepart/kompare_part.cpp:730
+#, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into folder %2"
+msgstr "Flettar utdataa til diff frå %1 inn i mappa %2"
+
+#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
+#: komparepart/kompare_part.cpp:927
+#, kde-format
+msgid ""
+"You have made changes to the destination file(s).\n"
+"Would you like to save them?"
+msgstr ""
+"Du har gjort endringar i målfila/målfilene.\n"
+"Vil du lagra dei?"
+
+#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
+#: komparepart/kompare_part.cpp:929
+#, kde-format
+msgctxt "@title:window"
+msgid "Save Changes?"
+msgstr "Vil du lagra endringane?"
+
+#: komparepart/kompare_part.cpp:852
+#, kde-format
+msgctxt "@item diff format"
+msgid "Unified"
+msgstr "Sameint"
+
+#: komparepart/kompare_part.cpp:855
+#, kde-format
+msgctxt "@item diff format"
+msgid "Context"
+msgstr "Kontekst"
+
+#: komparepart/kompare_part.cpp:858
+#, kde-format
+msgctxt "@item diff format"
+msgid "RCS"
+msgstr "RCS"
+
+#: komparepart/kompare_part.cpp:861
+#, kde-format
+msgctxt "@item diff format"
+msgid "Ed"
+msgstr "Ed"
+
+#: komparepart/kompare_part.cpp:864
+#, kde-format
+msgctxt "@item diff format"
+msgid "Normal"
+msgstr "Normal"
+
+#: komparepart/kompare_part.cpp:868
+#, kde-format
+msgctxt "@item diff format"
+msgid "Unknown"
+msgstr "Ukjend"
+
+#: komparepart/kompare_part.cpp:884
+#, kde-format
+msgid ""
+"No diff file, or no 2 files have been diffed. Therefore no stats are "
+"available."
+msgstr ""
+"Inga diff-fil, eller ikkje noko filpar det har vorte køyrt diff på. Derfor "
+"er ikkje statistikken tilgjengeleg."
+
+#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:916
+#, kde-format
+msgctxt "@title:window"
+msgid "Diff Statistics"
+msgstr "Diff-statistikk"
+
+#: komparepart/kompare_part.cpp:890
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Old file: %1\n"
+"New file: %2\n"
+"\n"
+"Format: %3\n"
+"Number of hunks: %4\n"
+"Number of differences: %5"
+msgstr ""
+"Statistikk:\n"
+"\n"
+"Gammal fil: %1\n"
+"Ny fil: %2\n"
+"\n"
+"Format: %3\n"
+"Talet på klumpar: %4\n"
+"Talet på skilnadar: %5"
+
+#: komparepart/kompare_part.cpp:903
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Number of files in diff file: %1\n"
+"Format: %2\n"
+"\n"
+"Current old file: %3\n"
+"Current new file: %4\n"
+"\n"
+"Number of hunks: %5\n"
+"Number of differences: %6"
+msgstr ""
+"Statistikk:\n"
+"\n"
+"Talet på filer i diff-fila: %1\n"
+"Format: %2\n"
+"\n"
+"Gjeldande gammal fil: %3\n"
+"Gjeldande ny fil: %4\n"
+"\n"
+"Talet på klumpar: %5\n"
+"Talet på skilnadar: %6"
+
+#. i18n: ectx: Menu (difference)
+#: komparepart/komparepartui.rc:17
+#, kde-format
+msgid "&Difference"
+msgstr "&Skilnad"
+
+#: komparepart/kompareprefdlg.cpp:26
+#, kde-format
+msgctxt "@title:window"
+msgid "Preferences"
+msgstr "Innstillingar"
+
+#: komparepart/kompareprefdlg.cpp:36
+#, kde-format
+msgctxt "@title:tab"
+msgid "View"
+msgstr "Vising"
+
+#: komparepart/kompareprefdlg.cpp:38
+#, kde-format
+msgctxt "@title"
+msgid "View Settings"
+msgstr "Visingsinnstillingar"
+
+#: komparepart/kompareprefdlg.cpp:44
+#, kde-format
+msgctxt "@title"
+msgid "Diff Settings"
+msgstr "Innstillingar for diff"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
+#: komparepart/komparesaveoptionsbase.ui:29
+#, kde-format
+msgid "Format"
+msgstr "Format"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
+#: komparepart/komparesaveoptionsbase.ui:35
+#, kde-format
+msgid "&Context"
+msgstr "&Samanheng"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
+#: komparepart/komparesaveoptionsbase.ui:42
+#, kde-format
+msgid "Ed"
+msgstr "Ed"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
+#: komparepart/komparesaveoptionsbase.ui:49
+#, kde-format
+msgid "&Normal"
+msgstr "&Vanleg"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
+#: komparepart/komparesaveoptionsbase.ui:56
+#, kde-format
+msgid "RCS"
+msgstr "RCS"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
+#: komparepart/komparesaveoptionsbase.ui:63
+#, kde-format
+msgid "&Unified"
+msgstr "&Sameina"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
+#: komparepart/komparesaveoptionsbase.ui:73
+#, kde-format
+msgid "&Side-by-side"
+msgstr "&Side-om-side"
+
+#. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
+#: komparepart/komparesaveoptionsbase.ui:85
+#, kde-format
+msgid "Number of context lines:"
+msgstr "Talet på samanhengslinjer:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
+#: komparepart/komparesaveoptionsbase.ui:126
+#, kde-format
+msgid "Options"
+msgstr "Innstillingar"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_SmallerChangesCB)
+#: komparepart/komparesaveoptionsbase.ui:132
+#, kde-format
+msgid "Look for smaller changes"
+msgstr "Sjå etter mindre endringer"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:142
+#, kde-format
+msgid "Optimize for large files"
+msgstr "Klargjer for store filer"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
+#: komparepart/komparesaveoptionsbase.ui:152
+#, kde-format
+msgid "Ignore changes in case"
+msgstr "Ignorer endring av små/store bokstavar"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
+#: komparepart/komparesaveoptionsbase.ui:159
+#, kde-format
+msgid "Expand tabs to spaces"
+msgstr "Gjer om tabulatorar til mellomrom"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
+#: komparepart/komparesaveoptionsbase.ui:166
+#, kde-format
+msgid "Ignore added or removed empty lines"
+msgstr "Ignorer tomme linjer som er lagde til eller fjerna"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
+#: komparepart/komparesaveoptionsbase.ui:173
+#, kde-format
+msgid "Ignore changes in whitespace"
+msgstr "Ignorer endringar i tomrom"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
+#: komparepart/komparesaveoptionsbase.ui:180
+#, kde-format
+msgid "Show function names"
+msgstr "Vis funksjonsnamn"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
+#: komparepart/komparesaveoptionsbase.ui:190
+#, kde-format
+msgid "Compare folders recursively"
+msgstr "Samanlikna mappene etter kvart"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:200
+#, kde-format
+msgid "Treat new files as empty"
+msgstr "Sjå på nye filer som tomme"
+
+#. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
+#: komparepart/komparesaveoptionsbase.ui:222
+#, kde-format
+msgid "Run Diff In"
+msgstr "Køyr diff i"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
+#: komparepart/komparesaveoptionsbase.ui:247
+#, kde-format
+msgid "Command Line"
+msgstr "Kommandolinje"
+
+#. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
+#: komparepart/komparesaveoptionsbase.ui:256
+#, kde-format
+msgid "cd dir && diff -udHprNa -- source destination"
+msgstr "cd dir && diff -udHprNa -- source destination"

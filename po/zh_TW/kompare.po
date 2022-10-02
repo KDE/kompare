@@ -1,0 +1,1361 @@
+# translation of kompare.po to Chinese Traditional
+#
+# Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2006, 2008, 2009, 2010.
+# Franklin Weng <franklin at goodhorse dot idv dot tw>, 2007.
+# Frank Weng (a.k.a. Franklin) <franklin@goodhorse.idv.tw>, 2009.
+# Franklin Weng <franklin@goodhorse.idv.tw>, 2011, 2012, 2013, 2015.
+# Jeff Huang <s8321414@gmail.com>, 2016.
+# pan93412 <pan93412@gmail.com>, 2018, 2019, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: kompare\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"PO-Revision-Date: 2020-05-15 00:17+0800\n"
+"Last-Translator: Yi-Jyun Pan <pan93412@gmail.com>\n"
+"Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"dot tw>\n"
+"X-Generator: Lokalize 20.04.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Franklin Weng, Jeff Huang"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "franklin@goodhorse.idv.tw, s8321414@gmail.com"
+
+#: app/kompare_shell.cpp:69
+#, kde-format
+msgid "Could not load our KompareViewPart."
+msgstr "無法載入 KompareViewPart。"
+
+#: app/kompare_shell.cpp:73
+#, kde-format
+msgctxt "@title:window"
+msgid "Navigation"
+msgstr "導覽"
+
+#: app/kompare_shell.cpp:90
+#, kde-format
+msgid "Could not load our KompareNavigationPart."
+msgstr "無法載入 KompareNavigationPart。"
+
+#: app/kompare_shell.cpp:195
+#, kde-format
+msgctxt "@action"
+msgid "&Open Diff..."
+msgstr "開啟 Diff(&O)..."
+
+#: app/kompare_shell.cpp:198
+#, kde-format
+msgctxt "@action"
+msgid "&Compare Files..."
+msgstr "比較檔案(&C)..."
+
+#: app/kompare_shell.cpp:201
+#, kde-format
+msgctxt "@action"
+msgid "&Blend URL with Diff..."
+msgstr "將差異處套用到 URL(&B)..."
+
+#: app/kompare_shell.cpp:207
+#, kde-format
+msgctxt "@action"
+msgid "Show T&ext View"
+msgstr "顯示文字檢視(&E)"
+
+#: app/kompare_shell.cpp:220
+#, kde-format
+msgid " 0 of 0 differences "
+msgstr "沒有差異處"
+
+#: app/kompare_shell.cpp:221
+#, kde-format
+msgid " 0 of 0 files "
+msgstr "沒有檔案"
+
+#: app/kompare_shell.cpp:238
+#, kde-format
+msgid " %2 of %1 file "
+msgid_plural " %2 of %1 files "
+msgstr[0] "%1 個檔案，第 %2 個"
+
+#: app/kompare_shell.cpp:240
+#, kde-format
+msgid " %1 file "
+msgid_plural " %1 files "
+msgstr[0] "%1 個檔案"
+
+#: app/kompare_shell.cpp:243
+#, kde-format
+msgid " %2 of %1 difference, %3 applied "
+msgid_plural " %2 of %1 differences, %3 applied "
+msgstr[0] "%1 個差異處，第 %2 個，%3 個已套用。"
+
+#: app/kompare_shell.cpp:246
+#, kde-format
+msgid " %1 difference "
+msgid_plural " %1 differences "
+msgstr[0] "%1 個差異處"
+
+#: app/kompare_shell.cpp:327
+#, kde-format
+msgctxt "@title:window"
+msgid "Blend File/Folder with diff Output"
+msgstr "套用 diff 輸出到檔案/資料夾"
+
+#: app/kompare_shell.cpp:328
+#, kde-format
+msgctxt "@title:group"
+msgid "File/Folder"
+msgstr "檔案/資料夾"
+
+#: app/kompare_shell.cpp:329
+#, kde-format
+msgctxt "@title:group"
+msgid "Diff Output"
+msgstr "Diff 輸出"
+
+#: app/kompare_shell.cpp:332
+#, kde-format
+msgctxt "@action:button"
+msgid "Blend"
+msgstr "套用"
+
+#: app/kompare_shell.cpp:333
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Blend this file or folder with the diff output"
+msgstr "對此檔案或資料夾套用 diff 輸出"
+
+#: app/kompare_shell.cpp:334
+#, kde-format
+msgctxt "@infor:whatsthis"
+msgid ""
+"If you have entered a file or folder name and a file that contains diff "
+"output in the fields in this dialog then this button will be enabled and "
+"pressing it will open kompare's main view where the output of the entered "
+"file or files from the folder are mixed with the diff output so you can then "
+"apply the difference(s) to a file or to the files. "
+msgstr ""
+"如果您在此對話框中輸入一個檔案或資料夾名稱，以及包含 diff 輸出的檔案，按下此"
+"鍵會開啟 Kompare 的主檢視視窗，讓您檢視此 diff 輸出套用到指定的檔案或資料夾後"
+"的結果。"
+
+#: app/kompare_shell.cpp:357 app/main.cpp:199
+#, kde-format
+msgctxt "@title:window"
+msgid "Compare Files or Folders"
+msgstr "比較檔案或資料夾"
+
+#: app/kompare_shell.cpp:358 app/main.cpp:200
+#, kde-format
+msgctxt "@title:group"
+msgid "Source"
+msgstr "來源"
+
+#: app/kompare_shell.cpp:359 app/main.cpp:201
+#, kde-format
+msgctxt "@title:group"
+msgid "Destination"
+msgstr "目的地"
+
+#: app/kompare_shell.cpp:362 app/main.cpp:204
+#, kde-format
+msgctxt "@action:button"
+msgid "Compare"
+msgstr "比較"
+
+#: app/kompare_shell.cpp:363 app/main.cpp:205
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Compare these files or folders"
+msgstr "比較這些檔案或資料夾"
+
+#: app/kompare_shell.cpp:364 app/main.cpp:206
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you have entered 2 filenames or 2 folders in the fields in this dialog "
+"then this button will be enabled and pressing it will start a comparison of "
+"the entered files or folders. "
+msgstr ""
+"如果您在此對話框的欄位中輸入了兩個檔名或兩個資料夾，按下這個按鈕就會開始比"
+"較。"
+
+#: app/kompare_shell.cpp:398
+#, kde-format
+msgctxt "@title:window"
+msgid "Text View"
+msgstr "文字檢視"
+
+#. i18n: ectx: Menu (file)
+#: app/kompareui.rc:4 komparepart/komparepartui.rc:4
+#, kde-format
+msgid "&File"
+msgstr "檔案(&F)"
+
+#. i18n: ectx: Menu (settings)
+#: app/kompareui.rc:14 komparepart/komparepartui.rc:29
+#, kde-format
+msgid "&Settings"
+msgstr "設定(&S)"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: app/kompareui.rc:27
+#, kde-format
+msgid "Main Toolbar"
+msgstr "主工具列"
+
+#: app/kompareurldialog.cpp:37
+#, kde-format
+msgctxt "@title:tab"
+msgid "Files"
+msgstr "檔案"
+
+#: app/kompareurldialog.cpp:39
+#, kde-format
+msgid "Here you can enter the files you want to compare."
+msgstr "您可以在此輸入您要比較的檔案。"
+
+#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:42
+#, kde-format
+msgctxt "@title:tab"
+msgid "Diff"
+msgstr "Diff"
+
+#: app/kompareurldialog.cpp:47
+#, kde-format
+msgid "Here you can change the options for comparing the files."
+msgstr "您可以在此變更比較檔案的選項。"
+
+#: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
+#, kde-format
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "外觀"
+
+#: app/kompareurldialog.cpp:55
+#, kde-format
+msgid "Here you can change the options for the view."
+msgstr "您可以在此變更外觀的選項。"
+
+#: app/kompareurldialog.cpp:101
+#, kde-format
+msgid ""
+"File used for excluding files cannot be found, please specify another file."
+msgstr "找不到存放排除檔案的檔案。請選擇現有的檔案。"
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Kompare"
+msgstr "Kompare"
+
+#: app/main.cpp:52
+#, kde-format
+msgid ""
+"A program to view the differences between files and optionally generate a "
+"diff"
+msgstr "檢視檔案間的不同，還有產生修補檔的程式。"
+
+#: app/main.cpp:54
+#, kde-format
+msgid ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+msgstr ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+
+#: app/main.cpp:57
+#, kde-format
+msgid "John Firebaugh"
+msgstr "John Firebaugh"
+
+#: app/main.cpp:57 app/main.cpp:58
+#, kde-format
+msgid "Author"
+msgstr "作者"
+
+#: app/main.cpp:58
+#, kde-format
+msgid "Otto Bruggeman"
+msgstr "Otto Bruggeman"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Jeff Snyder"
+msgstr "Jeff Snyder"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Developer"
+msgstr "開發者"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Kevin Kofler"
+msgstr "Kevin Kofler"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Maintainer"
+msgstr "維護者"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Chris Luetchford"
+msgstr "Chris Luetchford"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Kompare icon artist"
+msgstr "Kompare 圖示製作"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "Malte Starostik"
+msgstr "Malte Starostik"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "A lot of good advice"
+msgstr "許多好點子"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Bernd Gehrmann"
+msgstr "Bernd Gehrmann"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Cervisia diff viewer"
+msgstr "Cervisia diff 檢視器"
+
+#: app/main.cpp:70
+#, kde-format
+msgid "This will compare URL1 with URL2"
+msgstr "這會比較 URL1 與 URL2"
+
+#: app/main.cpp:71
+#, kde-format
+msgid ""
+"This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
+"and then it will read from standard input. Can be used for instance for cvs "
+"diff | kompare -o -. Kompare will do a check to see if it can find the "
+"original file(s) and then blend the original file(s) into the diffoutput and "
+"show that in the viewer. -n disables the check."
+msgstr ""
+"這會開啟 URL1，它應該是 diff 的輸出。URL1 也可以是 '-'，這種狀況下它會從標準"
+"輸入讀取。它可以這樣用：cvs diff | compare -o -。Kompare 會檢查是否可以找到原"
+"始檔，並套用 diff 輸出，再顯示在檢視器內。 -n 關閉此檢查。"
+
+#: app/main.cpp:72
+#, kde-format
+msgid ""
+"This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
+"the file or folder that the diffoutput needs to be blended into. "
+msgstr ""
+"這會將 URL2 套用到 URL1。URL2 應該是 diff 的輸出，URL1 則是要套用的檔案或資料"
+"夾。"
+
+#: app/main.cpp:73
+#, kde-format
+msgid ""
+"Disables the check for automatically finding the original file(s) when using "
+"'-' as URL with the -o option."
+msgstr ""
+"在使用 '-' 為讀取的 URL，並與 -o 一起使用時，關閉自動尋找原始檔案的檢查。"
+
+#: app/main.cpp:74
+#, kde-format
+msgid ""
+"Use this to specify the encoding when calling it from the command line. It "
+"will default to the local encoding if not specified."
+msgstr "用這個指定從命令列呼叫時的編碼。預設為本地端的編碼系統。"
+
+#: dialogpages/diffpage.cpp:174
+#, kde-format
+msgctxt "@title:group"
+msgid "Diff Program"
+msgstr "Diff 程式"
+
+#: dialogpages/diffpage.cpp:179
+#, kde-format
+msgid ""
+"You can select a different diff program here. On Solaris the standard diff "
+"program does not support all the options that the GNU version does. This way "
+"you can select that version."
+msgstr ""
+"您可以選擇不同的 diff 程式。在 Solaris 上標準的 diff 程式，支援選項沒有像 "
+"GNU 版本那麼多。您可以在此選擇其他的版本。"
+
+#: dialogpages/diffpage.cpp:196
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"Select the format of the output generated by diff. Unified is the one that "
+"is used most frequently because it is very readable. The KDE developers like "
+"this format the best so use it for sending patches."
+msgstr ""
+"選擇 diff 輸出的格式。「統一」（Unified）是最常用的，因為可讀性很高。KDE 開發"
+"團隊最喜歡用這個格式，所以要傳送修補檔用這個格式最好。"
+
+#: dialogpages/diffpage.cpp:199
+#, kde-format
+msgctxt "@title:group"
+msgid "Output Format"
+msgstr "輸出格式"
+
+#: dialogpages/diffpage.cpp:201
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Context"
+msgstr "內容"
+
+#: dialogpages/diffpage.cpp:204
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Normal"
+msgstr "正常"
+
+#: dialogpages/diffpage.cpp:207
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Unified"
+msgstr "統一"
+
+#: dialogpages/diffpage.cpp:215
+#, kde-format
+msgctxt "@title:group"
+msgid "Lines of Context"
+msgstr "內容行數"
+
+#: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"The number of context lines is normally 2 or 3. This makes the diff readable "
+"and applicable in most cases. More than 3 lines will only bloat the diff "
+"unnecessarily."
+msgstr ""
+"內容行數通常是 2 或 3。這會提高 diff 輸出的可讀性，並且在大部份狀況都可使用。"
+"三行以上只會讓 diff 輸出產生不必要的膨脹。"
+
+#: dialogpages/diffpage.cpp:220
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of context lines:"
+msgstr "內容的行數："
+
+#: dialogpages/diffpage.cpp:225
+#, kde-format
+msgctxt "@title:tab"
+msgid "Format"
+msgstr "格式"
+
+#: dialogpages/diffpage.cpp:237
+#, kde-format
+msgctxt "@title:group"
+msgid "General"
+msgstr "一般"
+
+#: dialogpages/diffpage.cpp:239
+#, kde-format
+msgctxt "@option:check"
+msgid "&Treat new files as empty"
+msgstr "將新檔案視為空檔案(&T)"
+
+#: dialogpages/diffpage.cpp:240
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -N diff option."
+msgstr "此選項對應到 diff 的 -N 項選。"
+
+#: dialogpages/diffpage.cpp:241
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will treat a file that only exists in one of "
+"the directories as empty in the other directory. This means that the file is "
+"compared with an empty file and because of this will appear as one big "
+"insertion or deletion."
+msgstr ""
+"開啟此選項的話，若某檔案只存在於其中一個目錄，則會視為另一個目錄也有相同的檔"
+"案，只是是空檔案。這表示會將該檔案與一個空檔案比對，結果就是一個大區塊的插入"
+"或刪除。"
+
+#: dialogpages/diffpage.cpp:244
+#, kde-format
+msgctxt "@option:check"
+msgid "&Look for smaller changes"
+msgstr "尋找小改變(&L)"
+
+#: dialogpages/diffpage.cpp:245
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -d diff option."
+msgstr "對應到 diff 的 -d 選項。"
+
+#: dialogpages/diffpage.cpp:246
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will try a little harder (at the cost of more "
+"memory) to find fewer changes."
+msgstr "開啟此選項的話，diff 會盡量找少一點變更（不過會花多一點記憶體）"
+
+#: dialogpages/diffpage.cpp:248
+#, kde-format
+msgctxt "@option:check"
+msgid "O&ptimize for large files"
+msgstr "對大檔案最佳化(&P)"
+
+#: dialogpages/diffpage.cpp:249
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -H diff option."
+msgstr "對應到 diff 的 -H 選項。"
+
+#: dialogpages/diffpage.cpp:250
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option lets diff makes better diffs when using large files. The "
+"definition of large is nowhere to be found though."
+msgstr ""
+"這個選項在對付大檔案時，會用較好的方式。不過什麼叫「大檔案」好像沒有明確定"
+"義..."
+
+#: dialogpages/diffpage.cpp:252
+#, kde-format
+msgctxt "@option:check"
+msgid "&Ignore changes in case"
+msgstr "忽略大小寫改變(&I)"
+
+#: dialogpages/diffpage.cpp:253
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -i diff option."
+msgstr "對應到 diff 的 -i 選項。"
+
+#: dialogpages/diffpage.cpp:254
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option to ignore changes in case enabled, diff will not indicate a "
+"difference when something in one file is changed into SoMEthing in the other "
+"file."
+msgstr "此選項會在比對時忽略大小寫。"
+
+#: dialogpages/diffpage.cpp:262
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore regexp:"
+msgstr "忽略正則表達式："
+
+#: dialogpages/diffpage.cpp:263
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -I diff option."
+msgstr "對應到 diff 的 -I 選項。"
+
+#: dialogpages/diffpage.cpp:264
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"When this checkbox is enabled, an option to diff is given that will make "
+"diff ignore lines that match the regular expression."
+msgstr "勾選此選項的話，在做 diff 時會忽略符合此正則表達式的行。"
+
+#: dialogpages/diffpage.cpp:268
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Add the regular expression here that you want to use\n"
+"to ignore lines that match it."
+msgstr "在此新增正則表達式，若符合此式則忽略之。"
+
+#: dialogpages/diffpage.cpp:274
+#, kde-format
+msgctxt "@title:group"
+msgid "Whitespace"
+msgstr "空白"
+
+#: dialogpages/diffpage.cpp:276
+#, kde-format
+msgctxt "@option:check"
+msgid "E&xpand tabs to spaces in output"
+msgstr "輸出時將 tab 字元展開為空白"
+
+#: dialogpages/diffpage.cpp:277
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -t diff option."
+msgstr "對應到 diff 的 -t 選項。"
+
+#: dialogpages/diffpage.cpp:278
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option does not always produce the right result. Due to this expansion "
+"Kompare may have problems applying the change to the destination file."
+msgstr ""
+"此選項並不會每次都產生正確的結果，因此 Kompare 可能會在套用變更到目的檔時會發"
+"生問題。"
+
+#: dialogpages/diffpage.cpp:280
+#, kde-format
+msgctxt "@option:check"
+msgid "I&gnore added or removed empty lines"
+msgstr "忽略新增或移除的空行(&G)"
+
+#: dialogpages/diffpage.cpp:281
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -B diff option."
+msgstr "對應到 diff 的 -B 選項。"
+
+#: dialogpages/diffpage.cpp:282
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This can be very useful in situations where code has been reorganized and "
+"empty lines have been added or removed to improve legibility."
+msgstr "若是程式碼被重新編排過，加上或刪掉一堆空白時，可以用此選項。"
+
+#: dialogpages/diffpage.cpp:284
+#, kde-format
+msgctxt "@option:check"
+msgid "Ig&nore changes in the amount of whitespace"
+msgstr "忽略只有空白的改變(&N)"
+
+#: dialogpages/diffpage.cpp:285
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -b diff option."
+msgstr "對應到 diff 的 -b 選項。"
+
+#: dialogpages/diffpage.cpp:286
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you are uninterested in differences arising due to, for example, changes "
+"in indentation, then use this option."
+msgstr "若您希望略過，比方說，縮排造成的變更時，可以使用此選項。"
+
+#: dialogpages/diffpage.cpp:288
+#, kde-format
+msgctxt "@option:check"
+msgid "Ign&ore all whitespace"
+msgstr "忽略所有的空白(&O)"
+
+#: dialogpages/diffpage.cpp:289
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -w diff option."
+msgstr "對應到 diff 的 -w 選項。"
+
+#: dialogpages/diffpage.cpp:290
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This is useful for seeing the significant changes without being overwhelmed "
+"by all the white space changes."
+msgstr ""
+"若您希望看到真正的變更，而不要被一堆空白造成的變更打擾時，可以使用此選項。"
+
+#: dialogpages/diffpage.cpp:292
+#, kde-format
+msgctxt "@option:check"
+msgid "Igno&re changes due to tab expansion"
+msgstr "忽略將 tab 展開的改變(&R)"
+
+#: dialogpages/diffpage.cpp:293
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -E diff option."
+msgstr "對應到 diff 的 -E 選項。"
+
+#: dialogpages/diffpage.cpp:294
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If there is a change because tabs have been expanded into spaces in the "
+"other file, then this option will make sure that these do not show up. "
+"Kompare currently has some problems applying such changes so be careful when "
+"you use this option."
+msgstr ""
+"若有因為 tab 被展開成幾個空白這類的的變更，此選項可以避開這種變更。不過要注"
+"意，目前使用此變更的話，Kompare 在套用變更時會有些問題。"
+
+#: dialogpages/diffpage.cpp:299
+#, kde-format
+msgctxt "@title:tab"
+msgid "Options"
+msgstr "選項"
+
+#: dialogpages/diffpage.cpp:311
+#, kde-format
+msgctxt "@title:group"
+msgid "File Pattern to Exclude"
+msgstr "要排除的檔案樣式"
+
+#: dialogpages/diffpage.cpp:312
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"If this is checked you can enter a shell pattern in the text box on the "
+"right or select entries from the list."
+msgstr ""
+"勾選此選項的話，您可以在右方文字欄內輸入一個文稿樣式，或是從清單中選擇。"
+
+#: dialogpages/diffpage.cpp:318
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter or remove a shell pattern or select one or more entries "
+"from the list."
+msgstr "您可以在此輸入或移除文稿樣式，或是從清單中選擇樣式。"
+
+#: dialogpages/diffpage.cpp:328
+#, kde-format
+msgctxt "@title:group"
+msgid "File with Filenames to Exclude"
+msgstr "要排除的檔名樣式"
+
+#: dialogpages/diffpage.cpp:329
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "If this is checked you can enter a filename in the combo box below."
+msgstr "勾選此選項的話，您可以在下方的選單中輸入檔名。"
+
+#: dialogpages/diffpage.cpp:333
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter the URL of a file with shell patterns to ignore during "
+"the comparison of the folders."
+msgstr "您可以在此輸入檔案路徑，檔案中含有在比較資料夾時要忽略的文稿樣式。"
+
+#: dialogpages/diffpage.cpp:337
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Any file you select in the dialog that pops up when you click it will be put "
+"in the dialog to the left of this button."
+msgstr "您在此對話框中所選擇的任何檔案將會被放到左方的對話框中。"
+
+#: dialogpages/diffpage.cpp:344
+#, kde-format
+msgctxt "@title:tab"
+msgid "Exclude"
+msgstr "排除"
+
+#: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select file"
+msgstr "選擇檔案"
+
+#: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select folder"
+msgstr "選擇資料夾"
+
+#: dialogpages/filespage.cpp:87
+#, kde-format
+msgctxt "@title:group"
+msgid "Encoding"
+msgstr "編碼"
+
+#: dialogpages/filespage.cpp:92
+#, kde-format
+msgctxt "@item:inlistbox encoding"
+msgid "Default"
+msgstr "預設"
+
+#: dialogpages/filespage.cpp:126
+#, kde-format
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr "選擇資料夾"
+
+#: dialogpages/filespage.cpp:130
+#, kde-format
+msgctxt "@title:window"
+msgid "Select File"
+msgstr "選擇檔案"
+
+#: dialogpages/viewpage.cpp:44
+#, kde-format
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "顏色"
+
+#: dialogpages/viewpage.cpp:50
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Removed color:"
+msgstr "已移除的顏色："
+
+#: dialogpages/viewpage.cpp:54
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Changed color:"
+msgstr "已改變的顏色："
+
+#: dialogpages/viewpage.cpp:58
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Added color:"
+msgstr "已新增的顏色："
+
+#: dialogpages/viewpage.cpp:62
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Applied color:"
+msgstr "已套用的顏色："
+
+#: dialogpages/viewpage.cpp:66
+#, kde-format
+msgctxt "@title:group"
+msgid "Mouse Wheel"
+msgstr "滑鼠滾輪"
+
+#: dialogpages/viewpage.cpp:72
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of lines:"
+msgstr "行數："
+
+#: dialogpages/viewpage.cpp:77
+#, kde-format
+msgctxt "@title:group"
+msgid "Tabs to Spaces"
+msgstr "Tab 字元轉換成空白"
+
+#: dialogpages/viewpage.cpp:83
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of spaces to convert a tab character to:"
+msgstr "多少個空白要轉換成一個 tab 字元："
+
+#: dialogpages/viewpage.cpp:94
+#, kde-format
+msgctxt "@title:group"
+msgid "Text Font"
+msgstr "文字字型"
+
+#: dialogpages/viewpage.cpp:98
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Font:"
+msgstr "字型："
+
+#: dialogpages/viewpage.cpp:103
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Size:"
+msgstr "大小："
+
+#: dialogpages/viewpage.cpp:107
+#, kde-format
+msgctxt "@title:tab"
+msgid "Fonts"
+msgstr "字型"
+
+#: komparenavtreepart/komparenavtreepart.cpp:55
+#, kde-format
+msgctxt "@title:column"
+msgid "Source Folder"
+msgstr "來源資料夾"
+
+#: komparenavtreepart/komparenavtreepart.cpp:61
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination Folder"
+msgstr "目的資料夾"
+
+#: komparenavtreepart/komparenavtreepart.cpp:68
+#, kde-format
+msgctxt "@title:column"
+msgid "Source File"
+msgstr "來源檔案"
+
+#: komparenavtreepart/komparenavtreepart.cpp:69
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination File"
+msgstr "目的檔案"
+
+#: komparenavtreepart/komparenavtreepart.cpp:78
+#, kde-format
+msgctxt "@title:column"
+msgid "Source Line"
+msgstr "來源行"
+
+#: komparenavtreepart/komparenavtreepart.cpp:79
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination Line"
+msgstr "目的行"
+
+#: komparenavtreepart/komparenavtreepart.cpp:80
+#, kde-format
+msgctxt "@title:column"
+msgid "Difference"
+msgstr "差異處"
+
+#: komparenavtreepart/komparenavtreepart.cpp:455
+#, kde-format
+msgid "Applied: Changes made to %1 line undone"
+msgid_plural "Applied: Changes made to %1 lines undone"
+msgstr[0] "套用：對 %1 行改變的動作未完成"
+
+#: komparenavtreepart/komparenavtreepart.cpp:458
+#, kde-format
+msgid "Changed %1 line"
+msgid_plural "Changed %1 lines"
+msgstr[0] "改變 %1 行"
+
+#: komparenavtreepart/komparenavtreepart.cpp:463
+#, kde-format
+msgid "Applied: Insertion of %1 line undone"
+msgid_plural "Applied: Insertion of %1 lines undone"
+msgstr[0] "套用：插入 %1 行的動作未完成"
+
+#: komparenavtreepart/komparenavtreepart.cpp:466
+#, kde-format
+msgid "Inserted %1 line"
+msgid_plural "Inserted %1 lines"
+msgstr[0] "插入 %1 行"
+
+#: komparenavtreepart/komparenavtreepart.cpp:471
+#, kde-format
+msgid "Applied: Deletion of %1 line undone"
+msgid_plural "Applied: Deletion of %1 lines undone"
+msgstr[0] "套用：刪除 %1 行的動作未完成。"
+
+#: komparenavtreepart/komparenavtreepart.cpp:474
+#, kde-format
+msgid "Deleted %1 line"
+msgid_plural "Deleted %1 lines"
+msgstr[0] "已刪除 %1行"
+
+#: komparenavtreepart/komparenavtreepart.cpp:628
+#, kde-format
+msgctxt "@item directory name not known"
+msgid "Unknown"
+msgstr "未知"
+
+#: komparepart/kompare_part.cpp:179
+#, kde-format
+msgctxt "@action"
+msgid "Save &All"
+msgstr "全部儲存(&A)"
+
+#: komparepart/kompare_part.cpp:181
+#, kde-format
+msgctxt "@action"
+msgid "Save &Diff..."
+msgstr "儲存 Diff(&D)..."
+
+#: komparepart/kompare_part.cpp:183
+#, kde-format
+msgctxt "@action"
+msgid "Swap Source with Destination"
+msgstr "將來源與目的地交換"
+
+#: komparepart/kompare_part.cpp:190
+#, kde-format
+msgctxt "@action"
+msgid "Show Statistics"
+msgstr "顯示統計"
+
+#: komparepart/kompare_part.cpp:193
+#, kde-format
+msgctxt "@action"
+msgid "Refresh Diff"
+msgstr "刷新 Diff"
+
+#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#, kde-format
+msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
+msgstr "<qt>無法下載 URL <b>%1</b>。</qt>"
+
+#: komparepart/kompare_part.cpp:356
+#, kde-format
+msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
+msgstr "<qt>URL <b>%1</b> 不存在於您的系統中。</qt>"
+
+#: komparepart/kompare_part.cpp:544
+#, kde-format
+msgctxt "@title:window"
+msgid "Diff Options"
+msgstr "Diff 選項"
+
+#: komparepart/kompare_part.cpp:565
+#, kde-format
+msgctxt "@title:window"
+msgid "Save .diff"
+msgstr "儲存 .diff"
+
+#: komparepart/kompare_part.cpp:567
+#, kde-format
+msgid "Patch Files (*.diff *.dif *.patch)"
+msgstr "修補檔案 (*.diff *.dif *.patch)"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgid "The file exists or is write-protected; do you want to overwrite it?"
+msgstr "檔案已存在，或是有寫入保護。您確定要覆寫它嗎？"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgctxt "@window:title"
+msgid "File Exists"
+msgstr "檔案已存在"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgctxt "@action:button"
+msgid "Do Not Overwrite"
+msgstr "不要覆寫"
+
+#: komparepart/kompare_part.cpp:653
+#, kde-format
+msgctxt "@info:status"
+msgid "Running diff..."
+msgstr "執行 diff..."
+
+#: komparepart/kompare_part.cpp:656
+#, kde-format
+msgctxt "@info:status"
+msgid "Parsing diff output..."
+msgstr "分析 diff 輸出..."
+
+#: komparepart/kompare_part.cpp:712
+#, kde-format
+msgctxt "@info:status"
+msgid "Comparing file %1 with file %2"
+msgstr "比較檔案 %1 與檔案 %2"
+
+#: komparepart/kompare_part.cpp:717
+#, kde-format
+msgctxt "@info:status"
+msgid "Comparing files in %1 with files in %2"
+msgstr "比較在 %1 中的檔案與在 %2 中的檔案"
+
+#: komparepart/kompare_part.cpp:722
+#, kde-format
+msgctxt "@info:status"
+msgid "Viewing diff output from %1"
+msgstr "檢視從 %1 的 diff 的輸出"
+
+#: komparepart/kompare_part.cpp:725
+#, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into file %2"
+msgstr "將從 %1 出來的 diff 輸出套入檔案 %2"
+
+#: komparepart/kompare_part.cpp:730
+#, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into folder %2"
+msgstr "將從 %1 出來的 diff 輸出套入資料夾 %2"
+
+#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
+#: komparepart/kompare_part.cpp:927
+#, kde-format
+msgid ""
+"You have made changes to the destination file(s).\n"
+"Would you like to save them?"
+msgstr ""
+"您已修改目的檔。\n"
+"要儲存嗎？"
+
+#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
+#: komparepart/kompare_part.cpp:929
+#, kde-format
+msgctxt "@title:window"
+msgid "Save Changes?"
+msgstr "是否儲存變更？"
+
+#: komparepart/kompare_part.cpp:852
+#, kde-format
+msgctxt "@item diff format"
+msgid "Unified"
+msgstr "統一"
+
+#: komparepart/kompare_part.cpp:855
+#, kde-format
+msgctxt "@item diff format"
+msgid "Context"
+msgstr "內容"
+
+#: komparepart/kompare_part.cpp:858
+#, kde-format
+msgctxt "@item diff format"
+msgid "RCS"
+msgstr "RCS"
+
+#: komparepart/kompare_part.cpp:861
+#, kde-format
+msgctxt "@item diff format"
+msgid "Ed"
+msgstr "Ed"
+
+#: komparepart/kompare_part.cpp:864
+#, kde-format
+msgctxt "@item diff format"
+msgid "Normal"
+msgstr "正常"
+
+#: komparepart/kompare_part.cpp:868
+#, kde-format
+msgctxt "@item diff format"
+msgid "Unknown"
+msgstr "未知"
+
+#: komparepart/kompare_part.cpp:884
+#, kde-format
+msgid ""
+"No diff file, or no 2 files have been diffed. Therefore no stats are "
+"available."
+msgstr "沒有 diff 檔，或沒有兩個檔案可比較。因此無法統計。"
+
+#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:916
+#, kde-format
+msgctxt "@title:window"
+msgid "Diff Statistics"
+msgstr "Diff 統計"
+
+#: komparepart/kompare_part.cpp:890
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Old file: %1\n"
+"New file: %2\n"
+"\n"
+"Format: %3\n"
+"Number of hunks: %4\n"
+"Number of differences: %5"
+msgstr ""
+"統計：\n"
+"\n"
+"舊檔：%1\n"
+"相檔：%2\n"
+"\n"
+"格式：%3\n"
+"區塊數量：%4\n"
+"差異數量：%5"
+
+#: komparepart/kompare_part.cpp:903
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Number of files in diff file: %1\n"
+"Format: %2\n"
+"\n"
+"Current old file: %3\n"
+"Current new file: %4\n"
+"\n"
+"Number of hunks: %5\n"
+"Number of differences: %6"
+msgstr ""
+"統計：\n"
+"\n"
+"diff 檔中的檔案數量：%1\n"
+"格式：%2\n"
+"\n"
+"目前的舊檔：%3\n"
+"目前的新檔：%4\n"
+"\n"
+"區塊數量：%5\n"
+"差異數量：%6"
+
+#. i18n: ectx: Menu (difference)
+#: komparepart/komparepartui.rc:17
+#, kde-format
+msgid "&Difference"
+msgstr "差異(&D)"
+
+#: komparepart/kompareprefdlg.cpp:26
+#, kde-format
+msgctxt "@title:window"
+msgid "Preferences"
+msgstr "喜好設定"
+
+#: komparepart/kompareprefdlg.cpp:36
+#, kde-format
+msgctxt "@title:tab"
+msgid "View"
+msgstr "檢視"
+
+#: komparepart/kompareprefdlg.cpp:38
+#, kde-format
+msgctxt "@title"
+msgid "View Settings"
+msgstr "顯示設定"
+
+#: komparepart/kompareprefdlg.cpp:44
+#, kde-format
+msgctxt "@title"
+msgid "Diff Settings"
+msgstr "Diff 設定"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
+#: komparepart/komparesaveoptionsbase.ui:29
+#, kde-format
+msgid "Format"
+msgstr "格式"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
+#: komparepart/komparesaveoptionsbase.ui:35
+#, kde-format
+msgid "&Context"
+msgstr "內容 (&C)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
+#: komparepart/komparesaveoptionsbase.ui:42
+#, kde-format
+msgid "Ed"
+msgstr "Ed"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
+#: komparepart/komparesaveoptionsbase.ui:49
+#, kde-format
+msgid "&Normal"
+msgstr "普通 (&N)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
+#: komparepart/komparesaveoptionsbase.ui:56
+#, kde-format
+msgid "RCS"
+msgstr "RCS"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
+#: komparepart/komparesaveoptionsbase.ui:63
+#, kde-format
+msgid "&Unified"
+msgstr "統一 (&U)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
+#: komparepart/komparesaveoptionsbase.ui:73
+#, kde-format
+msgid "&Side-by-side"
+msgstr "並排比較 (&S)"
+
+#. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
+#: komparepart/komparesaveoptionsbase.ui:85
+#, kde-format
+msgid "Number of context lines:"
+msgstr "內容的行數："
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
+#: komparepart/komparesaveoptionsbase.ui:126
+#, kde-format
+msgid "Options"
+msgstr "選項"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_SmallerChangesCB)
+#: komparepart/komparesaveoptionsbase.ui:132
+#, kde-format
+msgid "Look for smaller changes"
+msgstr "尋找小改變"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:142
+#, kde-format
+msgid "Optimize for large files"
+msgstr "對大檔案最佳化"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
+#: komparepart/komparesaveoptionsbase.ui:152
+#, kde-format
+msgid "Ignore changes in case"
+msgstr "忽略大小寫的改變"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
+#: komparepart/komparesaveoptionsbase.ui:159
+#, kde-format
+msgid "Expand tabs to spaces"
+msgstr "將 tab 展開為空白"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
+#: komparepart/komparesaveoptionsbase.ui:166
+#, kde-format
+msgid "Ignore added or removed empty lines"
+msgstr "忽略新增或移除的空行"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
+#: komparepart/komparesaveoptionsbase.ui:173
+#, kde-format
+msgid "Ignore changes in whitespace"
+msgstr "忽略空白的改變"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
+#: komparepart/komparesaveoptionsbase.ui:180
+#, kde-format
+msgid "Show function names"
+msgstr "顯示函數名稱"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
+#: komparepart/komparesaveoptionsbase.ui:190
+#, kde-format
+msgid "Compare folders recursively"
+msgstr "遞迴比較資料夾"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:200
+#, kde-format
+msgid "Treat new files as empty"
+msgstr "將新檔案視為空檔案"
+
+#. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
+#: komparepart/komparesaveoptionsbase.ui:222
+#, kde-format
+msgid "Run Diff In"
+msgstr "執行 Diff 於"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
+#: komparepart/komparesaveoptionsbase.ui:247
+#, kde-format
+msgid "Command Line"
+msgstr "指令行"
+
+#. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
+#: komparepart/komparesaveoptionsbase.ui:256
+#, kde-format
+msgid "cd dir && diff -udHprNa -- source destination"
+msgstr "cd dir && diff -udHprNa -- source destination"
+
+#~ msgid "KompareNavTreePart"
+#~ msgstr "KompareNavTreePart"
+
+#~ msgid "KomparePart"
+#~ msgstr "KomparePart"
+
+#~ msgctxt "@action:button"
+#~ msgid "&Edit..."
+#~ msgstr "編輯(&E)..."
+
+#~ msgctxt "@info:tooltip"
+#~ msgid ""
+#~ "Clicking this will open a regular expression dialog where\n"
+#~ "you can graphically create regular expressions."
+#~ msgstr "點選以開啟正則表達式編輯視窗。"

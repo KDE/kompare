@@ -1,0 +1,1613 @@
+# translation of kompare.po to Belarusian
+#
+# Siarhei Liantsevich <serzh.by@gmail.com>, 2007.
+# Darafei Praliaskouski <komzpa@licei2.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: kompare\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"PO-Revision-Date: 2007-10-28 14:03+0200\n"
+"Last-Translator: Darafei Praliaskouski <komzpa@licei2.com>\n"
+"Language-Team: Belarusian <i18n@mova.org>\n"
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || n%10>=5 && n%10<=9 || n"
+"%100>=11 && n%100<=14 ? 2 : 3);\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+
+#: app/kompare_shell.cpp:69
+#, fuzzy, kde-format
+msgid "Could not load our KompareViewPart."
+msgstr "Не атрымліваецца загрузіць кампанент KompareViewPart."
+
+#: app/kompare_shell.cpp:73
+#, kde-format
+msgctxt "@title:window"
+msgid "Navigation"
+msgstr ""
+
+#: app/kompare_shell.cpp:90
+#, fuzzy, kde-format
+msgid "Could not load our KompareNavigationPart."
+msgstr "Не атрымліваецца загрузіць кампанент KompareNavigationPart."
+
+#: app/kompare_shell.cpp:195
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "&Open Diff..."
+msgstr "Адкрыць Diff..."
+
+#: app/kompare_shell.cpp:198
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "&Compare Files..."
+msgstr "Параўнаць файлы..."
+
+#: app/kompare_shell.cpp:201
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "&Blend URL with Diff..."
+msgstr "Зліць спасылку з Diff"
+
+#: app/kompare_shell.cpp:207
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "Show T&ext View"
+msgstr "Паказаць у выглядзе тэксту"
+
+#: app/kompare_shell.cpp:220
+#, fuzzy, kde-format
+msgid " 0 of 0 differences "
+msgstr " 0 з 0 адрозненняў "
+
+#: app/kompare_shell.cpp:221
+#, fuzzy, kde-format
+msgid " 0 of 0 files "
+msgstr " 0 з 0 файлаў "
+
+#: app/kompare_shell.cpp:238
+#, fuzzy, kde-format
+msgid " %2 of %1 file "
+msgid_plural " %2 of %1 files "
+msgstr[0] " 0 з 0 файлаў "
+msgstr[1] " 0 з 0 файлаў "
+msgstr[2] " 0 з 0 файлаў "
+
+#: app/kompare_shell.cpp:240
+#, fuzzy, kde-format
+msgid " %1 file "
+msgid_plural " %1 files "
+msgstr[0] " 0 з 0 файлаў "
+msgstr[1] " 0 з 0 файлаў "
+msgstr[2] " 0 з 0 файлаў "
+
+#: app/kompare_shell.cpp:243
+#, fuzzy, kde-format
+msgid " %2 of %1 difference, %3 applied "
+msgid_plural " %2 of %1 differences, %3 applied "
+msgstr[0] " 0 з 0 адрозненняў "
+msgstr[1] " 0 з 0 адрозненняў "
+msgstr[2] " 0 з 0 адрозненняў "
+
+#: app/kompare_shell.cpp:246
+#, fuzzy, kde-format
+msgid " %1 difference "
+msgid_plural " %1 differences "
+msgstr[0] " 0 з 0 адрозненняў "
+msgstr[1] " 0 з 0 адрозненняў "
+msgstr[2] " 0 з 0 адрозненняў "
+
+#: app/kompare_shell.cpp:327
+#, fuzzy, kde-format
+msgctxt "@title:window"
+msgid "Blend File/Folder with diff Output"
+msgstr "Зліць файл/тэчку з высновай diff"
+
+#: app/kompare_shell.cpp:328
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "File/Folder"
+msgstr "Файл/тэчка"
+
+#: app/kompare_shell.cpp:329
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Diff Output"
+msgstr "Выснова Diff"
+
+#: app/kompare_shell.cpp:332
+#, fuzzy, kde-format
+msgctxt "@action:button"
+msgid "Blend"
+msgstr "Зліць"
+
+#: app/kompare_shell.cpp:333
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "Blend this file or folder with the diff output"
+msgstr "Зліць гэты файл або тэчку з высновай diff"
+
+#: app/kompare_shell.cpp:334
+#, fuzzy, kde-format
+msgctxt "@infor:whatsthis"
+msgid ""
+"If you have entered a file or folder name and a file that contains diff "
+"output in the fields in this dialog then this button will be enabled and "
+"pressing it will open kompare's main view where the output of the entered "
+"file or files from the folder are mixed with the diff output so you can then "
+"apply the difference(s) to a file or to the files. "
+msgstr ""
+"Калі вы паказалі імя файла або тэчкі і файл, у якім утрымоўваецца выснова "
+"diff, у гэтым дыялогу, гэтая кнопка стане даступная і націск на яе адкрые "
+"галоўнае акно Kompare, дзе выснова паказанага файла або файлаў з тэчкі "
+"змяшаецца з высновай diff так, што вы зможаце \"ужыць\" адрозненні да файлаў."
+
+#: app/kompare_shell.cpp:357 app/main.cpp:199
+#, fuzzy, kde-format
+msgctxt "@title:window"
+msgid "Compare Files or Folders"
+msgstr "Параўнанне файлаў або тэчак"
+
+#: app/kompare_shell.cpp:358 app/main.cpp:200
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Source"
+msgstr "Крыніца"
+
+#: app/kompare_shell.cpp:359 app/main.cpp:201
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Destination"
+msgstr "Прызначэнне"
+
+#: app/kompare_shell.cpp:362 app/main.cpp:204
+#, fuzzy, kde-format
+msgctxt "@action:button"
+msgid "Compare"
+msgstr "Параўнаць"
+
+#: app/kompare_shell.cpp:363 app/main.cpp:205
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "Compare these files or folders"
+msgstr "Параўнаць файлы або тэчкі"
+
+#: app/kompare_shell.cpp:364 app/main.cpp:206
+#, fuzzy, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you have entered 2 filenames or 2 folders in the fields in this dialog "
+"then this button will be enabled and pressing it will start a comparison of "
+"the entered files or folders. "
+msgstr ""
+"Калі вы паказалі файлы або тэчкі ў палях гэтага дыялогу, гэтая кнопка стане "
+"даступная і націск на яе пачне параўнанне паказаных файлаў або тэчак."
+
+#: app/kompare_shell.cpp:398
+#, fuzzy, kde-format
+msgctxt "@title:window"
+msgid "Text View"
+msgstr "Прагляд тэксту"
+
+#. i18n: ectx: Menu (file)
+#: app/kompareui.rc:4 komparepart/komparepartui.rc:4
+#, fuzzy, kde-format
+msgid "&File"
+msgstr "Файлы"
+
+#. i18n: ectx: Menu (settings)
+#: app/kompareui.rc:14 komparepart/komparepartui.rc:29
+#, fuzzy, kde-format
+msgid "&Settings"
+msgstr "Налады выгляду"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: app/kompareui.rc:27
+#, kde-format
+msgid "Main Toolbar"
+msgstr ""
+
+#: app/kompareurldialog.cpp:37
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Files"
+msgstr "Файлы"
+
+#: app/kompareurldialog.cpp:39
+#, fuzzy, kde-format
+msgid "Here you can enter the files you want to compare."
+msgstr "Тут можна ўвесці файла для параўнання"
+
+#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:42
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Diff"
+msgstr "Адрозненні"
+
+#: app/kompareurldialog.cpp:47
+#, fuzzy, kde-format
+msgid "Here you can change the options for comparing the files."
+msgstr "Тут можна наладзіць параметры параўнання"
+
+#: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "Паданне:"
+
+#: app/kompareurldialog.cpp:55
+#, fuzzy, kde-format
+msgid "Here you can change the options for the view."
+msgstr "Тут можна наладзіць візуальныя параметры"
+
+#: app/kompareurldialog.cpp:101
+#, kde-format
+msgid ""
+"File used for excluding files cannot be found, please specify another file."
+msgstr ""
+
+#: app/main.cpp:50
+#, fuzzy, kde-format
+msgid "Kompare"
+msgstr "Kompare"
+
+#: app/main.cpp:52
+#, fuzzy, kde-format
+msgid ""
+"A program to view the differences between files and optionally generate a "
+"diff"
+msgstr ""
+"Праграма для прагляду адрозненняў паміж файламі і стварэнні файла diff."
+
+#: app/main.cpp:54
+#, fuzzy, kde-format
+msgid ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+msgstr ""
+"(c) 2001-2004, Джон Файербаух (John Firebaugh) і Отто Брюггеман (Otto "
+"Bruggeman)"
+
+#: app/main.cpp:57
+#, kde-format
+msgid "John Firebaugh"
+msgstr ""
+
+#: app/main.cpp:57 app/main.cpp:58
+#, fuzzy, kde-format
+msgid "Author"
+msgstr "Аўтар"
+
+#: app/main.cpp:58
+#, kde-format
+msgid "Otto Bruggeman"
+msgstr ""
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Jeff Snyder"
+msgstr ""
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Developer"
+msgstr ""
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Kevin Kofler"
+msgstr ""
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Maintainer"
+msgstr ""
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Chris Luetchford"
+msgstr ""
+
+#: app/main.cpp:61
+#, fuzzy, kde-format
+msgid "Kompare icon artist"
+msgstr "Значкі"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "Malte Starostik"
+msgstr ""
+
+#: app/main.cpp:62
+#, fuzzy, kde-format
+msgid "A lot of good advice"
+msgstr "Шмат добрых рад"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Bernd Gehrmann"
+msgstr ""
+
+#: app/main.cpp:63
+#, fuzzy, kde-format
+msgid "Cervisia diff viewer"
+msgstr "Прагляд адрозненняў у Cervisia"
+
+#: app/main.cpp:70
+#, fuzzy, kde-format
+msgid "This will compare URL1 with URL2"
+msgstr "Параўнанне \"Спасылкі1\" з \"Спасылкай2\""
+
+#: app/main.cpp:71
+#, fuzzy, kde-format
+msgid ""
+"This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
+"and then it will read from standard input. Can be used for instance for cvs "
+"diff | kompare -o -. Kompare will do a check to see if it can find the "
+"original file(s) and then blend the original file(s) into the diffoutput and "
+"show that in the viewer. -n disables the check."
+msgstr ""
+"Адкрыць URL1, лічачы,што гэта выснова diff. URL1 таксама можа быць '-'. Гэта "
+"можна выкарыстаць, напрыклад, так: cvs diff | kompare -o -. Kompare "
+"праверыць, ці існуе арыгінальны файл, а затым змяшае з высновай diff і "
+"пакажа вынік. Ключ -n адмяняе праверку."
+
+#: app/main.cpp:72
+#, fuzzy, kde-format
+msgid ""
+"This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
+"the file or folder that the diffoutput needs to be blended into. "
+msgstr ""
+"Змяшаць URL2 і URL1, URL2 павінен быць высновай diff, а URL1 - (арыгінальны) "
+"файл або тэчка."
+
+#: app/main.cpp:73
+#, fuzzy, kde-format
+msgid ""
+"Disables the check for automatically finding the original file(s) when using "
+"'-' as URL with the -o option."
+msgstr ""
+"Адключае праверку аўтаматычнага пошуку арыгінальнага файла(ов) пры "
+"выкарыстанні '-' у якасці крыніцы з опцыяй -o."
+
+#: app/main.cpp:74
+#, fuzzy, kde-format
+msgid ""
+"Use this to specify the encoding when calling it from the command line. It "
+"will default to the local encoding if not specified."
+msgstr ""
+"Паказаць кадыроўку. Па змаўчанні будзе выкарыстоўвацца кадыроўка лакалі."
+
+#: dialogpages/diffpage.cpp:174
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Diff Program"
+msgstr "Праграма diff"
+
+#: dialogpages/diffpage.cpp:179
+#, fuzzy, kde-format
+msgid ""
+"You can select a different diff program here. On Solaris the standard diff "
+"program does not support all the options that the GNU version does. This way "
+"you can select that version."
+msgstr ""
+"Вы можаце вылучыць подграмму diff тут. На сістэмах Solaris стандартная "
+"праграма diff не падтрымлівае ўсе ключы версіі GNU. Так вы можаце вылучыць "
+"патрэбную версію праграмы."
+
+#: dialogpages/diffpage.cpp:196
+#, fuzzy, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"Select the format of the output generated by diff. Unified is the one that "
+"is used most frequently because it is very readable. The KDE developers like "
+"this format the best so use it for sending patches."
+msgstr ""
+"Вылучыце фармат высновы, генеруемы diff. Найболей часта выкарыстоўваным "
+"з'яўляецца Unified, т.к. ён лёгкі для чытання. Калі ласка, выкарыстайце "
+"менавіта яго для латак, якія вы адпраўляеце распрацоўнікам KDE."
+
+#: dialogpages/diffpage.cpp:199
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Output Format"
+msgstr "Фармат высновы"
+
+#: dialogpages/diffpage.cpp:201
+#, fuzzy, kde-format
+msgctxt "@option:radio format type"
+msgid "Context"
+msgstr "Кантэкст"
+
+#: dialogpages/diffpage.cpp:204
+#, fuzzy, kde-format
+msgctxt "@option:radio format type"
+msgid "Normal"
+msgstr "Звычайны"
+
+#: dialogpages/diffpage.cpp:207
+#, fuzzy, kde-format
+msgctxt "@option:radio format type"
+msgid "Unified"
+msgstr "Аб'яднаны"
+
+#: dialogpages/diffpage.cpp:215
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Lines of Context"
+msgstr "Радкі кантэксту"
+
+#: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
+#, fuzzy, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"The number of context lines is normally 2 or 3. This makes the diff readable "
+"and applicable in most cases. More than 3 lines will only bloat the diff "
+"unnecessarily."
+msgstr ""
+"Колькасць радкоў, якія стаяць побач з змененай. Звычайна гэта  2 або 3."
+
+#: dialogpages/diffpage.cpp:220
+#, fuzzy, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of context lines:"
+msgstr "Колькасць радкоў кантэксту:"
+
+#: dialogpages/diffpage.cpp:225
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Format"
+msgstr "Фармат"
+
+#: dialogpages/diffpage.cpp:237
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "General"
+msgstr "Агульныя"
+
+#: dialogpages/diffpage.cpp:239
+#, fuzzy, kde-format
+msgctxt "@option:check"
+msgid "&Treat new files as empty"
+msgstr "Лічыць новыя файлы як пустыя"
+
+#: dialogpages/diffpage.cpp:240
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -N diff option."
+msgstr "Адказвае ключу -l."
+
+#: dialogpages/diffpage.cpp:241
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will treat a file that only exists in one of "
+"the directories as empty in the other directory. This means that the file is "
+"compared with an empty file and because of this will appear as one big "
+"insertion or deletion."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:244
+#, fuzzy, kde-format
+msgctxt "@option:check"
+msgid "&Look for smaller changes"
+msgstr "Шукаць найменшыя змены"
+
+#: dialogpages/diffpage.cpp:245
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -d diff option."
+msgstr "Адказвае ключу -d."
+
+#: dialogpages/diffpage.cpp:246
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will try a little harder (at the cost of more "
+"memory) to find fewer changes."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:248
+#, fuzzy, kde-format
+msgctxt "@option:check"
+msgid "O&ptimize for large files"
+msgstr "Аптымізацыя для вялікіх файлаў"
+
+#: dialogpages/diffpage.cpp:249
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -H diff option."
+msgstr "Адказвае ключу -H."
+
+#: dialogpages/diffpage.cpp:250
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option lets diff makes better diffs when using large files. The "
+"definition of large is nowhere to be found though."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:252
+#, fuzzy, kde-format
+msgctxt "@option:check"
+msgid "&Ignore changes in case"
+msgstr "Ігнараваць змены ў рэгістры знакаў"
+
+#: dialogpages/diffpage.cpp:253
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -i diff option."
+msgstr "Адказвае ключу -i."
+
+#: dialogpages/diffpage.cpp:254
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option to ignore changes in case enabled, diff will not indicate a "
+"difference when something in one file is changed into SoMEthing in the other "
+"file."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:262
+#, fuzzy, kde-format
+msgctxt "@option:check"
+msgid "Ignore regexp:"
+msgstr "Ігнараваць радкі па рэгулярным выразе:"
+
+#: dialogpages/diffpage.cpp:263
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -I diff option."
+msgstr "Адказвае ключу -l."
+
+#: dialogpages/diffpage.cpp:264
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"When this checkbox is enabled, an option to diff is given that will make "
+"diff ignore lines that match the regular expression."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:268
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Add the regular expression here that you want to use\n"
+"to ignore lines that match it."
+msgstr "Дадайце рэгулярны выраз для ігнаруемых радкоў тут."
+
+#: dialogpages/diffpage.cpp:274
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Whitespace"
+msgstr "Прабелы"
+
+#: dialogpages/diffpage.cpp:276
+#, fuzzy, kde-format
+msgctxt "@option:check"
+msgid "E&xpand tabs to spaces in output"
+msgstr "У выснове прабелы замест знакаў табуляцыі"
+
+#: dialogpages/diffpage.cpp:277
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -t diff option."
+msgstr "Адказвае ключу -t."
+
+#: dialogpages/diffpage.cpp:278
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option does not always produce the right result. Due to this expansion "
+"Kompare may have problems applying the change to the destination file."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:280
+#, fuzzy, kde-format
+msgctxt "@option:check"
+msgid "I&gnore added or removed empty lines"
+msgstr "Ігнараваць дададзеныя або выдаленыя пустыя радкі"
+
+#: dialogpages/diffpage.cpp:281
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -B diff option."
+msgstr "Адказвае ключу -B."
+
+#: dialogpages/diffpage.cpp:282
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This can be very useful in situations where code has been reorganized and "
+"empty lines have been added or removed to improve legibility."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:284
+#, fuzzy, kde-format
+msgctxt "@option:check"
+msgid "Ig&nore changes in the amount of whitespace"
+msgstr "Ігнараваць змену колькасці прабелаў"
+
+#: dialogpages/diffpage.cpp:285
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -b diff option."
+msgstr "Адказвае ключу -b."
+
+#: dialogpages/diffpage.cpp:286
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you are uninterested in differences arising due to, for example, changes "
+"in indentation, then use this option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:288
+#, fuzzy, kde-format
+msgctxt "@option:check"
+msgid "Ign&ore all whitespace"
+msgstr "Ігнараваць пробельное прастора"
+
+#: dialogpages/diffpage.cpp:289
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -w diff option."
+msgstr "Адказвае ключу -w."
+
+#: dialogpages/diffpage.cpp:290
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This is useful for seeing the significant changes without being overwhelmed "
+"by all the white space changes."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:292
+#, fuzzy, kde-format
+msgctxt "@option:check"
+msgid "Igno&re changes due to tab expansion"
+msgstr "Ігнараваць змены па замене табуляцыі прабеламі"
+
+#: dialogpages/diffpage.cpp:293
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -E diff option."
+msgstr "Адказвае ключу -E."
+
+#: dialogpages/diffpage.cpp:294
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If there is a change because tabs have been expanded into spaces in the "
+"other file, then this option will make sure that these do not show up. "
+"Kompare currently has some problems applying such changes so be careful when "
+"you use this option."
+msgstr ""
+
+#: dialogpages/diffpage.cpp:299
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Options"
+msgstr "Параметры"
+
+#: dialogpages/diffpage.cpp:311
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "File Pattern to Exclude"
+msgstr "Шаблон імя для выключэння"
+
+#: dialogpages/diffpage.cpp:312
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"If this is checked you can enter a shell pattern in the text box on the "
+"right or select entries from the list."
+msgstr ""
+"Калі гэта ўключана, вы зможаце ўвесці маску файла ў тэкставым полі справа "
+"або вылучыць адно з значэнняў з спісу."
+
+#: dialogpages/diffpage.cpp:318
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter or remove a shell pattern or select one or more entries "
+"from the list."
+msgstr "Тут вы можаце ўвесці маску файла, або вылучыць наканаваныя значэнні."
+
+#: dialogpages/diffpage.cpp:328
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "File with Filenames to Exclude"
+msgstr "Файл з імёнамі файлаў для выключэння"
+
+#: dialogpages/diffpage.cpp:329
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "If this is checked you can enter a filename in the combo box below."
+msgstr ""
+"Калі гэта ўключана, вы зможаце ўвесці імя файла ў выпадальным спісе справа."
+
+#: dialogpages/diffpage.cpp:333
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter the URL of a file with shell patterns to ignore during "
+"the comparison of the folders."
+msgstr ""
+"Тут вы можаце ўвесці шлях да файла, які змяшчае маскі файлаў, якія трэба "
+"ігнараваць пры параўнанні тэчак."
+
+#: dialogpages/diffpage.cpp:337
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Any file you select in the dialog that pops up when you click it will be put "
+"in the dialog to the left of this button."
+msgstr ""
+"Файлы, якія вы вылучыце ў які з'явіўся дыялогу, будуць бачныя ў спісе злева."
+
+#: dialogpages/diffpage.cpp:344
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Exclude"
+msgstr "Выключыць"
+
+#: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "Select file"
+msgstr "Наступны файл"
+
+#: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
+#, fuzzy, kde-format
+msgctxt "@info:tooltip"
+msgid "Select folder"
+msgstr "Тэчка-крыніца"
+
+#: dialogpages/filespage.cpp:87
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Encoding"
+msgstr "Кадыроўка"
+
+#: dialogpages/filespage.cpp:92
+#, kde-format
+msgctxt "@item:inlistbox encoding"
+msgid "Default"
+msgstr ""
+
+#: dialogpages/filespage.cpp:126
+#, fuzzy, kde-format
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr "Тэчка-крыніца"
+
+#: dialogpages/filespage.cpp:130
+#, fuzzy, kde-format
+msgctxt "@title:window"
+msgid "Select File"
+msgstr "Наступны файл"
+
+#: dialogpages/viewpage.cpp:44
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "Колеры"
+
+#: dialogpages/viewpage.cpp:50
+#, fuzzy, kde-format
+msgctxt "@label:chooser"
+msgid "Removed color:"
+msgstr "Колер выдаленага радка:"
+
+#: dialogpages/viewpage.cpp:54
+#, fuzzy, kde-format
+msgctxt "@label:chooser"
+msgid "Changed color:"
+msgstr "Колер змененага радка:"
+
+#: dialogpages/viewpage.cpp:58
+#, fuzzy, kde-format
+msgctxt "@label:chooser"
+msgid "Added color:"
+msgstr "Колер дададзенага радка:"
+
+#: dialogpages/viewpage.cpp:62
+#, fuzzy, kde-format
+msgctxt "@label:chooser"
+msgid "Applied color:"
+msgstr "Колер зробленых змен:"
+
+#: dialogpages/viewpage.cpp:66
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Mouse Wheel"
+msgstr "Кола мышы"
+
+#: dialogpages/viewpage.cpp:72
+#, fuzzy, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of lines:"
+msgstr "Колькасць радкоў:"
+
+#: dialogpages/viewpage.cpp:77
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Tabs to Spaces"
+msgstr "Ператварэнне знакаў <b>табуляцыі</b> у знакі <b>прабел</b>."
+
+#: dialogpages/viewpage.cpp:83
+#, fuzzy, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of spaces to convert a tab character to:"
+msgstr "Колькасць прабелаў, у якія перакладаць знак <b>табуляцыі</b>:"
+
+#: dialogpages/viewpage.cpp:94
+#, fuzzy, kde-format
+msgctxt "@title:group"
+msgid "Text Font"
+msgstr "Шрыфт тэксту"
+
+#: dialogpages/viewpage.cpp:98
+#, fuzzy, kde-format
+msgctxt "@label:listbox"
+msgid "Font:"
+msgstr "Шрыфт:"
+
+#: dialogpages/viewpage.cpp:103
+#, fuzzy, kde-format
+msgctxt "@label:spinbox"
+msgid "Size:"
+msgstr "Памер:"
+
+#: dialogpages/viewpage.cpp:107
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "Fonts"
+msgstr "Шрыфт:"
+
+#: komparenavtreepart/komparenavtreepart.cpp:55
+#, fuzzy, kde-format
+msgctxt "@title:column"
+msgid "Source Folder"
+msgstr "Тэчка-крыніца"
+
+#: komparenavtreepart/komparenavtreepart.cpp:61
+#, fuzzy, kde-format
+msgctxt "@title:column"
+msgid "Destination Folder"
+msgstr "Тэчка-прызначэнне"
+
+#: komparenavtreepart/komparenavtreepart.cpp:68
+#, fuzzy, kde-format
+msgctxt "@title:column"
+msgid "Source File"
+msgstr "Зыходны файл"
+
+#: komparenavtreepart/komparenavtreepart.cpp:69
+#, fuzzy, kde-format
+msgctxt "@title:column"
+msgid "Destination File"
+msgstr "Файл прызначэння"
+
+#: komparenavtreepart/komparenavtreepart.cpp:78
+#, fuzzy, kde-format
+msgctxt "@title:column"
+msgid "Source Line"
+msgstr "Зыходны радок"
+
+#: komparenavtreepart/komparenavtreepart.cpp:79
+#, fuzzy, kde-format
+msgctxt "@title:column"
+msgid "Destination Line"
+msgstr "Радок прызначэння"
+
+#: komparenavtreepart/komparenavtreepart.cpp:80
+#, fuzzy, kde-format
+msgctxt "@title:column"
+msgid "Difference"
+msgstr "Адрозненне"
+
+#: komparenavtreepart/komparenavtreepart.cpp:455
+#, fuzzy, kde-format
+msgid "Applied: Changes made to %1 line undone"
+msgid_plural "Applied: Changes made to %1 lines undone"
+msgstr[0] ""
+"Ужыта: Змены %n радкі скасаваныя\n"
+"Ужыта: Змены %n радкоў скасаваныя\n"
+"Ужыта: Змены %n радкоў скасаваныя"
+msgstr[1] ""
+"Ужыта: Змены %n радкі скасаваныя\n"
+"Ужыта: Змены %n радкоў скасаваныя\n"
+"Ужыта: Змены %n радкоў скасаваныя"
+msgstr[2] ""
+"Ужыта: Змены %n радкі скасаваныя\n"
+"Ужыта: Змены %n радкоў скасаваныя\n"
+"Ужыта: Змены %n радкоў скасаваныя"
+
+#: komparenavtreepart/komparenavtreepart.cpp:458
+#, fuzzy, kde-format
+msgid "Changed %1 line"
+msgid_plural "Changed %1 lines"
+msgstr[0] "Колер змененага радка:"
+msgstr[1] "Колер змененага радка:"
+msgstr[2] "Колер змененага радка:"
+
+#: komparenavtreepart/komparenavtreepart.cpp:463
+#, fuzzy, kde-format
+msgid "Applied: Insertion of %1 line undone"
+msgid_plural "Applied: Insertion of %1 lines undone"
+msgstr[0] ""
+"Ужыта: Устаўка %n радкі скасаваная\n"
+"Ужыта: Устаўка %n радкоў скасаваная\n"
+"Ужыта: Устаўка %n радкоў скасаваная"
+msgstr[1] ""
+"Ужыта: Устаўка %n радкі скасаваная\n"
+"Ужыта: Устаўка %n радкоў скасаваная\n"
+"Ужыта: Устаўка %n радкоў скасаваная"
+msgstr[2] ""
+"Ужыта: Устаўка %n радкі скасаваная\n"
+"Ужыта: Устаўка %n радкоў скасаваная\n"
+"Ужыта: Устаўка %n радкоў скасаваная"
+
+#: komparenavtreepart/komparenavtreepart.cpp:466
+#, kde-format
+msgid "Inserted %1 line"
+msgid_plural "Inserted %1 lines"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: komparenavtreepart/komparenavtreepart.cpp:471
+#, fuzzy, kde-format
+msgid "Applied: Deletion of %1 line undone"
+msgid_plural "Applied: Deletion of %1 lines undone"
+msgstr[0] ""
+"Ужыта: Выдаленне %n радкі скасавана\n"
+"Ужыта: Выдаленне %n радкоў скасавана\n"
+"Ужыта: Выдаленне %n радкоў скасавана"
+msgstr[1] ""
+"Ужыта: Выдаленне %n радкі скасавана\n"
+"Ужыта: Выдаленне %n радкоў скасавана\n"
+"Ужыта: Выдаленне %n радкоў скасавана"
+msgstr[2] ""
+"Ужыта: Выдаленне %n радкі скасавана\n"
+"Ужыта: Выдаленне %n радкоў скасавана\n"
+"Ужыта: Выдаленне %n радкоў скасавана"
+
+#: komparenavtreepart/komparenavtreepart.cpp:474
+#, kde-format
+msgid "Deleted %1 line"
+msgid_plural "Deleted %1 lines"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: komparenavtreepart/komparenavtreepart.cpp:628
+#, fuzzy, kde-format
+msgctxt "@item directory name not known"
+msgid "Unknown"
+msgstr "Невядомы"
+
+#: komparepart/kompare_part.cpp:179
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "Save &All"
+msgstr "Захаваць усё"
+
+#: komparepart/kompare_part.cpp:181
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "Save &Diff..."
+msgstr "Захаваць адрозненні ў файл .diff..."
+
+#: komparepart/kompare_part.cpp:183
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "Swap Source with Destination"
+msgstr "Памяняць месцамі крыніца і прызначэнне"
+
+#: komparepart/kompare_part.cpp:190
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "Show Statistics"
+msgstr "Паказаць статыстыку"
+
+#: komparepart/kompare_part.cpp:193
+#, kde-format
+msgctxt "@action"
+msgid "Refresh Diff"
+msgstr ""
+
+#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#, fuzzy, kde-format
+msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
+msgstr "<qt>Немагчыма загрузіць спасылку <b>%1</b>.</qt>"
+
+#: komparepart/kompare_part.cpp:356
+#, fuzzy, kde-format
+msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
+msgstr "<qt>Немагчыма адкрыць <b>%1</b>.</qt>"
+
+#: komparepart/kompare_part.cpp:544
+#, fuzzy, kde-format
+msgctxt "@title:window"
+msgid "Diff Options"
+msgstr "Параметры Diff"
+
+#: komparepart/kompare_part.cpp:565
+#, fuzzy, kde-format
+msgctxt "@title:window"
+msgid "Save .diff"
+msgstr "Захаваць .diff"
+
+#: komparepart/kompare_part.cpp:567
+#, fuzzy, kde-format
+msgid "Patch Files (*.diff *.dif *.patch)"
+msgstr "*.diff *.dif *.patch|Файлы адрозненняў (*.diff *.dif *.patch)"
+
+#: komparepart/kompare_part.cpp:569
+#, fuzzy, kde-format
+msgid "The file exists or is write-protected; do you want to overwrite it?"
+msgstr "Файл ужо існуе. Замяніць яго?"
+
+#: komparepart/kompare_part.cpp:569
+#, fuzzy, kde-format
+msgctxt "@window:title"
+msgid "File Exists"
+msgstr "Файл ужо існуе"
+
+#: komparepart/kompare_part.cpp:569
+#, fuzzy, kde-format
+msgctxt "@action:button"
+msgid "Do Not Overwrite"
+msgstr "Не замяняць"
+
+#: komparepart/kompare_part.cpp:653
+#, fuzzy, kde-format
+msgctxt "@info:status"
+msgid "Running diff..."
+msgstr "Запушчаны diff..."
+
+#: komparepart/kompare_part.cpp:656
+#, fuzzy, kde-format
+msgctxt "@info:status"
+msgid "Parsing diff output..."
+msgstr "Апрацоўваецца выснова diff..."
+
+#: komparepart/kompare_part.cpp:712
+#, fuzzy, kde-format
+msgctxt "@info:status"
+msgid "Comparing file %1 with file %2"
+msgstr "Параўноўваюцца файл %1 з файлам %2"
+
+#: komparepart/kompare_part.cpp:717
+#, fuzzy, kde-format
+msgctxt "@info:status"
+msgid "Comparing files in %1 with files in %2"
+msgstr "Параўноўваюцца файлы ў %1 з файламі ў %2"
+
+#: komparepart/kompare_part.cpp:722
+#, fuzzy, kde-format
+msgctxt "@info:status"
+msgid "Viewing diff output from %1"
+msgstr "Прагляд высновы diff з %1"
+
+#: komparepart/kompare_part.cpp:725
+#, fuzzy, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into file %2"
+msgstr "Змешванне высновы diff з файла %1 у файл %2"
+
+#: komparepart/kompare_part.cpp:730
+#, fuzzy, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into folder %2"
+msgstr "Змешванне высновы diff з файла %1 у тэчку %2"
+
+#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
+#: komparepart/kompare_part.cpp:927
+#, fuzzy, kde-format
+msgid ""
+"You have made changes to the destination file(s).\n"
+"Would you like to save them?"
+msgstr ""
+"Файл прызначэння быў зменены.\n"
+"Вы жадаеце яго захаваць?"
+
+#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
+#: komparepart/kompare_part.cpp:929
+#, fuzzy, kde-format
+msgctxt "@title:window"
+msgid "Save Changes?"
+msgstr "Захаваць змены?"
+
+#: komparepart/kompare_part.cpp:852
+#, fuzzy, kde-format
+msgctxt "@item diff format"
+msgid "Unified"
+msgstr "Аб'яднаны"
+
+#: komparepart/kompare_part.cpp:855
+#, fuzzy, kde-format
+msgctxt "@item diff format"
+msgid "Context"
+msgstr "Кантэкст"
+
+#: komparepart/kompare_part.cpp:858
+#, fuzzy, kde-format
+msgctxt "@item diff format"
+msgid "RCS"
+msgstr "RCS"
+
+#: komparepart/kompare_part.cpp:861
+#, fuzzy, kde-format
+msgctxt "@item diff format"
+msgid "Ed"
+msgstr "Ed"
+
+#: komparepart/kompare_part.cpp:864
+#, fuzzy, kde-format
+msgctxt "@item diff format"
+msgid "Normal"
+msgstr "Звычайны"
+
+#: komparepart/kompare_part.cpp:868
+#, fuzzy, kde-format
+msgctxt "@item diff format"
+msgid "Unknown"
+msgstr "Невядомы"
+
+#: komparepart/kompare_part.cpp:884
+#, fuzzy, kde-format
+msgid ""
+"No diff file, or no 2 files have been diffed. Therefore no stats are "
+"available."
+msgstr ""
+"Няма файла diff або параўнанне выраблена не па двух файлам. Статыстыка "
+"недаступная."
+
+#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:916
+#, fuzzy, kde-format
+msgctxt "@title:window"
+msgid "Diff Statistics"
+msgstr "Статыстыка адрозненняў"
+
+#: komparepart/kompare_part.cpp:890
+#, fuzzy, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Old file: %1\n"
+"New file: %2\n"
+"\n"
+"Format: %3\n"
+"Number of hunks: %4\n"
+"Number of differences: %5"
+msgstr ""
+"Статыстыка:\n"
+"\n"
+"Стары файл: %1\n"
+"Новы файл: %2\n"
+"\n"
+"Фармат: %3\n"
+"Колькасць не змененых: %4\n"
+"Колькасць адрозненняў: %5"
+
+#: komparepart/kompare_part.cpp:903
+#, fuzzy, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Number of files in diff file: %1\n"
+"Format: %2\n"
+"\n"
+"Current old file: %3\n"
+"Current new file: %4\n"
+"\n"
+"Number of hunks: %5\n"
+"Number of differences: %6"
+msgstr ""
+"Статыстыка:\n"
+"\n"
+"Колькасць файлаў у файле адрозненняў: %1\n"
+"Фармат: %2\n"
+"\n"
+"Бягучы стары файл: %3\n"
+"Бягучы новы файл: %4\n"
+"\n"
+"Колькасць не змененых: %5\n"
+"Колькасць адрозненняў: %6"
+
+#. i18n: ectx: Menu (difference)
+#: komparepart/komparepartui.rc:17
+#, fuzzy, kde-format
+msgid "&Difference"
+msgstr "Адрозненне"
+
+#: komparepart/kompareprefdlg.cpp:26
+#, fuzzy, kde-format
+msgctxt "@title:window"
+msgid "Preferences"
+msgstr "Параметры"
+
+#: komparepart/kompareprefdlg.cpp:36
+#, fuzzy, kde-format
+msgctxt "@title:tab"
+msgid "View"
+msgstr "Прагляд тэксту"
+
+#: komparepart/kompareprefdlg.cpp:38
+#, fuzzy, kde-format
+msgctxt "@title"
+msgid "View Settings"
+msgstr "Налады выгляду"
+
+#: komparepart/kompareprefdlg.cpp:44
+#, fuzzy, kde-format
+msgctxt "@title"
+msgid "Diff Settings"
+msgstr "Налады адрозненняў"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
+#: komparepart/komparesaveoptionsbase.ui:29
+#, fuzzy, kde-format
+msgid "Format"
+msgstr "Фармат"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
+#: komparepart/komparesaveoptionsbase.ui:35
+#, fuzzy, kde-format
+msgid "&Context"
+msgstr "Кантэкст"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
+#: komparepart/komparesaveoptionsbase.ui:42
+#, fuzzy, kde-format
+msgid "Ed"
+msgstr "Ed"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
+#: komparepart/komparesaveoptionsbase.ui:49
+#, fuzzy, kde-format
+msgid "&Normal"
+msgstr "Звычайны"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
+#: komparepart/komparesaveoptionsbase.ui:56
+#, fuzzy, kde-format
+msgid "RCS"
+msgstr "RCS"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
+#: komparepart/komparesaveoptionsbase.ui:63
+#, fuzzy, kde-format
+msgid "&Unified"
+msgstr "Аб'яднаны"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
+#: komparepart/komparesaveoptionsbase.ui:73
+#, fuzzy, kde-format
+msgid "&Side-by-side"
+msgstr "Побач сябар з сябрам"
+
+#. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
+#: komparepart/komparesaveoptionsbase.ui:85
+#, fuzzy, kde-format
+msgid "Number of context lines:"
+msgstr "Колькасць радкоў кантэксту:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
+#: komparepart/komparesaveoptionsbase.ui:126
+#, fuzzy, kde-format
+msgid "Options"
+msgstr "Параметры"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_SmallerChangesCB)
+#: komparepart/komparesaveoptionsbase.ui:132
+#, fuzzy, kde-format
+msgid "Look for smaller changes"
+msgstr "Пошук найменшых змен"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:142
+#, fuzzy, kde-format
+msgid "Optimize for large files"
+msgstr "Аптымізацыя для вялікіх файлаў"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
+#: komparepart/komparesaveoptionsbase.ui:152
+#, fuzzy, kde-format
+msgid "Ignore changes in case"
+msgstr "Ігнараваць змены ў рэгістры літар"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
+#: komparepart/komparesaveoptionsbase.ui:159
+#, fuzzy, kde-format
+msgid "Expand tabs to spaces"
+msgstr "Замяніць табуляцыю прабеламі"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
+#: komparepart/komparesaveoptionsbase.ui:166
+#, fuzzy, kde-format
+msgid "Ignore added or removed empty lines"
+msgstr "Ігнараваць дададзеныя і выдаленыя пустыя радкі"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
+#: komparepart/komparesaveoptionsbase.ui:173
+#, fuzzy, kde-format
+msgid "Ignore changes in whitespace"
+msgstr "Ігнараваць змены прабелаў"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
+#: komparepart/komparesaveoptionsbase.ui:180
+#, fuzzy, kde-format
+msgid "Show function names"
+msgstr "Паказваць імёны функцый"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
+#: komparepart/komparesaveoptionsbase.ui:190
+#, fuzzy, kde-format
+msgid "Compare folders recursively"
+msgstr "Параўнаць тэчкі рэкурсіўна"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:200
+#, fuzzy, kde-format
+msgid "Treat new files as empty"
+msgstr "Лічыць новыя файлы як пустыя"
+
+#. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
+#: komparepart/komparesaveoptionsbase.ui:222
+#, fuzzy, kde-format
+msgid "Run Diff In"
+msgstr "Запусціць Diff у"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
+#: komparepart/komparesaveoptionsbase.ui:247
+#, fuzzy, kde-format
+msgid "Command Line"
+msgstr "Камандны радок"
+
+#. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
+#: komparepart/komparesaveoptionsbase.ui:256
+#, fuzzy, kde-format
+msgid "cd dir && diff -udHprNa -- source destination"
+msgstr "cd dir  diff -udHprNa -- <крыніца> <прызначэнне>"
+
+#, fuzzy
+#~ msgid "KompareNavTreePart"
+#~ msgstr "KompareNavTreePart"
+
+#, fuzzy
+#~ msgid "KomparePart"
+#~ msgstr "KomparePart"
+
+#, fuzzy
+#~ msgctxt "@action:button"
+#~ msgid "&Edit..."
+#~ msgstr "Змяніць..."
+
+#, fuzzy
+#~ msgctxt "@info:tooltip"
+#~ msgid ""
+#~ "Clicking this will open a regular expression dialog where\n"
+#~ "you can graphically create regular expressions."
+#~ msgstr "Адкрыць рэдактар рэгулярных выразаў."
+
+#, fuzzy
+#~ msgid "Overwrite"
+#~ msgstr "Замяніць"
+
+#, fuzzy
+#~ msgid "Compare these files or folder"
+#~ msgstr "Параўнаць файлы або тэчку"
+
+#, fuzzy
+#~ msgid "&Apply Difference"
+#~ msgstr "Ужыць адрозненні"
+
+#, fuzzy
+#~ msgid "Un&apply Difference"
+#~ msgstr "Адмяніць адрозненні"
+
+#, fuzzy
+#~ msgid "App&ly All"
+#~ msgstr "Ужыць усё"
+
+#, fuzzy
+#~ msgid "&Unapply All"
+#~ msgstr "Адмяніць усё"
+
+#, fuzzy
+#~ msgid "P&revious File"
+#~ msgstr "Папярэдні файл"
+
+#, fuzzy
+#~ msgid "&Previous Difference"
+#~ msgstr "Папярэдняе адрозненне"
+
+#, fuzzy
+#~ msgid "&Next Difference"
+#~ msgstr "Наступнае адрозненне"
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>No models or no differences, this file: <b>%1</b>, is not a valid "
+#~ "diff file.</qt>"
+#~ msgstr ""
+#~ "<qt>Няма макетаў або адрозненняў. Файл  <b>%1</b> не з'яўляецца файлам "
+#~ "фармату diff.</qt>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>."
+#~ "</qt>"
+#~ msgstr ""
+#~ "<qt>Паўсталі праблемы падчас ужывання diff <b>%1</b> да файла <b>%2</b>.</"
+#~ "qt>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</"
+#~ "b>.</qt>"
+#~ msgstr ""
+#~ "<qt>Паўсталі праблемы падчас ужывання diff <b>%1</b> да тэчкі <b>%2</b>.</"
+#~ "qt>"
+
+#, fuzzy
+#~ msgid "Could not open a temporary file."
+#~ msgstr "Не атрымліваецца адкрыць часовы файл."
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>"
+#~ msgstr ""
+#~ "<qt>Не атрымліваецца запісаць у часовы файл <b>%1</b>, выдаляемы яго.</qt>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>Could not create destination directory <b>%1</b>.\n"
+#~ "The file has not been saved.</qt>"
+#~ msgstr ""
+#~ "<qt>Не атрымалася стварыць канчатковую тэчку <b>%1</b>.\n"
+#~ "Файл не захаваны.</qt>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<qt>Could not upload the temporary file to the destination location <b>"
+#~ "%1</b>. The temporary file is still available under: <b>%2</b>. You can "
+#~ "manually copy it to the right place.</qt>"
+#~ msgstr ""
+#~ "<qt>Не атрымліваецца загрузіць часовы файл у кропку прызначэння <b>%1</"
+#~ "b>. Часовы файл усё яшчэ даступны пад імем <b>%2</b>. Вы можаце ўручную "
+#~ "скапіраваць яго ў патрэбнае месца.</qt>"
+
+#, fuzzy
+#~ msgid "Could not parse diff output."
+#~ msgstr "Не атрымліваецца апрацаваць выснову diff."
+
+#, fuzzy
+#~ msgid "The files are identical."
+#~ msgstr "Усе файлы ідэнтычныя."
+
+#, fuzzy
+#~ msgid "Could not write to the temporary file."
+#~ msgstr "Не атрымліваецца запісаць у часовы файл."
+
+#, fuzzy
+#~ msgid "Could not find our KompareViewPart."
+#~ msgstr "Не атрымліваецца знайсці кампанент KompareViewPart."
+
+#, fuzzy
+#~ msgid "Could not find our KompareNavigationPart."
+#~ msgstr "Не атрымліваецца знайсці кампанент KompareNavigationPart."
+
+#, fuzzy
+#~ msgid "A&ppearance"
+#~ msgstr "Паданне:"
+
+#, fuzzy
+#~ msgid "&Diff"
+#~ msgstr "Diff"
+
+#, fuzzy
+#~ msgid "&Format"
+#~ msgstr "Фармат"
+
+#, fuzzy
+#~ msgid "O&ptions"
+#~ msgstr "Параметры"
+
+#, fuzzy
+#~ msgid "Hide T&ext View"
+#~ msgstr "Схаваць прагляд тэксту"
+
+#~ msgid ""
+#~ "_: NAME OF TRANSLATORS\n"
+#~ "Your names"
+#~ msgstr "Сяржук Лянцэвіч"
+
+#~ msgid ""
+#~ "_: EMAIL OF TRANSLATORS\n"
+#~ "Your emails"
+#~ msgstr "serzh.by@gmail.com"
+
+#, fuzzy
+#~ msgid ""
+#~ "_n: Changed %n line\n"
+#~ "Changed %n lines"
+#~ msgstr ""
+#~ "Змененая %n радок\n"
+#~ "Зменена %n радкі\n"
+#~ "Зменена %n радкоў"
+
+#, fuzzy
+#~ msgid ""
+#~ "_n: Inserted %n line\n"
+#~ "Inserted %n lines"
+#~ msgstr ""
+#~ "Устаўленая %n радок\n"
+#~ "Устаўлена %n радкі\n"
+#~ "Устаўлена %n радкоў"
+
+#, fuzzy
+#~ msgid ""
+#~ "_n: Deleted %n line\n"
+#~ "Deleted %n lines"
+#~ msgstr ""
+#~ "Выдаленая %n радок\n"
+#~ "Выдаленае %n радкі\n"
+#~ "Выдаленае %n радкоў"
+
+#, fuzzy
+#~ msgid ""
+#~ "_n:  %1 of %n file \n"
+#~ " %1 of %n files "
+#~ msgstr ""
+#~ " %1 з %n файла \n"
+#~ " %1 з %n файлаў \n"
+#~ " %1 з %n файлаў "
+
+#, fuzzy
+#~ msgid ""
+#~ "_n:  %n file \n"
+#~ " %n files "
+#~ msgstr ""
+#~ " %n файл \n"
+#~ " %n файла \n"
+#~ " %n файлаў "
+
+#, fuzzy
+#~ msgid ""
+#~ "_n:  %1 of %n difference, %2 applied \n"
+#~ " %1 of %n differences, %2 applied "
+#~ msgstr ""
+#~ " %1 з %n адрозненні, %2 ужыта \n"
+#~ " %1 з %n адрозненняў, %2 ужыта \n"
+#~ " %1 з %n адрозненняў, %2 ужыта "
+
+#, fuzzy
+#~ msgid ""
+#~ "_n:  %n difference \n"
+#~ " %n differences "
+#~ msgstr ""
+#~ " %n адрозненне \n"
+#~ " %n адрозненні \n"
+#~ " %n адрозненняў "

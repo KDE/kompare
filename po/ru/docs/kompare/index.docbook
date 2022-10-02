@@ -1,0 +1,1699 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % Russian "INCLUDE">
+]>
+
+<book id="kompare" lang="&language;">
+
+<bookinfo>
+ <title
+>Руководство пользователя &kompare;</title>
+
+ <authorgroup>
+
+<author
+><firstname
+>Sean</firstname
+><surname
+>Wheller</surname
+><email
+>sean@inwords.co.za</email
+></author>
+ <othercredit role="translator"
+><firstname
+>Олеся</firstname
+><surname
+>Герасименко</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+> 
+ </authorgroup>
+
+<copyright>
+<year
+>2007</year>
+<holder
+>Sean Wheller</holder>
+</copyright>
+
+ <legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2016-07-05</date>
+<releaseinfo
+>4.1.3 (Приложения KDE 16.04)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kompare; — это приложение с графическим интерфейсом, которое предназначено для просмотра и объединения файлов. &kompare; возможно использовать для выявления различий между файлами или содержимым папок. &kompare; поддерживает различные форматы файлов различий и предоставляет большое количество параметров настройки отображаемой информации.</para>
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Kompare</keyword>
+<keyword
+>Diff</keyword>
+<keyword
+>Объединить</keyword>
+<keyword
+>Патч</keyword>
+<keyword
+>Блок различий</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Введение</title
+> 
+
+<para
+>Когда при совместной работе над файлом люди пересылают его друг другу для внесения изменений, становится сложно понять, какие изменения были внесены в новую версию или копию файла. Конечно, возможно просмотреть копию и оригинал, открыв их рядом в соответствующем приложении, но это сложно, требует много времени и не исключает вероятность ошибиться. В таких случаях гораздо удобнее воспользоваться программой, которая позволяет просматривать различия (differences, diffs).</para>
+
+<para
+>Логично, что такой программе подошло бы название <quote
+>diff</quote
+>. И действительно, программа <ulink url="https://www.gnu.org/software/diffutils/"
+>diff</ulink
+> установлена на большинстве систем на основе &Linux; и предназначена именно для этих целей. Разработчики часто используют программу diff в командной строке для просмотра различий между версиями файла с исходным кодом. Но использование diff не ограничивается просмотром различий файлов с исходным кодом — программу возможно использовать и при работе с различными текстовыми файлами.</para>
+
+<para
+>У многих пользователей вызывает сложности использование программы diff в командной строке, изучение её синтаксиса и анализ полученных результатов. Здесь может помочь приложение &kompare; — графический интерфейс к программе diff. В приложении исходный и сравниваемый файлы показаны рядом, при этом все различия автоматически выделяются цветом. После сравнения будет возможно последовательно применить выбранные изменения в одном файле к другому файлу. Если изменение было применено ошибочно, его всегда возможно &apos;отменить&apos;. После применения всех требуемых изменений файл возможно сохранить и затем открыть в приложении, которое использовалось для его создания.</para>
+
+<para
+>Приложение &kompare; также позволяет создать и просмотреть специальный файл &apos;.diff&apos;. Этот файл, содержащий различия между двумя файлами, возможно использовать для просмотра и применения изменений к любому другому экземпляру исходного файла. Пример: над документом работают два человека. Первому требуется внести изменения и отправить второму человеку только эти изменения. Как правило, первый человек направит второму весь изменённый документ целиком, и получателю придётся сравнить изменённый документ с не содержащей изменений версией, открыв оба файла рядом. Подобный способ работы уже упоминался ранее. Но приложение &kompare; подразумевает другой способ работы: сначала первый человек создаст локальную копию файла, который требуется изменить, затем внесёт изменения и сравнит оригинал и изменённую копию с помощью &kompare;. В полученном файле .diff будут содержаться только внесённые изменения — именно этот файл следует направить второму человеку вместо всего изменённого документа целиком.</para>
+
+<para
+>&kompare; позволяет второму человеку просмотреть файл .diff, сравнить его с локальной копией документа и применить изменения, которые внёс первый человек. Таким образом возможно работать над несколькими версиями документа — каждый участник работы будет вносить изменения, создавать файлы .diffs, пересылать и применять их. Этот процесс называется <quote
+>применением исправлений (патчей)</quote
+>, слово «патч» взято из названия программы <quote
+>patch</quote
+> (это ещё одна утилита командной строки, созданная специально для применения файлов различий).</para>
+
+<para
+>Иногда люди работают над файлом одновременно; весьма вероятно, что изменения будут внесены в одну и ту же строку. В таких случаях возникает проблема — в результате применения полученных файлов различий может быть выполнена нежелательная перезапись изменений. К счастью, разработчики программ diff и patch предусмотрели этот момент; эти программы не позволяют применить такие изменения в автоматическом режиме. Состояние, в котором имеется два набора изменений одной и той же строки, называется <quote
+>конфликт</quote
+>. Приложение &kompare; показывает конфликты, что позволяет вручную разрешить их, то есть выбрать набор изменений, который следует применить.</para>
+
+<para
+>&kompare; также позволяет сравнить изменения в файлах на уровне папок. При сравнении папок &kompare; рекурсивно анализирует вложенные папки и содержимое их файлов на предмет наличия различий. Каждый файл, в котором обнаружены различия, будет автоматически добавлен в список и открыт в &kompare; (в приложении поддерживается навигация по списку файлов).</para>
+
+</chapter>
+
+<chapter id="using">
+<title
+>Использование &kompare;</title>
+
+<sect1 id="getting-started">
+<title
+>Начало работы</title>
+
+<para
+>Этот раздел содержит инструкции по запуску приложения &kompare; и краткое описание основного интерфейса &kompare;.</para>
+
+<sect2 id="starting-kompare">
+<title
+>Запуск &kompare;</title>
+
+<para
+>Запуск &kompare;, выполняется с помощью меню приложений: <menuchoice
+><guimenu
+>Разработка</guimenu
+><guimenuitem
+>Kompare</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>Сразу запуска &kompare; будет показан диалог выбора файлов для сравнения. Также возможно задать специальные параметры сравнения и его внешнего вида. В форме выбора файлов необходимо выбрать исходный файл и сравниваемый файл. Это могут быть любые два файла, две папки, а также &URL;-адрес и файл. Когда исходный и сравниваемый объекты будут выбраны, нажмите кнопку <guibutton
+>Сравнить</guibutton
+>.</para>
+
+<para
+>После выявления различий появится основной интерфейс &kompare;. Процесс сравнения двух файлов или URL-адреса и файла занимает несколько секунд. Но на сравнение папок, которые содержат много вложенных папок и файлов, может потребоваться некоторое время.</para>
+
+<para
+>Описание параметров, которые доступны в формах сравнения и внешнего вида: <xref linkend="configure-preferences"/>.</para>
+</sect2>
+
+<sect2 id="main-interface">
+<title
+>Основной интерфейс</title>
+
+<para
+>Этот раздел содержит краткое описание основного интерфейса. Он состоит из следующих областей:</para>
+<itemizedlist>
+<listitem
+><para
+>Меню</para
+></listitem>
+<listitem
+><para
+>Панель инструментов</para
+></listitem>
+<listitem
+><para
+>Исходная и сравниваемая папки</para
+></listitem>
+<listitem
+><para
+>Исходный и сравниваемый файлы</para
+></listitem>
+<listitem
+><para
+>Изменения исходной и сравниваемой строк</para
+></listitem>
+<listitem
+><para
+>Просмотр исходного и сравниваемого текста</para
+></listitem>
+<listitem
+><para
+>Строка состояния</para
+></listitem>
+</itemizedlist>
+
+<sect3 id="menus">
+<title
+>Меню</title>
+<para
+>Работа с интерфейсом &kompare; выполняется с помощью меню. Описание элементов меню и соответствующих параметров: <xref linkend="command-reference"/>.</para>
+</sect3>
+
+<sect3 id="toolbar">
+<title
+>Панель инструментов</title>
+<para
+>Панель инструментов &kompare; предоставляет доступ к наиболее часто используемым операциям сравнения и объединения. Контекстное меню панели инструментов, которое доступно по щелчку правой кнопкой мыши, позволяет настроить ориентацию панели инструментов, положение текста и размер значков, а также выбрать значки для показа. С помощью контекстного меню также возможно скрыть панель инструментов. Чтобы показать скрытую панель инструментов, выберите пункт меню <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Показать панель инструментов</guimenuitem
+></menuchoice
+>.</para>
+</sect3>
+
+<sect3 id="source-destination-folders">
+<title
+>Исходная и сравниваемая папки</title>
+<para
+>В областях исходной и сравниваемой папок показаны папки, которые содержат сравниваемые файлы. Если сравнивается большое количество вложенных папок, то при выборе папки будет показан первый содержащийся в ней документ, в котором обнаружено различие.</para>
+</sect3>
+
+<sect3 id="source-destination-files">
+<title
+>Исходный и сравниваемый файлы</title>
+<para
+>В области исходного и сравниваемого файлов показаны файлы, в которых обнаружены различия с текущей выбранной исходной или сравниваемой папкой. Если в папке содержатся несколько документов с различиями, все эти документы будут представлены в виде списка. Показан будет выбранный документ.</para>
+</sect3>
+
+<sect3 id="source-destination-lines">
+<title
+>Изменения исходной и сравниваемой строк</title>
+<para
+>В области изменений исходной и сравниваемой строк собраны различия, найденные между текущими исходным и сравниваемым документами. При выборе записи в области различие будет выделено цветом и выбрано. Это удобный способ навигации по длинным документам, которые содержат много различий.</para>
+</sect3>
+
+<sect3 id="source-destination-view">
+<title
+>Просмотр исходного и сравниваемого текста</title>
+<para
+>Основная рабочая область &kompare; предназначена для просмотра исходного и сравниваемого объектов. В ней с номерами строк показаны содержимое и выделенные цветом различия текущих выбранных исходного и сравниваемого файлов.</para>
+</sect3>
+
+<sect3 id="text-view">
+<title
+>Просмотр текста</title>
+<para
+>По умолчанию <guilabel
+>Просмотр текста</guilabel
+> не выполняется. Чтобы использовать это представление, выберите пункт меню <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Показать в виде текста</guimenuitem
+></menuchoice
+>.</para>
+<!-- Other than a notepad, what is this text view good for?  -->
+</sect3>
+
+<sect3 id="statusbar">
+<title
+>Строка состояния</title>
+<para
+>В строке состояния представлена сводная информация о текущих исходном и сравниваемом файлах или папках. Также там указано количество обнаруженных в текущем документе изменений и число применённых изменений. Кроме того, строка состояния показано общее количество документов, содержащих различия, и номер текущего выбранного документа из этого набора. Например, в результате сравнения двух папок может быть найдено 1890 файлов, которые содержат различия. Номер текущего выбранного документа — 18 из 1890.</para>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="viewing-differences">
+<title
+>Просмотр различий</title>
+
+<sect2 id="managing-screen-real-estate">
+<title
+>Управление пространством экрана</title>
+<para
+>Для просмотра исходного и сравниваемого файлов в &kompare; отводятся одинаковые части рабочей области просмотра основного интерфейса. Эта область просмотра содержит несколько элементов управления, которые помогают оптимизировать использование пространства экрана при просмотре различий, в том числе:</para>
+<variablelist>
+<varlistentry>
+<term
+>Две полосы прокрутки</term>
+<listitem
+><para
+>Полосы прокрутки расположены как по правому, так и по нижнему краю области просмотра. Они позволяют быстро перемещаться по сравнению.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Общий маркер</term>
+<listitem
+><para
+>Вертикальное пространство между исходным и сравниваемым содержимым не только позволяет увидеть начало и конец строк в обеих областях, но и является маркером, с помощью которого возможно изменить процентное соотношение представлений исходного и сравниваемого содержимого  в области просмотра. Чтобы изменить размеры области одного из представлений, наведите указатель мыши на маркер, зажмите левую кнопку мыши и перетащите маркер влево или вправо. Естественно, при увеличении одной из областей другая область панели просмотра уменьшится.</para>
+<para
+>Между панелью навигации и областью просмотра исходного и сравниваемого объектов расположен горизонтальный маркер, также доступный для перемещения.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Закрепление</term>
+<listitem>
+<para
+>Панель навигации возможно открепить от основного интерфейса, щёлкнув по значку <inlinemediaobject
+> <imageobject
+><imagedata fileref="undock.png" format="PNG"/></imageobject
+></inlinemediaobject
+>, который расположен в правом верхнем углу панели. После этого панель будет возможно перемещать по экрану в собственном окне и даже скрыть её, щёлкнув по значку <inlinemediaobject
+><imageobject
+><imagedata fileref="dock.png" format="PNG"/></imageobject
+></inlinemediaobject
+>. Чтобы показать скрытую панель навигации, щёлкните правой кнопкой мыши в строке меню и выберите в контекстном меню пункт <guilabel
+>Навигация</guilabel
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Показ и скрытие строки состояния</term>
+<listitem>
+<para
+>Показ строки состояния в панели вида возможно включать и отключать с помощью пункта меню <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Показать строку состояния</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="switching-source-and-destination-view">
+<title
+>Перемена мест областей просмотра исходного и сравниваемого объектов</title>
+
+<para
+>Иногда бывает удобно сделать исходным тот файл, в который предполагалось внести изменения. Например, если при сравнении двух изменённых версий файла выясняется, что одна из них содержит гораздо больше изменений, то соответствующий файл будет предпочтительнее в качестве источника, так как к нему потребуется применить меньше изменений.</para>
+<para
+>Чтобы поменять объекты сравнения местами, выберите пункт меню <menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Поменять местами объекты сравнения</guimenuitem
+></menuchoice
+>. После этого показанные на панелях &kompare; файлы поменяются местами.</para>
+</sect2>
+	
+<sect2 id="display-difference-statistics">
+<title
+>Показ статистики различий</title>
+<para
+>Для быстрого просмотра различий выберите пункт меню <menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Показать статистику</guimenuitem
+></menuchoice
+>. Будет открыт диалог <guilabel
+>Статистика различий</guilabel
+>, в котором предоставляется следующая информация:</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Исходный файл</guilabel
+></term>
+<listitem
+><para
+>Имя исходного файла или файла, который не содержит изменений.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Сравниваемый файл</guilabel
+></term>
+<listitem
+><para
+>Имя сравниваемого файла или файла, который был изменён и к которому будут применены изменения.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Формат</guilabel
+></term>
+<listitem
+><para
+>Формат, который используется для показа различий (смотрите раздел <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Количество блоков различий</guilabel
+></term>
+<listitem>
+<para
+>Количество блоков, содержащих различия.</para>
+<para
+>Блок — это <quote
+><emphasis
+>блок</emphasis
+></quote
+> строк, которые были отмечены как различающиеся в исходном и сравниваемом объектах и могут содержать контекстные строки, если для формата различий включён параметр <guilabel
+>Строки контекста</guilabel
+> (смотрите раздел <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Количество различий</guilabel
+></term>
+<listitem
+><para
+>Фактическое количество найденных различий, а не блоков. Блок может содержать одно или несколько различий, когда диапазон изменений строк и строки контекста любых двух или более изменений накладываются друг на друга.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="navigating-the-difference-view">
+<title
+>Навигация по различиям</title>
+<para
+>В &kompare; реализована быстрая навигация по различиям на уровне файлов, а также по файлам различий при сравнении деревьев папок.</para>
+
+<sect3 id="selecting-a-difference">
+<title
+>Выбор различия</title>
+<para
+>Различие возможно выбрать следующими способами:</para>
+<itemizedlist>
+<listitem
+><para
+>щелчок по строке на панели изменений исходной и сравниваемой строк (верхний правый угол главного окна).</para
+></listitem>
+<listitem
+><para
+>щелчок по выделенному различию на панели просмотра.</para
+></listitem>
+<listitem
+><para
+>переход по списку различий в режиме сравнения (смотрите раздел <xref linkend="traversing-differences"/>).</para
+></listitem>
+</itemizedlist>
+<para
+>Когда различие выбрано, оно получает <quote
+>фокус</quote
+> и выделяется более ярким цветом.</para>
+</sect3>
+			
+<sect3 id="traversing-differences">
+<title
+>Переход по списку различий</title>
+<para
+>Если в результате сравнения найдено большое количество различий, их удобнее всего просматривать в логическом порядке, сверху вниз.</para>
+<para
+>По умолчанию в приложении &kompare; будет выбрано первое найденное различие. Пункт меню <menuchoice
+><guimenu
+>Различие</guimenu
+><guimenuitem
+>Следующее различие</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Down</keycap
+></keycombo
+>) позволяет выбрать следующее различие, а пункт меню <menuchoice
+><guimenu
+>Различие</guimenu
+><guimenuitem
+>Предыдущее различие</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Up</keycap
+></keycombo
+>) — предыдущее различие.</para>
+<para
+>Таким образом возможно по порядку переходить от одному различия к другому, применяя и отменяя рецензируемые изменения.</para>
+</sect3>
+
+<sect3 id="switching-between-files">
+<title
+>Переключение между файлами</title>
+<para
+>При выполнении сравнения на уровне папок может быть найдено большое количество файлов с различиями. Полный список таких файлов представлен на панелях <quote
+>исходной и сравниваемой папок</quote
+> и <quote
+>исходного и сравниваемого файлов</quote
+>, но в приложении &kompare; одновременно отображаются различия между исходным и сравниваемым объектами только для одного сравнения.</para>
+<para
+>Существуют следующие способы переключения между документами:</para>
+<itemizedlist>
+<listitem
+><para
+>Для просмотра различий, найденных для <quote
+>исходного и сравниваемого файлов</quote
+>, выберите панель <quote
+>исходной и сравниваемой папок</quote
+> и затем выберите нужный файл.</para
+></listitem>
+<listitem
+><para
+>Для просмотра предыдущего или следующего файла различий на панели <quote
+>исходного и сравниваемого файлов</quote
+> выберите пункт меню <menuchoice
+><guimenu
+>Различие</guimenu
+><guimenuitem
+>Предыдущий файл</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+>) или <menuchoice
+><guimenu
+>Различие</guimenu
+><guimenuitem
+>Следующий файл</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>PgDown</keycap
+></keycombo
+>).</para>
+</listitem>
+</itemizedlist>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="merging-differences">
+<title
+>Объединение различий</title>
+
+<para
+>&kompare; позволяет применять и отменять изменения одним щелчком мыши. Изменения возможно применять и отменять несколько раз, так как все операции выполняются в памяти и записываются в файлы на диске только после сохранения.</para>
+
+<sect2 id="applying-a-difference">
+<title
+>Применение изменения</title>
+<para
+>Чтобы применить изменение, щёлкните по выделенной цветом области различия и выберите пункт меню <menuchoice
+><guimenu
+>Различие</guimenu
+><guimenuitem
+>Применить различия</guimenuitem
+></menuchoice
+> (<keycombo
+><keycap
+>Пробел</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-a-difference">
+<title
+>Отмена изменения</title>
+<para
+>Чтобы отменить изменение, щёлкните по выделенной цветом области ранее применённого различия и выберите пункт меню <menuchoice
+><guimenu
+>Различие</guimenu
+><guimenuitem
+>Отменить различия</guimenuitem
+></menuchoice
+> (<keycombo
+>&Backspace;</keycombo
+>).</para>
+</sect2>
+	
+<sect2 id="applying-all-differences">
+<title
+>Применение всех изменений</title>
+<para
+>Если следует применить все обнаруженные между файлами различия, выберите пункт меню <menuchoice
+><guimenu
+>Различие</guimenu
+><guimenuitem
+>Применить все</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-all-differences">
+<title
+>Отмена всех изменений</title>
+<para
+>Чтобы отменить все ранее применённые изменения, выберите пункт меню <menuchoice
+><guimenu
+>Различие</guimenu
+><guimenuitem
+>Отменить все</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="saving-changes">
+<title
+>Сохранение изменений</title>
+<para
+>Чтобы сохранить применённые изменения, выберите пункт меню <menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Сохранить</guimenuitem
+></menuchoice
+> или <menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Сохранить все</guimenuitem
+></menuchoice
+>.</para>
+<para
+>Применённые изменения сохраняются как в исходный, так и в сравниваемый файлы.</para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-diff-files">
+<title
+>Работа с файлами различий</title>
+<para
+>Файлы различий содержат только различия между файлами или набором файлов в системе папок. Эти файлы могут содержать несколько строк контекста до и после изменений строк. Изменение строки и соответствующие строки контекста в сумме представляют собой блок. Следовательно, файл различий может содержать несколько блоков из одного или нескольких файлов. Если строки контекста двух или более блоков накладываются друг на друга, они считаются одним блоком. Файлы различий возможно использовать, чтобы:</para>
+<itemizedlist>
+<listitem
+><para
+>Применить изменения, содержащиеся в блоках, к оригинальному файлу.</para
+></listitem>
+<listitem
+><para
+>Применить изменения, содержащиеся в блоках, к файлу или набору оригинальных файлов в системе папок.</para
+></listitem>
+<listitem
+><para
+>Также файлы различий возможно изменить перед применением к оригинальному файлу или набору оригинальных файлов в системе папок.</para
+></listitem>
+</itemizedlist>
+
+<sect2 id="creating-a-diff">
+<title
+>Создание файла различий</title>
+<para
+>Файл различий возможно создать после выполнения сравнения в приложении &kompare;. Выберите пункт меню <menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Сохранить различия в файл...</guimenuitem
+></menuchoice
+>: будет открыт диалог <guilabel
+>Параметры Diff</guilabel
+> (подробные сведения о форматах и параметрах файлов различий доступны в разделе <xref linkend="diff-settings"/>). Настройте параметры в этом окне и нажмите кнопку <guibutton
+>Сохранить</guibutton
+> для сохранения различий в файл с расширением <filename class="extension"
+>.diff</filename
+>.</para>
+</sect2>
+
+<sect2 id="displaying-a-diff">
+<title
+>Отображение файла различий</title>
+<para
+>Чтобы просмотреть содержимое файла различий в приложении &kompare;, откройте его с помощью пункта меню <menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Открыть файл различий...</guimenuitem
+></menuchoice
+>.</para>
+<para
+>При просмотре файла различий отображаются блоки различий между исходным и сравниваемым файлами; обратите внимание, что отображаются только блоки, а неизменённые строки показаны не будут. Иногда файл различий создаётся с нулевым количеством строк контекста — в таких случаях будут показаны только изменённые строки.</para>
+<para
+>Если файл различий содержит блоки из нескольких файлов, в приложении &kompare; будут одновременно показаны блоки только из одного файла — между файлами возможно переключаться таким же образом, как если бы они были реальными, несмотря на то, что на самом деле это лишь информация из файла различий.</para>
+</sect2>
+
+<sect2 id="applying-a-diff">
+<title
+>Применение различий из файла различий</title>
+<para
+>Различия, содержащиеся в файле различий, при просмотре возможно применять так же, как и при сравнении исходного и сравниваемого файлов (смотрите раздел <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+<sect2 id="blending-a-diff">
+<title
+>Совмещение &URL;-адреса с файлом различий</title>
+<para
+>Когда имеется файл различий, возможно сравнить содержащиеся в нём блоки с файлом или папкой: выберите пункт меню <menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Совместить ссылку с Diff...</guimenuitem
+></menuchoice
+> и введите пути <guilabel
+>Файл/каталог</guilabel
+> и <guilabel
+>Результат сравнения</guilabel
+>.</para>
+<para
+>При просмотре различий между исходным файлом и файлом различий возможно применять различия таким же образом, как и при сравнении исходного и сравниваемого файлов (смотрите раздел <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="configure-preferences">
+<title
+>Настройка параметров</title>
+
+<para
+>&kompare; позволяет задавать параметры форматирования различий в основном интерфейсе и настраивать работу программы diff. Чтобы открыть диалог <guilabel
+>Параметры</guilabel
+>, выберите пункт меню <menuchoice
+><guimenu
+>Настройка</guimenu
+><guisubmenu
+>Настроить &kompare;...</guisubmenu
+></menuchoice
+>.</para>
+
+<para
+>Для настройки параметров внешнего вида выберите пункт меню <guilabel
+>Вид</guilabel
+> (смотрите раздел <xref linkend="view-settings"/>).</para>
+
+<para
+>Для настройки параметров программы поиска различий выберите пункт меню <guilabel
+>Различия</guilabel
+> (смотрите раздел <xref linkend="diff-settings"/>).</para>
+
+<sect1 id="view-settings">
+<title
+>Настройка вида</title>
+<para
+>На странице <guimenu
+>Вид</guimenu
+> диалога <guilabel
+>Параметры</guilabel
+> содержатся вкладки <guilabel
+>Внешний вид</guilabel
+> и <guilabel
+>Шрифты</guilabel
+>.</para>
+
+<sect2 id="appearance">
+<title
+>Внешний вид</title>
+<para
+>На вкладке <guilabel
+>Внешний вид</guilabel
+> представлены следующие группы элементов управления: <guilabel
+>Цвета</guilabel
+> (цвета, которые используются для обозначения различий в основном интерфейсе), <guilabel
+>Колесо мыши</guilabel
+> (поведение колеса мыши при прокрутке вверх или вниз) и <guilabel
+>Преобразование символов табуляции в пробелы</guilabel
+> (управление соответствующим преобразованием).</para>
+<screenshot>
+<screeninfo
+>Настройка внешнего вида &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Настройка внешнего вида &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Цвета</title>
+<para
+>Нажмите кнопку цвета, чтобы открыть диалог <guilabel
+>Выбор цвета</guilabel
+>, который позволяет настроить параметры цвета, используемые для отображения различий. Он доступен для следующих состояний:</para>
+<varlistentry>
+<term
+><guilabel
+>Цвет удалённой строки</guilabel
+></term>
+<listitem
+><para
+>Строки, которые были удалены и не существуют.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Цвет изменённой строки</guilabel
+></term>
+<listitem
+><para
+>Строки, которые были изменены. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Цвет добавленной строки</guilabel
+></term>
+<listitem
+><para
+>Строки, которые были добавлены.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Цвет сделанных изменений</guilabel
+></term>
+<listitem
+><para
+>Любое из этих состояний показывает, где именно было применено различие между исходным и сравниваемым объектами.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Колесо мыши</title>
+<varlistentry>
+<term
+><guilabel
+>Количество строк</guilabel
+></term>
+<listitem
+><para
+>Количество строк изменений, которые будут прокручиваться при прокрутке колеса мыши вперёд или назад.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Преобразование символов табуляции в пробелы</title>
+<varlistentry>
+<term
+><guilabel
+>Количество пробелов, заменяющих символ табуляции</guilabel
+></term>
+<listitem
+><para
+>Преобразование каждого символа табуляции в энное количество пробелов.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="fonts">
+<title
+>Шрифты</title>
+<screenshot>
+<screeninfo
+>Настройка шрифтов &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Настройка шрифтов &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Выбор гарнитуры и размера шрифта для использования при показе различий.</para>
+</sect2>
+</sect1>
+
+<sect1 id="diff-settings">
+<title
+>Настройка различий</title>
+<para
+>На странице <guimenu
+>Различия</guimenu
+> диалога <guilabel
+>Параметры</guilabel
+> содержатся вкладки <guilabel
+>Различия</guilabel
+>, <guilabel
+>Формат</guilabel
+>, <guilabel
+>Параметры</guilabel
+> и <guilabel
+>Исключить</guilabel
+>. Они позволяют настроить работу программы поиска различий.</para>
+
+<sect2 id="diff">
+<title
+>Различия</title>
+<screenshot>
+<screeninfo
+>Настройка различий &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Настройка различий &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Команда, которая используется для запуска программы поиска различий (приложение <application
+>поиска различий</application
+> по умолчанию).</para>
+</sect2>
+
+<sect2 id="diff-format">
+<title
+>Формат</title>
+<screenshot>
+<screeninfo
+>Настройка формата &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Настройка формата &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Настройка параметров <guilabel
+>Формата вывода</guilabel
+> и количества <guilabel
+>Строк контекста</guilabel
+>.</para>
+<variablelist>
+<title
+>Формат вывода</title>
+<varlistentry>
+<term
+><guilabel
+>Контекст</guilabel
+></term>
+<listitem>
+<para
+>Контекстный формат вывода добавляет к различающимся строкам несколько строк контекста.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Обычный</guilabel
+></term>
+<listitem>
+<para
+>Обычный формат вывода отображает различающиеся строки без строк контекста. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Объединённый</guilabel
+></term>
+<listitem>
+<para
+>Объединённый формат вывода — это вариант контекстного формата. Так как объединённый формат предоставляет более компактный вывод за счёт пропуска избыточных строк контекста, рекомендуется использовать именно его, а не контекстный формат.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+<variablelist>
+<title
+>Строки контекста</title>
+<varlistentry>
+<term
+><guilabel
+>Количество строк контекста</guilabel
+></term>
+<listitem>
+<para
+>Этот параметр позволяет управлять количеством отображаемых строк контекста при выполнении сравнения с использованием контекстного или объединённого формата.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="options">
+<title
+>Параметры</title>
+<screenshot>
+<screeninfo
+>Настройка параметров &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff3.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Настройка параметров &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>На вкладке <guilabel
+>Параметры</guilabel
+> возможно настроить параметры, которые поддерживаются программой поиска различий.</para>
+<variablelist>
+<title
+>Общие</title>
+<varlistentry>
+<term
+><guilabel
+>Рассматривать новые файлы как пустые</guilabel
+></term>
+<listitem
+><para
+>При включении этого параметра программа поиска различий будет рассматривать файлы, которые существуют только в одной из папок, как пустые в другой папке. Это означает, что такой файл будет сравниваться с пустым файлом и поэтому будет показан как одна большая вставка или удаление.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Искать наименьшие изменения</guilabel
+></term>
+<listitem
+><para
+>При включении этого параметра программа поиска различий будет показывать изменения регистра, пунктуации, количества пробелов и так далее.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Оптимизация для больших файлов</guilabel
+></term>
+<listitem
+><para
+>При включении этого параметра программа поиска различий будет обрабатывать файлы быстрее.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Игнорировать изменения в регистре символов</guilabel
+></term>
+<listitem
+><para
+>При включении этого параметра изменения регистра символов не будут отображаться.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Игнорировать строки по регулярному выражению</guilabel
+></term>
+<listitem
+><para
+>При включении этого параметра строки, которые соответствуют указанному регулярному выражению, будут проигнорированы.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Пробелы</title>
+<varlistentry>
+<term
+><guilabel
+>Заменять пробелами символы табуляции</guilabel
+></term>
+<listitem
+><para
+>При включении этого параметра в выводе программы поиска различий символы табуляции будут заменяться пробелами. Чтобы задать количество пробелов, откройте диалог <guilabel
+>Параметры</guilabel
+>, перейдите на страницу <guimenu
+>Вид</guimenu
+> и настройте параметр <guilabel
+>Преобразование символов табуляции в пробелы</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Игнорировать добавленные или удалённые пустые строки</guilabel
+></term>
+<listitem
+><para
+>При включении этого параметра различающиеся строки нулевой длины будут проигнорированы.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Игнорировать изменение количества пробелов</guilabel
+></term>
+<listitem
+><para
+>Количество пробелов, находящихся перед, после и между строками, может изменяться в зависимости от редактора. При включении этого параметра такие изменения будут проигнорированы.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Игнорировать пробельное пространство</guilabel
+></term>
+<listitem
+><para
+>При включении этого параметра различия пробельного пространства будут полностью проигнорированы.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Игнорировать изменения по замене табуляции пробелами</guilabel
+></term>
+<listitem
+><para
+>При включении этого параметра различия пробельного пространства, возникающие из-за замены табуляции пробелами, будут проигнорированы.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="exclude">
+<title
+>Исключить</title>
+<para
+>На вкладке <guilabel
+>Исключить</guilabel
+> доступны параметры фильтров, которые поддерживаются программой поиска различий.</para>
+<screenshot>
+<screeninfo
+>Настройка исключений &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff4.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Настройка исключений &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Шаблон имени для исключения</title>
+<varlistentry>
+<term
+><guilabel
+>Шаблон имени для исключения</guilabel
+></term>
+<listitem
+><para
+>Исключение файлов на основе фильтрации по шаблону.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Файл с именами файлов для исключения</title>
+<varlistentry>
+<term
+><guilabel
+>Файл с именами файлов для исключения</guilabel
+></term>
+<listitem
+><para
+>Определение фильтра на основе содержимого внешнего файла.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+</sect1>
+
+</chapter>
+
+<chapter id="command-reference">
+<title
+>Список команд</title>
+
+<sect1 id="menu-items">
+
+<title
+>Элементы меню</title>
+<sect2 id="file-menu">
+<title
+>Меню «Файл»</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+><guimenuitem
+>Открыть файл различий...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Открыть диалог <guilabel
+>Открытие файла</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+><guimenuitem
+>Сравнить файлы...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Открыть диалог <guilabel
+>Сравнение файлов или папок</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+><guimenuitem
+>Совместить ссылку с Diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Открыть диалог <guilabel
+>Совмещение файла или папки с результатом сравнения</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+><guimenuitem
+>Сохранить</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Записать применённые изменения в текущий исходный и/или сравниваемый файл.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Сохранить все</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Записать применённые изменения во все исходные и/или сравниваемые файлы.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Сохранить различия в файл...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Открыть диалог <guilabel
+>Параметры Diff</guilabel
+> для указания формата и параметров файла различий.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>F5</keycap
+></shortcut
+> <guimenu
+>Файл</guimenu
+><guimenuitem
+>Обновить различия</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Обновить различия объектов сравнения. Эта опция полезна, когда после применения и сохранения некоторых изменений требуется просмотреть оставшиеся изменения.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Поменять местами объекты сравнения</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Поменять исходный и сравниваемый объекты местами.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+><guimenuitem
+>Показать статистику</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Открыть диалог <guilabel
+>Статистика различий</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+><guimenuitem
+>Выход</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Выйти из &kompare;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="difference-menu">
+<title
+>Меню «Различие»</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Различие</guimenu
+><guimenuitem
+>Отменить все</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Отменить все ранее применённые изменения.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Backspace;</shortcut
+> <guimenu
+>Различие</guimenu
+><guimenuitem
+>Отменить различия</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Отменить выбранное ранее применённое изменение.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>Пробел</keycap
+></shortcut
+> <guimenu
+>Различие</guimenu
+><guimenuitem
+>Применить различия</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Применить выбранное изменение.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Различие</guimenu
+><guimenuitem
+>Применить все</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Применить все изменения.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Различие</guimenu
+><guimenuitem
+>Предыдущий файл</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Сделать файл, содержащий предыдущее различие в списке различий, текущим файлом в области просмотра.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgDown</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Различие</guimenu
+><guimenuitem
+>Следующий файл</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Сделать файл, содержащий следующее различие в списке различий, текущим файлом в области просмотра.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Up</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Различие</guimenu
+><guimenuitem
+>Предыдущее различие</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Выбрать различие, которое находится выше текущего выбранного различия.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Down</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Различие</guimenu
+><guimenuitem
+>Следующее различие</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Выбрать различие, которое находится ниже текущего выбранного различия.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="settingshelpmenu">
+
+<title
+>Меню «Настройка» и «Справка»</title>
+<para
+>В приложении &kompare; присутствуют стандартные меню &kde;: <guimenu
+>Настройка</guimenu
+> и <guimenu
+>Справка</guimenu
+>. Дополнительные сведения доступны в разделе справки «Основы &kde;» (подразделы <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Меню «Настройка»</ulink
+> и <ulink url="help:/fundamentals/menus.html#menus-help"
+>Меню «Справка»</ulink
+>). </para>
+</sect2>
+</sect1>
+
+<sect1 id="commandline-options">
+<title
+>Параметры командной строки</title>
+
+<variablelist>
+<varlistentry>
+<term
+>-c</term>
+<listitem
+><para
+>Сравнить «Ссылку1» со «Ссылкой2».</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-o</option
+></userinput
+></term>
+<listitem
+><para
+>Открыть «Ссылку1», считая, что это вывод diff. «Ссылка1» также может принимать значение «-» — в этом случае текст считывается из стандартного ввода. Это можно использовать, например, так: <userinput
+><command
+>cvs diff | kompare -o -</command
+></userinput
+>. Kompare проверит, существует ли оригинальный файл, а затем соединит его с выводом diff и покажет результат. Ключ <option
+>-n</option
+> отменяет проверку.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-b</option
+></userinput
+></term>
+<listitem
+><para
+>Совместить «Ссылку2» и «Ссылку1». «Ссылка2» должна быть результатом сравнения, а «Ссылка1» — (оригинальным) файлом или папкой.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-n</option
+></userinput
+></term>
+<listitem
+><para
+>Отключить проверку существования оригинального файла, когда с параметром <option
+>-o</option
+> в качестве значения ссылки используется «-».</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-e</option
+> <replaceable
+>кодировка</replaceable
+></userinput
+></term>
+<listitem
+><para
+>Указать кодировку. Если кодировка не указана, по умолчанию используется кодировка локали.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1
+></chapter>
+
+<chapter id="credits">
+
+<title
+>Авторские права и лицензия</title>
+
+<para
+>&kompare; </para>
+<para
+>Авторские права на программу © &John.Firebaugh; &John.Firebaugh.mail; и Otto Bruggeman <email
+>otto.bruggeman@home.nl</email
+>, 2001—2004 </para>
+
+<para
+>Авторские права на документацию © Sean Wheller <email
+>sean@inwords.co.za</email
+>, 2007 </para>
+
+<para
+>Олеся Герасименко<email
+>translation-team@basealt.ru</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index; 
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

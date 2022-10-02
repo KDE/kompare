@@ -1,0 +1,1702 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+   <!ENTITY kappname "&kompare;">
+   <!ENTITY version "4.4.0">
+   <!ENTITY package "kdesdk">
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % Brazilian-Portuguese "INCLUDE">
+]>
+
+<book id="kompare" lang="&language;">
+
+<bookinfo>
+ <title
+>Manual do &kompare;</title>
+
+ <authorgroup>
+
+<author
+><firstname
+>Sean</firstname
+><surname
+>Wheller</surname
+><email
+>sean@inwords.co.za</email
+></author>
+ <othercredit role="translator"
+><firstname
+>Marcus</firstname
+><surname
+>Gama</surname
+><affiliation
+><address
+><email
+>marcus.gama@gmail.com</email
+></address
+></affiliation
+><contrib
+>Tradução</contrib
+></othercredit
+> 
+ </authorgroup>
+
+<copyright>
+<year
+>2007</year>
+<holder
+>Sean Wheller</holder>
+</copyright>
+
+ <legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>22/07/2010</date>
+<releaseinfo
+>&version;</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>O &kompare; é um programa &GUI; que permite ver e reunir as diferenças entre os arquivos de código. O &kompare; pode ser usado para comparar as diferenças entre arquivos ou entre o conteúdo de pastas. O &kompare; suporta uma grande variedade de formatos do 'diff' e oferece várias opções para personalizar o nível de informação que é apresentado.</para>
+<para
+>Este documento descreve o &kompare; na versão &version;.</para>
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Kompare</keyword>
+<keyword
+>Diff</keyword>
+<keyword
+>Mesclar</keyword>
+<keyword
+>Modificação</keyword>
+<keyword
+>Bloco</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introdução</title
+> 
+
+<para
+>Quando duas ou mais pessoas estiverem trabalhando em um arquivo e trocam esta arquivo entre si, torna-se difícil saber que modificações foram feitas em cada versão do arquivo. Abrir a cópia nova e o original, lado-a-lado, no aplicativo usado para criá-los, é uma solução possível mas trabalhosa, lenta e sujeita a erros. Esta situação é uma em que é necessário e útil um programa para mostrar as diferenças.</para>
+
+<para
+>Como seria de se esperar, um nome apropriado para um programa destes seria &quot;diff&quot; (diminutivo de diferença em inglês). Normalmente, o programa 'diff' está instalado na maioria dos sistemas baseados em &Linux; e é usado exatamente para este fim. Os programadores usam normalmente o 'diff', como ferramenta da linha de comando, para mostrar as diferenças entre versões de arquivos de código. Contudo, a utilização do 'diff' não está limitada à apresentação das diferenças nos arquivos de código-fonte, podendo ser usada em vários tipos de arquivos baseados em texto.</para>
+
+<para
+>O uso do 'diff' na linha de comando poderá ser confusa, a aprendizagem da sintaxe e a decodificação do resultado poderão assustar a maioria das pessoas. Aí é onde o &kompare; entra em jogo. Ao oferecer uma interface gráfica para o programa 'diff', o programa mostra os arquivos de origem e destino lado-a-lado, com todas as diferenças realçadas automaticamente. A partir deste ponto, as alterações num arquivo poderão ser aplicadas sequencialmente ao outro, usando uma base seletiva e controlada. Nem todas as alterações precisam de ser aplicadas e, se você não quiser aplicar uma alteração, ela poderá sempre ser &apos;anulada&apos;. Quando todas as alterações necessárias tiverem sido aplicadas, elas poderão ser gravadas e aparecerão de forma normal, como acontece no aplicativo usado para criar o arquivo.</para>
+
+<para
+>Além de mostrar as diferenças entre um arquivo de origem e um de destino, o &kompare; pode ser usado para criar e ver um arquivo especial, chamado arquivo &apos;diff&apos;. Este arquivo captura as diferenças entre as duas fontes para um único arquivo, que poderá então ser usado para ver e aplicar as alterações a outra cópia qualquer do arquivo. Por exemplo, se duas pessoas estiverem editando um documento, a primeira pessoa quer fazer alterações e enviar apenas essas alterações à segunda pessoa. Normalmente, a primeira pessoa iria enviar uma cópia completa do documento modificado para a segunda pessoa, que teria depois de comparar o documento modificado, lado-a-lado com a versão não-modificada. O processo é muito semelhante ao descrito nos parágrafos anteriores. Com o &kompare;, a primeira pessoa iria fazer uma cópia local do arquivo a ser modificado, faria as alterações e depois iria comparar o original e a cópia modificada. Agora, ao usar o &kompare;, poderá criar um arquivo 'diff' que captura apenas as alterações feitas. Ele poderá ser enviado para a segunda pessoa, em vez de enviar um arquivo inteiro com os dados e as alterações.</para>
+
+<para
+>Usando o &kompare;, a segunda pessoa poderá ver o arquivo 'diff', compará-lo com a cópia local do documento e aplicar as alterações feitas pela primeira pessoa. Assim, o processo poderá funcionar para várias versões do documento, onde cada pessoa faz as alterações, cria os arquivos 'diff', distribui-os e aplica-os. Este processo é conhecido em inglês como &quot;patching&quot;, um termo retirado do programa &quot;patch&quot;, que é outra ferramenta da linha de comando, desenhada especificamente para aplicar os arquivos do 'diff'.</para>
+
+<para
+>Algumas vezes pode ocorrer que existam várias pessoas editando um arquivo ao mesmo tempo. Nesta situação, é provável que as pessoas façam alterações no documento exatamente na mesma linha. Isto gera um problema porque, sem o devido cuidado, as pessoas poderão estar sobrepondo o trabalho das outras, à medida que se aplicam os arquivos de 'diff' que recebem. Felizmente, os programadores dos programas 'diff' e 'patch' levaram isso em conta e, deste modo, estas ferramentas não irão aplicar essas alterações sem alguma intervenção manual. Quando se atinge este estado, isto é referido como um &quot;conflito&quot;. O &kompare; irá mostrar os conflitos, de modo que você possa resolvê-los manualmente, decidindo as alterações que deverão ser aplicadas a um determinado arquivo.</para>
+
+<para
+>O &kompare; também é um ótimo programa para comparar as alterações de arquivos ao nível da pasta. Quando for usado para comparar pastas, o &kompare; examina recursivamente as subpastas e o conteúdo dos seus arquivos, à procura de diferenças. Neste caso, cada um dos arquivos em que foram encontradas diferenças é aberto automaticamente e listado pelo &kompare;, onde é possível navegar facilmente pelos vários arquivos.</para>
+
+</chapter>
+
+<chapter id="using">
+<title
+>Usando o &kompare;</title>
+
+<sect1 id="getting-started">
+<title
+>Começando</title>
+
+<para
+>Esta seção fornece instruções para iniciar o &kompare; e oferece um rápido passeio pela interface principal do &kompare;.</para>
+
+<sect2 id="starting-kompare">
+<title
+>Iniciando o &kompare;</title>
+
+<para
+>Um atalho para iniciar o &kompare; poderá ser encontrado no menu K, no grupo de Desenvolvimento, em <menuchoice
+><guimenu
+>Desenvolvimento</guimenu
+><guimenuitem
+>Kompare</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>Quando o &kompare; se inicia, a primeira coisa que faz é mostrar uma janela, na qual poderá selecionar os arquivos que deseja comparar. As opções especiais de propriedades do 'diff', bem como a aparência, poderão também ser aqui selecionadas. No formulário do arquivo, selecione a origem e o destino a comparar. Estes poderão ser dois arquivos, pastas ou um &URL; e um arquivo. Logo que a origem e o destino estejam selecionados, clique no botão <guibutton
+>Comparar</guibutton
+>.</para>
+
+<para
+>Logo que o &kompare; tenha descoberto as diferenças, ele irá mostrar a interface principal. Ao comparar dois arquivos, ou uma URL e um arquivo, o processo levará apenas alguns segundos. Contudo, ao comparar pastas com diversas subpastas e arquivos, este processo poderá levar mais tempo.</para>
+
+<para
+>Para uma explicação das opções disponíveis do 'diff', bem como os formatos de aparência, veja a seção <xref linkend="configure-preferences"/>.</para>
+</sect2>
+
+<sect2 id="main-interface">
+<title
+>A Janela Principal</title>
+
+<para
+>Esta seção oferece um rápido passeio pela janela principal, composta pelas seguintes áreas:</para>
+<itemizedlist>
+<listitem
+><para
+>Menus</para
+></listitem>
+<listitem
+><para
+>Barra de Ferramentas</para
+></listitem>
+<listitem
+><para
+>Pastas de Origem e Destino</para
+></listitem>
+<listitem
+><para
+>Arquivos de Origem e Destino</para
+></listitem>
+<listitem
+><para
+>Mudanças de Linha na Origem e no Destino</para
+></listitem>
+<listitem
+><para
+>Área de Texto da Origem e do Destino</para
+></listitem>
+<listitem
+><para
+>Barra de Estado</para
+></listitem>
+</itemizedlist>
+
+<sect3 id="menus">
+<title
+>Menus</title>
+<para
+>O &kompare; oferece uma interface baseada em menus. Está disponível uma explicação para os itens do menu e as suas opções em <xref linkend="command-reference"/>.</para>
+</sect3>
+
+<sect3 id="toolbar">
+<title
+>Barra de Ferramentas</title>
+<para
+>A barra de ferramentas do &kompare; oferece atalhos para as operações de diferenças e mesclagem usadas com maior frequência. A orientação da barra de ferramentas, a posição do texto, as propriedades do tamanho dos ícones e a visibilidade dos ícones de atalho poderão ser personalizadas no menu de contexto da barra de ferramentas, ao clicar com o botão direito do mouse na barra de ferramentas. O menu de contexto da barra de ferramentas também permite ocultar a barra de ferramentas. Se ela ficar oculta e você desejar torná-la visível novamente, selecione a opção do menu <menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Mostrar a Barra de Ferramentas</guimenuitem
+></menuchoice
+>.</para>
+</sect3>
+
+<sect3 id="source-destination-folders">
+<title
+>Pastas de Origem e Destino</title>
+<para
+>A área das pastas de origem e destino mostram as pastas nas quais se encontram os arquivos comparados. Quando estiverem incluídas várias pastas na comparação, então a seleção de uma pasta irá mostrar o primeiro documento nessa pasta onde foi encontrada uma diferença entre a origem e o destino.</para>
+</sect3>
+
+<sect3 id="source-destination-files">
+<title
+>Arquivos de Origem e Destino</title>
+<para
+>A área dos arquivos de origem e destino mostram os arquivos em que foram encontradas diferenças, tanto para a pasta de origem como a de destino. Quando uma determinada pasta tiver vários documentos com diferenças, serão apresentados todos os documentos com diferenças. O documento que estiver selecionado nesta área estará visível.</para>
+</sect3>
+
+<sect3 id="source-destination-lines">
+<title
+>Mudanças de Linha na Origem e Destino</title>
+<para
+>A área das mudanças de linhas da origem e destino resumem as diferenças encontradas entre os documentos de origem e de destino. Se selecionar um registro nessa área, irá realçar e selecionar a diferença. Esta é uma forma útil de navegar e inspecionar os documentos grandes com muitas diferenças.</para>
+</sect3>
+
+<sect3 id="source-destination-view">
+<title
+>Área de Origem e de Destino</title>
+<para
+>A área de origem e destino é o espaço de trabalho principal do &kompare;. O conteúdo e as diferenças realçadas, para o arquivo de origem e destino selecionado atualmente, aparecem aqui com os números de linha.</para>
+</sect3>
+
+<sect3 id="text-view">
+<title
+>Área do Texto</title>
+<para
+>A <guilabel
+>Área de Texto</guilabel
+> não aparece por padrão. Esta poderá ser aberta selecionando a opção <menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Mostrar Área de Texto</guimenuitem
+></menuchoice
+>.</para>
+<!-- Other than a notepad, what is this text view good for?  -->
+</sect3>
+
+<sect3 id="statusbar">
+<title
+>Barra de Estado</title>
+<para
+>A barra de estado oferece um resumo do arquivo ou pasta de origem e de destino a serem comparados. A barra de estado apresenta também o número alterações encontradas no documento atual e conta as diferenças que foram aplicadas. Além disso, a barra de estado mostra o número global de documentos que contém diferenças, bem como o número do documento atualmente selecionado neste conjunto. Por exemplo, uma comparação efetuada sobre duas pastas poderá devolver 1890 arquivos com diferenças. O documento atualmente selecionado é o número 18 de 1890.</para>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="viewing-differences">
+<title
+>Vendo as Diferenças</title>
+
+<sect2 id="managing-screen-real-estate">
+<title
+>Gerenciado o Espaço Livre da Tela</title>
+<para
+>O &kompare; mostra o arquivo de origem e de destino com uma porcentagem igual à área de trabalho da interface principal. Esta área de visualização oferece algumas funcionalidades que ajudam a otimizar a utilização do espaço livre da tela, enquanto você vê as diferenças, incluindo:</para>
+<variablelist>
+<varlistentry>
+<term
+>Barras de Rolagem Duplas</term>
+<listitem
+><para
+>A funcionalidade mais óbvia é que as barras de rolagem aparecem ambas nas pontas direita e inferior da área de visualização. Com as barras de rolagem, é possível percorrer rapidamente a comparação.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Pega de Divisão Compartilhada</term>
+<listitem
+><para
+>O espaço vertical entre a visão da origem e do destino não só possibilita a visualização clara do início e fim da linhas em cada uma das áreas, assim como é também uma pega que permite o ajuste da porcentagem ocupada pelas áreas de origem e destino que compõem a área de visualização. Para mudar o tamanho de uma das áreas, passe o cursor do mouse pela pega e mantenha o botão do mouse pressionado, deslocando depois o mouse para a esquerda ou para a direita. Naturalmente, aumentar a área de uma dessas zonas, irá diminuir a área disponível para a área oposta, dentro da área de visualização.</para>
+<para
+>Está disponível uma segunda pega horizontal entre o painel de navegação e a área de origem e de destino.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Acoplagem</term>
+<listitem
+><para
+>O painel de navegação pode ser destacado da interface principal, clicando para isso no botão <inlinemediaobject
+><imageobject
+><imagedata fileref="undock.png" format="PNG"/></imageobject
+></inlinemediaobject
+> que se encontra no canto superior direito do painel. Isto abre-o numa janela própria, permitindo movê-lo pela tela. Você poderá até ocultar o painel de navegação, clicando nesse caso no botão <inlinemediaobject
+><imageobject
+><imagedata fileref="dock.png" format="PNG"/></imageobject
+></inlinemediaobject
+>. Para exibir uma barra de navegação oculta, clique com o &RMB; na barra de menu e escolha a <guilabel
+>Navegação</guilabel
+> no menu de contexto. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Comutar a Barra de Estado</term>
+<listitem>
+<para
+>A barra de estado do painel de visualização poderá ser comutada selecionando-se a opção <menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Mostrar a Barra de Estado</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="switching-source-and-destination-view">
+<title
+>Alternando entre as Janelas de Origem e Destino</title>
+
+<para
+>Algumas vezes poderá ser útil considerar que o arquivo onde serão aplicadas as diferenças passe a ser o original. Por exemplo, ao comparar duas versões modificadas de um arquivo, e se descobrir que um arquivo tem muitas mais alterações que o outro. O arquivo com mais alterações será melhor como original, uma vez que serão necessárias menos aplicações de diferenças.</para>
+<para
+>Neste caso, selecione a opção <menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Trocar a Origem com o Destino</guimenuitem
+></menuchoice
+>. Isto irá trocar os arquivos que aparecem nos painéis do &kompare;.</para>
+</sect2>
+	
+<sect2 id="display-difference-statistics">
+<title
+>Mostrando as Estatísticas das Diferenças</title>
+<para
+>Para uma visão geral das diferenças, selecione a opção <menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Mostrar estatísticas</guimenuitem
+></menuchoice
+>. Isto irá mostrar a janela de <guilabel
+>Estatísticas das diferenças</guilabel
+>. Aparecerá então a seguinte informação:</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Arquivo antigo:</guilabel
+></term>
+<listitem
+><para
+>O nome do arquivo que é normalmente o arquivo de origem ou o arquivo que não foi modificado.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Arquivo novo:</guilabel
+></term>
+<listitem
+><para
+>O nome do arquivo normalmente usado como destino ou o arquivo que não foi modificado, sobre o qual serão aplicadas as diferenças.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Formato:</guilabel
+></term>
+<listitem
+><para
+>O formato de diferenças que é usado para mostrar as diferenças (veja em <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Número de blocos:</guilabel
+></term>
+<listitem>
+<para
+>O número de blocos que foram encontrados na diferença.</para>
+<para
+>Um bloco é um <quote
+>conjunto</quote
+> de linhas que foram marcadas como diferentes, entre a origem e o destino, e que poderão incluir as linhas de contexto, dependendo do valor das <guilabel
+>Linhas de Contexto</guilabel
+> do formato de diferenças (veja em <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Número de diferenças</guilabel
+></term>
+<listitem
+><para
+>O número atual de diferenças encontradas, não os blocos. Um bloco poderá conter uma ou mais diferenças, quando a mudança de linhas e as linhas de contexto de duas ou mais alterações se sobrepõem.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="navigating-the-difference-view">
+<title
+>Navegando na Área de Diferenças</title>
+<para
+>O &kompare; ativa a navegação rápida das diferenças, a nível do arquivo, e de vários arquivos com diferenças, ao comparar árvores de pastas.</para>
+
+<sect3 id="selecting-a-difference">
+<title
+>Selecionando uma Diferença</title>
+<para
+>Uma diferença poderá ser selecionada das seguintes maneiras:</para>
+<itemizedlist>
+<listitem
+><para
+>clicando numa linha da área de Mudanças de Linha na Origem e no Destino (canto superior direito da janela principal).</para
+></listitem>
+<listitem
+><para
+>clicando na diferença selecionada, na área de Visualização.</para
+></listitem>
+<listitem
+><para
+>percorrendo as diferenças listadas numa comparação (ver em <xref linkend="traversing-differences"/>).</para
+></listitem>
+</itemizedlist>
+<para
+>Quando for selecionada uma diferença, considera-se que ela fica <quote
+>em primeiro plano</quote
+>, aparecendo com uma cor mais clara que as diferenças não selecionadas.</para>
+</sect3>
+			
+<sect3 id="traversing-differences">
+<title
+>Percorrendo as Diferenças</title>
+<para
+>Quando uma comparação descobrir diversas diferenças, uma das melhores formas de revê-las é percorrer as diferenças em uma ordem lógica, normalmente de cima para baixo.</para>
+<para
+>Por padrão, o &kompare; seleciona a primeira diferença encontrada numa comparação. Ao selecionar a opção <menuchoice
+><guimenu
+>Diferença</guimenu
+><guimenuitem
+>Diferença Seguinte</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Baixo</keycap
+></keycombo
+>), a diferença subsequente à seleção atual ficará em primeiro plano. Para selecionar a diferença anterior à atual, selecione a opção <menuchoice
+><guimenu
+>Diferença</guimenu
+><guimenuitem
+>Diferença Anterior</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Cima</keycap
+></keycombo
+>).</para>
+<para
+>Desta forma, é possível percorrer as diferenças de forma ordenada, aplicando e revogando as diferenças em revisão.</para>
+</sect3>
+
+<sect3 id="switching-between-files">
+<title
+>Alternando entre Arquivos</title>
+<para
+>Quando for efetuada uma comparação a nível de uma pasta, poderão aparecer diversos arquivos com diferenças. Aparecerá então uma lista completa dos arquivos comparados, com as diferenças encontradas aparecendo em <quote
+>Pastas de Origem e Destino</quote
+> e nos <quote
+>Arquivos de Origem e Destino</quote
+>. Contudo, o &kompare; mostra as diferenças entre a origem e o destino, com uma comparação de cada vez.</para>
+<para
+>Para mudar de documento, neste cenário, estão disponíveis as seguintes opções:</para>
+<itemizedlist>
+<listitem
+><para
+>Selecione a área de <quote
+>Pastas de Origem e Destino</quote
+> para mostrar as diferenças de arquivos que aparecem na área de <quote
+>Arquivos de Origem e Destino</quote
+>, selecionando depois um arquivo.</para
+></listitem>
+<listitem
+><para
+>Selecione a opção <menuchoice
+><guimenu
+>Diferença</guimenu
+><guimenuitem
+>Arquivo Anterior</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+>) ou <menuchoice
+><guimenu
+>Diferença</guimenu
+><guimenuitem
+>Arquivo Seguinte</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>PgDn</keycap
+></keycombo
+>) para mostrar o arquivo com diferenças anterior ou seguinte, na área de <quote
+>Arquivos de Origem e Destino</quote
+>.</para>
+</listitem>
+</itemizedlist>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="merging-differences">
+<title
+>Mesclando Diferenças</title>
+
+<para
+>O &kompare; torna a tarefa de aplicação e anulação das diferenças tão simples como 'apontar e clicar'. Você poderá efetuar várias operações de aplicação e anulação de diferenças, uma vez que todas as operações são efetuadas em memória e não são gravadas nos arquivos em disco, até que a operação de gravação seja efetuada.</para>
+
+<sect2 id="applying-a-difference">
+<title
+>Aplicando uma Diferença</title>
+<para
+>Para aplicar uma diferença, clique na região realçada da diferença, selecionando depois a opção <menuchoice
+><guimenu
+>Diferença</guimenu
+><guimenuitem
+>Aplicar a Diferença</guimenuitem
+></menuchoice
+> (<keycombo
+><keycap
+>Espaço</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-a-difference">
+<title
+>Anulando a Aplicação de uma Diferença</title>
+<para
+>Para cancelar a aplicação de uma diferença, clique na região previamente selecionada para aplicação e escolha depois a opção <menuchoice
+><guimenu
+>Diferença</guimenu
+><guimenuitem
+>Ignorar a Diferença</guimenuitem
+></menuchoice
+> (<keycombo
+><keycap
+>&Backspace;</keycap
+></keycombo
+>).</para>
+</sect2>
+	
+<sect2 id="applying-all-differences">
+<title
+>Aplicando Todas as Diferenças</title>
+<para
+>Depois de rever as diferenças entre arquivos e de ter considerado todas as diferenças aceitáveis, é possível aplicá-las todas com uma única operação, selecionando a opção <menuchoice
+><guimenu
+>Diferença</guimenu
+><guimenuitem
+>Aplicar Tudo</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-all-differences">
+<title
+>Ignorando Todas as Diferenças</title>
+<para
+>Para reverter todas as diferenças que tenham sido aplicadas, selecione a opção <menuchoice
+><guimenu
+>Diferença</guimenu
+><guimenuitem
+>Ignorar Tudo</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="saving-changes">
+<title
+>Salvando Alterações</title>
+<para
+>Logo que as diferenças tenham sido aplicadas, poderão ser gravadas se selecionar a opção <menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Salvar</guimenuitem
+></menuchoice
+> ou <menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Salvar Tudo</guimenuitem
+></menuchoice
+>.</para>
+<para
+>As diferenças aplicadas são salvas tanto no arquivo de origem como no destino.</para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-diff-files">
+<title
+>Trabalhando com Arquivos do 'Diff'</title>
+<para
+>Os arquivos do 'diff' contém apenas as alterações feitas entre arquivos, ou um conjunto de arquivos dentro de um sistema de pastas, podendo ou não conter um número de linhas de contexto, antes e depois das alterações de linhas. O somatório de uma mudança de linha e das suas linhas de contexto chama-se 'bloco'. Um arquivo do 'diff' contém deste modo diversos blocos de um ou mais arquivos. Quando as linhas de contexto de dois ou mais blocos se sobreporem, são consideradas um único bloco. Os arquivos do 'diff' poderão ser usados para:</para>
+<itemizedlist>
+<listitem
+><para
+>Aplicar as alterações contidas nos blocos sobre um arquivo original.</para
+></listitem>
+<listitem
+><para
+>Aplicar as alterações contidas nos blocos num arquivo ou conjunto de arquivos, dentro de um sistema de pastas.</para
+></listitem>
+<listitem
+><para
+>Efetuar modificações, antes de aplicar as diferenças a um arquivo ou conjunto de arquivos originais, dentro de um sistema de pastas.</para
+></listitem>
+</itemizedlist>
+
+<sect2 id="creating-a-diff">
+<title
+>Criando as Diferenças</title>
+<para
+>Para criar um arquivo do 'diff', é necessário mostrar uma comparação no &kompare;. Assumindo que é este o caso, selecione depois a opção <menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Salvar o Diff...</guimenuitem
+></menuchoice
+>. Isto irá mostrar a janela de <guilabel
+>Opções do Diff</guilabel
+> (veja mais informações em <xref linkend="diff-settings"/> sobre os formatos e opções do 'diff'). Depois de configurar estas opções, clique no botão <guibutton
+>Salvar</guibutton
+> e grave as diferenças num arquivo com a extensão <filename class="extension"
+>.diff</filename
+>.</para>
+</sect2>
+
+<sect2 id="displaying-a-diff">
+<title
+>Mostrando as Diferenças</title>
+<para
+>É possível mostrar o conteúdo de um arquivo de diferenças no &kompare;, abrindo o arquivo do 'diff' em <menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Abrir o Diff...</guimenuitem
+></menuchoice
+>.</para>
+<para
+>Ao ver um arquivo de diferenças, são apresentados os blocos entre o arquivo de origem e de destino; lembre-se que só são apresentados esses blocos, as linhas não-modificadas não o são. Em alguns casos, um arquivo do 'diff' é criado sem linhas de contexto. Nesse caso, só são apresentadas as linhas alteradas.</para>
+<para
+>Quando um arquivo de diferenças contiver blocos de vários arquivos, o &kompare; mostra os blocos de cada arquivo, um de cada vez, e você poderá mudar entre arquivos, como se fossem arquivos reais, mesmo que esta informação só seja fornecida pelo conteúdo do arquivo do 'diff'.</para>
+</sect2>
+
+<sect2 id="applying-a-diff">
+<title
+>Aplicando as Diferenças num Arquivo do 'Diff'</title>
+<para
+>Ao ver as diferenças de um arquivo do 'diff', é possível aplicar as diferenças, como o faria ao comparar os arquivos de origem e de destino (veja em <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+<sect2 id="blending-a-diff">
+<title
+>Fundindo um &URL; com um 'Diff'</title>
+<para
+>Nos casos em que seja fornecido um arquivo do 'diff', é possível comparar os blocos no 'diff' com um arquivo ou pasta. Para o fazer, selecione a opção <menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Fundir o URL com o Diff...</guimenuitem
+></menuchoice
+>. Depois, introduza a localização do <guilabel
+>Arquivo/Pasta</guilabel
+> e o <guilabel
+>Resultado do 'Diff'</guilabel
+>.</para>
+<para
+>Ao ver as diferenças entre um arquivo de origem e um arquivo do 'diff', é possível aplicar as diferenças, como o faria ao comparar os arquivos de origem e de destino (veja em <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="configure-preferences">
+<title
+>Configurando as Preferências</title>
+
+<para
+>O &kompare; permite aos usuários definirem as preferências de aparência, de modo a formatar as diferenças na interface principal, bem como definir propriedades de comportamento do programa' diff'. A janela de <guilabel
+>Preferências</guilabel
+> poderá ser acessada selecionando-se a opção <menuchoice
+><guimenu
+>Configurações</guimenu
+><guisubmenu
+>Configurar o &kompare;...</guisubmenu
+></menuchoice
+>.</para>
+
+<para
+>Para configurar as preferências da aparência, selecione o item do menu <guilabel
+>Ver</guilabel
+> (veja em <xref linkend="view-settings"/>).</para>
+
+<para
+>Para configurar as preferências do programa 'diff', selecione o item de menu <guilabel
+>Diff</guilabel
+> (veja em <xref linkend="diff-settings"/>).</para>
+
+<sect1 id="view-settings">
+<title
+>Configurações de Visualização</title>
+<para
+>A página <guimenu
+>Ver</guimenu
+>, na janela de <guilabel
+>Preferências</guilabel
+>, mostra os formulários <guilabel
+>Aparência</guilabel
+> e <guilabel
+>Fontes</guilabel
+>.</para>
+
+<sect2 id="appearance">
+<title
+>Aparência</title>
+<para
+>O formulário <guilabel
+>Aparência</guilabel
+> mostra controles para gerenciar as <guilabel
+>Cores</guilabel
+> usadas para visualizar as diferenças na interface principal, o comportamento da <guilabel
+>Roda do Mouse</guilabel
+> ao deslocá-la e como é gerenciada a conversão de <guilabel
+>Tabulações para Espaços</guilabel
+>.</para>
+<screenshot>
+<screeninfo
+>Configurações da Aparência do &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Configurações da Aparência do &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Grupo de Cores</title>
+<para
+>Para ajustar as preferências de cores, usadas ao mostrar as diferenças, clique no botão de cores para mostrar a janela de <guilabel
+>Seleção de Cores</guilabel
+> para os seguintes estados:</para>
+<varlistentry>
+<term
+><guilabel
+>Cor de removido</guilabel
+></term>
+<listitem
+><para
+>As linhas que foram removidas ou não existem, entre a origem e o destino.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Cor de modificado</guilabel
+></term>
+<listitem
+><para
+>As linhas que foram alteradas ou modificadas, entre a origem e o destino. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Cor de adicionado</guilabel
+></term>
+<listitem
+><para
+>As linhas que foram adicionadas entre a origem e o destino.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Cor de aplicado</guilabel
+></term>
+<listitem
+><para
+>Qualquer um dos estados anteriores, no caso de a diferença ter sido aplicada entre a origem e o destino.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Roda do Mouse</title>
+<varlistentry>
+<term
+><guilabel
+>Número de linhas</guilabel
+></term>
+<listitem
+><para
+>O número de linhas a deslocar nas diferenças, ao avançar ou recuar a roda do mouse.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>TABs para Espaços</title>
+<varlistentry>
+<term
+><guilabel
+>O número de espaços a usar na conversão das tabulações</guilabel
+></term>
+<listitem
+><para
+>Converte cada tabulação para "n" espaços.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="fonts">
+<title
+>Fontes</title>
+<screenshot>
+<screeninfo
+>Configurações das Fontes do &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Configurações das Fontes do &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Selecione o tipo e tamanho da letra a mostrar, quando visualizar as diferenças.</para>
+</sect2>
+</sect1>
+
+<sect1 id="diff-settings">
+<title
+>Opções do Diff</title>
+<para
+>A página de <guimenu
+>Diferenças</guimenu
+>, na janela de <guilabel
+>Preferências</guilabel
+>, mostra os formulários <guilabel
+>Diferença</guilabel
+>, <guilabel
+>Formato</guilabel
+>, <guilabel
+>Opções</guilabel
+> e <guilabel
+>Excluir</guilabel
+>. Estes formulários poderão ser usados para configurar as propriedades de comportamento do programa 'diff'.</para>
+
+<sect2 id="diff">
+<title
+>Diferença</title>
+<screenshot>
+<screeninfo
+>Configuração das Diferenças do &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Configuração das Diferenças do &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>O comando executado para rodar o programa 'diff' (por padrão, <application
+>diff</application
+>).</para>
+</sect2>
+
+<sect2 id="diff-format">
+<title
+>Formato</title>
+<screenshot>
+<screeninfo
+>Configuração do Formato do &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Configuração do Formato do &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Ajusta as opções do <guilabel
+>Formato do Resultado</guilabel
+> e o número de <guilabel
+>Linhas de Contexto</guilabel
+>.</para>
+<variablelist>
+<title
+>Formato de Saída</title>
+<varlistentry>
+<term
+><guilabel
+>Contexto</guilabel
+></term>
+<listitem>
+<para
+>O formato do resultado do contexto adiciona várias linhas de contexto em torno das linhas que diferem.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Normal</guilabel
+></term>
+<listitem>
+<para
+>O formato de saída normal mostra as linhas diferentes sem quaisquer linhas de contexto envolvente. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Unificado</guilabel
+></term>
+<listitem>
+<para
+>O formato de saída unificado é uma variação do formato de contexto. É considerado melhor que o formato de contexto, porque o resultado é mais compacto, uma vez que omite as linhas de contexto redundantes.</para>
+</listitem>
+</varlistentry>
+<!-- not in 3.5.1
+<varlistentry>
+<term
+><guilabel
+>Side-by-side</guilabel
+></term>
+<listitem>
+<para
+>Use the side by side output format which displays files listed in two columns with a gutter between them. This option is only available from the <guilabel
+>Diff Options</guilabel
+> dialog (see <xref linkend="creating-a-diff"/>).</para>
+</listitem>
+</varlistentry>
+-->
+</variablelist>
+<variablelist>
+<title
+>Linhas de Contexto</title>
+<varlistentry>
+<term
+><guilabel
+>O número de linhas de contexto</guilabel
+></term>
+<listitem>
+<para
+>Ao executar um 'diff' com o formato de saída unificado ou de contexto, use este parâmetro para controlar o número de linhas de contexto incluídas.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="options">
+<title
+>Opções</title>
+<screenshot>
+<screeninfo
+>Configurações das Opções do &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff3.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Configurações das Opções do &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>A página de <guilabel
+>Opções</guilabel
+> permite a configuração das opções suportadas pelo programa 'diff'.</para>
+<variablelist>
+<title
+>Geral</title>
+<varlistentry>
+<term
+><guilabel
+>Tratar os arquivos novos como vazios</guilabel
+></term>
+<listitem
+><para
+>Com esta opção ativa, o 'diff' irá tratar um arquivo que só exista numa das pastas como vazio na outra. Isto significa que o arquivo é comparado com um arquivo vazio, sendo que irá aparecer assim como uma enorme adição ou remoção.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Procurar por alterações menores</guilabel
+></term>
+<listitem
+><para
+>Obriga o 'diff' a mostrar as mudanças de capitalização, pontuação, espaços, &etc;, se estiver assinalada a opção.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Otimizar para arquivos grandes</guilabel
+></term>
+<listitem
+><para
+>Muda o 'diff' para processar os arquivos a alta velocidade, quando estiver assinalada.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignorar alterações de caixa</guilabel
+></term>
+<listitem
+><para
+>As mudanças de maiúsculas para minúsculas e vice-versa são omitidas, quando esta opção estiver assinalada.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ignorar a expressão regular</guilabel
+></term>
+<listitem
+><para
+>Ignorar as linhas que correspondam a uma expressão regular.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Espaço em branco</title>
+<varlistentry>
+<term
+><guilabel
+>Expandir as tabulações para espaços no resultado</guilabel
+></term>
+<listitem
+><para
+>Quando a opção estiver assinalada, o resultado do 'diff' irá converter as tabulações para o número de espaços definido na janela de <guilabel
+>Preferências</guilabel
+>, no menu <guimenu
+>Ver</guimenu
+> e opção <guilabel
+>Tabulações para Espaços</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignorar as linhas em branco adicionadas ou removidas</guilabel
+></term>
+<listitem
+><para
+>As linhas com tamanho nulo, diferentes entre os arquivos de origem e destino, são ignoradas se esta opção estiver assinalada.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignorar as alterações na quantidade de espaços em branco</guilabel
+></term>
+<listitem
+><para
+>Os espaços em branco antes, depois e entre as linhas poderão alterar, dependendo dos diferentes editores. Quando esta opção estiver assinalada, estas alterações serão ignoradas.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignorar todos os espaços em branco</guilabel
+></term>
+<listitem
+><para
+>Quando a opção estiver assinalada, as diferenças de espaços em branco são ignoradas por completo.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignorar as alterações devidas à expansão de tabulações</guilabel
+></term>
+<listitem
+><para
+>Quando a opção estiver assinalada, os espaços em branco resultantes das tabulações são ignoradas por completo.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="exclude">
+<title
+>Excluir</title>
+<para
+>O formulário <guilabel
+>Excluir</guilabel
+> ativa a utilização das opções de filtragem, fornecidas pelo programa 'diff'.</para>
+<screenshot>
+<screeninfo
+>Configuração da Exclusão do &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff4.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Configuração da Exclusão do &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Padrão de Arquivos a Excluir</title>
+<varlistentry>
+<term
+><guilabel
+>Padrão de Arquivos a Excluir</guilabel
+></term>
+<listitem
+><para
+>Excluir os arquivos baseando-se na filtragem por caracteres especiais</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Arquivo com Nomes de Arquivos a Excluir</title>
+<varlistentry>
+<term
+><guilabel
+>Arquivo com Nomes de Arquivos a Excluir</guilabel
+></term>
+<listitem
+><para
+>Define o filtro com base no conteúdo de um arquivo gerenciado externamente.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+</sect1>
+
+</chapter>
+
+<chapter id="command-reference">
+<title
+>Referência de comandos</title>
+
+<sect1 id="file-menu">
+<title
+>Menu Arquivo</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Abrir o Diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Abre a janela para <guilabel
+>Abrir Arquivos</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Comparar os Arquivos...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra a janela para <guilabel
+>Comparar Arquivos ou Pastas</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Fundir o URL com o Diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra a janela para <guilabel
+>Fundir o Arquivo/Pasta com o Resultado do Diff</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Salvar</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Salva as alterações aplicadas no arquivo de origem e destino atuais.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Salvar Tudo</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Salva as diferenças aplicadas em todos os arquivos de origem e destino.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Salvar Diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra a janela de <guilabel
+>Opções do Diff</guilabel
+> para definir o formato e as opções do 'diff'.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Trocar a Origem e o Destino</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Troca a origem e o destino de posição.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Mostrar as Estatísticas</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra a janela para <guilabel
+>Mostrar as Estatísticas</guilabel
+>.</para
+></listitem>
+</varlistentry>
+<!-- Print Print Preview in 4.5.1-->
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Sair</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Sai do &kompare;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="difference-menu">
+<title
+>O menu Diferenças</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Diferença</guimenu
+><guimenuitem
+>Ignorar Tudo</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Ignora todas as diferenças aplicadas previamente entre a origem e o destino.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Backspace;</shortcut
+> <guimenu
+>Diferença</guimenu
+><guimenuitem
+>Ignorar a Diferença</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Anula uma diferença previamente aplicada.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>Espaço</keycap
+></shortcut
+> <guimenu
+>Diferença</guimenu
+><guimenuitem
+>Aplicar a Diferença</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Aplica uma diferença selecionada.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Diferença</guimenu
+><guimenuitem
+>Aplicar Tudo</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Aplica todas as diferenças entre o original e o destino.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Diferença</guimenu
+><guimenuitem
+>Arquivo Anterior</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Coloca o arquivo anterior, da lista de arquivos com diferenças encontradas, como o arquivo atual da área de visualização.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgDn</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Diferença</guimenu
+><guimenuitem
+>Arquivo Seguinte</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Coloca o arquivo seguinte, da lista de arquivos com diferenças encontradas, como o arquivo atual da área de visualização.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Cima</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Diferença</guimenu
+><guimenuitem
+>Diferença Anterior</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Seleciona a diferença anterior à diferença atualmente selecionada na lista.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Baixo</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Diferença</guimenu
+><guimenuitem
+>Diferença Seguinte</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Seleciona a diferença abaixo da diferença atualmente selecionada.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="settingsmenu">
+<title
+>O menu Configurações</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Mostrar a Barra de Ferramentas</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Ativa ou desativa a visibilidade da barra de ferramentas.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Mostrar Barra de Estado</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Ativa ou desativa a visibilidade da barra de estado.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Mostrar a Área de Texto</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra a <guilabel
+>Área de Texto</guilabel
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Configurar atalhos...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra a janela para <guilabel
+>Configurar os Atalhos</guilabel
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Configurar barras de ferramentas...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra a janela para <guilabel
+>Configurar a Barra de Ferramentas</guilabel
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Configurações</guimenu
+><guimenuitem
+>Configurar o &kompare;...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra a janela de <guilabel
+>Preferências</guilabel
+> do &kompare;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="help-menu">
+<title
+>O menu Ajuda</title>
+&help.menu.documentation; </sect1>
+</chapter>
+
+<chapter id="credits">
+
+<title
+>Créditos e licença</title>
+
+<para
+>&kompare; </para>
+<para
+>Programa com direitos autorais 2001-2004 de &John.Firebaugh; &John.Firebaugh.mail; e Otto Bruggeman <email
+>otto.bruggeman@home.nl</email
+> </para>
+
+<para
+>Documentação com direitos autorais &copy; 2007 de Sean Wheller <email
+>sean@inwords.co.za</email
+> </para>
+
+<para
+>Tradução de Marcus Gama <email
+>marcus.gama@gmail.com</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Instalação</title>
+
+<sect1 id="getting-kapp">
+<title
+>Como obter o &kompare;</title>
+&install.intro.documentation; </sect1>
+
+
+<sect1 id="compilation">
+<title
+>Compilação e instalação</title>
+&install.compile.documentation; </sect1>
+
+
+</appendix>
+
+&documentation.index; 
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

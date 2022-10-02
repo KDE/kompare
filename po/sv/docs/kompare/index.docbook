@@ -1,0 +1,1699 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % Swedish "INCLUDE">
+]>
+
+<book id="kompare" lang="&language;">
+
+<bookinfo>
+ <title
+>Handbok &kompare;</title>
+
+ <authorgroup>
+
+<author
+><firstname
+>Sean</firstname
+><surname
+>Wheller</surname
+><email
+>sean@inwords.co.za</email
+></author>
+ <othercredit role="translator"
+> <firstname
+>Stefan</firstname
+> <surname
+>Asserhäll</surname
+> <affiliation
+><address
+><email
+>stefan.asserhall@bredband.net</email
+></address
+></affiliation
+> <contrib
+>Översättare</contrib
+></othercredit
+> 
+ </authorgroup>
+
+<copyright>
+<year
+>2007</year>
+<holder
+>Sean Wheller</holder>
+</copyright>
+
+ <legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2016-07-05</date>
+<releaseinfo
+>4.1.3 (Program 16.04)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kompare; är ett grafiskt gränssnittsprogram som gör det möjligt att visa och sammanfoga skillnader mellan källkodsfiler. &kompare; kan användas för att jämföra skillnader mellan filer och innehållet i kataloger. &kompare; stöder en mängd olika jämförelseformat, och tillhandahåller många alternativ för att anpassa informationsnivån som visas.</para>
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Kompare</keyword>
+<keyword
+>Diff</keyword>
+<keyword
+>Sammanfoga</keyword>
+<keyword
+>Programfix</keyword>
+<keyword
+>Block</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inledning</title
+> 
+
+<para
+>Om två eller flera personer arbetar med en fil och skickar den fram och tillbaka mellan varandra, blir det svårt att se vilka ändringar som har gjorts i en ny version eller kopia av filen. Att öppna den nya kopian och originalet sida vid sida i programmet som används för att skapa det är en lösning, men det är arbetsamt, tidsödande, och felbenäget. Det är då ett program för att visa skillnader, avkortat till diff på engelska, är användbart.</para>
+
+<para
+>Som man kan vänta sig, är ett lämpligt namn på ett sådant program <quote
+>diff</quote
+>. Det råkar vara så att programmet <ulink url="https://www.gnu.org/software/diffutils/"
+>diff</ulink
+> är installerat på de flesta &Linux;-baserade system, och används för exakt detta syfte. Utvecklare använder ofta diff som ett kommandoradsverktyg för att visa skillnader mellan versioner av en källkodsfil. Dock är inte användningen av diff begränsat till att visa skillnader i källkodsfiler, det kan också användas för många andra textbaserade filtyper.</para>
+
+<para
+>Att använda diff på kommandoraden kan vara förvirrande. Att lära sig diff-kommandots syntax och dechiffrera utmatningen kan förvilla de flesta. Det är då &kompare; rycker in. Det tillhandahåller ett grafiskt gränssnitt för diff-programmet som visar käll- och målfiler sida vid sida med alla skillnader automatiskt färglagda. Från den utgångspunkten kan ändringar i en fil appliceras i den andra filen på ett kontrollerat och styrbart sätt. Alla ändringar behöver inte appliceras, och om du applicerar en ändring kan den alltid &apos;ångras&apos;. När alla nödvändiga ändringar har applicerats, kan de sparas och visas som vanligt i originalprogrammet som användes för att skapa filen.</para>
+
+<para
+>Förutom att visa skillnader mellan en käll- och målfil, kan &kompare; användas för att skapa och visa en särskild jämförelsefil som kallas &apos;diff&apos;. Filen samlar skillnaderna mellan de två källorna i en enda fil som kan användas för att visa och applicera ändringar i alla andra kopior av filen. Om två personer till exempel redigerar ett dokument, och den första vill göra ändringar och bara skicka ändringarna till den andra. Normalt skulle den första personen då skicka en fullständig kopia av det ändrade dokumentet till den andra, som då skulle behöva jämföra det ändrade dokumentet sida vid sida med den oförändrade versionen. Processen för detta är i stort sett som vi beskrivit i föregående stycke. Med &kompare; skulle den första personen först göra en lokal kopia av filen som ska ändras, därefter göra ändringarna och jämföra originalet och den ändrade kopian. En jämförelsefil som bara innehåller ändringarna som gjorts kan nu skapas med &kompare;. Den kan skickas till den andra personen istället för hela filen med ändringarna.</para>
+
+<para
+>Genom att använda &kompare; kan den andra personen titta på jämförelsefilen, jämföra den med den lokala kopian av dokumentet och applicera ändringarna som gjorts av den första personen. Så kan processen fortsätta för många dokumentversioner, där varje person gör ändringar, och skapar jämförelsefiler som distribueras och appliceras. Processen kallas ofta <quote
+>patching</quote
+> på engelska, ett uttryck som kommer från programmet <quote
+>patch</quote
+>, som är ett annat kommandoradsverktyg särskilt konstruerat med syftet att applicera jämförelsefiler.</para>
+
+<para
+>Det inträffar ibland att flera personer redigerar en fil samtidigt. I detta fall är det troligt att de gör ändringar i dokumentet på exakt samma rad. Det orsakar ett problem, eftersom det, utan försiktighet, skulle gå att skriva över varandras arbete när jämförelsefiler appliceras. Som tur är tog utvecklarna av programmen diff och patch hänsyn till det, så verktygen tillåter inte att sådana ändringar appliceras utan manuellt ingripande. När detta tillstånd har uppstått, kallas det för en <quote
+>konflikt</quote
+>. &kompare; visar konflikter, så att du kan lösa upp dem manuellt, och bestämma vilka ändringar som ska appliceras i vilka filer.</para>
+
+<para
+>&kompare; är också ett utmärkt program för jämförelse av filändringar på katalognivå. När det används för att jämföra kataloger, undersöker &kompare; underkataloger och deras filinnehåll rekursivt för att hitta skillnader. I detta användarfall öppnas automatiskt alla filer där skillnader hittas och listas av &kompare;, med möjlighet att enkelt navigera mellan de olika filerna.</para>
+
+</chapter>
+
+<chapter id="using">
+<title
+>Använda &kompare;</title>
+
+<sect1 id="getting-started">
+<title
+>Komma igång</title>
+
+<para
+>Det här avsnittet tillhandahåller instruktioner om hur &kompare; startas, och erbjuder en snabbtur av huvudgränssnittet i &kompare;.</para>
+
+<sect2 id="starting-kompare">
+<title
+>Starta &kompare;</title>
+
+<para
+>En genväg för att starta &kompare; finns i programmenyn under utveckling: <menuchoice
+><guimenu
+>Programmering</guimenu
+> <guimenuitem
+>Kompare</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>När &kompare; startas, är det första som händer att en dialogruta visas där man kan välja filer som ska jämföras. Särskilda inställningar av jämförelsens egenskaper och dess utseende kan också väljas. Välj en källa och ett mål att jämföra i filformuläret. Det kan vara vilka två filer som helst, kataloger, eller en webbadress och en fil. När källan och målet väl är valda, klicka på knappen <guibutton
+>Jämför</guibutton
+>.</para>
+
+<para
+>Så fort &kompare; har hittat skillnaderna, visas huvudgränssnittet. När två filer eller en webbadress och en fil jämförs, tar processen bara några få sekunder. När kataloger med många underkataloger och filer jämförs, kan processen dock ta en stund.</para>
+
+<para
+>För en förklaring av tillgängliga alternativ från diff och utseendefliken, se <xref linkend="configure-preferences"/>.</para>
+</sect2>
+
+<sect2 id="main-interface">
+<title
+>Huvudgränssnittet</title>
+
+<para
+>Det här avsnittet erbjuder en snabbtur av huvudgränssnittet, som består av följande områden:</para>
+<itemizedlist>
+<listitem
+><para
+>Menyer</para
+></listitem>
+<listitem
+><para
+>Verktygsrad</para
+></listitem>
+<listitem
+><para
+>Käll- och målkataloger</para
+></listitem>
+<listitem
+><para
+>Käll- och målfiler</para
+></listitem>
+<listitem
+><para
+>Käll- och målradändringar</para
+></listitem>
+<listitem
+><para
+>Käll- och måltextvy</para
+></listitem>
+<listitem
+><para
+>Statusrad</para
+></listitem>
+</itemizedlist>
+
+<sect3 id="menus">
+<title
+>Menyer</title>
+<para
+>&kompare; tillhandahåller ett menystyrt gränssnitt. Förklaring av menyerna och deras alternativ tillhandahålls i <xref linkend="command-reference"/>.</para>
+</sect3>
+
+<sect3 id="toolbar">
+<title
+>Verktygsrad</title>
+<para
+>Verktygsraden i &kompare; innehåller genvägar för de oftast använda jämförelse- och sammanfogningsåtgärderna. Verktygsradens orientering, textplacering, ikonstorlek och vilka ikoner som visas kan anpassas från verktygsradens sammanhangsberoende meny, som kan kommas åt genom att högerklicka på verktygsraden med musen. Verktygsradens sammanhangsberoende meny gör det också möjligt att dölja verktygsraden. Om verktygsraden är dold, och du vill visa den, välj <menuchoice
+><guimenu
+>Inställningar</guimenu
+> <guimenuitem
+>Visa verktygsrad</guimenuitem
+></menuchoice
+>.</para>
+</sect3>
+
+<sect3 id="source-destination-folders">
+<title
+>Käll- och målkataloger</title>
+<para
+>Rutorna med käll- och målkatalog visar katalogerna där de jämförda filerna finns. När många underkataloger ingår i jämförelsen, visas det första dokumentet i en katalog som har en skillnad mellan källa och mål, när katalogen väljes.</para>
+</sect3>
+
+<sect3 id="source-destination-files">
+<title
+>Käll- och målfiler</title>
+<para
+>Rutorna med käll- och målfil visar filerna där en skillnad hittades för käll- och målkatalogerna som för närvarande är valda. När en katalog har flera dokument som innehåller skillnader, listas alla dokument med skillnader. Det valda dokumentet visas.</para>
+</sect3>
+
+<sect3 id="source-destination-lines">
+<title
+>Käll- och målradändringar</title>
+<para
+>Rutorna med käll- och målradändringar summerar ändringarna som hittades mellan nuvarande käll- och måldokument. Genom att markera en post i rutan färgas och markeras skillnaden. Det är ett användbart sätt att navigera och inspektera långa dokument med många skillnader.</para>
+</sect3>
+
+<sect3 id="source-destination-view">
+<title
+>Käll- och målvy</title>
+<para
+>Käll- och målvyn är huvudarbetsytan i &kompare;. Innehållet och färglagda skillnader mellan käll- och målfilerna som för närvarande är valda visas här med radnummer.</para>
+</sect3>
+
+<sect3 id="text-view">
+<title
+>Textvy</title>
+<para
+><guilabel
+>Textvyn</guilabel
+> visas normalt inte. Den kan öppnas genom att välja <menuchoice
+><guimenu
+>Inställningar</guimenu
+> <guimenuitem
+>Visa textvy</guimenuitem
+></menuchoice
+>.</para>
+<!-- Other than a notepad, what is this text view good for?  -->
+</sect3>
+
+<sect3 id="statusbar">
+<title
+>Statusrad</title>
+<para
+>Statusraden innehåller en sammanfattning av nuvarande käll- och målfil eller katalog som jämförs. Statusraden rapporterar också antal ändringar som hittats i nuvarande dokument, och räknar skillnader som har applicerats. Dessutom visar statusraden det totala antalet dokument som innehåller skillnader, och nuvarande dokument som är valt av dessa. En jämförelse som görs mellan två kataloger kan exempelvis returnera 1890 filer med skillnader. Dokumentet som för närvarande är valt är nummer 18 av 1890.</para>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="viewing-differences">
+<title
+>Visa skillnader</title>
+
+<sect2 id="managing-screen-real-estate">
+<title
+>Hantera skärmytan</title>
+<para
+>&kompare; visar käll- och målfilen med lika stor del av huvudgränssnittets arbetsyta. Vyområdet tillhandahåller några funktioner som hjälper till att optimera användningen av skärmytan när skillnader visas, inklusive:</para>
+<variablelist>
+<varlistentry>
+<term
+>Dubbla rullningslister</term>
+<listitem
+><para
+>Den mest uppenbara funktionen är att rullningslister tillhandahålls både till höger och längst ner i vyområdet. Genom att använda rullningslisterna är det möjligt att snabbt flytta sig genom jämförelsen.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Delat grepp</term>
+<listitem
+><para
+>Det vertikala området mellan käll-och målvyn gör det inte bara möjligt att enkelt se början och slutet av rader i varje ruta, utan är också ett grepp som gör det möjligt att justera den procentuella andelen som används av käll- och målvyn som vyrutan består av. För att öka rutans storlek för en av vyerna, håll musen över greppet, tryck ner musknappen och dra åt vänster eller höger. Naturligtvis minskar tillgänglig yta för den motsatta rutan när ytan för en ruta ökas, inuti vyrutans område.</para>
+<para
+>Ett andra horisontellt grepp är tillgängligt mellan navigeringspanelen och käll- och målvyn.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Dockning</term>
+<listitem>
+<para
+>Navigeringspanelen kan lösgöras från huvudgränssnittet genom att klicka på ikonen <inlinemediaobject
+> <imageobject
+><imagedata fileref="undock.png" format="PNG"/></imageobject
+></inlinemediaobject
+> längst upp till höger i panelen. Det öppnar den i ett eget fönster, vilket låter dig flytta omkring den över skärmen. Du kan till och med dölja navigeringspanelen genom att klicka på ikonen <inlinemediaobject
+><imageobject
+><imagedata fileref="dock.png" format="PNG"/></imageobject
+></inlinemediaobject
+>. Klicka med höger menyknapp på menyraden och välj <guilabel
+>Navigering</guilabel
+> i den sammanhangsberoende menyn för att visa en dold navigeringsrad igen. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Växla statusraden</term>
+<listitem>
+<para
+>Statusraden i vypanelen kan sättas på eller stängas av genom att välja <menuchoice
+><guimenu
+>Inställningar</guimenu
+> <guimenuitem
+>Visa statusrad</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="switching-source-and-destination-view">
+<title
+>Byta käll- och målvy</title>
+
+<para
+>Ibland kan det vara användbart att betrakta filen som skillnader ska appliceras i som källan. Om till exempel två ändrade versioner av en fil jämförs, och det upptäcks att en fil har många fler ändringar än den andra. Filen med flest ändringar vore lämpligare som källa, eftersom färre ändringar då måste appliceras.</para>
+<para
+>Om det är fallet, välj <menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Byt källa och mål</guimenuitem
+></menuchoice
+>. Det byter filer som visas i alla rutor i &kompare;.</para>
+</sect2>
+	
+<sect2 id="display-difference-statistics">
+<title
+>Visa jämförelsestatistik</title>
+<para
+>Välj <menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Visa statistik</guimenuitem
+></menuchoice
+>, för att få en snabb översikt av skillnaderna. Det visar dialogrutan <guilabel
+>Jämförelsestatistik</guilabel
+>. Följande information tillhandahålls:</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Gammal fil:</guilabel
+></term>
+<listitem
+><para
+>Filnamnet på vad som oftast är källfilen eller filen som är oändrad.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ny fil:</guilabel
+></term>
+<listitem
+><para
+>Filnamnet på vad som oftast är målfilen, eller filen som är ändrad, där skillnader kommer att appliceras.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Format:</guilabel
+></term>
+<listitem
+><para
+>Jämförelseformatet som används för att visa skillnaden (se <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Antal block:</guilabel
+></term>
+<listitem>
+<para
+>Antal block hittade i jämförelsen.</para>
+<para
+>Ett block är ett antal rader som har markerats som olika i källa och mål, och kan innehålla sammanhangsrader beroende på värdet hos jämförelseformatet <guilabel
+>Sammanhang</guilabel
+> (se <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Antal skillnader</guilabel
+></term>
+<listitem
+><para
+>Det verkliga antal skillnader som hittats, inte antal block. Ett block kan innehålla en eller flera skillnader när de ändrade radernas intervall och sammanhangsrader för två eller flera ändringar överlappar.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="navigating-the-difference-view">
+<title
+>Navigera i jämförelsevyn</title>
+<para
+>&kompare; möjliggör snabb navigation mellan skillnader på filnivå och mellan flera filer med skillnader när katalogträd jämförs.</para>
+
+<sect3 id="selecting-a-difference">
+<title
+>Markera en skillnad</title>
+<para
+>En skillnad kan markeras genom att:</para>
+<itemizedlist>
+<listitem
+><para
+>klicka på en rad i rutan med radändringar för källa och mål (längst upp till höger i huvudfönstret).</para
+></listitem>
+<listitem
+><para
+>klicka på den färglagda skillnaden i vyrutan.</para
+></listitem>
+<listitem
+><para
+>gå igenom listade skillnader i en jämförelse (se <xref linkend="traversing-differences"/>).</para
+></listitem>
+</itemizedlist>
+<para
+>När en skillnad är markerad, anses den vara <quote
+>i fokus</quote
+> och visas med en starkare färg än skillnader som inte är markerade.</para>
+</sect3>
+			
+<sect3 id="traversing-differences">
+<title
+>Gå igenom skillnader</title>
+<para
+>När en jämförelse hittar många skillnader, är ett av de bästa sätten att granska dem att gå igenom skillnaderna i en logisk ordning, oftast uppifrån och neråt.</para>
+<para
+>Normalt markerar &kompare; den första skillnaden som hittats i en jämförelse. Genom att välja <menuchoice
+><guimenu
+>Skillnad</guimenu
+> <guimenuitem
+> Nästa skillnad</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Ner</keycap
+></keycombo
+>) får skillnaden som följer den nuvarande fokus. För att markera skillnaden innan den nuvarande, välj <menuchoice
+><guimenu
+>Skillnad</guimenu
+> <guimenuitem
+>Föregående skillnad</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Upp</keycap
+></keycombo
+>).</para>
+<para
+>På så sätt är det möjligt att gå igenom skillnaderna på ett ordnat sätt, och applicera eller ångra skillnader under granskningen.</para>
+</sect3>
+
+<sect3 id="switching-between-files">
+<title
+>Byta mellan filer</title>
+<para
+>När en jämförelse görs på katalognivå, kan många filer hittas med skillnader. En fullständig lista av jämförda filer där skillnader hittades, tillhandahålls i rutorna <quote
+>Käll- och målkataloger</quote
+> och <quote
+>Käll- och målfiler</quote
+>. &kompare; visar dock skillnader mellan källa och mål med en jämförelse åt gången.</para>
+<para
+>För att byta mellan dokument i detta scenario, är följande alternativ tillgängliga:</para>
+<itemizedlist>
+<listitem
+><para
+>Välj rutan <quote
+>Käll- och målkataloger</quote
+> för att visa filskillnaders som hittades i rutan <quote
+>Käll- och målfiler</quote
+>, välj därefter en fil.</para
+></listitem>
+<listitem
+><para
+>Välj <menuchoice
+><guimenu
+>Skillnad</guimenu
+><guimenuitem
+>Föregående fil</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Page Up</keycap
+></keycombo
+>) eller <menuchoice
+><guimenu
+>Skillnad</guimenu
+> <guimenuitem
+>Nästa fil</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Page Down</keycap
+></keycombo
+>) för att visa föregående eller nästa fil med skillnader som hittats i rutan <quote
+>Käll- och målfiler</quote
+>.</para>
+</listitem>
+</itemizedlist>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="merging-differences">
+<title
+>Sammanfoga skillnader</title>
+
+<para
+>&kompare; gör uppgiften att applicera eller ångra skillnader så enkel som att bara peka och klicka. Flera åtgärder för att applicera eller ångra kan utföras med en skillnad eftersom alla åtgärder utförs i minnet och skrivs inte i filen på disk förrän spara utförs.</para>
+
+<sect2 id="applying-a-difference">
+<title
+>Applicera en skillnad</title>
+<para
+>Klicka på den färglagda skillnaden, välj därefter <menuchoice
+><guimenu
+>Skillnad</guimenu
+> <guimenuitem
+>Applicera skillnad</guimenuitem
+></menuchoice
+> (<keycombo
+><keycap
+>Mellanslag</keycap
+></keycombo
+>) för att applicera en skillnad.</para>
+</sect2>
+
+<sect2 id="unapplying-a-difference">
+<title
+>Ångra en skillnad</title>
+<para
+>Klicka på den färglagda skillnaden som tidigare applicerades, välj därefter <menuchoice
+><guimenu
+>Skillnad</guimenu
+> <guimenuitem
+>Ångra applicerad skillnad</guimenuitem
+></menuchoice
+> (<keycombo
+><keycap
+>Backsteg</keycap
+></keycombo
+>) för att ångra en applicerad skillnad.</para>
+</sect2>
+	
+<sect2 id="applying-all-differences">
+<title
+>Applicera alla skillnader</title>
+<para
+>Efter att ha granskat skillnader mellan filer och sett att alla är acceptabla, är det möjligt att applicera alla med en enda åtgärd genom att välja <menuchoice
+><guimenu
+>Skillnad</guimenu
+> <guimenuitem
+>Applicera alla</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-all-differences">
+<title
+>Ångra alla skillnader</title>
+<para
+>Välj <menuchoice
+><guimenu
+>Skillnad</guimenu
+> <guimenuitem
+>Ångra applicera alla</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+>) för att ångra alla skillnader som tidigare har applicerats.</para>
+</sect2>
+
+<sect2 id="saving-changes">
+<title
+>Spara ändringar</title>
+<para
+>När skillnader väl har applicerats kan de sparas genom att välja <menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Spara</guimenuitem
+></menuchoice
+> eller <menuchoice
+><guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Spara alla</guimenuitem
+></menuchoice
+>.</para>
+<para
+>Applicerade skillnader sparas i både käll- och målfilen.</para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-diff-files">
+<title
+>Arbeta med diff-filer</title>
+<para
+>Jämförelsefiler innehåller bara ändringarna som gjorts mellan filer, eller en uppsättning filer i ett katalogsystem, och har möjlighet att innehålla ett antal sammanhangsrader före och efter varje ändrad rad. Summan av en radändring och dess sammanhangsrader kallas ett block. En jämförelsefil kan därför innehålla flera block från en eller flera filer. När sammanhangsraderna för ett eller flera block överlappar, anses de vara ett enda block. Jämförelsefiler kan användas för att:</para>
+<itemizedlist>
+<listitem
+><para
+>Applicera skillnader från blocken i en originalfil.</para
+></listitem>
+<listitem
+><para
+>Applicera skillnader från blocken i en fil eller en uppsättning originalfiler inne i ett katalogsystem.</para
+></listitem>
+<listitem
+><para
+>Ändrad innan applicerad i en originalfil eller en uppsättning originalfiler inne i ett katalogsystem.</para
+></listitem>
+</itemizedlist>
+
+<sect2 id="creating-a-diff">
+<title
+>Skapa en jämförelse</title>
+<para
+>För att skapa en jämförelsefil måste en jämförelse visas i &kompare;. Med antagandet att det är fallet, välj <menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Spara jämförelse</guimenuitem
+></menuchoice
+>. Det visar dialogrutan <guilabel
+>Jämförelsealternativ</guilabel
+> (se <xref linkend="diff-settings"/> för mer information om jämförelseformat och alternativ). När dessa alternativ har ställts in, klicka på knappen <guibutton
+>Spara</guibutton
+> och spara jämförelsen i en fil med filändelsen <filename class="extension"
+>.diff</filename
+>.</para>
+</sect2>
+
+<sect2 id="displaying-a-diff">
+<title
+>Visa en jämförelse</title>
+<para
+>Det är möjligt att visa innehållet i en jämförelsefil i &kompare; genom att öppna jämförelsefilen med <menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Öppna jämförelse...</guimenuitem
+></menuchoice
+></para>
+<para
+>När en jämförelsefil betraktas, visas blocken mellan käll- och målfilen. Kom ihåg att bara blocken visas, inga oförändrade rader visas. I vissa fall skapas en jämförelsefil utan några sammanhangsrader. I dessa fall visas bara de ändrade raderna.</para>
+<para
+>När en jämförelsefil innehåller block från flera filer, visar &kompare; block från varje fil åt gången, och du kan byta mellan filer som om de vore riktiga filer, även om denna information bara tillhandahålls av jämförelsefilens innehåll.</para>
+</sect2>
+
+<sect2 id="applying-a-diff">
+<title
+>Applicerar skillnader i en jämförelsefil</title>
+<para
+>När skillnader i en jämförelsefil betraktas, är det möjligt att applicera skillnader som du skulle göra när käll- och målfiler jämförs (se <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+<sect2 id="blending-a-diff">
+<title
+>Foga ihop en webbadress med en jämförelse</title>
+<para
+>I fallet när en jämförelsefil tillhandahålls är det möjligt att jämföra blocken i jämförelsefilen med en fil eller katalog. För att göra det, välj <menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Foga ihop webbadress med jämförelse...</guimenuitem
+></menuchoice
+>. Mata därefter in sökvägar för <guilabel
+>Fil eller katalog</guilabel
+> och <guilabel
+>Jämförelseutmatning</guilabel
+>.</para>
+<para
+>När skillnader mellan en källfil och en jämförelsefil betraktas, är det möjligt att applicera skillnader som du skulle göra när käll- och målfiler jämförs (se <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="configure-preferences">
+<title
+>Anpassa inställningar</title>
+
+<para
+>&kompare; gör det möjligt för användare att ställa in visningsinställningar för formatering av skillnader i huvudgränssnittet, och ställa in egenskaper för beteendet hos diff-programmet. Dialogrutan <guilabel
+>Inställningar</guilabel
+> kan kommas åt genom att välja <menuchoice
+><guimenu
+>Inställningar</guimenu
+> <guisubmenu
+>Anpassa &kompare;...</guisubmenu
+></menuchoice
+>.</para>
+
+<para
+>Välj alternativet <guilabel
+>Visa</guilabel
+> för att ställa in utseendeinställningar (se <xref linkend="view-settings"/>).</para>
+
+<para
+>Välj alternativet <guilabel
+>Jämför</guilabel
+> för att ställa in programegenskaper för diff-programmet (se <xref linkend="diff-settings"/>).</para>
+
+<sect1 id="view-settings">
+<title
+>Visningsinställningar</title>
+<para
+>Sidan <guimenu
+>Visa</guimenu
+> i dialogrutan <guilabel
+>Inställningar</guilabel
+> visar flikarna <guilabel
+>Utseende</guilabel
+> och <guilabel
+>Teckensnitt</guilabel
+>.</para>
+
+<sect2 id="appearance">
+<title
+>Utseende</title>
+<para
+>Fliken <guilabel
+>Utseende</guilabel
+> tillhandahåller inställningar för att hantera <guilabel
+>Färger</guilabel
+> som används för att ange skillnader i huvudgränssnittet, beteendet hos <guilabel
+>Mushjulet</guilabel
+> när det rörs uppåt och neråt, och hur konverteringen <guilabel
+>Tabulatortecken till mellanslag</guilabel
+> utförs.</para>
+<screenshot>
+<screeninfo
+>Inställningar av utseende i &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Inställningar av utseende i &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Färggrupp</title>
+<para
+>Klicka på färgknappen som visar dialogrutan <guilabel
+>Välj färg</guilabel
+> för att justera färgalternativ för följande tillstånd:</para>
+<varlistentry>
+<term
+><guilabel
+>Färg för borttaget</guilabel
+></term>
+<listitem
+><para
+>Rader som har tagits bort, inte finns, från källa till mål.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Färg för ändrat</guilabel
+></term>
+<listitem
+><para
+>Rader som har ändrats, modifierats, från källa till mål. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Färg för tillagt</guilabel
+></term>
+<listitem
+><para
+>Rader som har lagts till från källa till mål.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Färg för applicerat</guilabel
+></term>
+<listitem
+><para
+>Något av ovanstående tillstånd där skillnader har applicerats mellan källa och mål.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Mushjulet</title>
+<varlistentry>
+<term
+><guilabel
+>Antal rader</guilabel
+></term>
+<listitem
+><para
+>Antal rader som skillnaderna ska flyttas när mushjulet rullas framåt eller bakåt.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Tabulatortecken till mellanslag</title>
+<varlistentry>
+<term
+><guilabel
+>Antal mellanslag som ett tabulatortecken ska ersättas med</guilabel
+></term>
+<listitem
+><para
+>Konvertera varje tabulatortecken till n mellanslag.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="fonts">
+<title
+>Teckensnitt</title>
+<screenshot>
+<screeninfo
+>Teckensnittsinställningar i &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Teckensnittsinställningar i &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Välj teckenfamilj och storlek att använda när skillnader visas.</para>
+</sect2>
+</sect1>
+
+<sect1 id="diff-settings">
+<title
+>Jämförelseinställningar</title>
+<para
+>Sidan <guimenu
+>Jämför</guimenu
+> i dialogrutan <guilabel
+>Inställningar</guilabel
+> visar flikarna <guilabel
+>Jämför</guilabel
+>, <guimenu
+>Format</guimenu
+>, <guilabel
+>Alternativ</guilabel
+> och <guilabel
+>Undantag</guilabel
+>. Flikarna kan användas för att ställa in egenskaper för beteendet hos diff-programmet.</para>
+
+<sect2 id="diff">
+<title
+>Jämför</title>
+<screenshot>
+<screeninfo
+>Jämförelseinställningar i &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Jämförelseinställningar i &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Kommandot som används för att köra diff-programmet (normalt <application
+>diff</application
+>).</para>
+</sect2>
+
+<sect2 id="diff-format">
+<title
+>Format</title>
+<screenshot>
+<screeninfo
+>Formatinställningar i &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Formatinställningar i &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Justera alternativ för <guilabel
+>Utmatningsformat</guilabel
+> och <guilabel
+>Sammanhangsrader</guilabel
+>.</para>
+<variablelist>
+<title
+>Utmatningsformat</title>
+<varlistentry>
+<term
+><guilabel
+>Sammanhang</guilabel
+></term>
+<listitem>
+<para
+>Sammanhangsformatet lägger till flera rader sammanhang omkring raderna som skiljer sig åt.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Normal</guilabel
+></term>
+<listitem>
+<para
+>Det normala formatet visar rader som skiljer sig utan några omgivande sammanhangsrader. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Förenat</guilabel
+></term>
+<listitem>
+<para
+>Det förenade formatet är en variant av sammanhangsformatet. Det anses bättre än sammanhangsformatet på grund av att utdata är kompaktare än sammanhangsformatet, eftersom onödiga sammanhangsrader utelämnas.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+<variablelist>
+<title
+>Sammanhangsrader</title>
+<varlistentry>
+<term
+><guilabel
+>Antal sammanhangsrader</guilabel
+></term>
+<listitem>
+<para
+>När en jämförelse med sammanhangsformat eller förenat format utförs, används denna parameter för att styra antal sammanhangsrader som inkluderas.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="options">
+<title
+>Alternativ</title>
+<screenshot>
+<screeninfo
+>Inställningar av alternativ i &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff3.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Inställningar av alternativ i &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Fliken <guilabel
+>Alternativ</guilabel
+> gör det möjligt att anpassa alternativ som stöds av diff-programmet.</para>
+<variablelist>
+<title
+>Allmänt</title>
+<varlistentry>
+<term
+><guilabel
+>Behandla nya filer som tomma</guilabel
+></term>
+<listitem
+><para
+>När alternativet är aktiverat behandlar diff en fil som bara finns i en av katalogerna som tom i den andra katalogen. Det betyder att filen jämförs med en tom fil, och på grund av det kommer att synas som ett enda stort infogat eller borttaget objekt.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Leta efter mindre ändringar</guilabel
+></term>
+<listitem
+><para
+>Tvingar jämförelsen att visa ändringar av skiftläge, interpunktion, mellanslag, etc. om markerad.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Optimera för stora filer</guilabel
+></term>
+<listitem
+><para
+>Byter jämförelsen till att behandla filer med hög hastighet om markerad.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignorera skiftläge</guilabel
+></term>
+<listitem
+><para
+>Ändringar av små och stora bokstäver undantas när alternativet är markerat.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ignorera reguljärt uttryck</guilabel
+></term>
+<listitem
+><para
+>Ignorera rader som matchar ett reguljärt uttryck.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Blanktecken</title>
+<varlistentry>
+<term
+><guilabel
+>Expandera tabulator-tecken till mellanslag vid utmatning</guilabel
+></term>
+<listitem
+><para
+>Om markerad, konverterar jämförelseutmatning tabulatortecken till det antal mellanslag som är definierat av alternativet <guimenu
+>Tabulatortecken till mellanslag</guimenu
+> på sidan <guilabel
+>Visa</guilabel
+> i dialogrutan <guilabel
+>Inställningar</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignorera tillagda eller borttagna tomma rader</guilabel
+></term>
+<listitem
+><para
+>rader med längden noll som skiljer sig mellan källa och mål ignoreras när alternativet är markerat.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignorera ändringar i blanktecken</guilabel
+></term>
+<listitem
+><para
+>Blanktecken innan, efter och mellan rader kan ändras beroende på olika editorer. När alternativet är markerat ignoreras sådana ändringar.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignorera alla blanktecken</guilabel
+></term>
+<listitem
+><para
+>om markerad ignoreras skillnader i blanktecken helt och hållet.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignorera ändringar på grund av tabulator-expansion</guilabel
+></term>
+<listitem
+><para
+>om markerad ignoreras blanktecken orsakade av tabulatortecken.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="exclude">
+<title
+>Undantag</title>
+<para
+>Formuläret <guilabel
+>Undantag</guilabel
+> möjliggör användning av filteralternativen som tillhandahålls av jämförelseprogrammet.</para>
+<screenshot>
+<screeninfo
+>Undantagsinställningar i &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff4.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Undantagsinställningar i &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Filmönster att undanta</title>
+<varlistentry>
+<term
+><guilabel
+>Filmönster att undanta</guilabel
+></term>
+<listitem
+><para
+>Undanta filer baserat på filtrering med jokertecken</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Fil med filnamn att undanta</title>
+<varlistentry>
+<term
+><guilabel
+>Fil med filnamn att undanta</guilabel
+></term>
+<listitem
+><para
+>Definiera filtret baserat på innehållet i en externt hanterad fil.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+</sect1>
+
+</chapter>
+
+<chapter id="command-reference">
+<title
+>Kommandoreferens</title>
+
+<sect1 id="menu-items">
+
+<title
+>Menyalternativ</title>
+<sect2 id="file-menu">
+<title
+>Menyn Arkiv</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Öppna jämförelse...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Visar dialogrutan <guilabel
+>Öppna</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Jämför filer...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Visar dialogrutan <guilabel
+>Jämför filer eller kataloger</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Foga ihop webbadress med jämförelse...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Visar dialogrutan <guilabel
+>Foga ihop webbadress med jämförelse</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Spara</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Skriver applicerade skillnader till nuvarande käll- och/eller målfil.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Spara alla</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Skriver applicerade skillnader till alla käll- och/eller målfiler.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Spara jämförelse...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Visar dialogrutan <guilabel
+>Jämförelsealternativ</guilabel
+> för att definiera jämförelseformat och alternativ.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>F5</keycap
+></shortcut
+> <guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Uppdatera jämförelse</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Uppdaterar skillnaderna mellan originalsökvägarna. Användbart om du har gjort några ändringar, sparat dem och vill se vad som är kvar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Byt källa och mål</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Byter källa och mål.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Visa statistik</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Visar dialogrutan <guilabel
+>Jämförelsestatistik</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Arkiv</guimenu
+><guimenuitem
+>Avsluta</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Avslutar &kompare;</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="difference-menu">
+<title
+>Menyn Skillnad</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Skillnad</guimenu
+><guimenuitem
+>Ångra applicera alla</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Ångra alla skillnader som tidigare applicerades mellan källa och mål.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>Backsteg</keycap
+></shortcut
+> <guimenu
+>Skillnad</guimenu
+> <guimenuitem
+>Ångra applicerad skillnad</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Ångra en markerad skillnad som tidigare applicerades.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>Mellanslag</keycap
+></shortcut
+> <guimenu
+>Skillnad</guimenu
+> <guimenuitem
+>Applicera skillnad</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Applicera en markerad skillnad.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Skillnad</guimenu
+><guimenuitem
+>Applicera alla</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Applicera alla skillnader mellan källa och mål.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Page Up</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Skillnad</guimenu
+><guimenuitem
+>Föregående fil</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Gör föregående skillnad i listan med skillnader till aktuell fil i vyrutan.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Page Down</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Skillnad</guimenu
+><guimenuitem
+>Nästa fil</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Gör nästa skillnad i listan med skillnader till aktuell fil i vyrutan.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Upp</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Skillnad</guimenu
+><guimenuitem
+>Föregående skillnad</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Markera skillnaden ovanför skillnaden som för närvarande är markerad.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Ner</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Skillnad</guimenu
+><guimenuitem
+>Nästa skillnad</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Markera skillnaden under skillnaden som för närvarande är markerad.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="settingshelpmenu">
+
+<title
+>Menyerna Inställningar och Hjälp</title>
+<para
+>&kompare; har de vanliga menyalternativen i &kde;, <guimenu
+>Inställningar</guimenu
+> och <guimenu
+>Hjälp</guimenu
+>. För mer information läs avsnitten om <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Menyn Inställningar</ulink
+> och <ulink url="help:/fundamentals/menus.html#menus-help"
+>Menyn Hjälp</ulink
+> i &kde;:s grunder. </para>
+</sect2>
+</sect1>
+
+<sect1 id="commandline-options">
+<title
+>Kommandoradsväljare</title>
+
+<variablelist>
+<varlistentry>
+<term
+>-c</term>
+<listitem
+><para
+>Det här jämför webbadress 1 med webbadress 2.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-o</option
+></userinput
+></term>
+<listitem
+><para
+>Detta öppnar webbadress 1 och förväntar sig att den är en jämförelseutmatning. Webbadress 1 kan också vara '-', och läses då från standardinmatningen. Detta kan till exempel användas med <userinput
+><command
+>cvs diff | kompare -o -</command
+></userinput
+>. Kompare kontrollerar om originalfilerna kan hittas, och fogar sedan ihop originalfilerna med jämförelseutmatningen och visar det i visningsfönstret. Väljaren <option
+>-n</option
+> stänger av kontrollen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-b</option
+></userinput
+></term>
+<listitem
+><para
+>Detta fogar ihop webbadress 2 med webbadress 1. Webbadress 2 förväntas vara en jämförelseutmatning och webbadress 1 filen eller katalogen som jämförelseutmatningen ska fogas ihop med.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-n</option
+></userinput
+></term>
+<listitem
+><para
+>Stänger av kontrollen för att automatiskt hitta originalfilerna när "-" används som webbadress med väljaren <option
+>-o</option
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-e</option
+> <replaceable
+>kodning</replaceable
+></userinput
+></term>
+<listitem
+><para
+>Använd det här för att ange kodningen vid anrop från kommandoraden. Det får den lokala kodningen som standardvärde om det inte anges.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1
+></chapter>
+
+<chapter id="credits">
+
+<title
+>Tack till och licens</title>
+
+<para
+>&kompare; </para>
+<para
+>Program copyright 2001-2004, &John.Firebaugh; &John.Firebaugh.mail; och Otto Bruggeman<email
+>otto.bruggeman@home.nl</email
+> </para>
+
+<para
+>Dokumentation Copyright &copy; 2007 Sean Wheller <email
+>sean@inwords.co.za</email
+> </para>
+
+<para
+>Översättning Stefan Asserhäll <email
+>stefan.asserhall@bredband.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index; 
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

@@ -1,0 +1,1693 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % German "INCLUDE">
+]>
+
+<book id="kompare" lang="&language;">
+
+<bookinfo>
+ <title
+>Das Handbuch zu &kompare;</title>
+
+ <authorgroup>
+
+<author
+><firstname
+>Sean</firstname
+><surname
+>Wheller</surname
+><email
+>sean@inwords.co.za</email
+></author>
+ <othercredit role="translator"
+><firstname
+>Ingo</firstname
+><surname
+>Malchow</surname
+><affiliation
+><address
+><email
+>ingomalchow@googlemail.com</email
+></address
+></affiliation
+><contrib
+>Übersetzung</contrib
+></othercredit
+> 
+ </authorgroup>
+
+<copyright>
+<year
+>2007</year>
+<holder
+>Sean Wheller</holder>
+</copyright>
+
+ <legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2016-07-05</date>
+<releaseinfo
+>4.1.3 (Anwendungen 16.04)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kompare; ist ein Programm mit grafischer Bedienungsoberfläche, um Abweichungen zwischen Textdateien zu betrachten und sie zusammenzuführen. &kompare; kann Abweichungen zwischen einzelnen Dateien oder zwischen Ordnern und deren Inhalt anzeigen. &kompare; unterstützt eine Vielzahl an Diff-Formaten und bietet viele Einstellungsmöglichkeiten für die Anzeige der Abweichungen.</para>
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Kompare</keyword>
+<keyword
+>Diff</keyword>
+<keyword
+>Zusammenführen</keyword>
+<keyword
+>Patch</keyword>
+<keyword
+>Gruppe</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Einleitung</title
+> 
+
+<para
+>Wenn mehrere Personen an einer Datei arbeiten und immer wieder untereinander austauschen, dann ist es schwierig zu erkennen, welche Änderungen an einer neuen Version der Datei oder der Kopie gemacht wurden. Die neue Kopie und das Original nebeneinander im Editorprogramm zu vergleichen, ist eine Lösung, aber arbeitsaufwendig, zeitaufwendig und fehleranfällig. Dafür ist ein Programm zur Anzeige von Abweichungen - sogenannter Diffs - besser geeignet.</para>
+
+<para
+>Natürlich ist der naheliegende Name für ein solches Programm <quote
+>diff</quote
+>. Zufällig ist das Programm <ulink url="https://www.gnu.org/software/diffutils/"
+>diff</ulink
+> auch auf den meisten &Linux;-basierten Systemen installiert und wird genau für diesen Zweck verwendet. Entwickler verwenden diff als Werkzeug in einer Konsole, um Unterschiede zwischen verschiedenen Versionen einer Quelltextdatei aufzuzeigen. Dennoch ist <command
+>diff</command
+> nicht nur für die Anzeige von Unterschieden  zwischen Quelltextdateien geeignet, es kann für viele andere Textdateien verwendet werden.</para>
+
+<para
+>Arbeiten mit dem Programm <command
+>diff</command
+> auf der Befehlszeile erfordert die Kenntnis aller Optionen für diesen Befehl. Die Ausgabe des Programms ist für Anwender schwierig zu lesen und zu verstehen. Diese Aufgabe wird durch das Programm &kompare; erleichtert. Es bietet eine grafische Oberfläche für das Programm <command
+>diff</command
+> und zeigt die Quell- und Zieldatei nebeneinander an, die Abweichungen werden dabei automatisch hervorgehoben. Nun können die Änderungen aus einer Datei nacheinander an der anderen Datei angewendet werden. Nicht alle Änderungen müssen angewendet werden, wenn Sie eine Änderung anwenden, kann diese jederzeit &apos; zurückgesetzt&apos; werden. Wenn alle benötigten Änderungen angewendet wurden, kann das Ergebnis gespeichert werden. Im Editor mit dem die Datei erstellt wurde, wird sie wie jede beliebige Datei angezeigt.</para>
+
+<para
+>Zusätzlich zu der Anzeige von Abweichungen zwischen Quell- und Zieldateien kann &kompare; dazu benutzt werden, eine spezielle Datei zu erstellen, die &apos;diff&apos; genannt wird. Diese Datei enthält alle Abweichungen zwischen zwei Quelldateien und kann benutzt werden, um Änderungen anzusehen und an einer anderen Kopie der Datei anzuwenden. Wenn zum Beispiel zwei Personen am gleichen Dokument arbeiten und die erste Person möchte Änderungen durchführen und nur diese Änderungen an die zweite Person senden. Normalerweise würde die erste Person die komplette veränderte Datei an die zweite Person senden, welche dann beide Dateien nebeneinander vergleichen müsste. Dieser Prozess entspricht der in den vorherigen Abschnitten erklärten Arbeitsweise. Mit &kompare; würde die erste Person zunächst eine lokale Kopie der zu verändernden Datei anlegen, dann Änderungen durchführen und dann das Original mit der veränderten Datei vergleichen. Mit &kompare; kann eine diff-Datei angelegt werden, die nur die Änderungen enthält. Diese kann dann der zweiten Person anstelle der kompletten Datei geschickt werden.</para>
+
+<para
+>Mithilfe von &kompare; kann nun die zweite Person die diff-Datei ansehen, mit der lokalen Kopie des Dokuments vergleichen und die Änderungen der ersten Person anwenden.  Und so kann der Prozess für viele Versionen des Dokuments weitergehen, jede Person macht Änderungen, verteilt sie und wendet sie an. Dieser Prozess ist weitläufig <quote
+>Patchen</quote
+> genannt, ein Begriff benannt nach dem Programm <quote
+>patch</quote
+>, ein weiteres Befehlszeilenprogramm zur Verarbeitung von diff-Dateien.</para>
+
+<para
+>Manchmal wird eine Datei durch mehrere Personen gleichzeitig bearbeitet. Dann kann es auch vorkommen, dass Änderungen in der gleichen Zeile in der Datei erfolgt sind. Würden jetzt die Diff-Dateien angewendet, könnten die Änderungen gegenseitig überschrieben werden. Glücklicherweise haben die Entwickler diese Situation bei der Entwicklung dieser Programme bedacht, es ist in diesem Fall nicht möglich, diese Änderungen ohne manuelle Bearbeitung durchzuführen. Dieses Problem wird als <quote
+>Konflikt</quote
+> bezeichnet. In &kompare; werden diese Konflikte angezeigt. Dann können Sie sie manuell lösen können, indem Sie entscheiden, welche Änderungen an welcher Datei durchgeführt werden sollen.</para>
+
+<para
+>&kompare; kann zusätzlich auch Ordner vergleichen. In diesem Fall werden rekursiv alle Unterordner und deren Dateien auf Abweichungen untersucht. Dann werden alle Dateien mit Abweichungen automatisch geöffnet und von &kompare; aufgelistet, damit wird das Navigieren in den verschiedenen Dateien erleichtert.</para>
+
+</chapter>
+
+<chapter id="using">
+<title
+>Arbeiten mit &kompare;</title>
+
+<sect1 id="getting-started">
+<title
+>Erste Schritte</title>
+
+<para
+>Dieser Abschnitt beschreibt, wie &kompare; gestartet wird, und bietet einen kurzen Überblick über die Bedienungsoberfläche von &kompare;.</para>
+
+<sect2 id="starting-kompare">
+<title
+>Starten von &kompare;</title>
+
+<para
+>Zum Starten von &kompare; wählen Sie im Programmstarter aus der Gruppe <menuchoice
+><guimenu
+>Entwicklung</guimenu
+><guimenuitem
+>Kompare</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>Beim Start zeigt &kompare; einen Dialog zur Auswahl der Dateien für den Vergleich an. In diesem Dialog können auch Einstellungen für das Programm „Diff“ und für das Erscheinungsbild ausgewählt werden. Geben Sie zuerst Quelle und Ziel an, die miteinander verglichen werden sollen. Es können Dateien, Ordner oder eine &URL; und eine Datei angegeben werden. Zum Starten drücken Sie dann den Knopf <guibutton
+>Vergleichen</guibutton
+>.</para>
+
+<para
+>Sobald &kompare; die Abweichungen ermittelt hat, wird das Hauptfenster angezeigt. Wenn zwei Dateien oder eine URL und eine Datei verglichen werden, dauert dieser Prozess nur wenige Sekunden. Aber wenn Sie Ordner mit vielen Unterordnern und Dateien vergleichen, kann der Prozess durchaus länger dauern.</para>
+
+<para
+>Informationen über die möglichen Einstellungen für „Diff“ und „Erscheinungsbild“ finden im <xref linkend="configure-preferences"/>.</para>
+</sect2>
+
+<sect2 id="main-interface">
+<title
+>Das Hauptfenster</title>
+
+<para
+>Dieser Abschnitt bietet einen kurze Übersicht über die Bedienungsoberfläche, die folgende Bereiche enthält:</para>
+<itemizedlist>
+<listitem
+><para
+>Menüs</para
+></listitem>
+<listitem
+><para
+>Werkzeugleiste</para
+></listitem>
+<listitem
+><para
+>Quell- und Zielordner</para
+></listitem>
+<listitem
+><para
+>Quell- und Zieldateien</para
+></listitem>
+<listitem
+><para
+>Abweichende Zeilen in der Quell- und Zieldatei</para
+></listitem>
+<listitem
+><para
+>Anzeige des Textes in Quelle und Ziel</para
+></listitem>
+<listitem
+><para
+>Statusleiste</para
+></listitem>
+</itemizedlist>
+
+<sect3 id="menus">
+<title
+>Menüs</title>
+<para
+>&kompare; bietet eine menügesteuerte Oberfläche. Erklärungen zu dem Menü und den Menüeinträgen finden Sie unter im <xref linkend="command-reference"/>.</para>
+</sect3>
+
+<sect3 id="toolbar">
+<title
+>Werkzeugleiste</title>
+<para
+>In der Werkzeugleiste von &kompare; finden Sie die am häufigsten gebrauchten Aktionen für Abweichungen und das Zusammenführen. Die Ausrichtung, Textposition, Symbolgröße und die angezeigten Aktionen können in einem Kontextmenü eingestellt werden, das mit dem Klicken der rechten Maustaste auf die Werkzeugleiste geöffnet wird. Im Kontextmenu lässt sich die Werkzeugleiste auch ausblenden. Um sie wieder anzuzeigen, wählen Sie im Menü <menuchoice
+><guimenu
+>Einstellungen</guimenu
+><guimenuitem
+>Werkzeugleiste anzeigen</guimenuitem
+></menuchoice
+>.</para>
+</sect3>
+
+<sect3 id="source-destination-folders">
+<title
+>Quell- und Zielordner</title>
+<para
+>Diese Ansicht zeigt die Ordner mit den darin enthaltenen Dateien. Wenn viele Unterordner vorhanden sind, dann wird bei der Auswahl eines Ordners das erste Dokument angezeigt, das eine Abweichung zwischen Quelle und Ziel aufweist.</para>
+</sect3>
+
+<sect3 id="source-destination-files">
+<title
+>Quell- und Zieldateien</title>
+<para
+>Die Ansicht der Quell- und Zieldateien zeigt alle Dateien, in denen Abweichungen zwischen dem aktuell gewählten Quell- und Zielordner gefunden wurden. Wenn ein Ordner mehrere Dokumente mit Abweichungen enthält, werden alle diese Dokumente angezeigt. Der Inhalt des ausgewählte Dokuments wird in der Quell- und Zielansicht dargestellt.</para>
+</sect3>
+
+<sect3 id="source-destination-lines">
+<title
+>Abweichende Zeilen in der Quell- und Zieldatei</title>
+<para
+>In dieser Ansicht wird eine Übersicht der gefundenen Abweichungen zwischen den Quell und Zieldateien angezeigt. Wird hier ein Eintrag ausgewählt, dann wird die Abweichung im Hauptfenster hervorgehoben und ausgewählt. Auf diese Weise kann auch ein langes Dokument mit vielen Abweichungen schnell durchsucht werden.</para>
+</sect3>
+
+<sect3 id="source-destination-view">
+<title
+>Quell- und Zielansicht</title>
+<para
+>Die  Quell- und Zielansicht ist der Hauptarbeitsbereich von &kompare;. Hier werden der Inhalt und die hervorgehobenen Abweichungen der aktuell ausgewählten Quell- und Zieldatei mit den Zeilennummern angezeigt.</para>
+</sect3>
+
+<sect3 id="text-view">
+<title
+>Text-Ansicht</title>
+<para
+>Die <guilabel
+>Text-Ansicht</guilabel
+> wird in der Voreinstellung nicht angezeigt. Sie kann mit <menuchoice
+><guimenu
+>Einstellungen</guimenu
+><guimenuitem
+>Text-Ansicht</guimenuitem
+></menuchoice
+> geöffnet werden.</para>
+<!-- Other than a notepad, what is this text view good for?  -->
+</sect3>
+
+<sect3 id="statusbar">
+<title
+>Statusleiste</title>
+<para
+>In der Statusleiste wird eine Übersicht über die aktuelle Quell- und Zieldatei oder Ordner angezeigt, dazu auch die Anzahl der Änderungen in dem aktuellen Dokument und die Anzahl bereits angewendeten Abweichungen. Zusätzlich wird noch die Anzahl der Dokumente mit Abweichungen und die Nummer des aktuellen Dokuments angegeben. Zum Beispiel könnte ein Vergleich über zwei Ordner zu einer Anzahl von 1890 Dateien mit Abweichungen führen. Das aktuell ausgewählte Dokument ist dann vielleicht Nummer 18 von 1890 Dateien.</para>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="viewing-differences">
+<title
+>Anzeige von Unterschieden</title>
+
+<sect2 id="managing-screen-real-estate">
+<title
+>Bildschirmplatz ausnutzen</title>
+<para
+>&kompare; zeigt die Quell- und Zieldatei in zwei gleichgroßen Fenstern im Hauptfensters an. Dieser Ansichtsbereich bietet einige Funktionen, den verfügbaren Bildschirmplatz optimal auszunutzen, darunter:</para>
+<variablelist>
+<varlistentry>
+<term
+>Zweifache Bildlaufleisten</term>
+<listitem
+><para
+>Der Ansichtsbereich hat sowohl am rechten wie auch am unteren Rand Bildlaufleisten. Damit ist es möglich, die angezeigten Abweichungen in den Dateien schnell durchzublättern.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Dokumententrennbalken</term>
+<listitem
+><para
+>Der vertikale Streifen zwischen der Quell- und Zieldatei ermöglicht nicht nur eine einfache Ansicht von Anfang und Ende jeder Zeile in den beiden Bereichen, er dient auch als Griff, um den Anteil der Ansicht von Quelle und Ziel zu verändern. Dazu führen Sie den Mauszeiger über den Trennbalken, halten den linken Mausknopf gedrückt und ziehen Sie ihn nach links oder rechts. Das Vergrößern des einen Bereiches führt natürlich zu einer Verkleinerung des anderen Bereichs innerhalb des Ansichtsfensters.</para>
+<para
+>Ein zweiter horizontaler verschieblicher Trennbalken befindet sich zwischen dem Navigationsbereich und der Quell- und Zielansicht</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Andocken</term>
+<listitem>
+<para
+>Der Navigationsbereich kann durch Klicken auf das Symbol <inlinemediaobject
+> <imageobject
+><imagedata fileref="undock.png" format="PNG"/></imageobject
+></inlinemediaobject
+> rechts oben aus dem Hauptfenster gelöst und als getrenntes Fenster angezeigt werden. Dieses Fenster kann auf dem Bildschirm beliebig verschoben werden. Durch Klicken auf das Symbol <inlinemediaobject
+><imageobject
+><imagedata fileref="dock.png" format="PNG"/></imageobject
+></inlinemediaobject
+> kann der Navigationsbereich ausgeblendet werden. Um ihn wieder anzuzeigen, klicken Sie mit der &RMBn; in der Menüleiste und wählen <guilabel
+>Navigation</guilabel
+> aus dem Kontextmenü. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Anzeige der Statusleiste</term>
+<listitem>
+<para
+>Die Anzeige der Statusleiste können Sie mit <menuchoice
+><guimenu
+>Einstellungen</guimenu
+><guimenuitem
+>Statusleiste anzeigen</guimenuitem
+></menuchoice
+> ein- und ausschalten.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="switching-source-and-destination-view">
+<title
+>Wechseln zwischen Quell- und Zielansichten</title>
+
+<para
+>Manchmal sollte überlegt werden, welche Datei mit den Abweichungen als Quelle angenommen wird. Wenn zum Beispiel beim Vergleich von zwei veränderte Versionen einer Datei festgestellt wird, dass die eine Datei viel mehr Änderungen als die andere enthält, ist die Datei mit mehr Änderungen dann besser als Quelldatei geeignet, da dann weniger Änderungen angewendet werden müssen.</para>
+<para
+>In diesem Fall wählen Sie <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Quelle mit Ziel austauschen</guimenuitem
+></menuchoice
+>. Dadurch werden die Dateien in allen Ansichten von &kompare; vertauscht.</para>
+</sect2>
+	
+<sect2 id="display-difference-statistics">
+<title
+>Anzeige der Statistik der Unterschiede</title>
+<para
+>Für eine schnelle Übersicht der Unterschiede wählen Sie <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Statistik anzeigen</guimenuitem
+></menuchoice
+>. Damit wird der Dialog <guilabel
+>Diff-Statistik</guilabel
+> geöffnet. Die folgenden Informationen werden darin angezeigt:</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Alte Datei:</guilabel
+></term>
+<listitem
+><para
+>Der Name der Quelldatei oder der unveränderten Datei.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Neue Datei:</guilabel
+></term>
+<listitem
+><para
+>Der Name der Zieldatei oder der Datei, die durch das Anwenden der Abweichungen verändert wird.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Format:</guilabel
+></term>
+<listitem
+><para
+>Das Diff-Format, das zur Darstellung der Unterschiede verwendet wird (siehe <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Anzahl Gruppen (hunks):</guilabel
+></term>
+<listitem>
+<para
+>Die Anzahl an Gruppen, die in den Änderungen gefunden wurden.</para>
+<para
+>Eine Gruppe besteht aus einer Anzahl von Zeilen, die als abweichend in Quelle und Ziel markiert wurden und zusätzlich Kontextzeilen enthalten könnten, abhängig vom gewählten Diff-Format.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Anzahl Abweichungen</guilabel
+></term>
+<listitem
+><para
+>Die Anzahl der gefundenen Abweichungen, nicht der Gruppen. Eine Gruppe kann eine oder mehrere Abweichungen enthalten, wenn die Bereiche mit abweichenden Zeilen und Kontextzeilen sich überlappen.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="navigating-the-difference-view">
+<title
+>Navigation in der Ansicht der Abweichungen</title>
+<para
+>&kompare; ermöglicht eine schnelle Navigation durch die Abweichungen einzelner Dateien und auch mehrerer Dateien beim Vergleichen von Ordnern.</para>
+
+<sect3 id="selecting-a-difference">
+<title
+>Auswahl einer Abweichung</title>
+<para
+>Eine Abweichung kann ausgewählt werden durch:</para>
+<itemizedlist>
+<listitem
+><para
+>Anklicken einer Zeile im Fenster mit der Ansicht der Abweichungen an Quell- und Zielzeilen (oben rechts im Hauptfenster).</para
+></listitem>
+<listitem
+><para
+>Anklicken der hervorgehobenen Abweichungen im Ansichtsbereich.</para
+></listitem>
+<listitem
+><para
+>Durchgehen der aufgelisteten Abweichungen in einem Vergleich (siehe <xref linkend="traversing-differences"/>).</para
+></listitem>
+</itemizedlist>
+<para
+>Wenn eine Abweichung ausgewählt ist, dann besitzt sie den <quote
+>Fokus</quote
+> und wird in einer helleren Farbe als die übrigen Abweichungen dargestellt.</para>
+</sect3>
+			
+<sect3 id="traversing-differences">
+<title
+>Durchgehen der Abweichungen</title>
+<para
+>Wenn ein Vergleich viele Abweichungen findet, ist die beste Arbeitsweise, sie in einer logischen Reihenfolge durchzugehen, normalerweise von oben nach unten.</para>
+<para
+>Als Standard wählt &kompare; die erste gefundene Abweichung aus. Durch <menuchoice
+><guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Nächste Abweichung</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Pfeil runter</keycap
+></keycombo
+>) wird die darauf folgende Abweichung ausgewählt. Um zur vorigen Abweichung zu gehen, benutzen Sie <menuchoice
+><guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Vorige Abweichung</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Pfeil hoch</keycap
+></keycombo
+>).</para>
+<para
+>Auf diese Weise ist es möglich, die Abweichungen während der Durchsicht  nacheinander durchzugehen, anzuwenden und eventuell zurückzunehmen.</para>
+</sect3>
+
+<sect3 id="switching-between-files">
+<title
+>Wechseln zwischen Dateien</title>
+<para
+>Bei einem Vergleich von Ordnern werden unter Umständen viele Dateien mit Abweichungen gefunden. Eine vollständige Liste dieser Dateien und Ordner wird dann in den Bereichen <quote
+>Quell- und Zielordner</quote
+> sowie <quote
+>Quell- und Zieldatei</quote
+> angezeigt. Im Hauptfenster von &kompare; werden jedoch immer die Abweichungen zwischen einer Quell- und Zieldatei dargestellt.</para>
+<para
+>In diesem Fall gibt es folgende Möglichkeiten, zwischen den Dokumenten zu wechseln:</para>
+<itemizedlist>
+<listitem
+><para
+>Klicken Sie in den Bereich <quote
+>Quell- und Zielordner</quote
+>, um die abweichenden <quote
+>Quell- und Zieldateien</quote
+> anzuzeigen. Wählen Sie  dann daraus eine Datei aus.</para
+></listitem>
+<listitem
+><para
+>Wählen Sie <menuchoice
+><guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Vorige Datei</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Bild auf</keycap
+></keycombo
+>) oder <menuchoice
+><guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Nächste Datei</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Bild ab</keycap
+></keycombo
+>) um die vorige oder nächste Datei mit Abweichungen im Bereich <quote
+>Quell- und Zieldatei</quote
+> anzuzeigen.</para>
+</listitem>
+</itemizedlist>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="merging-differences">
+<title
+>Abweichungen zusammenführen</title>
+
+<para
+>&kompare; erleichtert das Arbeit mit Abweichungen erheblich. Abweichungen können mehrfach angewendet und auch wieder zurückgenommen werden. Alle Aktionen werden nur im Arbeitsspeicher ausgeführt und erst beim Speichern in die Dateien geschrieben.</para>
+
+<sect2 id="applying-a-difference">
+<title
+>Anwenden einer Abweichung</title>
+<para
+>Um eine Abweichung anzuwenden, klicken Sie auf einen Bereich mit unterschiedlichen Zeilen im Hauptfenster und wählen dann <menuchoice
+><guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Abweichung annehmen</guimenuitem
+></menuchoice
+> (<keycombo
+><keycap
+>Leertaste</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-a-difference">
+<title
+>Zurücknehmen einer Abweichung</title>
+<para
+>Um ein Abweichung wieder zurückzunehmen, klicken Sie auf einen Bereichen mit Zeilen, für die vorher eine Abweichung angewandt wurde, und wählen dann <menuchoice
+><guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Annahme rückgängig</guimenuitem
+></menuchoice
+> (<keycombo
+>&Backspace;</keycombo
+>).</para>
+</sect2>
+	
+<sect2 id="applying-all-differences">
+<title
+>Anwenden aller Abweichungen</title>
+<para
+>Es ist auch möglich, in einem Zuge alle Abweichungen zwischen den Dateien zu übernehmen. Wählen Sie dazu im Menü <menuchoice
+><guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Alle annehmen</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-all-differences">
+<title
+>Zurücknehmen aller angewendeten Abweichungen</title>
+<para
+>Um alle vorher angewendeten Abweichungen zurückzunehmen, wählen Sie im Menü <menuchoice
+><guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Alle Änderungen zurücknehmen</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="saving-changes">
+<title
+>Änderungen speichern</title>
+<para
+>Sobald Abweichungen angewendet wurden, können die Änderungen durch Auswahl von <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Speichern</guimenuitem
+></menuchoice
+> oder <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Alles speichern</guimenuitem
+></menuchoice
+> gespeichert werden.</para>
+<para
+>Angewandte Abweichungen werden sowohl in Quell- als auch Zieldatei gespeichert.</para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-diff-files">
+<title
+>Arbeiten mit Diff-Dateien</title>
+<para
+>Diff-Dateien enthalten nur die Abweichungen zwischen zwei Dateien oder mehreren Dateien in einem Ordner und sowie eventuell einige Kontextzeilen vor und nach den geänderten Zeilen. Zusammenhängende geänderte Zeilen und die zugehörige Kontextzeilen werden als Gruppe bezeichnet. Eine Diff-Datei kann daher mehrere Gruppen aus einer oder mehreren Dateien enthalten. Wenn sich die Kontextzeilen von zwei oder mehr Gruppen überlappen, werden sie als einzelne Gruppe betrachtet. Diff-Dateien können benutzt werden, um:</para>
+<itemizedlist>
+<listitem
+><para
+>Änderungen in den Gruppen auf eine Originaldatei anzuwenden.</para
+></listitem>
+<listitem
+><para
+>Änderungen in den Gruppen auf eine Datei oder mehrere Dateien in einem Ordner anzuwenden.</para
+></listitem>
+<listitem
+><para
+>Nach Bearbeitung die Änderungen auf eine Datei oder mehrere Dateien in einem Ordner anzuwenden.</para
+></listitem>
+</itemizedlist>
+
+<sect2 id="creating-a-diff">
+<title
+>Erstellen einer Diff-Datei</title>
+<para
+>Um eine Diff-Datei zu erstellen, muss in &kompare; die Abweichungen von Dateien angezeigt werden. Dann wählen Sie im Menü  <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Diff speichern...</guimenuitem
+></menuchoice
+> und öffnen damit den Dialog <guilabel
+>Diff-Optionen</guilabel
+> (siehe <xref linkend="diff-settings"/> für mehr Informationen zum Diff-Format und dessen Optionen). Nachdem alle Einstellungen ausgewählt sind, drücken Sie auf den Knopf <guibutton
+>Speichern</guibutton
+> und speichern damit den Diff in einer Datei mit der Endung <filename class="extension"
+>.diff</filename
+>.</para>
+</sect2>
+
+<sect2 id="displaying-a-diff">
+<title
+>Anzeigen einer Diff-Datei</title>
+<para
+>Es ist möglich, den Inhalt einer Diff-Datei in &kompare; anzuzeigen, indem Sie die Diff-Datei mit <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Diff öffnen ...</guimenuitem
+></menuchoice
+> auswählen.</para>
+<para
+>Bei der Anzeige einer Diff-Datei werden nur die Gruppen mit geänderten Zeilen sowie eventuell Kontextzeilen dargestellt, aber keine Zeilen ohne Abweichungen. Wurde eine Diff-Datei ohne Kontextzeilen erstellt, enthält sie nur abweichende Zeilen.</para>
+<para
+>Wenn eine Diff-Datei Gruppen aus mehreren Dateien enthält, werden jeweils nur die Gruppen aus einer Datei in &kompare; angezeigt. Sie können nun zwischen den angezeigten Dateiein wie zwischen richtigen Dateien wechseln, obwohl diese Information nur in einer einzigen Diff-Datei enthalten ist.</para>
+</sect2>
+
+<sect2 id="applying-a-diff">
+<title
+>Anwenden von Abweichungen in einer Diff-Datei</title>
+<para
+>Beim Betrachten von Abweichungen in einer Diff-Datei ist es möglich, die Abweichungen anzuwenden, genau wie beim Vergleich von Quell- und Zieldateien (siehe <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+<sect2 id="blending-a-diff">
+<title
+>URL mit einem Diff mischen</title>
+<para
+>Auch eine Diff-Datei kann benutzt werden, um die Gruppen mit den Abweichungen darin mit einer Datei oder einem Ordner zu vergleichen. Dazu wählen Sie <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>URL mit Diff mischen ...</guimenuitem
+></menuchoice
+> und geben dann <guilabel
+>Datei/Ordner</guilabel
+> und den Pfad der <guilabel
+>Ausgabe von diff</guilabel
+> ein.</para>
+<para
+>Beim Betrachten von Abweichungen zwischen einer Quelldatei und einer Diff-Datei ist es möglich, die Abweichungen anzuwenden, genau wie beim Vergleich von Quell- und Zieldateien (siehe <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="configure-preferences">
+<title
+>Einstellungen ändern</title>
+
+<para
+>In &kompare; kann die Anzeige von Abweichungen im Hauptfenster und die Arbeitsweise des Programms diff eingestellt werden. Öffnen Sie dazu mit <menuchoice
+><guimenu
+>Einstellungen</guimenu
+><guisubmenu
+>&kompare; einrichten ...</guisubmenu
+></menuchoice
+> den Dialog <guilabel
+>Einstellungen</guilabel
+>.</para>
+
+<para
+>Die Einstellungen für das Erscheinungsbild finden Sie auf der Seite <guilabel
+>Ansicht</guilabel
+>, siehe auch <xref linkend="view-settings"/>)</para>
+
+<para
+>Die Einstellungen für das Programm „Diff“ finden Sie auf der Seite <guilabel
+>Diff</guilabel
+>, siehe auch <xref linkend="diff-settings"/>)</para>
+
+<sect1 id="view-settings">
+<title
+>Ansichtseinstellungen</title>
+<para
+>Die Seite <guilabel
+>Ansicht</guilabel
+> des Einstellungsdialogs besteht aus den Karteikarten <guilabel
+>Erscheinungsbild</guilabel
+> und <guilabel
+>Schriftarten</guilabel
+>.</para>
+
+<sect2 id="appearance">
+<title
+>Erscheinungsbild</title>
+<para
+>Hier finden Sie Einstellungen für die <guilabel
+>Farben</guilabel
+>, die zur Anzeige der Abweichungen im Hauptfenster verwendet werden, für die Schrittweite der Navigation mit dem <guilabel
+>Mausrad</guilabel
+> und Sie können die <guilabel
+>Anzahl Leerzeichen für Tabulator</guilabel
+> einstellen. </para>
+<screenshot>
+<screeninfo
+>Einstellung des Erscheinungsbildes für &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Einstellung des Erscheinungsbildes für &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Farben</title>
+<para
+>Um die Farben zur Anzeige von Abweichungen zu ändern, klicken Sie auf das Farbfeld rechts von den Einträgen. Damit wird der Dialog <guilabel
+>Farbe auswählen</guilabel
+> für zur Einstellung der Farben für folgende Zustände geöffnet:</para>
+<varlistentry>
+<term
+><guilabel
+>Farbe für Gelöschtes:</guilabel
+></term>
+<listitem
+><para
+>Farbe der gelöschten oder nicht vorhandenen Zeilen beim Vergleich zwischen Quell- und Zieltext.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Farbe für Geändertes:</guilabel
+></term>
+<listitem
+><para
+>Farbe der geänderten Zeilen beim Vergleich zwischen Quell- und Zieltext. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Farbe für Neues:</guilabel
+></term>
+<listitem
+><para
+>Farbe der hinzugefügten Zeilen beim Vergleich zwischen Quell- und Zieltext.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Farbe für Übernommenes:</guilabel
+></term>
+<listitem
+><para
+>Farbe der Zeilen, deren Abweichung zwischen Quelle- und Zieldatei bereits übernommen wurde.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Mausrad</title>
+<varlistentry>
+<term
+><guilabel
+>Anzahl Zeilen:</guilabel
+></term>
+<listitem
+><para
+>Schrittweite der Navigation bei der Drehung des Mausrades vorwärts oder rückwärts.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Tabulatoren in Leerzeichen umwandeln</title>
+<varlistentry>
+<term
+><guilabel
+>Anzahl Leerzeichen für Tabulator:</guilabel
+></term>
+<listitem
+><para
+>Dieser Wert gibt die Anzahl der Leerzeichen an, durch die ein Tabulatorzeichen ersetzt wird.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="fonts">
+<title
+>Schriftarten</title>
+<screenshot>
+<screeninfo
+>Einstellung der Schriftarten für &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Einstellung der Schriftarten für &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Auswahl der Schriftart und -größe für die Anzeige der Abweichungen.</para>
+</sect2>
+</sect1>
+
+<sect1 id="diff-settings">
+<title
+>Diff-Optionen</title>
+<para
+>Auf der Seite <guimenu
+>Diff</guimenu
+> im Dialog <guilabel
+>Einstellungen</guilabel
+> gibt es die Karteikarten <guilabel
+>Diff</guilabel
+>, <guilabel
+>Format</guilabel
+>, <guilabel
+>Einstellungen</guilabel
+> und <guilabel
+>Ausschließen</guilabel
+>. Mit den Optionen auf diesen Karteikarten kann die Arbeitsweise des Programms Diff gesteuert werden.</para>
+
+<sect2 id="diff">
+<title
+>Diff</title>
+<screenshot>
+<screeninfo
+>Einstellung der Diff-Optionen für &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Einstellung der Diff-Optionen für &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Der Befehl für das diff-Programm (Voreinstellung <application
+>diff</application
+>).</para>
+</sect2>
+
+<sect2 id="diff-format">
+<title
+>Format</title>
+<screenshot>
+<screeninfo
+>Einstellung des Ausgabeformats für &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Einstellung des Ausgabeformats für &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Stellen Sie hier das <guilabel
+>Ausgabeformat</guilabel
+> und die Anzahl der <guilabel
+>Kontextzeilen</guilabel
+> ein.</para>
+<variablelist>
+<title
+>Ausgabeformat</title>
+<varlistentry>
+<term
+><guilabel
+>Mit Kontextzeilen</guilabel
+></term>
+<listitem>
+<para
+>Im Kontextformat werden mehrere Zeilen vor und nach den Zeilen mit Abweichungen hinzugefügt.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Normal</guilabel
+></term>
+<listitem>
+<para
+>Im Normalformat werden keine Zeilen vor und nach den Zeilen mit Abweichungen ausgegeben. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Vereinheitlichtes Kontext-Format (unified)</guilabel
+></term>
+<listitem>
+<para
+>Diese Ausgabeformat ist eine Abwandlung des Kontextformats, aber einer kompakteren Ausgabe, da doppelte Kontextzeilen ausgelassen werden.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+<variablelist>
+<title
+>Kontextzeilen</title>
+<varlistentry>
+<term
+><guilabel
+>Anzahl</guilabel
+></term>
+<listitem>
+<para
+>Für eine Diff-Ausgabe im Kontext- oder Unified-Format wird die hier angegebene Zahl an Kontextzeilen verwendet.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="options">
+<title
+>Einstellungen</title>
+<screenshot>
+<screeninfo
+>Einstellungen für &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff3.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Einstellungen für &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Auf der Karteikarte <guilabel
+>Optionen</guilabel
+> können die Einstellungen für das Programm Diff bearbeitet werden.</para>
+<variablelist>
+<title
+>Allgemein</title>
+<varlistentry>
+<term
+><guilabel
+>Neue Dateien als leer betrachten</guilabel
+></term>
+<listitem
+><para
+>Ist diese Einstellung aktiviert, behandelt Diff Dateien, die nur in einem der Ordner existieren als leere Dateien in dem anderen Ordner. Das bedeutet, dass die Datei mit einer leeren Datei verglichen wird, also als ein großer hinzugefügter oder gelöschter Block erscheint.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Nach kleineren Änderungen suchen</guilabel
+></term>
+<listitem
+><para
+>Ist diese Einstellung aktiv, werden Unterschiede in Groß-/Kleinschreibung, in Satz- und Leerzeichen angezeigt.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Für große Dateien optimieren</guilabel
+></term>
+<listitem
+><para
+>Ist diese Einstellung aktiv, bearbeitet das Programm „Diff“ die Dateien schneller.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Änderungen bei Groß-/Kleinschreibung ignorieren</guilabel
+></term>
+<listitem
+><para
+>Mit dieser Einstellung werden Abweichungen bei der Groß- und Kleinschreibung ignoriert</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Regulären Ausdruck ignorieren</guilabel
+></term>
+<listitem
+><para
+>Ignoriert Zeilen, die auf einen regulären Ausdruck passen.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Leerzeichen</title>
+<varlistentry>
+<term
+><guilabel
+>In der Ausgabe Tabulatoren in Leerzeichen umwandeln</guilabel
+></term>
+<listitem
+><para
+>Ist diese Einstellung aktiv, werden in der Ausgabe von Diff alle Tabulatorzeichen durch die Anzahl der Leerzeichen ersetzt, die auf der Seite <guilabel
+>Ansicht</guilabel
+> in  der Einstellung <guilabel
+>Anzahl Leerzeichen für Tabulator</guilabel
+> festgelegt sind.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Neue oder entfernte Leerzeilen ignorieren</guilabel
+></term>
+<listitem
+><para
+>Ist diese Einstellung aktiv, werden abweichende leere Zeilen in Quell- und Zieltext ignoriert. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Änderung der Anzahl aufeinanderfolgernder Leerräume ignorieren</guilabel
+></term>
+<listitem
+><para
+>Leerzeichen vor, nach und zwischen Zeilen können in einzelnen Editoren unterschiedlich behandelt werden. Mit dieser Einstellung werden solche Abweichungen ignoriert.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Leerräume beim Vergleich ignorieren</guilabel
+></term>
+<listitem
+><para
+>Ist diese Einstellung aktiv, werden alle Abweichungen von Leerräumen ignoriert.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Änderungen durch Tabulator-Expansion ignorieren</guilabel
+></term>
+<listitem
+><para
+>Ist diese Einstellung aktiv, werden alle Abweichungen durch Tabulatorzeichen ignoriert.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="exclude">
+<title
+>Ausschließen</title>
+<para
+>Auf der Karteikarte <guilabel
+>Ausschließen</guilabel
+> können Filter für das Programm Diff eingestellt werden.</para>
+<screenshot>
+<screeninfo
+>Einstellung für Ausschluss</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff4.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Einstellung für Ausschluss</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Dateimuster für Ausschluss</title>
+<varlistentry>
+<term
+><guilabel
+>Dateimuster für Ausschluss</guilabel
+></term>
+<listitem
+><para
+>Hier können Sie ein Dateimuster für die Namen der Dateien eingeben, die beim Vergleich nicht berücksichtigt werden sollen.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Datei mit Liste der auszuschließenden Dateien</title>
+<varlistentry>
+<term
+><guilabel
+>Datei mit Liste der auszuschließenden Dateien</guilabel
+></term>
+<listitem
+><para
+>Die Filtereinstellungen werden aus einer externen Datei mit der Namen der auszuschließenden Dateien gelesen.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+</sect1>
+
+</chapter>
+
+<chapter id="command-reference">
+<title
+>Befehlsreferenz</title>
+
+<sect1 id="menu-items">
+
+<title
+>Menüeinträge</title>
+<sect2 id="file-menu">
+<title
+>Das Menü Datei</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datei</guimenu
+><guimenuitem
+>Diff öffnen...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Zeigt den Dialog <guilabel
+>Öffnen</guilabel
+> an.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datei</guimenu
+><guimenuitem
+>Dateien vergleichen ...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Zeigt den Dialog <guilabel
+>Dateien oder Ordner vergleichen</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datei</guimenu
+><guimenuitem
+>URL mit Diff mischen ...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Zeigt den Dialog <guilabel
+>Datei/Ordner mit Ausgabe von diff mischen</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Datei</guimenu
+> <guimenuitem
+>Speichern</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Speichert die angewendeten Abweichungen in der aktuellen Quell- und Zieldatei.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Datei</guimenu
+> <guimenuitem
+>Alles speichern</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Speichert alle angewendeten Abweichungen in allen Quell- und Zieldateien.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Diff speichern ...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Öffnet den Dialog <guilabel
+>Diff-Optionen</guilabel
+>, in dem Sie das Diff-Format und alle Optionen einstellen können.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>F5</keycap
+></shortcut
+> <guimenu
+>Datei</guimenu
+><guimenuitem
+>Diff aktualisieren</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Aktualisiert den Unterschied zwischen den beiden ursprünglichen Pfaden. Hilfreich wenn Sie einige Änderungen bereits angewendet haben und die verbleibenden Änderungen sehen möchten</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Quelle mit Ziel austauschen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Vertauscht Quelle und Ziel.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Statistik anzeigen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Zeigt den Dialog <guilabel
+>Diff-Statistik</guilabel
+> an.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+> &Ctrl;<keycap
+>Q</keycap
+> </keycombo
+></shortcut
+> <guimenu
+>Datei</guimenu
+> <guimenuitem
+>Beenden</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Beendet &kompare;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="difference-menu">
+<title
+>Das Menü Abweichung</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Alle Änderungen zurücknehmen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Alle vorher angewendeten Abweichungen zwischen Quelle und Ziel werden wieder zurückgenommen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Backspace;</shortcut
+> <guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Annahme rückgängig</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Die ausgewählte angewendete Abweichung wird wieder zurückgenommen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>Leertaste</keycap
+></shortcut
+> <guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Abweichung annehmen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Die ausgewählte Abweichung zwischen Quelle und Ziel wird angewendet.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Alle annehmen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Alle Abweichungen zwischen Quelle und Ziel werden angewendet.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Bild auf</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Vorige Datei</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Geht zurück zur vorigen Datei mit Abweichungen und zeigt sie im Hauptfenster an.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Bild ab</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Nächste Datei</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Geht zur nächsten Datei mit Abweichungen und zeigt sie im Hauptfenster an.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Pfeil hoch</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Vorige Abweichung</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Geht zurück zur vorigen Abweichung,</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Pfeil runter</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Abweichung</guimenu
+><guimenuitem
+>Nächste Abweichung</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Geht weiter zur nächsten Abweichung.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="settingshelpmenu">
+
+<title
+>Die Menüs Einstellungen und Hilfe</title>
+<para
+>&kompare; benutzt die bekannten &kde;-Menüeinträge <guimenu
+>Einstellungen</guimenu
+> und <guimenu
+>Hilfe</guimenu
+>. Mehr dazu erfahren Sie in den Abschnitten zu den Menüs <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Einstellungen</ulink
+> und <ulink url="help:/fundamentals/menus.html#menus-help"
+>Hilfe</ulink
+> in den &kde;-Grundlagen. </para>
+</sect2>
+</sect1>
+
+<sect1 id="commandline-options">
+<title
+>Befehlszeilenparameter</title>
+
+<variablelist>
+<varlistentry>
+<term
+>-c</term>
+<listitem
+><para
+>Die URL1 wird mit URL2 verglichen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-o</option
+></userinput
+></term>
+<listitem
+><para
+>Hiermit wird die URL1 geöffnet und als Ausgabe von Diff betrachtet. URL1 kann auch den Wert „-“ haben, wenn aus der Standardeingabe gelesen werden soll. Dies kann zum Beispiel für <userinput
+><command
+>cvs diff | kompare -o -</command
+></userinput
+> genutzt werden. Kompare prüft dann, ob die ursprüngliche(n) Datei(en) auffindbar sind und blendet diese bei der Anzeige in die Ausgabe von Diff ein. Die Option <option
+>-n</option
+> deaktiviert diese Prüfung.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-b</option
+></userinput
+></term>
+<listitem
+><para
+>Die URL2 wird in URL1 eingefügt. Dabei wird URL2 als Ausgabe von Diff betrachtet und URL1 als Datei oder Ordner, in den die Ausgabe von Diff eingefügt werden soll.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-n</option
+></userinput
+></term>
+<listitem
+><para
+>Schaltet bei Verwendung von „-“ als URL in Verbindung mit der Option <option
+>-o</option
+> die Prüfung für das automatische Suchen nach der ursprünglichen Datei aus.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-e</option
+> <replaceable
+>encoding</replaceable
+></userinput
+></term>
+<listitem
+><para
+>Setzen Sie hier die Kodierung beim Aufruf von der Befehlszeile. Fehlt diese Angabe wird die lokale Kodierung verwendet.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1
+></chapter>
+
+<chapter id="credits">
+
+<title
+>Danksagungen und Lizenz</title>
+
+<para
+>&kompare; </para>
+<para
+>Programm Copyright 2001-2004, &John.Firebaugh; &John.Firebaugh.mail; und Otto Bruggeman <email
+>otto.bruggeman@home.nl</email
+> </para>
+
+<para
+>Dokumentation Copyright &copy; 2007 Sean Wheller <email
+>sean@inwords.co.za</email
+> </para>
+
+<para
+>Übersetzung Ingo Malchow <email
+>ingomalchow@googlemail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index; 
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

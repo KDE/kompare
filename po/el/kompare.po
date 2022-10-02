@@ -1,0 +1,1542 @@
+# translation of kompare.po to Greek
+# Copyright (C) 2002, 2003, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
+#
+# Stergios Dramis <sdramis@egnatia.ee.auth.gr>, 2002-2003.
+# Andreas Vlachos <avlach@gmail.com>, 2005.
+# Spiros Georgaras <sng@hellug.gr>, 2005, 2006, 2007.
+# Toussis Manolis <manolis@koppermind.homelinux.org>, 2005, 2008, 2009.
+# Spiros Georgaras <sngeorgaras@otenet.gr>, 2008.
+# Dimitrios Glentadakis <dglent@gmail.com>, 2011.
+# Dimitris Kardarakos <dimkard@gmail.com>, 2014.
+# Petros Vidalis <pvidalis@gmail.com>, 2016, 2017, 2018.
+# Stelios <sstavra@gmail.com>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: kompare\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"PO-Revision-Date: 2020-10-10 20:34+0300\n"
+"Last-Translator: Stelios <sstavra@gmail.com>\n"
+"Language-Team: Greek <kde-i18n-el@kde.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 20.04.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Στέργιος Δράμης,Ανδρέας Βλάχος,Τούσης Μανώλης, Πέτρος Βιδάλης"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+"sdramis@egnatia.ee.auth.gr,avlach@gmail.com,manolis@koppermind.homelinux."
+"org, pvidalis@gmail.com"
+
+#: app/kompare_shell.cpp:69
+#, kde-format
+msgid "Could not load our KompareViewPart."
+msgstr "Αδύνατο να φορτωθεί το KompareViewPart."
+
+#: app/kompare_shell.cpp:73
+#, kde-format
+msgctxt "@title:window"
+msgid "Navigation"
+msgstr "Πλοήγηση"
+
+#: app/kompare_shell.cpp:90
+#, kde-format
+msgid "Could not load our KompareNavigationPart."
+msgstr "Αδύνατο να φορτωθεί το KompareNavigationPart."
+
+#: app/kompare_shell.cpp:195
+#, kde-format
+msgctxt "@action"
+msgid "&Open Diff..."
+msgstr "&Άνοιγμα diff..."
+
+#: app/kompare_shell.cpp:198
+#, kde-format
+msgctxt "@action"
+msgid "&Compare Files..."
+msgstr "&Σύγκριση αρχείων..."
+
+#: app/kompare_shell.cpp:201
+#, kde-format
+msgctxt "@action"
+msgid "&Blend URL with Diff..."
+msgstr "&Ανάμειξη URL με diff..."
+
+#: app/kompare_shell.cpp:207
+#, kde-format
+msgctxt "@action"
+msgid "Show T&ext View"
+msgstr "Εμφάνιση προβολής &κειμένου"
+
+#: app/kompare_shell.cpp:220
+#, kde-format
+msgid " 0 of 0 differences "
+msgstr "0 από 0 διαφορές "
+
+#: app/kompare_shell.cpp:221
+#, kde-format
+msgid " 0 of 0 files "
+msgstr "0 από 0 αρχεία "
+
+#: app/kompare_shell.cpp:238
+#, kde-format
+msgid " %2 of %1 file "
+msgid_plural " %2 of %1 files "
+msgstr[0] " %2 από %1 αρχείο "
+msgstr[1] " %2 από %1 αρχεία "
+
+#: app/kompare_shell.cpp:240
+#, kde-format
+msgid " %1 file "
+msgid_plural " %1 files "
+msgstr[0] " %1 αρχείο "
+msgstr[1] " %1 αρχεία "
+
+#: app/kompare_shell.cpp:243
+#, kde-format
+msgid " %2 of %1 difference, %3 applied "
+msgid_plural " %2 of %1 differences, %3 applied "
+msgstr[0] " %2 από %1 διαφορά, %3 εφαρμόστηκε "
+msgstr[1] " %2 από %1 διαφορές, %3 εφαρμόστηκαν "
+
+#: app/kompare_shell.cpp:246
+#, kde-format
+msgid " %1 difference "
+msgid_plural " %1 differences "
+msgstr[0] " %1 διαφορά "
+msgstr[1] " %1 διαφορές "
+
+#: app/kompare_shell.cpp:327
+#, kde-format
+msgctxt "@title:window"
+msgid "Blend File/Folder with diff Output"
+msgstr "Ανάμειξη Αρχείου/Φακέλου με την έξοδο diff"
+
+#: app/kompare_shell.cpp:328
+#, kde-format
+msgctxt "@title:group"
+msgid "File/Folder"
+msgstr "Αρχείο/Φάκελος"
+
+#: app/kompare_shell.cpp:329
+#, kde-format
+msgctxt "@title:group"
+msgid "Diff Output"
+msgstr "Έξοδος diff"
+
+#: app/kompare_shell.cpp:332
+#, kde-format
+msgctxt "@action:button"
+msgid "Blend"
+msgstr "Ανάμειξη"
+
+#: app/kompare_shell.cpp:333
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Blend this file or folder with the diff output"
+msgstr "Ανάμειξη αυτού του αρχείου ή φακέλου με την έξοδο του diff"
+
+#: app/kompare_shell.cpp:334
+#, kde-format
+msgctxt "@infor:whatsthis"
+msgid ""
+"If you have entered a file or folder name and a file that contains diff "
+"output in the fields in this dialog then this button will be enabled and "
+"pressing it will open kompare's main view where the output of the entered "
+"file or files from the folder are mixed with the diff output so you can then "
+"apply the difference(s) to a file or to the files. "
+msgstr ""
+"Αν εισάγατε ένα αρχείο ή όνομα φακέλου και ένα αρχείο που περιέχει έξοδο "
+"διαφορών στα πεδία σε αυτόν το διάλογο τότε αυτό το κουμπί θα ενεργοποιηθεί "
+"και πατώντας το θα ανοίξει η κύρια προβολή του kompare όπου η έξοδος των "
+"αρχείων που έγινε εισαγωγή από τον φάκελο έχει αναμειχθεί με την έξοδο "
+"διαφορών έτσι ώστε να μπορείτε έπειτα να εφαρμόσετε τις διαφορές σε κάποιο "
+"αρχείο ή αρχεία. "
+
+#: app/kompare_shell.cpp:357 app/main.cpp:199
+#, kde-format
+msgctxt "@title:window"
+msgid "Compare Files or Folders"
+msgstr "Σύγκριση αρχείων ή φακέλων"
+
+#: app/kompare_shell.cpp:358 app/main.cpp:200
+#, kde-format
+msgctxt "@title:group"
+msgid "Source"
+msgstr "Πηγή"
+
+#: app/kompare_shell.cpp:359 app/main.cpp:201
+#, kde-format
+msgctxt "@title:group"
+msgid "Destination"
+msgstr "Προορισμός"
+
+#: app/kompare_shell.cpp:362 app/main.cpp:204
+#, kde-format
+msgctxt "@action:button"
+msgid "Compare"
+msgstr "Σύγκριση"
+
+#: app/kompare_shell.cpp:363 app/main.cpp:205
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Compare these files or folders"
+msgstr "Σύγκριση αυτών των αρχείων ή φακέλων"
+
+#: app/kompare_shell.cpp:364 app/main.cpp:206
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you have entered 2 filenames or 2 folders in the fields in this dialog "
+"then this button will be enabled and pressing it will start a comparison of "
+"the entered files or folders. "
+msgstr ""
+"Αν έχετε δώσει 2 ονόματα αρχείων ή 2 φακέλους στα πεδία αυτού του διαλόγου, "
+"τότε αυτό το κουμπί θα ενεργοποιηθεί και πατώντας το θα ξεκινήσει η σύγκριση "
+"αυτών των αρχείων ή φακέλων. "
+
+#: app/kompare_shell.cpp:398
+#, kde-format
+msgctxt "@title:window"
+msgid "Text View"
+msgstr "Προβολή κειμένου"
+
+#. i18n: ectx: Menu (file)
+#: app/kompareui.rc:4 komparepart/komparepartui.rc:4
+#, kde-format
+msgid "&File"
+msgstr "&Αρχείο"
+
+#. i18n: ectx: Menu (settings)
+#: app/kompareui.rc:14 komparepart/komparepartui.rc:29
+#, kde-format
+msgid "&Settings"
+msgstr "Ρ&υθμίσεις"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: app/kompareui.rc:27
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Κύρια γραμμή εργαλείων"
+
+#: app/kompareurldialog.cpp:37
+#, kde-format
+msgctxt "@title:tab"
+msgid "Files"
+msgstr "Αρχεία"
+
+#: app/kompareurldialog.cpp:39
+#, kde-format
+msgid "Here you can enter the files you want to compare."
+msgstr "Εδώ μπορείτε να εισάγετε τα αρχεία που θέλετε να συγκρίνετε."
+
+#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:42
+#, kde-format
+msgctxt "@title:tab"
+msgid "Diff"
+msgstr "Diff"
+
+#: app/kompareurldialog.cpp:47
+#, kde-format
+msgid "Here you can change the options for comparing the files."
+msgstr "Εδώ μπορείτε να αλλάξετε τις επιλογές για τη σύγκριση των αρχείων."
+
+#: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
+#, kde-format
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "Εμφάνιση"
+
+#: app/kompareurldialog.cpp:55
+#, kde-format
+msgid "Here you can change the options for the view."
+msgstr "Εδώ μπορείτε να αλλάξετε τις επιλογές της εμφάνισης."
+
+#: app/kompareurldialog.cpp:101
+#, kde-format
+msgid ""
+"File used for excluding files cannot be found, please specify another file."
+msgstr ""
+"Αδυναμία εύρεσης του αρχείου της εξαίρεσης αρχείων, παρακαλώ καθορίστε ένα "
+"άλλο αρχείο."
+
+#: app/main.cpp:50
+#, kde-format
+msgid "Kompare"
+msgstr "Kompare"
+
+#: app/main.cpp:52
+#, kde-format
+msgid ""
+"A program to view the differences between files and optionally generate a "
+"diff"
+msgstr ""
+"Ένα πρόγραμμα για την προβολή των διαφορών μεταξύ αρχείων και προαιρετικά τη "
+"δημιουργία diff (αρχείου διαφορών)"
+
+#: app/main.cpp:54
+#, kde-format
+msgid ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+msgstr ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+
+#: app/main.cpp:57
+#, kde-format
+msgid "John Firebaugh"
+msgstr "John Firebaugh"
+
+#: app/main.cpp:57 app/main.cpp:58
+#, kde-format
+msgid "Author"
+msgstr "Συγγραφέας"
+
+#: app/main.cpp:58
+#, kde-format
+msgid "Otto Bruggeman"
+msgstr "Otto Bruggeman"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Jeff Snyder"
+msgstr "Jeff Snyder"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Developer"
+msgstr "Προγραμματιστής"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Kevin Kofler"
+msgstr "Kevin Kofler"
+
+#: app/main.cpp:60
+#, kde-format
+msgid "Maintainer"
+msgstr "Συντηρητής"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Chris Luetchford"
+msgstr "Chris Luetchford"
+
+#: app/main.cpp:61
+#, kde-format
+msgid "Kompare icon artist"
+msgstr "Καλλιτέχνης εικονιδίων Kompare"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "Malte Starostik"
+msgstr "Malte Starostik"
+
+#: app/main.cpp:62
+#, kde-format
+msgid "A lot of good advice"
+msgstr "Πολλές καλές συμβουλές"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Bernd Gehrmann"
+msgstr "Bernd Gehrmann"
+
+#: app/main.cpp:63
+#, kde-format
+msgid "Cervisia diff viewer"
+msgstr "Προβολέας diff του Cervisia"
+
+#: app/main.cpp:70
+#, kde-format
+msgid "This will compare URL1 with URL2"
+msgstr "Αυτό θα συγκρίνει το URL1 με το URL2"
+
+#: app/main.cpp:71
+#, kde-format
+msgid ""
+"This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
+"and then it will read from standard input. Can be used for instance for cvs "
+"diff | kompare -o -. Kompare will do a check to see if it can find the "
+"original file(s) and then blend the original file(s) into the diffoutput and "
+"show that in the viewer. -n disables the check."
+msgstr ""
+"Αυτό θα ανοίξει το URL1 και θα αναμένει την έξοδο διαφορών. Το URL1 μπορεί "
+"επίσης να είναι ένα '-' που σημαίνει ότι θα διαβάσει από την κανονική "
+"είσοδο. Μπορεί να χρησιμοποιηθεί για παράδειγμα ως diff cvs | kompare -o -. "
+"Το Kompare θα κάνει έναν έλεγχο αν μπορεί να εντοπίσει τα αρχικά αρχεία και "
+"έπειτα θα αναμείξει τα αρχικά αρχεία με την έξοδο διαφορών και θα την "
+"εμφανίσει στην προβολή. Το  -n απενεργοποιεί αυτόν τον έλεγχο."
+
+#: app/main.cpp:72
+#, kde-format
+msgid ""
+"This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
+"the file or folder that the diffoutput needs to be blended into. "
+msgstr ""
+"Αυτό θα αναμείξει το URL2 μέσα στο URL1, Το URL2 αναμένεται ως έξοδο "
+"διαφορών και το  URL1 ως αρχείο ή φάκελο στον οποίο θα αναμειχθεί η έξοδος "
+"διαφορών. "
+
+#: app/main.cpp:73
+#, kde-format
+msgid ""
+"Disables the check for automatically finding the original file(s) when using "
+"'-' as URL with the -o option."
+msgstr ""
+"Απενεργοποιεί τον έλεγχο αυτόματης εύρεσης του αρχικού αρχείου(ων) κατά τη "
+"χρήση του '-' ως URL με την επιλογή -o."
+
+#: app/main.cpp:74
+#, kde-format
+msgid ""
+"Use this to specify the encoding when calling it from the command line. It "
+"will default to the local encoding if not specified."
+msgstr ""
+"Χρησιμοποιήστε αυτό για να ορίσετε την κωδικοποίηση κατά την κλήση του από "
+"τη γραμμή εντολών. Προκαθορισμένα ορίζεται όπως την τοπική κωδικοποίηση αν "
+"δεν οριστεί."
+
+#: dialogpages/diffpage.cpp:174
+#, kde-format
+msgctxt "@title:group"
+msgid "Diff Program"
+msgstr "Πρόγραμμα diff"
+
+#: dialogpages/diffpage.cpp:179
+#, kde-format
+msgid ""
+"You can select a different diff program here. On Solaris the standard diff "
+"program does not support all the options that the GNU version does. This way "
+"you can select that version."
+msgstr ""
+"Μπορείτε να επιλέξετε εδώ ένα διαφορετικό πρόγραμμα diff. Στο Solaris ή "
+"τυπική έκδοση diff δεν υποστηρίζει όλες τις επιλογές που υποστηρίζει η "
+"έκδοση GNU. Με αυτήν τη λειτουργία μπορείτε να επιλέξετε αυτή την έκδοση."
+
+#: dialogpages/diffpage.cpp:196
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"Select the format of the output generated by diff. Unified is the one that "
+"is used most frequently because it is very readable. The KDE developers like "
+"this format the best so use it for sending patches."
+msgstr ""
+"Επιλέξτε τη μορφή της εξόδου του diff. Η ενοποιημένη είναι αυτή που "
+"χρησιμοποιείται πιο συχνά επειδή είναι πολύ ευανάγνωστη. Οι προγραμματιστές "
+"KDE προτιμούν αυτήν τη μορφή, οπότε χρησιμοποιήστε την για την αποστολή "
+"επιδιορθώσεων."
+
+#: dialogpages/diffpage.cpp:199
+#, kde-format
+msgctxt "@title:group"
+msgid "Output Format"
+msgstr "Μορφή εξόδου"
+
+#: dialogpages/diffpage.cpp:201
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Context"
+msgstr "Σχετικό"
+
+#: dialogpages/diffpage.cpp:204
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Normal"
+msgstr "Κανονικό"
+
+#: dialogpages/diffpage.cpp:207
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Unified"
+msgstr "Ενοποιημένο"
+
+#: dialogpages/diffpage.cpp:215
+#, kde-format
+msgctxt "@title:group"
+msgid "Lines of Context"
+msgstr "Σχετιζόμενες γραμμές"
+
+#: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"The number of context lines is normally 2 or 3. This makes the diff readable "
+"and applicable in most cases. More than 3 lines will only bloat the diff "
+"unnecessarily."
+msgstr ""
+"Ο αριθμός των σχετικών γραμμών είναι συνήθως 2 ή 3. Αυτό κάνει το diff "
+"ευανάγνωστο τις περισσότερες φορές. Περισσότερες από 3 γραμμές θα κάνουν την "
+"έξοδο του diff άχρηστα φλύαρη."
+
+#: dialogpages/diffpage.cpp:220
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of context lines:"
+msgstr "Αριθμός σχετιζόμενων γραμμών:"
+
+#: dialogpages/diffpage.cpp:225
+#, kde-format
+msgctxt "@title:tab"
+msgid "Format"
+msgstr "Μορφή"
+
+#: dialogpages/diffpage.cpp:237
+#, kde-format
+msgctxt "@title:group"
+msgid "General"
+msgstr "Γενικά"
+
+#: dialogpages/diffpage.cpp:239
+#, kde-format
+msgctxt "@option:check"
+msgid "&Treat new files as empty"
+msgstr "&Θεώρηση των νέων αρχείων ως κενά"
+
+#: dialogpages/diffpage.cpp:240
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -N diff option."
+msgstr "Αυτό αντιστοιχεί με την επιλογή -Ν στο diff."
+
+#: dialogpages/diffpage.cpp:241
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will treat a file that only exists in one of "
+"the directories as empty in the other directory. This means that the file is "
+"compared with an empty file and because of this will appear as one big "
+"insertion or deletion."
+msgstr ""
+"Με αυτήν την επιλογή ενεργή το diff χειρίζεται ένα αρχείο που υπάρχει μόνο "
+"στον έναν κατάλογο ως κενό στον άλλον κατάλογο. Αυτό σημαίνει ότι το αρχείο "
+"συγκρίνεται με ένα κενό αρχείο και εξαιτίας αυτούς θα εμφανίζεται ως μια "
+"μεγάλη εισαγωγή ή διαγραφή."
+
+#: dialogpages/diffpage.cpp:244
+#, kde-format
+msgctxt "@option:check"
+msgid "&Look for smaller changes"
+msgstr "&Αναζήτηση για μικρότερες αλλαγές"
+
+#: dialogpages/diffpage.cpp:245
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -d diff option."
+msgstr "Αυτό αντιστοιχεί με την επιλογή -d στο diff."
+
+#: dialogpages/diffpage.cpp:246
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will try a little harder (at the cost of more "
+"memory) to find fewer changes."
+msgstr ""
+"Με αυτήν την επιλογή ενεργή το diff θα προσπαθήσει περισσότερο (με κόστος "
+"στη χρήση μνήμης) για την εύρεση λιγότερων τροποποιήσεων."
+
+#: dialogpages/diffpage.cpp:248
+#, kde-format
+msgctxt "@option:check"
+msgid "O&ptimize for large files"
+msgstr "&Βελτιστοποίηση για μεγάλα αρχεία"
+
+#: dialogpages/diffpage.cpp:249
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -H diff option."
+msgstr "Αυτό αντιστοιχεί με την επιλογή -H στο diff."
+
+#: dialogpages/diffpage.cpp:250
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option lets diff makes better diffs when using large files. The "
+"definition of large is nowhere to be found though."
+msgstr ""
+"Αυτή η επιλογή επιτρέπει στο diff τη δημιουργία καλύτερων διαφορών σε μεγάλα "
+"αρχεία. Δεν είναι σαφής όμως ο ορισμός του μεγάλου αρχείου."
+
+#: dialogpages/diffpage.cpp:252
+#, kde-format
+msgctxt "@option:check"
+msgid "&Ignore changes in case"
+msgstr "Α&γνόηση αλλαγών μεταξύ πεζών και κεφαλαίων"
+
+#: dialogpages/diffpage.cpp:253
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -i diff option."
+msgstr "Αυτό αντιστοιχεί με την επιλογή -i στο diff."
+
+#: dialogpages/diffpage.cpp:254
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option to ignore changes in case enabled, diff will not indicate a "
+"difference when something in one file is changed into SoMEthing in the other "
+"file."
+msgstr ""
+"Με αυτήν την επιλογή ενεργή για την αγνόηση των τροποποιήσεων, το diff δε θα "
+"εμφανίζει διαφορά όταν ένα τμήμα ενός αρχείου τροποποιηθεί σε κάποιο άλλο "
+"τμήμα στο άλλο αρχείο."
+
+#: dialogpages/diffpage.cpp:262
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore regexp:"
+msgstr "Παράβλεψη κανονικών εκφράσεων:"
+
+#: dialogpages/diffpage.cpp:263
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -I diff option."
+msgstr "Αυτό αντιστοιχεί με την επιλογή -I στο diff."
+
+#: dialogpages/diffpage.cpp:264
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"When this checkbox is enabled, an option to diff is given that will make "
+"diff ignore lines that match the regular expression."
+msgstr ""
+"Αν ενεργοποιηθεί αυτό το πλαίσιο επιλογής, το diff θα μπορεί να αγνοεί "
+"αρχεία που ταιριάζουν με την κανονική έκφραση."
+
+#: dialogpages/diffpage.cpp:268
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Add the regular expression here that you want to use\n"
+"to ignore lines that match it."
+msgstr ""
+"Προσθέστε εδώ την κανονική έκφραση που θα χρησιμοποιηθεί\n"
+"για την παράβλεψη των γραμμών που ταιριάζουν με αυτή."
+
+#: dialogpages/diffpage.cpp:274
+#, kde-format
+msgctxt "@title:group"
+msgid "Whitespace"
+msgstr "Κενό"
+
+#: dialogpages/diffpage.cpp:276
+#, kde-format
+msgctxt "@option:check"
+msgid "E&xpand tabs to spaces in output"
+msgstr "&Μετατροπή των στηλοθετών σε κενά στην έξοδο"
+
+#: dialogpages/diffpage.cpp:277
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -t diff option."
+msgstr "Αυτή η επιλογή αντιστοιχεί στην επιλογή -t του diff."
+
+#: dialogpages/diffpage.cpp:278
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option does not always produce the right result. Due to this expansion "
+"Kompare may have problems applying the change to the destination file."
+msgstr ""
+"Αυτή η επιλογή δεν παράγει πάντα το σωστό αποτέλεσμα. Εξαιτίας αυτής της "
+"ανάπτυξης το Kompare μπορεί να έχει προβλήματα στην εφαρμογή των "
+"τροποποιήσεων στο αρχείο προορισμού."
+
+#: dialogpages/diffpage.cpp:280
+#, kde-format
+msgctxt "@option:check"
+msgid "I&gnore added or removed empty lines"
+msgstr "Α&γνόηση πρόσθετων ή αφαιρούμενων κενών γραμμών"
+
+#: dialogpages/diffpage.cpp:281
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -B diff option."
+msgstr "Αυτή η επιλογή αντιστοιχεί στην επιλογή -B του diff."
+
+#: dialogpages/diffpage.cpp:282
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This can be very useful in situations where code has been reorganized and "
+"empty lines have been added or removed to improve legibility."
+msgstr ""
+"Αυτό μπορεί να είναι χρήσιμο σε καταστάσεις όπου ο κώδικας έχει "
+"αναδιοργανωθεί και έχουν προστεθεί ή αφαιρεθεί κενές γραμμές για τη βελτίωση "
+"της αναγνωσιμότητας."
+
+#: dialogpages/diffpage.cpp:284
+#, kde-format
+msgctxt "@option:check"
+msgid "Ig&nore changes in the amount of whitespace"
+msgstr "Α&γνόηση αλλαγών στο πλήθος των κενών"
+
+#: dialogpages/diffpage.cpp:285
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -b diff option."
+msgstr "Αυτή η επιλογή αντιστοιχεί στην επιλογή -b του diff."
+
+#: dialogpages/diffpage.cpp:286
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you are uninterested in differences arising due to, for example, changes "
+"in indentation, then use this option."
+msgstr ""
+"Αν δεν σας ενδιαφέρουν οι διαφορές που προέρχονται, για παράδειγμα, από "
+"τροποποιήσεις στις εσοχές του κειμένου, τότε χρησιμοποιήστε αυτήν την "
+"επιλογή."
+
+#: dialogpages/diffpage.cpp:288
+#, kde-format
+msgctxt "@option:check"
+msgid "Ign&ore all whitespace"
+msgstr "Α&γνόηση όλων των κενών"
+
+#: dialogpages/diffpage.cpp:289
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -w diff option."
+msgstr "Αυτή η επιλογή αντιστοιχεί στην επιλογή -w του diff."
+
+#: dialogpages/diffpage.cpp:290
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This is useful for seeing the significant changes without being overwhelmed "
+"by all the white space changes."
+msgstr ""
+"Αυτό είναι χρήσιμο για την εμφάνιση σημαντικών τροποποιήσεων χωρίς να "
+"κατακλυσμό από τροποποιήσεις λευκών κενών."
+
+#: dialogpages/diffpage.cpp:292
+#, kde-format
+msgctxt "@option:check"
+msgid "Igno&re changes due to tab expansion"
+msgstr "Αγ&νόηση αλλαγών εξαιτίας των στηλοθετών"
+
+#: dialogpages/diffpage.cpp:293
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -E diff option."
+msgstr "Αυτή η επιλογή αντιστοιχεί στην επιλογή -E του diff."
+
+#: dialogpages/diffpage.cpp:294
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If there is a change because tabs have been expanded into spaces in the "
+"other file, then this option will make sure that these do not show up. "
+"Kompare currently has some problems applying such changes so be careful when "
+"you use this option."
+msgstr ""
+"Αν υπάρχει τροποποίηση επειδή στηλοθέτες έχουν αναπτυχθεί σε κενά σε κάποιο "
+"άλλο αρχείο, τότε η επιλογή αυτή θα έχει σαν αποτέλεσμα τη μη εμφάνιση της "
+"συγκεκριμένης. το Kompare για την ώρα έχει προβλήματα στην εφαρμογή των "
+"τροποποιήσεων οπότε να είστε προσεκτικοί με τη χρήση της επιλογής αυτής."
+
+#: dialogpages/diffpage.cpp:299
+#, kde-format
+msgctxt "@title:tab"
+msgid "Options"
+msgstr "Επιλογές"
+
+#: dialogpages/diffpage.cpp:311
+#, kde-format
+msgctxt "@title:group"
+msgid "File Pattern to Exclude"
+msgstr "Μοτίβο αρχείου για εξαίρεση"
+
+#: dialogpages/diffpage.cpp:312
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"If this is checked you can enter a shell pattern in the text box on the "
+"right or select entries from the list."
+msgstr ""
+"Αν αυτό ενεργοποιηθεί μπορείτε να εισάγετε ένα μοτίβο κελύφους στο πλαίσιο "
+"κειμένου στα δεξιά ή να επιλέξετε καταχωρήσεις από τη λίστα."
+
+#: dialogpages/diffpage.cpp:318
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter or remove a shell pattern or select one or more entries "
+"from the list."
+msgstr ""
+"Εδώ μπορείτε να εισάγετε ή να αφαιρέσετε ένα μοτίβο κελύφους ή να επιλέξετε "
+"ένα ή περισσότερες καταχωρήσεις από τη λίστα."
+
+#: dialogpages/diffpage.cpp:328
+#, kde-format
+msgctxt "@title:group"
+msgid "File with Filenames to Exclude"
+msgstr "Αρχείο με ονόματα αρχείων για εξαίρεση"
+
+#: dialogpages/diffpage.cpp:329
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "If this is checked you can enter a filename in the combo box below."
+msgstr ""
+"Αν ενεργοποιηθεί αυτό μπορείτε να εισάγετε ένα όνομα αρχείο στο παρακάτω "
+"πλαίσιο της λίστας επιλογής."
+
+#: dialogpages/diffpage.cpp:333
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter the URL of a file with shell patterns to ignore during "
+"the comparison of the folders."
+msgstr ""
+"Εδώ μπορείτε να εισάγετε μια URL ενός αρχείου με μοτίβα κελύφους για "
+"παράβλεψη κατά τη σύγκριση των φακέλων."
+
+#: dialogpages/diffpage.cpp:337
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Any file you select in the dialog that pops up when you click it will be put "
+"in the dialog to the left of this button."
+msgstr ""
+"Κάθε αρχείο που επιλέγετε στο διάλογο που εμφανίζεται όταν κάνετε κλικ σε "
+"αυτό θα τοποθετηθεί στο διάλογο στα αριστερά αυτού του κουμπιού."
+
+#: dialogpages/diffpage.cpp:344
+#, kde-format
+msgctxt "@title:tab"
+msgid "Exclude"
+msgstr "Εξαίρεση"
+
+#: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select file"
+msgstr "Επιλογή αρχείου"
+
+#: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select folder"
+msgstr "Επιλογή φακέλου"
+
+#: dialogpages/filespage.cpp:87
+#, kde-format
+msgctxt "@title:group"
+msgid "Encoding"
+msgstr "Κωδικοποίηση"
+
+#: dialogpages/filespage.cpp:92
+#, kde-format
+msgctxt "@item:inlistbox encoding"
+msgid "Default"
+msgstr "Προκαθορισμένο"
+
+#: dialogpages/filespage.cpp:126
+#, kde-format
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr "Επιλογή φακέλου"
+
+#: dialogpages/filespage.cpp:130
+#, kde-format
+msgctxt "@title:window"
+msgid "Select File"
+msgstr "Επιλογή αρχείου"
+
+#: dialogpages/viewpage.cpp:44
+#, kde-format
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "Χρώματα"
+
+#: dialogpages/viewpage.cpp:50
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Removed color:"
+msgstr "Χρώμα αφαίρεσης:"
+
+#: dialogpages/viewpage.cpp:54
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Changed color:"
+msgstr "Χρώμα αλλαγής:"
+
+#: dialogpages/viewpage.cpp:58
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Added color:"
+msgstr "Χρώμα προσθήκης:"
+
+#: dialogpages/viewpage.cpp:62
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Applied color:"
+msgstr "Χρώμα εφαρμογής:"
+
+#: dialogpages/viewpage.cpp:66
+#, kde-format
+msgctxt "@title:group"
+msgid "Mouse Wheel"
+msgstr "Ρόδα ποντικιού"
+
+#: dialogpages/viewpage.cpp:72
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of lines:"
+msgstr "Αριθμός γραμμών:"
+
+#: dialogpages/viewpage.cpp:77
+#, kde-format
+msgctxt "@title:group"
+msgid "Tabs to Spaces"
+msgstr "Στηλοθέτες σε Κενά"
+
+#: dialogpages/viewpage.cpp:83
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of spaces to convert a tab character to:"
+msgstr "Αριθμός κενών στα οποία μετατρέπεται ένας χαρακτήρας στηλοθέτη:"
+
+#: dialogpages/viewpage.cpp:94
+#, kde-format
+msgctxt "@title:group"
+msgid "Text Font"
+msgstr "Γραμματοσειρά κειμένου"
+
+#: dialogpages/viewpage.cpp:98
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Font:"
+msgstr "Γραμματοσειρά:"
+
+#: dialogpages/viewpage.cpp:103
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Size:"
+msgstr "Μέγεθος:"
+
+#: dialogpages/viewpage.cpp:107
+#, kde-format
+msgctxt "@title:tab"
+msgid "Fonts"
+msgstr "Γραμματοσειρές"
+
+#: komparenavtreepart/komparenavtreepart.cpp:55
+#, kde-format
+msgctxt "@title:column"
+msgid "Source Folder"
+msgstr "Φάκελος πηγής"
+
+#: komparenavtreepart/komparenavtreepart.cpp:61
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination Folder"
+msgstr "Φάκελος προορισμού"
+
+#: komparenavtreepart/komparenavtreepart.cpp:68
+#, kde-format
+msgctxt "@title:column"
+msgid "Source File"
+msgstr "Αρχείο πηγής"
+
+#: komparenavtreepart/komparenavtreepart.cpp:69
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination File"
+msgstr "Αρχείο προορισμού"
+
+#: komparenavtreepart/komparenavtreepart.cpp:78
+#, kde-format
+msgctxt "@title:column"
+msgid "Source Line"
+msgstr "Γραμμή πηγής"
+
+#: komparenavtreepart/komparenavtreepart.cpp:79
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination Line"
+msgstr "Γραμμή προορισμού"
+
+#: komparenavtreepart/komparenavtreepart.cpp:80
+#, kde-format
+msgctxt "@title:column"
+msgid "Difference"
+msgstr "Διαφορά"
+
+#: komparenavtreepart/komparenavtreepart.cpp:455
+#, kde-format
+msgid "Applied: Changes made to %1 line undone"
+msgid_plural "Applied: Changes made to %1 lines undone"
+msgstr[0] "Εφαρμογή: αναίρεση των αλλαγών σε %1 γραμμή"
+msgstr[1] "Εφαρμογή: αναίρεση των αλλαγών σε %1 γραμμές"
+
+#: komparenavtreepart/komparenavtreepart.cpp:458
+#, kde-format
+msgid "Changed %1 line"
+msgid_plural "Changed %1 lines"
+msgstr[0] "Αλλαγμένη %1 γραμμή"
+msgstr[1] "Αλλαγμένες %1 γραμμές"
+
+#: komparenavtreepart/komparenavtreepart.cpp:463
+#, kde-format
+msgid "Applied: Insertion of %1 line undone"
+msgid_plural "Applied: Insertion of %1 lines undone"
+msgstr[0] "Εφαρμογή: αναίρεση εισαγωγής %1 γραμμής"
+msgstr[1] "Εφαρμογή: αναίρεση εισαγωγής %1 γραμμών"
+
+#: komparenavtreepart/komparenavtreepart.cpp:466
+#, kde-format
+msgid "Inserted %1 line"
+msgid_plural "Inserted %1 lines"
+msgstr[0] "Εισαγωγή %1 γραμμή"
+msgstr[1] "Εισαγωγή %1 γραμμές"
+
+#: komparenavtreepart/komparenavtreepart.cpp:471
+#, kde-format
+msgid "Applied: Deletion of %1 line undone"
+msgid_plural "Applied: Deletion of %1 lines undone"
+msgstr[0] "Εφαρμογή: αναίρεση διαγραφής %1 γραμμής"
+msgstr[1] "Εφαρμογή: αναίρεση διαγραφής %1 γραμμών"
+
+#: komparenavtreepart/komparenavtreepart.cpp:474
+#, kde-format
+msgid "Deleted %1 line"
+msgid_plural "Deleted %1 lines"
+msgstr[0] "Διαγραμμένη %1 γραμμή"
+msgstr[1] "Διαγραμμένες %1 γραμμές"
+
+#: komparenavtreepart/komparenavtreepart.cpp:628
+#, kde-format
+msgctxt "@item directory name not known"
+msgid "Unknown"
+msgstr "Άγνωστο"
+
+#: komparepart/kompare_part.cpp:179
+#, kde-format
+msgctxt "@action"
+msgid "Save &All"
+msgstr "Αποθήκευση ό&λων"
+
+#: komparepart/kompare_part.cpp:181
+#, kde-format
+msgctxt "@action"
+msgid "Save &Diff..."
+msgstr "Αποθήκευση &diff..."
+
+#: komparepart/kompare_part.cpp:183
+#, kde-format
+msgctxt "@action"
+msgid "Swap Source with Destination"
+msgstr "Εναλλαγή πηγής με προορισμό"
+
+#: komparepart/kompare_part.cpp:190
+#, kde-format
+msgctxt "@action"
+msgid "Show Statistics"
+msgstr "Εμφάνιση στατιστικών"
+
+#: komparepart/kompare_part.cpp:193
+#, kde-format
+msgctxt "@action"
+msgid "Refresh Diff"
+msgstr "Ανανέωση diff"
+
+#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#, kde-format
+msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
+msgstr "<qt>Το URL %1 είναι αδύνατο να ανακτηθεί.</qt>"
+
+#: komparepart/kompare_part.cpp:356
+#, kde-format
+msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
+msgstr "<qt>Το URL %1 δεν υπάρχει στο σύστημά σας.</qt>"
+
+#: komparepart/kompare_part.cpp:544
+#, kde-format
+msgctxt "@title:window"
+msgid "Diff Options"
+msgstr "Επιλογές diff"
+
+#: komparepart/kompare_part.cpp:565
+#, kde-format
+msgctxt "@title:window"
+msgid "Save .diff"
+msgstr "Αποθήκευση .diff"
+
+#: komparepart/kompare_part.cpp:567
+#, kde-format
+msgid "Patch Files (*.diff *.dif *.patch)"
+msgstr "Διόρθωση αρχείων (*.diff *.dif *.patch)"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgid "The file exists or is write-protected; do you want to overwrite it?"
+msgstr ""
+"Το αρχείο υπάρχει ή έχει προστασία εγγραφής. Θέλετε να το αντικαταστήσετε;"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgctxt "@window:title"
+msgid "File Exists"
+msgstr "Το αρχείο υπάρχει"
+
+#: komparepart/kompare_part.cpp:569
+#, kde-format
+msgctxt "@action:button"
+msgid "Do Not Overwrite"
+msgstr "Να μη γίνει αντικατάσταση"
+
+#: komparepart/kompare_part.cpp:653
+#, kde-format
+msgctxt "@info:status"
+msgid "Running diff..."
+msgstr "Εκτέλεση diff..."
+
+#: komparepart/kompare_part.cpp:656
+#, kde-format
+msgctxt "@info:status"
+msgid "Parsing diff output..."
+msgstr "Ανάλυση εξόδου diff..."
+
+#: komparepart/kompare_part.cpp:712
+#, kde-format
+msgctxt "@info:status"
+msgid "Comparing file %1 with file %2"
+msgstr "Σύγκριση αρχείου %1 με αρχείο %2"
+
+#: komparepart/kompare_part.cpp:717
+#, kde-format
+msgctxt "@info:status"
+msgid "Comparing files in %1 with files in %2"
+msgstr "Σύγκριση αρχείων στο %1 με τα αρχεία στο %2"
+
+#: komparepart/kompare_part.cpp:722
+#, kde-format
+msgctxt "@info:status"
+msgid "Viewing diff output from %1"
+msgstr "Εμφάνιση εξόδου diff από %1"
+
+#: komparepart/kompare_part.cpp:725
+#, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into file %2"
+msgstr "Ανάμειξη εξόδου diff από %1 στο αρχείο %2"
+
+#: komparepart/kompare_part.cpp:730
+#, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into folder %2"
+msgstr "Ανάμειξη εξόδου diff από %1 στο φάκελο %2"
+
+#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
+#: komparepart/kompare_part.cpp:927
+#, kde-format
+msgid ""
+"You have made changes to the destination file(s).\n"
+"Would you like to save them?"
+msgstr ""
+"Κάνατε αλλαγές στο αρχείο(α) προορισμού.\n"
+"Θέλετε να τις αποθηκεύσετε;"
+
+#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
+#: komparepart/kompare_part.cpp:929
+#, kde-format
+msgctxt "@title:window"
+msgid "Save Changes?"
+msgstr "Αποθήκευση αλλαγών;"
+
+#: komparepart/kompare_part.cpp:852
+#, kde-format
+msgctxt "@item diff format"
+msgid "Unified"
+msgstr "Ενοποιημένο"
+
+#: komparepart/kompare_part.cpp:855
+#, kde-format
+msgctxt "@item diff format"
+msgid "Context"
+msgstr "Σχετικό"
+
+#: komparepart/kompare_part.cpp:858
+#, kde-format
+msgctxt "@item diff format"
+msgid "RCS"
+msgstr "RCS"
+
+#: komparepart/kompare_part.cpp:861
+#, kde-format
+msgctxt "@item diff format"
+msgid "Ed"
+msgstr "Ed"
+
+#: komparepart/kompare_part.cpp:864
+#, kde-format
+msgctxt "@item diff format"
+msgid "Normal"
+msgstr "Κανονικό"
+
+#: komparepart/kompare_part.cpp:868
+#, kde-format
+msgctxt "@item diff format"
+msgid "Unknown"
+msgstr "Άγνωστο"
+
+#: komparepart/kompare_part.cpp:884
+#, kde-format
+msgid ""
+"No diff file, or no 2 files have been diffed. Therefore no stats are "
+"available."
+msgstr ""
+"Δεν υπάρχει αρχείο diff ή δεν έχει γίνει diff 2 αρχείων. Έτσι δεν υπάρχουν "
+"διαθέσιμα στατιστικά."
+
+#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:916
+#, kde-format
+msgctxt "@title:window"
+msgid "Diff Statistics"
+msgstr "Στατιστικά diff"
+
+#: komparepart/kompare_part.cpp:890
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Old file: %1\n"
+"New file: %2\n"
+"\n"
+"Format: %3\n"
+"Number of hunks: %4\n"
+"Number of differences: %5"
+msgstr ""
+"Στατιστικά:\n"
+"\n"
+"Παλιό αρχείο: %1\n"
+"Νέο αρχείο: %2\n"
+"\n"
+"Μορφή: %3\n"
+"Αριθμός hunks: %4\n"
+"Αριθμός διαφορών: %5"
+
+#: komparepart/kompare_part.cpp:903
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Number of files in diff file: %1\n"
+"Format: %2\n"
+"\n"
+"Current old file: %3\n"
+"Current new file: %4\n"
+"\n"
+"Number of hunks: %5\n"
+"Number of differences: %6"
+msgstr ""
+"Στατιστικά:\n"
+"\n"
+"Αριθμός αρχείων στο αρχείο diff: %1\n"
+"Μορφή: %2\n"
+"\n"
+"Τρέχον παλιό αρχείο: %3\n"
+"Τρέχον νέο αρχείο: %4\n"
+"\n"
+"Αριθμός hunks: %5\n"
+"Αριθμός διαφορών: %6"
+
+#. i18n: ectx: Menu (difference)
+#: komparepart/komparepartui.rc:17
+#, kde-format
+msgid "&Difference"
+msgstr "&Διαφορά"
+
+#: komparepart/kompareprefdlg.cpp:26
+#, kde-format
+msgctxt "@title:window"
+msgid "Preferences"
+msgstr "Προτιμήσεις"
+
+#: komparepart/kompareprefdlg.cpp:36
+#, kde-format
+msgctxt "@title:tab"
+msgid "View"
+msgstr "Προβολή"
+
+#: komparepart/kompareprefdlg.cpp:38
+#, kde-format
+msgctxt "@title"
+msgid "View Settings"
+msgstr "Ρυθμίσεις προβολής"
+
+#: komparepart/kompareprefdlg.cpp:44
+#, kde-format
+msgctxt "@title"
+msgid "Diff Settings"
+msgstr "Ρυθμίσεις diff"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
+#: komparepart/komparesaveoptionsbase.ui:29
+#, kde-format
+msgid "Format"
+msgstr "Μορφή"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
+#: komparepart/komparesaveoptionsbase.ui:35
+#, kde-format
+msgid "&Context"
+msgstr "&Περιεχόμενο"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
+#: komparepart/komparesaveoptionsbase.ui:42
+#, kde-format
+msgid "Ed"
+msgstr "Ed"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
+#: komparepart/komparesaveoptionsbase.ui:49
+#, kde-format
+msgid "&Normal"
+msgstr "&Κανονικό"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
+#: komparepart/komparesaveoptionsbase.ui:56
+#, kde-format
+msgid "RCS"
+msgstr "RCS"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
+#: komparepart/komparesaveoptionsbase.ui:63
+#, kde-format
+msgid "&Unified"
+msgstr "&Ενοποιημένο"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
+#: komparepart/komparesaveoptionsbase.ui:73
+#, kde-format
+msgid "&Side-by-side"
+msgstr "&Δίπλα-δίπλα"
+
+#. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
+#: komparepart/komparesaveoptionsbase.ui:85
+#, kde-format
+msgid "Number of context lines:"
+msgstr "Αριθμός σχετιζόμενων γραμμών:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
+#: komparepart/komparesaveoptionsbase.ui:126
+#, kde-format
+msgid "Options"
+msgstr "Επιλογές"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_SmallerChangesCB)
+#: komparepart/komparesaveoptionsbase.ui:132
+#, kde-format
+msgid "Look for smaller changes"
+msgstr "Έλεγχος για μικρότερες διαφορές"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:142
+#, kde-format
+msgid "Optimize for large files"
+msgstr "Βελτιστοποίηση για μεγάλα αρχεία"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
+#: komparepart/komparesaveoptionsbase.ui:152
+#, kde-format
+msgid "Ignore changes in case"
+msgstr "Παράβλεψη αλλαγών μεταξύ πεζών και κεφαλαίων"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
+#: komparepart/komparesaveoptionsbase.ui:159
+#, kde-format
+msgid "Expand tabs to spaces"
+msgstr "Μετατροπή των στηλοθετών σε κενά"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
+#: komparepart/komparesaveoptionsbase.ui:166
+#, kde-format
+msgid "Ignore added or removed empty lines"
+msgstr "Παράβλεψη πρόσθετων ή αφαιρούμενων κενών γραμμών"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
+#: komparepart/komparesaveoptionsbase.ui:173
+#, kde-format
+msgid "Ignore changes in whitespace"
+msgstr "Παράβλεψη αλλαγών στα κενά"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
+#: komparepart/komparesaveoptionsbase.ui:180
+#, kde-format
+msgid "Show function names"
+msgstr "Εμφάνιση των ονομάτων των συναρτήσεων"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
+#: komparepart/komparesaveoptionsbase.ui:190
+#, kde-format
+msgid "Compare folders recursively"
+msgstr "Σύγκριση φακέλων αναδρομικά"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:200
+#, kde-format
+msgid "Treat new files as empty"
+msgstr "Θεώρηση των καινούριων αρχείων ως κενά"
+
+#. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
+#: komparepart/komparesaveoptionsbase.ui:222
+#, kde-format
+msgid "Run Diff In"
+msgstr "Εκτέλεση diff στο"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
+#: komparepart/komparesaveoptionsbase.ui:247
+#, kde-format
+msgid "Command Line"
+msgstr "Γραμμή εντολών"
+
+#. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
+#: komparepart/komparesaveoptionsbase.ui:256
+#, kde-format
+msgid "cd dir && diff -udHprNa -- source destination"
+msgstr "cd dir && diff -udHprNa -- πηγή προορισμός"
+
+#~ msgid "KompareNavTreePart"
+#~ msgstr "KompareNavTreePart"
+
+#~ msgid "KomparePart"
+#~ msgstr "KomparePart"
+
+#, fuzzy
+#~| msgid "&Edit..."
+#~ msgctxt "@action:button"
+#~ msgid "&Edit..."
+#~ msgstr "&Επεξεργασία..."
+
+#, fuzzy
+#~| msgid ""
+#~| "Clicking this will open a regular expression dialog where\n"
+#~| "you can graphically create regular expressions."
+#~ msgctxt "@info:tooltip"
+#~ msgid ""
+#~ "Clicking this will open a regular expression dialog where\n"
+#~ "you can graphically create regular expressions."
+#~ msgstr ""
+#~ "Κάνοντας κλικ αυτό θα ανοίξει ένας διάλογος κανονικής έκφρασης όπου\n"
+#~ "μπορείτε γραφικά να δημιουργήσετε κανονικές εκφράσεις."
+
+#~ msgid "Overwrite"
+#~ msgstr "Αντικατάσταση"
+
+#~ msgid "Compare these files or folder"
+#~ msgstr "Σύγκριση αυτών των αρχείων ή φακέλων"
+
+#~ msgid "&Apply Difference"
+#~ msgstr "&Εφαρμογή διαφοράς"
+
+#~ msgid "Un&apply Difference"
+#~ msgstr "Αν&αίρεση εφαρμογής διαφοράς"
+
+#~ msgid "App&ly All"
+#~ msgstr "Ε&φαρμογή όλων"
+
+#~ msgid "&Unapply All"
+#~ msgstr "Α&ναίρεση εφαρμογής όλων"
+
+#~ msgid "P&revious File"
+#~ msgstr "Π&ροηγούμενο αρχείο"
+
+#~ msgid "&Previous Difference"
+#~ msgstr "Πρ&οηγούμενη διαφορά"
+
+#~ msgid "&Next Difference"
+#~ msgstr "Επό&μενη διαφορά"
+
+#~ msgid ""
+#~ "<qt>No models or no differences, this file: <b>%1</b>, is not a valid "
+#~ "diff file.</qt>"
+#~ msgstr ""
+#~ "<qt>Χωρίς μοντέλα ή χωρίς διαφορές, το αρχείο: <b>%1</b>, δεν είναι ένα "
+#~ "έγκυρο αρχείο διαφορών.</qt>"
+
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>."
+#~ "</qt>"
+#~ msgstr ""
+#~ "<qt>Υπήρξαν προβλήματα εφαρμογής του diff <b>%1</b> στο αρχείο <b>%2</b>."
+#~ "</qt>"
+
+#~ msgid ""
+#~ "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</"
+#~ "b>.</qt>"
+#~ msgstr ""
+#~ "<qt>Υπήρξαν προβλήματα εφαρμογής του diff <b>%1</b> στο φάκελο <b>%2</b>."
+#~ "</qt>"
+
+#~ msgid "Could not open a temporary file."
+#~ msgstr "Αδύνατο το άνοιγμα ενός προσωρινού αρχείου."
+
+#~ msgid ""
+#~ "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>"
+#~ msgstr ""
+#~ "<qt>Αδύνατη η εγγραφή στο προσωρινό αρχείο <b>%1</b>, το διαγράφω.</qt>"
+
+#~ msgid ""
+#~ "<qt>Could not create destination directory <b>%1</b>.\n"
+#~ "The file has not been saved.</qt>"
+#~ msgstr ""
+#~ "<qt>Αδύνατη η δημιουργία του καταλόγου προορισμού <b>%1</b>.\n"
+#~ "Το αρχείο δεν αποθηκεύτηκε.</qt>"
+
+#~ msgid ""
+#~ "<qt>Could not upload the temporary file to the destination location <b>"
+#~ "%1</b>. The temporary file is still available under: <b>%2</b>. You can "
+#~ "manually copy it to the right place.</qt>"
+#~ msgstr ""
+#~ "<qt>Αδυναμία αποστολής του προσωρινού αρχείου στην τοποθεσία προορισμού "
+#~ "<b>%1</b>. Το προσωρινό αρχείο είναι ακόμη διαθέσιμο κάτω από το: <b>%2</"
+#~ "b>. Μπορείτε να το αντιγράψετε χειροκίνητα στη σωστή θέση.</qt>"
+
+#~ msgid "Could not parse diff output."
+#~ msgstr "Δεν ήταν δυνατή η επεξεργασία της εξόδου του diff."
+
+#~ msgid "The files are identical."
+#~ msgstr "Τα αρχεία είναι όμοια."
+
+#~ msgid "Could not write to the temporary file."
+#~ msgstr "Αδύνατο η εγγραφή στο προσωρινό αρχείο."
+
+#~ msgid ""
+#~ "The diff is malformed. Some lines could not be parsed and will not be "
+#~ "displayed in the diff view."
+#~ msgstr ""
+#~ "Το diff είναι κακοδιατυπωμένο. Δεν είναι δυνατή η ανάλυση ορισμένων "
+#~ "γραμμών και δεν θα εμφανιστούν στην προβολή του diff."
+
+#~ msgid "Could not find our KompareViewPart."
+#~ msgstr "Αδύνατο να βρεθεί το KompareViewPart."
+
+#~ msgid "Could not find our KompareNavigationPart."
+#~ msgstr "Αδύνατο να βρεθεί το KompareNavigationPart."
+
+#~ msgid "A&ppearance"
+#~ msgstr "Εμ&φάνιση"
+
+#~ msgid "&Diff"
+#~ msgstr "&Diff"
+
+#~ msgid "&Format"
+#~ msgstr "&Μορφή"
+
+#~ msgid "O&ptions"
+#~ msgstr "&Επιλογές"

@@ -1,0 +1,1702 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+   <!ENTITY kappname "&kompare;">
+   <!ENTITY version "4.4.0">
+   <!ENTITY package "kdesdk">
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % Estonian  "INCLUDE">
+]>
+
+<book id="kompare" lang="&language;">
+
+<bookinfo>
+ <title
+>&kompare; käsiraamat</title>
+
+ <authorgroup>
+
+<author
+><firstname
+>Sean</firstname
+><surname
+>Wheller</surname
+><email
+>sean@inwords.co.za</email
+></author>
+ <othercredit role="translator"
+><firstname
+>Marek</firstname
+><surname
+>Laane</surname
+><affiliation
+><address
+><email
+>bald@starman.ee</email
+></address
+></affiliation
+><contrib
+>Tõlge eesti keelde</contrib
+></othercredit
+> 
+ </authorgroup>
+
+<copyright>
+<year
+>2007</year>
+<holder
+>Sean Wheller</holder>
+</copyright>
+
+ <legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2010-07-22</date>
+<releaseinfo
+>&version;</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kompare; graafiline rakendus, mis võimaldab vaadata lähtefailide erinevusi ja neid ühendada. &kompare;t võib kasutada nii failide kui ka kataloogide erinevuste võrdlemiseks. &kompare; toetab väga mitmesuguseid diff-failide vorminguid ning pakub arvukalt võimalusi kuvatava teabe kohandamiseks.</para>
+<para
+>Käesolev käsiraamat kirjeldab &kompare; versiooni &version;.</para>
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Kompare</keyword>
+<keyword
+>Erinevused</keyword>
+<keyword
+>Ühendamine</keyword>
+<keyword
+>Paik</keyword>
+<keyword
+>Tükk</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Sissejuhatus</title
+> 
+
+<para
+>Kui kaks või enam inimest töötavad ühe ja sama faili kallal ning saadavad seda edasi-tagasi, muutub tasapisi keeruliseks näha, milliseid muutusi on faili uues versioonis tehtud. Üks võimalus on avada kõrvuti uus variant ja originaal, kuid see nõuab aega ja vaeva ning võib kergesti tuua kaasa vigu. Siinkohal tulebki kasuks rakendus, mis on spetsiaalselt mõeldud erinevuste näitamiseks (nende kohta tarvitatakse sageli inglise keelest tulenevat lühendit diff).</para>
+
+<para
+>Nagu oodata, on sellisele programmile parim nimi &quot;diff&quot;. Ja nii ongi: programm diff on paigaldatud enamasti kõigis &Linux; distributsioonides ja selle ülesanne ongi erinevuste näitamine. Arendajad kasutavad diff'i sageli käsureal, et uurida lähtekoodi versioonide erinevusi. Kuid diff'i kasutamine ei ole kaugeltki piiratud lähtekoodiga - selle abil võib uurida väga paljusid tekstifaile.</para>
+
+<para
+>Diff'i kasutamine käsureal on samas tülikas, juba selle käskude süntaksi õppimine ja väljundi tõlgendamine võib kogenematumaid kasutajaid täiesti segadusse ajada. Siin tulebki mängu &kompare;. Programmi diff graafilise kasutajaliidesega saab näidata lähte- ja sihtfaili teineteise kõrval, kusjuures erinevused on automaatselt esile tõstetud. Samas saab kohe ühe faili erinevusi rakendada teisele failile igati kontrollitud viisil. Sugugi kõiki erinevusi pole vaja rakendada, nii mõnedki erinevused võivadki jääda &apos;rakendamata&apos;. Kui kõik vajalikud muudatused on rakendatud, saab faili salvestada ning rakendus, milles see loodi, näitab seda taas nagu iga teist faili.</para>
+
+<para
+>Lisaks lähte- ja sihtfaili erinevuste kuvamisele võib &kompare; abil luua ja vaadata spetsiaalset faili &apos;diff&apos;. See koondab kahe faili erinevused ühte faili, mis võimaldab erinevusi ühekorraga näha ja vajaduse korral neid faili uuele versioonile rakendada. Võtame taas näite, kus kaks inimest redigeerivad üht dokumenti. Esimene soovib teha muudatusi ja saata teisele ainult tehtud muudatused. Tavaolukorras saadaks esimene isik teisele kogu muudetud dokumendi, kes peab siis seda eelmise variandiga külg külje kõrval võrdlema. &kompare; abil võib aga esimene isik teha kõigepealt muudetavast failist kohaliku koopia, siis võtta ette kõik vajalikud muudatused ning võrrelda originaaili ja muudetud dokumenti. &kompare; võimaldab teda diff-faili, mis sisaldab ainult tehtud muutusi. Nüüd võib terve faili asemel teisele isikule saata ainult muutusi sisaldava faili.</para>
+
+<para
+>&kompare; abil saab teine isik uurida diff-faili, võrreldes seda dokumendi kohaliku koopiaga ning rakendada sellele esimese isiku tehtud muudatused. Nii võib asi kulgeda edaspidigi: mõlemad teevad oma muudatusi, loovad diff-faili, saadavad selle teisele ning rakendavad tehtud muudatused. Seda nimetatakse enamasti &quot;paikamiseks&quot; - mõiste on kasutusele võetud programmi &quot;patch&quot; eeskujul, mille nimi tõlkes tähendabki paika ning mis on veel üks käsureatööriist spetsiaalselt diff-failide rakendamiseks.</para>
+
+<para
+>Mõnikord võib juhtuda, et inimesed muudavad faili ühel ja samal ajal. Sellisel juhul ei saa välistada sedagi, et nad teevad muudatusi täpselt ühes ja samas reas. See võib tekitada probleeme, sest saadud diff-faile rakendades võidakse sel moel üksteise töö üle kirjutada. Õnneks on programmide diff ja patch arendajad sellise võimalusega arvestaud ning tööriistad ei luba selliseid muudatusi rakendada ilma käsitsi sekkumiseta. Kui tekib selline olukord ehk &quot;konflikt&quot;, näitab &kompare; konflikte, et saksid need käsitsi lahendada, otsustades, millised muudatused millisele failile rakendada.</para>
+
+<para
+>&kompare; on suureks abiks ka failimuutuste võrdlemisel kataloogi tasemel. Kataloogide võrdlemisel uurib &kompare; rekursiivselt läbi kõik alamkataloogid ja nende failid, et tuvastada erinevused. Sel juhul avatakse kõik erinevustega failid automaatselt ning &kompare; pakub võimaluse väga hõlpsalt kõigi failide vahel liikuda.</para>
+
+</chapter>
+
+<chapter id="using">
+<title
+>&kompare; kasutamine</title>
+
+<sect1 id="getting-started">
+<title
+>Alustamine</title>
+
+<para
+>Käesolevas osas tutvustatakse &kompare; käivitamist ja antakse kiirülevaade &kompare; peaaknast.</para>
+
+<sect2 id="starting-kompare">
+<title
+>&kompare; käivitamine</title>
+
+<para
+>&kompare; saab kiiresti käivitada K-menüü alammenüüst Arendus: <menuchoice
+><guimenu
+>Arendus</guimenu
+><guimenuitem
+> Kompare</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>&kompare; esimesel käivitamisel avatakse dialoog, kus saab valida, milliseid faile võrrelda. Samas saab valida ka võrdluse ja välimuse omadusi. Vali failidialoogiga võrreldavad läthe- ja sihtfail. Need võivad olla mis tahes kaks faili, kataloogi või ka &URL; ja fail. Kui lähte- ja sihtfail on valitud, klõpsa <guibutton
+>Võrdle</guibutton
+>.</para>
+
+<para
+>Kui &kompare; on erinevused tuvastanud, kuvatakse peaakent. Kaht faili või URL-i ja faili võrreldes võtab see vaid mõne sekundi aega, kuid arvukate alamkataloogide ja failidega katalooge võrreldes võib tükk aega kuluda.</para>
+
+<para
+>Võrdlemise ja välimuse osas määratavaid valikudi tutvustab lähemalt <xref linkend="configure-preferences"/>.</para>
+</sect2>
+
+<sect2 id="main-interface">
+<title
+>Peaaken</title>
+
+<para
+>Käesolevas osas tutvustatakse lühidalt peaakent, mis koosneb järgmistest osadest:</para>
+<itemizedlist>
+<listitem
+><para
+>Menüüd</para
+></listitem>
+<listitem
+><para
+>Tööriistariba</para
+></listitem>
+<listitem
+><para
+>Lähte- ja sihtkataloogid</para
+></listitem>
+<listitem
+><para
+>Lähte- ja sihtfailid</para
+></listitem>
+<listitem
+><para
+>Lähte- ja sihtfaili ridade erinevused</para
+></listitem>
+<listitem
+><para
+>Lähte- ja sihtfaili tekstivaade</para
+></listitem>
+<listitem
+><para
+>Olekuriba</para
+></listitem>
+</itemizedlist>
+
+<sect3 id="menus">
+<title
+>Menüüd</title>
+<para
+>&kompare; juhtimine käib menüüde abil. Menüükirjeid selgitab lähemalt <xref linkend="command-reference"/>.</para>
+</sect3>
+
+<sect3 id="toolbar">
+<title
+>Tööriistariba</title>
+<para
+>&kompare; tööriistariba võimaldab kiiresti kasutada kõige levinumaid võrdlemis- ja ühendamistoiminguid. Tööriistariba orientatsiooni, teksti asetust, ikoonide suurust ja seda, milliseid ikoone kuvatakse, saab kohandada tööriistariba kontekstimenüü abil, mis avaneb tööriistaribal hiire parema nupuga klõpsates. Kontekstimenüü abil saab tööriistariba ka täielikult peita. Kui see on peidetud ja sa soovid seda taas näha, vali <menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Tööriistariba näitamine</guimenuitem
+></menuchoice
+>.</para>
+</sect3>
+
+<sect3 id="source-destination-folders">
+<title
+>Lähte- ja sihtkataloogid</title>
+<para
+>Lähte- ja sihtkataloogi paneelil kuvatakse katalooge, milles asuvad võrreldavad failid. Kui võrdlusse on kaasatud palju alamkatalooge, kuvatakse kataloogi valimisel esimest selles asuvat dokumenti, mille puhul tuvastati läthe- ja sihtfaili erinevusi.</para>
+</sect3>
+
+<sect3 id="source-destination-files">
+<title
+>Lähte- ja sihtfailid</title>
+<para
+>Lähte- ja sihtfaili paneelil kuvatakse faile, mille puhul tuvastati erinevusi parajasti valitud lähte- või sihtkataloogis. Kui kataloogis on hulga erinevusi sisaldavaid dokumente, lisatakse kõik need nimekirja. Kuvatakse valitud dokumenti.</para>
+</sect3>
+
+<sect3 id="source-destination-lines">
+<title
+>Lähte- ja sihtfaili ridade muudatused</title>
+<para
+>Lähte- ja sihtfaili ridade muudatuste paneelil kuvatakse lähte- ja sihtfaili vahel tuvastatud erinevuste kokkuvõtet. Kirje valimine paneelil tõstab esile ning valib erinevuse. See on abiks pikkades ja paljude erinevustega dokumentides liikumisel.</para>
+</sect3>
+
+<sect3 id="source-destination-view">
+<title
+>Lähte- ja sihtfaili vaade</title>
+<para
+>Lähte- ja sihtfaili vaade on &kompare; peamine tööala. Selles kuvatakse valitud lähte- ja sihtfaili sisu ning esiletõstmisega erinevusi koos reanumbritega.</para>
+</sect3>
+
+<sect3 id="text-view">
+<title
+>Tekstivaade</title>
+<para
+><guilabel
+>Tekstivaadet</guilabel
+> vaikimisi ei kuvata. Selle saab avada menüükäsuga <menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Tekstivaate näitamine</guimenuitem
+></menuchoice
+>.</para>
+<!-- Other than a notepad, what is this text view good for?  -->
+</sect3>
+
+<sect3 id="statusbar">
+<title
+>Olekuriba</title>
+<para
+>Olekuriba näitab parajasti võrreldavate lähte- ja sihtfailide või -kataloogide kokkuvõtet. Samuti näeb seal aktiivses dokumendis leitud muudatuste ning rakendatud erinevuste arvu. Lisaks näitab olekuriba valitud dokumendikogumis erinevusi sisaldavate dokumentide koguarvu ning hetkel võrreldava dokumendi järjekorranumbrit kogumis. Nii võib näiteks kahe kataloogi võrdlemisel tekkida 1890 erinevusi sisaldavat faili ning aktiivne dokument olla 18. dokument 1890-st.</para>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="viewing-differences">
+<title
+>Erinevuste vaatamine</title>
+
+<sect2 id="managing-screen-real-estate">
+<title
+>Ekraanil kuvatavaga töötamine</title>
+<para
+>&kompare; eraldab lähte- ja sihtfailile peaaknas ühepalju ruumi. Vaatealas saab aga kasutada teatud vahendeid, mis aitavad paremini erinevusi uurida:</para>
+<variablelist>
+<varlistentry>
+<term
+>Kaks kerimisriba</term>
+<listitem
+><para
+>Kõige silmatorkavam võimalus on kerimisriba nii vaateala paremas servas kui ka allservas. Kerimisribadega saab kiiresti dokumentides liikuda.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Poolitav pide</term>
+<listitem
+><para
+>Lähte- ja sihtfaili eraldav püstine riba lubab mõlemal poolel väga selgelt näha ridade algust ja lõppu, kuid lisaks sellele saab seda ka liigutada ja sel moel muuta lähte- või sihtfailile vaates antavat ruumi. Selleks vii hiirekursor püstriba peale, klõpsa ja lohista seda vastavalt vajadusele vasakule või paremale. Enesestmõistetavalt tähendab ühe poole suurendamine teise poole vähenemist.</para>
+<para
+>Teine rõhtne pide asub liikumispaneeli ning lähte- ja sihtvaate vahel.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Dokkimine</term>
+<listitem
+><para
+>Liikumispaneeli võib pealiidesest eraldada, kui klõpsata paneeli ülemises paremas nurgas asuvale ikoonile <inlinemediaobject
+> <imageobject
+><imagedata fileref="undock.png" format="PNG"/></imageobject
+></inlinemediaobject
+>. See muudab paneeli omaette aknaks ning võimaldab seda omatahtsi ekraanil paigutada. Liikumispaneeli võib isegi peita, klõpsates ikoonile <inlinemediaobject
+><imageobject
+><imagedata fileref="dock.png" format="PNG"/></imageobject
+></inlinemediaobject
+>. Peidetud liikumispaneeli taasnägemiseks klõpsa menüüribale &HPNga; ja vali kontekstimenüüst <guilabel
+>Liikumine</guilabel
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Olekuriba lülitamine</term>
+<listitem>
+<para
+>Olekuriba näitamist saab sisse ja välja lülitada menüükäsuga <menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Olekuriba näitamine</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="switching-source-and-destination-view">
+<title
+>Lähte- ja sihtfaili vaate vahetamine</title>
+
+<para
+>Mõnikord on tulus kaaluda, milline fail võtta erinevuste vaatlemisel võrdlemise aluseks, näiteks siis, kui faili kaht muudetud versiooni võrreldes leiad, et ühes on muudatusi palju rohkem kui teises. Sel juhul sobib paremini lähtefailiks rohkemate muudatustega fail, sest sel juhul on vaja vähem erinevusi rakendada.</para>
+<para
+>Sel juhul vali menüükäsk <menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Vaheta lähtefail sihtfailiga</guimenuitem
+></menuchoice
+>. See vahetab failid kõigis &kompare; paneelides.</para>
+</sect2>
+	
+<sect2 id="display-difference-statistics">
+<title
+>Erinevuste statistika kuvamine</title>
+<para
+>Erinevuste kiireks ülevaateks vali menüükäsk <menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Näita statistikat</guimenuitem
+></menuchoice
+>. See avab dialoogi <guilabel
+>Võrdlemise statistika</guilabel
+>. Selle näeb järgmist teavet:</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Vana fail:</guilabel
+></term>
+<listitem
+><para
+>Tavaliselt lähtefaili või siis faili nimi, mida ei ole muudetud.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Uus fail:</guilabel
+></term>
+<listitem
+><para
+>Tavaliselt sihtfaili või siis faili nimi, mida on muudetud ja millele erinevused rakendatakse.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Vorming:</guilabel
+></term>
+<listitem
+><para
+>Erinevuste kuvamiseks kasutatud võrdlemisvorming (vt <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Tükke:</guilabel
+></term>
+<listitem>
+<para
+>Võrdlemisel leitud tükkide arv.</para>
+<para
+>Tükk (inglise keeles 'hunk', mis tuleneb sõnas <quote
+>c<emphasis
+>hunk</emphasis
+></quote
+>) on ridade kogum, milles lähte- ja sihtfail erinevad; nende hulka võivad kuuluda ka kontekstiread, kui võrdlemisvorminguks on valitud <guilabel
+>Kontekst</guilabel
+> (vt. <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Erinevusi</guilabel
+></term>
+<listitem
+><para
+>Tegelike erinevuste, mitte tükkide arv. Tükk võib sisaldada rohkem kui üht erinevust, kui kahe või enama muutuse read ja kontekstiread kattuvad.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="navigating-the-difference-view">
+<title
+>Liikumine erinevuste vaates</title>
+<para
+>&kompare; võimaldab kiiret liikumist erinevuste vahel failide puhul ning paljude erinevate failide vahel kataloogide puhul.</para>
+
+<sect3 id="selecting-a-difference">
+<title
+>Erinevuse valimine</title>
+<para
+>Erinevust saab valida:</para>
+<itemizedlist>
+<listitem
+><para
+>klõpsuga reale lähte- ja sihtfaili ridade muutuste paneelil (peaaknas ülal paremal).</para
+></listitem>
+<listitem
+><para
+>klõpsuga esiletõstetud esinevusele vaatepaneelis.</para
+></listitem>
+<listitem
+><para
+>toodud erinevusi võrdluses kõrvutades (vt. <xref linkend="traversing-differences"/>).</para
+></listitem>
+</itemizedlist>
+<para
+>Kui erinevus on valitud, satub see <quote
+>fookusse</quote
+> ning seda kuvatakse mittevalitud erinevustega võrreldes heledama värviga.</para>
+</sect3>
+			
+<sect3 id="traversing-differences">
+<title
+>Erinevuste kõrvutamine</title>
+<para
+>Kui võrdlemisel leitakse palju erinevusi, on neid kõige etem uurida erinevusi loogilises järjekorras läbi vaadates, tavaliselt ülalt alla.</para>
+<para
+>Vaikimisi valib &kompare; esimese võrdlemisel leitud erinevuse. Valides menüükäsu <menuchoice
+><guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Järgmine erinevus</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Nool alla</keycap
+></keycombo
+>), tuuakse fookusse aktiivsele valikule järgnev erinevus. Aktiivsele valikule eelneva erinevuse nägemiseks vali menüükäsk <menuchoice
+><guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Eelmine erinevus</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Nool  üles</keycap
+></keycombo
+>).</para>
+<para
+>Sel moel saab erinevused kenasti läbi uurida ja neid rakendada või rakendamata jätta.</para>
+</sect3>
+
+<sect3 id="switching-between-files">
+<title
+>Lülitumine failide vahel</title>
+<para
+>Kui võrrelda katalooge, siis võib leida palju erinevustega faile. Nende täieliku nimekirja annavad paneelid <quote
+>Lähte- ja sihtkataloogid</quote
+> ning <quote
+>Lähte- ja sihtfailid</quote
+>. Kuid &kompare; näitab korraga ainult ühe lähte- ja sihtfaili erinevusi.</para>
+<para
+>Dokumentide vahel saab sellisel juhul lülituda järgmiselt:</para>
+<itemizedlist>
+<listitem
+><para
+>Vali <quote
+>Lähte- ja sihtkataloogide</quote
+> paneel, misjärel paneelil <quote
+>Lähte- ja sihtfailid</quote
+> näeb erinevustega faile, mille seast vali vajalik.</para
+></listitem>
+<listitem
+><para
+>Vali menüükäsk <menuchoice
+><guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Eelmine fail</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+>) või <menuchoice
+><guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Järgmine fail</guimenuitem
+></menuchoice
+>(<keycombo action="simul"
+>&Ctrl;<keycap
+>PgDown</keycap
+></keycombo
+>), et näha vastavalt eelmis või järgmist erinevustega faili, mis on ära toodud paneelil <quote
+>Lähte- ja sihtfailid</quote
+>.</para>
+</listitem>
+</itemizedlist>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="merging-differences">
+<title
+>Erinevuste ühendamine</title>
+
+<para
+>&kompare; muudab erinevuste rakendamise või eemaldamise äärmiselt lihtsaks - seda saab teha vaid hiireklõpsuga. Rakendamist võib sooritada korduvalt, sest kõik toimingud sooritatakse mälus ja kirjutatakse kettale alles siis, kui fail salvestatakse.</para>
+
+<sect2 id="applying-a-difference">
+<title
+>Erinevuse rakendamine</title>
+<para
+>Erinevuse rakendamiseks klõpsa esiletõstetud erinevusele ja vali menüükäsk <menuchoice
+><guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Rakenda erinevus</guimenuitem
+></menuchoice
+> (<keycombo
+><keycap
+>Tühikuklahv</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-a-difference">
+<title
+>Erinevuse eemaldamine</title>
+<para
+>Erinevuse eemaldamiseks klõpsa esiletõstetud erinevusel, mille varem rakendasid, ja vali menüükäsk <menuchoice
+><guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Eemalda erinevus</guimenuitem
+></menuchoice
+> (<keycombo
+>&Backspace;</keycombo
+>).</para>
+</sect2>
+	
+<sect2 id="applying-all-differences">
+<title
+>Kõigi erinevuste rakendamine</title>
+<para
+>Kui oled kõik failide erinevused läbi vaadanud ja arvad, et neid võiks kõiki rakendada, vali menüükäsk <menuchoice
+><guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Rakenda kõik</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-all-differences">
+<title
+>Kõigi erinevuste eemaldamine</title>
+<para
+>Kui soovid kõik rakendatud erinevused eemaldada, vali <menuchoice
+><guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Eemalda rakendus kõigilt</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="saving-changes">
+<title
+>Muudatuste salvestamine</title>
+<para
+>Kui erinevused on rakendatud, oleks mõttekas need salvestada menüükäsuga <menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Salvesta</guimenuitem
+></menuchoice
+> või <menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Salvesta kõik</guimenuitem
+></menuchoice
+>.</para>
+<para
+>Rakendatud erinevused salvestatakse nii lähte- kui ka sihtfaili.</para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-diff-files">
+<title
+>Erinevusfailide kasutamine</title>
+<para
+>Erinevusfailid (diff-failid) sisaldavad ainult failide erinevusi ning võivad sisaldada ka teatud hulka kontekstiridasid enne ja pärast erinevaid ridu. Muudetud ridade ja selle kontekstiridade kogumit nimetatakse tükiks. Võrdlusfail võib niisiis sisaldada mitut tükki ühest või enamast failist. Kui kahe või enama tüki kontekstiread kattuvad, peetakse neid üheks tükiks. Erinevusfaile saab kasutada järgmisteks ülesanneteks:</para>
+<itemizedlist>
+<listitem
+><para
+>Tükkides sisalduvate muudatuste rakendamiseks originaalfailile.</para
+></listitem>
+<listitem
+><para
+>Tükkides sisalduvate muudatuste rakendamiseks originaalfailile või failikogumile.</para
+></listitem>
+<listitem
+><para
+>Muutmiseks enne rakendamist originaalfailile või failikogumile.</para
+></listitem>
+</itemizedlist>
+
+<sect2 id="creating-a-diff">
+<title
+>Erinevusfaili loomine</title>
+<para
+>Erinevusfaili loomiseks tuleb võrdlust &kompare;s kuvada. Seejärel vali menüükäsk <menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Salvesta diff...</guimenuitem
+></menuchoice
+> See avab dialoogi <guilabel
+>Diffi valikud</guilabel
+> (täpsemalt kõneleb diffi vormingutest ja valikutest <xref linkend="diff-settings"/>). Pärast valikute määramist klõpsa nupule <guibutton
+>Salvesta</guibutton
+> ning salvesta erinevused faili laiendiga <filename class="extension"
+>.diff</filename
+>.</para>
+</sect2>
+
+<sect2 id="displaying-a-diff">
+<title
+>Erinevusfaili vaatamine</title>
+<para
+>Diff-faili on võimalik &kompare;s ka vaadata, kui see avada menüükäsuga<menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Ava diff...</guimenuitem
+></menuchoice
+></para>
+<para
+>Diff-faili kuvamisel näidatakse lähte ja sihtfaili tükke. Pea meeles, et näidatakse ainult tükke, mitte aga muutusteta ridu. Mõnel juhul luuakse diff-fail üldse ilma kontekstiridadeta. Sel juhul on näha ainult muudetud read.</para>
+<para
+>Kui diff-fail sisaldab tükke mitmest failist, näitab &kompare; korraga ainult ühe faili tükke ning sa saad failide vahel liikuda, nagu oleksid nad tegelikud failid, ehkki nende info pärineb kõigest diff-faili sisust.</para>
+</sect2>
+
+<sect2 id="applying-a-diff">
+<title
+>Diff-faili erinevuste rakendamine</title>
+<para
+>Diff-faili erinevusi vaadates saab neid rakendada samamoodi, nagu lähte- ja sihtfaili võrdlemisel (vt. <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+<sect2 id="blending-a-diff">
+<title
+>&URL;-i ühendamine diff'iga</title>
+<para
+>Diff-faili korral on võimalik võrrelda selle tükke faili või kataloogiga. Selleks vali menüükäsk <menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Liida URL diffiga</guimenuitem
+></menuchoice
+>. Seejärel anna <guilabel
+>faili/kataloogi</guilabel
+> ja <guilabel
+>diffi väljundi</guilabel
+> asukohad.</para>
+<para
+>Lähtefaili ja diff-faili erinevusi vaadates võib neid rakendada samamoodi, nagu lähte- ja sihtfaili võrdlemisel (vt. <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="configure-preferences">
+<title
+>Seadistamine</title>
+
+<para
+>&kompare; lubab kasutajatel määrata erinevuste vormindust peaaknas ning muuta programmi diff käitumist. Dialoogi <guilabel
+>Seadistused</guilabel
+> avamiseks vali <menuchoice
+><guimenu
+>Seadistused</guimenu
+><guisubmenu
+>&kompare; seadistamine...</guisubmenu
+></menuchoice
+></para>
+
+<para
+>Välimuse seadistamiseks vali kaart <guilabel
+>Vaade</guilabel
+> (vt. <xref linkend="view-settings"/>).</para>
+
+<para
+>Programmi diff omaduste seadistamiseks vali kaart <guilabel
+> Diff</guilabel
+> (<xref linkend="diff-settings"/>).</para>
+
+<sect1 id="view-settings">
+<title
+>Vaateseadistused</title>
+<para
+>Dialoogi <guilabel
+>Seadistused</guilabel
+> kaardil <guimenu
+>Vaade</guimenu
+>on kaks alamkaarti: <guilabel
+>Välimus</guilabel
+> ja <guilabel
+>Fondid</guilabel
+>.</para>
+
+<sect2 id="appearance">
+<title
+>Välimus</title>
+<para
+>Kaart <guilabel
+>Välimus</guilabel
+> võimaldab määrata <guilabel
+>värve</guilabel
+>, mida kasutatakse erinevuste tähistamisel peaaknas, <guilabel
+>hiireratta</guilabel
+> käitumist kerimisel ning seda, kuidas muuta <guilabel
+>tabeldusmärgid tühikuteks</guilabel
+>.</para>
+<screenshot>
+<screeninfo
+>&kompare; välimuse seadistused</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; välimuse seadistused</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Värvisektsioon</title>
+<para
+>Erinevuste kuvamisel kasutatavate värvide muutmiseks klõpsa <guilabel
+>värvide valimise</guilabel
+> sektsioonis värvinuppudele. Muuta saab järgmisi värve:</para>
+<varlistentry>
+<term
+><guilabel
+>Eemaldamise värv</guilabel
+></term>
+<listitem
+><para
+>Read, mis on eemaldatud ja mida enam ei ole.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Muutmise värv</guilabel
+></term>
+<listitem
+><para
+>Read, mis on muudetud. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Lisamise värv</guilabel
+></term>
+<listitem
+><para
+>Read, mis on lisatud.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Rakendamise värv</guilabel
+></term>
+<listitem
+><para
+>Mis tahes eelnevalt toodud olek, mille korral erinevus on rakendatud.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Hiireratas</title>
+<varlistentry>
+<term
+><guilabel
+>Ridade arv</guilabel
+></term>
+<listitem
+><para
+>Ridade arv, mille võrra hiireratas kerib.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Tabeldusmärgid tühikuteks</title>
+<varlistentry>
+<term
+><guilabel
+>Tabeldusmärgi asendamisel lisatakse tühikuid</guilabel
+></term>
+<listitem
+><para
+>Tühikute arv, millega tabeldusmärgid asendatakse.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="fonts">
+<title
+>Fondid</title>
+<screenshot>
+<screeninfo
+>&kompare; fondiseadistused</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; fondiseadistused</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Siin saab valida fondipere ja -suuruse, millega erinevusi kuvatakse.</para>
+</sect2>
+</sect1>
+
+<sect1 id="diff-settings">
+<title
+>Võrdlemise seadistused</title>
+<para
+>Dialoogi <guilabel
+>Seadistused</guilabel
+> kaardil <guimenu
+>Diff</guimenu
+> on järgmised alamkaardid: <guilabel
+>Diff</guilabel
+>, <guilabel
+>Vorming</guilabel
+>, <guilabel
+>Valikud</guilabel
+> ja <guilabel
+>Väljajätmine</guilabel
+>. Nende abil saab seadistada programmi diff käitumist.</para>
+
+<sect2 id="diff">
+<title
+>Diff</title>
+<screenshot>
+<screeninfo
+>&kompare; diffi seadistused</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; diffi seadistused</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Programmi diff käivitamiseks antav käsk (vaikimisi <application
+>diff</application
+>).</para>
+</sect2>
+
+<sect2 id="diff-format">
+<title
+>Vorming</title>
+<screenshot>
+<screeninfo
+>&kompare; vorminguseadistused</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; vorminguseadistused</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Siin saab kohandada  <guilabel
+>väljundvormingu</guilabel
+> omadusi ja <guilabel
+>kontekstiridade</guilabel
+> arvu.</para>
+<variablelist>
+<title
+>Väljundvorming</title>
+<varlistentry>
+<term
+><guilabel
+>Kontekst</guilabel
+></term>
+<listitem>
+<para
+>Kontekstiväljundi korral lisatakse erinevusi sisaldavate ridade ümber mõned kontekstiread.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Tavaline</guilabel
+></term>
+<listitem>
+<para
+>Tavaline väljundvorming näitab erinevusi sisaldavaid ridu ilma kontekstiridadeta. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Unifitseeritud</guilabel
+></term>
+<listitem>
+<para
+>Unifitseeritud väljundvorming on kontekstivormingu erim. Seda peetakse mõnevõrra paremaks, sest väljund on üleliigsete kontekstiridade väljajätmise tõttu märksa kompaktsem.</para>
+</listitem>
+</varlistentry>
+<!-- not in 3.5.1
+<varlistentry>
+<term
+><guilabel
+>Side-by-side</guilabel
+></term>
+<listitem>
+<para
+>Use the side by side output format which displays files listed in two columns with a gutter between them. This option is only available from the <guilabel
+>Diff Options</guilabel
+> dialog (see <xref linkend="creating-a-diff"/>).</para>
+</listitem>
+</varlistentry>
+-->
+</variablelist>
+<variablelist>
+<title
+>Kontekstiread</title>
+<varlistentry>
+<term
+><guilabel
+>Kontekstiridade arv</guilabel
+></term>
+<listitem>
+<para
+>Konteksti või unifitseeritud väljundvormingu valimisel saab siin määrata, mitu kontekstirida väljundisse kaasatakse.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="options">
+<title
+>Valikud</title>
+<screenshot>
+<screeninfo
+>&kompare; valikute seadistused</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff3.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; valikute seadistused</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Kaardil <guilabel
+>Valikud</guilabel
+> saab seadistada programmi diff valikuid.</para>
+<variablelist>
+<title
+>Üldine</title>
+<varlistentry>
+<term
+><guilabel
+>Uusi faile koheldakse tühjana</guilabel
+></term>
+<listitem
+><para
+>Sisselülitamisel koheldakse ainult ühes kataloogis leiduvat faili võrdlemisel teises kataloogis tühja failina. See tähendab, et faili võrreldakse tühja failiga ning seetõttu on näha vaid üks suur lisamine või kustutamine.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Otsitakse väiksemaid muudatusi</guilabel
+></term>
+<listitem
+><para
+>Märkimisel kuvab diff ka muudatusi tähesuuruses, kirjavahemärkides, tühikutes &etc;</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Optimeeritakse suurte failide jaoks</guilabel
+></term>
+<listitem
+><para
+>Märkimisel töötleb diff faile äärmise kiirusega.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignoreeritakse suur- ja väiketähe muudatusi</guilabel
+></term>
+<listitem
+><para
+>Märkimisel ei arvestata väike- ja suurtähe erinevustega.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ignoreeritakse regulaaravaldist</guilabel
+></term>
+<listitem
+><para
+>Ignoreeritakse määratud regulaaravaldisega ridu.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Tühimärk</title>
+<varlistentry>
+<term
+><guilabel
+>Tabeldusmärgid muudetakse väljundis tühikuteks</guilabel
+></term>
+<listitem
+><para
+>Märkimisel muudetakse diffi väljundis tabeldusmärgid tühikuteks, mille arv on määratud dialoogi <guilabel
+>Seadistused</guilabel
+> kaardil <guimenu
+>Vaade</guimenu
+> valikuga <guilabel
+>Tabeldusmärgid tühikuteks</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignoreeritakse lisatud või eemaldatud tühje ridu</guilabel
+></term>
+<listitem
+><para
+>Märkimisel eiratakse null märgi pikkuste ridade erinevusi.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ingoreeritakse muutusi tühimärkide arvus</guilabel
+></term>
+<listitem
+><para
+>Erinevates redaktorites võib tühimärkide arv enne ja pärast ridu ning nende vahel olla erinev. Märkimisel selliseid erinevusi eiratakse.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignoreeritakse kõiki tühimärke</guilabel
+></term>
+<listitem
+><para
+>Märkimisel eiratakse täielikult tühimärkide erinevusi.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignoreeritakse tabeldusmärkide muutmisest tulenevaid muudatusi</guilabel
+></term>
+<listitem
+><para
+>Märkimisel eiratakse tabeldusmärkide tühikuteks muutmisest põhjustatud erinevusi.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="exclude">
+<title
+>Väljajätmine</title>
+<para
+>Kaardil <guilabel
+>Väljajätmine</guilabel
+> saab määrata programmi diff filtreerimisseadistusi.</para>
+<screenshot>
+<screeninfo
+>&kompare; väljajätmise seadistused</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff4.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; väljajätmise seadistused</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Väljajäetavad failimustrid</title>
+<varlistentry>
+<term
+><guilabel
+>Väljajäetavad failimustrid</guilabel
+></term>
+<listitem
+><para
+>Väljajäetavad failid vastavalt metamärkidega määratud filtritele</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Väljajäetavad failinimed</title>
+<varlistentry>
+<term
+><guilabel
+>Väljajäetavad failinimed</guilabel
+></term>
+<listitem
+><para
+>Filtri kehtestamine vastavalt väliselt hallatud faili sisule.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+</sect1>
+
+</chapter>
+
+<chapter id="command-reference">
+<title
+>Käskude seletused</title>
+
+<sect1 id="file-menu">
+<title
+>Menüü Fail</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Fail</guimenu
+><guimenuitem
+>Ava diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Avab dialoogi <guilabel
+>Avamine</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Fail</guimenu
+><guimenuitem
+>Võrdle faile...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Avab dialoogi <guilabel
+>Failide või kataloogide võrdlemine</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Fail</guimenu
+><guimenuitem
+>Liida URL diffiga...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Avab dialoogi <guilabel
+>Faili/kataloogi liitmine võrdlemise väljundiga</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fail</guimenu
+><guimenuitem
+>Salvesta</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Kirjutab rakendatud erinevused aktiivsesse lähte- ja/või sihtfaili.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+> Fail</guimenu
+><guimenuitem
+> Salvesta Kõik</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Kirjutab rakendatud erinevused kõigisse lähte- ja/või sihtfailidesse.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Salvesta diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Avab dialoogi <guilabel
+>Diffi valikud</guilabel
+>, kus saab määrata diff-faili vormingu ja valikud.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Vaheta lähtefail sihtfailiga</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Muudab lähtefaili sihtfailiks ja vastupidi.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Näita statistikat</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Avab dialoogi <guilabel
+>Võrdlemise statistika</guilabel
+>.</para
+></listitem>
+</varlistentry>
+<!-- Print Print Preview in 4.5.1-->
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Fail</guimenu
+><guimenuitem
+>Välju</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Lõpetab &kompare; töö.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="difference-menu">
+<title
+>Menüü Erinevus</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Eemalda rakendus kõigilt</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Eemaldab kõik varem rakendatud erinevused.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Backspace;</shortcut
+> <guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Eemalda erinevus</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Eemaldab valitud varem rakendatud erinevuse.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>Tühikuklahv</keycap
+></shortcut
+> <guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Rakenda erinevus</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Rakendab valitud erinevuse.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Rakenda kõik</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Rakendab kõik erinevused.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Eelmine fail</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Muudab vaatepaneelis aktiivseks erinevuste nimekirja eelmise erinevuse.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgDown</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Järgmine fail</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Muudab vaatepaneelis aktiivseks erinevuste nimekirja järgmise erinevuse.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Nool üles</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Eelmine erinevus</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Valib aktiivsele valikule eelneva erinevuse.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Nool alla</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Erinevus</guimenu
+><guimenuitem
+>Järgmine erinevus</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Valib aktiivsele valikule järgneva erinevuse.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="settingsmenu">
+<title
+>Menüü Seadistused</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Tööriistariba näitamine</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Lülitab tööriistariba näitamist.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Olekuriba näitamine</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Lülitab olekuriba näitamist.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Tekstivaate näitamine</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Näitab <guilabel
+>tekstivaadet</guilabel
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Kiirklahvide seadistamine...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Avab dialoogi <guilabel
+>Kiirklahvide seadistamine</guilabel
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>Tööriistaribade seadistamine...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Avab dialoogi <guilabel
+>Tööriistariba seadistamine</guilabel
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Seadistused</guimenu
+><guimenuitem
+>&kompare; seadistamine...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Avab &kompare; <guilabel
+>seadistustedialoogi</guilabel
+>.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="help-menu">
+<title
+>Menüü Abi</title>
+&help.menu.documentation; </sect1>
+</chapter>
+
+<chapter id="credits">
+
+<title
+>Autorid ja litsents</title>
+
+<para
+>&kompare; </para>
+<para
+>Rakenduse autoriõigus 2001-2004: &John.Firebaugh; &John.Firebaugh.mail; ja Otto Bruggeman <email
+>otto.bruggeman@home.nl</email
+> </para>
+
+<para
+>Dokumentatsiooni autoriõigus &copy; 2007: Sean Wheller <email
+>sean@inwords.co.za</email
+> </para>
+
+<para
+>Tõlge eesti keelde: Marek Laane <email
+>bald@starman.ee</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
+
+<appendix id="installation">
+<title
+>Paigaldamine</title>
+
+<sect1 id="getting-kapp">
+<title
+>&kompare; hankimine</title>
+&install.intro.documentation; </sect1>
+
+
+<sect1 id="compilation">
+<title
+>Kompileerimine ja paigaldamine</title>
+&install.compile.documentation; </sect1>
+
+
+</appendix>
+
+&documentation.index; 
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

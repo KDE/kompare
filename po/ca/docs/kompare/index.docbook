@@ -1,0 +1,1681 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % Catalan  "INCLUDE">
+]>
+
+<book id="kompare" lang="&language;">
+
+<bookinfo>
+ <title
+>El manual del &kompare;</title>
+
+ <authorgroup>
+
+<author
+><firstname
+>Sean</firstname
+><surname
+>Wheller</surname
+><email
+>sean@inwords.co.za</email
+></author>
+ &traductor.Antoni.Bella; 
+ </authorgroup>
+
+<copyright>
+<year
+>2007</year>
+<holder
+>Sean Wheller</holder>
+</copyright>
+
+ <legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>5 de juliol de 2016</date>
+<releaseinfo
+>4.1.3 (Aplicacions 16.04)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kompare; és un programa de frontal &IGU; que habilita diferències entre fitxer font perquè es puguin veure o fusionar. Es pot emprar per a comparar diferències sobre fitxers o continguts de carpetes. També suporta una varietat de formats de diff i proveeix moltes opcions per a personalitzar el nivell d'informació mostrada.</para>
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Kompare</keyword>
+<keyword
+>Diff</keyword>
+<keyword
+>Fusiona</keyword>
+<keyword
+>Pedaç</keyword>
+<keyword
+>Bloc</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introducció</title
+> 
+
+<para
+>Quan dues o més persones treballen sobre un mateix fitxer, van i venen, es torna molt difícil veure quins canvis han realitzat a una nova versió o còpia del fitxer. Obrir cara-a-cara la nova còpia i l'original en l'aplicació usada per a crear la còpia final és una solució però resulta laboriós, una gran pèrdua de temps i esdevé un error. Aquí és a on un programa per a mostrar diferències, diffs curts, esdevé d'utilitat.</para>
+
+<para
+>Tal com s'espera, un nom apropiat per a un programa com aquest seria <quote
+>diff</quote
+>. Per descomptat el programa <ulink url="https://www.gnu.org/software/diffutils/"
+>diff</ulink
+> es troba instal·lat a la majoria de sistemes basats en &Linux; i s'usa exactament amb aquesta intenció. Els desenvolupadors usen diff tot sovint, com a una eina de línia d'ordres, per a mostrar diferències entre versions d'un fitxer de codi font. De tota manera, l'ús de diff no es troba limitat a mostrar les diferències, es pot usar sobre molts altres tipus de fitxer basats en text.</para>
+
+<para
+>Usar diff des de la línia d'ordres pot resultar confús, aprendre la seva sintaxi i desxifrar-ne la sortida pot desanimar la majoria de la gent. Aquí és a on &kompare; entra en joc. Proveint un frontal gràfic per al programa diff, la interfície mostra els fitxers font i destinació cara-a-cara amb totes les diferències automàticament ressaltades. Partint des d'aquest punt, els canvis en un fitxer es poden aplicar seqüencialment a l'altre fitxer sobre una base selectiva i controlada. No tots els canvis necessiten ser aplicats i si n'apliqueu un, aquest sempre es podrà &apos;desaplicar&apos;. Quan tots els canvis requerits s'hagin d'aplicar aleshores es pot desar i es mostrarà com a normal en l'aplicació original emprada per a crear el fitxer.</para>
+
+<para
+>A més de per a mostrar diferències entre fitxer font i destinació, &kompare; es pot usar per a crear i veure un fitxer especial anomenat &apos;diff&apos;. Aquest fitxer captura les diferències entre les dues fonts dintre d'un únic fitxer que es podrà usar per a veure i aplicar canvis a qualsevol altra còpia del fitxer. Per exemple, si dues persones editen un document. La primera persona crearà canvis i els enviarà a la segona persona. Normalment, la primera persona enviarà una còpia completa de les modificacions a la segona persona, de manera que aquesta haurà de comparar el document modificat cara-a-cara amb una versió sense modificar del document. El procés per a això és una mica més elaborat del que s'ha exposat en els anteriors paràgrafs. Amb &kompare; la primera persona primer haurà de crear una còpia local del fitxer a modificar, aleshores crear els canvis i comparar l'original i la còpia modificada. Ara usant &kompare; es podrà crear un fitxer diff que només capturi els canvis fets. Aquests es podran enviar a la segona persona en comptes de tot el fitxer que conté els canvis.</para>
+
+<para
+>Usant &kompare; la segona persona podrà veure el fitxer diff, comparar-lo amb la còpia local del document i aplicar els canvis fets per la primera persona. De manera que aquest procés es podrà fer sobre moltes versions diferents del document, cada persona podrà fer canvis, crear diff, distribuir-los i aplicar-los. Aquest procés s'anomena comunament <quote
+>apedaçat</quote
+> (<quote
+>patching</quote
+>), un terme agafat del programa anomenat <quote
+>patch</quote
+>, el qual és una altra eina de línia d'ordres específicament dissenyada amb la finalitat d'aplicar fitxers diff.</para>
+
+<para
+>A vegades succeeix que gent edita un fitxer alhora. En aquesta situació es pot donar el cas que creïn canvis sobre una mateixa línia. Això origina un problema, atès que si no s'apliquen amb cura, la gent pot estar sobreescrivint la feina d'altres persones que ja han aplicat els seus fitxers de diff. Per sort els desenvolupadors dels programes diff i patch els sembla una qüestió a considerar i aquestes eines no permetran dits canvis sense una intervenció manual. Quan s'abasti dit estat, el coneixereu com a <quote
+>conflicte</quote
+>. El &kompare; els mostrarà de manera que els pugueu resoldre, decidint quins aplicar al fitxer.</para>
+
+<para
+>&kompare; també és un gran programa per a comparar canvis de fitxer sobre un nivell de carpeta. Quan s'usa per a comparar carpetes &kompare; examina recursivament les subcarpetes i els seus continguts de fitxer per a les diferències. En aquest cas d'ús, cada fitxer a on es trobin diferències serà automàticament obert i llistat per &kompare; en una manera fàcil de navegació entre els diversos fitxers, a ser possible.</para>
+
+</chapter>
+
+<chapter id="using">
+<title
+>Usar &kompare;</title>
+
+<sect1 id="getting-started">
+<title
+>Començar</title>
+
+<para
+>Aquesta secció proveeix instruccions per a iniciar &kompare; i proveir una guia ràpida per la interfície principal de &kompare;.</para>
+
+<sect2 id="starting-kompare">
+<title
+>Iniciar &kompare;</title>
+
+<para
+>Una drecera per iniciar el &kompare; es pot trobar al menú d'aplicacions a <menuchoice
+><guimenu
+>Desenvolupament</guimenu
+><guimenuitem
+>Kompare</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>Quan s'inicia &kompare; la primera cosa que fa és mostrar un formulari de diàleg per a seleccionar els fitxers que voleu comparar. Es poden seleccionar opcions especials per a les propietats del diff i l'aparença. En el formulari de fitxer seleccioneu una font i destinació a comparar. Això es pot fer sobre fitxers, carpetes o un &URL; i un fitxer. Una vegada seleccionades la font i la destinació feu clic sobre el botó <guibutton
+>Compara</guibutton
+>.</para>
+
+<para
+>Una vegada &kompare; descobreixi les diferències les mostrarà en la interfície principal. Comparar dos fitxers o un &URL; i un fitxer pot prendre uns quants segons. De manera que quan es comparen carpetes amb moltes subcarpetes i fitxers, aquest procés pot prendre una mica més de temps.</para>
+
+<para
+>Per a una explicació de les opcions disponibles des d'un diff i aparença d'aquest vegeu <xref linkend="configure-preferences"/>.</para>
+</sect2>
+
+<sect2 id="main-interface">
+<title
+>La interfície principal</title>
+
+<para
+>Aquesta secció proveeix una guia ràpida de la interfície principal la qual es compren de les àrees següents:</para>
+<itemizedlist>
+<listitem
+><para
+>Menús</para
+></listitem>
+<listitem
+><para
+>Barra d'eines</para
+></listitem>
+<listitem
+><para
+>Carpetes font i destinació</para
+></listitem>
+<listitem
+><para
+>Fitxers font i destinació</para
+></listitem>
+<listitem
+><para
+>Canvis a línia font i destinació</para
+></listitem>
+<listitem
+><para
+>Vista de text font i destinació</para
+></listitem>
+<listitem
+><para
+>Barra d'estat</para
+></listitem>
+</itemizedlist>
+
+<sect3 id="menus">
+<title
+>Menús</title>
+<para
+>&kompare; proveeix un menú amb una interfície canviant. L'explicació per als ítems de menú i les seves opcions es proveeixen en <xref linkend="command-reference"/>.</para>
+</sect3>
+
+<sect3 id="toolbar">
+<title
+>Barra d'eines</title>
+<para
+>La barra d'eines de &kompare; proveeix dreceres per a les operacions de diff i fusió emprades més sovint. La barra d'eines conté les propietats orientació, posició de text, mida d'icones i quines dreceres d'icona seran mostrades, per a personalitzar el menú contextual accedit fent clic amb el &BDR; sobre la barra d'eines. El menú contextual de la barra d'eines també habilita o oculta la barra d'eines. Si la barra d'eines resta oculta i necessiteu tornar-la a mostrar, seleccioneu <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Mostra la barra d'eines</guimenuitem
+></menuchoice
+>.</para>
+</sect3>
+
+<sect3 id="source-destination-folders">
+<title
+>Carpetes font i destinació</title>
+<para
+>Les subfinestres de carpeta font i destinació mostren el contingut que s'està comparant. Quan en la comparació s'inclouen moltes subcarpetes, aleshores seleccionant una carpeta es mostrarà el primer document en aquesta carpeta que contingui una diferència a mostrar entre la font i la destinació.</para>
+</sect3>
+
+<sect3 id="source-destination-files">
+<title
+>Fitxers font i destinació</title>
+<para
+>La subfinestra de fitxer font i destinació mostra els fitxers en què es troba una diferència per a la carpeta font o destinació actual. Quan una carpeta conté múltiples fitxers amb diferències, seran llistats tots els documents amb alguna diferència. El document seleccionat serà mostrat.</para>
+</sect3>
+
+<sect3 id="source-destination-lines">
+<title
+>Canvis a línia font i destinació</title>
+<para
+>La subfinestra de canvis a línia font i destinació recull les diferències trobades entre els documents font i destinació. Seleccionar una de les entrades la ressaltarà a la subfinestra i seleccionarà la diferència. Això és d'utilitat per a navegar i inspeccionar documents llargs amb moltes diferències.</para>
+</sect3>
+
+<sect3 id="source-destination-view">
+<title
+>Vista font i destinació</title>
+<para
+>La vista font i destinació és l'espai de treball principal de &kompare;. El contingut i diferències ressaltades del fitxer font i destinació actual són mostrades aquí amb números de línia.</para>
+</sect3>
+
+<sect3 id="text-view">
+<title
+>Vista de text</title>
+<para
+>La <guilabel
+>Vista de text</guilabel
+> per omissió no és mostrada. Aquesta es pot obrir seleccionant <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Mostrar vista de text</guimenuitem
+></menuchoice
+>.</para>
+<!-- Other than a notepad, what is this text view good for?  -->
+</sect3>
+
+<sect3 id="statusbar">
+<title
+>Barra d'estat</title>
+<para
+>La barra d'estat proveeix un resum del fitxer o carpeta font i destinació sota comparació. La barra d'estat també informa el nombre de canvis trobats en el document actual i du la comptabilitat de les diferències que han estat aplicades. A més, la barra d'estat mostra una vista ràpida del nombre de documents que contenen diferències i el número del document que està seleccionat. Per exemple, una comparació sobre dues carpetes pot retornar 1890 fitxers amb diferències. El document actualment seleccionat seria el número 18.</para>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="viewing-differences">
+<title
+>Visualitzar les diferències</title>
+
+<sect2 id="managing-screen-real-estate">
+<title
+>Gestionar l'estat real a la pantalla</title>
+<para
+>&kompare; mostra el fitxer font i destinació emprant un tant per cent igual de l'àrea de treball de vista en la interfície principal. Aquesta àrea proveeix algunes característiques que ajuden a optimitzar l'ús de l'estat real a la pantalla mentre es visualitzen les diferències, incloent-hi:</para>
+<variablelist>
+<varlistentry>
+<term
+>Barra de desplaçament doble</term>
+<listitem
+><para
+>La característica més òbvia és que es proveeixen les barres de desplaçament; una a la vora dreta i l'altra a baix de l'àrea de vista. Usant-les és possible moure's ràpidament a través de la comparació.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Canviar de lloc la nansa</term>
+<listitem
+><para
+>L'espai vertical entre la vista font i destinació no tan sols fa possible veure l'inici i final de les línies de les subfinestres, sinó que també és una nansa que permet ajustar el tant per cent ocupat entre les vistes font i destinació que comprenen la subfinestra de vista. Per a canviar la mida de la subfinestra per a una de les vistes, mantenir el punter del ratolí sobre la nansa i llavors premeu el botó del ratolí i arrossegueu-lo a dreta o esquerra. Naturalment, s'incrementarà l'àrea d'una subfinestra fent minvar l'àrea disponible en els contigus.</para>
+<para
+>Teniu disponible una segona nansa entre la subfinestra de navegació i les vistes font i de destinació.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Acoblament</term>
+<listitem>
+<para
+>La subfinestra de navegació pot ser desacoblar de la interfície principal fent clic a la icona <inlinemediaobject
+> <imageobject
+><imagedata fileref="undock.png" format="PNG"/></imageobject
+></inlinemediaobject
+> situada a dalt a la dreta de la subfinestra. Aquest s'obre en una finestra pròpia, fet que us permetrà moure'l per la pantalla. Fins i tot podeu amagar-la fent clic a la icona <inlinemediaobject
+><imageobject
+><imagedata fileref="dock.png" format="PNG"/></imageobject
+></inlinemediaobject
+>. Per mostrar una altra vegada una barra de navegació oculta, feu clic amb el &BDR; a la barra de menús i seleccioneu <guilabel
+>Navegació</guilabel
+> des del menú contextual. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Canviar la barra d'estat</term>
+<listitem>
+<para
+>La barra d'estat de la subfinestra de vista es pot mostrar o ocultar seleccionant <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guimenuitem
+>Mostra la barra d'estat</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="switching-source-and-destination-view">
+<title
+>Canviar les vistes font i destinació</title>
+
+<para
+>A vegades es pot usar per a considerar quin fitxer amb quines diferències seran aplicades com a la font. Per exemple, quan es comparen dues versions modificades d'un fitxer i es descobreix que un d'aquests conté moltes més modificacions que l'altra. El fitxer amb més canvis fora millor com a font, atès que serà necessari aplicar menys diferències.</para>
+<para
+>En aquest cas seleccioneu <menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Intercanvia font amb destinació</guimenuitem
+></menuchoice
+>. Això canviarà els fitxers mostrats en tots els plafons.</para>
+</sect2>
+	
+<sect2 id="display-difference-statistics">
+<title
+>Mostrar estadístiques de diferències</title>
+<para
+>Per a un resum ràpid de les diferències, seleccioneu <menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Mostra estadístiques</guimenuitem
+></menuchoice
+>. El qual mostrarà el diàleg <guilabel
+>Estadístiques del diff</guilabel
+>. Es proveirà la següent informació:</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Fitxer antic:</guilabel
+></term>
+<listitem
+><para
+>El nom de fitxer que usualment serà el fitxer font o el fitxer que restarà sense modificar.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Fitxer nou:</guilabel
+></term>
+<listitem
+><para
+>El nom de fitxer que serà usualment el fitxer de destinació o el fitxer que restarà sense modificar i al qual s'aplicaran les diferències.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Format:</guilabel
+></term>
+<listitem
+><para
+>El format diff usat per a mostrar la diferència (vegeu <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Nombre de blocs:</guilabel
+></term>
+<listitem>
+<para
+>El nombre de blocs trobats en la diferència.</para>
+<para
+>Un bloc és un «<emphasis
+>bloc</emphasis
+>» de línies que han estat marcades com a diferents entre font i destinació i poden incloure línies de context depenent del format de diff, al valor <guilabel
+>Línies de context</guilabel
+> (vegeu <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Nombre de diferències</guilabel
+></term>
+<listitem
+><para
+>El nombre de diferències trobades, no blocs. Un bloc pot contenir una o més diferències quan l'interval de línia canviada i les línies de context d'un o més canvis se sobreposen.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="navigating-the-difference-view">
+<title
+>Navegar a través de la vista de diferències</title>
+<para
+>&kompare; habilita la navegació ràpida de diferències sobre un fitxer i de múltiples fitxers quan es tracta de comparar arbres de carpetes.</para>
+
+<sect3 id="selecting-a-difference">
+<title
+>Seleccionar una diferència</title>
+<para
+>Es pot seleccionar una diferència usant:</para>
+<itemizedlist>
+<listitem
+><para
+>Fer clic sobre la subfinestra de canvis a línia font i destinació (d'alt a la dreta de la finestra principal).</para
+></listitem>
+<listitem
+><para
+>Fer clic sobre la diferència ressaltada a la subfinestra vista.</para
+></listitem>
+<listitem
+><para
+>Travessar les diferències llistades en una comparació (vegeu <xref linkend="traversing-differences"/>).</para
+></listitem>
+</itemizedlist>
+<para
+>Quan una diferència està seleccionada aquesta es considera que obté «el focus» i es mostra en un color fort que difereix de les sense seleccionar.</para>
+</sect3>
+			
+<sect3 id="traversing-differences">
+<title
+>Travessar les diferències</title>
+<para
+>Quan una comparació troba moltes diferències, una de les millors maneres de revisar-les és travessar-les seguint un ordre lògic, usualment de dalt a baix.</para>
+<para
+>Per omissió &kompare; selecciona la primera diferència trobada en una comparació. Per a seleccionar la diferència següent seguiu la selecció actual fins que obtingui el focus <menuchoice
+><guimenu
+>Diferència</guimenu
+><guimenuitem
+>Diferència següent</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keysym
+>Fletxa avall</keysym
+></keycombo
+>). Per a seleccionar la diferència anterior seguiu la selecció actual fins que obtingui el focus <menuchoice
+><guimenu
+>Diferència</guimenu
+><guimenuitem
+>Diferència anterior</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keysym
+>Fletxa amunt</keysym
+></keycombo
+>).</para>
+<para
+>D'aquesta manera és possible travessar les diferències en una manera ordenada, aplicant i desaplicant diferències a mesura que les anem visualitzant.</para>
+</sect3>
+
+<sect3 id="switching-between-files">
+<title
+>Canviar entre fitxers</title>
+<para
+>Quan s'ha realitzat una comparació dintre d'un nivell de carpeta, la majoria de fitxers poden trobar-se amb diferències. Una llista completa dels fitxers comparats amb les diferències trobades és proveïda a les subfinestres <quote
+>Carpetes font i destinació</quote
+> i <quote
+>Fitxers font i destinació</quote
+>. De tota manera, el &kompare; mostrarà les diferències entre la font i la destinació en una comparació cada vegada.</para>
+<para
+>Per a canviar entre documents en aquest escenari estan disponibles les següents opcions:</para>
+<itemizedlist>
+<listitem
+><para
+>Seleccionar la subfinestra <quote
+>Carpetes font i destinació</quote
+> per a mostrar les diferències trobades a la subfinestra <quote
+>Fitxers font i destinació</quote
+>, llavors seleccioneu un fitxer.</para
+></listitem>
+<listitem
+><para
+>Seleccionar <menuchoice
+><guimenu
+>Diferència</guimenu
+><guimenuitem
+>Fitxer previ</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Re Pàg</keycap
+></keycombo
+>) o <menuchoice
+><guimenu
+>Diferència</guimenu
+><guimenuitem
+>Fitxer següent</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Av Pàg</keycap
+></keycombo
+>) per a mostrar la diferència anterior o següent trobada en el fitxer a la subfinestra <quote
+>Fitxers font i destinació</quote
+>.</para>
+</listitem>
+</itemizedlist>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="merging-differences">
+<title
+>Fusionar les diferències</title>
+
+<para
+>&kompare; fa la tasca d'aplicar i desaplicar diferències com a un simple apunta i fes clic. Es poden fer múltiples accions sobre una mateixa diferència, ja que aquestes es mantindran en memòria i no seran escrites al fitxer del disc fins que l'operació sigui realitzada.</para>
+
+<sect2 id="applying-a-difference">
+<title
+>Aplicar una diferència</title>
+<para
+>Per aplicar una diferència, feu clic sobre la regió de diferència per a ressaltar-la, llavors seleccioneu <menuchoice
+><guimenu
+>Diferència</guimenu
+><guimenuitem
+>Aplica la diferència</guimenuitem
+></menuchoice
+> (<keycombo
+><keycap
+>Espai</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-a-difference">
+<title
+>Desaplicar una diferència</title>
+<para
+>Per a desaplicar una diferència, feu clic sobre la regió de diferència per a ressaltar-la, llavors seleccioneu <menuchoice
+><guimenu
+>Diferència</guimenu
+><guimenuitem
+>Desaplica la diferència</guimenuitem
+></menuchoice
+> (<keycombo
+>&Retro;</keycombo
+>).</para>
+</sect2>
+	
+<sect2 id="applying-all-differences">
+<title
+>Aplicar totes les diferències</title>
+<para
+>Després de revisar diferències entre fitxers i trobar totes acceptables les podreu aplicar amb una única operació seleccionant <menuchoice
+><guimenu
+>Diferència</guimenu
+><guimenuitem
+>Aplica-ho tot</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-all-differences">
+<title
+>Desaplicar totes les diferències</title>
+<para
+>Per a desfer totes les diferències que han estat aplicades seleccioneu <menuchoice
+><guimenu
+>Diferència</guimenu
+><guimenuitem
+>Desaplica-ho tot</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="saving-changes">
+<title
+>Desar canvis</title>
+<para
+>Una vegada les diferències han estat aplicades podreu fer l'acció de desar seleccionant <menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Desa</guimenuitem
+></menuchoice
+> o <menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Desa-ho tot</guimenuitem
+></menuchoice
+>.</para>
+<para
+>Les diferències són desades tant al fitxer font com al de destinació.</para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-diff-files">
+<title
+>Treballar amb fitxers diff</title>
+<para
+>Els fitxers diff només contenen els canvis fets entre fitxers, o un conjunt de fitxers en un sistema de carpeta, i poden o no contenir un cert nombre de línies de context abans i després de les línies canviades. La suma d'una línia canviada i les seves línies de context es mostren com a un bloc. Quan les línies de context de dos o més blocs se superposen, aleshores es consideren un únic bloc. Els fitxers diff es poden usar per a:</para>
+<itemizedlist>
+<listitem
+><para
+>Aplicar els canvis continguts en els blocs a un fitxer original.</para
+></listitem>
+<listitem
+><para
+>Aplicar els canvis continguts en els blocs a un fitxer o conjunt de fitxers original dintre d'un sistema de carpeta.</para
+></listitem>
+<listitem
+><para
+>Modificar abans d'aplicar a un fitxer o conjunt de fitxers original dintre d'un sistema de carpeta.</para
+></listitem>
+</itemizedlist>
+
+<sect2 id="creating-a-diff">
+<title
+>Crear un diff</title>
+<para
+>Per a crear un fitxer diff s'haurà de mostrar una comparació a &kompare;. Assumim que aquest és el cas, aleshores seleccioneu <menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Desa diff...</guimenuitem
+></menuchoice
+>. Això mostrarà el diàleg <guilabel
+>Opcions de diff</guilabel
+> (vegeu <xref linkend="diff-settings"/> per a més informació sobre els formats i opcions de diff). Després de configurar aquestes opcions, feu clic sobre el botó <guibutton
+>Desa</guibutton
+> i es desarà el diff a un fitxer amb l'extensió <filename class="extension"
+>.diff</filename
+>.</para>
+</sect2>
+
+<sect2 id="displaying-a-diff">
+<title
+>Mostrar un diff</title>
+<para
+>És possible mostrar el contingut d'un fitxer diff amb &kompare; obrint el formulari de fitxer diff <menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Obre diff...</guimenuitem
+></menuchoice
+>.</para>
+<para
+>Quan es visualitza un fitxer diff es mostren els blocs entre el fitxer font i destinació, recordant que només es mostren els blocs, no les línies sense modificar. En alguns casos es crea un fitxer diff amb 0 línies de context. En aquest cas tan sols es mostraran les línies canviades.</para>
+<para
+>Quan un fitxer diff conté blocs de múltiples fitxers &kompare; mostra els blocs de cada fitxer un a la vegada i podreu canviar entre aquests com si fossin fitxers reals, encara que el contingut del fitxer diferent només ofereixi la informació proveïda pel diff.</para>
+</sect2>
+
+<sect2 id="applying-a-diff">
+<title
+>Aplicar diferències en un fitxer diff</title>
+<para
+>Quan es visualitzen diferències en un fitxer diff és possible aplicar la diferència quan es comparen els fitxers font i destinació (vegeu <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+<sect2 id="blending-a-diff">
+<title
+>Fusionar un &URL; amb un diff</title>
+<para
+>En els casos on es proveeix un fitxer diff és possible comparar els blocs en el diff contra un fitxer o carpeta. Per a fer-ho seleccioneu <menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Fusiona l'URL amb el diff...</guimenuitem
+></menuchoice
+> Aleshores introduïu els camins cap al <guilabel
+>Fitxer/carpeta</guilabel
+> i la <guilabel
+>Sortida de diff</guilabel
+>.</para>
+<para
+>Quan es visualitzen diferències entre un fitxer font i un fitxer diff és possible aplicar la diferència mentre compareu els fitxers font i destinació (vegeu <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="configure-preferences">
+<title
+>Configurar les preferències</title>
+
+<para
+>El &kompare; habilita als usuaris un conjunt de preferències d'aparença per a donar format a les diferències en la interfície principal i establir les propietats de comportament del programa diff. Es pot accedir al diàleg <guilabel
+>Preferències</guilabel
+> seleccionant <menuchoice
+><guimenu
+>Arranjament</guimenu
+><guisubmenu
+>Configura el &kompare;...</guisubmenu
+></menuchoice
+>.</para>
+
+<para
+>Per a configurar les preferències de l'aparença seleccioneu l'ítem de menú <guilabel
+>Visualitza</guilabel
+> (vegeu <xref linkend="view-settings"/>).</para>
+
+<para
+>Per a configurar les preferències de propietats del programa diff seleccioneu l'ítem de menú <guilabel
+>Diferència</guilabel
+> (vegeu <xref linkend="diff-settings"/>).</para>
+
+<sect1 id="view-settings">
+<title
+>Arranjaments de visualització</title>
+<para
+>La pàgina <guimenu
+>Visualitza</guimenu
+> es troba sobre el diàleg <guilabel
+>Preferències</guilabel
+> i mostra els formularis en pestanya <guilabel
+>Aparença</guilabel
+> i <guilabel
+>Tipus de lletra</guilabel
+>.</para>
+
+<sect2 id="appearance">
+<title
+>Aparença</title>
+<para
+>El formulari <guilabel
+>Aparença</guilabel
+> proveeix controls per a gestionar els <guilabel
+>Colors</guilabel
+> usats per a remarcar les diferències en la interfície principal, el comportament de la <guilabel
+>Roda del ratolí</guilabel
+> quan juga amunt i avall així com la conversió de <guilabel
+>Tabulacions a espais</guilabel
+>.</para>
+<screenshot>
+<screeninfo
+>Arranjament de l'aparença a &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Arranjament de l'aparença a &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Grup de color</title>
+<para
+>Per ajustar les preferències de color usades quan es mostren les diferències, feu clic al botó de color per a mostrar el diàleg <guilabel
+>Trieu el color</guilabel
+> perla següents estats:</para>
+<varlistentry>
+<term
+><guilabel
+>Color d'eliminació</guilabel
+></term>
+<listitem
+><para
+>Línies que han estat eliminades, que no existeixen, entre la font i la destinació.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Color de canvi</guilabel
+></term>
+<listitem
+><para
+>Línies que han estat canviades, modificades, entre la font i la destinació. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Color d'afegit</guilabel
+></term>
+<listitem
+><para
+>Línies que han estat afegides entre la font i la destinació.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Color d'aplicat</guilabel
+></term>
+<listitem
+><para
+>Qualsevol dels anteriors estats a on la diferència ha estat aplicada entre la font i la destinació.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Roda del ratolí</title>
+<varlistentry>
+<term
+><guilabel
+>Nombre de línies</guilabel
+></term>
+<listitem
+><para
+>El nombre de línies que se saltaran en moure endavant o enrere la roda del ratolí.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Tabulacions a espais</title>
+<varlistentry>
+<term
+><guilabel
+>Nombre d'espais als quals convertir un caràcter de tabulació</guilabel
+></term>
+<listitem
+><para
+>Converteix cada caràcter de tabulació a un nombre de caràcters d'espai.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="fonts">
+<title
+>Tipus de lletra</title>
+<screenshot>
+<screeninfo
+>Arranjament de tipus de lletra a &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Arranjament de tipus de lletra a &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Selecciona la família i mida del tipus de lletra a visualitzar quan es mostrin les diferències.</para>
+</sect2>
+</sect1>
+
+<sect1 id="diff-settings">
+<title
+>Arranjament de diff</title>
+<para
+>La pàgina <guimenu
+>Diff</guimenu
+> es troba sobre el diàleg <guilabel
+>Preferències</guilabel
+> mostra els formularis en pestanya <guilabel
+>Diff</guilabel
+>, <guilabel
+>Format</guilabel
+>, <guilabel
+>Opcions</guilabel
+> i <guilabel
+>Exclou</guilabel
+>. Aquests formularis es poden usar per a configurar les propietats en el comportament del programa Diff.</para>
+
+<sect2 id="diff">
+<title
+>Diff</title>
+<screenshot>
+<screeninfo
+>Arranjament de diff a &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Arranjament de diff a &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>L'ordre usada per executar el programa diff (per omissió <application
+>diff</application
+>).</para>
+</sect2>
+
+<sect2 id="diff-format">
+<title
+>Format</title>
+<screenshot>
+<screeninfo
+>Arranjament de format a &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Arranjament de format a &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Ajusta les opcions per al <guilabel
+>Format de sortida</guilabel
+> i el nombre de <guilabel
+>Línies de context</guilabel
+>.</para>
+<variablelist>
+<title
+>Format de sortida</title>
+<varlistentry>
+<term
+><guilabel
+>Context</guilabel
+></term>
+<listitem>
+<para
+>El format de sortida context afegeix diverses línies de context de les que es troben al voltant de la/les que difereixen.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Normal</guilabel
+></term>
+<listitem>
+<para
+>El format de sortida normal mostra les línies diferents sense cap línia de context. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Unificat</guilabel
+></term>
+<listitem>
+<para
+>El format de sortida unificat és una variació del format de context. Aquest es considera una millora perquè la sortida és més compacte i omet línies de context redundants.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+<variablelist>
+<title
+>Línies de context</title>
+<varlistentry>
+<term
+><guilabel
+>Nombre de línies de context</guilabel
+></term>
+<listitem>
+<para
+>Quan es realitza un diff amb format de sortida de context o unificada s'usa aquest paràmetre per a controlar el nombre de línies de context a incloure.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="options">
+<title
+>Opcions</title>
+<screenshot>
+<screeninfo
+>Arranjament d'opcions a &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff3.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Arranjament d'opcions a &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>El formulari en pestanya <guilabel
+>Opcions</guilabel
+> permet la configuració de les opcions acceptades pel programa diff.</para>
+<variablelist>
+<title
+>General</title>
+<varlistentry>
+<term
+><guilabel
+>Tracta als fitxers nous com a buits</guilabel
+></term>
+<listitem
+><para
+>Amb aquesta opció activada diff tractarà un fitxer que només existeix a un dels directoris com si fos buit a un altre directori. Això significa que el fitxer es compara amb un fitxer buit i per això apareixerà com una gran inserció o supressió.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Cerca canvis més petits</guilabel
+></term>
+<listitem
+><para
+>Quan està marcat força el mostra canvis en la puntuació, espais, &etc;</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Optimitza per a fitxers grans</guilabel
+></term>
+<listitem
+><para
+>Quan està marcat diff processa els fitxers a gran velocitat.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignora canvis entre minúscula/majúscula</guilabel
+></term>
+<listitem
+><para
+>Quan està marcat els canvis entre majúscules i minúscules seran omesos.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ignora expressió regular</guilabel
+></term>
+<listitem
+><para
+>Ignora les línies que coincideixin amb una expressió regular.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Espai en blanc</title>
+<varlistentry>
+<term
+><guilabel
+>Expandir les tabulacions a espais a la sortida</guilabel
+></term>
+<listitem
+><para
+>Quan està marcat les sortides de diff convertirà els caràcters de tabulació al nombre d'espais definit en el diàleg <guilabel
+>Preferències</guilabel
+> menú <guimenu
+>Visualitza</guimenu
+> opció <guilabel
+>Tabulacions a espais</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignora línies buides afegides o eliminades</guilabel
+></term>
+<listitem
+><para
+>Quan està marcat les línies amb zero caràcters que difereixin entre la font i la destinació seran ignorades.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignora canvis en la quantitat d'espais en blanc</guilabel
+></term>
+<listitem
+><para
+>L'espai abans, després i entre les línies es pot canviar depenent dels diferents editors. Quan aquesta opció està marcada canvis com aquests seran ignorats.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignora tots els espais en blanc</guilabel
+></term>
+<listitem
+><para
+>Quan està marcat les diferències d'espai en blanc seran completament ignorades.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignora canvis provocats per la distància de tabulació</guilabel
+></term>
+<listitem
+><para
+>Quan està marcat els canvis resultants d'un espai en blanc en caràcters de tabulació seran ignorats.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="exclude">
+<title
+>Excloure</title>
+<para
+>El formulari en pestanya <guilabel
+>Excloure</guilabel
+> habilita l'ús de les opcions de filtre proveïdes pel programa diff.</para>
+<screenshot>
+<screeninfo
+>Arranjament d'excloure a &kompare;</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff4.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>Arranjament d'excloure a &kompare;</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Patró de fitxer a excloure</title>
+<varlistentry>
+<term
+><guilabel
+>Patró de fitxer a excloure</guilabel
+></term>
+<listitem
+><para
+>Exclou fitxers basant-se en el filtratge sobre un comodí.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Fitxer amb noms de fitxer a excloure</title>
+<varlistentry>
+<term
+><guilabel
+>Fitxer amb noms de fitxer a excloure</guilabel
+></term>
+<listitem
+><para
+>Defineix el filtratge basant-se en el contingut d'un fitxer de gestió extern.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+</sect1>
+
+</chapter>
+
+<chapter id="command-reference">
+<title
+>Referència d'ordres</title>
+
+<sect1 id="menu-items">
+
+<title
+>Elements de menú</title>
+<sect2 id="file-menu">
+<title
+>El menú Fitxer</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Obre diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra el diàleg <guilabel
+>Obre</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Compara fitxers...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra el diàleg <guilabel
+>Compara fitxers o carpetes</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Fusiona l'URL amb el diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra el diàleg <guilabel
+>Fusiona el fitxer/carpeta amb la sortida de diff</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Desa</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Escriu les diferències aplicades a la font actual i/o al fitxer de destinació.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Desa-ho tot</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Escriu les diferències aplicades a tots els fitxers origen i/o destinació.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Desa diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra el diàleg <guilabel
+>Opcions de diff</guilabel
+> per a definir el format i opcions de diff.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>F5</keycap
+></shortcut
+> <guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Actualitza el diff</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Actualitza la diferència dels camins originals. Útil si heu aplicat alguns canvis, els heu desat i voleu veure com queda.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Intercanvia font amb la destinació</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Canvis font i destinació.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Mostra estadístiques</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Mostra el diàleg <guilabel
+>Estadístiques de diff</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Surt</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Surt de &kompare;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="difference-menu">
+<title
+>El menú Diferència</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Diferència</guimenu
+><guimenuitem
+>Desfés-ho tot</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Desaplica totes les diferències prèviament aplicades entre font i destinació.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Retro;</shortcut
+> <guimenu
+>Diferència</guimenu
+><guimenuitem
+>Desfés diferència</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Reverteix una diferència seleccionada prèviament aplicada.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>Espai</keycap
+></shortcut
+> <guimenu
+>Diferència</guimenu
+><guimenuitem
+>Aplica la diferència</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Aplica una diferència seleccionada.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Diferència</guimenu
+><guimenuitem
+>Aplica-ho tot</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Aplica totes les diferències entre font i destinació.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Re Pàg</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Diferència</guimenu
+><guimenuitem
+>Fitxer previ</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Crea la diferència prèvia, en la llista de diferències, el fitxer actual a la subfinestra de vista.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Av Pàg</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Diferència</guimenu
+><guimenuitem
+>Fitxer següent</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Crea la diferència següent, en la llista de diferències, el fitxer actual a la subfinestra de vista.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keysym
+>Fletxa amunt</keysym
+></keycombo
+> </shortcut
+> <guimenu
+>Diferència</guimenu
+><guimenuitem
+>Diferència anterior</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Selecciona la diferència immediatament a sobre de la diferència actualment seleccionada.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keysym
+>Fletxa avall</keysym
+></keycombo
+> </shortcut
+> <guimenu
+>Diferència</guimenu
+><guimenuitem
+>Diferència següent</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Selecciona la diferència immediatament a sota de la diferència actualment seleccionada.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="settingshelpmenu">
+
+<title
+>Els menús Arranjament i Ajuda</title>
+<para
+>El &kompare; té la configuració comuna al &kde; i els elements del menú <guimenu
+>Arranjament</guimenu
+> i <guimenu
+>Ajuda</guimenu
+>. Per a obtenir més informació, vegeu les seccions sobre <ulink url="help:/fundamentals/menus.html#menus-settings"
+>El menú Arranjament</ulink
+> i <ulink url="help:/fundamentals/menus.html#menus-help"
+>El menú Ajuda</ulink
+> en els fonaments del &kde;. </para>
+</sect2>
+</sect1>
+
+<sect1 id="commandline-options">
+<title
+>Opcions de la línia d'ordres</title>
+
+<variablelist>
+<varlistentry>
+<term
+>-c</term>
+<listitem
+><para
+>Compara URL1 amb URL2.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-o</option
+></userinput
+></term>
+<listitem
+><para
+>Això obrirà URL 1 i esperarà la sortida del diff. URL 1 també pot ser «-» i aleshores es llegirà a l'entrada estàndard. Per exemple, es pot emprar per a <userinput
+><command
+>diff cvs | kompare -o -</command
+></userinput
+>. El &kompare; farà una comprovació per a veure si pot trobar el/s fitxer/s original/s i aleshores fusionarà l'original a la sortida del diff i la mostrarà en el visualitzador. <option
+>-n</option
+> desactiva la comprovació.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-b</option
+></userinput
+></term>
+<listitem
+><para
+>Això fusionarà URL 2 dintre d'URL 1, s'esperarà que URL 2 sigui una sortida del diff i que el fitxer o carpeta d'URL 1 sigui el corresponent per a la sortida del diff.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-n</option
+></userinput
+></term>
+<listitem
+><para
+>Desactiva la comprovació per a la cerca automàtica del/s fitxer/s original/s quan s'usi «-» com a URL amb l'opció <option
+>-o</option
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-e</option
+> <replaceable
+>codificació</replaceable
+></userinput
+></term>
+<listitem
+><para
+>Empreu-la per especificar la codificació en cridar des de la línia d'ordres. Per omissió s'utilitzarà la codificació local.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1
+></chapter>
+
+<chapter id="credits">
+
+<title
+>Crèdits i llicència</title>
+
+<para
+>&kompare; </para>
+<para
+>Copyright del programa 2001-2004, &John.Firebaugh; &John.Firebaugh.mail; i Otto Bruggeman <email
+>otto.bruggeman@home.nl</email
+> </para>
+
+<para
+>Copyright de la documentació &copy; 2007 Sean Wheller <email
+>sean@inwords.co.za</email
+> </para>
+
+<para
+>Traductor/Revisor de la documentació: &credits.Antoni.Bella;</para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index; 
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

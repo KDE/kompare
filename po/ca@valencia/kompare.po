@@ -53,7 +53,7 @@ msgstr "No s'ha pogut carregar el nostre KompareNavigationPart."
 #, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
-msgstr "&Obri «diff»..."
+msgstr "O&bri «diff»..."
 
 #: app/kompare_shell.cpp:198
 #, kde-format
@@ -209,7 +209,7 @@ msgstr "Vista de text"
 #: app/kompareui.rc:4 komparepart/komparepartui.rc:4
 #, kde-format
 msgid "&File"
-msgstr "&Fitxer"
+msgstr "Fi&txer"
 
 #. i18n: ectx: Menu (settings)
 #: app/kompareui.rc:14 komparepart/komparepartui.rc:29
@@ -627,7 +627,7 @@ msgstr "Espai en blanc"
 #, kde-format
 msgctxt "@option:check"
 msgid "E&xpand tabs to spaces in output"
-msgstr "&Expandix les tabulacions a espais en l'eixida"
+msgstr "Ex&pandix les tabulacions a espais en l'eixida"
 
 #: dialogpages/diffpage.cpp:277
 #, kde-format

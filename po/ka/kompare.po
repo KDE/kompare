@@ -1,164 +1,143 @@
-# Translation of kompare into Japanese.
-# This file is distributed under the same license as the kdesdk package.
-# Taiki Komoda <kom@kde.gr.jp>, 2002.
-# SATOH Satoru <ss@kde.gr.jp>, 2004.
-# Tadashi Jokagi <elf2000@users.sourceforge.net>, 2004.
-# Yukiko Bando <ybando@k6.dion.ne.jp>, 2007, 2008, 2009.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kompare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-08-05 00:47+0000\n"
-"PO-Revision-Date: 2009-07-20 23:29+0900\n"
-"Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
-"Language-Team: Japanese <kde-jp@kde.org>\n"
-"Language: ja\n"
+"PO-Revision-Date: 2022-10-06 21:27+0200\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
+"Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Accelerator-Marker: &\n"
-"X-Text-Markup: kde4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Tadashi Jokagi,Noboru Sinohara,SATOH Satoru,Shinya TAKEBAYASHI"
+msgstr "Temuri Doghonadze"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
-"elf2000@users.sourceforge.net,shinobo@leo.bekkoame.ne.jp,ss@kde.gr.jp,"
-"makoto@kanon-net.jp"
+msgstr "Temuri.doghonadze@gmail.com"
 
 #: app/kompare_shell.cpp:69
 #, kde-format
 msgid "Could not load our KompareViewPart."
-msgstr "KompareViewPart を読み込めませんでした。"
+msgstr ""
 
 #: app/kompare_shell.cpp:73
-#, fuzzy, kde-format
-#| msgid "Navigation"
+#, kde-format
 msgctxt "@title:window"
 msgid "Navigation"
-msgstr "ナビゲーション"
+msgstr "ნავიგაცია"
 
 #: app/kompare_shell.cpp:90
 #, kde-format
 msgid "Could not load our KompareNavigationPart."
-msgstr "KompareNavigationPart を読み込めませんでした。"
+msgstr ""
 
 #: app/kompare_shell.cpp:195
-#, fuzzy, kde-format
-#| msgid "&Open Diff..."
+#, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
-msgstr "Diff を開く(&O)..."
+msgstr ""
 
 #: app/kompare_shell.cpp:198
-#, fuzzy, kde-format
-#| msgid "&Compare Files..."
+#, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
-msgstr "ファイルを比較(&C)..."
+msgstr ""
 
 #: app/kompare_shell.cpp:201
-#, fuzzy, kde-format
-#| msgid "&Blend URL with Diff..."
+#, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
-msgstr "URL に Diff を適用(&B)..."
+msgstr ""
 
 #: app/kompare_shell.cpp:207
-#, fuzzy, kde-format
-#| msgid "Show T&ext View"
+#, kde-format
 msgctxt "@action"
 msgid "Show T&ext View"
-msgstr "テキストビューを表示(&T)"
+msgstr ""
 
 #: app/kompare_shell.cpp:220
 #, kde-format
 msgid " 0 of 0 differences "
-msgstr " 0 件の差異の 0 番目"
+msgstr " 0 განსხვავება 0-დან "
 
 #: app/kompare_shell.cpp:221
 #, kde-format
 msgid " 0 of 0 files "
-msgstr " 0 ファイルの 0 番目"
+msgstr " 0 ფაილი 0 -დან "
 
 #: app/kompare_shell.cpp:238
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
-msgstr[0] " %1 ファイルの %2 番目"
-msgstr[1] " %1 ファイルの %2 番目"
+msgstr[0] " %2 ფაილი %1 -დან "
+msgstr[1] " %2 ფაილი %1 -დან "
 
 #: app/kompare_shell.cpp:240
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
-msgstr[0] " %1 ファイル"
-msgstr[1] " %1 ファイル"
+msgstr[0] " %1 ფაილი "
+msgstr[1] " %1 ფაილი "
 
 #: app/kompare_shell.cpp:243
 #, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
-msgstr[0] " %1 件の差異の %2 番目、%3 件適用"
-msgstr[1] " %1 件の差異の %2 番目、%3 件適用"
+msgstr[0] " %2 განსხვავება %1 -დან, %3 გადატარდა "
+msgstr[1] " %2 განსხვავება %1 -დან, %3 გადატარდა "
 
 #: app/kompare_shell.cpp:246
 #, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
-msgstr[0] "%1 件の差異"
-msgstr[1] "%1 件の差異"
+msgstr[0] " %1 განსხვავება "
+msgstr[1] " %1 განსხვავება "
 
 #: app/kompare_shell.cpp:327
-#, fuzzy, kde-format
-#| msgid "Blend File/Folder with diff Output"
+#, kde-format
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
-msgstr "ファイル/フォルダに diff 出力を適用"
+msgstr ""
 
 #: app/kompare_shell.cpp:328
-#, fuzzy, kde-format
-#| msgid "File/Folder"
+#, kde-format
 msgctxt "@title:group"
 msgid "File/Folder"
-msgstr "ファイル/フォルダ"
+msgstr "ფაილი/საქაღალდე"
 
 #: app/kompare_shell.cpp:329
-#, fuzzy, kde-format
-#| msgid "Diff Output"
+#, kde-format
 msgctxt "@title:group"
 msgid "Diff Output"
-msgstr "Diff 出力"
+msgstr "Diff -ის გამოტანა"
 
 #: app/kompare_shell.cpp:332
-#, fuzzy, kde-format
-#| msgid "Blend"
+#, kde-format
 msgctxt "@action:button"
 msgid "Blend"
-msgstr "適用"
+msgstr "შერევა"
 
 #: app/kompare_shell.cpp:333
-#, fuzzy, kde-format
-#| msgid "Blend this file or folder with the diff output"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
-msgstr "このファイル/フォルダに diff 出力を適用"
+msgstr ""
 
 #: app/kompare_shell.cpp:334
-#, fuzzy, kde-format
-#| msgid ""
-#| "If you have entered a file or folder name and a file that contains diff "
-#| "output in the fields in this dialog then this button will be enabled and "
-#| "pressing it will open kompare's main view where the output of the entered "
-#| "file or files from the folder are mixed with the diff output so you can "
-#| "then apply the difference(s) to a file or to the files. "
+#, kde-format
 msgctxt "@infor:whatsthis"
 msgid ""
 "If you have entered a file or folder name and a file that contains diff "
@@ -167,102 +146,84 @@ msgid ""
 "file or files from the folder are mixed with the diff output so you can then "
 "apply the difference(s) to a file or to the files. "
 msgstr ""
-"このダイアログのフィールドに diff 出力を含むファイル/フォルダを入力するとこの"
-"ボタンが有効になり、押すと入力 (フォルダの) ファイルへの diff 出力を kompare "
-"のメインビューに示します。これで差分を適用することができます。"
 
 #: app/kompare_shell.cpp:357 app/main.cpp:199
-#, fuzzy, kde-format
-#| msgid "Compare Files or Folders"
+#, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
-msgstr "ファイルまたはディレクトリの比較"
+msgstr "შეადარეთ ფაილები და საქაღალდეები"
 
 #: app/kompare_shell.cpp:358 app/main.cpp:200
-#, fuzzy, kde-format
-#| msgid "Source"
+#, kde-format
 msgctxt "@title:group"
 msgid "Source"
-msgstr "比較元"
+msgstr "წყარო"
 
 #: app/kompare_shell.cpp:359 app/main.cpp:201
-#, fuzzy, kde-format
-#| msgid "Destination"
+#, kde-format
 msgctxt "@title:group"
 msgid "Destination"
-msgstr "比較先"
+msgstr "დანიშნულება"
 
 #: app/kompare_shell.cpp:362 app/main.cpp:204
-#, fuzzy, kde-format
-#| msgid "Compare"
+#, kde-format
 msgctxt "@action:button"
 msgid "Compare"
-msgstr "比較"
+msgstr "შედარება"
 
 #: app/kompare_shell.cpp:363 app/main.cpp:205
-#, fuzzy, kde-format
-#| msgid "Compare these files or folders"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
-msgstr "これらのファイル/フォルダを比較"
+msgstr "ამ ფაილების და საქაღალდეების შედარება"
 
 #: app/kompare_shell.cpp:364 app/main.cpp:206
-#, fuzzy, kde-format
-#| msgid ""
-#| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
-#| "then this button will be enabled and pressing it will start a comparison "
-#| "of the entered files or folders. "
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered 2 filenames or 2 folders in the fields in this dialog "
 "then this button will be enabled and pressing it will start a comparison of "
 "the entered files or folders. "
 msgstr ""
-"このダイアログのフィールドに 2 つのファイル名または 2 つのフォルダ名を入力す"
-"るとこのボタンが有効になり、押すとすべてのファイル/フォルダの比較を開始しま"
-"す。"
 
 #: app/kompare_shell.cpp:398
-#, fuzzy, kde-format
-#| msgid "Text View"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text View"
-msgstr "テキストビュー"
+msgstr "ტექსტის ხედი"
 
 #. i18n: ectx: Menu (file)
 #: app/kompareui.rc:4 komparepart/komparepartui.rc:4
 #, kde-format
 msgid "&File"
-msgstr "ファイル(&F)"
+msgstr "&ფაილი"
 
 #. i18n: ectx: Menu (settings)
 #: app/kompareui.rc:14 komparepart/komparepartui.rc:29
 #, kde-format
 msgid "&Settings"
-msgstr "設定(&S)"
+msgstr "გამართვა"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: app/kompareui.rc:27
 #, kde-format
 msgid "Main Toolbar"
-msgstr "メインツールバー"
+msgstr "ხელსაწყოთა მთავარი ზოლი"
 
 #: app/kompareurldialog.cpp:37
-#, fuzzy, kde-format
-#| msgid "Files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Files"
-msgstr "ファイル"
+msgstr "ფაილები"
 
 #: app/kompareurldialog.cpp:39
 #, kde-format
 msgid "Here you can enter the files you want to compare."
-msgstr "ここで比較するファイルを指定します。"
+msgstr ""
 
 #: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
 #: komparepart/kompareprefdlg.cpp:42
-#, fuzzy, kde-format
-#| msgid "Diff"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Diff"
 msgstr "Diff"
@@ -270,19 +231,18 @@ msgstr "Diff"
 #: app/kompareurldialog.cpp:47
 #, kde-format
 msgid "Here you can change the options for comparing the files."
-msgstr "ここでファイル比較のオプションを変更できます。"
+msgstr ""
 
 #: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Appearance"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
-msgstr "外観"
+msgstr "გარემოს იერსახე"
 
 #: app/kompareurldialog.cpp:55
 #, kde-format
 msgid "Here you can change the options for the view."
-msgstr "ここで外観のオプションを変更できます。"
+msgstr ""
 
 #: app/kompareurldialog.cpp:101
 #, kde-format
@@ -300,19 +260,14 @@ msgstr "Kompare"
 msgid ""
 "A program to view the differences between files and optionally generate a "
 "diff"
-msgstr "ファイル間の差を表示し、差分も生成できるプログラムです。"
+msgstr ""
 
 #: app/main.cpp:54
-#, fuzzy, kde-format
-#| msgid ""
-#| "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
-#| "2004-2005 Jeff Snyder, (c) 2007-2008 Kevin Kofler"
+#, kde-format
 msgid ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
 "2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
 msgstr ""
-"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
-"2004-2005 Jeff Snyder, (c) 2007-2008 Kevin Kofler"
 
 #: app/main.cpp:57
 #, kde-format
@@ -322,7 +277,7 @@ msgstr "John Firebaugh"
 #: app/main.cpp:57 app/main.cpp:58
 #, kde-format
 msgid "Author"
-msgstr "作者"
+msgstr "ავტორი"
 
 #: app/main.cpp:58
 #, kde-format
@@ -337,7 +292,7 @@ msgstr "Jeff Snyder"
 #: app/main.cpp:59
 #, kde-format
 msgid "Developer"
-msgstr "開発者"
+msgstr "პროგრამისტი"
 
 #: app/main.cpp:60
 #, kde-format
@@ -347,7 +302,7 @@ msgstr "Kevin Kofler"
 #: app/main.cpp:60
 #, kde-format
 msgid "Maintainer"
-msgstr "メンテナ"
+msgstr "წამყვანი პროგრამისტი"
 
 #: app/main.cpp:61
 #, kde-format
@@ -357,7 +312,7 @@ msgstr "Chris Luetchford"
 #: app/main.cpp:61
 #, kde-format
 msgid "Kompare icon artist"
-msgstr "KomparePart アイコンの作者"
+msgstr ""
 
 #: app/main.cpp:62
 #, kde-format
@@ -367,7 +322,7 @@ msgstr "Malte Starostik"
 #: app/main.cpp:62
 #, kde-format
 msgid "A lot of good advice"
-msgstr "たくさんの良きアドバイス"
+msgstr ""
 
 #: app/main.cpp:63
 #, kde-format
@@ -377,12 +332,12 @@ msgstr "Bernd Gehrmann"
 #: app/main.cpp:63
 #, kde-format
 msgid "Cervisia diff viewer"
-msgstr "Cervisia diff ビューア"
+msgstr ""
 
 #: app/main.cpp:70
 #, kde-format
 msgid "This will compare URL1 with URL2"
-msgstr "URL1 と URL2 を比較します。"
+msgstr ""
 
 #: app/main.cpp:71
 #, kde-format
@@ -393,10 +348,6 @@ msgid ""
 "original file(s) and then blend the original file(s) into the diffoutput and "
 "show that in the viewer. -n disables the check."
 msgstr ""
-"URL1 を diff 出力として開きます。URL1 に “-” を指定した場合は、標準入力を使い"
-"ます (例: diff | kompare -o -)。Kompare はオリジナルファイルを探し、組合せを "
-"diff 出力に吐き、ビューアに表示します。-n でオリジナルファイルを探さないよう"
-"にすることができます。"
 
 #: app/main.cpp:72
 #, kde-format
@@ -404,8 +355,6 @@ msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
 "the file or folder that the diffoutput needs to be blended into. "
 msgstr ""
-"URL2 を URL1 に適用します。URL2 は diff 出力、URL1 は diff 出力を適用するファ"
-"イルまたはフォルダです。"
 
 #: app/main.cpp:73
 #, kde-format
@@ -413,8 +362,6 @@ msgid ""
 "Disables the check for automatically finding the original file(s) when using "
 "'-' as URL with the -o option."
 msgstr ""
-"-o オプションで “-” を URL として使う際にオリジナルファイルを探すのを無効にし"
-"ます。"
 
 #: app/main.cpp:74
 #, kde-format
@@ -422,15 +369,12 @@ msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
 "will default to the local encoding if not specified."
 msgstr ""
-"コマンドラインから呼ぶ場合にエンコーディングを指定します。指定がない場合は、"
-"自動的にローカルのエンコーディングになります。"
 
 #: dialogpages/diffpage.cpp:174
-#, fuzzy, kde-format
-#| msgid "Diff Program"
+#, kde-format
 msgctxt "@title:group"
 msgid "Diff Program"
-msgstr "Diff プログラム"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:179
 #, kde-format
@@ -439,110 +383,84 @@ msgid ""
 "program does not support all the options that the GNU version does. This way "
 "you can select that version."
 msgstr ""
-"ここで diff プログラムを変更することができます。Solaris の標準の diff プログ"
-"ラムは、GNU バージョンが表現するすべてのオプションをサポートしていません。こ"
-"こでそのバージョンを選択できます。"
 
 #: dialogpages/diffpage.cpp:196
-#, fuzzy, kde-format
-#| msgid ""
-#| "Select the format of the output generated by diff. Unified is the one "
-#| "that is used most frequently because it is very readable. The KDE "
-#| "developers like this format the best so use it for sending patches."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "Select the format of the output generated by diff. Unified is the one that "
 "is used most frequently because it is very readable. The KDE developers like "
 "this format the best so use it for sending patches."
 msgstr ""
-"diff 出力のフォーマットを選択します。Unified は非常に可読性があり、最もよく使"
-"用されています。KDE 開発者はこのフォーマットを一番好み、パッチ送信にも使用し"
-"ます。"
 
 #: dialogpages/diffpage.cpp:199
-#, fuzzy, kde-format
-#| msgid "Output Format"
+#, kde-format
 msgctxt "@title:group"
 msgid "Output Format"
-msgstr "出力フォーマット"
+msgstr "გამოტანის ფორმატი"
 
 #: dialogpages/diffpage.cpp:201
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Context"
-msgstr "コンテキスト"
+msgstr "კონტექსტი"
 
 #: dialogpages/diffpage.cpp:204
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Normal"
-msgstr "ノーマル"
+msgstr "ჩვეულებრივი"
 
 #: dialogpages/diffpage.cpp:207
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Unified"
-msgstr "ユニファイド"
+msgstr "გაერთიანებული"
 
 #: dialogpages/diffpage.cpp:215
-#, fuzzy, kde-format
-#| msgid "Lines of Context"
+#, kde-format
 msgctxt "@title:group"
 msgid "Lines of Context"
-msgstr "コンテキストの行数"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
-#, fuzzy, kde-format
-#| msgid ""
-#| "The number of context lines is normally 2 or 3. This makes the diff "
-#| "readable and applicable in most cases. More than 3 lines will only bloat "
-#| "the diff unnecessarily."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "The number of context lines is normally 2 or 3. This makes the diff readable "
 "and applicable in most cases. More than 3 lines will only bloat the diff "
 "unnecessarily."
 msgstr ""
-"コンテキストの行数は、通常 2 行か 3 行です。たいていの場合、これが読みやすい"
-"行数です。3 行より多くすると、差分を不必要に膨らますだけです。"
 
 #: dialogpages/diffpage.cpp:220
-#, fuzzy, kde-format
-#| msgid "Number of context lines:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of context lines:"
-msgstr "コンテキストの行数:"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:225
-#, fuzzy, kde-format
-#| msgid "Format"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Format"
-msgstr "フォーマット"
+msgstr "ფორმატი"
 
 #: dialogpages/diffpage.cpp:237
-#, fuzzy, kde-format
-#| msgid "General"
+#, kde-format
 msgctxt "@title:group"
 msgid "General"
-msgstr "全般"
+msgstr "ზოგადი"
 
 #: dialogpages/diffpage.cpp:239
-#, fuzzy, kde-format
-#| msgid "&Treat new files as empty"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Treat new files as empty"
-msgstr "新規ファイルは空と見なす(&T)"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:240
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -N diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -N diff option."
-msgstr "このオプションは diff オプション -N に相当します。"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:241
 #, kde-format
@@ -555,18 +473,16 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:244
-#, fuzzy, kde-format
-#| msgid "&Look for smaller changes"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Look for smaller changes"
-msgstr "小さな差異を探す(&L)"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:245
-#, fuzzy, kde-format
-#| msgid "This corresponds to the -d diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -d diff option."
-msgstr "これは diff オプション -d に相当します。"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:246
 #, kde-format
@@ -577,18 +493,16 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:248
-#, fuzzy, kde-format
-#| msgid "O&ptimize for large files"
+#, kde-format
 msgctxt "@option:check"
 msgid "O&ptimize for large files"
-msgstr "大きなファイルに最適化する(&P)"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:249
-#, fuzzy, kde-format
-#| msgid "This corresponds to the -H diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -H diff option."
-msgstr "これは diff オプション -H に相当します。"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:250
 #, kde-format
@@ -599,18 +513,16 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:252
-#, fuzzy, kde-format
-#| msgid "&Ignore changes in case"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Ignore changes in case"
-msgstr "大文字と小文字の違いは無視する(&I)"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:253
-#, fuzzy, kde-format
-#| msgid "This corresponds to the -i diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -i diff option."
-msgstr "このオプションは diff オプション -i に相当します。"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:254
 #, kde-format
@@ -622,18 +534,16 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:262
-#, fuzzy, kde-format
-#| msgid "Ignore regexp:"
+#, kde-format
 msgctxt "@option:check"
 msgid "Ignore regexp:"
-msgstr "次の正規表現を無視する:"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:263
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -I diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -I diff option."
-msgstr "このオプションは diff オプション -I に相当します。"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:264
 #, kde-format
@@ -644,38 +554,30 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:268
-#, fuzzy, kde-format
-#| msgid ""
-#| "Add the regular expression here that you want to use\n"
-#| "to ignore lines that match it."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Add the regular expression here that you want to use\n"
 "to ignore lines that match it."
 msgstr ""
-"正規表現にマッチした行を無視して比較する場合、ここにその正規表現を追加しま"
-"す。"
 
 #: dialogpages/diffpage.cpp:274
-#, fuzzy, kde-format
-#| msgid "Whitespace"
+#, kde-format
 msgctxt "@title:group"
 msgid "Whitespace"
-msgstr "ホワイトスペース"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:276
-#, fuzzy, kde-format
-#| msgid "E&xpand tabs to spaces in output"
+#, kde-format
 msgctxt "@option:check"
 msgid "E&xpand tabs to spaces in output"
-msgstr "出力でタブをスペースに展開する(&X)"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:277
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -t diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -t diff option."
-msgstr "このオプションは diff オプション -t に相当します。"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:278
 #, kde-format
@@ -686,18 +588,16 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:280
-#, fuzzy, kde-format
-#| msgid "I&gnore added or removed empty lines"
+#, kde-format
 msgctxt "@option:check"
 msgid "I&gnore added or removed empty lines"
-msgstr "追加・削除された空行は無視する(&G)"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:281
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -B diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -B diff option."
-msgstr "このオプションは diff オプション -B に相当します。"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:282
 #, kde-format
@@ -708,18 +608,16 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:284
-#, fuzzy, kde-format
-#| msgid "Ig&nore changes in the amount of whitespace"
+#, kde-format
 msgctxt "@option:check"
 msgid "Ig&nore changes in the amount of whitespace"
-msgstr "ホワイトスペースの数の違いは無視する(&N)"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:285
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -b diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -b diff option."
-msgstr "このオプションは diff オプション -b に相当します。"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:286
 #, kde-format
@@ -730,18 +628,16 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:288
-#, fuzzy, kde-format
-#| msgid "Ign&ore all whitespace"
+#, kde-format
 msgctxt "@option:check"
 msgid "Ign&ore all whitespace"
-msgstr "すべてのホワイトスペースを無視する(&O)"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:289
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -w diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -w diff option."
-msgstr "このオプションは diff オプション -w に相当します。"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:290
 #, kde-format
@@ -752,18 +648,16 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:292
-#, fuzzy, kde-format
-#| msgid "Igno&re changes due to tab expansion"
+#, kde-format
 msgctxt "@option:check"
 msgid "Igno&re changes due to tab expansion"
-msgstr "タブ展開によるスペースの違いは無視する(&R)"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:293
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -E diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -E diff option."
-msgstr "このオプションは diff オプション -E に相当します。"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:294
 #, kde-format
@@ -776,457 +670,386 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:299
-#, fuzzy, kde-format
-#| msgid "Options"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Options"
-msgstr "オプション"
+msgstr "გამართვა"
 
 #: dialogpages/diffpage.cpp:311
-#, fuzzy, kde-format
-#| msgid "File Pattern to Exclude"
+#, kde-format
 msgctxt "@title:group"
 msgid "File Pattern to Exclude"
-msgstr "除外するファイルのパターン"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:312
-#, fuzzy, kde-format
-#| msgid ""
-#| "If this is checked you can enter a shell pattern in the text box on the "
-#| "right or select entries from the list."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "If this is checked you can enter a shell pattern in the text box on the "
 "right or select entries from the list."
 msgstr ""
-"これをチェックすると、右のテキストボックスにシェルパターンを入力したり、一覧"
-"からエントリを選ぶことができます。"
 
 #: dialogpages/diffpage.cpp:318
-#, fuzzy, kde-format
-#| msgid ""
-#| "Here you can enter or remove a shell pattern or select one or more "
-#| "entries from the list."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Here you can enter or remove a shell pattern or select one or more entries "
 "from the list."
-msgstr "ここでシェルパターンの追加と削除を行います。"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:328
-#, fuzzy, kde-format
-#| msgid "File with Filenames to Exclude"
+#, kde-format
 msgctxt "@title:group"
 msgid "File with Filenames to Exclude"
-msgstr "除外するファイルのファイル名パターンを含むファイル"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:329
-#, fuzzy, kde-format
-#| msgid ""
-#| "If this is checked you can enter a filename in the combo box on the right."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "If this is checked you can enter a filename in the combo box below."
 msgstr ""
-"これをチェックすると、右のコンボボックスにファイル名を入力することができま"
-"す。"
 
 #: dialogpages/diffpage.cpp:333
-#, fuzzy, kde-format
-#| msgid ""
-#| "Here you can enter the URL of a file with shell patterns to ignore during "
-#| "the comparison of the folders."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Here you can enter the URL of a file with shell patterns to ignore during "
 "the comparison of the folders."
 msgstr ""
-"フォルダを比較するときに無視するファイルのパターンが記述されているファイルの "
-"URL をここに入力します。"
 
 #: dialogpages/diffpage.cpp:337
-#, fuzzy, kde-format
-#| msgid ""
-#| "Any file you select in the dialog that pops up when you click it will be "
-#| "put in the dialog to the left of this button."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Any file you select in the dialog that pops up when you click it will be put "
 "in the dialog to the left of this button."
 msgstr ""
-"クリックしたときにポップアップするダイアログで選択するすべてのファイルが、こ"
-"のボタンの左側のダイアログに入れられます。"
 
 #: dialogpages/diffpage.cpp:344
-#, fuzzy, kde-format
-#| msgid "Exclude"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Exclude"
-msgstr "除外"
+msgstr "გამორიცხვა"
 
 #: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select file"
-msgstr "比較元ファイル"
+msgstr "აირჩიეთ ფაილი"
 
 #: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
-#, fuzzy, kde-format
-#| msgid "Source Folder"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select folder"
-msgstr "比較元フォルダ"
+msgstr "საქაღალდეს არჩევა"
 
 #: dialogpages/filespage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Encoding"
+#, kde-format
 msgctxt "@title:group"
 msgid "Encoding"
-msgstr "エンコーディング"
+msgstr "კოდირება"
 
 #: dialogpages/filespage.cpp:92
 #, kde-format
 msgctxt "@item:inlistbox encoding"
 msgid "Default"
-msgstr ""
+msgstr "ნაგულისხმები"
 
 #: dialogpages/filespage.cpp:126
-#, fuzzy, kde-format
-#| msgid "Source Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select Folder"
-msgstr "比較元フォルダ"
+msgstr "აირჩიეთ საქაღალდე"
 
 #: dialogpages/filespage.cpp:130
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select File"
-msgstr "比較元ファイル"
+msgstr "აირჩიეთ ფაილი"
 
 #: dialogpages/viewpage.cpp:44
-#, fuzzy, kde-format
-#| msgid "Colors"
+#, kde-format
 msgctxt "@title:group"
 msgid "Colors"
-msgstr "色"
+msgstr "ფერები"
 
 #: dialogpages/viewpage.cpp:50
-#, fuzzy, kde-format
-#| msgid "Removed color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Removed color:"
-msgstr "削除された部分の色:"
+msgstr "წაშლილი ფერი:"
 
 #: dialogpages/viewpage.cpp:54
-#, fuzzy, kde-format
-#| msgid "Changed color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Changed color:"
-msgstr "変更された部分の色:"
+msgstr "შეცვლილი ფერი:"
 
 #: dialogpages/viewpage.cpp:58
-#, fuzzy, kde-format
-#| msgid "Added color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Added color:"
-msgstr "追加された部分の色:"
+msgstr "დამატებული ფერი:"
 
 #: dialogpages/viewpage.cpp:62
-#, fuzzy, kde-format
-#| msgid "Applied color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Applied color:"
-msgstr "パッチを適用した部分の色:"
+msgstr "გადატარებული ფერი:"
 
 #: dialogpages/viewpage.cpp:66
-#, fuzzy, kde-format
-#| msgid "Mouse Wheel"
+#, kde-format
 msgctxt "@title:group"
 msgid "Mouse Wheel"
-msgstr "マウスホイール"
+msgstr "თაგუნას რგოლი"
 
 #: dialogpages/viewpage.cpp:72
-#, fuzzy, kde-format
-#| msgid "Number of lines:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of lines:"
-msgstr "スクロールする行数:"
+msgstr "ხაზების რაოდენობა:"
 
 #: dialogpages/viewpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Tabs to Spaces"
+#, kde-format
 msgctxt "@title:group"
 msgid "Tabs to Spaces"
-msgstr "タブをスペースに展開"
+msgstr "ტაბების გამოტოვებად გადაკეთება"
 
 #: dialogpages/viewpage.cpp:83
-#, fuzzy, kde-format
-#| msgid "Number of spaces to convert a tab character to:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of spaces to convert a tab character to:"
-msgstr "タブを何文字のスペースに展開するか:"
+msgstr "ტაბი რამდენ გამოტოვებას უდრის:"
 
 #: dialogpages/viewpage.cpp:94
-#, fuzzy, kde-format
-#| msgid "Text Font"
+#, kde-format
 msgctxt "@title:group"
 msgid "Text Font"
-msgstr "テキストフォント"
+msgstr "ტექსტის ფონტი"
 
 #: dialogpages/viewpage.cpp:98
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Font:"
-msgstr "フォント:"
+msgstr "ფონტი:"
 
 #: dialogpages/viewpage.cpp:103
-#, fuzzy, kde-format
-#| msgid "Size:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Size:"
-msgstr "サイズ:"
+msgstr "ზომა:"
 
 #: dialogpages/viewpage.cpp:107
-#, fuzzy, kde-format
-#| msgid "Fonts"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Fonts"
-msgstr "フォント"
+msgstr "შრიფტები"
 
 #: komparenavtreepart/komparenavtreepart.cpp:55
-#, fuzzy, kde-format
-#| msgid "Source Folder"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source Folder"
-msgstr "比較元フォルダ"
+msgstr "საწყისი საქაღალდე"
 
 #: komparenavtreepart/komparenavtreepart.cpp:61
-#, fuzzy, kde-format
-#| msgid "Destination Folder"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination Folder"
-msgstr "比較先フォルダ"
+msgstr "სამიზნე საქაღალდე"
 
 #: komparenavtreepart/komparenavtreepart.cpp:68
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source File"
-msgstr "比較元ファイル"
+msgstr "წყაროს ფაილი"
 
 #: komparenavtreepart/komparenavtreepart.cpp:69
-#, fuzzy, kde-format
-#| msgid "Destination File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination File"
-msgstr "比較先ファイル"
+msgstr "სამიზნე საქაღალდე"
 
 #: komparenavtreepart/komparenavtreepart.cpp:78
-#, fuzzy, kde-format
-#| msgid "Source Line"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source Line"
-msgstr "比較元行"
+msgstr "წყაროს ხაზი"
 
 #: komparenavtreepart/komparenavtreepart.cpp:79
-#, fuzzy, kde-format
-#| msgid "Destination Line"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination Line"
-msgstr "比較先行"
+msgstr ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:80
-#, fuzzy, kde-format
-#| msgid "Difference"
+#, kde-format
 msgctxt "@title:column"
 msgid "Difference"
-msgstr "差異"
+msgstr "სხვაობა"
 
 #: komparenavtreepart/komparenavtreepart.cpp:455
-#, fuzzy, kde-format
-#| msgid "Applied: Changes made to %1 line undone"
-#| msgid_plural "Applied: Changes made to  %1 lines undone"
+#, kde-format
 msgid "Applied: Changes made to %1 line undone"
 msgid_plural "Applied: Changes made to %1 lines undone"
-msgstr[0] "適用しました: %1 行の変更が取り消されました。"
-msgstr[1] "適用しました: %1 行の変更が取り消されました。"
+msgstr[0] ""
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:458
 #, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
-msgstr[0] "%1 行変更されました。"
-msgstr[1] "%1 行変更されました。"
+msgstr[0] ""
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:463
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
-msgstr[0] "適用しました: %1 行の挿入が取り消されました。"
-msgstr[1] "適用しました: %1 行の挿入が取り消されました。"
+msgstr[0] ""
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:466
 #, kde-format
 msgid "Inserted %1 line"
 msgid_plural "Inserted %1 lines"
-msgstr[0] "%1 行挿入されました。"
-msgstr[1] "%1 行挿入されました。"
+msgstr[0] ""
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:471
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
-msgstr[0] "適用しました: %1 行の削除が取り消されました。"
-msgstr[1] "適用しました: %1 行の削除が取り消されました。"
+msgstr[0] ""
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:474
 #, kde-format
 msgid "Deleted %1 line"
 msgid_plural "Deleted %1 lines"
-msgstr[0] "%1 行削除されました。"
-msgstr[1] "%1 行削除されました。"
+msgstr[0] ""
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:628
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item directory name not known"
 msgid "Unknown"
-msgstr "不明"
+msgstr "უცნობი"
 
 #: komparepart/kompare_part.cpp:179
-#, fuzzy, kde-format
-#| msgid "Save &All"
+#, kde-format
 msgctxt "@action"
 msgid "Save &All"
-msgstr "すべて保存(&A)"
+msgstr "&ყველას შენახვა"
 
 #: komparepart/kompare_part.cpp:181
-#, fuzzy, kde-format
-#| msgid "Save &Diff..."
+#, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
-msgstr "差分を保存(&D)..."
+msgstr "&Diff-ის შენახვა..."
 
 #: komparepart/kompare_part.cpp:183
-#, fuzzy, kde-format
-#| msgid "Swap Source with Destination"
+#, kde-format
 msgctxt "@action"
 msgid "Swap Source with Destination"
-msgstr "比較元と比較先を入れ替え"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:190
-#, fuzzy, kde-format
-#| msgid "Show Statistics"
+#, kde-format
 msgctxt "@action"
 msgid "Show Statistics"
-msgstr "統計を表示"
+msgstr "სტატისტიკების ჩვენება"
 
 #: komparepart/kompare_part.cpp:193
-#, fuzzy, kde-format
-#| msgid "Refresh Diff"
+#, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
-msgstr "差分を更新"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
-msgstr "<qt>URL <b>%1</b> はダウンロードできません。</qt>"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:356
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
-msgstr "<qt>URL <b>%1</b> はシステムに存在しません。</qt>"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:544
-#, fuzzy, kde-format
-#| msgid "Diff Options"
+#, kde-format
 msgctxt "@title:window"
 msgid "Diff Options"
-msgstr "Diff のオプション"
+msgstr "განსხვავების დამატებითი მორგება"
 
 #: komparepart/kompare_part.cpp:565
-#, fuzzy, kde-format
-#| msgid "Save .diff"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save .diff"
-msgstr "差分 (.diff) を保存"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:567
-#, fuzzy, kde-format
-#| msgid "*.diff *.dif *.patch|Patch Files"
+#, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
-msgstr "*.diff *.dif *.patch|パッチファイル"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:569
 #, kde-format
 msgid "The file exists or is write-protected; do you want to overwrite it?"
-msgstr "ファイルは既に存在するか、書き込み禁止です。本当に上書きしますか？"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:569
-#, fuzzy, kde-format
-#| msgid "File Exists"
+#, kde-format
 msgctxt "@window:title"
 msgid "File Exists"
-msgstr "ファイルは存在します"
+msgstr "ფაილი უკვე არსებობს"
 
 #: komparepart/kompare_part.cpp:569
-#, fuzzy, kde-format
-#| msgid "Do Not Overwrite"
+#, kde-format
 msgctxt "@action:button"
 msgid "Do Not Overwrite"
-msgstr "上書きしない"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:653
-#, fuzzy, kde-format
-#| msgid "Running diff..."
+#, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
-msgstr "diff 実行中..."
+msgstr ""
 
 #: komparepart/kompare_part.cpp:656
-#, fuzzy, kde-format
-#| msgid "Parsing diff output..."
+#, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
-msgstr "diff 出力を解析中..."
+msgstr ""
 
 #: komparepart/kompare_part.cpp:712
-#, fuzzy, kde-format
-#| msgid "Comparing file %1 with file %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
-msgstr "ファイル ‘%1’ を %2 と比較中"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:717
-#, fuzzy, kde-format
-#| msgid "Comparing files in %1 with files in %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
-msgstr "%1 内のファイルと %2 内のファイルを比較中"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:722
-#, fuzzy, kde-format
-#| msgid "Viewing diff output from %1"
+#, kde-format
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
-msgstr "%1 からの diff 出力を表示中"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:725
-#, fuzzy, kde-format
-#| msgid "Blending diff output from %1 into file %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
-msgstr "%1 からの diff 出力をファイル ‘%2’ に適用中"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:730
-#, fuzzy, kde-format
-#| msgid "Blending diff output from %1 into folder %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
-msgstr "%1 からの diff 出力をフォルダ %2 に適用中"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
 #: komparepart/kompare_part.cpp:927
@@ -1235,58 +1058,49 @@ msgid ""
 "You have made changes to the destination file(s).\n"
 "Would you like to save them?"
 msgstr ""
-"比較先に変更を加えました。\n"
-"これを保存しますか？"
 
 #: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
 #: komparepart/kompare_part.cpp:929
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save Changes?"
-msgstr "変更を保存しますか？"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:852
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Unified"
-msgstr "ユニファイド"
+msgstr "გაერთიანებული"
 
 #: komparepart/kompare_part.cpp:855
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Context"
-msgstr "コンテキスト"
+msgstr "კონტექსტი"
 
 #: komparepart/kompare_part.cpp:858
-#, fuzzy, kde-format
-#| msgid "RCS"
+#, kde-format
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
 #: komparepart/kompare_part.cpp:861
-#, fuzzy, kde-format
-#| msgid "Ed"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
 #: komparepart/kompare_part.cpp:864
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Normal"
-msgstr "ノーマル"
+msgstr "ჩვეულებრივი"
 
 #: komparepart/kompare_part.cpp:868
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Unknown"
-msgstr "不明"
+msgstr "უცნობი"
 
 #: komparepart/kompare_part.cpp:884
 #, kde-format
@@ -1294,16 +1108,13 @@ msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
 "available."
 msgstr ""
-"diff ファイルがないか、二つのファイルの差分を取っていないため、統計は利用でき"
-"ません。"
 
 #: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
 #: komparepart/kompare_part.cpp:916
-#, fuzzy, kde-format
-#| msgid "Diff Statistics"
+#, kde-format
 msgctxt "@title:window"
 msgid "Diff Statistics"
-msgstr "Diff 統計"
+msgstr ""
 
 #: komparepart/kompare_part.cpp:890
 #, kde-format
@@ -1317,14 +1128,6 @@ msgid ""
 "Number of hunks: %4\n"
 "Number of differences: %5"
 msgstr ""
-"統計:\n"
-"\n"
-"古いファイル (比較元): %1\n"
-"新しいファイル (比較先): %2\n"
-"\n"
-"フォーマット: %3\n"
-"差分ブロックの数: %4\n"
-"差異の件数: %5"
 
 #: komparepart/kompare_part.cpp:903
 #, kde-format
@@ -1340,63 +1143,48 @@ msgid ""
 "Number of hunks: %5\n"
 "Number of differences: %6"
 msgstr ""
-"統計:\n"
-"\n"
-"diff ファイル内のファイル件数: %1\n"
-"フォーマット: %2\n"
-"\n"
-"現在の古いファイル (比較元): %3\n"
-"現在の新しいファイル (比較先): %4\n"
-"\n"
-"差分ブロックの数: %5\n"
-"差異の件数: %6"
 
 #. i18n: ectx: Menu (difference)
 #: komparepart/komparepartui.rc:17
 #, kde-format
 msgid "&Difference"
-msgstr "差異(&D)"
+msgstr "&სხვაობა"
 
 #: komparepart/kompareprefdlg.cpp:26
-#, fuzzy, kde-format
-#| msgid "Preferences"
+#, kde-format
 msgctxt "@title:window"
 msgid "Preferences"
-msgstr "設定"
+msgstr "მორგება"
 
 #: komparepart/kompareprefdlg.cpp:36
-#, fuzzy, kde-format
-#| msgid "View"
+#, kde-format
 msgctxt "@title:tab"
 msgid "View"
-msgstr "表示"
+msgstr "ნახვა"
 
 #: komparepart/kompareprefdlg.cpp:38
-#, fuzzy, kde-format
-#| msgid "View Settings"
+#, kde-format
 msgctxt "@title"
 msgid "View Settings"
-msgstr "表示設定"
+msgstr "ხედის მორგება"
 
 #: komparepart/kompareprefdlg.cpp:44
-#, fuzzy, kde-format
-#| msgid "Diff Settings"
+#, kde-format
 msgctxt "@title"
 msgid "Diff Settings"
-msgstr "Diff の設定"
+msgstr "Diff -ის მორგება"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
 #: komparepart/komparesaveoptionsbase.ui:29
 #, kde-format
 msgid "Format"
-msgstr "フォーマット"
+msgstr "ფორმატი"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
 #: komparepart/komparesaveoptionsbase.ui:35
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgid "&Context"
-msgstr "コンテキスト"
+msgstr "&კონტექსტი"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
 #: komparepart/komparesaveoptionsbase.ui:42
@@ -1406,10 +1194,9 @@ msgstr "Ed"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
 #: komparepart/komparesaveoptionsbase.ui:49
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgid "&Normal"
-msgstr "ノーマル"
+msgstr "&ნორმალური"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
 #: komparepart/komparesaveoptionsbase.ui:56
@@ -1419,98 +1206,96 @@ msgstr "RCS"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
 #: komparepart/komparesaveoptionsbase.ui:63
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgid "&Unified"
-msgstr "ユニファイド"
+msgstr "&გაერთიანებული"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
 #: komparepart/komparesaveoptionsbase.ui:73
-#, fuzzy, kde-format
-#| msgid "Side-by-side"
+#, kde-format
 msgid "&Side-by-side"
-msgstr "サイド・バイ・サイド"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
 #: komparepart/komparesaveoptionsbase.ui:85
 #, kde-format
 msgid "Number of context lines:"
-msgstr "コンテキストの行数:"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
 #: komparepart/komparesaveoptionsbase.ui:126
 #, kde-format
 msgid "Options"
-msgstr "オプション"
+msgstr "პარამეტრები"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_SmallerChangesCB)
 #: komparepart/komparesaveoptionsbase.ui:132
 #, kde-format
 msgid "Look for smaller changes"
-msgstr "小さな差異を探す"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
 #: komparepart/komparesaveoptionsbase.ui:142
 #, kde-format
 msgid "Optimize for large files"
-msgstr "大きなファイルに最適化する"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
 #: komparepart/komparesaveoptionsbase.ui:152
 #, kde-format
 msgid "Ignore changes in case"
-msgstr "大文字と小文字の違いは無視する"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
 #: komparepart/komparesaveoptionsbase.ui:159
 #, kde-format
 msgid "Expand tabs to spaces"
-msgstr "タブをスペースに展開する"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
 #: komparepart/komparesaveoptionsbase.ui:166
 #, kde-format
 msgid "Ignore added or removed empty lines"
-msgstr "追加・削除された空行は無視する"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
 #: komparepart/komparesaveoptionsbase.ui:173
 #, kde-format
 msgid "Ignore changes in whitespace"
-msgstr "ホワイトスペースの違いは無視する"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
 #: komparepart/komparesaveoptionsbase.ui:180
 #, kde-format
 msgid "Show function names"
-msgstr "関数名を表示する"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
 #: komparepart/komparesaveoptionsbase.ui:190
 #, kde-format
 msgid "Compare folders recursively"
-msgstr "フォルダを再帰的に比較する"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
 #: komparepart/komparesaveoptionsbase.ui:200
 #, kde-format
 msgid "Treat new files as empty"
-msgstr "新規ファイルは空と見なす"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
 #: komparepart/komparesaveoptionsbase.ui:222
 #, kde-format
 msgid "Run Diff In"
-msgstr "diff を実行する場所"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
 #: komparepart/komparesaveoptionsbase.ui:247
 #, kde-format
 msgid "Command Line"
-msgstr "コマンドライン"
+msgstr "ბრძანების ხაზი"
 
 #. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
 #: komparepart/komparesaveoptionsbase.ui:256
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
-msgstr "cd dir && diff -udHprNa -- 比較元 比較先"
+msgstr ""

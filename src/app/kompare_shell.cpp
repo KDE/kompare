@@ -18,6 +18,7 @@
 
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
+#include <KParts/PartLoader>
 #include <KEditToolBar>
 #include <KFile>
 #include <KShortcutsDialog>
@@ -25,7 +26,6 @@
 #include <KMessageBox>
 #include <KSqueezedTextLabel>
 #include <KStandardAction>
-#include <KServiceTypeTrader>
 #include <KSharedConfig>
 #include <KToggleAction>
 #include <KActionCollection>
@@ -399,11 +399,12 @@ void KompareShell::slotShowTextView()
         m_textViewWidget = new QDockWidget(i18nc("@title:window", "Text View"), this);
         m_textViewWidget->setObjectName(QStringLiteral("Text View"));
 //         m_textViewWidget = createDockWidget(i18n("Text View"), SmallIcon("text-x-generic"));
-        m_textViewPart = KServiceTypeTrader::createInstanceFromQuery<KTextEditor::Document>(
-                             QStringLiteral("KTextEditor/Document"),
-                             this, this, QString(), QVariantList(), &error);
-        if (m_textViewPart)
+
+        const auto result = KParts::PartLoader::instantiatePart<KTextEditor::Document>(KPluginMetaData(QStringLiteral("kf" QT_STRINGIFY(QT_VERSION_MAJOR) "/parts/katepart")), this, this);
+
+        if (result)
         {
+            m_textViewPart = result.plugin;
             m_textView = qobject_cast<KTextEditor::View*>(m_textViewPart->createView(this));
             m_textViewWidget->setWidget(static_cast<QWidget*>(m_textView));
             m_textViewPart->setHighlightingMode(QStringLiteral("Diff"));

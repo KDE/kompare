@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/kompare.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"POT-Creation-Date: 2022-10-14 00:49+0000\n"
 "PO-Revision-Date: 2004-12-03 14:52-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -28,8 +28,9 @@ msgid "Your emails"
 msgstr "seoc@iolfree.ie,kscanne@gmail.com"
 
 #: app/kompare_shell.cpp:69
-#, kde-format
-msgid "Could not load our KompareViewPart."
+#, fuzzy, kde-format
+#| msgid "Could not load our KompareViewPart."
+msgid "Could not load our KompareViewPart: %1"
 msgstr "Ní féidir ár KompareViewPart a luchtú."
 
 #: app/kompare_shell.cpp:73
@@ -39,50 +40,51 @@ msgctxt "@title:window"
 msgid "Navigation"
 msgstr "Nascleanúint"
 
-#: app/kompare_shell.cpp:90
-#, kde-format
-msgid "Could not load our KompareNavigationPart."
+#: app/kompare_shell.cpp:91
+#, fuzzy, kde-format
+#| msgid "Could not load our KompareNavigationPart."
+msgid "Could not load our KompareNavigationPart: %1"
 msgstr "Ní féidir ár KompareNavigationPart a luchtú."
 
-#: app/kompare_shell.cpp:195
+#: app/kompare_shell.cpp:196
 #, fuzzy, kde-format
 #| msgid "&Open Diff..."
 msgctxt "@action"
 msgid "&Open Diff..."
 msgstr "&Oscail Diff..."
 
-#: app/kompare_shell.cpp:198
+#: app/kompare_shell.cpp:199
 #, fuzzy, kde-format
 #| msgid "&Compare Files..."
 msgctxt "@action"
 msgid "&Compare Files..."
 msgstr "&Cuir Comhaid i gComparáid..."
 
-#: app/kompare_shell.cpp:201
+#: app/kompare_shell.cpp:202
 #, fuzzy, kde-format
 #| msgid "&Open Diff..."
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
 msgstr "&Oscail Diff..."
 
-#: app/kompare_shell.cpp:207
+#: app/kompare_shell.cpp:208
 #, fuzzy, kde-format
 #| msgid "Show T&ext View"
 msgctxt "@action"
 msgid "Show T&ext View"
 msgstr "Taisp&eáin Amharc Téacs"
 
-#: app/kompare_shell.cpp:220
+#: app/kompare_shell.cpp:221
 #, kde-format
 msgid " 0 of 0 differences "
 msgstr " 0 as 0 difríochtaí "
 
-#: app/kompare_shell.cpp:221
+#: app/kompare_shell.cpp:222
 #, kde-format
 msgid " 0 of 0 files "
 msgstr " 0 as 0 comhaid "
 
-#: app/kompare_shell.cpp:238
+#: app/kompare_shell.cpp:239
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
@@ -92,7 +94,7 @@ msgstr[2] "%2 as %1 chomhad "
 msgstr[3] "%2 as %1 gcomhad "
 msgstr[4] "%2 as %1 comhad "
 
-#: app/kompare_shell.cpp:240
+#: app/kompare_shell.cpp:241
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
@@ -102,7 +104,7 @@ msgstr[2] " %1 chomhad "
 msgstr[3] " %1 gcomhad "
 msgstr[4] " %1 comhad "
 
-#: app/kompare_shell.cpp:243
+#: app/kompare_shell.cpp:244
 #, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
@@ -112,7 +114,7 @@ msgstr[2] " %2 as %1 dhifríocht, %3 i bhfeidhm "
 msgstr[3] " %2 as %1 ndifríocht, %3 i bhfeidhm "
 msgstr[4] " %2 as %1 difríocht, %3 i bhfeidhm "
 
-#: app/kompare_shell.cpp:246
+#: app/kompare_shell.cpp:247
 #, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
@@ -122,40 +124,40 @@ msgstr[2] " %1 dhifríocht "
 msgstr[3] " %1 ndifríocht "
 msgstr[4] " %1 difríocht "
 
-#: app/kompare_shell.cpp:327
+#: app/kompare_shell.cpp:328
 #, kde-format
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
 msgstr ""
 
-#: app/kompare_shell.cpp:328
+#: app/kompare_shell.cpp:329
 #, fuzzy, kde-format
 #| msgid "File/Folder"
 msgctxt "@title:group"
 msgid "File/Folder"
 msgstr "Comhad/Comhadlann"
 
-#: app/kompare_shell.cpp:329
+#: app/kompare_shell.cpp:330
 #, fuzzy, kde-format
 #| msgid "Diff Output"
 msgctxt "@title:group"
 msgid "Diff Output"
 msgstr "Aschur Diff"
 
-#: app/kompare_shell.cpp:332
+#: app/kompare_shell.cpp:333
 #, fuzzy, kde-format
 #| msgid "Blend"
 msgctxt "@action:button"
 msgid "Blend"
 msgstr "Cumaisc"
 
-#: app/kompare_shell.cpp:333
+#: app/kompare_shell.cpp:334
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
 msgstr ""
 
-#: app/kompare_shell.cpp:334
+#: app/kompare_shell.cpp:335
 #, kde-format
 msgctxt "@infor:whatsthis"
 msgid ""
@@ -166,7 +168,7 @@ msgid ""
 "apply the difference(s) to a file or to the files. "
 msgstr ""
 
-#: app/kompare_shell.cpp:357 app/main.cpp:199
+#: app/kompare_shell.cpp:358 app/main.cpp:199
 #, fuzzy, kde-format
 #| msgid "Compare Files or Folders"
 msgctxt "@title:window"
@@ -174,7 +176,7 @@ msgid "Compare Files or Folders"
 msgstr "Cuir Comhaid nó Comhadlanna i gcomparáid le chéile"
 
 # better than "Comhad Foinse" here since it could be dir too
-#: app/kompare_shell.cpp:358 app/main.cpp:200
+#: app/kompare_shell.cpp:359 app/main.cpp:200
 #, fuzzy, kde-format
 #| msgid "Source"
 msgctxt "@title:group"
@@ -182,28 +184,28 @@ msgid "Source"
 msgstr "Foinse"
 
 # better than "Comhad Sprice" here since it could be dir too
-#: app/kompare_shell.cpp:359 app/main.cpp:201
+#: app/kompare_shell.cpp:360 app/main.cpp:201
 #, fuzzy, kde-format
 #| msgid "Destination"
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Sprioc"
 
-#: app/kompare_shell.cpp:362 app/main.cpp:204
+#: app/kompare_shell.cpp:363 app/main.cpp:204
 #, fuzzy, kde-format
 #| msgid "Compare"
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "Cuir i gComparáid"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:205
+#: app/kompare_shell.cpp:364 app/main.cpp:205
 #, fuzzy, kde-format
 #| msgid "Compare these files or folders"
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "Cuir na comhaid/comhadlanna i gcomparáid le chéile"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:206
+#: app/kompare_shell.cpp:365 app/main.cpp:206
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -212,7 +214,7 @@ msgid ""
 "the entered files or folders. "
 msgstr ""
 
-#: app/kompare_shell.cpp:398
+#: app/kompare_shell.cpp:399
 #, fuzzy, kde-format
 #| msgid "Text View"
 msgctxt "@title:window"

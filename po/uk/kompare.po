@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"POT-Creation-Date: 2022-10-14 00:49+0000\n"
 "PO-Revision-Date: 2020-05-04 08:36+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -32,8 +32,9 @@ msgid "Your emails"
 msgstr "ivanpetrouchtchak@yahoo.com"
 
 #: app/kompare_shell.cpp:69
-#, kde-format
-msgid "Could not load our KompareViewPart."
+#, fuzzy, kde-format
+#| msgid "Could not load our KompareViewPart."
+msgid "Could not load our KompareViewPart: %1"
 msgstr "Не вдалось завантажити компонент KompareViewPart."
 
 #: app/kompare_shell.cpp:73
@@ -42,46 +43,47 @@ msgctxt "@title:window"
 msgid "Navigation"
 msgstr "Навігація"
 
-#: app/kompare_shell.cpp:90
-#, kde-format
-msgid "Could not load our KompareNavigationPart."
+#: app/kompare_shell.cpp:91
+#, fuzzy, kde-format
+#| msgid "Could not load our KompareNavigationPart."
+msgid "Could not load our KompareNavigationPart: %1"
 msgstr "Не вдалось завантажити KompareNavigationPart."
 
-#: app/kompare_shell.cpp:195
+#: app/kompare_shell.cpp:196
 #, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
 msgstr "&Відкрити Diff..."
 
-#: app/kompare_shell.cpp:198
+#: app/kompare_shell.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
 msgstr "П&орівняти файли..."
 
-#: app/kompare_shell.cpp:201
+#: app/kompare_shell.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
 msgstr "&Змішати URL з Diff..."
 
-#: app/kompare_shell.cpp:207
+#: app/kompare_shell.cpp:208
 #, kde-format
 msgctxt "@action"
 msgid "Show T&ext View"
 msgstr "Показати т&екстовий вигляд"
 
-#: app/kompare_shell.cpp:220
+#: app/kompare_shell.cpp:221
 #, kde-format
 msgid " 0 of 0 differences "
 msgstr "0 з 0 розбіжностей"
 
-#: app/kompare_shell.cpp:221
+#: app/kompare_shell.cpp:222
 #, kde-format
 msgid " 0 of 0 files "
 msgstr "0 з 0 файлів"
 
-#: app/kompare_shell.cpp:238
+#: app/kompare_shell.cpp:239
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
@@ -90,7 +92,7 @@ msgstr[1] " %2 з %1 файлів "
 msgstr[2] " %2 з %1 файлів "
 msgstr[3] " %2 з %1 файла "
 
-#: app/kompare_shell.cpp:240
+#: app/kompare_shell.cpp:241
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
@@ -99,7 +101,7 @@ msgstr[1] "%1 файли "
 msgstr[2] "%1 файлів"
 msgstr[3] "%1 файл "
 
-#: app/kompare_shell.cpp:243
+#: app/kompare_shell.cpp:244
 #, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
@@ -108,7 +110,7 @@ msgstr[1] " %2 з %1 розбіжностей, %3 застосовано "
 msgstr[2] " %2 з %1 розбіжностей, %3 застосовано"
 msgstr[3] " %2 з %1 розбіжності, %3 застосовано "
 
-#: app/kompare_shell.cpp:246
+#: app/kompare_shell.cpp:247
 #, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
@@ -117,37 +119,37 @@ msgstr[1] " %1 розбіжності "
 msgstr[2] " %1 розбіжностей "
 msgstr[3] " %1 розбіжність "
 
-#: app/kompare_shell.cpp:327
+#: app/kompare_shell.cpp:328
 #, kde-format
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
 msgstr "Змішати файл/теку з виводом diff"
 
-#: app/kompare_shell.cpp:328
+#: app/kompare_shell.cpp:329
 #, kde-format
 msgctxt "@title:group"
 msgid "File/Folder"
 msgstr "Файл/тека"
 
-#: app/kompare_shell.cpp:329
+#: app/kompare_shell.cpp:330
 #, kde-format
 msgctxt "@title:group"
 msgid "Diff Output"
 msgstr "Вивід Diff"
 
-#: app/kompare_shell.cpp:332
+#: app/kompare_shell.cpp:333
 #, kde-format
 msgctxt "@action:button"
 msgid "Blend"
 msgstr "Змішати"
 
-#: app/kompare_shell.cpp:333
+#: app/kompare_shell.cpp:334
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
 msgstr "Змішати цей файл або теку з виводом diff"
 
-#: app/kompare_shell.cpp:334
+#: app/kompare_shell.cpp:335
 #, kde-format
 msgctxt "@infor:whatsthis"
 msgid ""
@@ -162,37 +164,37 @@ msgstr ""
 "вікно kompare, в якому вивід введеного файла або файлів з теки змішуються з "
 "виводом diff, щоб потім можна було застосувати різницю до файла або файлів. "
 
-#: app/kompare_shell.cpp:357 app/main.cpp:199
+#: app/kompare_shell.cpp:358 app/main.cpp:199
 #, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "Порівняти файли або теки"
 
-#: app/kompare_shell.cpp:358 app/main.cpp:200
+#: app/kompare_shell.cpp:359 app/main.cpp:200
 #, kde-format
 msgctxt "@title:group"
 msgid "Source"
 msgstr "Джерело"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:201
+#: app/kompare_shell.cpp:360 app/main.cpp:201
 #, kde-format
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Призначення"
 
-#: app/kompare_shell.cpp:362 app/main.cpp:204
+#: app/kompare_shell.cpp:363 app/main.cpp:204
 #, kde-format
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "Порівняти"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:205
+#: app/kompare_shell.cpp:364 app/main.cpp:205
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "Порівняти ці файли або теки"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:206
+#: app/kompare_shell.cpp:365 app/main.cpp:206
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -203,7 +205,7 @@ msgstr ""
 "Якщо ви ввели 2 назви файлів або 2 теки в поля цього вікна, то кнопка буде "
 "уможливлена, і натискання на неї почне порівняння введених файлів або тек. "
 
-#: app/kompare_shell.cpp:398
+#: app/kompare_shell.cpp:399
 #, kde-format
 msgctxt "@title:window"
 msgid "Text View"

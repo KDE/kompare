@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"POT-Creation-Date: 2022-10-14 00:49+0000\n"
 "PO-Revision-Date: 2009-09-17 22:29+0300\n"
 "Last-Translator: Yasen Pramatarov <yasen@lindeas.com>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
@@ -29,8 +29,9 @@ msgid "Your emails"
 msgstr "yasen@lindeas.com,zlatkopopov@fsa-bg.org"
 
 #: app/kompare_shell.cpp:69
-#, kde-format
-msgid "Could not load our KompareViewPart."
+#, fuzzy, kde-format
+#| msgid "Could not load our KompareViewPart."
+msgid "Could not load our KompareViewPart: %1"
 msgstr "KompareViewPart не може да бъде заредена."
 
 #: app/kompare_shell.cpp:73
@@ -39,104 +40,105 @@ msgctxt "@title:window"
 msgid "Navigation"
 msgstr "Навигация"
 
-#: app/kompare_shell.cpp:90
-#, kde-format
-msgid "Could not load our KompareNavigationPart."
+#: app/kompare_shell.cpp:91
+#, fuzzy, kde-format
+#| msgid "Could not load our KompareNavigationPart."
+msgid "Could not load our KompareNavigationPart: %1"
 msgstr "KompareViewPart не може да бъде заредена."
 
-#: app/kompare_shell.cpp:195
+#: app/kompare_shell.cpp:196
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
 msgstr "&Отваряне на разлики..."
 
-#: app/kompare_shell.cpp:198
+#: app/kompare_shell.cpp:199
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
 msgstr "&Сравняване на файлове..."
 
-#: app/kompare_shell.cpp:201
+#: app/kompare_shell.cpp:202
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
 msgstr "&Смесване на URL с разлики..."
 
-#: app/kompare_shell.cpp:207
+#: app/kompare_shell.cpp:208
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "Show T&ext View"
 msgstr "Показване на изглед \"&текст\""
 
-#: app/kompare_shell.cpp:220
+#: app/kompare_shell.cpp:221
 #, kde-format
 msgid " 0 of 0 differences "
 msgstr " 0 oт 0 разлики"
 
-#: app/kompare_shell.cpp:221
+#: app/kompare_shell.cpp:222
 #, kde-format
 msgid " 0 of 0 files "
 msgstr " 0 от 0 файла"
 
-#: app/kompare_shell.cpp:238
+#: app/kompare_shell.cpp:239
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
 msgstr[0] " %2 от %1 файл "
 msgstr[1] " %2 от %1 файла "
 
-#: app/kompare_shell.cpp:240
+#: app/kompare_shell.cpp:241
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
 msgstr[0] " %1 файл "
 msgstr[1] " %1 файла "
 
-#: app/kompare_shell.cpp:243
+#: app/kompare_shell.cpp:244
 #, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
 msgstr[0] " %2 от %1 разлика, %3 приложена "
 msgstr[1] " %2 от %1 разлики, %3 приложени "
 
-#: app/kompare_shell.cpp:246
+#: app/kompare_shell.cpp:247
 #, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
 msgstr[0] " %1 разлика "
 msgstr[1] " %1 разлики "
 
-#: app/kompare_shell.cpp:327
+#: app/kompare_shell.cpp:328
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
 msgstr "Смесване на файл/папка с изходни данни"
 
-#: app/kompare_shell.cpp:328
+#: app/kompare_shell.cpp:329
 #, fuzzy, kde-format
 msgctxt "@title:group"
 msgid "File/Folder"
 msgstr "Файл/Директория"
 
-#: app/kompare_shell.cpp:329
+#: app/kompare_shell.cpp:330
 #, fuzzy, kde-format
 msgctxt "@title:group"
 msgid "Diff Output"
 msgstr "Данни за разлика"
 
-#: app/kompare_shell.cpp:332
+#: app/kompare_shell.cpp:333
 #, fuzzy, kde-format
 msgctxt "@action:button"
 msgid "Blend"
 msgstr "Смесване"
 
-#: app/kompare_shell.cpp:333
+#: app/kompare_shell.cpp:334
 #, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
 msgstr "Смесване на тази директория или папка с изходните данни за разлика"
 
-#: app/kompare_shell.cpp:334
+#: app/kompare_shell.cpp:335
 #, fuzzy, kde-format
 msgctxt "@infor:whatsthis"
 msgid ""
@@ -151,37 +153,37 @@ msgstr ""
 "където се смесват изходните данни, така че после можете да приложите "
 "разликата(е) към файл(ове). "
 
-#: app/kompare_shell.cpp:357 app/main.cpp:199
+#: app/kompare_shell.cpp:358 app/main.cpp:199
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "Сравняване на файлове и папки"
 
-#: app/kompare_shell.cpp:358 app/main.cpp:200
+#: app/kompare_shell.cpp:359 app/main.cpp:200
 #, fuzzy, kde-format
 msgctxt "@title:group"
 msgid "Source"
 msgstr "Източник"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:201
+#: app/kompare_shell.cpp:360 app/main.cpp:201
 #, fuzzy, kde-format
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Цел"
 
-#: app/kompare_shell.cpp:362 app/main.cpp:204
+#: app/kompare_shell.cpp:363 app/main.cpp:204
 #, fuzzy, kde-format
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "Сравняване"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:205
+#: app/kompare_shell.cpp:364 app/main.cpp:205
 #, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "Сравняване на тези файлове или папки"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:206
+#: app/kompare_shell.cpp:365 app/main.cpp:206
 #, fuzzy, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -193,7 +195,7 @@ msgstr ""
 "ще бъде включен, а при натискането му ще започне сравняване на въведените "
 "файлове или папки. "
 
-#: app/kompare_shell.cpp:398
+#: app/kompare_shell.cpp:399
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Text View"

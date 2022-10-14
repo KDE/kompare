@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare VERSION\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"POT-Creation-Date: 2022-10-14 00:49+0000\n"
 "PO-Revision-Date: 2002-11-07 11:40+0200\n"
 "Last-Translator: WEB-Translator <http://kde.af.org.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -28,7 +28,7 @@ msgstr "frix@expertron.co.za"
 
 #: app/kompare_shell.cpp:69
 #, fuzzy, kde-format
-msgid "Could not load our KompareViewPart."
+msgid "Could not load our KompareViewPart: %1"
 msgstr "Kon nie soek ons Deel!"
 
 #: app/kompare_shell.cpp:73
@@ -37,105 +37,105 @@ msgctxt "@title:window"
 msgid "Navigation"
 msgstr ""
 
-#: app/kompare_shell.cpp:90
+#: app/kompare_shell.cpp:91
 #, fuzzy, kde-format
-msgid "Could not load our KompareNavigationPart."
+msgid "Could not load our KompareNavigationPart: %1"
 msgstr "Kon nie soek ons Deel!"
 
-#: app/kompare_shell.cpp:195
+#: app/kompare_shell.cpp:196
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
 msgstr "Stoor .diff"
 
-#: app/kompare_shell.cpp:198
+#: app/kompare_shell.cpp:199
 #, fuzzy, kde-format
 #| msgid "&Compare Files..."
 msgctxt "@action"
 msgid "&Compare Files..."
 msgstr "Vergelyk Lêers..."
 
-#: app/kompare_shell.cpp:201
+#: app/kompare_shell.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
 msgstr ""
 
-#: app/kompare_shell.cpp:207
+#: app/kompare_shell.cpp:208
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "Show T&ext View"
 msgstr "Vertoon Teks Besigtig"
 
-#: app/kompare_shell.cpp:220
+#: app/kompare_shell.cpp:221
 #, kde-format
 msgid " 0 of 0 differences "
 msgstr " 0 van 0 verskille "
 
-#: app/kompare_shell.cpp:221
+#: app/kompare_shell.cpp:222
 #, kde-format
 msgid " 0 of 0 files "
 msgstr " 0 van 0 lêers "
 
-#: app/kompare_shell.cpp:238
+#: app/kompare_shell.cpp:239
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
 msgstr[0] "%2 van %1 lêer "
 msgstr[1] " %2 van %1 lêers "
 
-#: app/kompare_shell.cpp:240
+#: app/kompare_shell.cpp:241
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
 msgstr[0] "%1 lêer "
 msgstr[1] " %1 lêers "
 
-#: app/kompare_shell.cpp:243
+#: app/kompare_shell.cpp:244
 #, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
 msgstr[0] "%2 van %1 verskil, %3 aangewend "
 msgstr[1] " %2 van %1 verskille, %3 aangewend "
 
-#: app/kompare_shell.cpp:246
+#: app/kompare_shell.cpp:247
 #, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
 msgstr[0] "%1 verskil "
 msgstr[1] " %1 verskille "
 
-#: app/kompare_shell.cpp:327
+#: app/kompare_shell.cpp:328
 #, kde-format
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
 msgstr ""
 
-#: app/kompare_shell.cpp:328
+#: app/kompare_shell.cpp:329
 #, fuzzy, kde-format
 msgctxt "@title:group"
 msgid "File/Folder"
 msgstr "Bron Lêer"
 
-#: app/kompare_shell.cpp:329
+#: app/kompare_shell.cpp:330
 #, fuzzy, kde-format
 msgctxt "@title:group"
 msgid "Diff Output"
 msgstr "Diff Opsies"
 
-#: app/kompare_shell.cpp:332
+#: app/kompare_shell.cpp:333
 #, kde-format
 msgctxt "@action:button"
 msgid "Blend"
 msgstr ""
 
-#: app/kompare_shell.cpp:333
+#: app/kompare_shell.cpp:334
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
 msgstr ""
 
-#: app/kompare_shell.cpp:334
+#: app/kompare_shell.cpp:335
 #, fuzzy, kde-format
 msgctxt "@infor:whatsthis"
 msgid ""
@@ -149,40 +149,40 @@ msgstr ""
 "dan word hierdie knoppie sal wees geaktiveer en gedruk dit sal begin 'n "
 "vergelyking van die ingevoerde lêers van gidse. "
 
-#: app/kompare_shell.cpp:357 app/main.cpp:199
+#: app/kompare_shell.cpp:358 app/main.cpp:199
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "Vergelyk Lêers of Gidse"
 
-#: app/kompare_shell.cpp:358 app/main.cpp:200
+#: app/kompare_shell.cpp:359 app/main.cpp:200
 #, fuzzy, kde-format
 #| msgid "Source"
 msgctxt "@title:group"
 msgid "Source"
 msgstr "Bron"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:201
+#: app/kompare_shell.cpp:360 app/main.cpp:201
 #, fuzzy, kde-format
 #| msgid "Destination"
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Bestemming"
 
-#: app/kompare_shell.cpp:362 app/main.cpp:204
+#: app/kompare_shell.cpp:363 app/main.cpp:204
 #, fuzzy, kde-format
 #| msgid "Compare"
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "Vergelyk"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:205
+#: app/kompare_shell.cpp:364 app/main.cpp:205
 #, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "Vergelyk hierdie lêers of gidse"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:206
+#: app/kompare_shell.cpp:365 app/main.cpp:206
 #, fuzzy, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -194,7 +194,7 @@ msgstr ""
 "dan word hierdie knoppie sal wees geaktiveer en gedruk dit sal begin 'n "
 "vergelyking van die ingevoerde lêers van gidse. "
 
-#: app/kompare_shell.cpp:398
+#: app/kompare_shell.cpp:399
 #, fuzzy, kde-format
 #| msgid "Text View"
 msgctxt "@title:window"

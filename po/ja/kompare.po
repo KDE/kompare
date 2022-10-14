@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"POT-Creation-Date: 2022-10-14 00:49+0000\n"
 "PO-Revision-Date: 2009-07-20 23:29+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -34,8 +34,9 @@ msgstr ""
 "makoto@kanon-net.jp"
 
 #: app/kompare_shell.cpp:69
-#, kde-format
-msgid "Could not load our KompareViewPart."
+#, fuzzy, kde-format
+#| msgid "Could not load our KompareViewPart."
+msgid "Could not load our KompareViewPart: %1"
 msgstr "KompareViewPart を読み込めませんでした。"
 
 #: app/kompare_shell.cpp:73
@@ -45,113 +46,114 @@ msgctxt "@title:window"
 msgid "Navigation"
 msgstr "ナビゲーション"
 
-#: app/kompare_shell.cpp:90
-#, kde-format
-msgid "Could not load our KompareNavigationPart."
+#: app/kompare_shell.cpp:91
+#, fuzzy, kde-format
+#| msgid "Could not load our KompareNavigationPart."
+msgid "Could not load our KompareNavigationPart: %1"
 msgstr "KompareNavigationPart を読み込めませんでした。"
 
-#: app/kompare_shell.cpp:195
+#: app/kompare_shell.cpp:196
 #, fuzzy, kde-format
 #| msgid "&Open Diff..."
 msgctxt "@action"
 msgid "&Open Diff..."
 msgstr "Diff を開く(&O)..."
 
-#: app/kompare_shell.cpp:198
+#: app/kompare_shell.cpp:199
 #, fuzzy, kde-format
 #| msgid "&Compare Files..."
 msgctxt "@action"
 msgid "&Compare Files..."
 msgstr "ファイルを比較(&C)..."
 
-#: app/kompare_shell.cpp:201
+#: app/kompare_shell.cpp:202
 #, fuzzy, kde-format
 #| msgid "&Blend URL with Diff..."
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
 msgstr "URL に Diff を適用(&B)..."
 
-#: app/kompare_shell.cpp:207
+#: app/kompare_shell.cpp:208
 #, fuzzy, kde-format
 #| msgid "Show T&ext View"
 msgctxt "@action"
 msgid "Show T&ext View"
 msgstr "テキストビューを表示(&T)"
 
-#: app/kompare_shell.cpp:220
+#: app/kompare_shell.cpp:221
 #, kde-format
 msgid " 0 of 0 differences "
 msgstr " 0 件の差異の 0 番目"
 
-#: app/kompare_shell.cpp:221
+#: app/kompare_shell.cpp:222
 #, kde-format
 msgid " 0 of 0 files "
 msgstr " 0 ファイルの 0 番目"
 
-#: app/kompare_shell.cpp:238
+#: app/kompare_shell.cpp:239
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
 msgstr[0] " %1 ファイルの %2 番目"
 msgstr[1] " %1 ファイルの %2 番目"
 
-#: app/kompare_shell.cpp:240
+#: app/kompare_shell.cpp:241
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
 msgstr[0] " %1 ファイル"
 msgstr[1] " %1 ファイル"
 
-#: app/kompare_shell.cpp:243
+#: app/kompare_shell.cpp:244
 #, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
 msgstr[0] " %1 件の差異の %2 番目、%3 件適用"
 msgstr[1] " %1 件の差異の %2 番目、%3 件適用"
 
-#: app/kompare_shell.cpp:246
+#: app/kompare_shell.cpp:247
 #, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
 msgstr[0] "%1 件の差異"
 msgstr[1] "%1 件の差異"
 
-#: app/kompare_shell.cpp:327
+#: app/kompare_shell.cpp:328
 #, fuzzy, kde-format
 #| msgid "Blend File/Folder with diff Output"
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
 msgstr "ファイル/フォルダに diff 出力を適用"
 
-#: app/kompare_shell.cpp:328
+#: app/kompare_shell.cpp:329
 #, fuzzy, kde-format
 #| msgid "File/Folder"
 msgctxt "@title:group"
 msgid "File/Folder"
 msgstr "ファイル/フォルダ"
 
-#: app/kompare_shell.cpp:329
+#: app/kompare_shell.cpp:330
 #, fuzzy, kde-format
 #| msgid "Diff Output"
 msgctxt "@title:group"
 msgid "Diff Output"
 msgstr "Diff 出力"
 
-#: app/kompare_shell.cpp:332
+#: app/kompare_shell.cpp:333
 #, fuzzy, kde-format
 #| msgid "Blend"
 msgctxt "@action:button"
 msgid "Blend"
 msgstr "適用"
 
-#: app/kompare_shell.cpp:333
+#: app/kompare_shell.cpp:334
 #, fuzzy, kde-format
 #| msgid "Blend this file or folder with the diff output"
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
 msgstr "このファイル/フォルダに diff 出力を適用"
 
-#: app/kompare_shell.cpp:334
+#: app/kompare_shell.cpp:335
 #, fuzzy, kde-format
 #| msgid ""
 #| "If you have entered a file or folder name and a file that contains diff "
@@ -171,42 +173,42 @@ msgstr ""
 "ボタンが有効になり、押すと入力 (フォルダの) ファイルへの diff 出力を kompare "
 "のメインビューに示します。これで差分を適用することができます。"
 
-#: app/kompare_shell.cpp:357 app/main.cpp:199
+#: app/kompare_shell.cpp:358 app/main.cpp:199
 #, fuzzy, kde-format
 #| msgid "Compare Files or Folders"
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "ファイルまたはディレクトリの比較"
 
-#: app/kompare_shell.cpp:358 app/main.cpp:200
+#: app/kompare_shell.cpp:359 app/main.cpp:200
 #, fuzzy, kde-format
 #| msgid "Source"
 msgctxt "@title:group"
 msgid "Source"
 msgstr "比較元"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:201
+#: app/kompare_shell.cpp:360 app/main.cpp:201
 #, fuzzy, kde-format
 #| msgid "Destination"
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "比較先"
 
-#: app/kompare_shell.cpp:362 app/main.cpp:204
+#: app/kompare_shell.cpp:363 app/main.cpp:204
 #, fuzzy, kde-format
 #| msgid "Compare"
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "比較"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:205
+#: app/kompare_shell.cpp:364 app/main.cpp:205
 #, fuzzy, kde-format
 #| msgid "Compare these files or folders"
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "これらのファイル/フォルダを比較"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:206
+#: app/kompare_shell.cpp:365 app/main.cpp:206
 #, fuzzy, kde-format
 #| msgid ""
 #| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
@@ -222,7 +224,7 @@ msgstr ""
 "るとこのボタンが有効になり、押すとすべてのファイル/フォルダの比較を開始しま"
 "す。"
 
-#: app/kompare_shell.cpp:398
+#: app/kompare_shell.cpp:399
 #, fuzzy, kde-format
 #| msgid "Text View"
 msgctxt "@title:window"

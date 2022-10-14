@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare 0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"POT-Creation-Date: 2022-10-14 00:49+0000\n"
 "PO-Revision-Date: 2004-04-20 13:26+CEST\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -32,7 +32,7 @@ msgstr "lokalizacija@linux.hr, lokalizacija@linux.hr"
 
 #: app/kompare_shell.cpp:69
 #, kde-format
-msgid "Could not load our KompareViewPart."
+msgid "Could not load our KompareViewPart: %1"
 msgstr ""
 
 #: app/kompare_shell.cpp:73
@@ -41,46 +41,46 @@ msgctxt "@title:window"
 msgid "Navigation"
 msgstr ""
 
-#: app/kompare_shell.cpp:90
+#: app/kompare_shell.cpp:91
 #, kde-format
-msgid "Could not load our KompareNavigationPart."
+msgid "Could not load our KompareNavigationPart: %1"
 msgstr ""
 
-#: app/kompare_shell.cpp:195
+#: app/kompare_shell.cpp:196
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
 msgstr "&Otvori diff..."
 
-#: app/kompare_shell.cpp:198
+#: app/kompare_shell.cpp:199
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
 msgstr "&Uporedi datotekaove..."
 
-#: app/kompare_shell.cpp:201
+#: app/kompare_shell.cpp:202
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
 msgstr "&Stopi URL sa diff-om..."
 
-#: app/kompare_shell.cpp:207
+#: app/kompare_shell.cpp:208
 #, fuzzy, kde-format
 msgctxt "@action"
 msgid "Show T&ext View"
 msgstr "Pokaži te&kstualni pogled"
 
-#: app/kompare_shell.cpp:220
+#: app/kompare_shell.cpp:221
 #, kde-format
 msgid " 0 of 0 differences "
 msgstr "0 od 0 razlike"
 
-#: app/kompare_shell.cpp:221
+#: app/kompare_shell.cpp:222
 #, kde-format
 msgid " 0 of 0 files "
 msgstr "0 od 0 datoteke"
 
-#: app/kompare_shell.cpp:238
+#: app/kompare_shell.cpp:239
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
@@ -88,7 +88,7 @@ msgstr[0] " %2 od %1 datoteka "
 msgstr[1] " %2 od %1 datotekaa "
 msgstr[2] " %2 od %1 datotekaova "
 
-#: app/kompare_shell.cpp:240
+#: app/kompare_shell.cpp:241
 #, fuzzy, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
@@ -96,7 +96,7 @@ msgstr[0] " %1 datoteka "
 msgstr[1] " %1 datotekaa "
 msgstr[2] " %1 datotekaova "
 
-#: app/kompare_shell.cpp:243
+#: app/kompare_shell.cpp:244
 #, fuzzy, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
@@ -104,7 +104,7 @@ msgstr[0] " %2 od %1 razlika, %3 primenjena "
 msgstr[1] " %2 od %1 razlike, %3 primenjene "
 msgstr[2] " %2 od %1 razlika, %3 primenjeno "
 
-#: app/kompare_shell.cpp:246
+#: app/kompare_shell.cpp:247
 #, fuzzy, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
@@ -112,38 +112,38 @@ msgstr[0] " %1 razlika "
 msgstr[1] " %1 razlike "
 msgstr[2] " %1 razlika "
 
-#: app/kompare_shell.cpp:327
+#: app/kompare_shell.cpp:328
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
 msgstr "Stopi datoteka/direktorij sa diff izlazom"
 
-#: app/kompare_shell.cpp:328
+#: app/kompare_shell.cpp:329
 #, fuzzy, kde-format
 msgctxt "@title:group"
 msgid "File/Folder"
 msgstr "Datoteka/direktorij"
 
-#: app/kompare_shell.cpp:329
+#: app/kompare_shell.cpp:330
 #, fuzzy, kde-format
 msgctxt "@title:group"
 msgid "Diff Output"
 msgstr "Diff izlaz"
 
-#: app/kompare_shell.cpp:332
+#: app/kompare_shell.cpp:333
 #, fuzzy, kde-format
 #| msgid "Blend"
 msgctxt "@action:button"
 msgid "Blend"
 msgstr "Miješanje"
 
-#: app/kompare_shell.cpp:333
+#: app/kompare_shell.cpp:334
 #, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
 msgstr "Stopi ovaj datoteka ili direktorij sa diff izlazom"
 
-#: app/kompare_shell.cpp:334
+#: app/kompare_shell.cpp:335
 #, fuzzy, kde-format
 msgctxt "@infor:whatsthis"
 msgid ""
@@ -159,40 +159,40 @@ msgstr ""
 "datotekaa ili datotekaova iz direktorija pomešani sa diff izlazom tako da "
 "možete priizbornikti razlike na datoteka ili datotekaove."
 
-#: app/kompare_shell.cpp:357 app/main.cpp:199
+#: app/kompare_shell.cpp:358 app/main.cpp:199
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "Uporedi datotekaove ili direktorije"
 
-#: app/kompare_shell.cpp:358 app/main.cpp:200
+#: app/kompare_shell.cpp:359 app/main.cpp:200
 #, fuzzy, kde-format
 #| msgid "Source"
 msgctxt "@title:group"
 msgid "Source"
 msgstr "Izvor"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:201
+#: app/kompare_shell.cpp:360 app/main.cpp:201
 #, fuzzy, kde-format
 #| msgid "Destination"
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Odredište"
 
-#: app/kompare_shell.cpp:362 app/main.cpp:204
+#: app/kompare_shell.cpp:363 app/main.cpp:204
 #, fuzzy, kde-format
 #| msgid "Compare"
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "Usporedba"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:205
+#: app/kompare_shell.cpp:364 app/main.cpp:205
 #, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "Uporedi ove datotekaove ili direktorije"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:206
+#: app/kompare_shell.cpp:365 app/main.cpp:206
 #, fuzzy, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -204,7 +204,7 @@ msgstr ""
 "prozoru, ovo gumb će biti uključeno i njegovim pritiskanjem će započeti "
 "upoređivanje unijetih datotekaova ili direktorija. "
 
-#: app/kompare_shell.cpp:398
+#: app/kompare_shell.cpp:399
 #, fuzzy, kde-format
 #| msgid "Text View"
 msgctxt "@title:window"

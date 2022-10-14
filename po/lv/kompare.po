@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-05 00:47+0000\n"
+"POT-Creation-Date: 2022-10-14 00:49+0000\n"
 "PO-Revision-Date: 2009-06-04 12:04+0300\n"
 "Last-Translator: Viesturs Zariņš <viesturs.zarins@mii.lu.lv>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -30,8 +30,9 @@ msgid "Your emails"
 msgstr "andzha@latnet.lv,viesturs.zarins@mi.lu.lv"
 
 #: app/kompare_shell.cpp:69
-#, kde-format
-msgid "Could not load our KompareViewPart."
+#, fuzzy, kde-format
+#| msgid "Could not load our KompareViewPart."
+msgid "Could not load our KompareViewPart: %1"
 msgstr "Neizdevās ielādēt KompareViewPart."
 
 #: app/kompare_shell.cpp:73
@@ -41,50 +42,51 @@ msgctxt "@title:window"
 msgid "Navigation"
 msgstr "Navigācija"
 
-#: app/kompare_shell.cpp:90
-#, kde-format
-msgid "Could not load our KompareNavigationPart."
+#: app/kompare_shell.cpp:91
+#, fuzzy, kde-format
+#| msgid "Could not load our KompareNavigationPart."
+msgid "Could not load our KompareNavigationPart: %1"
 msgstr "Neizdevās ielādēt KompareNavigationPart."
 
-#: app/kompare_shell.cpp:195
+#: app/kompare_shell.cpp:196
 #, fuzzy, kde-format
 #| msgid "&Open Diff..."
 msgctxt "@action"
 msgid "&Open Diff..."
 msgstr "&Atvērt diff..."
 
-#: app/kompare_shell.cpp:198
+#: app/kompare_shell.cpp:199
 #, fuzzy, kde-format
 #| msgid "&Compare Files..."
 msgctxt "@action"
 msgid "&Compare Files..."
 msgstr "&Salīdzināt failus"
 
-#: app/kompare_shell.cpp:201
+#: app/kompare_shell.cpp:202
 #, fuzzy, kde-format
 #| msgid "&Blend URL with Diff..."
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
 msgstr "&Pielietot diff uz URL..."
 
-#: app/kompare_shell.cpp:207
+#: app/kompare_shell.cpp:208
 #, fuzzy, kde-format
 #| msgid "Show T&ext View"
 msgctxt "@action"
 msgid "Show T&ext View"
 msgstr "Rādīt t&eksta skatu"
 
-#: app/kompare_shell.cpp:220
+#: app/kompare_shell.cpp:221
 #, kde-format
 msgid " 0 of 0 differences "
 msgstr " 0 no 0 atšķirībām"
 
-#: app/kompare_shell.cpp:221
+#: app/kompare_shell.cpp:222
 #, kde-format
 msgid " 0 of 0 files "
 msgstr " 0 no 0 failiem "
 
-#: app/kompare_shell.cpp:238
+#: app/kompare_shell.cpp:239
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
@@ -92,7 +94,7 @@ msgstr[0] " %2 no %1 faila "
 msgstr[1] " %2 no %1 failiem "
 msgstr[2] " %2 no %1 failu "
 
-#: app/kompare_shell.cpp:240
+#: app/kompare_shell.cpp:241
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
@@ -100,7 +102,7 @@ msgstr[0] " %1 fails "
 msgstr[1] " %1 faili "
 msgstr[2] " %1 failu "
 
-#: app/kompare_shell.cpp:243
+#: app/kompare_shell.cpp:244
 #, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
@@ -108,7 +110,7 @@ msgstr[0] " %2 no %1 atšķirības, %3 pielietotas "
 msgstr[1] " %2 no %1 atšķirībām, %3 pielietotas "
 msgstr[2] " %2 no %1 atšķirību, %3 pielietotas "
 
-#: app/kompare_shell.cpp:246
+#: app/kompare_shell.cpp:247
 #, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
@@ -116,42 +118,42 @@ msgstr[0] " %1 atšķirība "
 msgstr[1] " %1 atšķirības "
 msgstr[2] " %1 atšķirību "
 
-#: app/kompare_shell.cpp:327
+#: app/kompare_shell.cpp:328
 #, fuzzy, kde-format
 #| msgid "Blend File/Folder with diff Output"
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
 msgstr "Pielietot diff izvadu failam/mapei"
 
-#: app/kompare_shell.cpp:328
+#: app/kompare_shell.cpp:329
 #, fuzzy, kde-format
 #| msgid "File/Folder"
 msgctxt "@title:group"
 msgid "File/Folder"
 msgstr "Fails/Mape"
 
-#: app/kompare_shell.cpp:329
+#: app/kompare_shell.cpp:330
 #, fuzzy, kde-format
 #| msgid "Diff Output"
 msgctxt "@title:group"
 msgid "Diff Output"
 msgstr "Diff izvads"
 
-#: app/kompare_shell.cpp:332
+#: app/kompare_shell.cpp:333
 #, fuzzy, kde-format
 #| msgid "Blend"
 msgctxt "@action:button"
 msgid "Blend"
 msgstr "Pielietot"
 
-#: app/kompare_shell.cpp:333
+#: app/kompare_shell.cpp:334
 #, fuzzy, kde-format
 #| msgid "Blend this file or folder with the diff output"
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
 msgstr "Pielietot diff izvadu šim failam vai mapei"
 
-#: app/kompare_shell.cpp:334
+#: app/kompare_shell.cpp:335
 #, fuzzy, kde-format
 #| msgid ""
 #| "If you have entered a file or folder name and a file that contains diff "
@@ -172,42 +174,42 @@ msgstr ""
 "galvenais skats, kur tiks parādīts failu sākotnējais stāvoklis un izmaiņas "
 "tajos un jūs varēsiet pielietot vai atcelt izmaiņas. "
 
-#: app/kompare_shell.cpp:357 app/main.cpp:199
+#: app/kompare_shell.cpp:358 app/main.cpp:199
 #, fuzzy, kde-format
 #| msgid "Compare Files or Folders"
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "Salīdzināt failus vai mapes"
 
-#: app/kompare_shell.cpp:358 app/main.cpp:200
+#: app/kompare_shell.cpp:359 app/main.cpp:200
 #, fuzzy, kde-format
 #| msgid "Source"
 msgctxt "@title:group"
 msgid "Source"
 msgstr "Avots"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:201
+#: app/kompare_shell.cpp:360 app/main.cpp:201
 #, fuzzy, kde-format
 #| msgid "Destination"
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Mērķis"
 
-#: app/kompare_shell.cpp:362 app/main.cpp:204
+#: app/kompare_shell.cpp:363 app/main.cpp:204
 #, fuzzy, kde-format
 #| msgid "Compare"
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "Salīdzīnāt"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:205
+#: app/kompare_shell.cpp:364 app/main.cpp:205
 #, fuzzy, kde-format
 #| msgid "Compare these files or folders"
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "Salīdzināt šos failus vai mapes"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:206
+#: app/kompare_shell.cpp:365 app/main.cpp:206
 #, fuzzy, kde-format
 #| msgid ""
 #| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
@@ -222,7 +224,7 @@ msgstr ""
 "Šī poga tiks aktivizēta, kad laukos būs ievadīti divi faili vai divas mapes. "
 "Nospiežot to tiks veikta norādīto failu vai mapju satura salīdzināšana. "
 
-#: app/kompare_shell.cpp:398
+#: app/kompare_shell.cpp:399
 #, fuzzy, kde-format
 #| msgid "Text View"
 msgctxt "@title:window"

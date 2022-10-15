@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-14 00:49+0000\n"
-"PO-Revision-Date: 2022-09-07 19:12+0200\n"
+"PO-Revision-Date: 2022-10-14 12:28+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -34,10 +34,9 @@ msgid "Your emails"
 msgstr "aacid@kde.org,antonibella5@yahoo.com"
 
 #: app/kompare_shell.cpp:69
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareViewPart."
+#, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr "No s'ha pogut carregar el nostre KompareViewPart."
+msgstr "No s'ha pogut carregar el nostre KompareViewPart: %1"
 
 #: app/kompare_shell.cpp:73
 #, kde-format
@@ -46,10 +45,9 @@ msgid "Navigation"
 msgstr "Navegació"
 
 #: app/kompare_shell.cpp:91
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareNavigationPart."
+#, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr "No s'ha pogut carregar el nostre KompareNavigationPart."
+msgstr "No s'ha pogut carregar el nostre KompareNavigationPart: %1"
 
 #: app/kompare_shell.cpp:196
 #, kde-format
@@ -1406,9 +1404,3 @@ msgstr "Línia d'ordres"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd dir && diff -udHprNa -- origen destinació"
-
-#~ msgid "KompareNavTreePart"
-#~ msgstr "KompareNavTreePart"
-
-#~ msgid "KomparePart"
-#~ msgstr "KomparePart"

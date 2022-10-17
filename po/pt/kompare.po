@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-14 00:49+0000\n"
-"PO-Revision-Date: 2020-05-04 18:15+0100\n"
+"PO-Revision-Date: 2022-10-16 11:34+0100\n"
 "Last-Translator: José Nuno Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -34,10 +34,9 @@ msgid "Your emails"
 msgstr "zepires@gmail.com"
 
 #: app/kompare_shell.cpp:69
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareViewPart."
+#, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr "Não foi possível carregar a KompareViewPart."
+msgstr "Não foi possível carregar a KompareViewPart: %1"
 
 #: app/kompare_shell.cpp:73
 #, kde-format
@@ -46,10 +45,9 @@ msgid "Navigation"
 msgstr "Navegação"
 
 #: app/kompare_shell.cpp:91
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareNavigationPart."
+#, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr "Não foi possível carregar a KompareNavigationPart."
+msgstr "Não foi possível carregar a KompareNavigationPart: %1"
 
 #: app/kompare_shell.cpp:196
 #, kde-format
@@ -1404,21 +1402,3 @@ msgstr "Linha de Comandos"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd dir && diff -udHprNa -- origem destino"
-
-#~ msgid "KompareNavTreePart"
-#~ msgstr "KompareNavTreePart"
-
-#~ msgid "KomparePart"
-#~ msgstr "KomparePart"
-
-#~ msgctxt "@action:button"
-#~ msgid "&Edit..."
-#~ msgstr "&Editar..."
-
-#~ msgctxt "@info:tooltip"
-#~ msgid ""
-#~ "Clicking this will open a regular expression dialog where\n"
-#~ "you can graphically create regular expressions."
-#~ msgstr ""
-#~ "Se carregar aqui irá abrir uma janela de edição de expressões\n"
-#~ "regulares onde poderá criar graficamente expressões regulares."

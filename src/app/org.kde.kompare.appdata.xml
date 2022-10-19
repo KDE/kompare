@@ -20,6 +20,7 @@
   <name xml:lang="gl">Kompare</name>
   <name xml:lang="id">Kompare</name>
   <name xml:lang="it">Kompare</name>
+  <name xml:lang="ka">Kompare</name>
   <name xml:lang="ko">Kompare</name>
   <name xml:lang="nl">Kompare</name>
   <name xml:lang="nn">Kompare</name>
@@ -55,6 +56,7 @@
   <summary xml:lang="gl">Interface para Diff e Patch</summary>
   <summary xml:lang="id">Frontend Diff/Patch</summary>
   <summary xml:lang="it">Interfaccia a Diff/Patch</summary>
+  <summary xml:lang="ka">Diff/Patch -ის წინაბოლო</summary>
   <summary xml:lang="ko">Diff/Patch 프론트엔드</summary>
   <summary xml:lang="nl">Diff/Patch-hulpprogramma</summary>
   <summary xml:lang="nn">Diff-/Patch-grensesnitt</summary>
@@ -127,6 +129,7 @@
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Caratteristiche:</p>
+    <p xml:lang="ka">თვისებები:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="nn">Funksjonar:</p>
@@ -230,6 +233,7 @@
       <li xml:lang="gl">Creación e aplicación de parches.</li>
       <li xml:lang="id">Penciptaan dan penerapan patch.</li>
       <li xml:lang="it">Creare ed applica le patch.</li>
+      <li xml:lang="ka">პაჩების შექმნა და გადატარება.</li>
       <li xml:lang="ko">패치를 만들고 적용합니다.</li>
       <li xml:lang="nl">Aanmaken en gebruiken van patches.</li>
       <li xml:lang="nn">Kan laga og bruk patch-filer.</li>

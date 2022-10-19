@@ -22,6 +22,7 @@
 #include <QTemporaryDir>
 #include <QTemporaryFile>
 
+#include <kwidgetsaddons_version.h>
 #include <KPluginMetaData>
 #include <KActionCollection>
 #include <KJobWidgets>
@@ -748,7 +749,11 @@ void KomparePart::slotSwap()
 {
     if (m_modelList->hasUnsavedChanges())
     {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        int query = KMessageBox::warningTwoActionsCancel
+#else
         int query = KMessageBox::warningYesNoCancel
+#endif
                     (
                         widget(),
                         i18n("You have made changes to the destination file(s).\n"
@@ -758,7 +763,11 @@ void KomparePart::slotSwap()
                         KStandardGuiItem::discard()
                     );
 
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (query == KMessageBox::PrimaryAction)
+#else
         if (query == KMessageBox::Yes)
+#endif
             m_modelList->saveAll();
 
         if (query == KMessageBox::Cancel)
@@ -779,20 +788,29 @@ void KomparePart::slotRefreshDiff()
 {
     if (m_modelList->hasUnsavedChanges())
     {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        int query = KMessageBox::warningTwoActionsCancel
+#else
         int query = KMessageBox::warningYesNoCancel
+#endif
                     (
                         widget(),
                         i18n("You have made changes to the destination file(s).\n"
                              "Would you like to save them?"),
                         i18nc("@title:window", "Save Changes?"),
                         KStandardGuiItem::save(),
-                        KStandardGuiItem::discard()
+                        KStandardGuiItem::discard(),
+                        KStandardGuiItem::cancel()
                     );
 
         if (query == KMessageBox::Cancel)
             return; // Abort prematurely so no refreshing
 
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (query == KMessageBox::PrimaryAction)
+#else
         if (query == KMessageBox::Yes)
+#endif
             m_modelList->saveAll();
     }
 
@@ -894,20 +912,29 @@ bool KomparePart::queryClose()
 {
     if (!m_modelList->hasUnsavedChanges()) return true;
 
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+    int query = KMessageBox::warningTwoActionsCancel
+#else
     int query = KMessageBox::warningYesNoCancel
+#endif
                 (
                     widget(),
                     i18n("You have made changes to the destination file(s).\n"
                          "Would you like to save them?"),
                     i18nc("@title:window", "Save Changes?"),
                     KStandardGuiItem::save(),
-                    KStandardGuiItem::discard()
+                    KStandardGuiItem::discard(),
+                    KStandardGuiItem::cancel()
                 );
 
     if (query == KMessageBox::Cancel)
         return false;
 
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+    if (query == KMessageBox::PrimaryAction)
+#else
     if (query == KMessageBox::Yes)
+#endif
         return m_modelList->saveAll();
 
     return true;

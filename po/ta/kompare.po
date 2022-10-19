@@ -8,13 +8,13 @@
 # Vasee Vaseeharan <vasee@ieee.org>, 2004.
 # Ambalam <tamilpc@ambalam.com>, 2004.
 # root <root@localhost.localdomain>, 2004.
-# Kishore G <kishore96@gmail.com>, 2021.
+# Kishore G <kishore96@gmail.com>, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-14 00:49+0000\n"
-"PO-Revision-Date: 2021-01-18 19:04+0530\n"
+"PO-Revision-Date: 2022-10-18 19:45+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.12.1\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -44,7 +44,7 @@ msgstr "நம் Kompare பார்வைப் பகுதியை ஏற�
 #, kde-format
 msgctxt "@title:window"
 msgid "Navigation"
-msgstr ""
+msgstr "உலாவல்"
 
 #: app/kompare_shell.cpp:91
 #, fuzzy, kde-format
@@ -60,11 +60,10 @@ msgid "&Open Diff..."
 msgstr "Diffஐ திற..."
 
 #: app/kompare_shell.cpp:199
-#, fuzzy, kde-format
-#| msgid "&Compare Files..."
+#, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
-msgstr "கோப்புகளை ஒப்பிடு..."
+msgstr "&கோப்புகளை ஒப்பிடு..."
 
 #: app/kompare_shell.cpp:202
 #, fuzzy, kde-format
@@ -74,35 +73,34 @@ msgid "&Blend URL with Diff..."
 msgstr "URL லில் Diffஐ கலக்கு..."
 
 #: app/kompare_shell.cpp:208
-#, fuzzy, kde-format
-#| msgid "Show T&ext View"
+#, kde-format
 msgctxt "@action"
 msgid "Show T&ext View"
-msgstr "உரைக்காட்சி காட்டு"
+msgstr "&உரைக்காட்சியை காட்டு"
 
 #: app/kompare_shell.cpp:221
 #, kde-format
 msgid " 0 of 0 differences "
-msgstr "0 of 0 மாறபாடுகள்"
+msgstr "0 மாறபாடுகளில் 0"
 
 #: app/kompare_shell.cpp:222
 #, kde-format
 msgid " 0 of 0 files "
-msgstr "0 of 0 கோப்புகள்"
+msgstr "0 கோப்புகளில் 0"
 
 #: app/kompare_shell.cpp:239
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
-msgstr[0] "%1 இல் %2 கோப்பு"
-msgstr[1] "%1 இல் %2 கோப்புகள் "
+msgstr[0] " %1 கோப்பில் %2 "
+msgstr[1] " %1 கோப்புகளில் %2 "
 
 #: app/kompare_shell.cpp:241
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
-msgstr[0] "%1 கோப்பு "
-msgstr[1] "%1 கோப்புகள் "
+msgstr[0] " %1 கோப்பு "
+msgstr[1] " %1 கோப்புகள் "
 
 #: app/kompare_shell.cpp:244
 #, kde-format

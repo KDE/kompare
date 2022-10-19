@@ -560,41 +560,14 @@ void KomparePart::saveDiff()
         saveProperties(config.data());
         config->sync();
 
-        while (1)
-        {
-            QUrl url = QFileDialog::getSaveFileUrl(widget(), i18nc("@title:window", "Save .diff"),
-                                                   m_info.destination,
-                                                   i18n("Patch Files (*.diff *.dif *.patch)"));
-            if (url.isLocalFile() && QFile::exists(url.toLocalFile())) {
-                int result = KMessageBox::warningYesNoCancel(widget(), i18n("The file exists or is write-protected; do you want to overwrite it?"), i18nc("@window:title", "File Exists"), KStandardGuiItem::overwrite(), KGuiItem(i18nc("@action:button", "Do Not Overwrite")));
-                if (result == KMessageBox::Cancel)
-                {
-                    break;
-                }
-                else if (result == KMessageBox::No)
-                {
-                    continue;
-                }
-                else
-                {
-                    qCDebug(KOMPAREPART) << "URL = " << url.toDisplayString();
-                    qCDebug(KOMPAREPART) << "Directory = " << w->directory();
-                    qCDebug(KOMPAREPART) << "DiffSettings = " << m_diffSettings;
+        QUrl url = QFileDialog::getSaveFileUrl(widget(), i18nc("@title:window", "Save .diff"),
+                                               m_info.destination,
+                                               i18n("Patch Files (*.diff *.dif *.patch)"));
+        qCDebug(KOMPAREPART) << "URL = " << url.toDisplayString();
+        qCDebug(KOMPAREPART) << "Directory = " << w->directory();
+        qCDebug(KOMPAREPART) << "DiffSettings = " << m_diffSettings;
 
-                    m_modelList->saveDiff(url.url(), w->directory(), m_diffSettings);
-                    break;
-                }
-            }
-            else
-            {
-                qCDebug(KOMPAREPART) << "URL = " << url.toDisplayString();
-                qCDebug(KOMPAREPART) << "Directory = " << w->directory();
-                qCDebug(KOMPAREPART) << "DiffSettings = " << m_diffSettings;
-
-                m_modelList->saveDiff(url.url(), w->directory(), m_diffSettings);
-                break;
-            }
-        }
+        m_modelList->saveDiff(url.url(), w->directory(), m_diffSettings);
     }
 }
 

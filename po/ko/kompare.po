@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-14 00:49+0000\n"
+"POT-Creation-Date: 2022-10-20 00:54+0000\n"
 "PO-Revision-Date: 2020-09-16 19:59+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -148,37 +148,37 @@ msgstr ""
 "사항이 적용되었을 때의 결과물을 표시합니다. 이렇게 하여 변경 사항을 하나 이상"
 "의 파일에 적용할 수 있습니다."
 
-#: app/kompare_shell.cpp:358 app/main.cpp:199
+#: app/kompare_shell.cpp:358 app/main.cpp:198
 #, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "파일과 폴더 비교하기"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:200
+#: app/kompare_shell.cpp:359 app/main.cpp:199
 #, kde-format
 msgctxt "@title:group"
 msgid "Source"
 msgstr "원본"
 
-#: app/kompare_shell.cpp:360 app/main.cpp:201
+#: app/kompare_shell.cpp:360 app/main.cpp:200
 #, kde-format
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "대상"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:204
+#: app/kompare_shell.cpp:363 app/main.cpp:203
 #, kde-format
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "비교하기"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:205
+#: app/kompare_shell.cpp:364 app/main.cpp:204
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "이 파일이나 폴더 비교하기"
 
-#: app/kompare_shell.cpp:365 app/main.cpp:206
+#: app/kompare_shell.cpp:365 app/main.cpp:205
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -253,19 +253,19 @@ msgid ""
 "File used for excluding files cannot be found, please specify another file."
 msgstr "제외할 파일 목록을 찾을 수 없습니다. 다른 항목을 지정하십시오."
 
-#: app/main.cpp:50
+#: app/main.cpp:49
 #, kde-format
 msgid "Kompare"
 msgstr "Kompare"
 
-#: app/main.cpp:52
+#: app/main.cpp:51
 #, kde-format
 msgid ""
 "A program to view the differences between files and optionally generate a "
 "diff"
 msgstr "파일 내용의 차이를 보고 추가적으로 diff 생성하기"
 
-#: app/main.cpp:54
+#: app/main.cpp:53
 #, kde-format
 msgid ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
@@ -274,77 +274,77 @@ msgstr ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
 "2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
 
-#: app/main.cpp:57
+#: app/main.cpp:56
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: app/main.cpp:57 app/main.cpp:58
+#: app/main.cpp:56 app/main.cpp:57
 #, kde-format
 msgid "Author"
 msgstr "작성자"
 
-#: app/main.cpp:58
+#: app/main.cpp:57
 #, kde-format
 msgid "Otto Bruggeman"
 msgstr "Otto Bruggerman"
 
-#: app/main.cpp:59
+#: app/main.cpp:58
 #, kde-format
 msgid "Jeff Snyder"
 msgstr "Jeff Snyder"
 
-#: app/main.cpp:59
+#: app/main.cpp:58
 #, kde-format
 msgid "Developer"
 msgstr "개발자"
 
-#: app/main.cpp:60
+#: app/main.cpp:59
 #, kde-format
 msgid "Kevin Kofler"
 msgstr "Kevin Kofler"
 
-#: app/main.cpp:60
+#: app/main.cpp:59
 #, kde-format
 msgid "Maintainer"
 msgstr "관리자"
 
-#: app/main.cpp:61
+#: app/main.cpp:60
 #, kde-format
 msgid "Chris Luetchford"
 msgstr "Chris Luetchford"
 
-#: app/main.cpp:61
+#: app/main.cpp:60
 #, kde-format
 msgid "Kompare icon artist"
 msgstr "Kompare 아이콘 작성자"
 
-#: app/main.cpp:62
+#: app/main.cpp:61
 #, kde-format
 msgid "Malte Starostik"
 msgstr "Malte Starostik"
 
-#: app/main.cpp:62
+#: app/main.cpp:61
 #, kde-format
 msgid "A lot of good advice"
 msgstr "많은 좋은 조언"
 
-#: app/main.cpp:63
+#: app/main.cpp:62
 #, kde-format
 msgid "Bernd Gehrmann"
 msgstr "Bernd Gehrmahn"
 
-#: app/main.cpp:63
+#: app/main.cpp:62
 #, kde-format
 msgid "Cervisia diff viewer"
 msgstr "Cervisia diff 뷰어"
 
-#: app/main.cpp:70
+#: app/main.cpp:69
 #, kde-format
 msgid "This will compare URL1 with URL2"
 msgstr "URL1과 URL2의 내용을 비교합니다"
 
-#: app/main.cpp:71
+#: app/main.cpp:70
 #, kde-format
 msgid ""
 "This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
@@ -358,7 +358,7 @@ msgstr ""
 "다. Kompare에서는 원본 파일을 찾을 수 있는지 검사하고 원본 파일과 diff 출력"
 "을 결합하여 뷰어에 표시합니다. -n을 지정하면 검사를 무시합니다."
 
-#: app/main.cpp:72
+#: app/main.cpp:71
 #, kde-format
 msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
@@ -367,7 +367,7 @@ msgstr ""
 "이 옵션은 URL2와 URL1을 결합합니다. URL2에는 diff 출력을 지정하고 URL1에는 "
 "이 출력을 결합할 파일이나 폴더 이름을 지정합니다."
 
-#: app/main.cpp:73
+#: app/main.cpp:72
 #, kde-format
 msgid ""
 "Disables the check for automatically finding the original file(s) when using "
@@ -376,7 +376,7 @@ msgstr ""
 "-o 옵션을 준 상태에서 URL에 '-'를 입력했을 때 원본 파일을 자동으로 찾는 검사"
 "를 비활성화합니다."
 
-#: app/main.cpp:74
+#: app/main.cpp:73
 #, kde-format
 msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
@@ -967,124 +967,107 @@ msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "알 수 없음"
 
-#: komparepart/kompare_part.cpp:179
+#: komparepart/kompare_part.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Save &All"
 msgstr "모두 저장하기(&A)"
 
-#: komparepart/kompare_part.cpp:181
+#: komparepart/kompare_part.cpp:182
 #, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
 msgstr "Diff 저장하기(&D)..."
 
-#: komparepart/kompare_part.cpp:183
+#: komparepart/kompare_part.cpp:184
 #, kde-format
 msgctxt "@action"
 msgid "Swap Source with Destination"
 msgstr "원본과 대상 바꾸기"
 
-#: komparepart/kompare_part.cpp:190
+#: komparepart/kompare_part.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Show Statistics"
 msgstr "통계 표시"
 
-#: komparepart/kompare_part.cpp:193
+#: komparepart/kompare_part.cpp:194
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
 msgstr "차이점 새로 고치기"
 
-#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#: komparepart/kompare_part.cpp:306 komparepart/kompare_part.cpp:319
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
 msgstr "<qt>URL <b>%1</b>을(를) 가져올 수 없습니다.</qt>"
 
-#: komparepart/kompare_part.cpp:356
+#: komparepart/kompare_part.cpp:357
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
 msgstr "<qt>URL <b>%1</b>이(가) 시스템에 없습니다.</qt>"
 
-#: komparepart/kompare_part.cpp:544
+#: komparepart/kompare_part.cpp:545
 #, kde-format
 msgctxt "@title:window"
 msgid "Diff Options"
 msgstr "차이점 옵션"
 
-#: komparepart/kompare_part.cpp:565
+#: komparepart/kompare_part.cpp:564
 #, kde-format
 msgctxt "@title:window"
 msgid "Save .diff"
 msgstr ".diff 저장하기"
 
-#: komparepart/kompare_part.cpp:567
+#: komparepart/kompare_part.cpp:566
 #, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
 msgstr "패치 파일 (*.diff *.dif *.patch)"
 
-#: komparepart/kompare_part.cpp:569
-#, kde-format
-msgid "The file exists or is write-protected; do you want to overwrite it?"
-msgstr "파일이 이미 존재하거나 읽기 전용입니다. 덮어쓰시겠습니까?"
-
-#: komparepart/kompare_part.cpp:569
-#, kde-format
-msgctxt "@window:title"
-msgid "File Exists"
-msgstr "파일이 존재함"
-
-#: komparepart/kompare_part.cpp:569
-#, kde-format
-msgctxt "@action:button"
-msgid "Do Not Overwrite"
-msgstr "덮어쓰지 않기"
-
-#: komparepart/kompare_part.cpp:653
+#: komparepart/kompare_part.cpp:627
 #, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
 msgstr "diff 실행 중..."
 
-#: komparepart/kompare_part.cpp:656
+#: komparepart/kompare_part.cpp:630
 #, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
 msgstr "diff 출력 처리 중..."
 
-#: komparepart/kompare_part.cpp:712
+#: komparepart/kompare_part.cpp:686
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
 msgstr "파일 %1와(과) %2 비교하기"
 
-#: komparepart/kompare_part.cpp:717
+#: komparepart/kompare_part.cpp:691
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
 msgstr "%1에 있는 파일과 %2에 있는 파일 비교하기"
 
-#: komparepart/kompare_part.cpp:722
+#: komparepart/kompare_part.cpp:696
 #, kde-format
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
 msgstr "%1의 diff 출력 보기"
 
-#: komparepart/kompare_part.cpp:725
+#: komparepart/kompare_part.cpp:699
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
 msgstr "%1의 diff 출력 결과를 %2에 반영하는 중"
 
-#: komparepart/kompare_part.cpp:730
+#: komparepart/kompare_part.cpp:704
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
 msgstr "%1의 diff 출력 결과를 폴더 %2에 반영하는 중"
 
-#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
-#: komparepart/kompare_part.cpp:927
+#: komparepart/kompare_part.cpp:759 komparepart/kompare_part.cpp:798
+#: komparepart/kompare_part.cpp:922
 #, kde-format
 msgid ""
 "You have made changes to the destination file(s).\n"
@@ -1093,50 +1076,50 @@ msgstr ""
 "대상 파일을 수정했습니다.\n"
 " 저장하시겠습니까?"
 
-#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
-#: komparepart/kompare_part.cpp:929
+#: komparepart/kompare_part.cpp:761 komparepart/kompare_part.cpp:800
+#: komparepart/kompare_part.cpp:924
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Changes?"
 msgstr "변경 사항을 저장하시겠습니까?"
 
-#: komparepart/kompare_part.cpp:852
+#: komparepart/kompare_part.cpp:843
 #, kde-format
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "통합된"
 
-#: komparepart/kompare_part.cpp:855
+#: komparepart/kompare_part.cpp:846
 #, kde-format
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "콘텍스트"
 
-#: komparepart/kompare_part.cpp:858
+#: komparepart/kompare_part.cpp:849
 #, kde-format
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
-#: komparepart/kompare_part.cpp:861
+#: komparepart/kompare_part.cpp:852
 #, kde-format
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
-#: komparepart/kompare_part.cpp:864
+#: komparepart/kompare_part.cpp:855
 #, kde-format
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "일반"
 
-#: komparepart/kompare_part.cpp:868
+#: komparepart/kompare_part.cpp:859
 #, kde-format
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "알 수 없음"
 
-#: komparepart/kompare_part.cpp:884
+#: komparepart/kompare_part.cpp:875
 #, kde-format
 msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
@@ -1145,14 +1128,14 @@ msgstr ""
 "diff 파일이 없거나 두 파일의 차이를 비교하지 않았습니다. 따라서 통계 정보가 "
 "없습니다."
 
-#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
-#: komparepart/kompare_part.cpp:916
+#: komparepart/kompare_part.cpp:877 komparepart/kompare_part.cpp:891
+#: komparepart/kompare_part.cpp:907
 #, kde-format
 msgctxt "@title:window"
 msgid "Diff Statistics"
 msgstr "차이점 통계"
 
-#: komparepart/kompare_part.cpp:890
+#: komparepart/kompare_part.cpp:881
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1173,7 +1156,7 @@ msgstr ""
 " Hunk 개수: %4\n"
 " 차이점 개수: %5"
 
-#: komparepart/kompare_part.cpp:903
+#: komparepart/kompare_part.cpp:894
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1353,6 +1336,17 @@ msgstr "명령행"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd dir && diff -udHprNa -- 원본 대상"
+
+#~ msgid "The file exists or is write-protected; do you want to overwrite it?"
+#~ msgstr "파일이 이미 존재하거나 읽기 전용입니다. 덮어쓰시겠습니까?"
+
+#~ msgctxt "@window:title"
+#~ msgid "File Exists"
+#~ msgstr "파일이 존재함"
+
+#~ msgctxt "@action:button"
+#~ msgid "Do Not Overwrite"
+#~ msgstr "덮어쓰지 않기"
 
 #~ msgid "KompareNavTreePart"
 #~ msgstr "KompareNavTreePart"

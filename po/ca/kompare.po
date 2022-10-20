@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-14 00:49+0000\n"
+"POT-Creation-Date: 2022-10-20 00:54+0000\n"
 "PO-Revision-Date: 2022-10-14 12:28+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -158,37 +158,37 @@ msgstr ""
 "«diff», de manera que pugueu aplicar la/es diferència/es a un fitxer o als "
 "fitxers. "
 
-#: app/kompare_shell.cpp:358 app/main.cpp:199
+#: app/kompare_shell.cpp:358 app/main.cpp:198
 #, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "Compara fitxers o carpetes"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:200
+#: app/kompare_shell.cpp:359 app/main.cpp:199
 #, kde-format
 msgctxt "@title:group"
 msgid "Source"
 msgstr "Origen"
 
-#: app/kompare_shell.cpp:360 app/main.cpp:201
+#: app/kompare_shell.cpp:360 app/main.cpp:200
 #, kde-format
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Destinació"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:204
+#: app/kompare_shell.cpp:363 app/main.cpp:203
 #, kde-format
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "Compara"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:205
+#: app/kompare_shell.cpp:364 app/main.cpp:204
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "Compara aquests fitxers o carpetes"
 
-#: app/kompare_shell.cpp:365 app/main.cpp:206
+#: app/kompare_shell.cpp:365 app/main.cpp:205
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -266,12 +266,12 @@ msgstr ""
 "No s'ha pogut trobar el fitxer usat per a excloure fitxers. Si us plau, "
 "especifiqueu un altre fitxer."
 
-#: app/main.cpp:50
+#: app/main.cpp:49
 #, kde-format
 msgid "Kompare"
 msgstr "Kompare"
 
-#: app/main.cpp:52
+#: app/main.cpp:51
 #, kde-format
 msgid ""
 "A program to view the differences between files and optionally generate a "
@@ -280,7 +280,7 @@ msgstr ""
 "Un programa per a veure diferències entre fitxers i opcionalment generar un "
 "fitxer «diff»"
 
-#: app/main.cpp:54
+#: app/main.cpp:53
 #, kde-format
 msgid ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
@@ -289,77 +289,77 @@ msgstr ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
 "2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
 
-#: app/main.cpp:57
+#: app/main.cpp:56
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: app/main.cpp:57 app/main.cpp:58
+#: app/main.cpp:56 app/main.cpp:57
 #, kde-format
 msgid "Author"
 msgstr "Autor"
 
-#: app/main.cpp:58
+#: app/main.cpp:57
 #, kde-format
 msgid "Otto Bruggeman"
 msgstr "Otto Bruggeman"
 
-#: app/main.cpp:59
+#: app/main.cpp:58
 #, kde-format
 msgid "Jeff Snyder"
 msgstr "Jeff Snyder"
 
-#: app/main.cpp:59
+#: app/main.cpp:58
 #, kde-format
 msgid "Developer"
 msgstr "Desenvolupador"
 
-#: app/main.cpp:60
+#: app/main.cpp:59
 #, kde-format
 msgid "Kevin Kofler"
 msgstr "Kevin Kofler"
 
-#: app/main.cpp:60
+#: app/main.cpp:59
 #, kde-format
 msgid "Maintainer"
 msgstr "Mantenidor"
 
-#: app/main.cpp:61
+#: app/main.cpp:60
 #, kde-format
 msgid "Chris Luetchford"
 msgstr "Chris Luetchford"
 
-#: app/main.cpp:61
+#: app/main.cpp:60
 #, kde-format
 msgid "Kompare icon artist"
 msgstr "Creador de la icona del Kompare"
 
-#: app/main.cpp:62
+#: app/main.cpp:61
 #, kde-format
 msgid "Malte Starostik"
 msgstr "Malte Starostik"
 
-#: app/main.cpp:62
+#: app/main.cpp:61
 #, kde-format
 msgid "A lot of good advice"
 msgstr "Un munt de bons consells"
 
-#: app/main.cpp:63
+#: app/main.cpp:62
 #, kde-format
 msgid "Bernd Gehrmann"
 msgstr "Bernd Gehrmann"
 
-#: app/main.cpp:63
+#: app/main.cpp:62
 #, kde-format
 msgid "Cervisia diff viewer"
 msgstr "Visualitzador «diff» del Cervisia"
 
-#: app/main.cpp:70
+#: app/main.cpp:69
 #, kde-format
 msgid "This will compare URL1 with URL2"
 msgstr "Això compararà URL1 amb URL2"
 
-#: app/main.cpp:71
+#: app/main.cpp:70
 #, kde-format
 msgid ""
 "This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
@@ -375,7 +375,7 @@ msgstr ""
 "sortida del «diff» i la mostrarà en el visualitzador. «-n» desactiva la "
 "comprovació."
 
-#: app/main.cpp:72
+#: app/main.cpp:71
 #, kde-format
 msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
@@ -385,7 +385,7 @@ msgstr ""
 "del «diff» i que el fitxer o carpeta d'URL 1 sigui el corresponent per a "
 "dita sortida del «diff». "
 
-#: app/main.cpp:73
+#: app/main.cpp:72
 #, kde-format
 msgid ""
 "Disables the check for automatically finding the original file(s) when using "
@@ -394,7 +394,7 @@ msgstr ""
 "Desactiva la comprovació per a la cerca automàtica del/s fitxer/s original/s "
 "quan s'usi «-» com a URL amb l'opció «-o»."
 
-#: app/main.cpp:74
+#: app/main.cpp:73
 #, kde-format
 msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
@@ -1016,126 +1016,107 @@ msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "Desconegut"
 
-#: komparepart/kompare_part.cpp:179
+#: komparepart/kompare_part.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Save &All"
 msgstr "Desa-ho &tot"
 
-#: komparepart/kompare_part.cpp:181
+#: komparepart/kompare_part.cpp:182
 #, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
 msgstr "Desa el «&diff»..."
 
-#: komparepart/kompare_part.cpp:183
+#: komparepart/kompare_part.cpp:184
 #, kde-format
 msgctxt "@action"
 msgid "Swap Source with Destination"
 msgstr "Commuta l'origen amb la destinació"
 
-#: komparepart/kompare_part.cpp:190
+#: komparepart/kompare_part.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Show Statistics"
 msgstr "Mostra estadístiques"
 
-#: komparepart/kompare_part.cpp:193
+#: komparepart/kompare_part.cpp:194
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
 msgstr "Actualitza el «diff»"
 
-#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#: komparepart/kompare_part.cpp:306 komparepart/kompare_part.cpp:319
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
 msgstr "<qt>L'URL <b> %1</b> no s'ha pogut descarregar.</qt>"
 
-#: komparepart/kompare_part.cpp:356
+#: komparepart/kompare_part.cpp:357
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
 msgstr "<qt>L'URL <b>%1</b> no existeix en el vostre sistema.</qt>"
 
-#: komparepart/kompare_part.cpp:544
+#: komparepart/kompare_part.cpp:545
 #, kde-format
 msgctxt "@title:window"
 msgid "Diff Options"
 msgstr "Opcions del «diff»"
 
-#: komparepart/kompare_part.cpp:565
+#: komparepart/kompare_part.cpp:564
 #, kde-format
 msgctxt "@title:window"
 msgid "Save .diff"
 msgstr "Desa «.diff»"
 
-#: komparepart/kompare_part.cpp:567
+#: komparepart/kompare_part.cpp:566
 #, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
 msgstr "Fitxers pedaç (*.diff *.dif *.patch)"
 
-#: komparepart/kompare_part.cpp:569
-#, kde-format
-msgid "The file exists or is write-protected; do you want to overwrite it?"
-msgstr ""
-"El fitxer ja existeix o està protegit contra escriptura. Voleu "
-"sobreescriure'l?"
-
-#: komparepart/kompare_part.cpp:569
-#, kde-format
-msgctxt "@window:title"
-msgid "File Exists"
-msgstr "El fitxer ja existeix"
-
-#: komparepart/kompare_part.cpp:569
-#, kde-format
-msgctxt "@action:button"
-msgid "Do Not Overwrite"
-msgstr "No sobreescriure"
-
-#: komparepart/kompare_part.cpp:653
+#: komparepart/kompare_part.cpp:627
 #, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
 msgstr "S'està executant el «diff»..."
 
-#: komparepart/kompare_part.cpp:656
+#: komparepart/kompare_part.cpp:630
 #, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
 msgstr "S'està analitzant la sortida del «diff»..."
 
-#: komparepart/kompare_part.cpp:712
+#: komparepart/kompare_part.cpp:686
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
 msgstr "Es compara el fitxer %1 amb el fitxer %2"
 
-#: komparepart/kompare_part.cpp:717
+#: komparepart/kompare_part.cpp:691
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
 msgstr "Es comparen els fitxers de %1 amb els de %2"
 
-#: komparepart/kompare_part.cpp:722
+#: komparepart/kompare_part.cpp:696
 #, kde-format
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
 msgstr "S'està analitzant la sortida del «diff» des de %1"
 
-#: komparepart/kompare_part.cpp:725
+#: komparepart/kompare_part.cpp:699
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
 msgstr "S'està fusionant la sortida del «diff» de %1 en el fitxer %2"
 
-#: komparepart/kompare_part.cpp:730
+#: komparepart/kompare_part.cpp:704
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
 msgstr "S'està fusionant la sortida del «diff» de %1 en el fitxer %2"
 
-#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
-#: komparepart/kompare_part.cpp:927
+#: komparepart/kompare_part.cpp:759 komparepart/kompare_part.cpp:798
+#: komparepart/kompare_part.cpp:922
 #, kde-format
 msgid ""
 "You have made changes to the destination file(s).\n"
@@ -1144,50 +1125,50 @@ msgstr ""
 "Heu realitzat canvis en el/s fitxer/s de destinació.\n"
 "Desitgeu desar-los?"
 
-#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
-#: komparepart/kompare_part.cpp:929
+#: komparepart/kompare_part.cpp:761 komparepart/kompare_part.cpp:800
+#: komparepart/kompare_part.cpp:924
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Changes?"
 msgstr "Desar els canvis?"
 
-#: komparepart/kompare_part.cpp:852
+#: komparepart/kompare_part.cpp:843
 #, kde-format
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "Unificat"
 
-#: komparepart/kompare_part.cpp:855
+#: komparepart/kompare_part.cpp:846
 #, kde-format
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "Context"
 
-#: komparepart/kompare_part.cpp:858
+#: komparepart/kompare_part.cpp:849
 #, kde-format
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
-#: komparepart/kompare_part.cpp:861
+#: komparepart/kompare_part.cpp:852
 #, kde-format
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
-#: komparepart/kompare_part.cpp:864
+#: komparepart/kompare_part.cpp:855
 #, kde-format
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "Normal"
 
-#: komparepart/kompare_part.cpp:868
+#: komparepart/kompare_part.cpp:859
 #, kde-format
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "Desconegut"
 
-#: komparepart/kompare_part.cpp:884
+#: komparepart/kompare_part.cpp:875
 #, kde-format
 msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
@@ -1196,14 +1177,14 @@ msgstr ""
 "No hi ha el fitxer «diff» o no s'han comparat 2 fitxers. Per tant, no hi ha "
 "cap estadística disponible."
 
-#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
-#: komparepart/kompare_part.cpp:916
+#: komparepart/kompare_part.cpp:877 komparepart/kompare_part.cpp:891
+#: komparepart/kompare_part.cpp:907
 #, kde-format
 msgctxt "@title:window"
 msgid "Diff Statistics"
 msgstr "Estadístiques del «diff»"
 
-#: komparepart/kompare_part.cpp:890
+#: komparepart/kompare_part.cpp:881
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1224,7 +1205,7 @@ msgstr ""
 "Nombre de blocs: %4\n"
 "Nombre de diferències: %5"
 
-#: komparepart/kompare_part.cpp:903
+#: komparepart/kompare_part.cpp:894
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1404,3 +1385,16 @@ msgstr "Línia d'ordres"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd dir && diff -udHprNa -- origen destinació"
+
+#~ msgid "The file exists or is write-protected; do you want to overwrite it?"
+#~ msgstr ""
+#~ "El fitxer ja existeix o està protegit contra escriptura. Voleu "
+#~ "sobreescriure'l?"
+
+#~ msgctxt "@window:title"
+#~ msgid "File Exists"
+#~ msgstr "El fitxer ja existeix"
+
+#~ msgctxt "@action:button"
+#~ msgid "Do Not Overwrite"
+#~ msgstr "No sobreescriure"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-14 00:49+0000\n"
+"POT-Creation-Date: 2022-10-20 00:54+0000\n"
 "PO-Revision-Date: 2020-06-22 23:12+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -164,37 +164,37 @@ msgstr ""
 "pääikkunan, missä tiedoston tai tiedostojen sisältö sekoitetaan diff-"
 "tulosteeseen, jotta voit kopioida erot tiedostoihin."
 
-#: app/kompare_shell.cpp:358 app/main.cpp:199
+#: app/kompare_shell.cpp:358 app/main.cpp:198
 #, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "Vertaa tiedostoja tai kansioita"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:200
+#: app/kompare_shell.cpp:359 app/main.cpp:199
 #, kde-format
 msgctxt "@title:group"
 msgid "Source"
 msgstr "Lähde"
 
-#: app/kompare_shell.cpp:360 app/main.cpp:201
+#: app/kompare_shell.cpp:360 app/main.cpp:200
 #, kde-format
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Kohde"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:204
+#: app/kompare_shell.cpp:363 app/main.cpp:203
 #, kde-format
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "Vertaa"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:205
+#: app/kompare_shell.cpp:364 app/main.cpp:204
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "Vertaa näitä tiedostoja tai kansioita"
 
-#: app/kompare_shell.cpp:365 app/main.cpp:206
+#: app/kompare_shell.cpp:365 app/main.cpp:205
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -273,12 +273,12 @@ msgstr ""
 
 # pmap: =/gen=Komparen/
 # pmap: =/elat=Komparesta/
-#: app/main.cpp:50
+#: app/main.cpp:49
 #, kde-format
 msgid "Kompare"
 msgstr "Kompare"
 
-#: app/main.cpp:52
+#: app/main.cpp:51
 #, kde-format
 msgid ""
 "A program to view the differences between files and optionally generate a "
@@ -287,7 +287,7 @@ msgstr ""
 "Ohjelma tiedostojen välisten erojen tarkastelemiseen ja diff-tiedoston "
 "luomiseen."
 
-#: app/main.cpp:54
+#: app/main.cpp:53
 #, kde-format
 msgid ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
@@ -296,77 +296,77 @@ msgstr ""
 "© 2001–2004 John Firebaugh, © 2001–2005, 2009 Otto Bruggeman, © 2004–2005 "
 "Jeff Snyder, © 2007–2012 Kevin Kofler"
 
-#: app/main.cpp:57
+#: app/main.cpp:56
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: app/main.cpp:57 app/main.cpp:58
+#: app/main.cpp:56 app/main.cpp:57
 #, kde-format
 msgid "Author"
 msgstr "Tekijä"
 
-#: app/main.cpp:58
+#: app/main.cpp:57
 #, kde-format
 msgid "Otto Bruggeman"
 msgstr "Otto Bruggeman"
 
-#: app/main.cpp:59
+#: app/main.cpp:58
 #, kde-format
 msgid "Jeff Snyder"
 msgstr "Jeff Snyder"
 
-#: app/main.cpp:59
+#: app/main.cpp:58
 #, kde-format
 msgid "Developer"
 msgstr "Kehittäjä"
 
-#: app/main.cpp:60
+#: app/main.cpp:59
 #, kde-format
 msgid "Kevin Kofler"
 msgstr "Kevin Kofler"
 
-#: app/main.cpp:60
+#: app/main.cpp:59
 #, kde-format
 msgid "Maintainer"
 msgstr "Ylläpitäjä"
 
-#: app/main.cpp:61
+#: app/main.cpp:60
 #, kde-format
 msgid "Chris Luetchford"
 msgstr "Chris Luetchford"
 
-#: app/main.cpp:61
+#: app/main.cpp:60
 #, kde-format
 msgid "Kompare icon artist"
 msgstr "Komparen kuvaketaiteilija"
 
-#: app/main.cpp:62
+#: app/main.cpp:61
 #, kde-format
 msgid "Malte Starostik"
 msgstr "Malte Starostik"
 
-#: app/main.cpp:62
+#: app/main.cpp:61
 #, kde-format
 msgid "A lot of good advice"
 msgstr "Runsaasti hyviä neuvoja"
 
-#: app/main.cpp:63
+#: app/main.cpp:62
 #, kde-format
 msgid "Bernd Gehrmann"
 msgstr "Bernd Gehrmann"
 
-#: app/main.cpp:63
+#: app/main.cpp:62
 #, kde-format
 msgid "Cervisia diff viewer"
 msgstr "Cervisia diff-katseluohjelma"
 
-#: app/main.cpp:70
+#: app/main.cpp:69
 #, kde-format
 msgid "This will compare URL1 with URL2"
 msgstr "Tämä vertaa URL1:ä URL2:een."
 
-#: app/main.cpp:71
+#: app/main.cpp:70
 #, kde-format
 msgid ""
 "This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
@@ -380,7 +380,7 @@ msgstr ""
 "-. Kompare tarkastaa, löytyvätkö alkuperäiset tiedostot ja yhdistää ne diff-"
 "tulosteeseen sekä näyttää lopputuloksen. -n poistaa tarkastuksen käytöstä."
 
-#: app/main.cpp:72
+#: app/main.cpp:71
 #, kde-format
 msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
@@ -389,7 +389,7 @@ msgstr ""
 "Tämä yhdistää URL2:n URL1:een, URL2:n oletetaan olevan diff-tuloste ja URL1:"
 "n tiedosto tai kansio, johon diff-tuloste yhdistetään."
 
-#: app/main.cpp:73
+#: app/main.cpp:72
 #, kde-format
 msgid ""
 "Disables the check for automatically finding the original file(s) when using "
@@ -398,7 +398,7 @@ msgstr ""
 "Jos tämä valitaan, alkuperäistiedosto(j)a ei etsitä "
 "automaattisestikäytettäessä URLina ”-” yhdessä -o-valitsimen kanssa."
 
-#: app/main.cpp:74
+#: app/main.cpp:73
 #, kde-format
 msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
@@ -1016,126 +1016,107 @@ msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: komparepart/kompare_part.cpp:179
+#: komparepart/kompare_part.cpp:180
 #, kde-format
 msgctxt "@action"
 msgid "Save &All"
 msgstr "T&allenna kaikki"
 
-#: komparepart/kompare_part.cpp:181
+#: komparepart/kompare_part.cpp:182
 #, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
 msgstr "Tallenna &diff…"
 
-#: komparepart/kompare_part.cpp:183
+#: komparepart/kompare_part.cpp:184
 #, kde-format
 msgctxt "@action"
 msgid "Swap Source with Destination"
 msgstr "Vaihda lähde ja kohde keskenään"
 
-#: komparepart/kompare_part.cpp:190
+#: komparepart/kompare_part.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Show Statistics"
 msgstr "Näytä tilastot"
 
-#: komparepart/kompare_part.cpp:193
+#: komparepart/kompare_part.cpp:194
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
 msgstr "Virkistä diff"
 
-#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#: komparepart/kompare_part.cpp:306 komparepart/kompare_part.cpp:319
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
 msgstr "<qt>URLia <b>%1</b> ei voida ladata.</qt>"
 
-#: komparepart/kompare_part.cpp:356
+#: komparepart/kompare_part.cpp:357
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
 msgstr "<qt>URLia <b>%1</b> ei ole järjestelmässäsi.</qt>"
 
-#: komparepart/kompare_part.cpp:544
+#: komparepart/kompare_part.cpp:545
 #, kde-format
 msgctxt "@title:window"
 msgid "Diff Options"
 msgstr "Diff-asetukset"
 
-#: komparepart/kompare_part.cpp:565
+#: komparepart/kompare_part.cpp:564
 #, kde-format
 msgctxt "@title:window"
 msgid "Save .diff"
 msgstr "Tallenna .diff"
 
-#: komparepart/kompare_part.cpp:567
+#: komparepart/kompare_part.cpp:566
 #, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
 msgstr "Paikkaustiedostot (*.diff *.dif *.patch)"
 
-#: komparepart/kompare_part.cpp:569
-#, kde-format
-msgid "The file exists or is write-protected; do you want to overwrite it?"
-msgstr ""
-"Tiedosto on jo olemassa tai se on kirjoitussuojattu; haluatko ylikirjoittaa "
-"sen?"
-
-#: komparepart/kompare_part.cpp:569
-#, kde-format
-msgctxt "@window:title"
-msgid "File Exists"
-msgstr "Tiedosto on jo olemassa"
-
-#: komparepart/kompare_part.cpp:569
-#, kde-format
-msgctxt "@action:button"
-msgid "Do Not Overwrite"
-msgstr "Älä korvaa"
-
-#: komparepart/kompare_part.cpp:653
+#: komparepart/kompare_part.cpp:627
 #, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
 msgstr "Etsitään eroja…"
 
-#: komparepart/kompare_part.cpp:656
+#: komparepart/kompare_part.cpp:630
 #, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
 msgstr "Jäsennetään diffin tulostetta…"
 
-#: komparepart/kompare_part.cpp:712
+#: komparepart/kompare_part.cpp:686
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
 msgstr "Verrataan tiedostoa %1 tiedostoon %2"
 
-#: komparepart/kompare_part.cpp:717
+#: komparepart/kompare_part.cpp:691
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
 msgstr "Verrataan kansion %1 tiedostoja kansion %2 tiedostoihin"
 
-#: komparepart/kompare_part.cpp:722
+#: komparepart/kompare_part.cpp:696
 #, kde-format
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
 msgstr "Näytetään diff-tuloste tiedostosta %1"
 
-#: komparepart/kompare_part.cpp:725
+#: komparepart/kompare_part.cpp:699
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
 msgstr "Sulautetaan diff-tuloste tiedostosta %1 tiedostoon %2"
 
-#: komparepart/kompare_part.cpp:730
+#: komparepart/kompare_part.cpp:704
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
 msgstr "Sulautetaan diff-tulosteet kansiosta %1 kansioon %2"
 
-#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
-#: komparepart/kompare_part.cpp:927
+#: komparepart/kompare_part.cpp:759 komparepart/kompare_part.cpp:798
+#: komparepart/kompare_part.cpp:922
 #, kde-format
 msgid ""
 "You have made changes to the destination file(s).\n"
@@ -1144,50 +1125,50 @@ msgstr ""
 "Kohdetiedostoon/tiedostoihin on tehty muutoksia.\n"
 "Tallennetaanko muutokset?"
 
-#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
-#: komparepart/kompare_part.cpp:929
+#: komparepart/kompare_part.cpp:761 komparepart/kompare_part.cpp:800
+#: komparepart/kompare_part.cpp:924
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Changes?"
 msgstr "Tallennetaanko muutokset?"
 
-#: komparepart/kompare_part.cpp:852
+#: komparepart/kompare_part.cpp:843
 #, kde-format
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "Yhtenäistetty"
 
-#: komparepart/kompare_part.cpp:855
+#: komparepart/kompare_part.cpp:846
 #, kde-format
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "Konteksti"
 
-#: komparepart/kompare_part.cpp:858
+#: komparepart/kompare_part.cpp:849
 #, kde-format
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
-#: komparepart/kompare_part.cpp:861
+#: komparepart/kompare_part.cpp:852
 #, kde-format
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
-#: komparepart/kompare_part.cpp:864
+#: komparepart/kompare_part.cpp:855
 #, kde-format
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "Tavallinen"
 
-#: komparepart/kompare_part.cpp:868
+#: komparepart/kompare_part.cpp:859
 #, kde-format
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: komparepart/kompare_part.cpp:884
+#: komparepart/kompare_part.cpp:875
 #, kde-format
 msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
@@ -1196,14 +1177,14 @@ msgstr ""
 "Tilastot eivät ole käytettävissä, koska diff-tiedostoa ei ole annettu tai "
 "kahta tiedostoa ei ole verrattu."
 
-#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
-#: komparepart/kompare_part.cpp:916
+#: komparepart/kompare_part.cpp:877 komparepart/kompare_part.cpp:891
+#: komparepart/kompare_part.cpp:907
 #, kde-format
 msgctxt "@title:window"
 msgid "Diff Statistics"
 msgstr "Diff-tilastot"
 
-#: komparepart/kompare_part.cpp:890
+#: komparepart/kompare_part.cpp:881
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1224,7 +1205,7 @@ msgstr ""
 "Palojen määrä: %4\n"
 "Eroavuuksien määrä: %5"
 
-#: komparepart/kompare_part.cpp:903
+#: komparepart/kompare_part.cpp:894
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1404,6 +1385,19 @@ msgstr "Komentorivi"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd dir && diff -udHprNa -- lähde kohde"
+
+#~ msgid "The file exists or is write-protected; do you want to overwrite it?"
+#~ msgstr ""
+#~ "Tiedosto on jo olemassa tai se on kirjoitussuojattu; haluatko "
+#~ "ylikirjoittaa sen?"
+
+#~ msgctxt "@window:title"
+#~ msgid "File Exists"
+#~ msgstr "Tiedosto on jo olemassa"
+
+#~ msgctxt "@action:button"
+#~ msgid "Do Not Overwrite"
+#~ msgstr "Älä korvaa"
 
 #~ msgid "KompareNavTreePart"
 #~ msgstr "KompareNavTreePart"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-14 00:49+0000\n"
+"POT-Creation-Date: 2022-10-20 00:54+0000\n"
 "PO-Revision-Date: 2009-07-20 23:29+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -173,42 +173,42 @@ msgstr ""
 "ボタンが有効になり、押すと入力 (フォルダの) ファイルへの diff 出力を kompare "
 "のメインビューに示します。これで差分を適用することができます。"
 
-#: app/kompare_shell.cpp:358 app/main.cpp:199
+#: app/kompare_shell.cpp:358 app/main.cpp:198
 #, fuzzy, kde-format
 #| msgid "Compare Files or Folders"
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "ファイルまたはディレクトリの比較"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:200
+#: app/kompare_shell.cpp:359 app/main.cpp:199
 #, fuzzy, kde-format
 #| msgid "Source"
 msgctxt "@title:group"
 msgid "Source"
 msgstr "比較元"
 
-#: app/kompare_shell.cpp:360 app/main.cpp:201
+#: app/kompare_shell.cpp:360 app/main.cpp:200
 #, fuzzy, kde-format
 #| msgid "Destination"
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "比較先"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:204
+#: app/kompare_shell.cpp:363 app/main.cpp:203
 #, fuzzy, kde-format
 #| msgid "Compare"
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "比較"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:205
+#: app/kompare_shell.cpp:364 app/main.cpp:204
 #, fuzzy, kde-format
 #| msgid "Compare these files or folders"
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "これらのファイル/フォルダを比較"
 
-#: app/kompare_shell.cpp:365 app/main.cpp:206
+#: app/kompare_shell.cpp:365 app/main.cpp:205
 #, fuzzy, kde-format
 #| msgid ""
 #| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
@@ -292,19 +292,19 @@ msgid ""
 "File used for excluding files cannot be found, please specify another file."
 msgstr ""
 
-#: app/main.cpp:50
+#: app/main.cpp:49
 #, kde-format
 msgid "Kompare"
 msgstr "Kompare"
 
-#: app/main.cpp:52
+#: app/main.cpp:51
 #, kde-format
 msgid ""
 "A program to view the differences between files and optionally generate a "
 "diff"
 msgstr "ファイル間の差を表示し、差分も生成できるプログラムです。"
 
-#: app/main.cpp:54
+#: app/main.cpp:53
 #, fuzzy, kde-format
 #| msgid ""
 #| "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
@@ -316,77 +316,77 @@ msgstr ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
 "2004-2005 Jeff Snyder, (c) 2007-2008 Kevin Kofler"
 
-#: app/main.cpp:57
+#: app/main.cpp:56
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: app/main.cpp:57 app/main.cpp:58
+#: app/main.cpp:56 app/main.cpp:57
 #, kde-format
 msgid "Author"
 msgstr "作者"
 
-#: app/main.cpp:58
+#: app/main.cpp:57
 #, kde-format
 msgid "Otto Bruggeman"
 msgstr "Otto Bruggeman"
 
-#: app/main.cpp:59
+#: app/main.cpp:58
 #, kde-format
 msgid "Jeff Snyder"
 msgstr "Jeff Snyder"
 
-#: app/main.cpp:59
+#: app/main.cpp:58
 #, kde-format
 msgid "Developer"
 msgstr "開発者"
 
-#: app/main.cpp:60
+#: app/main.cpp:59
 #, kde-format
 msgid "Kevin Kofler"
 msgstr "Kevin Kofler"
 
-#: app/main.cpp:60
+#: app/main.cpp:59
 #, kde-format
 msgid "Maintainer"
 msgstr "メンテナ"
 
-#: app/main.cpp:61
+#: app/main.cpp:60
 #, kde-format
 msgid "Chris Luetchford"
 msgstr "Chris Luetchford"
 
-#: app/main.cpp:61
+#: app/main.cpp:60
 #, kde-format
 msgid "Kompare icon artist"
 msgstr "KomparePart アイコンの作者"
 
-#: app/main.cpp:62
+#: app/main.cpp:61
 #, kde-format
 msgid "Malte Starostik"
 msgstr "Malte Starostik"
 
-#: app/main.cpp:62
+#: app/main.cpp:61
 #, kde-format
 msgid "A lot of good advice"
 msgstr "たくさんの良きアドバイス"
 
-#: app/main.cpp:63
+#: app/main.cpp:62
 #, kde-format
 msgid "Bernd Gehrmann"
 msgstr "Bernd Gehrmann"
 
-#: app/main.cpp:63
+#: app/main.cpp:62
 #, kde-format
 msgid "Cervisia diff viewer"
 msgstr "Cervisia diff ビューア"
 
-#: app/main.cpp:70
+#: app/main.cpp:69
 #, kde-format
 msgid "This will compare URL1 with URL2"
 msgstr "URL1 と URL2 を比較します。"
 
-#: app/main.cpp:71
+#: app/main.cpp:70
 #, kde-format
 msgid ""
 "This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
@@ -400,7 +400,7 @@ msgstr ""
 "diff 出力に吐き、ビューアに表示します。-n でオリジナルファイルを探さないよう"
 "にすることができます。"
 
-#: app/main.cpp:72
+#: app/main.cpp:71
 #, kde-format
 msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
@@ -409,7 +409,7 @@ msgstr ""
 "URL2 を URL1 に適用します。URL2 は diff 出力、URL1 は diff 出力を適用するファ"
 "イルまたはフォルダです。"
 
-#: app/main.cpp:73
+#: app/main.cpp:72
 #, kde-format
 msgid ""
 "Disables the check for automatically finding the original file(s) when using "
@@ -418,7 +418,7 @@ msgstr ""
 "-o オプションで “-” を URL として使う際にオリジナルファイルを探すのを無効にし"
 "ます。"
 
-#: app/main.cpp:74
+#: app/main.cpp:73
 #, kde-format
 msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
@@ -1097,141 +1097,122 @@ msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "不明"
 
-#: komparepart/kompare_part.cpp:179
+#: komparepart/kompare_part.cpp:180
 #, fuzzy, kde-format
 #| msgid "Save &All"
 msgctxt "@action"
 msgid "Save &All"
 msgstr "すべて保存(&A)"
 
-#: komparepart/kompare_part.cpp:181
+#: komparepart/kompare_part.cpp:182
 #, fuzzy, kde-format
 #| msgid "Save &Diff..."
 msgctxt "@action"
 msgid "Save &Diff..."
 msgstr "差分を保存(&D)..."
 
-#: komparepart/kompare_part.cpp:183
+#: komparepart/kompare_part.cpp:184
 #, fuzzy, kde-format
 #| msgid "Swap Source with Destination"
 msgctxt "@action"
 msgid "Swap Source with Destination"
 msgstr "比較元と比較先を入れ替え"
 
-#: komparepart/kompare_part.cpp:190
+#: komparepart/kompare_part.cpp:191
 #, fuzzy, kde-format
 #| msgid "Show Statistics"
 msgctxt "@action"
 msgid "Show Statistics"
 msgstr "統計を表示"
 
-#: komparepart/kompare_part.cpp:193
+#: komparepart/kompare_part.cpp:194
 #, fuzzy, kde-format
 #| msgid "Refresh Diff"
 msgctxt "@action"
 msgid "Refresh Diff"
 msgstr "差分を更新"
 
-#: komparepart/kompare_part.cpp:305 komparepart/kompare_part.cpp:318
+#: komparepart/kompare_part.cpp:306 komparepart/kompare_part.cpp:319
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
 msgstr "<qt>URL <b>%1</b> はダウンロードできません。</qt>"
 
-#: komparepart/kompare_part.cpp:356
+#: komparepart/kompare_part.cpp:357
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
 msgstr "<qt>URL <b>%1</b> はシステムに存在しません。</qt>"
 
-#: komparepart/kompare_part.cpp:544
+#: komparepart/kompare_part.cpp:545
 #, fuzzy, kde-format
 #| msgid "Diff Options"
 msgctxt "@title:window"
 msgid "Diff Options"
 msgstr "Diff のオプション"
 
-#: komparepart/kompare_part.cpp:565
+#: komparepart/kompare_part.cpp:564
 #, fuzzy, kde-format
 #| msgid "Save .diff"
 msgctxt "@title:window"
 msgid "Save .diff"
 msgstr "差分 (.diff) を保存"
 
-#: komparepart/kompare_part.cpp:567
+#: komparepart/kompare_part.cpp:566
 #, fuzzy, kde-format
 #| msgid "*.diff *.dif *.patch|Patch Files"
 msgid "Patch Files (*.diff *.dif *.patch)"
 msgstr "*.diff *.dif *.patch|パッチファイル"
 
-#: komparepart/kompare_part.cpp:569
-#, kde-format
-msgid "The file exists or is write-protected; do you want to overwrite it?"
-msgstr "ファイルは既に存在するか、書き込み禁止です。本当に上書きしますか？"
-
-#: komparepart/kompare_part.cpp:569
-#, fuzzy, kde-format
-#| msgid "File Exists"
-msgctxt "@window:title"
-msgid "File Exists"
-msgstr "ファイルは存在します"
-
-#: komparepart/kompare_part.cpp:569
-#, fuzzy, kde-format
-#| msgid "Do Not Overwrite"
-msgctxt "@action:button"
-msgid "Do Not Overwrite"
-msgstr "上書きしない"
-
-#: komparepart/kompare_part.cpp:653
+#: komparepart/kompare_part.cpp:627
 #, fuzzy, kde-format
 #| msgid "Running diff..."
 msgctxt "@info:status"
 msgid "Running diff..."
 msgstr "diff 実行中..."
 
-#: komparepart/kompare_part.cpp:656
+#: komparepart/kompare_part.cpp:630
 #, fuzzy, kde-format
 #| msgid "Parsing diff output..."
 msgctxt "@info:status"
 msgid "Parsing diff output..."
 msgstr "diff 出力を解析中..."
 
-#: komparepart/kompare_part.cpp:712
+#: komparepart/kompare_part.cpp:686
 #, fuzzy, kde-format
 #| msgid "Comparing file %1 with file %2"
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
 msgstr "ファイル ‘%1’ を %2 と比較中"
 
-#: komparepart/kompare_part.cpp:717
+#: komparepart/kompare_part.cpp:691
 #, fuzzy, kde-format
 #| msgid "Comparing files in %1 with files in %2"
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
 msgstr "%1 内のファイルと %2 内のファイルを比較中"
 
-#: komparepart/kompare_part.cpp:722
+#: komparepart/kompare_part.cpp:696
 #, fuzzy, kde-format
 #| msgid "Viewing diff output from %1"
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
 msgstr "%1 からの diff 出力を表示中"
 
-#: komparepart/kompare_part.cpp:725
+#: komparepart/kompare_part.cpp:699
 #, fuzzy, kde-format
 #| msgid "Blending diff output from %1 into file %2"
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
 msgstr "%1 からの diff 出力をファイル ‘%2’ に適用中"
 
-#: komparepart/kompare_part.cpp:730
+#: komparepart/kompare_part.cpp:704
 #, fuzzy, kde-format
 #| msgid "Blending diff output from %1 into folder %2"
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
 msgstr "%1 からの diff 出力をフォルダ %2 に適用中"
 
-#: komparepart/kompare_part.cpp:781 komparepart/kompare_part.cpp:812
-#: komparepart/kompare_part.cpp:927
+#: komparepart/kompare_part.cpp:759 komparepart/kompare_part.cpp:798
+#: komparepart/kompare_part.cpp:922
 #, kde-format
 msgid ""
 "You have made changes to the destination file(s).\n"
@@ -1240,57 +1221,57 @@ msgstr ""
 "比較先に変更を加えました。\n"
 "これを保存しますか？"
 
-#: komparepart/kompare_part.cpp:783 komparepart/kompare_part.cpp:814
-#: komparepart/kompare_part.cpp:929
+#: komparepart/kompare_part.cpp:761 komparepart/kompare_part.cpp:800
+#: komparepart/kompare_part.cpp:924
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title:window"
 msgid "Save Changes?"
 msgstr "変更を保存しますか？"
 
-#: komparepart/kompare_part.cpp:852
+#: komparepart/kompare_part.cpp:843
 #, fuzzy, kde-format
 #| msgid "Unified"
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "ユニファイド"
 
-#: komparepart/kompare_part.cpp:855
+#: komparepart/kompare_part.cpp:846
 #, fuzzy, kde-format
 #| msgid "Context"
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "コンテキスト"
 
-#: komparepart/kompare_part.cpp:858
+#: komparepart/kompare_part.cpp:849
 #, fuzzy, kde-format
 #| msgid "RCS"
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
-#: komparepart/kompare_part.cpp:861
+#: komparepart/kompare_part.cpp:852
 #, fuzzy, kde-format
 #| msgid "Ed"
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
-#: komparepart/kompare_part.cpp:864
+#: komparepart/kompare_part.cpp:855
 #, fuzzy, kde-format
 #| msgid "Normal"
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "ノーマル"
 
-#: komparepart/kompare_part.cpp:868
+#: komparepart/kompare_part.cpp:859
 #, fuzzy, kde-format
 #| msgid "Unknown"
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "不明"
 
-#: komparepart/kompare_part.cpp:884
+#: komparepart/kompare_part.cpp:875
 #, kde-format
 msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
@@ -1299,15 +1280,15 @@ msgstr ""
 "diff ファイルがないか、二つのファイルの差分を取っていないため、統計は利用でき"
 "ません。"
 
-#: komparepart/kompare_part.cpp:886 komparepart/kompare_part.cpp:900
-#: komparepart/kompare_part.cpp:916
+#: komparepart/kompare_part.cpp:877 komparepart/kompare_part.cpp:891
+#: komparepart/kompare_part.cpp:907
 #, fuzzy, kde-format
 #| msgid "Diff Statistics"
 msgctxt "@title:window"
 msgid "Diff Statistics"
 msgstr "Diff 統計"
 
-#: komparepart/kompare_part.cpp:890
+#: komparepart/kompare_part.cpp:881
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1328,7 +1309,7 @@ msgstr ""
 "差分ブロックの数: %4\n"
 "差異の件数: %5"
 
-#: komparepart/kompare_part.cpp:903
+#: komparepart/kompare_part.cpp:894
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1516,3 +1497,18 @@ msgstr "コマンドライン"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd dir && diff -udHprNa -- 比較元 比較先"
+
+#~ msgid "The file exists or is write-protected; do you want to overwrite it?"
+#~ msgstr "ファイルは既に存在するか、書き込み禁止です。本当に上書きしますか？"
+
+#, fuzzy
+#~| msgid "File Exists"
+#~ msgctxt "@window:title"
+#~ msgid "File Exists"
+#~ msgstr "ファイルは存在します"
+
+#, fuzzy
+#~| msgid "Do Not Overwrite"
+#~ msgctxt "@action:button"
+#~ msgid "Do Not Overwrite"
+#~ msgstr "上書きしない"

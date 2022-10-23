@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:54+0000\n"
-"PO-Revision-Date: 2022-10-19 13:22\n"
+"PO-Revision-Date: 2022-10-22 05:28\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -1325,14 +1325,3 @@ msgstr "命令行"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd 目录 && diff -udHprNa -- 源 目标"
-
-#~ msgid "The file exists or is write-protected; do you want to overwrite it?"
-#~ msgstr "文件已经存在或有写保护，要覆盖吗？"
-
-#~ msgctxt "@window:title"
-#~ msgid "File Exists"
-#~ msgstr "文件已存在"
-
-#~ msgctxt "@action:button"
-#~ msgid "Do Not Overwrite"
-#~ msgstr "不覆盖"

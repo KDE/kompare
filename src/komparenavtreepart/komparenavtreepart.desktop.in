@@ -62,7 +62,6 @@ Name[x-test]=xxKompareNavTreePartxx
 Name[zh_CN]=KompareNavTreePart
 Name[zh_TW]=KompareNavTreePart
 MimeType=text/x-patch;
-X-KDE-Library=kf5/parts/komparenavtreepart
 Type=Service
 Icon=kompare
 

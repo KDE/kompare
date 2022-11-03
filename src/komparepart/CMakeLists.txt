@@ -40,5 +40,3 @@ target_link_libraries(komparepart
 
 install(TARGETS komparepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/parts)
 kcoreaddons_desktop_to_json(komparepart ${CMAKE_CURRENT_BINARY_DIR}/komparepart.desktop)
-
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/komparepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICESDIR})

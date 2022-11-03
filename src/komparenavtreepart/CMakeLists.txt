@@ -26,5 +26,4 @@ target_link_libraries(komparenavtreepart
 )
 
 install(TARGETS komparenavtreepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/parts)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.desktop  DESTINATION  ${KDE_INSTALL_KSERVICESDIR})
 

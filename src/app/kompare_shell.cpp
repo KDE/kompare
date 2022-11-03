@@ -53,7 +53,7 @@ KompareShell::KompareShell()
     setupActions();
     setupStatusBar();
 
-    const auto viewPartLoadResult = KPluginFactory::instantiatePlugin<KParts::ReadWritePart>(KPluginMetaData(QStringLiteral("kf5/parts/komparepart")), this);
+    const auto viewPartLoadResult = KPluginFactory::instantiatePlugin<KParts::ReadWritePart>(KPluginMetaData(QStringLiteral("kf" QT_STRINGIFY(QT_VERSION_MAJOR) "/parts/komparepart")), this);
 
     if (viewPartLoadResult)
     {
@@ -75,7 +75,7 @@ KompareShell::KompareShell()
 
     // This part is implemented in KompareNavTreePart
 
-    const auto navPartLoadResult = KPluginFactory::instantiatePlugin<KParts::ReadOnlyPart>(KPluginMetaData(QStringLiteral("kf5/parts/komparenavtreepart")), m_navTreeDock);
+    const auto navPartLoadResult = KPluginFactory::instantiatePlugin<KParts::ReadOnlyPart>(KPluginMetaData(QStringLiteral("kf" QT_STRINGIFY(QT_VERSION_MAJOR) "/parts/komparenavtreepart")), m_navTreeDock);
 
     if (navPartLoadResult)
     {

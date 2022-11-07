@@ -1,10 +1,13 @@
 [Desktop Entry]
 Comment=A part to graphically show the difference between 2 files
 Comment[ca]=Una part per a mostrar gràficament les diferències entre 2 fitxers
+Comment[ca@valencia]=Una part per a mostrar gràficament les diferències entre 2 fitxers
 Comment[es]=Un componente para mostrar gráficamente las diferencias entre dos archivos
 Comment[eu]=2 fitxategiren arteko diferentzia grafikoki erakusteko atal bat
+Comment[fr]=Un composant permettant l'affichage graphique des différences entre 2 fichiers
 Comment[nl]=Een onderdeel om grafisch het verschil tussen 2 bestanden te tonen
 Comment[pt]=Uma componente para mostrar de forma gráfica a diferença entre 2 ficheiros
+Comment[sl]=Del, ki grafično prikazuje razlike med 2 datotekama
 Comment[tr]=İki dosya arasındaki ayrımları grafiksel olarak göstermek için bir kısım
 Comment[uk]=Модуль для графічного показу різниці між двома файлами
 Comment[x-test]=xxA part to graphically show the difference between 2 filesxx

@@ -2,7 +2,7 @@
 # translation of kompare.po to
 # Translation of kompare.po to Slovenian
 # Copyright (C) 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
-# $Id: kompare.po 1637572 2022-11-07 01:36:52Z scripty $
+# $Id: kompare.po 1637633 2022-11-08 01:35:56Z scripty $
 # $Source$
 #
 # Gregor Rakar <gregor.rakar@kiss.si>, 2003, 2004, 2005.
@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:54+0000\n"
-"PO-Revision-Date: 2022-11-06 08:07+0100\n"
+"PO-Revision-Date: 2022-11-07 08:37+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"

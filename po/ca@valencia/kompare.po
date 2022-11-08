@@ -368,10 +368,10 @@ msgid ""
 "show that in the viewer. -n disables the check."
 msgstr ""
 "Obrirà URL 1 i esperarà l'eixida de «diff». URL 1 també pot ser «-» i "
-"aleshores es llegirà a l'entrada estàndard. Per exemple, es pot emprar per a "
-"«diff cvs | kompare -o -». Kompare farà una comprovació per a veure si pot "
-"trobar els fitxers originals i aleshores fusionarà l'original a l'eixida de "
-"«diff» i la mostrarà en el visor. «-n» desactiva la comprovació."
+"aleshores es llegirà des de l'entrada estàndard. Per exemple, es pot emprar "
+"per a «diff cvs | kompare -o -». Kompare farà una comprovació per a veure si "
+"pot trobar els fitxers originals i aleshores fusionarà l'original a l'eixida "
+"de «diff» i la mostrarà en el visor. «-n» desactiva la comprovació."
 
 #: app/main.cpp:71
 #, kde-format

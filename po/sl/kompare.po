@@ -2,7 +2,7 @@
 # translation of kompare.po to
 # Translation of kompare.po to Slovenian
 # Copyright (C) 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
-# $Id: kompare.po 1638083 2022-11-13 01:37:07Z scripty $
+# $Id: kompare.po 1638085 2022-11-13 02:20:44Z scripty $
 # $Source$
 #
 # Gregor Rakar <gregor.rakar@kiss.si>, 2003, 2004, 2005.
@@ -22,8 +22,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
-"%100<=4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "X-Generator: Poedit 3.1.1\n"
 

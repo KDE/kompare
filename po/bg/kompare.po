@@ -1347,17 +1347,3 @@ msgstr "Команден ред"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd dir && diff -udHprNa -- целеви източник"
-
-#~ msgid "The file exists or is write-protected; do you want to overwrite it?"
-#~ msgstr ""
-#~ "Файлът съществува или е защитен от запис. Искате ли да бъде презаписан?"
-
-#, fuzzy
-#~ msgctxt "@window:title"
-#~ msgid "File Exists"
-#~ msgstr "Файлът съществува"
-
-#, fuzzy
-#~ msgctxt "@action:button"
-#~ msgid "Do Not Overwrite"
-#~ msgstr "Без презапис"

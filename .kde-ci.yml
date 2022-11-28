@@ -13,5 +13,5 @@ Dependencies:
     'frameworks/kconfig': '@stable'
     'frameworks/kparts': '@stable'
     'frameworks/ktexteditor': '@stable'
-    'frameworks/kwidgetaddons': '@stable'
+    'frameworks/kwidgetsaddons': '@stable'
     'sdk/libkomparediff2': '@same'

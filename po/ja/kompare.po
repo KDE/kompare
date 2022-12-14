@@ -1497,18 +1497,3 @@ msgstr "コマンドライン"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd dir && diff -udHprNa -- 比較元 比較先"
-
-#~ msgid "The file exists or is write-protected; do you want to overwrite it?"
-#~ msgstr "ファイルは既に存在するか、書き込み禁止です。本当に上書きしますか？"
-
-#, fuzzy
-#~| msgid "File Exists"
-#~ msgctxt "@window:title"
-#~ msgid "File Exists"
-#~ msgstr "ファイルは存在します"
-
-#, fuzzy
-#~| msgid "Do Not Overwrite"
-#~ msgctxt "@action:button"
-#~ msgid "Do Not Overwrite"
-#~ msgstr "上書きしない"

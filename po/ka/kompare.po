@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:54+0000\n"
-"PO-Revision-Date: 2022-10-06 21:27+0200\n"
+"PO-Revision-Date: 2023-01-01 07:08+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -31,7 +31,7 @@ msgstr "Temuri.doghonadze@gmail.com"
 #: app/kompare_shell.cpp:69
 #, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr ""
+msgstr "KompareViewPart-ის ჩატვირთვის შეცდომა: %1"
 
 #: app/kompare_shell.cpp:73
 #, kde-format
@@ -42,19 +42,19 @@ msgstr "ნავიგაცია"
 #: app/kompare_shell.cpp:91
 #, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr ""
+msgstr "KompareNavigationPart-ის ჩატვირთვის შეცდომა: %1"
 
 #: app/kompare_shell.cpp:196
 #, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
-msgstr ""
+msgstr "სხვაობის &გახსნა..."
 
 #: app/kompare_shell.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
-msgstr ""
+msgstr "ფაილების &შედარება..."
 
 #: app/kompare_shell.cpp:202
 #, kde-format
@@ -66,7 +66,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action"
 msgid "Show T&ext View"
-msgstr ""
+msgstr "ტექსტის &ხედის ჩვენება"
 
 #: app/kompare_shell.cpp:221
 #, kde-format
@@ -374,7 +374,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:group"
 msgid "Diff Program"
-msgstr ""
+msgstr "Diff-ის პროგრამა"
 
 #: dialogpages/diffpage.cpp:179
 #, kde-format
@@ -421,7 +421,7 @@ msgstr "გაერთიანებული"
 #, kde-format
 msgctxt "@title:group"
 msgid "Lines of Context"
-msgstr ""
+msgstr "კონტექსტის ხაზები"
 
 #: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
 #, kde-format
@@ -436,7 +436,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of context lines:"
-msgstr ""
+msgstr "კონტექსტის ხაზების რაოდენობა:"
 
 #: dialogpages/diffpage.cpp:225
 #, kde-format
@@ -454,7 +454,7 @@ msgstr "ზოგადი"
 #, kde-format
 msgctxt "@option:check"
 msgid "&Treat new files as empty"
-msgstr ""
+msgstr "ახალი ფაილების ცარიელად &აღქმა"
 
 #: dialogpages/diffpage.cpp:240
 #, kde-format
@@ -496,7 +496,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "O&ptimize for large files"
-msgstr ""
+msgstr "&ოპტიმიზაცია დიდი ფაილებისთვის"
 
 #: dialogpages/diffpage.cpp:249
 #, kde-format
@@ -879,7 +879,7 @@ msgstr "წყაროს ხაზი"
 #, kde-format
 msgctxt "@title:column"
 msgid "Destination Line"
-msgstr ""
+msgstr "სამიზნე ხაზი"
 
 #: komparenavtreepart/komparenavtreepart.cpp:80
 #, kde-format
@@ -898,8 +898,8 @@ msgstr[1] ""
 #, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "შეიცვალა %1 ხაზი"
+msgstr[1] "შეიცვალა %1 ხაზი"
 
 #: komparenavtreepart/komparenavtreepart.cpp:463
 #, kde-format
@@ -912,8 +912,8 @@ msgstr[1] ""
 #, kde-format
 msgid "Inserted %1 line"
 msgid_plural "Inserted %1 lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ჩასმულია %1 ხაზი"
+msgstr[1] "ჩასმულია %1 ხაზი"
 
 #: komparenavtreepart/komparenavtreepart.cpp:471
 #, kde-format
@@ -926,8 +926,8 @@ msgstr[1] ""
 #, kde-format
 msgid "Deleted %1 line"
 msgid_plural "Deleted %1 lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "წაშლილია %1 ხაზი"
+msgstr[1] "წაშლილია %1 ხაზი"
 
 #: komparenavtreepart/komparenavtreepart.cpp:628
 #, kde-format
@@ -985,12 +985,12 @@ msgstr "განსხვავების დამატებითი მ�
 #, kde-format
 msgctxt "@title:window"
 msgid "Save .diff"
-msgstr ""
+msgstr ".diff failis Senaxva"
 
 #: komparepart/kompare_part.cpp:566
 #, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
-msgstr ""
+msgstr "პაჩის ფაილები (*.diff *.dif *.patch)"
 
 #: komparepart/kompare_part.cpp:627
 #, kde-format
@@ -1047,7 +1047,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Changes?"
-msgstr ""
+msgstr "შევინახო ცვლილებები?"
 
 #: komparepart/kompare_part.cpp:843
 #, kde-format

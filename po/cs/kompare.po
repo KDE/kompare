@@ -29,10 +29,9 @@ msgid "Your emails"
 msgstr "lukas@kde.org, koty@seznam.cz, tomas.chvatal@gmail.com"
 
 #: app/kompare_shell.cpp:69
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareViewPart."
+#, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr "Nelze načíst komponentu KompareViewPart."
+msgstr ""
 
 #: app/kompare_shell.cpp:73
 #, kde-format
@@ -41,10 +40,9 @@ msgid "Navigation"
 msgstr "Navigace"
 
 #: app/kompare_shell.cpp:91
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareNavigationPart."
+#, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr "Nelze načíst komponentu KompareNavigationPart."
+msgstr ""
 
 #: app/kompare_shell.cpp:196
 #, kde-format
@@ -1325,15 +1323,3 @@ msgstr "Příkazový řádek"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd dir && diff -udHprNa -- cíl zdroje"
-
-#~ msgid "The file exists or is write-protected; do you want to overwrite it?"
-#~ msgstr ""
-#~ "Soubor existuje, ale je chráněn proti zápisu; přejete si jej přepsat?"
-
-#~ msgctxt "@window:title"
-#~ msgid "File Exists"
-#~ msgstr "Soubor existuje"
-
-#~ msgctxt "@action:button"
-#~ msgid "Do Not Overwrite"
-#~ msgstr "Nepřepisovat"

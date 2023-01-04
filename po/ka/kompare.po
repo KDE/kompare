@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:54+0000\n"
-"PO-Revision-Date: 2023-01-01 07:08+0100\n"
+"PO-Revision-Date: 2023-01-03 06:46+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -60,7 +60,7 @@ msgstr "ფაილების &შედარება..."
 #, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
-msgstr ""
+msgstr "&ბმულის სხვაობასთან შერევა..."
 
 #: app/kompare_shell.cpp:208
 #, kde-format
@@ -322,7 +322,7 @@ msgstr "Malte Starostik"
 #: app/main.cpp:61
 #, kde-format
 msgid "A lot of good advice"
-msgstr ""
+msgstr "ბევრი სასარგებლო რჩევა"
 
 #: app/main.cpp:62
 #, kde-format
@@ -332,7 +332,7 @@ msgstr "Bernd Gehrmann"
 #: app/main.cpp:62
 #, kde-format
 msgid "Cervisia diff viewer"
-msgstr ""
+msgstr "Cervisia -ის სხვაობის ნახვა"
 
 #: app/main.cpp:69
 #, kde-format
@@ -460,7 +460,7 @@ msgstr "ახალი ფაილების ცარიელად &ა�
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -N diff option."
-msgstr ""
+msgstr "ეს პარამეტრი diff-ის -N პარამეტრს შეესაბამება"
 
 #: dialogpages/diffpage.cpp:241
 #, kde-format
@@ -476,7 +476,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "&Look for smaller changes"
-msgstr ""
+msgstr "&უფრო პატარა ცვლილებების ძებნა"
 
 #: dialogpages/diffpage.cpp:245
 #, kde-format
@@ -537,7 +537,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "Ignore regexp:"
-msgstr ""
+msgstr "რეგგამოსის იგნორი:"
 
 #: dialogpages/diffpage.cpp:263
 #, kde-format
@@ -565,7 +565,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:group"
 msgid "Whitespace"
-msgstr ""
+msgstr "გამოტოვებები"
 
 #: dialogpages/diffpage.cpp:276
 #, kde-format
@@ -1203,7 +1203,7 @@ msgstr ""
 #: komparepart/komparesaveoptionsbase.ui:85
 #, kde-format
 msgid "Number of context lines:"
-msgstr ""
+msgstr "კონტექსტის ხაზების რაოდენობა:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
 #: komparepart/komparesaveoptionsbase.ui:126

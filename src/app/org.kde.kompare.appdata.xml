@@ -165,6 +165,7 @@
       <li xml:lang="gl">Comparación de diferenzas entre ficheiros ou cartafoles.</li>
       <li xml:lang="id">Membandingkan perbedaan pada file atau konten folder secara saksama</li>
       <li xml:lang="it">Confronta ricorsivamente le differenze di file o di contenuti di cartelle.</li>
+      <li xml:lang="ka">ფაილების ან საქაღალდეების შემცველობის რეკურსიული შედარება.</li>
       <li xml:lang="ko">재귀적으로 파일과 폴더의 차이점을 비교합니다.</li>
       <li xml:lang="nl">Verschillen in bestanden of de inhoud van mappen recursief vergelijken.</li>
       <li xml:lang="nn">Samanlikning av fil- eller mappeinnhald (rekursivt).</li>
@@ -199,6 +200,7 @@
       <li xml:lang="gl">É compatíbel con varios formatos de diferenzas e fornece moitas opcións para personalizar o nivel de información que se mostra.</li>
       <li xml:lang="id">Dukungan bermacam format diff dan menyediakan banyak opsi untuk mengkustomisasi tingkat informasi yang didisplaikan.</li>
       <li xml:lang="it">Supporta vari formati di differenze, e fornisce anche molte opzioni per personalizzare il livello di informazioni visualizzato.</li>
+      <li xml:lang="ka">აქვს განსხვავებების სხვადასხვა ფორმატის მხარდაჭერა და გამოტანილი ინფორმაციის დონის კონტროლისთვის მრავალ პარამეტრს წარმოგიდგენთ.</li>
       <li xml:lang="ko">여러 Diff 형식을 지원하고 표시하는 정보를 사용자 정의할 수 있습니다.</li>
       <li xml:lang="nl">Ondersteunt een variëteit van diff-formaten en beidt verschillende mogelijkheden voor het aanpassen van de hoeveelheid getoonde informatie.</li>
       <li xml:lang="nn">Støttar mange ulike diff-format og måtar å tilpassa detalj­nivået på informasjonen som vert vist.</li>

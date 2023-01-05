@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:54+0000\n"
-"PO-Revision-Date: 2023-01-03 06:46+0100\n"
+"PO-Revision-Date: 2023-01-04 07:51+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -219,7 +219,7 @@ msgstr "ფაილები"
 #: app/kompareurldialog.cpp:39
 #, kde-format
 msgid "Here you can enter the files you want to compare."
-msgstr ""
+msgstr "აქ შეგიძლიათ შეიყვანოთ შესადარებელი ფაილები."
 
 #: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
 #: komparepart/kompareprefdlg.cpp:42
@@ -231,7 +231,7 @@ msgstr "Diff"
 #: app/kompareurldialog.cpp:47
 #, kde-format
 msgid "Here you can change the options for comparing the files."
-msgstr ""
+msgstr "აქ შეგიძლიათ ფაილების შედარების პარამეტრები შეცვალოთ."
 
 #: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
 #, kde-format
@@ -242,7 +242,7 @@ msgstr "გარემოს იერსახე"
 #: app/kompareurldialog.cpp:55
 #, kde-format
 msgid "Here you can change the options for the view."
-msgstr ""
+msgstr "აქ ხედის მორგება შეგიძლიათ."
 
 #: app/kompareurldialog.cpp:101
 #, kde-format
@@ -312,7 +312,7 @@ msgstr "Chris Luetchford"
 #: app/main.cpp:60
 #, kde-format
 msgid "Kompare icon artist"
-msgstr ""
+msgstr "Kompare -ის ხატულის ავტორი"
 
 #: app/main.cpp:61
 #, kde-format
@@ -337,7 +337,7 @@ msgstr "Cervisia -ის სხვაობის ნახვა"
 #: app/main.cpp:69
 #, kde-format
 msgid "This will compare URL1 with URL2"
-msgstr ""
+msgstr "შეადარებს URL1-ს და URL2-ს"
 
 #: app/main.cpp:70
 #, kde-format
@@ -460,7 +460,7 @@ msgstr "ახალი ფაილების ცარიელად &ა�
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -N diff option."
-msgstr "ეს პარამეტრი diff-ის -N პარამეტრს შეესაბამება"
+msgstr "ეს პარამეტრი diff-ის -N პარამეტრს შეესაბამება."
 
 #: dialogpages/diffpage.cpp:241
 #, kde-format
@@ -482,7 +482,7 @@ msgstr "&უფრო პატარა ცვლილებების ძ�
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -d diff option."
-msgstr ""
+msgstr "შეესაბამება diff-ის -d პარამეტრს"
 
 #: dialogpages/diffpage.cpp:246
 #, kde-format
@@ -502,7 +502,7 @@ msgstr "&ოპტიმიზაცია დიდი ფაილების
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -H diff option."
-msgstr ""
+msgstr "შეესაბამება diff-ის -H პარამეტრს"
 
 #: dialogpages/diffpage.cpp:250
 #, kde-format
@@ -522,7 +522,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -i diff option."
-msgstr ""
+msgstr "შეესაბამება diff-ის -i პარამეტრს"
 
 #: dialogpages/diffpage.cpp:254
 #, kde-format
@@ -543,7 +543,7 @@ msgstr "რეგგამოსის იგნორი:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -I diff option."
-msgstr ""
+msgstr "შეესაბამება diff-ის -l პარამეტრს"
 
 #: dialogpages/diffpage.cpp:264
 #, kde-format
@@ -577,7 +577,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -t diff option."
-msgstr ""
+msgstr "ეს პარამეტრი diff-ის -t პარამეტრს შეესაბამება."
 
 #: dialogpages/diffpage.cpp:278
 #, kde-format
@@ -597,7 +597,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -B diff option."
-msgstr ""
+msgstr "ეს პარამეტრი diff-ის -B პარამეტრს შეესაბამება."
 
 #: dialogpages/diffpage.cpp:282
 #, kde-format
@@ -617,7 +617,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -b diff option."
-msgstr ""
+msgstr "ეს პარამეტრი diff-ის -b პარამეტრს შეესაბამება."
 
 #: dialogpages/diffpage.cpp:286
 #, kde-format
@@ -963,7 +963,7 @@ msgstr "სტატისტიკების ჩვენება"
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
-msgstr ""
+msgstr "სხვაობის განახლება"
 
 #: komparepart/kompare_part.cpp:306 komparepart/kompare_part.cpp:319
 #, kde-format

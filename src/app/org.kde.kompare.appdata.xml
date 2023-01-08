@@ -5,6 +5,7 @@
   <project_license>GPL-2.0+</project_license>
   <name>Kompare</name>
   <name xml:lang="ar">قارن</name>
+  <name xml:lang="bg">Kompare</name>
   <name xml:lang="ca">Kompare</name>
   <name xml:lang="ca-valencia">Kompare</name>
   <name xml:lang="cs">Kompare</name>
@@ -42,6 +43,7 @@
   <name xml:lang="zh-TW">Kompare</name>
   <summary>Diff/Patch Frontend</summary>
   <summary xml:lang="ar">برنامج الفروق والرقع</summary>
+  <summary xml:lang="bg">Интерфейс за Diff/Patch</summary>
   <summary xml:lang="ca">Frontal del «diff»/«patch»</summary>
   <summary xml:lang="ca-valencia">Frontal de «diff»/«patch»</summary>
   <summary xml:lang="cs">Rozhraní pro Diff/Patch</summary>
@@ -81,6 +83,7 @@
       Kompare is a GUI front-end program that enables differences between source files to be viewed and merged. It can be used to compare differences on files or the contents of folders, and it supports a variety of diff formats and provide many options to customize the information level displayed.
     </p>
     <p xml:lang="ar">قارن هو برنامج رسومي يمكّن من عرض ودمج الاختلافات بين ملفات المصدر. يمكن استخدامه لمقارنة الاختلافات في الملفات أو محتويات المجلدات ، وهو يدعم مجموعة متنوعة من تنسيقات الاختلافات ويوفر العديد من الخيارات لتخصيص مستوى المعلومات المعروض.</p>
+    <p xml:lang="bg">Kompare е графична програма, позволяваща да се преглеждат и обединяват разликите между изходните файлове. Тя може да се използва за сравняване на разлики във файлове или в съдържанието на папки, като поддържа различни формати на разлики и предоставя много опции за персонализиране на нивото на показваната информация.</p>
     <p xml:lang="ca">El Kompare és un programa de frontal amb IGU que cerca les diferències entre fitxers de codi font perquè es puguin veure o fusionar. Es pot emprar per a comparar diferències entre fitxers o en el contingut de carpetes. També admet una varietat de formats de «diff» i proporciona moltes opcions per a personalitzar el nivell de la informació mostrada.</p>
     <p xml:lang="ca-valencia">Kompare és un programa de frontal amb IGU que busca les diferències entre fitxers de codi font perquè es puguen veure o fusionar. Es pot emprar per a comparar diferències entre fitxers o en el contingut de carpetes. També admet una varietat de formats de «diff» i proporciona moltes opcions per a personalitzar el nivell de la informació mostrada.</p>
     <p xml:lang="de">Kompare ist ein Programm mit grafischer Bedienungsoberfläche, um Abweichungen zwischen Textdateien zu betrachten und sie zusammenzuführen Kompare kann Abweichungen zwischen einzelnen Dateien oder zwischen Ordnern und deren Inhalt anzeigen.  unterstützt eine Vielzahl an Diff-Formaten und bietet viele Einstellungsmöglichkeiten für die Anzeige der Abweichungen.</p>
@@ -115,6 +118,7 @@
     <p xml:lang="zh-TW">Kompare 是一個 GUI 後端程序，允許檢視與合併與原始檔案的差異性。它可以用來比較檔案或資料夾的檔案的差異，且它支援多個差異格式並提供許多選項來自訂資訊顯示的等級。</p>
     <p>Features:</p>
     <p xml:lang="ar">الميزات:</p>
+    <p xml:lang="bg">Възможности:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
     <p xml:lang="cs">Vlastnosti:</p>
@@ -152,6 +156,7 @@
     <ul>
       <li>Comparing differences on files or the contents of folders recursively.</li>
       <li xml:lang="ar">مقارنة الاختلافات في الملفات أو محتويات المجلدات تكراريًا.</li>
+      <li xml:lang="bg">Рекурсивно сравняване на разликите във файловете или съдържанието на папките.</li>
       <li xml:lang="ca">Compara recursivament les diferències en els fitxers o en el contingut de les carpetes.</li>
       <li xml:lang="ca-valencia">Compara recursivament les diferències en els fitxers o en el contingut de les carpetes.</li>
       <li xml:lang="de">Vergleich des Unterschieds von Dateien oder rekursiven Ordnerinhalten.</li>
@@ -187,6 +192,7 @@
       <li xml:lang="zh-TW">遞迴比較檔案或資料夾內檔案的差異</li>
       <li>Supports a variety of diff formats and provides many options to customize the information level displayed.</li>
       <li xml:lang="ar">يدعم مجموعة متنوعة من التنسيقات المختلفة ويوفر العديد من الخيارات لتخصيص مستوى المعلومات المعروض.</li>
+      <li xml:lang="bg">Поддържа различни формати на разлики и предоставя много опции за персонализиране на нивото на показваната информация.</li>
       <li xml:lang="ca">Permet una varietat de formats de «diff» i proporciona moltes opcions per a personalitzar el nivell de la informació mostrada.</li>
       <li xml:lang="ca-valencia">Permet una varietat de formats de «diff» i proporciona moltes opcions per a personalitzar el nivell de la informació mostrada.</li>
       <li xml:lang="de">Unterstützt eine Vielzahl an Diff-Formaten und bietet viele Einstellungsmöglichkeiten für die Anzeige der Abweichungen.</li>
@@ -222,6 +228,7 @@
       <li xml:lang="zh-TW">支援各種的差異格式、並提供許多的選項以自訂訊息等級顯示。</li>
       <li>Creating and applying patches.</li>
       <li xml:lang="ar">إنشاء الرقع وتطبيقها.</li>
+      <li xml:lang="bg">Създаване и прилагане на кръпки.</li>
       <li xml:lang="ca">Creació i aplicació de pedaços.</li>
       <li xml:lang="ca-valencia">Creació i aplicació de pedaços.</li>
       <li xml:lang="de">Patches erstellen und anwenden.</li>

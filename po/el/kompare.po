@@ -9,20 +9,20 @@
 # Dimitrios Glentadakis <dglent@gmail.com>, 2011.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014.
 # Petros Vidalis <pvidalis@gmail.com>, 2016, 2017, 2018.
-# Stelios <sstavra@gmail.com>, 2020.
+# Stelios <sstavra@gmail.com>, 2020, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:54+0000\n"
-"PO-Revision-Date: 2020-10-10 20:34+0300\n"
+"PO-Revision-Date: 2023-01-07 10:07+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -38,10 +38,9 @@ msgstr ""
 "org, pvidalis@gmail.com"
 
 #: app/kompare_shell.cpp:69
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareViewPart."
+#, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr "Αδύνατο να φορτωθεί το KompareViewPart."
+msgstr "Αδυναμία φόρτωσης του KompareViewPart: %1"
 
 #: app/kompare_shell.cpp:73
 #, kde-format
@@ -50,10 +49,9 @@ msgid "Navigation"
 msgstr "Πλοήγηση"
 
 #: app/kompare_shell.cpp:91
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareNavigationPart."
+#, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr "Αδύνατο να φορτωθεί το KompareNavigationPart."
+msgstr "Αδυναμία φόρτωσης του δικού μας KompareNavigationPart: %1"
 
 #: app/kompare_shell.cpp:196
 #, kde-format

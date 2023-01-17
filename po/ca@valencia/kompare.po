@@ -814,7 +814,7 @@ msgstr "Exclou"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select file"
-msgstr "Seleccioneu el fitxer"
+msgstr "Seleccioneu un fitxer"
 
 #: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
 #, kde-format
@@ -844,7 +844,7 @@ msgstr "Seleccioneu una carpeta"
 #, kde-format
 msgctxt "@title:window"
 msgid "Select File"
-msgstr "Seleccioneu el fitxer"
+msgstr "Seleccioneu un fitxer"
 
 #: dialogpages/viewpage.cpp:44
 #, kde-format
@@ -1250,13 +1250,13 @@ msgstr "Visualitza"
 #, kde-format
 msgctxt "@title"
 msgid "View Settings"
-msgstr "Configuració de la vista"
+msgstr "Configureu la vista"
 
 #: komparepart/kompareprefdlg.cpp:44
 #, kde-format
 msgctxt "@title"
 msgid "Diff Settings"
-msgstr "Configuració de «diff»"
+msgstr "Configureu «diff»"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
 #: komparepart/komparesaveoptionsbase.ui:29

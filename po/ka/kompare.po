@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:54+0000\n"
-"PO-Revision-Date: 2023-01-04 07:51+0100\n"
+"PO-Revision-Date: 2023-01-24 07:18+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -482,7 +482,7 @@ msgstr "&უფრო პატარა ცვლილებების ძ�
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -d diff option."
-msgstr "შეესაბამება diff-ის -d პარამეტრს"
+msgstr "შეესაბამება diff-ის -d პარამეტრს."
 
 #: dialogpages/diffpage.cpp:246
 #, kde-format
@@ -502,7 +502,7 @@ msgstr "&ოპტიმიზაცია დიდი ფაილების
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -H diff option."
-msgstr "შეესაბამება diff-ის -H პარამეტრს"
+msgstr "შეესაბამება diff-ის -H პარამეტრს."
 
 #: dialogpages/diffpage.cpp:250
 #, kde-format
@@ -516,13 +516,13 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "&Ignore changes in case"
-msgstr ""
+msgstr "&რეგისტრის ცვლილებების იგნორი"
 
 #: dialogpages/diffpage.cpp:253
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -i diff option."
-msgstr "შეესაბამება diff-ის -i პარამეტრს"
+msgstr "შეესაბამება diff-ის -i პარამეტრს."
 
 #: dialogpages/diffpage.cpp:254
 #, kde-format
@@ -543,7 +543,7 @@ msgstr "რეგგამოსის იგნორი:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -I diff option."
-msgstr "შეესაბამება diff-ის -l პარამეტრს"
+msgstr "შეესაბამება diff-ის -l პარამეტრს."
 
 #: dialogpages/diffpage.cpp:264
 #, kde-format
@@ -1097,7 +1097,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Diff Statistics"
-msgstr ""
+msgstr "Diff-ის სტატისტიკა"
 
 #: komparepart/kompare_part.cpp:881
 #, kde-format
@@ -1197,7 +1197,7 @@ msgstr "&გაერთიანებული"
 #: komparepart/komparesaveoptionsbase.ui:73
 #, kde-format
 msgid "&Side-by-side"
-msgstr ""
+msgstr "&გვერდიგვერდ"
 
 #. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
 #: komparepart/komparesaveoptionsbase.ui:85
@@ -1221,13 +1221,13 @@ msgstr ""
 #: komparepart/komparesaveoptionsbase.ui:142
 #, kde-format
 msgid "Optimize for large files"
-msgstr ""
+msgstr "დიდი ფაილებისთვის ოპტიმიზაცია"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
 #: komparepart/komparesaveoptionsbase.ui:152
 #, kde-format
 msgid "Ignore changes in case"
-msgstr ""
+msgstr "რეგისტრის ცვლილებების იგნორი"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
 #: komparepart/komparesaveoptionsbase.ui:159
@@ -1251,19 +1251,19 @@ msgstr ""
 #: komparepart/komparesaveoptionsbase.ui:180
 #, kde-format
 msgid "Show function names"
-msgstr ""
+msgstr "ფუნქციის სახელების ჩვენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
 #: komparepart/komparesaveoptionsbase.ui:190
 #, kde-format
 msgid "Compare folders recursively"
-msgstr ""
+msgstr "საქაღალდეების რეკურსიულად შედარება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
 #: komparepart/komparesaveoptionsbase.ui:200
 #, kde-format
 msgid "Treat new files as empty"
-msgstr ""
+msgstr "ახალი ფაილების ცარიელად აღქმა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
 #: komparepart/komparesaveoptionsbase.ui:222

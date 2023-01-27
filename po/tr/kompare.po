@@ -6,13 +6,13 @@
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
 # obsoleteman <tulliana@gmail.com>, 2008-2009,2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2015, 2017.
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:54+0000\n"
-"PO-Revision-Date: 2022-12-17 18:59+0300\n"
+"PO-Revision-Date: 2023-01-26 21:44+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -558,7 +558,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "&Ignore changes in case"
-msgstr "Büyük/küçük harfi &yok say"
+msgstr "BÜYÜK/küçük harf değişikliklerini &yok say"
 
 #: dialogpages/diffpage.cpp:253
 #, kde-format
@@ -574,8 +574,9 @@ msgid ""
 "difference when something in one file is changed into SoMEthing in the other "
 "file."
 msgstr ""
-"Bu seçenek ile durumdaki değişikliklerin yok sayılması etkinleştirilir, bir "
-"dosyanın başka bir dosyadaki değişikliğini göstermeyecektir."
+"Bu seçenek ile BÜYÜK/küçük harf değişikliklerin yok sayılması "
+"etkinleştirilir, bir dosyanın başka bir dosyadaki değişikliğini "
+"göstermeyecektir."
 
 #: dialogpages/diffpage.cpp:262
 #, kde-format
@@ -1310,13 +1311,13 @@ msgstr "Küçük değişklikleri ara"
 #: komparepart/komparesaveoptionsbase.ui:142
 #, kde-format
 msgid "Optimize for large files"
-msgstr "Büyük dosyaları iyileştir"
+msgstr "Büyük dosyaları eniyile"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
 #: komparepart/komparesaveoptionsbase.ui:152
 #, kde-format
 msgid "Ignore changes in case"
-msgstr "Büyük/küçük harf değişikliklerini görmezden gel"
+msgstr "BÜYÜK/küçük harf değişikliklerini yok say"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
 #: komparepart/komparesaveoptionsbase.ui:159
@@ -1328,13 +1329,13 @@ msgstr "Sekmeleri boşluğa çevir"
 #: komparepart/komparesaveoptionsbase.ui:166
 #, kde-format
 msgid "Ignore added or removed empty lines"
-msgstr "Yeni ve silinmiş boş satırları görmezden gel"
+msgstr "Eklenen veya kaldırılan boş satırları yok say"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
 #: komparepart/komparesaveoptionsbase.ui:173
 #, kde-format
 msgid "Ignore changes in whitespace"
-msgstr "Boş satır değişikliklerini görmezden gel"
+msgstr "Boşluk değişikliklerini yok say"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
 #: komparepart/komparesaveoptionsbase.ui:180
@@ -1358,7 +1359,7 @@ msgstr "Yeni dosyalara boş gibi davran"
 #: komparepart/komparesaveoptionsbase.ui:222
 #, kde-format
 msgid "Run Diff In"
-msgstr "Diff çalıştır"
+msgstr "Diff'i Şurada Çalıştır"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
 #: komparepart/komparesaveoptionsbase.ui:247

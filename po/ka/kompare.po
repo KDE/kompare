@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:54+0000\n"
-"PO-Revision-Date: 2023-01-24 07:18+0100\n"
+"PO-Revision-Date: 2023-01-27 06:55+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -591,7 +591,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "I&gnore added or removed empty lines"
-msgstr ""
+msgstr "დამატებული ან წაშლილი ცარიელი ხაზების &გამოტოვება"
 
 #: dialogpages/diffpage.cpp:281
 #, kde-format
@@ -631,7 +631,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "Ign&ore all whitespace"
-msgstr ""
+msgstr "&გამოტოვებული ადგილების იგნორი"
 
 #: dialogpages/diffpage.cpp:289
 #, kde-format
@@ -679,7 +679,7 @@ msgstr "გამართვა"
 #, kde-format
 msgctxt "@title:group"
 msgid "File Pattern to Exclude"
-msgstr ""
+msgstr "გამოსარიცხი ფაილის ნიმუში"
 
 #: dialogpages/diffpage.cpp:312
 #, kde-format
@@ -701,7 +701,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:group"
 msgid "File with Filenames to Exclude"
-msgstr ""
+msgstr "გამოსარიცხი ფაილის სახელების შემცველი ფაილი"
 
 #: dialogpages/diffpage.cpp:329
 #, kde-format
@@ -968,7 +968,7 @@ msgstr "სხვაობის განახლება"
 #: komparepart/kompare_part.cpp:306 komparepart/kompare_part.cpp:319
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
-msgstr ""
+msgstr "<qt>ბმულის <b>%1</b> გადმოწერა შეუძლებელია.</qt>"
 
 #: komparepart/kompare_part.cpp:357
 #, kde-format
@@ -1215,7 +1215,7 @@ msgstr "პარამეტრები"
 #: komparepart/komparesaveoptionsbase.ui:132
 #, kde-format
 msgid "Look for smaller changes"
-msgstr ""
+msgstr "უფრო პატარა ცვლილებების ძებნა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
 #: komparepart/komparesaveoptionsbase.ui:142
@@ -1233,19 +1233,19 @@ msgstr "რეგისტრის ცვლილებების იგნ�
 #: komparepart/komparesaveoptionsbase.ui:159
 #, kde-format
 msgid "Expand tabs to spaces"
-msgstr ""
+msgstr "ტაბულაციის გამოტოვებებით შეცვლა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
 #: komparepart/komparesaveoptionsbase.ui:166
 #, kde-format
 msgid "Ignore added or removed empty lines"
-msgstr ""
+msgstr "დამატებული ან წაშლილი ცარიელი ხაზების გამოტოვება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
 #: komparepart/komparesaveoptionsbase.ui:173
 #, kde-format
 msgid "Ignore changes in whitespace"
-msgstr ""
+msgstr "გამოტოვებული ადგილების ცვლილების იგნორი"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
 #: komparepart/komparesaveoptionsbase.ui:180
@@ -1281,7 +1281,7 @@ msgstr "ბრძანების ხაზი"
 #: komparepart/komparesaveoptionsbase.ui:256
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
-msgstr ""
+msgstr "cd dir && diff -udHprNa -- საწყისი სამიზნე"
 
 #~ msgctxt "@window:title"
 #~ msgid "File Exists"

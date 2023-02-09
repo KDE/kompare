@@ -1,39 +1,41 @@
-# Translation of kompare into esperanto.
+# Translation of kompare.pot into esperanto.
+# Copyright (C) 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the kompare package.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:54+0000\n"
-"PO-Revision-Date: 2009-11-15 12:06+0100\n"
-"Last-Translator: Axel Rousseau <axel@esperanto-jeunes.org>\n"
+"PO-Revision-Date: 2023-02-08 07:22+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: pology\n"
+"X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Axel Rousseau"
+msgstr "Axel Rousseau, Oliver Kellogg"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "axel@esperanto-jeunes.org"
+msgstr "axel@esperanto-jeunes.org,okellogg@users.sourceforge.net"
 
 #: app/kompare_shell.cpp:69
 #, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr ""
+msgstr "Ne eblis ŝargi nian KompareViewPart: %1"
 
 #: app/kompare_shell.cpp:73
-#, fuzzy, kde-format
-#| msgid "Navigation"
+#, kde-format
 msgctxt "@title:window"
 msgid "Navigation"
 msgstr "Navigado"
@@ -41,85 +43,84 @@ msgstr "Navigado"
 #: app/kompare_shell.cpp:91
 #, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr ""
+msgstr "Ne eblis ŝargi nian KompareNavigationPart: %1"
 
 #: app/kompare_shell.cpp:196
 #, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
-msgstr ""
+msgstr "&Malfermi Diferencon..."
 
 #: app/kompare_shell.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
-msgstr ""
+msgstr "&Kompari dosierojn..."
 
 #: app/kompare_shell.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
-msgstr ""
+msgstr "&Miksi URL kun Diferenco..."
 
 #: app/kompare_shell.cpp:208
 #, kde-format
 msgctxt "@action"
 msgid "Show T&ext View"
-msgstr ""
+msgstr "Montri T&ekstan Vidon"
 
 #: app/kompare_shell.cpp:221
 #, kde-format
 msgid " 0 of 0 differences "
-msgstr ""
+msgstr " 0 el 0 diferencoj"
 
 #: app/kompare_shell.cpp:222
 #, kde-format
 msgid " 0 of 0 files "
-msgstr ""
+msgstr " 0 el 0 dosieroj"
 
 #: app/kompare_shell.cpp:239
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " %2 el %1 dosiero"
+msgstr[1] " %2 el %1 dosieroj"
 
 #: app/kompare_shell.cpp:241
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " %1 dosiero"
+msgstr[1] " %1 dosieroj"
 
 #: app/kompare_shell.cpp:244
 #, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " %2 el %1 diferenco, %3 aplikita"
+msgstr[1] " %2 el %1 diferencoj, %3 aplikitaj"
 
 #: app/kompare_shell.cpp:247
 #, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " %1 diferenco"
+msgstr[1] " %1 diferencoj"
 
 #: app/kompare_shell.cpp:328
 #, kde-format
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
-msgstr ""
+msgstr "Miksi dosieron/dosierujon kun diff-eligo"
 
 #: app/kompare_shell.cpp:329
 #, kde-format
 msgctxt "@title:group"
 msgid "File/Folder"
-msgstr ""
+msgstr "Dosiero/dosierujo"
 
 #: app/kompare_shell.cpp:330
-#, fuzzy, kde-format
-#| msgid "Diff Output"
+#, kde-format
 msgctxt "@title:group"
 msgid "Diff Output"
 msgstr "Eligo de diff"
@@ -128,13 +129,13 @@ msgstr "Eligo de diff"
 #, kde-format
 msgctxt "@action:button"
 msgid "Blend"
-msgstr ""
+msgstr "Miksi"
 
 #: app/kompare_shell.cpp:334
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
-msgstr ""
+msgstr "Miksi ĉi tiun dosieron aŭ dosierujon kun la dif-eligo"
 
 #: app/kompare_shell.cpp:335
 #, kde-format
@@ -146,39 +147,42 @@ msgid ""
 "file or files from the folder are mixed with the diff output so you can then "
 "apply the difference(s) to a file or to the files. "
 msgstr ""
+"Se vi enigis dosieron aŭ dosierujon nomon kaj dosieron, kiu enhavas dif-"
+"eligon en la kampoj en ĉi tiu dialogo, tiam ĉi tiu butono estos ebligita kaj "
+"premante ĝin malfermos la ĉefan vidon de kompare, kie la eligo de la "
+"enigitaj dosiero aŭ dosieroj el la dosierujo estas miksita. kun la diferenca "
+"eligo por ke vi tiam povu apliki la diferencon(j)n al dosiero aŭ al la "
+"dosieroj."
 
 #: app/kompare_shell.cpp:358 app/main.cpp:198
 #, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
-msgstr ""
+msgstr "Kompari dosierojn aŭ dosierujojn"
 
 #: app/kompare_shell.cpp:359 app/main.cpp:199
-#, fuzzy, kde-format
-#| msgid "Source"
+#, kde-format
 msgctxt "@title:group"
 msgid "Source"
 msgstr "Fonto"
 
 #: app/kompare_shell.cpp:360 app/main.cpp:200
-#, fuzzy, kde-format
-#| msgid "Destination"
+#, kde-format
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Celo"
 
 #: app/kompare_shell.cpp:363 app/main.cpp:203
-#, fuzzy, kde-format
-#| msgid "Kompare"
+#, kde-format
 msgctxt "@action:button"
 msgid "Compare"
-msgstr "Kompare"
+msgstr "Kompari"
 
 #: app/kompare_shell.cpp:364 app/main.cpp:204
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
-msgstr ""
+msgstr "Kompari ĉi tiujn dosierojn aŭ dosierujojn"
 
 #: app/kompare_shell.cpp:365 app/main.cpp:205
 #, kde-format
@@ -188,13 +192,15 @@ msgid ""
 "then this button will be enabled and pressing it will start a comparison of "
 "the entered files or folders. "
 msgstr ""
+"Se vi enigis 2 dosiernomojn aŭ 2 dosierujojn en la kampoj en ĉi tiu dialogo, "
+"tiam ĉi tiu butono estos ebligita kaj premante ĝin komencos komparon de la "
+"enigitaj dosieroj aŭ dosierujoj."
 
 #: app/kompare_shell.cpp:399
-#, fuzzy, kde-format
-#| msgid "View"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text View"
-msgstr "Vido"
+msgstr "Teksta Vido"
 
 #. i18n: ectx: Menu (file)
 #: app/kompareui.rc:4 komparepart/komparepartui.rc:4
@@ -215,8 +221,7 @@ msgid "Main Toolbar"
 msgstr "Ĉefa ilobreto"
 
 #: app/kompareurldialog.cpp:37
-#, fuzzy, kde-format
-#| msgid "Files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Files"
 msgstr "Dosieroj"
@@ -224,23 +229,22 @@ msgstr "Dosieroj"
 #: app/kompareurldialog.cpp:39
 #, kde-format
 msgid "Here you can enter the files you want to compare."
-msgstr ""
+msgstr "Ĉi tie vi povas enigi la dosierojn, kiujn vi volas kompari."
 
 #: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
 #: komparepart/kompareprefdlg.cpp:42
 #, kde-format
 msgctxt "@title:tab"
 msgid "Diff"
-msgstr ""
+msgstr "Diferenco"
 
 #: app/kompareurldialog.cpp:47
 #, kde-format
 msgid "Here you can change the options for comparing the files."
-msgstr ""
+msgstr "Ĉi tie vi povas ŝanĝi la opciojn por kompari la dosierojn."
 
 #: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Appearance"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Aspekto"
@@ -248,13 +252,15 @@ msgstr "Aspekto"
 #: app/kompareurldialog.cpp:55
 #, kde-format
 msgid "Here you can change the options for the view."
-msgstr ""
+msgstr "Ĉi tie vi povas ŝanĝi la opciojn por la vido."
 
 #: app/kompareurldialog.cpp:101
 #, kde-format
 msgid ""
 "File used for excluding files cannot be found, please specify another file."
 msgstr ""
+"Dosiero uzata por ekskludi dosierojn ne troveblas, bonvolu specifi alian "
+"dosieron."
 
 #: app/main.cpp:49
 #, kde-format
@@ -267,6 +273,7 @@ msgid ""
 "A program to view the differences between files and optionally generate a "
 "diff"
 msgstr ""
+"Programo por vidi la diferencojn inter dosieroj kaj laŭvole generi diferencon"
 
 #: app/main.cpp:53
 #, kde-format
@@ -274,6 +281,8 @@ msgid ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
 "2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
 msgstr ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
 
 #: app/main.cpp:56
 #, kde-format
@@ -318,7 +327,7 @@ msgstr "Chris Luetchford"
 #: app/main.cpp:60
 #, kde-format
 msgid "Kompare icon artist"
-msgstr ""
+msgstr "Kompari ikonartisto"
 
 #: app/main.cpp:61
 #, kde-format
@@ -328,7 +337,7 @@ msgstr "Malte Starostik"
 #: app/main.cpp:61
 #, kde-format
 msgid "A lot of good advice"
-msgstr ""
+msgstr "Multaj bonaj konsiloj"
 
 #: app/main.cpp:62
 #, kde-format
@@ -338,12 +347,12 @@ msgstr "Bernd Gehrmann"
 #: app/main.cpp:62
 #, kde-format
 msgid "Cervisia diff viewer"
-msgstr ""
+msgstr "Cervisia diff-spektilo"
 
 #: app/main.cpp:69
 #, kde-format
 msgid "This will compare URL1 with URL2"
-msgstr ""
+msgstr "Ĉi tio komparos URL1 kun URL2"
 
 #: app/main.cpp:70
 #, kde-format
@@ -354,6 +363,11 @@ msgid ""
 "original file(s) and then blend the original file(s) into the diffoutput and "
 "show that in the viewer. -n disables the check."
 msgstr ""
+"Ĉi tio malfermos URL1 kaj atendos, ke ĝi estos dif-eligo. URL1 ankaŭ povas "
+"esti '-' kaj tiam ĝi legos el norma enigo. Uzeblas ekzemple por cvs diff | "
+"kompare -o -. Kompare faros kontrolon por vidi ĉu ĝi povas trovi la "
+"originalajn dosierojn kaj poste miksi la originalajn dosierojn en la "
+"difproduktaĵon kaj montri tion en la spektanto. -n malŝaltas la kontrolon."
 
 #: app/main.cpp:71
 #, kde-format
@@ -361,6 +375,8 @@ msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
 "the file or folder that the diffoutput needs to be blended into. "
 msgstr ""
+"Ĉi tio miksos URL2 en URL1, URL2 estas atendita esti dif-eligo kaj URL1 la "
+"dosiero aŭ dosierujo, en kiu la dif-eligo devas esti miksita."
 
 #: app/main.cpp:72
 #, kde-format
@@ -368,6 +384,8 @@ msgid ""
 "Disables the check for automatically finding the original file(s) when using "
 "'-' as URL with the -o option."
 msgstr ""
+"Malebligas la kontrolon por aŭtomate trovi la originalan dosieron(j) kiam "
+"oni uzas '-' kiel URL kun la opcio -o."
 
 #: app/main.cpp:73
 #, kde-format
@@ -375,12 +393,14 @@ msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
 "will default to the local encoding if not specified."
 msgstr ""
+"Uzu ĉi tion por specifi la kodigon kiam oni vokas ĝin de la komandlinio. Ĝi "
+"defaŭlte al la loka kodigo se ne specifita."
 
 #: dialogpages/diffpage.cpp:174
 #, kde-format
 msgctxt "@title:group"
 msgid "Diff Program"
-msgstr ""
+msgstr "Diff Programo"
 
 #: dialogpages/diffpage.cpp:179
 #, kde-format
@@ -389,6 +409,9 @@ msgid ""
 "program does not support all the options that the GNU version does. This way "
 "you can select that version."
 msgstr ""
+"Vi povas elekti malsaman diferencan programon ĉi tie. Sur Solaris la norma "
+"difprogramo ne subtenas ĉiujn opciojn kiujn la GNU-versio faras. Tiel vi "
+"povas elekti tiun version."
 
 #: dialogpages/diffpage.cpp:196
 #, kde-format
@@ -398,41 +421,39 @@ msgid ""
 "is used most frequently because it is very readable. The KDE developers like "
 "this format the best so use it for sending patches."
 msgstr ""
+"Elektu la formaton de la eligo generita de dif. Unuigita estas tiu, kiu "
+"estas uzata plej ofte, ĉar ĝi estas tre legebla. La programistoj de KDE plej "
+"ŝatas ĉi tiun formaton, do uzu ĝin por sendi flikojn."
 
 #: dialogpages/diffpage.cpp:199
-#, fuzzy, kde-format
-#| msgid "Output Format"
+#, kde-format
 msgctxt "@title:group"
 msgid "Output Format"
 msgstr "Eligoformato"
 
 #: dialogpages/diffpage.cpp:201
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Context"
 msgstr "Kunteksto"
 
 #: dialogpages/diffpage.cpp:204
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Normal"
 msgstr "Normala"
 
 #: dialogpages/diffpage.cpp:207
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Unified"
 msgstr "Unuigita"
 
 #: dialogpages/diffpage.cpp:215
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@title:group"
 msgid "Lines of Context"
-msgstr "Kunteksto"
+msgstr "Linioj de Kunteksto"
 
 #: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
 #, kde-format
@@ -442,24 +463,24 @@ msgid ""
 "and applicable in most cases. More than 3 lines will only bloat the diff "
 "unnecessarily."
 msgstr ""
+"La nombro da kuntekstolinioj estas normale 2 aŭ 3. Ĉi tio faras la "
+"diferencon legebla kaj aplikebla en la plej multaj kazoj. Pli ol 3 linioj "
+"nur ŝveligos la diferencon nenecese."
 
 #: dialogpages/diffpage.cpp:220
-#, fuzzy, kde-format
-#| msgid "Number of lines:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of context lines:"
-msgstr "Nombro de linioj:"
+msgstr "Nombro da kuntekstlinioj:"
 
 #: dialogpages/diffpage.cpp:225
-#, fuzzy, kde-format
-#| msgid "Format"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Format"
 msgstr "Formato"
 
 #: dialogpages/diffpage.cpp:237
-#, fuzzy, kde-format
-#| msgid "General"
+#, kde-format
 msgctxt "@title:group"
 msgid "General"
 msgstr "Ĝeneralo"
@@ -468,13 +489,13 @@ msgstr "Ĝeneralo"
 #, kde-format
 msgctxt "@option:check"
 msgid "&Treat new files as empty"
-msgstr ""
+msgstr "&Trakti novajn dosierojn kiel malplenajn"
 
 #: dialogpages/diffpage.cpp:240
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -N diff option."
-msgstr ""
+msgstr "Ĉi tiu opcio respondas al la opcio -N dif."
 
 #: dialogpages/diffpage.cpp:241
 #, kde-format
@@ -485,18 +506,22 @@ msgid ""
 "compared with an empty file and because of this will appear as one big "
 "insertion or deletion."
 msgstr ""
+"Kun ĉi tiu opcio ebligita, dif traktos dosieron kiu nur ekzistas en unu el "
+"la dosierujoj kiel malplenan en la alia dosierujo. Ĉi tio signifas, ke la "
+"dosiero estas komparata kun malplena dosiero kaj pro tio aperos kiel unu "
+"granda enmeto aŭ forigo."
 
 #: dialogpages/diffpage.cpp:244
 #, kde-format
 msgctxt "@option:check"
 msgid "&Look for smaller changes"
-msgstr ""
+msgstr "Serĉi p&li malgrandajn ŝanĝojn"
 
 #: dialogpages/diffpage.cpp:245
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -d diff option."
-msgstr ""
+msgstr "Ĉi tio respondas al la -d dif-opcio."
 
 #: dialogpages/diffpage.cpp:246
 #, kde-format
@@ -505,18 +530,20 @@ msgid ""
 "With this option enabled diff will try a little harder (at the cost of more "
 "memory) to find fewer changes."
 msgstr ""
+"Kun ĉi tiu opcio ebligita, dif provos iom pli malfacile (koste de pli da "
+"memoro) trovi malpli da ŝanĝoj."
 
 #: dialogpages/diffpage.cpp:248
 #, kde-format
 msgctxt "@option:check"
 msgid "O&ptimize for large files"
-msgstr ""
+msgstr "O&ptimumigi por grandaj dosieroj"
 
 #: dialogpages/diffpage.cpp:249
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -H diff option."
-msgstr ""
+msgstr "Ĉi tio respondas al la -H dif-opcio."
 
 #: dialogpages/diffpage.cpp:250
 #, kde-format
@@ -525,19 +552,20 @@ msgid ""
 "This option lets diff makes better diffs when using large files. The "
 "definition of large is nowhere to be found though."
 msgstr ""
+"Ĉi tiu opcio ebligas ke dif faras pli bonajn diferencojn kiam vi uzas "
+"grandajn dosierojn. La difino de granda tamen nenie troviĝas."
 
 #: dialogpages/diffpage.cpp:252
-#, fuzzy, kde-format
-#| msgid "Ignore changes in case"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Ignore changes in case"
-msgstr "Ignori ŝanĝojn de uskleco"
+msgstr "&Ignori ŝanĝojn usklecajn"
 
 #: dialogpages/diffpage.cpp:253
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -i diff option."
-msgstr ""
+msgstr "Ĉi tio respondas al la opcio -i diff."
 
 #: dialogpages/diffpage.cpp:254
 #, kde-format
@@ -547,18 +575,20 @@ msgid ""
 "difference when something in one file is changed into SoMEthing in the other "
 "file."
 msgstr ""
+"Kun ĉi tiu opcio por ignori ŝanĝojn en kazo ebligita, diff ne indikos "
+"diferencon kiam io en unu dosiero estas ŝanĝita en Ion en la alia dosiero."
 
 #: dialogpages/diffpage.cpp:262
 #, kde-format
 msgctxt "@option:check"
 msgid "Ignore regexp:"
-msgstr ""
+msgstr "Ignori regexp:"
 
 #: dialogpages/diffpage.cpp:263
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -I diff option."
-msgstr ""
+msgstr "Ĉi tiu opcio respondas al la opcio -I diff."
 
 #: dialogpages/diffpage.cpp:264
 #, kde-format
@@ -567,6 +597,8 @@ msgid ""
 "When this checkbox is enabled, an option to diff is given that will make "
 "diff ignore lines that match the regular expression."
 msgstr ""
+"Kiam ĉi tiu markobutono estas ebligita, opcio al diff estas donita, kiu igos "
+"diff ignori liniojn kiuj kongruas kun la regula esprimo."
 
 #: dialogpages/diffpage.cpp:268
 #, kde-format
@@ -575,24 +607,26 @@ msgid ""
 "Add the regular expression here that you want to use\n"
 "to ignore lines that match it."
 msgstr ""
+"Aldonu ĉi tie la regulan esprimon, kiun vi volas uzi\\por ignori liniojn "
+"kiuj kongruas kun ĝi."
 
 #: dialogpages/diffpage.cpp:274
 #, kde-format
 msgctxt "@title:group"
 msgid "Whitespace"
-msgstr ""
+msgstr "Blanka spaco"
 
 #: dialogpages/diffpage.cpp:276
 #, kde-format
 msgctxt "@option:check"
 msgid "E&xpand tabs to spaces in output"
-msgstr ""
+msgstr "Vas&tigi langetojn al spacoj en eligo"
 
 #: dialogpages/diffpage.cpp:277
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -t diff option."
-msgstr ""
+msgstr "Ĉi tiu opcio respondas al la opcio -t diff."
 
 #: dialogpages/diffpage.cpp:278
 #, kde-format
@@ -601,19 +635,20 @@ msgid ""
 "This option does not always produce the right result. Due to this expansion "
 "Kompare may have problems applying the change to the destination file."
 msgstr ""
+"Ĉi tiu opcio ne ĉiam produktas la ĝustan rezulton. Pro ĉi tiu ekspansio "
+"Kompare povas havi problemojn aplikante la ŝanĝon al la celdosiero."
 
 #: dialogpages/diffpage.cpp:280
-#, fuzzy, kde-format
-#| msgid "Ignore added or removed empty lines"
+#, kde-format
 msgctxt "@option:check"
 msgid "I&gnore added or removed empty lines"
-msgstr "Ignori aldonitajn aŭ forigitajn malplenajn liniojn"
+msgstr "Mi&ignoras aldonitajn aŭ forigitajn malplenajn liniojn"
 
 #: dialogpages/diffpage.cpp:281
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -B diff option."
-msgstr ""
+msgstr "Ĉi tiu opcio respondas al la -B dif-opcio."
 
 #: dialogpages/diffpage.cpp:282
 #, kde-format
@@ -622,19 +657,20 @@ msgid ""
 "This can be very useful in situations where code has been reorganized and "
 "empty lines have been added or removed to improve legibility."
 msgstr ""
+"Ĉi tio povas esti tre utila en situacioj kie kodo estis reorganizita kaj "
+"malplenaj linioj estis aldonitaj aŭ forigitaj por plibonigi legeblecon."
 
 #: dialogpages/diffpage.cpp:284
-#, fuzzy, kde-format
-#| msgid "Ignore changes in case"
+#, kde-format
 msgctxt "@option:check"
 msgid "Ig&nore changes in the amount of whitespace"
-msgstr "Ignori ŝanĝojn de uskleco"
+msgstr "Ig&nore ŝanĝoj en la kvanto de blankspaco"
 
 #: dialogpages/diffpage.cpp:285
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -b diff option."
-msgstr ""
+msgstr "Ĉi tiu opcio kongruas kun la opcio -b de diff."
 
 #: dialogpages/diffpage.cpp:286
 #, kde-format
@@ -643,18 +679,20 @@ msgid ""
 "If you are uninterested in differences arising due to, for example, changes "
 "in indentation, then use this option."
 msgstr ""
+"Se vi ne interesiĝas pri diferencoj estiĝantaj pro, ekzemple, ŝanĝoj en "
+"indentaĵo, tiam uzu ĉi tiun opcion."
 
 #: dialogpages/diffpage.cpp:288
 #, kde-format
 msgctxt "@option:check"
 msgid "Ign&ore all whitespace"
-msgstr ""
+msgstr "Ign&ori ĉiujn blankspacojn"
 
 #: dialogpages/diffpage.cpp:289
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -w diff option."
-msgstr ""
+msgstr "Ĉi tiu opcio respondas al la opcio -w diff."
 
 #: dialogpages/diffpage.cpp:290
 #, kde-format
@@ -663,19 +701,20 @@ msgid ""
 "This is useful for seeing the significant changes without being overwhelmed "
 "by all the white space changes."
 msgstr ""
+"Ĉi tio estas utila por vidi la signifajn ŝanĝojn sen esti superfortita de "
+"ĉiuj blankspacaj ŝanĝoj."
 
 #: dialogpages/diffpage.cpp:292
-#, fuzzy, kde-format
-#| msgid "Ignore changes in case"
+#, kde-format
 msgctxt "@option:check"
 msgid "Igno&re changes due to tab expansion"
-msgstr "Ignori ŝanĝojn de uskleco"
+msgstr "Igno&ri ŝanĝojn pro langeto vastiĝo"
 
 #: dialogpages/diffpage.cpp:293
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -E diff option."
-msgstr ""
+msgstr "Ĉi tiu opcio respondas al la opcio -E dif."
 
 #: dialogpages/diffpage.cpp:294
 #, kde-format
@@ -686,10 +725,13 @@ msgid ""
 "Kompare currently has some problems applying such changes so be careful when "
 "you use this option."
 msgstr ""
+"Se estas ŝanĝo ĉar langetoj estis vastigitaj al spacoj en la alia dosiero, "
+"tiam ĉi tiu opcio certigos, ke ĉi tiuj ne aperos. Kompare nuntempe havas "
+"kelkajn problemojn aplikante tiajn ŝanĝojn do atentu kiam vi uzas ĉi tiun "
+"opcion."
 
 #: dialogpages/diffpage.cpp:299
-#, fuzzy, kde-format
-#| msgid "Options"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Options"
 msgstr "Opcioj"
@@ -698,7 +740,7 @@ msgstr "Opcioj"
 #, kde-format
 msgctxt "@title:group"
 msgid "File Pattern to Exclude"
-msgstr ""
+msgstr "Dosiera Ŝablono por Ekskludi"
 
 #: dialogpages/diffpage.cpp:312
 #, kde-format
@@ -707,6 +749,8 @@ msgid ""
 "If this is checked you can enter a shell pattern in the text box on the "
 "right or select entries from the list."
 msgstr ""
+"Se ĉi tio estas markita, vi povas enigi ŝelan ŝablonon en la tekstujon "
+"dekstre aŭ elekti enskribojn el la listo."
 
 #: dialogpages/diffpage.cpp:318
 #, kde-format
@@ -715,18 +759,21 @@ msgid ""
 "Here you can enter or remove a shell pattern or select one or more entries "
 "from the list."
 msgstr ""
+"Ĉi tie vi povas enigi aŭ forigi ŝelan ŝablonon aŭ elekti unu aŭ plurajn "
+"enskribojn el la listo."
 
 #: dialogpages/diffpage.cpp:328
 #, kde-format
 msgctxt "@title:group"
 msgid "File with Filenames to Exclude"
-msgstr ""
+msgstr "Dosiero kun Dosiernomoj por Ekskludi"
 
 #: dialogpages/diffpage.cpp:329
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "If this is checked you can enter a filename in the combo box below."
 msgstr ""
+"Se ĉi tio estas markita, vi povas enigi dosiernomon en la kombinujon sube."
 
 #: dialogpages/diffpage.cpp:333
 #, kde-format
@@ -735,6 +782,8 @@ msgid ""
 "Here you can enter the URL of a file with shell patterns to ignore during "
 "the comparison of the folders."
 msgstr ""
+"Ĉi tie vi povas enigi la URL de dosiero kun ŝelaj ŝablonoj por ignori dum la "
+"komparo de la dosierujoj."
 
 #: dialogpages/diffpage.cpp:337
 #, kde-format
@@ -743,31 +792,29 @@ msgid ""
 "Any file you select in the dialog that pops up when you click it will be put "
 "in the dialog to the left of this button."
 msgstr ""
+"Ajna dosiero, kiun vi elektas en la dialogo, kiu aperas kiam vi alklakas "
+"ĝin, estos metita en la dialogon maldekstre de ĉi tiu butono."
 
 #: dialogpages/diffpage.cpp:344
-#, fuzzy, kde-format
-#| msgid "Exclude"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Exclude"
 msgstr "Eskludi"
 
 #: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select file"
-msgstr "Fontdosiero"
+msgstr "Elekti dosieron"
 
 #: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select folder"
-msgstr "Fontdosiero"
+msgstr "Elekti dosierujon"
 
 #: dialogpages/filespage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Encoding"
+#, kde-format
 msgctxt "@title:group"
 msgid "Encoding"
 msgstr "Kodoprezento"
@@ -776,25 +823,22 @@ msgstr "Kodoprezento"
 #, kde-format
 msgctxt "@item:inlistbox encoding"
 msgid "Default"
-msgstr ""
+msgstr "Defaŭlte"
 
 #: dialogpages/filespage.cpp:126
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select Folder"
-msgstr "Fontdosiero"
+msgstr "Elekti Dosierujon"
 
 #: dialogpages/filespage.cpp:130
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select File"
-msgstr "Fontdosiero"
+msgstr "Elekti Dosieron"
 
 #: dialogpages/viewpage.cpp:44
-#, fuzzy, kde-format
-#| msgid "Colors"
+#, kde-format
 msgctxt "@title:group"
 msgid "Colors"
 msgstr "Koloroj"
@@ -803,35 +847,34 @@ msgstr "Koloroj"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Removed color:"
-msgstr ""
+msgstr "Forigita koloro:"
 
 #: dialogpages/viewpage.cpp:54
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Changed color:"
-msgstr ""
+msgstr "Ŝanĝita koloro:"
 
 #: dialogpages/viewpage.cpp:58
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Added color:"
-msgstr ""
+msgstr "Aldonita koloro:"
 
 #: dialogpages/viewpage.cpp:62
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Applied color:"
-msgstr ""
+msgstr "Aplikita koloro:"
 
 #: dialogpages/viewpage.cpp:66
 #, kde-format
 msgctxt "@title:group"
 msgid "Mouse Wheel"
-msgstr ""
+msgstr "Musa Rado"
 
 #: dialogpages/viewpage.cpp:72
-#, fuzzy, kde-format
-#| msgid "Number of lines:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of lines:"
 msgstr "Nombro de linioj:"
@@ -840,89 +883,79 @@ msgstr "Nombro de linioj:"
 #, kde-format
 msgctxt "@title:group"
 msgid "Tabs to Spaces"
-msgstr ""
+msgstr "Tabs al Spacoj"
 
 #: dialogpages/viewpage.cpp:83
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of spaces to convert a tab character to:"
-msgstr ""
+msgstr "Nombro da spacoj por konverti tabuladon al:"
 
 #: dialogpages/viewpage.cpp:94
 #, kde-format
 msgctxt "@title:group"
 msgid "Text Font"
-msgstr ""
+msgstr "Teksta Tiparo"
 
 #: dialogpages/viewpage.cpp:98
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Font:"
 msgstr "Tiparo:"
 
 #: dialogpages/viewpage.cpp:103
-#, fuzzy, kde-format
-#| msgid "Size:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Size:"
 msgstr "Grandeco:"
 
 #: dialogpages/viewpage.cpp:107
-#, fuzzy, kde-format
-#| msgid "Fonts"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Fonts"
 msgstr "Tiparoj"
 
 #: komparenavtreepart/komparenavtreepart.cpp:55
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source Folder"
-msgstr "Fontdosiero"
+msgstr "Fonta Dosierujo"
 
 #: komparenavtreepart/komparenavtreepart.cpp:61
-#, fuzzy, kde-format
-#| msgid "Destination"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination Folder"
-msgstr "Celo"
+msgstr "Destina Dosierujo"
 
 #: komparenavtreepart/komparenavtreepart.cpp:68
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source File"
 msgstr "Fontdosiero"
 
 #: komparenavtreepart/komparenavtreepart.cpp:69
-#, fuzzy, kde-format
-#| msgid "Destination"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination File"
-msgstr "Celo"
+msgstr "Celodosiero"
 
 #: komparenavtreepart/komparenavtreepart.cpp:78
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source Line"
-msgstr "Fontdosiero"
+msgstr "Fontlinio"
 
 #: komparenavtreepart/komparenavtreepart.cpp:79
-#, fuzzy, kde-format
-#| msgid "Destination"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination Line"
-msgstr "Celo"
+msgstr "Cellinio"
 
 #: komparenavtreepart/komparenavtreepart.cpp:80
-#, fuzzy, kde-format
-#| msgid "Preferences"
+#, kde-format
 msgctxt "@title:column"
 msgid "Difference"
-msgstr "Preferaĵoj"
+msgstr "Diferenco"
 
 #: komparenavtreepart/komparenavtreepart.cpp:455
 #, kde-format
@@ -967,8 +1000,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:628
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "Nekonata"
@@ -977,102 +1009,100 @@ msgstr "Nekonata"
 #, kde-format
 msgctxt "@action"
 msgid "Save &All"
-msgstr ""
+msgstr "Kons&ervi Ĉion"
 
 #: komparepart/kompare_part.cpp:182
 #, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
-msgstr ""
+msgstr "Konservi &Dif-on..."
 
 #: komparepart/kompare_part.cpp:184
 #, kde-format
 msgctxt "@action"
 msgid "Swap Source with Destination"
-msgstr ""
+msgstr "Interŝanĝi Fonton kun Celo"
 
 #: komparepart/kompare_part.cpp:191
-#, fuzzy, kde-format
-#| msgid "Show Statistics"
+#, kde-format
 msgctxt "@action"
 msgid "Show Statistics"
-msgstr "Montri la statistikojn"
+msgstr "Montri Statistikojn"
 
 #: komparepart/kompare_part.cpp:194
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
-msgstr ""
+msgstr "Refreŝigi Diff"
 
 #: komparepart/kompare_part.cpp:306 komparepart/kompare_part.cpp:319
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
-msgstr ""
+msgstr "<qt>La URL <b>%1</b> ne estas elŝutebla.</qt>"
 
 #: komparepart/kompare_part.cpp:357
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
-msgstr ""
+msgstr "<qt>La URL <b>%1</b> ne ekzistas en via sistemo.</qt>"
 
 #: komparepart/kompare_part.cpp:545
-#, fuzzy, kde-format
-#| msgid "Options"
+#, kde-format
 msgctxt "@title:window"
 msgid "Diff Options"
-msgstr "Opcioj"
+msgstr "Diferaj Opcioj"
 
 #: komparepart/kompare_part.cpp:564
 #, kde-format
 msgctxt "@title:window"
 msgid "Save .diff"
-msgstr ""
+msgstr "Konservi .diff"
 
 #: komparepart/kompare_part.cpp:566
 #, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
-msgstr ""
+msgstr "Flikdosieroj (*.diff *.dif *.patch)"
 
 #: komparepart/kompare_part.cpp:627
 #, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
-msgstr ""
+msgstr "Rulante diff..."
 
 #: komparepart/kompare_part.cpp:630
 #, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
-msgstr ""
+msgstr "Analizante diff-eligon..."
 
 #: komparepart/kompare_part.cpp:686
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
-msgstr ""
+msgstr "Komparante dosieron %1 kun dosiero %2"
 
 #: komparepart/kompare_part.cpp:691
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
-msgstr ""
+msgstr "Komparante dosierojn en %1 kun dosieroj en %2"
 
 #: komparepart/kompare_part.cpp:696
 #, kde-format
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
-msgstr ""
+msgstr "Rigardante dif-eligon de %1"
 
 #: komparepart/kompare_part.cpp:699
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
-msgstr ""
+msgstr "Miksado de diferenco eligo de %1 en dosieron %2"
 
 #: komparepart/kompare_part.cpp:704
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
-msgstr ""
+msgstr "Miksado de diferenco eligo de %1 en dosierujon %2"
 
 #: komparepart/kompare_part.cpp:759 komparepart/kompare_part.cpp:798
 #: komparepart/kompare_part.cpp:922
@@ -1081,52 +1111,48 @@ msgid ""
 "You have made changes to the destination file(s).\n"
 "Would you like to save them?"
 msgstr ""
+"Vi faris ŝanĝojn al la celdosiero(j).\n"
+"Ĉu vi ŝatus konservi ilin?"
 
 #: komparepart/kompare_part.cpp:761 komparepart/kompare_part.cpp:800
 #: komparepart/kompare_part.cpp:924
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Changes?"
-msgstr ""
+msgstr "Ĉu konservi Ŝanĝojn?"
 
 #: komparepart/kompare_part.cpp:843
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "Unuigita"
 
 #: komparepart/kompare_part.cpp:846
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "Kunteksto"
 
 #: komparepart/kompare_part.cpp:849
-#, fuzzy, kde-format
-#| msgid "RCS"
+#, kde-format
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
 #: komparepart/kompare_part.cpp:852
-#, fuzzy, kde-format
-#| msgid "Ed"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
 #: komparepart/kompare_part.cpp:855
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "Normala"
 
 #: komparepart/kompare_part.cpp:859
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "Nekonata"
@@ -1137,14 +1163,15 @@ msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
 "available."
 msgstr ""
+"Neniu diferenco-dosiero, aŭ neniu 2 dosiero estis malsamata. Tial neniuj "
+"statistikoj estas haveblaj."
 
 #: komparepart/kompare_part.cpp:877 komparepart/kompare_part.cpp:891
 #: komparepart/kompare_part.cpp:907
-#, fuzzy, kde-format
-#| msgid "Show Statistics"
+#, kde-format
 msgctxt "@title:window"
 msgid "Diff Statistics"
-msgstr "Montri la statistikojn"
+msgstr "Diferenca Statistiko"
 
 #: komparepart/kompare_part.cpp:881
 #, kde-format
@@ -1158,6 +1185,14 @@ msgid ""
 "Number of hunks: %4\n"
 "Number of differences: %5"
 msgstr ""
+"Statistiko:\n"
+"\n"
+"Malnova dosiero: %1\n"
+"Nova dosiero: %2\n"
+"\n"
+"Formato: %3\n"
+"Nombro da partoj: %4\n"
+"Nombro da diferencoj: %5"
 
 #: komparepart/kompare_part.cpp:894
 #, kde-format
@@ -1173,40 +1208,46 @@ msgid ""
 "Number of hunks: %5\n"
 "Number of differences: %6"
 msgstr ""
+"Statistiko:\n"
+"\n"
+"Nombro de dosieroj en difdosiero: %1\n"
+"Formato: %2\n"
+"\n"
+"Nuna malnova dosiero: %3\n"
+"Nuna nova dosiero: %4\n"
+"\n"
+"Nombro de partoj: %5\n"
+"Nombro de diferencoj: %6"
 
 #. i18n: ectx: Menu (difference)
 #: komparepart/komparepartui.rc:17
 #, kde-format
 msgid "&Difference"
-msgstr ""
+msgstr "&Diferenco"
 
 #: komparepart/kompareprefdlg.cpp:26
-#, fuzzy, kde-format
-#| msgid "Preferences"
+#, kde-format
 msgctxt "@title:window"
 msgid "Preferences"
 msgstr "Preferaĵoj"
 
 #: komparepart/kompareprefdlg.cpp:36
-#, fuzzy, kde-format
-#| msgid "View"
+#, kde-format
 msgctxt "@title:tab"
 msgid "View"
 msgstr "Vido"
 
 #: komparepart/kompareprefdlg.cpp:38
-#, fuzzy, kde-format
-#| msgid "View Settings"
+#, kde-format
 msgctxt "@title"
 msgid "View Settings"
 msgstr "Vida agordo"
 
 #: komparepart/kompareprefdlg.cpp:44
-#, fuzzy, kde-format
-#| msgid "View Settings"
+#, kde-format
 msgctxt "@title"
 msgid "Diff Settings"
-msgstr "Vida agordo"
+msgstr "Dif-Agordoj"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
 #: komparepart/komparesaveoptionsbase.ui:29
@@ -1216,10 +1257,9 @@ msgstr "Formato"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
 #: komparepart/komparesaveoptionsbase.ui:35
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgid "&Context"
-msgstr "Kunteksto"
+msgstr "&Kunteksto"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
 #: komparepart/komparesaveoptionsbase.ui:42
@@ -1229,10 +1269,9 @@ msgstr "Ed"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
 #: komparepart/komparesaveoptionsbase.ui:49
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgid "&Normal"
-msgstr "Normala"
+msgstr "&Normala"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
 #: komparepart/komparesaveoptionsbase.ui:56
@@ -1242,22 +1281,21 @@ msgstr "RCS"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
 #: komparepart/komparesaveoptionsbase.ui:63
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgid "&Unified"
-msgstr "Unuigita"
+msgstr "&Unuigita"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
 #: komparepart/komparesaveoptionsbase.ui:73
 #, kde-format
 msgid "&Side-by-side"
-msgstr ""
+msgstr "&Flank-al-flanko"
 
 #. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
 #: komparepart/komparesaveoptionsbase.ui:85
 #, kde-format
 msgid "Number of context lines:"
-msgstr ""
+msgstr "Nombro da kuntekstlinioj:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
 #: komparepart/komparesaveoptionsbase.ui:126
@@ -1269,13 +1307,13 @@ msgstr "Opcioj"
 #: komparepart/komparesaveoptionsbase.ui:132
 #, kde-format
 msgid "Look for smaller changes"
-msgstr ""
+msgstr "Serĉi pli malgrandajn ŝanĝojn"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
 #: komparepart/komparesaveoptionsbase.ui:142
 #, kde-format
 msgid "Optimize for large files"
-msgstr ""
+msgstr "Optimumigi por grandaj dosieroj"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
 #: komparepart/komparesaveoptionsbase.ui:152
@@ -1287,7 +1325,7 @@ msgstr "Ignori ŝanĝojn de uskleco"
 #: komparepart/komparesaveoptionsbase.ui:159
 #, kde-format
 msgid "Expand tabs to spaces"
-msgstr ""
+msgstr "Vastigi langetojn al spacoj"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
 #: komparepart/komparesaveoptionsbase.ui:166
@@ -1299,58 +1337,40 @@ msgstr "Ignori aldonitajn aŭ forigitajn malplenajn liniojn"
 #: komparepart/komparesaveoptionsbase.ui:173
 #, kde-format
 msgid "Ignore changes in whitespace"
-msgstr ""
+msgstr "Ignori ŝanĝojn en blankspaco"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
 #: komparepart/komparesaveoptionsbase.ui:180
 #, kde-format
 msgid "Show function names"
-msgstr ""
+msgstr "Montri funkcionomojn"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
 #: komparepart/komparesaveoptionsbase.ui:190
 #, kde-format
 msgid "Compare folders recursively"
-msgstr ""
+msgstr "Kompari dosierujojn rekursie"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
 #: komparepart/komparesaveoptionsbase.ui:200
 #, kde-format
 msgid "Treat new files as empty"
-msgstr ""
+msgstr "Trakti novajn dosierojn kiel malplenajn"
 
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
 #: komparepart/komparesaveoptionsbase.ui:222
 #, kde-format
 msgid "Run Diff In"
-msgstr ""
+msgstr "Lanĉi Diff En"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
 #: komparepart/komparesaveoptionsbase.ui:247
 #, kde-format
 msgid "Command Line"
-msgstr ""
+msgstr "Komandlinio"
 
 #. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
 #: komparepart/komparesaveoptionsbase.ui:256
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
-msgstr ""
-
-#, fuzzy
-#~| msgid "File Exists"
-#~ msgctxt "@window:title"
-#~ msgid "File Exists"
-#~ msgstr "La dosiero ekzistas"
-
-#, fuzzy
-#~| msgid "Overwrite"
-#~ msgctxt "@action:button"
-#~ msgid "Do Not Overwrite"
-#~ msgstr "Anstataŭigu"
-
-#, fuzzy
-#~| msgid "&Edit..."
-#~ msgctxt "@action:button"
-#~ msgid "&Edit..."
-#~ msgstr "&Redakto"
+msgstr "cd dir && diff -udHprNa -- fontcelloko"

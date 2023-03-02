@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2008, 2010, 2014, 2015, 2017, 2020.
+# Shinjo Park <kde@peremen.name>, 2008, 2010, 2014, 2015, 2017, 2020, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:54+0000\n"
-"PO-Revision-Date: 2020-09-16 19:59+0200\n"
+"PO-Revision-Date: 2023-03-01 01:55+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -28,10 +28,9 @@ msgid "Your emails"
 msgstr "kde@peremen.name"
 
 #: app/kompare_shell.cpp:69
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareViewPart."
+#, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr "KompareViewPart를 불러올 수 없습니다."
+msgstr "KompareViewPart를 불러올 수 없음: %1"
 
 #: app/kompare_shell.cpp:73
 #, kde-format
@@ -40,10 +39,9 @@ msgid "Navigation"
 msgstr "탐색"
 
 #: app/kompare_shell.cpp:91
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareNavigationPart."
+#, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr "KompareNavigationPart를 불러올 수 없습니다."
+msgstr "KompareNavigationPart를 불러올 수 없음: %1"
 
 #: app/kompare_shell.cpp:196
 #, kde-format

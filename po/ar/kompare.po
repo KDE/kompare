@@ -427,7 +427,7 @@ msgid ""
 "is used most frequently because it is very readable. The KDE developers like "
 "this format the best so use it for sending patches."
 msgstr ""
-"انتقِ تنسيق من مخرجات أداء موحّد هو هو مُستخدَم الإيطالية هو مقروء الـ كدي مثل "
+"انتقِ تنسيق من مخرجات أداء موحّد هو هو مُستخدَم الإيطالية هو مقروء الـ كِيدِي مثل "
 "تنسيق استخدام الإيطالية لـ."
 
 #: dialogpages/diffpage.cpp:199

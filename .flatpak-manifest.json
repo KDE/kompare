@@ -1,0 +1,39 @@
+{
+    "id": "org.kde.kompare",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "5.15-22.08",
+    "sdk": "org.kde.Sdk",
+    "command": "kompare",
+    "rename-icon": "kompare",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=dri",
+        "--system-talk-name=org.freedesktop.UDisks2"
+    ],
+    "modules": [
+        {
+            "name": "libkomparediff2",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/sdk/libkomparediff2",
+                    "branch": "master"
+                }
+            ]
+        },
+        {
+            "name": "kompare",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
+        }
+    ]
+}

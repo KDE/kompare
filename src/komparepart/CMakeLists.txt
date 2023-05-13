@@ -1,6 +1,6 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
-configure_file(komparepart.desktop.in ${CMAKE_CURRENT_BINARY_DIR}/komparepart.desktop @ONLY)
+configure_file(komparepart.json.in ${CMAKE_CURRENT_BINARY_DIR}/komparepart.json @ONLY)
 
 add_library(komparepart MODULE)
 
@@ -39,4 +39,3 @@ target_link_libraries(komparepart
 )
 
 install(TARGETS komparepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/parts)
-kcoreaddons_desktop_to_json(komparepart ${CMAKE_CURRENT_BINARY_DIR}/komparepart.desktop)

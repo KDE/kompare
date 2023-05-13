@@ -1,6 +1,6 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 
-configure_file(komparenavtreepart.desktop.in ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.desktop @ONLY)
+configure_file(komparenavtreepart.json.in ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.json @ONLY)
 
 add_library(komparenavtreepart MODULE)
 
@@ -15,8 +15,6 @@ ecm_qt_declare_logging_category(komparenavtreepart
     DESCRIPTION "Kompare Navigation TreeView"
     EXPORT kompare
 )
-
-kcoreaddons_desktop_to_json(komparenavtreepart ${CMAKE_CURRENT_BINARY_DIR}/komparenavtreepart.desktop)
 
 target_link_libraries(komparenavtreepart
     Qt::Widgets

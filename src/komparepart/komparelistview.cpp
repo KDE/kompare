@@ -11,7 +11,6 @@
 
 #include <QStyle>
 #include <QPainter>
-#include <QRegExp>
 #include <QTimer>
 #include <QResizeEvent>
 #include <QMouseEvent>

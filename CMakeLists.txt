@@ -26,6 +26,7 @@ include(ECMInstallIcons)
 include(ECMAddAppIcon)
 include(ECMQtDeclareLoggingCategory)
 include(ECMSetupVersion)
+include(ECMDeprecationSettings)
 include(GenerateExportHeader)
 include(FeatureSummary)
 
@@ -56,13 +57,11 @@ set_package_properties(LibKompareDiff2 PROPERTIES
 set(KOMPARE_LIB_VERSION 5)
 set(KOMPARE_LIB_SOVERSION 5)
 
-add_definitions(
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050F00
-    -DQT_DEPRECATED_WARNINGS_SINCE=0x060000
-    -DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055400
-    -DKSERVICE_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055100 # KMimeTypeTrader deprecated in 5.82
-    -DKF_DEPRECATED_WARNINGS_SINCE=0x060000
+ecm_set_disabled_deprecation_versions(
+    QT 5.15.2
+    KF 5.100
 )
+
 # added by KDE_COMPILERSETTINGS_LEVEL 5.85.0
 remove_definitions(
     -DQT_NO_URL_CAST_FROM_STRING

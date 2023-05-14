@@ -18,8 +18,8 @@ ecm_qt_declare_logging_category(komparenavtreepart
 
 target_link_libraries(komparenavtreepart
     Qt::Widgets
-    KF5::Parts
-    KF5::IconThemes
+    KF${KF_MAJOR_VERSION}::Parts
+    KF${KF_MAJOR_VERSION}::IconThemes
     KompareDiff2
 )
 

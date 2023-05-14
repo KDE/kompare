@@ -15,9 +15,11 @@ generate_export_header(komparedialogpages BASE_NAME DIALOGPAGES)
 target_link_libraries(komparedialogpages
     PUBLIC
         KompareDiff2
-        KF5::Codecs
-        KF5::Parts
-        KF5::WidgetsAddons
+        KF${KF_MAJOR_VERSION}::Codecs
+        KF${KF_MAJOR_VERSION}::Parts
+        KF${KF_MAJOR_VERSION}::Completion
+        KF${KF_MAJOR_VERSION}::KIOWidgets
+        KF${KF_MAJOR_VERSION}::WidgetsAddons
 )
 
 set_target_properties(komparedialogpages PROPERTIES

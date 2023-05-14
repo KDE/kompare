@@ -57,10 +57,16 @@ ViewSettings* KomparePart::m_viewSettings = nullptr;
 DiffSettings* KomparePart::m_diffSettings = nullptr;
 
 KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KPluginMetaData& metaData, Modus modus) :
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    KParts::ReadWritePart(parent, metaData),
+#else
     KParts::ReadWritePart(parent),
+#endif
     m_info()
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     setMetaData(metaData);
+#endif
 
     // set our XML-UI resource file
     setXMLFile(QStringLiteral("komparepartui.rc"));

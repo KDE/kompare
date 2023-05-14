@@ -32,10 +32,10 @@ target_link_libraries(komparepart
     komparedialogpages
     kompareinterface
     KompareDiff2
-    KF5::ConfigWidgets
-    KF5::CoreAddons
-    KF5::JobWidgets
+    KF${KF_MAJOR_VERSION}::ConfigWidgets
+    KF${KF_MAJOR_VERSION}::CoreAddons
+    KF${KF_MAJOR_VERSION}::JobWidgets
     Qt::PrintSupport
 )
 
-install(TARGETS komparepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/parts)
+install(TARGETS komparepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${KF_MAJOR_VERSION}/parts)

@@ -28,8 +28,8 @@ target_link_libraries(kompare
     kompareinterface
     komparedialogpages
     KompareDiff2
-    KF5::TextEditor
-    KF5::WidgetsAddons
+    KF${KF_MAJOR_VERSION}::TextEditor
+    KF${KF_MAJOR_VERSION}::WidgetsAddons
     Qt::Widgets
 )
 

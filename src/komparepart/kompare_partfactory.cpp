@@ -17,10 +17,15 @@ KomparePartFactory::~KomparePartFactory() = default;
 
 QObject* KomparePartFactory::create(const char* iface,
                                     QWidget* parentWidget, QObject* parent,
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                                     const QVariantList& args)
+{
+#else
                                     const QVariantList& args, const QString& keyword)
 {
-    Q_UNUSED(args);
     Q_UNUSED(keyword);
+#endif
+    Q_UNUSED(args);
 
     const bool wantReadOnly = (strcmp(iface, "KParts::ReadOnlyPart") == 0);
     const KomparePart::Modus modus =

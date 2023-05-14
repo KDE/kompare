@@ -24,7 +24,11 @@ public:
 
     QObject* create(const char* iface,
                     QWidget* parentWidget, QObject* parent,
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                    const QVariantList& args) override;
+#else
                     const QVariantList& args, const QString& keyword) override;
+#endif
 };
 
 #endif

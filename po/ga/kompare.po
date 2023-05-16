@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/kompare.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-20 00:54+0000\n"
+"POT-Creation-Date: 2023-05-16 00:49+0000\n"
 "PO-Revision-Date: 2004-12-03 14:52-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -914,56 +914,56 @@ msgctxt "@title:tab"
 msgid "Fonts"
 msgstr "Clónna"
 
-#: komparenavtreepart/komparenavtreepart.cpp:55
+#: komparenavtreepart/komparenavtreepart.cpp:61
 #, fuzzy, kde-format
 #| msgid "Source Folder"
 msgctxt "@title:column"
 msgid "Source Folder"
 msgstr "Fillteán Foinse"
 
-#: komparenavtreepart/komparenavtreepart.cpp:61
+#: komparenavtreepart/komparenavtreepart.cpp:67
 #, fuzzy, kde-format
 #| msgid "Destination Folder"
 msgctxt "@title:column"
 msgid "Destination Folder"
 msgstr "Fillteán Sprice"
 
-#: komparenavtreepart/komparenavtreepart.cpp:68
+#: komparenavtreepart/komparenavtreepart.cpp:74
 #, fuzzy, kde-format
 #| msgid "Source File"
 msgctxt "@title:column"
 msgid "Source File"
 msgstr "Comhad Foinse"
 
-#: komparenavtreepart/komparenavtreepart.cpp:69
+#: komparenavtreepart/komparenavtreepart.cpp:75
 #, fuzzy, kde-format
 #| msgid "Destination File"
 msgctxt "@title:column"
 msgid "Destination File"
 msgstr "Comhad Sprice"
 
-#: komparenavtreepart/komparenavtreepart.cpp:78
+#: komparenavtreepart/komparenavtreepart.cpp:84
 #, fuzzy, kde-format
 #| msgid "Source Line"
 msgctxt "@title:column"
 msgid "Source Line"
 msgstr "Líne Fhoinse"
 
-#: komparenavtreepart/komparenavtreepart.cpp:79
+#: komparenavtreepart/komparenavtreepart.cpp:85
 #, fuzzy, kde-format
 #| msgid "Destination Line"
 msgctxt "@title:column"
 msgid "Destination Line"
 msgstr "Líne Sprice"
 
-#: komparenavtreepart/komparenavtreepart.cpp:80
+#: komparenavtreepart/komparenavtreepart.cpp:86
 #, fuzzy, kde-format
 #| msgid "Difference"
 msgctxt "@title:column"
 msgid "Difference"
 msgstr "Difríocht"
 
-#: komparenavtreepart/komparenavtreepart.cpp:455
+#: komparenavtreepart/komparenavtreepart.cpp:461
 #, fuzzy, kde-format
 #| msgid "Applied: Changes made to %1 line undone"
 #| msgid_plural "Applied: Changes made to  %1 lines undone"
@@ -975,7 +975,7 @@ msgstr[2] "Curtha i bhfeidhm: Cealaíodh na hathruithe ar %1 líne"
 msgstr[3] "Curtha i bhfeidhm: Cealaíodh na hathruithe ar %1 líne"
 msgstr[4] "Curtha i bhfeidhm: Cealaíodh na hathruithe ar %1 líne"
 
-#: komparenavtreepart/komparenavtreepart.cpp:458
+#: komparenavtreepart/komparenavtreepart.cpp:464
 #, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
@@ -985,7 +985,7 @@ msgstr[2] "Athraíodh %1 líne"
 msgstr[3] "Athraíodh %1 líne"
 msgstr[4] "Athraíodh %1 líne"
 
-#: komparenavtreepart/komparenavtreepart.cpp:463
+#: komparenavtreepart/komparenavtreepart.cpp:469
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
@@ -995,7 +995,7 @@ msgstr[2] "Curtha i bhfeidhm: Cealaíodh ionsá %1 líne"
 msgstr[3] "Curtha i bhfeidhm: Cealaíodh ionsá %1 líne"
 msgstr[4] "Curtha i bhfeidhm: Cealaíodh ionsá %1 líne"
 
-#: komparenavtreepart/komparenavtreepart.cpp:466
+#: komparenavtreepart/komparenavtreepart.cpp:472
 #, kde-format
 msgid "Inserted %1 line"
 msgid_plural "Inserted %1 lines"
@@ -1005,7 +1005,7 @@ msgstr[2] "Ionsádh %1 líne"
 msgstr[3] "Ionsádh %1 líne"
 msgstr[4] "Ionsádh %1 líne"
 
-#: komparenavtreepart/komparenavtreepart.cpp:471
+#: komparenavtreepart/komparenavtreepart.cpp:477
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
@@ -1015,7 +1015,7 @@ msgstr[2] "Curtha i bhfeidhm: Cealaíodh scriosadh %1 líne"
 msgstr[3] "Curtha i bhfeidhm: Cealaíodh scriosadh %1 líne"
 msgstr[4] "Curtha i bhfeidhm: Cealaíodh scriosadh %1 líne"
 
-#: komparenavtreepart/komparenavtreepart.cpp:474
+#: komparenavtreepart/komparenavtreepart.cpp:480
 #, kde-format
 msgid "Deleted %1 line"
 msgid_plural "Deleted %1 lines"
@@ -1025,127 +1025,127 @@ msgstr[2] "Scriosadh %1 líne"
 msgstr[3] "Scriosadh %1 líne"
 msgstr[4] "Scriosadh %1 líne"
 
-#: komparenavtreepart/komparenavtreepart.cpp:628
+#: komparenavtreepart/komparenavtreepart.cpp:634
 #, fuzzy, kde-format
 #| msgid "Unknown"
 msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "Anaithnid"
 
-#: komparepart/kompare_part.cpp:180
+#: komparepart/kompare_part.cpp:186
 #, fuzzy, kde-format
 #| msgid "Save &All"
 msgctxt "@action"
 msgid "Save &All"
 msgstr "Sábháil Uile"
 
-#: komparepart/kompare_part.cpp:182
+#: komparepart/kompare_part.cpp:188
 #, fuzzy, kde-format
 #| msgid "Save &Diff..."
 msgctxt "@action"
 msgid "Save &Diff..."
 msgstr "Sábháil &Diff..."
 
-#: komparepart/kompare_part.cpp:184
+#: komparepart/kompare_part.cpp:190
 #, fuzzy, kde-format
 #| msgid "Swap Source with Destination"
 msgctxt "@action"
 msgid "Swap Source with Destination"
 msgstr "Malartaigh Comhad Foinse agus Comhad Sprice"
 
-#: komparepart/kompare_part.cpp:191
+#: komparepart/kompare_part.cpp:197
 #, fuzzy, kde-format
 #| msgid "Show Statistics"
 msgctxt "@action"
 msgid "Show Statistics"
 msgstr "Taispeáin Staitisticí"
 
-#: komparepart/kompare_part.cpp:194
+#: komparepart/kompare_part.cpp:200
 #, fuzzy, kde-format
 #| msgid "Refresh Diff"
 msgctxt "@action"
 msgid "Refresh Diff"
 msgstr "Athnuaigh Diff"
 
-#: komparepart/kompare_part.cpp:306 komparepart/kompare_part.cpp:319
+#: komparepart/kompare_part.cpp:312 komparepart/kompare_part.cpp:325
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
 msgstr "<qt>Ní féidir URL <b>%1</b> a íosluchtú.</qt>"
 
-#: komparepart/kompare_part.cpp:357
+#: komparepart/kompare_part.cpp:363
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
 msgstr "<qt>Níor aimsíodh URL <b>%1</b> ar do chóras.</qt>"
 
-#: komparepart/kompare_part.cpp:545
+#: komparepart/kompare_part.cpp:551
 #, fuzzy, kde-format
 #| msgid "Diff Options"
 msgctxt "@title:window"
 msgid "Diff Options"
 msgstr "Roghanna Diff"
 
-#: komparepart/kompare_part.cpp:564
+#: komparepart/kompare_part.cpp:570
 #, fuzzy, kde-format
 #| msgid "Save .diff"
 msgctxt "@title:window"
 msgid "Save .diff"
 msgstr "Sábháil .diff"
 
-#: komparepart/kompare_part.cpp:566
+#: komparepart/kompare_part.cpp:572
 #, fuzzy, kde-format
 #| msgid "*.diff *.dif *.patch|Patch Files"
 msgid "Patch Files (*.diff *.dif *.patch)"
 msgstr "*.diff *.dif *.patch|Comhaid Phaiste"
 
-#: komparepart/kompare_part.cpp:627
+#: komparepart/kompare_part.cpp:633
 #, fuzzy, kde-format
 #| msgid "Running diff..."
 msgctxt "@info:status"
 msgid "Running diff..."
 msgstr "diff á rith..."
 
-#: komparepart/kompare_part.cpp:630
+#: komparepart/kompare_part.cpp:636
 #, fuzzy, kde-format
 #| msgid "Parsing diff output..."
 msgctxt "@info:status"
 msgid "Parsing diff output..."
 msgstr "Aschur diff á pharsáil..."
 
-#: komparepart/kompare_part.cpp:686
+#: komparepart/kompare_part.cpp:692
 #, fuzzy, kde-format
 #| msgid "Comparing file %1 with file %2"
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
 msgstr "Ag cur comhad %1 i gcomparáid le comhad %2"
 
-#: komparepart/kompare_part.cpp:691
+#: komparepart/kompare_part.cpp:697
 #, fuzzy, kde-format
 #| msgid "Comparing files in %1 with files in %2"
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
 msgstr "Ag cur na gcomhad i %1 leis na comhaid i %2"
 
-#: komparepart/kompare_part.cpp:696
+#: komparepart/kompare_part.cpp:702
 #, fuzzy, kde-format
 #| msgid "Parsing diff output..."
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
 msgstr "Aschur diff á pharsáil..."
 
-#: komparepart/kompare_part.cpp:699
+#: komparepart/kompare_part.cpp:705
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
 msgstr ""
 
-#: komparepart/kompare_part.cpp:704
+#: komparepart/kompare_part.cpp:710
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
 msgstr ""
 
-#: komparepart/kompare_part.cpp:759 komparepart/kompare_part.cpp:798
-#: komparepart/kompare_part.cpp:922
+#: komparepart/kompare_part.cpp:765 komparepart/kompare_part.cpp:804
+#: komparepart/kompare_part.cpp:928
 #, kde-format
 msgid ""
 "You have made changes to the destination file(s).\n"
@@ -1154,72 +1154,72 @@ msgstr ""
 "Athraíodh an/na sprioc-chomha(i)d.\n"
 "An bhfuil fonn ort do chuid athruithe a shábháil?"
 
-#: komparepart/kompare_part.cpp:761 komparepart/kompare_part.cpp:800
-#: komparepart/kompare_part.cpp:924
+#: komparepart/kompare_part.cpp:767 komparepart/kompare_part.cpp:806
+#: komparepart/kompare_part.cpp:930
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title:window"
 msgid "Save Changes?"
 msgstr "Sábháil Athruithe?"
 
-#: komparepart/kompare_part.cpp:843
+#: komparepart/kompare_part.cpp:849
 #, fuzzy, kde-format
 #| msgid "Unified"
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "Aontaithe"
 
-#: komparepart/kompare_part.cpp:846
+#: komparepart/kompare_part.cpp:852
 #, fuzzy, kde-format
 #| msgid "Context"
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "Comhthéacs"
 
-#: komparepart/kompare_part.cpp:849
+#: komparepart/kompare_part.cpp:855
 #, fuzzy, kde-format
 #| msgid "RCS"
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
-#: komparepart/kompare_part.cpp:852
+#: komparepart/kompare_part.cpp:858
 #, fuzzy, kde-format
 #| msgid "Ed"
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
-#: komparepart/kompare_part.cpp:855
+#: komparepart/kompare_part.cpp:861
 #, fuzzy, kde-format
 #| msgid "Normal"
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "Gnách"
 
-#: komparepart/kompare_part.cpp:859
+#: komparepart/kompare_part.cpp:865
 #, fuzzy, kde-format
 #| msgid "Unknown"
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "Anaithnid"
 
-#: komparepart/kompare_part.cpp:875
+#: komparepart/kompare_part.cpp:881
 #, kde-format
 msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
 "available."
 msgstr ""
 
-#: komparepart/kompare_part.cpp:877 komparepart/kompare_part.cpp:891
-#: komparepart/kompare_part.cpp:907
+#: komparepart/kompare_part.cpp:883 komparepart/kompare_part.cpp:897
+#: komparepart/kompare_part.cpp:913
 #, fuzzy, kde-format
 #| msgid "Diff Statistics"
 msgctxt "@title:window"
 msgid "Diff Statistics"
 msgstr "Staitistic Diff"
 
-#: komparepart/kompare_part.cpp:881
+#: komparepart/kompare_part.cpp:887
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1240,7 +1240,7 @@ msgstr ""
 "Líon na gcantaí: %4\n"
 "Líon na ndifríochtaí: %5"
 
-#: komparepart/kompare_part.cpp:894
+#: komparepart/kompare_part.cpp:900
 #, kde-format
 msgid ""
 "Statistics:\n"

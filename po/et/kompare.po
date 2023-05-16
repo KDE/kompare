@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-20 00:54+0000\n"
+"POT-Creation-Date: 2023-05-16 00:49+0000\n"
 "PO-Revision-Date: 2020-05-04 11:29+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -915,197 +915,197 @@ msgctxt "@title:tab"
 msgid "Fonts"
 msgstr "Fondid"
 
-#: komparenavtreepart/komparenavtreepart.cpp:55
+#: komparenavtreepart/komparenavtreepart.cpp:61
 #, kde-format
 msgctxt "@title:column"
 msgid "Source Folder"
 msgstr "Lähtekataloog"
 
-#: komparenavtreepart/komparenavtreepart.cpp:61
+#: komparenavtreepart/komparenavtreepart.cpp:67
 #, kde-format
 msgctxt "@title:column"
 msgid "Destination Folder"
 msgstr "Sihtkataloog"
 
-#: komparenavtreepart/komparenavtreepart.cpp:68
+#: komparenavtreepart/komparenavtreepart.cpp:74
 #, kde-format
 msgctxt "@title:column"
 msgid "Source File"
 msgstr "Lähtefail"
 
-#: komparenavtreepart/komparenavtreepart.cpp:69
+#: komparenavtreepart/komparenavtreepart.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Destination File"
 msgstr "Sihtfail"
 
-#: komparenavtreepart/komparenavtreepart.cpp:78
+#: komparenavtreepart/komparenavtreepart.cpp:84
 #, kde-format
 msgctxt "@title:column"
 msgid "Source Line"
 msgstr "Lähterida"
 
-#: komparenavtreepart/komparenavtreepart.cpp:79
+#: komparenavtreepart/komparenavtreepart.cpp:85
 #, kde-format
 msgctxt "@title:column"
 msgid "Destination Line"
 msgstr "Sihtrida"
 
-#: komparenavtreepart/komparenavtreepart.cpp:80
+#: komparenavtreepart/komparenavtreepart.cpp:86
 #, kde-format
 msgctxt "@title:column"
 msgid "Difference"
 msgstr "Erinevus"
 
-#: komparenavtreepart/komparenavtreepart.cpp:455
+#: komparenavtreepart/komparenavtreepart.cpp:461
 #, kde-format
 msgid "Applied: Changes made to %1 line undone"
 msgid_plural "Applied: Changes made to %1 lines undone"
 msgstr[0] "Rakendatud: %1 rea muutmine tagasi võetud"
 msgstr[1] "Rakendatud: %1 rea muutmine tagasi võetud"
 
-#: komparenavtreepart/komparenavtreepart.cpp:458
+#: komparenavtreepart/komparenavtreepart.cpp:464
 #, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
 msgstr[0] "Muudeti %1 rida"
 msgstr[1] "Muudeti %1 rida"
 
-#: komparenavtreepart/komparenavtreepart.cpp:463
+#: komparenavtreepart/komparenavtreepart.cpp:469
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
 msgstr[0] "Rakendatud: %1 rea lisamine tagasi võetud"
 msgstr[1] "Rakendatud: %1 rea lisamine tagasi võetud"
 
-#: komparenavtreepart/komparenavtreepart.cpp:466
+#: komparenavtreepart/komparenavtreepart.cpp:472
 #, kde-format
 msgid "Inserted %1 line"
 msgid_plural "Inserted %1 lines"
 msgstr[0] "Lisati %1 rida"
 msgstr[1] "Lisati %1 rida"
 
-#: komparenavtreepart/komparenavtreepart.cpp:471
+#: komparenavtreepart/komparenavtreepart.cpp:477
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
 msgstr[0] "Rakendatud: %1 rea kustutamine tagasi võetud"
 msgstr[1] "Rakendatud: %1 rea kustutamine tagasi võetud"
 
-#: komparenavtreepart/komparenavtreepart.cpp:474
+#: komparenavtreepart/komparenavtreepart.cpp:480
 #, kde-format
 msgid "Deleted %1 line"
 msgid_plural "Deleted %1 lines"
 msgstr[0] "Kustutati %1 rida"
 msgstr[1] "Kustutati %1 rida"
 
-#: komparenavtreepart/komparenavtreepart.cpp:628
+#: komparenavtreepart/komparenavtreepart.cpp:634
 #, kde-format
 msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "Teadmata"
 
-#: komparepart/kompare_part.cpp:180
+#: komparepart/kompare_part.cpp:186
 #, kde-format
 msgctxt "@action"
 msgid "Save &All"
 msgstr "S&alvesta kõik"
 
-#: komparepart/kompare_part.cpp:182
+#: komparepart/kompare_part.cpp:188
 #, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
 msgstr "Salvesta .&diff..."
 
-#: komparepart/kompare_part.cpp:184
+#: komparepart/kompare_part.cpp:190
 #, kde-format
 msgctxt "@action"
 msgid "Swap Source with Destination"
 msgstr "Vaheta lähtefail sihtfailiga"
 
-#: komparepart/kompare_part.cpp:191
+#: komparepart/kompare_part.cpp:197
 #, kde-format
 msgctxt "@action"
 msgid "Show Statistics"
 msgstr "Näita statistikat"
 
-#: komparepart/kompare_part.cpp:194
+#: komparepart/kompare_part.cpp:200
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
 msgstr "Värskenda võrdlust"
 
-#: komparepart/kompare_part.cpp:306 komparepart/kompare_part.cpp:319
+#: komparepart/kompare_part.cpp:312 komparepart/kompare_part.cpp:325
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
 msgstr "<qt>URL-i <b>%1</b> allalaadimine nurjus.</qt>"
 
-#: komparepart/kompare_part.cpp:357
+#: komparepart/kompare_part.cpp:363
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
 msgstr "<qt>URL-i <b>%1</b> ei ole sinu süsteemis olemas.</qt>"
 
-#: komparepart/kompare_part.cpp:545
+#: komparepart/kompare_part.cpp:551
 #, kde-format
 msgctxt "@title:window"
 msgid "Diff Options"
 msgstr "Diffi valikud"
 
-#: komparepart/kompare_part.cpp:564
+#: komparepart/kompare_part.cpp:570
 #, kde-format
 msgctxt "@title:window"
 msgid "Save .diff"
 msgstr ".diff-i salvestamine"
 
-#: komparepart/kompare_part.cpp:566
+#: komparepart/kompare_part.cpp:572
 #, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
 msgstr "Paigafailid (*.diff *.dif *.patch)"
 
-#: komparepart/kompare_part.cpp:627
+#: komparepart/kompare_part.cpp:633
 #, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
 msgstr "Diffi täitmine ..."
 
-#: komparepart/kompare_part.cpp:630
+#: komparepart/kompare_part.cpp:636
 #, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
 msgstr "Diffi väljundi parsimine ..."
 
-#: komparepart/kompare_part.cpp:686
+#: komparepart/kompare_part.cpp:692
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
 msgstr "Faili %1 võrdlemine failiga %2"
 
-#: komparepart/kompare_part.cpp:691
+#: komparepart/kompare_part.cpp:697
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
 msgstr "%1 ja %2 sisu võrdlemine"
 
-#: komparepart/kompare_part.cpp:696
+#: komparepart/kompare_part.cpp:702
 #, kde-format
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
 msgstr "%1 võrdlemise väljundi vaatamine"
 
-#: komparepart/kompare_part.cpp:699
+#: komparepart/kompare_part.cpp:705
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
 msgstr "%1 võrdlemise väljundi liitmine faili %2"
 
-#: komparepart/kompare_part.cpp:704
+#: komparepart/kompare_part.cpp:710
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
 msgstr "%1 võrdlemise väljundi liitmine kataloogi %2"
 
-#: komparepart/kompare_part.cpp:759 komparepart/kompare_part.cpp:798
-#: komparepart/kompare_part.cpp:922
+#: komparepart/kompare_part.cpp:765 komparepart/kompare_part.cpp:804
+#: komparepart/kompare_part.cpp:928
 #, kde-format
 msgid ""
 "You have made changes to the destination file(s).\n"
@@ -1114,64 +1114,64 @@ msgstr ""
 "Oled teinud sihtfaili(desse) muudatusi.\n"
 "Kas soovid need salvestada?"
 
-#: komparepart/kompare_part.cpp:761 komparepart/kompare_part.cpp:800
-#: komparepart/kompare_part.cpp:924
+#: komparepart/kompare_part.cpp:767 komparepart/kompare_part.cpp:806
+#: komparepart/kompare_part.cpp:930
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Changes?"
 msgstr "Kas salvestada muudatused?"
 
-#: komparepart/kompare_part.cpp:843
+#: komparepart/kompare_part.cpp:849
 #, kde-format
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "Unifitseeritud"
 
-#: komparepart/kompare_part.cpp:846
+#: komparepart/kompare_part.cpp:852
 #, kde-format
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "Kontekst"
 
-#: komparepart/kompare_part.cpp:849
+#: komparepart/kompare_part.cpp:855
 #, kde-format
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
-#: komparepart/kompare_part.cpp:852
+#: komparepart/kompare_part.cpp:858
 #, kde-format
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
-#: komparepart/kompare_part.cpp:855
+#: komparepart/kompare_part.cpp:861
 #, kde-format
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "Tavaline"
 
-#: komparepart/kompare_part.cpp:859
+#: komparepart/kompare_part.cpp:865
 #, kde-format
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "Tundmatu"
 
-#: komparepart/kompare_part.cpp:875
+#: komparepart/kompare_part.cpp:881
 #, kde-format
 msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
 "available."
 msgstr "Diff-fail puudub või ei võrreldud kahte faili, seega statistikat pole."
 
-#: komparepart/kompare_part.cpp:877 komparepart/kompare_part.cpp:891
-#: komparepart/kompare_part.cpp:907
+#: komparepart/kompare_part.cpp:883 komparepart/kompare_part.cpp:897
+#: komparepart/kompare_part.cpp:913
 #, kde-format
 msgctxt "@title:window"
 msgid "Diff Statistics"
 msgstr "Võrdlemise statistika"
 
-#: komparepart/kompare_part.cpp:881
+#: komparepart/kompare_part.cpp:887
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1192,7 +1192,7 @@ msgstr ""
 "Tükke: %4\n"
 "Erinevusi: %5"
 
-#: komparepart/kompare_part.cpp:894
+#: komparepart/kompare_part.cpp:900
 #, kde-format
 msgid ""
 "Statistics:\n"

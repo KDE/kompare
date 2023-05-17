@@ -3,15 +3,39 @@
         "Authors": [
             {
                 "Email": "jfirebaugh@kde.org",
-                "Name": "John Firebaugh"
+                "Name": "John Firebaugh",
+                "Name[bg]": "John Firebaugh",
+                "Name[ca]": "John Firebaugh",
+                "Name[nl]": "John Firebaugh",
+                "Name[pt]": "John Firebaugh",
+                "Name[sl]": "John Firebaugh",
+                "Name[tr]": "John Firebaugh",
+                "Name[uk]": "John Firebaugh",
+                "Name[x-test]": "xxJohn Firebaughxx"
             },
             {
                 "Email": "bruggie@gmail.com",
-                "Name": "Otto Bruggeman"
+                "Name": "Otto Bruggeman",
+                "Name[bg]": "Otto Bruggeman",
+                "Name[ca]": "Otto Bruggeman",
+                "Name[nl]": "Otto Bruggeman",
+                "Name[pt]": "Otto Bruggeman",
+                "Name[sl]": "Otto Bruggeman",
+                "Name[tr]": "Otto Bruggeman",
+                "Name[uk]": "Otto Bruggeman",
+                "Name[x-test]": "xxOtto Bruggemanxx"
             },
             {
                 "Email": "kevin.kofler@chello.at",
-                "Name": "Kevin Kofler"
+                "Name": "Kevin Kofler",
+                "Name[bg]": "Kevin Kofler",
+                "Name[ca]": "Kevin Kofler",
+                "Name[nl]": "Kevin Kofler",
+                "Name[pt]": "Kevin Kofler",
+                "Name[sl]": "Kevin Kofler",
+                "Name[tr]": "Kevin Kofler",
+                "Name[uk]": "Kevin Kofler",
+                "Name[x-test]": "xxKevin Koflerxx"
             }
         ],
         "Icon": "kompare",

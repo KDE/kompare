@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-16 00:49+0000\n"
-"PO-Revision-Date: 2023-01-27 06:55+0100\n"
+"PO-Revision-Date: 2023-05-17 04:55+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -973,7 +973,7 @@ msgstr "<qt>ბმულის <b>%1</b> გადმოწერა შეუ�
 #: komparepart/kompare_part.cpp:363
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
-msgstr ""
+msgstr "<qt>URL <b>%1</b> თქვენს სისტემაში არ არსებობს.</qt>"
 
 #: komparepart/kompare_part.cpp:551
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-16 00:49+0000\n"
-"PO-Revision-Date: 2023-02-08 07:22+0100\n"
+"PO-Revision-Date: 2023-05-17 11:58+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -327,7 +327,7 @@ msgstr "Chris Luetchford"
 #: app/main.cpp:60
 #, kde-format
 msgid "Kompare icon artist"
-msgstr "Kompari ikonartisto"
+msgstr "Kompari piktogramartisto"
 
 #: app/main.cpp:61
 #, kde-format
@@ -607,8 +607,8 @@ msgid ""
 "Add the regular expression here that you want to use\n"
 "to ignore lines that match it."
 msgstr ""
-"Aldonu ĉi tie la regulan esprimon, kiun vi volas uzi\\por ignori liniojn "
-"kiuj kongruas kun ĝi."
+"Aldonu ĉi tie la regulan esprimon, kiun vi volas uzi\n"
+"por ignori liniojn kiuj kongruas kun ĝi."
 
 #: dialogpages/diffpage.cpp:274
 #, kde-format
@@ -961,43 +961,43 @@ msgstr "Diferenco"
 #, kde-format
 msgid "Applied: Changes made to %1 line undone"
 msgid_plural "Applied: Changes made to %1 lines undone"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Aplikita: Malfaris ŝanĝojn faritajn al %1 linio"
+msgstr[1] "Aplikita: Malfaris ŝanĝojn faritajn al %1 linioj"
 
 #: komparenavtreepart/komparenavtreepart.cpp:464
 #, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ŝanĝis %1 linion"
+msgstr[1] "Ŝanĝis %1 liniojn"
 
 #: komparenavtreepart/komparenavtreepart.cpp:469
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Aplikita: Malfaris enmeton de %1 linio"
+msgstr[1] "Aplikita: Malfaris enmeton de %1 linioj"
 
 #: komparenavtreepart/komparenavtreepart.cpp:472
 #, kde-format
 msgid "Inserted %1 line"
 msgid_plural "Inserted %1 lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Enmetis %1 linion"
+msgstr[1] "Enmetis %1 liniojn"
 
 #: komparenavtreepart/komparenavtreepart.cpp:477
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Aplikita: Malfaris forigon de %1 linio"
+msgstr[1] "Aplikita: Malfaris forigon de %1 linioj"
 
 #: komparenavtreepart/komparenavtreepart.cpp:480
 #, kde-format
 msgid "Deleted %1 line"
 msgid_plural "Deleted %1 lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Forigis %1 linion"
+msgstr[1] "Forigis %1 liniojn"
 
 #: komparenavtreepart/komparenavtreepart.cpp:634
 #, kde-format

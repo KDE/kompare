@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -95,28 +95,24 @@ msgstr " 0 ファイルの 0 番目"
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
 msgstr[0] " %1 ファイルの %2 番目"
-msgstr[1] " %1 ファイルの %2 番目"
 
 #: app/kompare_shell.cpp:241
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
 msgstr[0] " %1 ファイル"
-msgstr[1] " %1 ファイル"
 
 #: app/kompare_shell.cpp:244
 #, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
 msgstr[0] " %1 件の差異の %2 番目、%3 件適用"
-msgstr[1] " %1 件の差異の %2 番目、%3 件適用"
 
 #: app/kompare_shell.cpp:247
 #, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
 msgstr[0] "%1 件の差異"
-msgstr[1] "%1 件の差異"
 
 #: app/kompare_shell.cpp:328
 #, fuzzy, kde-format
@@ -1053,42 +1049,36 @@ msgstr "差異"
 msgid "Applied: Changes made to %1 line undone"
 msgid_plural "Applied: Changes made to %1 lines undone"
 msgstr[0] "適用しました: %1 行の変更が取り消されました。"
-msgstr[1] "適用しました: %1 行の変更が取り消されました。"
 
 #: komparenavtreepart/komparenavtreepart.cpp:458
 #, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
 msgstr[0] "%1 行変更されました。"
-msgstr[1] "%1 行変更されました。"
 
 #: komparenavtreepart/komparenavtreepart.cpp:463
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
 msgstr[0] "適用しました: %1 行の挿入が取り消されました。"
-msgstr[1] "適用しました: %1 行の挿入が取り消されました。"
 
 #: komparenavtreepart/komparenavtreepart.cpp:466
 #, kde-format
 msgid "Inserted %1 line"
 msgid_plural "Inserted %1 lines"
 msgstr[0] "%1 行挿入されました。"
-msgstr[1] "%1 行挿入されました。"
 
 #: komparenavtreepart/komparenavtreepart.cpp:471
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
 msgstr[0] "適用しました: %1 行の削除が取り消されました。"
-msgstr[1] "適用しました: %1 行の削除が取り消されました。"
 
 #: komparenavtreepart/komparenavtreepart.cpp:474
 #, kde-format
 msgid "Deleted %1 line"
 msgid_plural "Deleted %1 lines"
 msgstr[0] "%1 行削除されました。"
-msgstr[1] "%1 行削除されました。"
 
 #: komparenavtreepart/komparenavtreepart.cpp:628
 #, fuzzy, kde-format

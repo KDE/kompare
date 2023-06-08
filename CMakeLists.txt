@@ -18,14 +18,6 @@ set(KF_MIN_VERSION "5.100.0")
 find_package(ECM ${KF_MIN_VERSION} NO_MODULE REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
 
-if (QT_MAJOR_VERSION STREQUAL "6")
-    set(QT_MIN_VERSION "6.5.0")
-    set(KF_MIN_VERSION "5.240.0")
-    set(KF_MAJOR_VERSION "6")
-else()
-    set(KF_MAJOR_VERSION "5")
-endif()
-
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
@@ -37,6 +29,15 @@ include(ECMSetupVersion)
 include(ECMDeprecationSettings)
 include(GenerateExportHeader)
 include(FeatureSummary)
+
+
+if (QT_MAJOR_VERSION STREQUAL "6")
+    set(QT_MIN_VERSION "6.5.0")
+    set(KF_MIN_VERSION "5.240.0")
+    set(KF_MAJOR_VERSION "6")
+else()
+    set(KF_MAJOR_VERSION "5")
+endif()
 
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Core

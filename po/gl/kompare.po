@@ -397,7 +397,7 @@ msgstr ""
 "nese caso lerá a entrada estándar. Pode usarse, por exemplo, para cvs diff | "
 "kompare -o -. Kompare fará unha comprobación para confirmar se pode atopar "
 "os ficheiros orixinais e entón fusionará os mesmos no resultado de «diff» e "
-"mostrará o resultado no visor. A opción -n desactiva a comprobación."
+"amosará o resultado no visor. A opción -n desactiva a comprobación."
 
 #: app/main.cpp:71
 #, kde-format
@@ -1522,7 +1522,7 @@ msgstr "Ignorar os cambios de espazos en branco"
 #: komparepart/komparesaveoptionsbase.ui:180
 #, kde-format
 msgid "Show function names"
-msgstr "Mostrar os nomes das funcións"
+msgstr "Amosar os nomes das funcións"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
 #: komparepart/komparesaveoptionsbase.ui:190

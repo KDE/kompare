@@ -466,3 +466,5 @@ KompareInterface* KompareShell::viewPart() const
 {
     return qobject_cast<KompareInterface*>(m_viewPart);
 }
+
+#include "moc_kompare_shell.cpp"

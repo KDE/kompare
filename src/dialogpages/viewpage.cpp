@@ -164,3 +164,5 @@ void ViewPage::setDefaults()
     // m_fontCombo->setCurrentFont   ( KGlobalSettings::fixedFont().family() );
     m_fontSizeSpinBox->setValue(10);
 }
+
+#include "moc_viewpage.cpp"

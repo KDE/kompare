@@ -959,3 +959,5 @@ void KompareListViewHunkItem::paintCell(QPainter* p, const QStyleOptionViewItem&
         }
     }
 }
+
+#include "moc_komparelistview.cpp"

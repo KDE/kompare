@@ -37,3 +37,4 @@ void KompareSaveOptionsBase::languageChange()
     retranslateUi(this);
 }
 
+#include "moc_komparesaveoptionsbase.cpp"

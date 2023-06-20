@@ -977,3 +977,5 @@ void KomparePart::optionsPreferences()
     if (pref.exec())
         Q_EMIT configChanged();
 }
+
+#include "moc_kompare_part.cpp"

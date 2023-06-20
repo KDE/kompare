@@ -36,3 +36,5 @@ QObject* KomparePartFactory::create(const char* iface,
 
     return part;
 }
+
+#include "moc_kompare_partfactory.cpp"

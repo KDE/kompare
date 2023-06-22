@@ -69,9 +69,6 @@ private:
     KUrlComboBox*  m_secondURLComboBox;
     KUrlRequester* m_firstURLRequester;
     KUrlRequester* m_secondURLRequester;
-    // Use this bool to lock the connection between both KUrlRequesters.
-    // This prevents annoying behaviour
-    bool           m_URLChanged;
     KComboBox*     m_encodingComboBox;
 
     FilesSettings* m_settings;

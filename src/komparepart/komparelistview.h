@@ -97,7 +97,6 @@ private:
     bool                              m_isSource;
     ViewSettings*                     m_settings;
     int                               m_scrollId;
-    int                               m_maxMainWidth;
     const Diff2::DiffModel*           m_selectedModel;
     const Diff2::Difference*          m_selectedDifference;
     int                               m_nextPaintOffset;

@@ -31,8 +31,8 @@
 #include "komparelistview.h"
 #include "viewsettings.h"
 #include "kompareconnectwidget.h"
-#include <libkomparediff2/diffmodel.h>
-#include <libkomparediff2/difference.h>
+#include <KompareDiff2/DiffModel>
+#include <KompareDiff2/Difference>
 
 using namespace Diff2;
 

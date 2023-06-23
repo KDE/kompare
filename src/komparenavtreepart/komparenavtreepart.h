@@ -17,9 +17,9 @@
 // KF
 #include <kparts_version.h>
 #include <KParts/ReadOnlyPart>
-// libkomparediff2
-#include <libkomparediff2/kompare.h>
-#include <libkomparediff2/diffmodellist.h>
+// KompareDiff2
+#include <KompareDiff2/Kompare>
+#include <KompareDiff2/DiffModelList>
 
 namespace Diff2 {
 class DiffModel;

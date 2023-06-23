@@ -19,10 +19,10 @@
 
 #include <KSharedConfig>
 
-#include <libkomparediff2/diffmodel.h>
-#include <libkomparediff2/diffhunk.h>
-#include <libkomparediff2/difference.h>
-#include <libkomparediff2/komparemodellist.h>
+#include <KompareDiff2/DiffModel>
+#include <KompareDiff2/DiffHunk>
+#include <KompareDiff2/Difference>
+#include <KompareDiff2/KompareModelList>
 
 #include <komparepartdebug.h>
 #include "viewsettings.h"

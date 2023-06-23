@@ -12,8 +12,8 @@
 
 #include <komparepartdebug.h>
 #include "kompareinterface.h"
-// libkomparediff2
-#include <libkomparediff2/kompare.h>
+// Komparediff2
+#include <KompareDiff2/Kompare>
 // KF
 #include <kparts_version.h>
 #include <KParts/ReadWritePart>

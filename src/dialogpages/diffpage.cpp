@@ -28,7 +28,7 @@
 #include <KUrlComboBox>
 #include <KUrlRequester>
 
-#include <libkomparediff2/diffsettings.h>
+#include <KompareDiff2/DiffSettings>
 
 DiffPage::DiffPage() : QFrame(), m_ignoreRegExpDialog(nullptr)
 {

@@ -9,7 +9,7 @@
 
 #include <QFrame>
 
-#include <libkomparediff2/komparemodellist.h>
+#include <KompareDiff2/KompareModelList>
 
 class ViewSettings;
 class KompareSplitter;

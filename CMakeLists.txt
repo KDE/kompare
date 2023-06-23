@@ -57,7 +57,7 @@ find_package(KF${KF_MAJOR_VERSION} ${KF_MIN_VERSION} REQUIRED COMPONENTS
     WidgetsAddons
 )
 
-find_package(LibKompareDiff2 5.2 CONFIG)
+find_package(LibKompareDiff2 5.4 CONFIG)
 set_package_properties(LibKompareDiff2 PROPERTIES
     TYPE REQUIRED
 )
@@ -69,6 +69,7 @@ set(KOMPARE_LIB_SOVERSION 5)
 ecm_set_disabled_deprecation_versions(
     QT 5.15.2
     KF 5.100
+    KOMPAREDIFF2 5.4
 )
 
 # added by KDE_COMPILERSETTINGS_LEVEL 5.85.0

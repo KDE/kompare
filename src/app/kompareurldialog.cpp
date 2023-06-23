@@ -17,7 +17,7 @@
 #include <KUrlComboBox>
 #include <KUrlRequester>
 
-#include <libkomparediff2/diffsettings.h>
+#include <KompareDiff2/DiffSettings>
 
 #include <kompareshelldebug.h>
 #include "diffpage.h"

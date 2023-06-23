@@ -11,7 +11,7 @@
 
 #include <KParts/MainWindow>
 
-#include <libkomparediff2/kompare.h>
+#include <KompareDiff2/Kompare>
 
 #include <kompareshelldebug.h>
 

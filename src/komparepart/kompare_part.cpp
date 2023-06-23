@@ -39,8 +39,8 @@
 #include <KIO/FileCopyJob>
 #include <KIO/MkdirJob>
 
-#include <libkomparediff2/diffmodel.h>
-#include <libkomparediff2/diffsettings.h>
+#include <KompareDiff2/DiffModel>
+#include <KompareDiff2/DiffSettings>
 
 #include <komparepartdebug.h>
 #include "komparelistview.h"
@@ -88,7 +88,7 @@ KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KPluginMe
     m_splitter = m_view->splitter();
 
     // This creates the "Model creator" and connects the signals and slots
-    m_modelList = new Diff2::KompareModelList(m_diffSettings, m_splitter, this, "komparemodellist" , (modus == ReadWriteModus));
+    m_modelList = new Diff2::KompareModelList(m_diffSettings, this, "komparemodellist" , (modus == ReadWriteModus));
 
     const auto modelListActions = m_modelList->actionCollection()->actions();
     for (QAction* action : modelListActions) {

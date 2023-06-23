@@ -17,7 +17,7 @@
 #include <KIO/Global>
 #include <KUrlRequester>
 
-#include <libkomparediff2/diffsettings.h>
+#include <KompareDiff2/DiffSettings>
 
 KompareSaveOptionsWidget::KompareSaveOptionsWidget(const QString& source, const QString& destination,
                                                    DiffSettings* settings, QWidget* parent)

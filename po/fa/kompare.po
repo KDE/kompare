@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -85,28 +85,32 @@ msgid " 0 of 0 files "
 msgstr "۰ از ۰ پرونده"
 
 #: app/kompare_shell.cpp:239
-#, kde-format
+#, fuzzy, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
 msgstr[0] " %2 از %1 پرونده"
+msgstr[1] ""
 
 #: app/kompare_shell.cpp:241
-#, kde-format
+#, fuzzy, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
 msgstr[0] "%1 پرونده"
+msgstr[1] ""
 
 #: app/kompare_shell.cpp:244
-#, kde-format
+#, fuzzy, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
 msgstr[0] " %2 از %1 تفاوت، %3‌   اعمال شد"
+msgstr[1] ""
 
 #: app/kompare_shell.cpp:247
-#, kde-format
+#, fuzzy, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
 msgstr[0] "%1 تفاوت"
+msgstr[1] ""
 
 #: app/kompare_shell.cpp:328
 #, fuzzy, kde-format
@@ -1043,36 +1047,42 @@ msgstr "تفاوت"
 msgid "Applied: Changes made to %1 line undone"
 msgid_plural "Applied: Changes made to %1 lines undone"
 msgstr[0] "اعمال شده: تغییرات ایجادشده برای %1 خط انجام‌نشده"
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:464
-#, kde-format
+#, fuzzy, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
 msgstr[0] "%1 خط تغییریافته"
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:469
-#, kde-format
+#, fuzzy, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
 msgstr[0] "اعمال شده: درج %1 خط انجام‌نشده"
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:472
-#, kde-format
+#, fuzzy, kde-format
 msgid "Inserted %1 line"
 msgid_plural "Inserted %1 lines"
 msgstr[0] "%1 خط درج‌شده"
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:477
-#, kde-format
+#, fuzzy, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
 msgstr[0] "اعمال شده: حذف %1 خط انجام‌نشده"
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:480
-#, kde-format
+#, fuzzy, kde-format
 msgid "Deleted %1 line"
 msgid_plural "Deleted %1 lines"
 msgstr[0] "%1 خط حذف‌شده"
+msgstr[1] ""
 
 #: komparenavtreepart/komparenavtreepart.cpp:634
 #, fuzzy, kde-format

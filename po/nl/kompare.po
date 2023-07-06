@@ -12,19 +12,20 @@
 # Tom Albers <tomalbers@kde.nl>, 2005.
 # Kristof Bal <kristof.bal@gmail.com>, 2009.
 # Freek de Kruijf <freekdekruijf@kde.nl>, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2017, 2020, 2022.
+# Luc Castermans <luc.castermans@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-16 00:49+0000\n"
-"PO-Revision-Date: 2022-10-14 10:13+0200\n"
-"Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2023-07-05 20:41+0200\n"
+"Last-Translator: Luc Castermans <luc.castermans@gmail.com>\n"
+"Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -69,7 +70,7 @@ msgstr "&Bestanden vergelijken..."
 #, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
-msgstr "&Invoegen van diff in URL-adres..."
+msgstr "&URL mengen met Diff..."
 
 #: app/kompare_shell.cpp:208
 #, kde-format
@@ -137,13 +138,13 @@ msgstr "Diff-uitvoer"
 #, kde-format
 msgctxt "@action:button"
 msgid "Blend"
-msgstr "Vermengen"
+msgstr "Mengen"
 
 #: app/kompare_shell.cpp:334
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
-msgstr "Voeg de diff uitvoer in in dit bestand of map"
+msgstr "Meng dit bestand of deze map met de diff uitvoer"
 
 #: app/kompare_shell.cpp:335
 #, kde-format
@@ -264,7 +265,7 @@ msgstr "Hier kunt u de opties voor het programma-uiterlijk wijzigen."
 msgid ""
 "File used for excluding files cannot be found, please specify another file."
 msgstr ""
-"Bestand voor het uitsluiten van bestanden niet gevonden, gaarne een ander "
+"Bestand voor het uitsluiten van bestanden niet gevonden, graag een ander "
 "bestand opgeven."
 
 #: app/main.cpp:49
@@ -278,7 +279,7 @@ msgid ""
 "A program to view the differences between files and optionally generate a "
 "diff"
 msgstr ""
-"Een programma om de verschillen tussen bestanden weer te geven en optioneel "
+"Een programma om de verschillen tussen bestanden weer te geven en eventueel "
 "een diff te genereren"
 
 #: app/main.cpp:53
@@ -323,7 +324,7 @@ msgstr "Kevin Kofler"
 #: app/main.cpp:59
 #, kde-format
 msgid "Maintainer"
-msgstr "Onderhouder"
+msgstr "Onderhoud"
 
 #: app/main.cpp:60
 #, kde-format
@@ -333,7 +334,7 @@ msgstr "Chris Luetchford"
 #: app/main.cpp:60
 #, kde-format
 msgid "Kompare icon artist"
-msgstr "Kompare pictogramontwerper"
+msgstr "Kompare pictogram ontwerper"
 
 #: app/main.cpp:61
 #, kde-format
@@ -358,7 +359,7 @@ msgstr "Cervisia diff-weergaveprogramma"
 #: app/main.cpp:69
 #, kde-format
 msgid "This will compare URL1 with URL2"
-msgstr "Hiermee kunt URL-adres1 met URL-adres2 vergelijken"
+msgstr "Hiermee kunt URL1 met URL2 vergelijken"
 
 #: app/main.cpp:70
 #, kde-format
@@ -369,13 +370,12 @@ msgid ""
 "original file(s) and then blend the original file(s) into the diffoutput and "
 "show that in the viewer. -n disables the check."
 msgstr ""
-"Dit zal URL-adres openen en er wordt aangenomen dat dit bestand diff uitvoer "
-"bevat. URL-adres 1 kan ook een '-' zijn en dan word er van stdin (standaard "
-"invoer) gelezen. Dit kan bijvoorbeeld worden gebruikt voor cvs diff | "
-"kompare -o -. Kompare zal een controle uitvoeren om te kijken of het de "
-"originele bestanden kan vinden en dan de diff uitvoer in het originele "
-"bestand of bestanden in voegen en dat weergeven. De optie -n schakelt het "
-"automatisch zoeken uit."
+"Dit zal URL1 openen en verwacht dat dit diff uitvoer is. URL1 kan ook een "
+"'-' zijn, dan word er van standaard invoer gelezen. Dit kan bijvoorbeeld "
+"worden gebruikt voor cvs diff | kompare -o -. Kompare zal een controle "
+"uitvoeren om te kijken of het de originele bestanden kan vinden en dan de "
+"diff uitvoer met het originele bestand of bestanden mengen en dat weergeven. "
+"De optie -n schakelt de controle uit."
 
 #: app/main.cpp:71
 #, kde-format
@@ -383,8 +383,8 @@ msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
 "the file or folder that the diffoutput needs to be blended into. "
 msgstr ""
-"Deze optie zal URL2 in URL1 invoegen, van URL2 word aangenomen dat het diff "
-"uitvoer is en dat URL1 het bestand of de map is waar de uitvoer ingevoegd "
+"Deze optie zal URL2 met URL1 mengen, van URL2 word verwacht dat het diff "
+"uitvoer is en dat URL1 het bestand of de map is waar de uitvoer mee gemengd "
 "moet worden."
 
 #: app/main.cpp:72
@@ -393,9 +393,8 @@ msgid ""
 "Disables the check for automatically finding the original file(s) when using "
 "'-' as URL with the -o option."
 msgstr ""
-"Deze optie schakelt de controle op het vinden van het originele bestand of "
-"bestanden in de diff uitvoer uit wanneer er gebruikt word gemaakt van '-' "
-"als URL-adres met de optie -o."
+"Deze optie schakelt de controle op het vinden van de originele bestanden uit "
+"wanneer er gebruikt word gemaakt van '-' als URL met de optie -o."
 
 #: app/main.cpp:73
 #, kde-format
@@ -419,9 +418,9 @@ msgid ""
 "program does not support all the options that the GNU version does. This way "
 "you can select that version."
 msgstr ""
-"U kunt een afwijkend diff-programma hier selecteren. Het standaard diff-"
+"U kunt hier een ander diff-programma selecteren. Het standaard diff-"
 "programma op Solaris ondersteunt niet alle opties die de GNU-versie "
-"ondersteunt. Op deze manier kunt u de laatste versie selecteren."
+"ondersteunt. Op die manier kunt u de deze versie selecteren."
 
 #: dialogpages/diffpage.cpp:196
 #, kde-format
@@ -518,8 +517,8 @@ msgid ""
 "compared with an empty file and because of this will appear as one big "
 "insertion or deletion."
 msgstr ""
-"Als deze optie is ingeschakeld, dan zal diff een bestand als leeg beschouwen "
-"in de ene map als deze alleen bestaat in de andere map. Dit betekent dat het "
+"Als deze optie is ingeschakeld, dan zal diff een bestand dat alléén bestaat "
+"in een map als leeg beschouwen in de andere map. Dit betekent dat het "
 "bestand wordt vergeleken met een leeg bestand en daarom als één grote "
 "invoeging of verwijdering wordt gezien."
 
@@ -565,7 +564,7 @@ msgid ""
 "definition of large is nowhere to be found though."
 msgstr ""
 "Deze optie maakt dat diff betere verschillen laat zien bij grotere "
-"bestanden. Wat groter is is echter niet gedefinieerd."
+"bestanden. Wat \"groter\" is is echter niet gedefinieerd."
 
 #: dialogpages/diffpage.cpp:252
 #, kde-format
@@ -610,7 +609,7 @@ msgid ""
 "When this checkbox is enabled, an option to diff is given that will make "
 "diff ignore lines that match the regular expression."
 msgstr ""
-"Met dit vakje ingeschakeld wordt aan diff de optie meegegeven om regels te "
+"Met dit vakje gemarkeerd wordt aan diff de optie meegegeven om regels te "
 "negeren die overeenkomen met de reguliere expressie."
 
 #: dialogpages/diffpage.cpp:268
@@ -621,7 +620,7 @@ msgid ""
 "to ignore lines that match it."
 msgstr ""
 "Voeg hier een reguliere expressie toe die u wilt gebruiken\n"
-" om overeenkomstige regels te negeren."
+"om de met deze expressie gevonden regels te negeren."
 
 #: dialogpages/diffpage.cpp:274
 #, kde-format
@@ -639,7 +638,7 @@ msgstr "Tabs naar spaties e&xpanderen in uitvoer"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -t diff option."
-msgstr "Deze optie correspondeertmet de -t optie van diff."
+msgstr "Deze optie correspondeert met de -t optie van diff."
 
 #: dialogpages/diffpage.cpp:278
 #, kde-format
@@ -693,8 +692,8 @@ msgid ""
 "If you are uninterested in differences arising due to, for example, changes "
 "in indentation, then use this option."
 msgstr ""
-"Als u niet geïntersseerd bent in verschillen die het gevolg zijn van, "
-"bijvoorbeeld wijzigingen in inspringen, gebruik dan deze optie."
+"Als u niet geïnteresseerd bent in verschillen die het gevolg zijn van, "
+"bijvoorbeeld andere inspringingen, gebruik dan deze optie."
 
 #: dialogpages/diffpage.cpp:288
 #, kde-format
@@ -715,14 +714,14 @@ msgid ""
 "This is useful for seeing the significant changes without being overwhelmed "
 "by all the white space changes."
 msgstr ""
-"Dit is bruikbaar bij het bekijken van grote wijzigingen zonder overwelmt te "
+"Dit is bruikbaar bij het bekijken van grote wijzigingen zonder overspoeld te "
 "worden door alle wijzigingen in de witruimte."
 
 #: dialogpages/diffpage.cpp:292
 #, kde-format
 msgctxt "@option:check"
 msgid "Igno&re changes due to tab expansion"
-msgstr "Verande&ringen als gevolg van tabexpansie negeren"
+msgstr "Verande&ringen als gevolg van tab-expansie negeren"
 
 #: dialogpages/diffpage.cpp:293
 #, kde-format
@@ -739,10 +738,9 @@ msgid ""
 "Kompare currently has some problems applying such changes so be careful when "
 "you use this option."
 msgstr ""
-"Als er een kans is dat tabs gewijzigd zijn in spaties in het andere bestand, "
-"dan geeft deze optie u de mogelijkheid deze niet te tonen. Kompare heeft "
-"hiermee nu nog enige problemen dus wees voorzichtig bij het gebruik van deze "
-"optie."
+"Als er een kans is dat tabs zijn omgezet in spaties in het andere bestand, "
+"dan worden ze niet getoond met deze optie. Kompare heeft hiermee nu nog "
+"enige problemen dus wees voorzichtig bij het gebruik van deze optie."
 
 #: dialogpages/diffpage.cpp:299
 #, kde-format
@@ -797,8 +795,8 @@ msgid ""
 "Here you can enter the URL of a file with shell patterns to ignore during "
 "the comparison of the folders."
 msgstr ""
-"Hier kunt u het URL-adres invoeren van een bestand met bestandsnaampatronen "
-"die moeten worden overgeslagen tijdens het vergelijken van mappen."
+"Hier kunt u de URL invoeren van een bestand met bestandsnaampatronen die "
+"moeten worden overgeslagen tijdens het vergelijken van mappen."
 
 #: dialogpages/diffpage.cpp:337
 #, kde-format
@@ -807,8 +805,8 @@ msgid ""
 "Any file you select in the dialog that pops up when you click it will be put "
 "in the dialog to the left of this button."
 msgstr ""
-"Elk bestand dat u in de dialoog selecteert die verschijnt nadat u hier op "
-"klikt zal worden toegevoegd aan de dialoog links van deze knop."
+"Elk bestand dat u selecteert, in de dialoog die verschijnt, zal worden "
+"toegevoegd aan de dialoog links van deze knop."
 
 #: dialogpages/diffpage.cpp:344
 #, kde-format
@@ -862,25 +860,25 @@ msgstr "Kleuren"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Removed color:"
-msgstr "Kleur voor verwijderen:"
+msgstr "Verwijderd:"
 
 #: dialogpages/viewpage.cpp:54
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Changed color:"
-msgstr "Kleur voor veranderingen:"
+msgstr "Veranderd:"
 
 #: dialogpages/viewpage.cpp:58
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Added color:"
-msgstr "Kleur voor toevoegen:"
+msgstr "Toegevoegd:"
 
 #: dialogpages/viewpage.cpp:62
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Applied color:"
-msgstr "Kleur voor toegepast:"
+msgstr "Toegepast:"
 
 #: dialogpages/viewpage.cpp:66
 #, kde-format
@@ -898,19 +896,19 @@ msgstr "Aantal regels:"
 #, kde-format
 msgctxt "@title:group"
 msgid "Tabs to Spaces"
-msgstr "Tabs naar spaties veranderen"
+msgstr "Tabs naar spaties"
 
 #: dialogpages/viewpage.cpp:83
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of spaces to convert a tab character to:"
-msgstr "Aantal spaties waarin een tab teken moet worden omgezet"
+msgstr "Aantal spaties waarin een tab teken moet worden omgezet:"
 
 #: dialogpages/viewpage.cpp:94
 #, kde-format
 msgctxt "@title:group"
 msgid "Text Font"
-msgstr "Lettertype tekst"
+msgstr "Lettertype"
 
 #: dialogpages/viewpage.cpp:98
 #, kde-format
@@ -1053,12 +1051,12 @@ msgstr "Diff verversen"
 #: komparepart/kompare_part.cpp:312 komparepart/kompare_part.cpp:325
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
-msgstr "<qt>Het URL-adres <b>%1</b> kan niet worden opgehaald.</qt>"
+msgstr "<qt>URL <b>%1</b> kan niet worden opgehaald.</qt>"
 
 #: komparepart/kompare_part.cpp:363
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
-msgstr "<qt>Het URL-adres <b>%1</b> is niet aanwezig op uw systeem.</qt>"
+msgstr "<qt>URL <b>%1</b> is niet aanwezig op uw systeem.</qt>"
 
 #: komparepart/kompare_part.cpp:551
 #, kde-format
@@ -1081,44 +1079,43 @@ msgstr "Patch-bestanden (*.diff *.dif *.patch)"
 #, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
-msgstr "Bezig met het uitvoeren van diff..."
+msgstr "Uitvoeren van diff..."
 
 #: komparepart/kompare_part.cpp:636
 #, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
-msgstr "Bezig met het ontleden van de diff uitvoer..."
+msgstr "Ontleden van de diff uitvoer..."
 
 #: komparepart/kompare_part.cpp:692
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
-msgstr "Bezig met het vergelijken van bestand %1 met bestand %2"
+msgstr "Vergelijken van bestand %1 met bestand %2"
 
 #: komparepart/kompare_part.cpp:697
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
-msgstr "Bezig met het vergelijken van bestanden in %1 met bestanden in %2"
+msgstr "Vergelijken van bestanden in %1 met bestanden in %2"
 
 #: komparepart/kompare_part.cpp:702
 #, kde-format
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
-msgstr "Bezig met het tonen van de diff uitvoer van bestand %1"
+msgstr "Tonen van de diff uitvoer van bestand %1"
 
 #: komparepart/kompare_part.cpp:705
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
-msgstr ""
-"Bezig met in het invoegen van de diff uitvoer van bestand %1 in bestand %2..."
+msgstr "Invoegen van de diff uitvoer van bestand %1 in bestand %2..."
 
 #: komparepart/kompare_part.cpp:710
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
-msgstr "Bezig met het invoegen van de diff uitvoer van bestand %1 in map %2..."
+msgstr "Invoegen van de diff uitvoer van bestand %1 in map %2..."
 
 #: komparepart/kompare_part.cpp:765 komparepart/kompare_part.cpp:804
 #: komparepart/kompare_part.cpp:928
@@ -1179,7 +1176,7 @@ msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
 "available."
 msgstr ""
-"Geen diff-bestand, of er is geen vergelijking tussen twee bestanden geweest. "
+"Geen diff-bestand, of er is geen vergelijking tussen twee bestanden gemaakt. "
 "Er zijn daarom geen statistieken beschikbaar."
 
 #: komparepart/kompare_part.cpp:883 komparepart/kompare_part.cpp:897

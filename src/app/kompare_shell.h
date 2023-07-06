@@ -15,6 +15,9 @@
 
 #include <kompareshelldebug.h>
 
+#include <QStackedWidget>
+#include "welcomeview/welcomeview.h"
+
 class KompareInterface;
 namespace KParts {
 class ReadOnlyPart;
@@ -84,6 +87,9 @@ public Q_SLOTS:
 
     KompareInterface* viewPart() const;
 
+    void showWelcomeScreen();
+    void hideWelcomeScreen();
+
 protected:
     bool queryClose() override;
 
@@ -142,6 +148,9 @@ private:
     QLabel*                     m_filesLabel;
     QLabel*                     m_differencesLabel;
     QEventLoopLocker*           m_eventLoopLocker;
+
+    WelcomeView*                m_welcomeView;
+    QStackedWidget*             m_windowContents;
 };
 
 #endif // KOMPARE_H

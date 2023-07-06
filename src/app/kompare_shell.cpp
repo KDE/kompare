@@ -8,6 +8,7 @@
 
 #include "kompare_shell.h"
 
+#include <QApplication>
 #include <QTextStream>
 #include <QDockWidget>
 #include <QEventLoopLocker>
@@ -42,7 +43,8 @@ KompareShell::KompareShell()
     : KParts::MainWindow(),
       m_textViewPart(nullptr),
       m_textViewWidget(nullptr),
-      m_eventLoopLocker(new QEventLoopLocker())
+      m_eventLoopLocker(new QEventLoopLocker()),
+      m_windowContents(new QStackedWidget(this))
 {
     resize(800, 480);
 
@@ -58,7 +60,11 @@ KompareShell::KompareShell()
     if (viewPartLoadResult)
     {
         m_viewPart = viewPartLoadResult.plugin;
-        setCentralWidget(m_viewPart->widget());
+        m_welcomeView = new WelcomeView(this);
+        m_windowContents->addWidget(m_viewPart->widget());
+        m_windowContents->addWidget(m_welcomeView);
+        m_windowContents->setCurrentWidget(m_viewPart->widget());
+        setCentralWidget(m_windowContents);
         // and integrate the part's GUI with the shell's
         createGUI(m_viewPart);
     }
@@ -139,6 +145,7 @@ KompareShell::~KompareShell()
 {
     delete m_eventLoopLocker;
     m_eventLoopLocker = nullptr;
+    m_welcomeView = nullptr;
 }
 
 bool KompareShell::queryClose()
@@ -189,6 +196,20 @@ void KompareShell::blend(const QUrl& url1, const QUrl& diff)
     viewPart()->openDirAndDiff(url1, diff);
 }
 
+void KompareShell::showWelcomeScreen()
+{
+    m_navTreeDock->setVisible(false);
+    m_windowContents->setCurrentWidget(m_welcomeView);
+    statusBar()->setVisible(false);
+}
+
+void KompareShell::hideWelcomeScreen()
+{
+    m_navTreeDock->setVisible(true);
+    m_windowContents->setCurrentWidget(m_viewPart->widget());
+    statusBar() -> setVisible(true);
+}
+
 void KompareShell::setupActions()
 {
     QAction* a;
@@ -201,6 +222,13 @@ void KompareShell::setupActions()
     a = actionCollection()->addAction(QStringLiteral("file_blend_url"), this, &KompareShell::slotFileBlendURLAndDiff);
     a->setText(i18nc("@action", "&Blend URL with Diff..."));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_B));
+    a = actionCollection()->addAction(QStringLiteral("help_welcome_page"));
+    a->setText(i18n("Welcome Page"));
+    a->setIcon(qApp->windowIcon());
+    a->setWhatsThis(i18n("Show the welcome page"));
+    connect(a, &QAction::triggered, this, [this]() {
+        showWelcomeScreen();
+    });
     KStandardAction::quit(this, &KompareShell::slotFileClose, actionCollection());
 
     createStandardStatusBarAction();

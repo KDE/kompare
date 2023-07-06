@@ -1,5 +1,8 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
+    <qresource prefix="/kompare">
+        <file alias="kompare.svgz">../icons/sc-apps-kompare.svgz</file>
+    </qresource>
     <qresource prefix="/kxmlgui5/kompare">
         <file>kompareui.rc</file>
     </qresource>

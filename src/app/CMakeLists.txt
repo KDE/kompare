@@ -4,7 +4,7 @@ target_sources(kompare PRIVATE
     main.cpp
     kompare_shell.cpp
     kompareurldialog.cpp
-
+    welcomeview/welcomeview.cpp
     kompare_shell.qrc
 )
 
@@ -15,6 +15,8 @@ ecm_qt_declare_logging_category(kompare
     DESCRIPTION "Kompare App Shell"
     EXPORT kompare
 )
+
+ki18n_wrap_ui(kompare welcomeview/welcomeview.ui)
 
 ecm_add_app_icon(kompare ICONS
     ../icons/16-apps-kompare.png
@@ -30,6 +32,7 @@ target_link_libraries(kompare
     KompareDiff2
     KF${KF_MAJOR_VERSION}::TextEditor
     KF${KF_MAJOR_VERSION}::WidgetsAddons
+    KF${KF_MAJOR_VERSION}::IconThemes
     Qt::Widgets
 )
 

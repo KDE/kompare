@@ -19,6 +19,8 @@
 
 #include <KFile>
 #include <KLocalizedString>
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 #include <QApplication>
 #include <QPushButton>
@@ -53,6 +55,7 @@ int main(int argc, char* argv[])
                          i18n("(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"),
                          QString(),
                          QStringLiteral("https://apps.kde.org/kompare"));
+    aboutData.setProgramLogo(QIcon::fromTheme(QStringLiteral(":/kompare/kompare.svgz")));
     aboutData.addAuthor(i18n("John Firebaugh"), i18n("Author"), QStringLiteral("jfirebaugh@kde.org"));
     aboutData.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), QStringLiteral("bruggie@gmail.com"));
     aboutData.addAuthor(i18n("Jeff Snyder"), i18n("Developer"), QStringLiteral("jeff@caffeinated.me.uk"));
@@ -74,8 +77,6 @@ int main(int argc, char* argv[])
 
     parser.process(app);
     aboutData.processCommandLine(&parser);
-
-    bool difault = false;
 
     KompareShell* ks;
 
@@ -109,7 +110,8 @@ int main(int argc, char* argv[])
             qCDebug(KOMPARESHELL) << "Option -o is set" ;
             if (args.count() != 1)
             {
-                difault = true;
+                qWarning(KOMPARESHELL) << "-o option should have exactly one argument.";
+                parser.showHelp();
             }
             else
             {
@@ -119,7 +121,6 @@ int main(int argc, char* argv[])
                     ks->openStdin();
                 else
                     ks->openDiff(QUrl::fromUserInput(args.at(0), QDir::currentPath(), QUrl::AssumeLocalFile));
-                difault = false;
             }
         }
         else if (parser.isSet(QStringLiteral("c")))
@@ -128,7 +129,6 @@ int main(int argc, char* argv[])
             if (args.count() != 2)
             {
                 parser.showHelp();
-                difault = true;
             }
             else
             {
@@ -138,7 +138,6 @@ int main(int argc, char* argv[])
                 QUrl url1 = QUrl::fromUserInput(args.at(1), QDir::currentPath(), QUrl::AssumeLocalFile);
                 qCDebug(KOMPARESHELL) << "URL1 = " << url1.url() ;
                 ks->compare(url0, url1);
-                difault = false;
             }
         }
         else if (parser.isSet(QStringLiteral("b")))
@@ -147,7 +146,6 @@ int main(int argc, char* argv[])
             if (args.count() != 2)
             {
                 parser.showHelp();
-                difault = true;
             }
             else
             {
@@ -158,7 +156,6 @@ int main(int argc, char* argv[])
                 QUrl url1 = QUrl::fromUserInput(args.at(1), QDir::currentPath(), QUrl::AssumeLocalFile);
                 qCDebug(KOMPARESHELL) << "URL1 = " << url1.url() ;
                 ks->blend(url0, url1);
-                difault = false;
             }
         }
         else if (args.count() == 1)
@@ -170,8 +167,6 @@ int main(int argc, char* argv[])
                 ks->openStdin();
             else
                 ks->openDiff(QUrl::fromUserInput(args.at(0), QDir::currentPath(), QUrl::AssumeLocalFile));
-
-            difault = false;
         }
         else if (args.count() == 2)
         {
@@ -184,44 +179,15 @@ int main(int argc, char* argv[])
             QUrl url1 = QUrl::fromUserInput(args.at(1), QDir::currentPath(), QUrl::AssumeLocalFile);
             qCDebug(KOMPARESHELL) << "URL1 = " << url1.url() ;
             ks->compare(url0, url1);
-            difault = false;
         }
         else if (args.count() == 0)   // no options and no args
         {
-            difault = true;
-        }
-
-        if (difault)
-        {
-            KompareURLDialog dialog(nullptr);
-
-            dialog.setWindowTitle(i18nc("@title:window", "Compare Files or Folders"));
-            dialog.setFirstGroupBoxTitle(i18nc("@title:group", "Source"));
-            dialog.setSecondGroupBoxTitle(i18nc("@title:group", "Destination"));
-
-            QPushButton* okButton = dialog.button(QDialogButtonBox::Ok);
-            okButton->setText(i18nc("@action:button", "Compare"));
-            okButton->setToolTip(i18nc("@info:tooltip", "Compare these files or folders"));
-            okButton->setWhatsThis(i18nc("@info:whatsthis", "If you have entered 2 filenames or 2 folders in the fields in this dialog then this button will be enabled and pressing it will start a comparison of the entered files or folders. "));
-
-            dialog.setGroup(QStringLiteral("Recent Compare Files"));
-
-            dialog.setFirstURLRequesterMode(KFile::File | KFile::Directory | KFile::ExistingOnly);
-            dialog.setSecondURLRequesterMode(KFile::File | KFile::Directory | KFile::ExistingOnly);
-
-            if (dialog.exec() == QDialog::Accepted)
-            {
-                ks->show();
-                ks->viewPart()->setEncoding(dialog.encoding());
-                ks->compare(dialog.getFirstURL(), dialog.getSecondURL());
-            }
-            else
-            {
-                return -1;
+            ks->show();
+            KConfigGroup configGroup = KSharedConfig::openConfig()->group("General");
+            if (configGroup.readEntry("ShowWelcomeScreenOnStartup", true)) {
+                ks->showWelcomeScreen();
             }
         }
-
-
     }
 
     return app.exec();

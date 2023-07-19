@@ -25,6 +25,7 @@
                 "Name[tr]": "John Firebaugh",
                 "Name[uk]": "John Firebaugh",
                 "Name[x-test]": "xxJohn Firebaughxx",
+                "Name[zh_CN]": "John Firebaugh",
                 "Name[zh_TW]": "John Firebaugh"
             },
             {
@@ -51,6 +52,7 @@
                 "Name[tr]": "Otto Bruggeman",
                 "Name[uk]": "Otto Bruggeman",
                 "Name[x-test]": "xxOtto Bruggemanxx",
+                "Name[zh_CN]": "Otto Bruggeman",
                 "Name[zh_TW]": "Otto Bruggeman"
             },
             {
@@ -77,6 +79,7 @@
                 "Name[tr]": "Kevin Kofler",
                 "Name[uk]": "Kevin Kofler",
                 "Name[x-test]": "xxKevin Koflerxx",
+                "Name[zh_CN]": "Kevin Kofler",
                 "Name[zh_TW]": "Kevin Kofler"
             }
         ],
@@ -102,6 +105,7 @@
         "Description[tr]": "2 dosya arasındaki ayrımı grafiksel olarak gösteren bir kısım",
         "Description[uk]": "Модуль для графічного показу різниці між двома файлами",
         "Description[x-test]": "xxA part to graphically show the difference between 2 filesxx",
+        "Description[zh_CN]": "用于显示两个文件之间差异的图形组件",
         "Description[zh_TW]": "以圖形化方式顯示兩個檔案之間差異的部件",
         "Icon": "kompare",
         "Id": "komparepart",

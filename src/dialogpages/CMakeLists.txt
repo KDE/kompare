@@ -20,6 +20,7 @@ target_link_libraries(komparedialogpages
         KF${KF_MAJOR_VERSION}::Completion
         KF${KF_MAJOR_VERSION}::KIOWidgets
         KF${KF_MAJOR_VERSION}::WidgetsAddons
+	KF${KF_MAJOR_VERSION}::I18n
 )
 
 set_target_properties(komparedialogpages PROPERTIES

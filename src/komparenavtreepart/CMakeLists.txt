@@ -20,6 +20,7 @@ target_link_libraries(komparenavtreepart
     Qt::Widgets
     KF${KF_MAJOR_VERSION}::Parts
     KF${KF_MAJOR_VERSION}::IconThemes
+    KF${KF_MAJOR_VERSION}::I18n
     KompareDiff2
 )
 

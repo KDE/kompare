@@ -55,6 +55,7 @@ find_package(KF${KF_MAJOR_VERSION} ${KF_MIN_VERSION} REQUIRED COMPONENTS
     Parts
     TextEditor
     WidgetsAddons
+    I18n
 )
 
 find_package(LibKompareDiff2 5.4 CONFIG)

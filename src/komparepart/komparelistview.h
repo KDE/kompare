@@ -73,11 +73,14 @@ public Q_SLOTS:
     void slotApplyDifference(bool apply);
     void slotApplyAllDifferences(bool apply);
     void slotApplyDifference(const KompareDiff2::Difference* diff, bool apply);
+    void copyTextSelectionToClipboard();
+    void unselectAllText();
 
 Q_SIGNALS:
     void differenceClicked(const KompareDiff2::Difference* diff);
     void applyDifference(bool apply);
     void resized();
+    void textSelectionChanged();
 
 protected:
     void wheelEvent(QWheelEvent* e) override;
@@ -85,7 +88,7 @@ protected:
     void mousePressEvent(QMouseEvent* e) override;
     void mouseDoubleClickEvent(QMouseEvent*) override;
     void mouseReleaseEvent(QMouseEvent*) override {};
-    void mouseMoveEvent(QMouseEvent*) override {};
+    void mouseMoveEvent(QMouseEvent* me) override;
 
 private:
     QRect totalVisualItemRect(QTreeWidgetItem* item);
@@ -100,6 +103,8 @@ private:
     const KompareDiff2::DiffModel*           m_selectedModel;
     const KompareDiff2::Difference*          m_selectedDifference;
     int                               m_nextPaintOffset;
+    int m_textSelectionStartLine = 0;
+    int m_textSelectionStartPos = 0;
 };
 
 class KompareListViewFrame : public QFrame
@@ -152,6 +157,9 @@ public:
     virtual int maxHeight() = 0;
 
     KompareListView* kompareListView() const;
+
+    virtual void onTextSelectionChanged(int /*startIndex*/, int /*startPos*/, int /*lastIndex*/, int /*lastPos*/){};
+    virtual QString getSelectedText() const {return QString();}
 
     enum ListViewItemType { Diff = QTreeWidgetItem::UserType + 1, Container = QTreeWidgetItem::UserType + 2, Line = QTreeWidgetItem::UserType + 3, Blank = QTreeWidgetItem::UserType + 4, Hunk = QTreeWidgetItem::UserType + 5 };
 
@@ -221,6 +229,9 @@ public:
 
     KompareListViewDiffItem* diffItemParent() const;
 
+    void onTextSelectionChanged(int startIndex, int startPos, int lastIndex, int lastPos) override;
+    QString getSelectedText() const override;
+
 protected:
     virtual void paintText(QPainter* p, const QColor& bg, int column, int width, int align);
 
@@ -230,6 +241,11 @@ private:
 
 private:
     KompareDiff2::DifferenceString* m_text;
+
+    int m_selectionFirstCharacter = 0;
+    int m_selectionLastCharacter = 0;
+
+    QFont m_font;
 };
 
 class KompareListViewBlankLineItem : public KompareListViewLineItem
@@ -252,9 +268,17 @@ public:
 
     int maxHeight() override;
 
+    void onTextSelectionChanged(int startIndex, int startPos, int lastIndex, int lastPos) override;
+    QString getSelectedText() const override;
+
 private:
     bool             m_zeroHeight;
     KompareDiff2::DiffHunk* m_hunk;
+
+    int m_selectionFirstCharacter = 0;
+    int m_selectionLastCharacter = 0;
+
+    QFont m_font;
 };
 
 #endif

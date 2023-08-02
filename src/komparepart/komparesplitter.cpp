@@ -24,6 +24,7 @@
 #include <QChildEvent>
 #include <QEvent>
 #include <QWheelEvent>
+#include <QShortcut>
 
 // kde
 
@@ -53,8 +54,8 @@ KompareSplitter::KompareSplitter(ViewSettings* settings, QWidget* parent) :
     m_hScroll = new QScrollBar(Qt::Horizontal, scrollFrame);
     pairlayout->addWidget(m_hScroll, 1, 0);
 
-    new KompareListViewFrame(true, m_settings, this, "source");
-    new KompareListViewFrame(false, m_settings, this, "destination");
+    auto* sourceView = new KompareListViewFrame(true, m_settings, this, "source");
+    auto* destinationView = new KompareListViewFrame(false, m_settings, this, "destination");
     pairlayout->addWidget(this, 0, 0);
 
     // set up our looks
@@ -76,6 +77,14 @@ KompareSplitter::KompareSplitter(ViewSettings* settings, QWidget* parent) :
     connect(m_vScroll, &QScrollBar::sliderMoved,  this, &KompareSplitter::slotScrollToId);
     connect(m_hScroll, &QScrollBar::valueChanged, this, &KompareSplitter::setXOffset);
     connect(m_hScroll, &QScrollBar::sliderMoved,  this, &KompareSplitter::setXOffset);
+
+    // selecting in one view should deselect in the other view
+    connect(sourceView->view(), &KompareListView::textSelectionChanged, destinationView->view(), &KompareListView::unselectAllText);
+    connect(destinationView->view(), &KompareListView::textSelectionChanged, sourceView->view(), &KompareListView::unselectAllText);
+
+    auto* shortcut = new QShortcut(QKeySequence::Copy, this);
+    connect(shortcut, &QShortcut::activated, sourceView->view(), &KompareListView::copyTextSelectionToClipboard);
+    connect(shortcut, &QShortcut::activated, destinationView->view(), &KompareListView::copyTextSelectionToClipboard);
 
     m_scrollTimer = new QTimer(this);
     m_restartTimer = false;

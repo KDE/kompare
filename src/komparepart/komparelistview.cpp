@@ -16,6 +16,8 @@
 #include <QMouseEvent>
 #include <QWheelEvent>
 #include <QScrollBar>
+#include <QApplication>
+#include <QClipboard>
 
 #include <KSharedConfig>
 
@@ -37,6 +39,8 @@
 #define ITEM_MARGIN 3
 
 using namespace KompareDiff2;
+
+static constexpr QColor selectedColor(120, 192, 240, 128);
 
 KompareListViewFrame::KompareListViewFrame(bool isSource,
                                            ViewSettings* settings,
@@ -60,6 +64,7 @@ KompareListViewFrame::KompareListViewFrame(bool isSource,
     m_layout.addWidget(&m_label);
     m_layout.addWidget(bottomLine);
     m_layout.addWidget(&m_view);
+    setCursor(Qt::CursorShape::IBeamCursor);
 
     connect(&m_view, &KompareListView::differenceClicked,
             parent, &KompareSplitter::slotDifferenceClicked);
@@ -429,6 +434,16 @@ void KompareListView::mousePressEvent(QMouseEvent* e)
     if (diffItem && diffItem->difference()->type() != Difference::Unchanged) {
         Q_EMIT differenceClicked(diffItem->difference());
     }
+    if(auto* kompareListViewItem = dynamic_cast<KompareListViewItem*>(itemAt(vp))){
+        m_textSelectionStartLine = kompareListViewItem->text(COL_LINE_NO).toInt();
+        m_textSelectionStartPos = vp.x() - columnWidth(COL_LINE_NO) + horizontalOffset();
+    }else{
+        m_textSelectionStartLine = 0;
+        m_textSelectionStartPos = 0;
+    }
+    if(e->button() == Qt::LeftButton){
+        unselectAllText();
+    }
 }
 
 void KompareListView::mouseDoubleClickEvent(QMouseEvent* e)
@@ -440,6 +455,32 @@ void KompareListView::mouseDoubleClickEvent(QMouseEvent* e)
         Q_EMIT differenceClicked(diffItem->difference());
         Q_EMIT applyDifference(!diffItem->difference()->applied());
     }
+}
+
+void KompareListView::mouseMoveEvent(QMouseEvent* e){
+    QPoint textSelectionEnd = e->pos();
+    KompareListViewItem* lastItem = static_cast<KompareListViewItem*>(itemAt(textSelectionEnd));
+    if((lastItem && (lastItem->type() != KompareListViewItem::Line && lastItem->type() != KompareListViewItem::Hunk))){
+        return;
+    }
+    int firstLine = m_textSelectionStartLine;
+    int firstPos = m_textSelectionStartPos;
+    int lastLine = lastItem != nullptr ?  lastItem->text(COL_LINE_NO).toInt() : std::numeric_limits<int>::max();
+    int lastPos = textSelectionEnd.x() - columnWidth(COL_LINE_NO)  + horizontalOffset();
+    if(firstLine > lastLine){
+        std::swap(firstLine, lastLine);
+        std::swap(firstPos, lastPos);
+    }else if(firstLine == lastLine && firstPos > lastPos){
+        std::swap(firstPos, lastPos);
+    }
+    for(QTreeWidgetItemIterator it(this); *it; ++it){
+        if(auto* kompareListViewItem = dynamic_cast<KompareListViewItem*>(*it)){
+            kompareListViewItem->onTextSelectionChanged(firstLine, firstPos, lastLine, lastPos);
+        }
+    }
+    viewport()->repaint();
+
+    Q_EMIT textSelectionChanged();
 }
 
 void KompareListView::renumberLines()
@@ -488,6 +529,25 @@ void KompareListView::slotApplyDifference(const Difference* diff, bool apply)
     // now renumber the line column if this is the destination
     if (!m_isSource)
         renumberLines();
+}
+
+void KompareListView::copyTextSelectionToClipboard(){
+    QString res;
+    for(QTreeWidgetItemIterator it(this); *it; ++it){
+        res += static_cast<KompareListViewItem*>(*it)->getSelectedText();
+    }
+    if(!res.isEmpty()){
+        QApplication::clipboard()->setText(res);
+    }
+}
+
+void KompareListView::unselectAllText(){
+    for(QTreeWidgetItemIterator it(this); *it; ++it){
+        if(auto* kompareListViewItem = dynamic_cast<KompareListViewItem*>(*it)){
+            kompareListViewItem->onTextSelectionChanged(0, 0, 0, 0);
+        }
+    }
+    viewport()->repaint();
 }
 
 void KompareListView::wheelEvent(QWheelEvent* e)
@@ -744,6 +804,7 @@ void KompareListViewLineItem::init(int line, DifferenceString* text)
 
 void KompareListViewLineItem::paintCell(QPainter* p, const QStyleOptionViewItem& option, int column)
 {
+    m_font = p->font();
     int width = option.rect.width();
     Qt::Alignment align = option.displayAlignment;
 
@@ -804,6 +865,8 @@ void KompareListViewLineItem::paintText(QPainter* p, const QColor& bg, int colum
         int chunkWidth;
         QBrush changeBrush(bg, Qt::Dense3Pattern);
         QBrush normalBrush(bg, Qt::SolidPattern);
+        QBrush selectChangeBrush(selectedColor, Qt::Dense3Pattern);
+        QBrush selectBrush(selectedColor, Qt::SolidPattern);
         QBrush brush;
 
         if (m_text->string().isEmpty())
@@ -817,61 +880,135 @@ void KompareListViewLineItem::paintText(QPainter* p, const QColor& bg, int colum
         const MarkerList markerList = m_text->markerList();
         if (!markerList.isEmpty())
         {
-            MarkerListConstIterator markerIt = markerList.begin();
-            MarkerListConstIterator mEnd     = markerList.end();
-            Marker* m = *markerIt;
+          MarkerListConstIterator markerIt = markerList.begin();
+          MarkerListConstIterator mEnd = markerList.end();
+          Marker *m = *markerIt;
+        }
+        struct Chunk {
+          int begin;
+          int end;
+          bool changed;
+          bool selected;
+        };
 
-            for (; markerIt != mEnd; ++markerIt)
-            {
-                m  = *markerIt;
-                textChunk = m_text->string().mid(prevValue, m->offset() - prevValue);
+        std::vector<Chunk> markerChunks;
+        for(const Marker* m : m_text->markerList()){
+            Chunk chunk;
+            chunk.begin = prevValue;
+            chunk.end = m->offset();
+            chunk.changed = m->type() == Marker::End;
+            chunk.selected = false;
+            markerChunks.push_back(chunk);
+            prevValue = m->offset();
+        }
+        if (prevValue < m_text->string().length()){
+            Chunk chunk;
+            chunk.begin = prevValue;
+            chunk.end = m_text->string().length();
+            chunk.changed = false;
+            chunk.selected = false;
+            markerChunks.push_back(chunk);
+        }
+        std::vector<Chunk> chunks;
+        if(m_selectionFirstCharacter == m_selectionLastCharacter){
+            // Nothing is selected
+            chunks = markerChunks;
+        }else{
+            for(Chunk chunk : markerChunks){
+                if(chunk.begin > m_selectionFirstCharacter && chunk.end < m_selectionLastCharacter){
+                    // The chunk is surrounded by the selection
+                    chunk.selected = true;
+                    chunks.push_back(chunk);
+                }else if(chunk.begin <= m_selectionFirstCharacter && chunk.end > m_selectionLastCharacter){
+                    // The selection is inside the chunk
+                    Chunk leftUnselectedChunk;
+                    leftUnselectedChunk.begin = chunk.begin;
+                    leftUnselectedChunk.end = m_selectionFirstCharacter;
+                    leftUnselectedChunk.changed = chunk.changed;
+                    leftUnselectedChunk.selected = false;
+                    chunks.push_back(leftUnselectedChunk);
+
+                    Chunk selectedChunk;
+                    selectedChunk.begin = m_selectionFirstCharacter;
+                    selectedChunk.end = m_selectionLastCharacter;
+                    selectedChunk.changed = chunk.changed;
+                    selectedChunk.selected = true;
+                    chunks.push_back(selectedChunk);
+
+                    Chunk rightUnselectedChunk;
+                    rightUnselectedChunk.begin = m_selectionLastCharacter;
+                    rightUnselectedChunk.end = chunk.end;
+                    rightUnselectedChunk.changed = chunk.changed;
+                    rightUnselectedChunk.selected = false;
+                    chunks.push_back(rightUnselectedChunk);
+                }else if(chunk.begin <= m_selectionFirstCharacter && m_selectionFirstCharacter <= chunk.end){
+                    // The beginning of the selection is inside this chunk
+                    Chunk unselectedChunk;
+                    unselectedChunk.begin = chunk.begin;
+                    unselectedChunk.end = m_selectionFirstCharacter;
+                    unselectedChunk.changed = chunk.changed;
+                    unselectedChunk.selected = false;
+                    chunks.push_back(unselectedChunk);
+
+                    Chunk selectedChunk;
+                    selectedChunk.begin = m_selectionFirstCharacter;
+                    selectedChunk.end = chunk.end;
+                    selectedChunk.changed = chunk.changed;
+                    selectedChunk.selected = true;
+                    chunks.push_back(selectedChunk);
+                }else if(chunk.begin < m_selectionLastCharacter && m_selectionLastCharacter <= chunk.end){
+                    // The end of the selection is inside this chunk
+                    Chunk selectedChunk;
+                    selectedChunk.begin = chunk.begin;
+                    selectedChunk.end = m_selectionLastCharacter;
+                    selectedChunk.changed = chunk.changed;
+                    selectedChunk.selected = true;
+                    chunks.push_back(selectedChunk);
+
+                    Chunk unselectedChunk;
+                    unselectedChunk.begin = m_selectionLastCharacter;
+                    unselectedChunk.end = chunk.end;
+                    unselectedChunk.changed = chunk.changed;
+                    unselectedChunk.selected = false;
+                    chunks.push_back(unselectedChunk);
+                }else{
+                    // This chunk isn't selected
+                    chunks.push_back(chunk);
+                }
+            }
+        }
+
+        for (const Chunk& chunk : chunks)
+        {
+            textChunk = m_text->string().mid(chunk.begin, chunk.end - chunk.begin);
 //                 qCDebug(KOMPAREPART) << "TextChunk   = \"" << textChunk << "\"" ;
 //                 qCDebug(KOMPAREPART) << "c->offset() = " << c->offset() ;
 //                 qCDebug(KOMPAREPART) << "prevValue   = " << prevValue ;
-                expandTabs(textChunk, kompareListView()->settings()->m_tabToNumberOfSpaces, charsDrawn);
-                charsDrawn += textChunk.length();
-                prevValue = m->offset();
-                if (m->type() == Marker::End)
-                {
-                    QFont font(p->font());
-                    font.setBold(true);
-                    p->setFont(font);
-//                     p->setPen( Qt::blue );
-                    brush = changeBrush;
-                }
-                else
-                {
-                    QFont font(p->font());
-                    font.setBold(false);
-                    p->setFont(font);
-//                     p->setPen( Qt::black );
-                    brush = normalBrush;
-                }
-                chunkWidth = p->fontMetrics().horizontalAdvance(textChunk);
-                p->fillRect(offset, 0, chunkWidth, paintHeight(), brush);
-                p->drawText(offset, 0,
-                            chunkWidth, paintHeight(),
-                            align, textChunk);
-                offset += chunkWidth;
-            }
-        }
-        if (prevValue < m_text->string().length())
-        {
-            // Still have to draw some string without changes
-            textChunk = m_text->string().mid(prevValue, qMax(1, m_text->string().length() - prevValue));
             expandTabs(textChunk, kompareListView()->settings()->m_tabToNumberOfSpaces, charsDrawn);
-//             qCDebug(KOMPAREPART) << "TextChunk   = \"" << textChunk << "\"" ;
-            QFont font(p->font());
-            font.setBold(false);
-            p->setFont(font);
+            charsDrawn += textChunk.length();
+            if (chunk.changed)
+            {
+                QFont font(p->font());
+                font.setBold(true);
+                p->setFont(font);
+//                     p->setPen( Qt::blue );
+                brush = chunk.selected ? selectChangeBrush : changeBrush;
+            }
+            else
+            {
+                QFont font(p->font());
+                font.setBold(false);
+                p->setFont(font);
+//                     p->setPen( Qt::black );
+                brush = chunk.selected ? selectBrush : normalBrush;
+            }
             chunkWidth = p->fontMetrics().horizontalAdvance(textChunk);
-            p->fillRect(offset, 0, chunkWidth, paintHeight(), normalBrush);
+            p->fillRect(offset, 0, chunkWidth, paintHeight(), brush);
             p->drawText(offset, 0,
                         chunkWidth, paintHeight(),
                         align, textChunk);
             offset += chunkWidth;
         }
-        p->fillRect(offset, 0, width - offset, paintHeight(), normalBrush);
     }
     else
     {
@@ -880,6 +1017,46 @@ void KompareListViewLineItem::paintText(QPainter* p, const QColor& bg, int colum
                     width - ITEM_MARGIN, paintHeight(),
                     align, text(column));
     }
+}
+
+static int computeIndexFromPos(const QFontMetrics& fontMetrics, const QString& text, int pos){
+    int index = text.size();
+    for(int i = pos/fontMetrics.averageCharWidth(); i < text.size(); i++){
+        int horizontalAdvance = fontMetrics.horizontalAdvance(text, i);
+        if(horizontalAdvance > pos){
+            index = i - 1;
+            break;
+        }
+    }
+    return index;
+}
+
+void KompareListViewLineItem::onTextSelectionChanged(int startIndex, int startPos, int lastIndex, int lastPos){
+    int index = text(COL_LINE_NO).toInt();
+    if(!(startIndex <= index && index <= lastIndex)){
+        // Not selected
+        m_selectionFirstCharacter = 0;
+        m_selectionLastCharacter = 0;
+    }else{
+        QFontMetrics fontMetrics(m_font);
+        if(index == startIndex){
+            m_selectionFirstCharacter = computeIndexFromPos(fontMetrics, m_text->string(), startPos);
+        }else{
+            m_selectionFirstCharacter = 0;
+        }
+        if(index == lastIndex){
+            m_selectionLastCharacter = computeIndexFromPos(fontMetrics, m_text->string(), lastPos);
+        }else{
+            m_selectionLastCharacter = m_text->string().size();
+        }
+    }
+}
+
+QString KompareListViewLineItem::getSelectedText() const {
+    if(parent()->isHidden()){
+        return QString();
+    }
+    return m_text->string().mid(m_selectionFirstCharacter, m_selectionLastCharacter);
 }
 
 void KompareListViewLineItem::expandTabs(QString& text, int tabstop, int startPos) const
@@ -915,6 +1092,7 @@ KompareListViewHunkItem::KompareListViewHunkItem(KompareListView* parent, DiffHu
       m_zeroHeight(zeroHeight),
       m_hunk(hunk)
 {
+    setText(COL_LINE_NO, QString::number((kompareListView()->isSource() ? hunk->sourceLineNumber() : hunk->destinationLineNumber()) - 1));
     setHeight(maxHeight());
     setFlags(flags() & ~Qt::ItemIsSelectable);
 }
@@ -924,6 +1102,7 @@ KompareListViewHunkItem::KompareListViewHunkItem(KompareListView* parent, Kompar
       m_zeroHeight(zeroHeight),
       m_hunk(hunk)
 {
+    setText(COL_LINE_NO, QString::number((kompareListView()->isSource() ? hunk->sourceLineNumber() : hunk->destinationLineNumber()) - 1));
     setHeight(maxHeight());
     setFlags(flags() & ~Qt::ItemIsSelectable);
 }
@@ -946,6 +1125,7 @@ int KompareListViewHunkItem::maxHeight()
 
 void KompareListViewHunkItem::paintCell(QPainter* p, const QStyleOptionViewItem& option, int column)
 {
+    m_font = p->font();
     if (m_zeroHeight) {
         KompareListViewItem::paintCell(p, option, column);
     } else {
@@ -953,14 +1133,66 @@ void KompareListViewHunkItem::paintCell(QPainter* p, const QStyleOptionViewItem&
         int y = option.rect.top() - paintOffset();
         int width = option.rect.width();
         Qt::Alignment align = option.displayAlignment;
+        QFontMetrics fontMetrics(p->font());
 
-        p->fillRect(x, y, width, paintHeight(), QColor(Qt::lightGray));     // Hunk headers should be lightgray
         p->setPen(QColor(Qt::black));     // Text color in hunk should be black
-        if (column == COL_MAIN) {
-            p->drawText(x + ITEM_MARGIN, y, width - ITEM_MARGIN, paintHeight(),
-                        align, m_hunk->function());
+        p->fillRect(x, y, width, paintHeight(), QColor(Qt::lightGray));     // Hunk headers should be lightgray
+        if(column == COL_MAIN){
+            if(m_selectionFirstCharacter != m_selectionLastCharacter){
+                if(m_selectionFirstCharacter > 0){
+                    // Left unselected text
+                    QString textChunk = m_hunk->function().left(m_selectionFirstCharacter);
+                    int chunkWidth = fontMetrics.horizontalAdvance(textChunk);
+                    p->drawText(x + ITEM_MARGIN, y, chunkWidth, paintHeight(),
+                                align, textChunk);
+                    x += chunkWidth;
+                }
+                // Selected text
+                QString textChunk = m_hunk->function().mid(m_selectionFirstCharacter, m_selectionLastCharacter - m_selectionFirstCharacter);
+                int chunkWidth = fontMetrics.horizontalAdvance(textChunk);
+                p->fillRect(x + ITEM_MARGIN, y, chunkWidth, paintHeight(), selectedColor);
+                p->drawText(x + ITEM_MARGIN, y, chunkWidth, paintHeight(), align, textChunk);
+                x += chunkWidth;
+                if(m_selectionLastCharacter < m_hunk->function().size()){
+                    // Right unselected text
+                    QString textChunk = m_hunk->function().right(m_hunk->function().size() - m_selectionLastCharacter);
+                    int chunkWidth = fontMetrics.horizontalAdvance(textChunk);
+                    p->drawText(x + ITEM_MARGIN, y, chunkWidth, paintHeight(),
+                                align, textChunk);
+                    x += chunkWidth;
+                }
+            }else{
+                p->drawText(x + ITEM_MARGIN, y, width - ITEM_MARGIN, paintHeight(),
+                            align, m_hunk->function());
+            }
         }
     }
+}
+
+void KompareListViewHunkItem::onTextSelectionChanged(int startIndex, int startPos, int lastIndex, int lastPos){
+    int index = text(COL_LINE_NO).toInt();
+    if(!(startIndex <= index && index <= lastIndex)){
+        // Not selected
+        m_selectionFirstCharacter = 0;
+        m_selectionLastCharacter = 0;
+    }else{
+        QFontMetrics fontMetrics(m_font);
+        if(index == startIndex){
+            m_selectionFirstCharacter = computeIndexFromPos(fontMetrics, m_hunk->function(), startPos);
+        }else{
+            m_selectionFirstCharacter = 0;
+        }
+        if(index == lastIndex){
+            m_selectionLastCharacter = computeIndexFromPos(fontMetrics, m_hunk->function(), lastPos);
+        }else{
+            m_selectionLastCharacter = m_hunk->function().size();
+        }
+    }
+}
+
+QString KompareListViewHunkItem::getSelectedText() const {
+    return m_hunk->function().mid(m_selectionFirstCharacter, m_selectionLastCharacter)
+        + (m_selectionFirstCharacter != m_selectionLastCharacter && m_selectionLastCharacter == m_hunk->function().size() ? QLatin1String("\n") : QLatin1String(""));
 }
 
 #include "moc_komparelistview.cpp"

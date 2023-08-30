@@ -67,11 +67,19 @@ set_package_properties(LibKompareDiff2 PROPERTIES
 set(KOMPARE_LIB_VERSION 5)
 set(KOMPARE_LIB_SOVERSION 5)
 
-ecm_set_disabled_deprecation_versions(
-    QT 5.15.2
-    KF 5.100
-    KOMPAREDIFF2 5.4
-)
+if (QT_MAJOR_VERSION STREQUAL "6")
+    ecm_set_disabled_deprecation_versions(
+        QT 6.5
+        KF 5.239
+        KOMPAREDIFF2 5.4
+    )
+else()
+    ecm_set_disabled_deprecation_versions(
+        QT 5.15.2
+        KF 5.100
+        KOMPAREDIFF2 5.4
+    )
+endif()
 
 # added by KDE_COMPILERSETTINGS_LEVEL 5.85.0
 remove_definitions(

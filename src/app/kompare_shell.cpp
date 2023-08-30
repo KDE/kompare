@@ -197,10 +197,10 @@ void KompareShell::setupActions()
     a = actionCollection()->addAction(QStringLiteral("file_compare_files"), this, &KompareShell::slotFileCompareFiles);
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
     a->setText(i18nc("@action", "&Compare Files..."));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_C));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_C));
     a = actionCollection()->addAction(QStringLiteral("file_blend_url"), this, &KompareShell::slotFileBlendURLAndDiff);
     a->setText(i18nc("@action", "&Blend URL with Diff..."));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL + Qt::Key_B));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_B));
     KStandardAction::quit(this, &KompareShell::slotFileClose, actionCollection());
 
     createStandardStatusBarAction();

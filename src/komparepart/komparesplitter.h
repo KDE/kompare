@@ -18,7 +18,7 @@ class QScrollBar;
 class QWheelEvent;
 class QKeyEvent;
 
-namespace Diff2 {
+namespace KompareDiff2 {
 class DiffModel;
 class Difference;
 }
@@ -41,7 +41,7 @@ Q_SIGNALS:
     void scrollViewsToId(int id);
     void setXOffset(int x);
 
-    void selectionChanged(const Diff2::Difference* diff);
+    void selectionChanged(const KompareDiff2::Difference* diff);
 
 public Q_SLOTS:
     void slotScrollToId(int id);
@@ -53,12 +53,12 @@ public Q_SLOTS:
 
     void slotApplyDifference(bool apply);
     void slotApplyAllDifferences(bool apply);
-    void slotApplyDifference(const Diff2::Difference* diff, bool apply);
+    void slotApplyDifference(const KompareDiff2::Difference* diff, bool apply);
 
-    void slotSetSelection(const Diff2::DiffModel* model, const Diff2::Difference* diff);
-    void slotSetSelection(const Diff2::Difference* diff);
+    void slotSetSelection(const KompareDiff2::DiffModel* model, const KompareDiff2::Difference* diff);
+    void slotSetSelection(const KompareDiff2::Difference* diff);
 
-    void slotDifferenceClicked(const Diff2::Difference* diff);
+    void slotDifferenceClicked(const KompareDiff2::Difference* diff);
 
     void slotConfigChanged();
 

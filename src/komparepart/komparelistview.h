@@ -20,7 +20,7 @@
 #include <QTreeWidget>
 #include <QStyledItemDelegate>
 
-namespace Diff2 {
+namespace KompareDiff2 {
 class DiffModel;
 class DiffHunk;
 class Difference;
@@ -62,20 +62,20 @@ public:
     bool                 isSource() const { return m_isSource; };
     ViewSettings*        settings() const { return m_settings; };
 
-    void setSelectedDifference(const Diff2::Difference* diff, bool scroll);
+    void setSelectedDifference(const KompareDiff2::Difference* diff, bool scroll);
 
 public Q_SLOTS:
-    void slotSetSelection(const Diff2::DiffModel* model, const Diff2::Difference* diff);
-    void slotSetSelection(const Diff2::Difference* diff);
+    void slotSetSelection(const KompareDiff2::DiffModel* model, const KompareDiff2::Difference* diff);
+    void slotSetSelection(const KompareDiff2::Difference* diff);
     void setXOffset(int x);
     void scrollToId(int id);
     int  scrollId();
     void slotApplyDifference(bool apply);
     void slotApplyAllDifferences(bool apply);
-    void slotApplyDifference(const Diff2::Difference* diff, bool apply);
+    void slotApplyDifference(const KompareDiff2::Difference* diff, bool apply);
 
 Q_SIGNALS:
-    void differenceClicked(const Diff2::Difference* diff);
+    void differenceClicked(const KompareDiff2::Difference* diff);
     void applyDifference(bool apply);
     void resized();
 
@@ -93,12 +93,12 @@ private:
     void renumberLines();
 
     QList<KompareListViewDiffItem*> m_items;
-    QHash<const Diff2::Difference*, KompareListViewDiffItem*> m_itemDict;
+    QHash<const KompareDiff2::Difference*, KompareListViewDiffItem*> m_itemDict;
     bool                              m_isSource;
     ViewSettings*                     m_settings;
     int                               m_scrollId;
-    const Diff2::DiffModel*           m_selectedModel;
-    const Diff2::Difference*          m_selectedDifference;
+    const KompareDiff2::DiffModel*           m_selectedModel;
+    const KompareDiff2::Difference*          m_selectedDifference;
     int                               m_nextPaintOffset;
 };
 
@@ -112,7 +112,7 @@ public:
     KompareListView* view() { return &m_view; };
 
 public Q_SLOTS:
-    void slotSetModel(const Diff2::DiffModel* model);
+    void slotSetModel(const KompareDiff2::DiffModel* model);
 
 private:
     KompareListView      m_view;
@@ -165,13 +165,13 @@ private:
 class KompareListViewDiffItem : public KompareListViewItem
 {
 public:
-    KompareListViewDiffItem(KompareListView* parent, Diff2::Difference* difference);
-    KompareListViewDiffItem(KompareListView* parent, KompareListViewItem* after, Diff2::Difference* difference);
+    KompareListViewDiffItem(KompareListView* parent, KompareDiff2::Difference* difference);
+    KompareListViewDiffItem(KompareListView* parent, KompareListViewItem* after, KompareDiff2::Difference* difference);
     ~KompareListViewDiffItem() override;
 
     void applyDifference(bool apply);
 
-    Diff2::Difference* difference() { return m_difference; };
+    KompareDiff2::Difference* difference() { return m_difference; };
 
     int maxHeight() override;
 
@@ -180,7 +180,7 @@ private:
     void setVisibility();
 
 private:
-    Diff2::Difference* m_difference;
+    KompareDiff2::Difference* m_difference;
     KompareListViewLineContainerItem* m_sourceItem;
     KompareListViewLineContainerItem* m_destItem;
 };
@@ -201,7 +201,7 @@ public:
 private:
     int lineCount() const;
     int lineNumber() const;
-    Diff2::DifferenceString* lineAt(int i) const;
+    KompareDiff2::DifferenceString* lineAt(int i) const;
 
 private:
     KompareListViewBlankLineItem* m_blankLineItem;
@@ -211,8 +211,8 @@ private:
 class KompareListViewLineItem : public KompareListViewItem
 {
 public:
-    KompareListViewLineItem(KompareListViewLineContainerItem* parent, int line, Diff2::DifferenceString* text);
-    KompareListViewLineItem(KompareListViewLineContainerItem* parent, int line, Diff2::DifferenceString* text, int type);
+    KompareListViewLineItem(KompareListViewLineContainerItem* parent, int line, KompareDiff2::DifferenceString* text);
+    KompareListViewLineItem(KompareListViewLineContainerItem* parent, int line, KompareDiff2::DifferenceString* text, int type);
     ~KompareListViewLineItem() override;
 
     int maxHeight() override { return 0; }
@@ -225,11 +225,11 @@ protected:
     virtual void paintText(QPainter* p, const QColor& bg, int column, int width, int align);
 
 private:
-    void init(int line, Diff2::DifferenceString* text);
+    void init(int line, KompareDiff2::DifferenceString* text);
     void expandTabs(QString& text, int tabstop, int startPos = 0) const;
 
 private:
-    Diff2::DifferenceString* m_text;
+    KompareDiff2::DifferenceString* m_text;
 };
 
 class KompareListViewBlankLineItem : public KompareListViewLineItem
@@ -244,8 +244,8 @@ protected:
 class KompareListViewHunkItem : public KompareListViewItem
 {
 public:
-    KompareListViewHunkItem(KompareListView* parent, Diff2::DiffHunk* hunk, bool zeroHeight = false);
-    KompareListViewHunkItem(KompareListView* parent, KompareListViewItem* after, Diff2::DiffHunk* hunk, bool zeroHeight = false);
+    KompareListViewHunkItem(KompareListView* parent, KompareDiff2::DiffHunk* hunk, bool zeroHeight = false);
+    KompareListViewHunkItem(KompareListView* parent, KompareListViewItem* after, KompareDiff2::DiffHunk* hunk, bool zeroHeight = false);
     ~KompareListViewHunkItem() override;
 
     void paintCell(QPainter* p, const QStyleOptionViewItem& option, int column) override;
@@ -254,7 +254,7 @@ public:
 
 private:
     bool             m_zeroHeight;
-    Diff2::DiffHunk* m_hunk;
+    KompareDiff2::DiffHunk* m_hunk;
 };
 
 #endif

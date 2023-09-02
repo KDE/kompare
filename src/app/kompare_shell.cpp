@@ -93,21 +93,21 @@ KompareShell::KompareShell()
     }
 
     // Hook up the inter part communication
-    connect(m_viewPart, SIGNAL(modelsChanged(const Diff2::DiffModelList*)),
-            m_navTreePart, SLOT(slotModelsChanged(const Diff2::DiffModelList*)));
+    connect(m_viewPart, SIGNAL(modelsChanged(const KompareDiff2::DiffModelList*)),
+            m_navTreePart, SLOT(slotModelsChanged(const KompareDiff2::DiffModelList*)));
 
     connect(m_viewPart, SIGNAL(kompareInfo(Kompare::Info*)),
             m_navTreePart, SLOT(slotKompareInfo(Kompare::Info*)));
 
-    connect(m_navTreePart, SIGNAL(selectionChanged(const Diff2::DiffModel*,const Diff2::Difference*)),
-            m_viewPart, SIGNAL(selectionChanged(const Diff2::DiffModel*,const Diff2::Difference*)));
-    connect(m_viewPart, SIGNAL(setSelection(const Diff2::DiffModel*,const Diff2::Difference*)),
-            m_navTreePart, SLOT(slotSetSelection(const Diff2::DiffModel*,const Diff2::Difference*)));
+    connect(m_navTreePart, SIGNAL(selectionChanged(const KompareDiff2::DiffModel*,const KompareDiff2::Difference*)),
+            m_viewPart, SIGNAL(selectionChanged(const KompareDiff2::DiffModel*,const KompareDiff2::Difference*)));
+    connect(m_viewPart, SIGNAL(setSelection(const KompareDiff2::DiffModel*,const KompareDiff2::Difference*)),
+            m_navTreePart, SLOT(slotSetSelection(const KompareDiff2::DiffModel*,const KompareDiff2::Difference*)));
 
-    connect(m_navTreePart, SIGNAL(selectionChanged(const Diff2::Difference*)),
-            m_viewPart, SIGNAL(selectionChanged(const Diff2::Difference*)));
-    connect(m_viewPart, SIGNAL(setSelection(const Diff2::Difference*)),
-            m_navTreePart, SLOT(slotSetSelection(const Diff2::Difference*)));
+    connect(m_navTreePart, SIGNAL(selectionChanged(const KompareDiff2::Difference*)),
+            m_viewPart, SIGNAL(selectionChanged(const KompareDiff2::Difference*)));
+    connect(m_viewPart, SIGNAL(setSelection(const KompareDiff2::Difference*)),
+            m_navTreePart, SLOT(slotSetSelection(const KompareDiff2::Difference*)));
 
     // This is the interpart interface, it is signal and slot based so no "real" nterface here
     // All you have to do is connect the parts from your application.
@@ -119,8 +119,8 @@ KompareShell::KompareShell()
             m_navTreePart, SLOT(slotApplyDifference(bool)));
     connect(m_viewPart, SIGNAL(applyAllDifferences(bool)),
             m_navTreePart, SLOT(slotApplyAllDifferences(bool)));
-    connect(m_viewPart, SIGNAL(applyDifference(const Diff2::Difference*,bool)),
-            m_navTreePart, SLOT(slotApplyDifference(const Diff2::Difference*,bool)));
+    connect(m_viewPart, SIGNAL(applyDifference(const KompareDiff2::Difference*,bool)),
+            m_navTreePart, SLOT(slotApplyDifference(const KompareDiff2::Difference*,bool)));
 
     // Hook up the KomparePart -> KompareShell communication
     connect(m_viewPart, SIGNAL(setStatusBarModelInfo(int,int,int,int,int)),

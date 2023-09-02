@@ -26,7 +26,7 @@ class QWidget;
 
 class KPluginMetaData;
 
-namespace Diff2 {
+namespace KompareDiff2 {
 class Difference;
 class DiffModel;
 class DiffModelList;
@@ -79,7 +79,7 @@ public:
     void setReadWrite(bool readWrite) override;
 
     // Do we really want to expose this ???
-    const Diff2::KompareModelList* model() const { return m_modelList; };
+    const KompareDiff2::KompareModelList* model() const { return m_modelList; };
 
 public:
     // Reimplemented from the KompareInterface
@@ -129,17 +129,17 @@ public:
     // These just point to their counterpart in the KompareModelList or get called from their
     // counterpart in KompareModelList.
 Q_SIGNALS:
-    void modelsChanged(const Diff2::DiffModelList* models);
+    void modelsChanged(const KompareDiff2::DiffModelList* models);
 
-    void setSelection(const Diff2::DiffModel* model, const Diff2::Difference* diff);
-    void setSelection(const Diff2::Difference* diff);
+    void setSelection(const KompareDiff2::DiffModel* model, const KompareDiff2::Difference* diff);
+    void setSelection(const KompareDiff2::Difference* diff);
 
-    void selectionChanged(const Diff2::DiffModel* model, const Diff2::Difference* diff);
-    void selectionChanged(const Diff2::Difference* diff);
+    void selectionChanged(const KompareDiff2::DiffModel* model, const KompareDiff2::Difference* diff);
+    void selectionChanged(const KompareDiff2::Difference* diff);
 
     void applyDifference(bool apply);
     void applyAllDifferences(bool apply);
-    void applyDifference(const Diff2::Difference*, bool apply);
+    void applyDifference(const KompareDiff2::Difference*, bool apply);
 
     void configChanged();
 
@@ -213,7 +213,7 @@ private:
     static ViewSettings* m_viewSettings;
     static DiffSettings* m_diffSettings;
 
-    Diff2::KompareModelList* m_modelList;
+    KompareDiff2::KompareModelList* m_modelList;
 
     KompareView*             m_view;
     KompareSplitter*         m_splitter;

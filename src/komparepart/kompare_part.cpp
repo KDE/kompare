@@ -50,7 +50,7 @@
 #include "komparesplitter.h"
 #include "kompareview.h"
 
-using namespace Diff2;
+using namespace KompareDiff2;
 
 ViewSettings* KomparePart::m_viewSettings = nullptr;
 DiffSettings* KomparePart::m_diffSettings = nullptr;
@@ -79,7 +79,7 @@ KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KPluginMe
     m_splitter = m_view->splitter();
 
     // This creates the "Model creator" and connects the signals and slots
-    m_modelList = new Diff2::KompareModelList(m_diffSettings, this, "komparemodellist" , (modus == ReadWriteModus));
+    m_modelList = new KompareDiff2::KompareModelList(m_diffSettings, this, "komparemodellist" , (modus == ReadWriteModus));
 
     const auto modelListActions = m_modelList->actionCollection()->actions();
     for (QAction* action : modelListActions) {
@@ -135,8 +135,8 @@ KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KPluginMe
     // Here we connect the splitter to the modellist
     connect(m_modelList, static_cast<void_KompareModelList_argModelDiff>(&KompareModelList::setSelection),
             m_splitter,  static_cast<void_KompareSplitter_argModelDiff>(&KompareSplitter::slotSetSelection));
-//     connect(m_splitter,  SIGNAL(selectionChanged(const Diff2::Difference*,const Diff2::Difference*)),
-//             m_modelList, SLOT(slotSelectionChanged(const Diff2::Difference*,const Diff2::Difference*)));
+//     connect(m_splitter,  SIGNAL(selectionChanged(const KompareDiff2::Difference*,const KompareDiff2::Difference*)),
+//             m_modelList, SLOT(slotSelectionChanged(const KompareDiff2::Difference*,const KompareDiff2::Difference*)));
     connect(m_modelList, static_cast<void(KompareModelList::*)(const Difference*)>(&KompareModelList::setSelection),
             m_splitter,  static_cast<void(KompareSplitter::*)(const Difference*)>(&KompareSplitter::slotSetSelection));
     connect(m_splitter,  static_cast<void(KompareSplitter::*)(const Difference*)>(&KompareSplitter::selectionChanged),

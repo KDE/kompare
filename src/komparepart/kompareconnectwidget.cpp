@@ -24,7 +24,7 @@
 #include "komparelistview.h"
 #include "komparesplitter.h"
 
-using namespace Diff2;
+using namespace KompareDiff2;
 
 KompareConnectWidgetFrame::KompareConnectWidgetFrame(ViewSettings* settings,
         KompareSplitter* parent,

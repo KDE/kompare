@@ -14,7 +14,7 @@
 #include <KConfig>
 #include <KConfigGroup>
 
-using namespace Diff2;
+using namespace KompareDiff2;
 
 const QColor ViewSettings::default_removeColor (190, 237, 190);
 const QColor ViewSettings::default_changeColor (237, 190, 190);

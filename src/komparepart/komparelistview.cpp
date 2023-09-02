@@ -36,7 +36,7 @@
 
 #define ITEM_MARGIN 3
 
-using namespace Diff2;
+using namespace KompareDiff2;
 
 KompareListViewFrame::KompareListViewFrame(bool isSource,
                                            ViewSettings* settings,
@@ -469,8 +469,8 @@ void KompareListView::slotApplyDifference(bool apply)
 
 void KompareListView::slotApplyAllDifferences(bool apply)
 {
-    QHash<const Diff2::Difference*, KompareListViewDiffItem*>::ConstIterator it = m_itemDict.constBegin();
-    QHash<const Diff2::Difference*, KompareListViewDiffItem*>::ConstIterator end = m_itemDict.constEnd();
+    QHash<const KompareDiff2::Difference*, KompareListViewDiffItem*>::ConstIterator it = m_itemDict.constBegin();
+    QHash<const KompareDiff2::Difference*, KompareListViewDiffItem*>::ConstIterator end = m_itemDict.constEnd();
     for (; it != end; ++it)
         it.value()->applyDifference(apply);
 

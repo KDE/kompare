@@ -19,7 +19,7 @@
 
 #include <KompareDiff2/KompareModelList>
 
-namespace Diff2 {
+namespace KompareDiff2 {
 class DiffModel;
 }
 class ViewSettings;
@@ -34,13 +34,13 @@ public:
     ~KompareConnectWidget() override;
 
 public Q_SLOTS:
-    void slotSetSelection(const Diff2::DiffModel* model, const Diff2::Difference* diff);
-    void slotSetSelection(const Diff2::Difference* diff);
+    void slotSetSelection(const KompareDiff2::DiffModel* model, const KompareDiff2::Difference* diff);
+    void slotSetSelection(const KompareDiff2::Difference* diff);
 
     void slotDelayedRepaint();
 
 Q_SIGNALS:
-    void selectionChanged(const Diff2::Difference* diff);
+    void selectionChanged(const KompareDiff2::Difference* diff);
 
 protected:
     void paintEvent(QPaintEvent* e) override;
@@ -49,8 +49,8 @@ protected:
 private:
     ViewSettings*             m_settings;
 
-    const Diff2::DiffModel*   m_selectedModel;
-    const Diff2::Difference*  m_selectedDifference;
+    const KompareDiff2::DiffModel*   m_selectedModel;
+    const KompareDiff2::Difference*  m_selectedDifference;
 };
 
 class KompareConnectWidgetFrame : public QSplitterHandle

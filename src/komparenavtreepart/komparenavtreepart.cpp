@@ -26,7 +26,7 @@
 #define COL_DESTINATION   1
 #define COL_DIFFERENCE    2
 
-using namespace Diff2;
+using namespace KompareDiff2;
 
 KompareNavTreePart::KompareNavTreePart(QWidget* parentWidget, QObject* parent,
                                        const KPluginMetaData& metaData, const QVariantList&)
@@ -423,8 +423,8 @@ void KompareNavTreePart::slotApplyDifference(bool /*apply*/)
 
 void KompareNavTreePart::slotApplyAllDifferences(bool /*apply*/)
 {
-    QHash<const Diff2::Difference*, KChangeLVI*>::ConstIterator it = m_diffToChangeItemDict.constBegin();
-    QHash<const Diff2::Difference*, KChangeLVI*>::ConstIterator end = m_diffToChangeItemDict.constEnd();
+    QHash<const KompareDiff2::Difference*, KChangeLVI*>::ConstIterator it = m_diffToChangeItemDict.constBegin();
+    QHash<const KompareDiff2::Difference*, KChangeLVI*>::ConstIterator end = m_diffToChangeItemDict.constEnd();
 
     qCDebug(KOMPARENAVVIEW) << "m_diffToChangeItemDict.count() = " << m_diffToChangeItemDict.count() ;
 
@@ -594,7 +594,7 @@ const QString KFileLVI::getIcon(const QString& fileName)
     return QStringLiteral("text-plain");
 }
 
-void KFileLVI::fillChangesList(QTreeWidget* changesList, QHash<const Diff2::Difference*, KChangeLVI*>* diffToChangeItemDict)
+void KFileLVI::fillChangesList(QTreeWidget* changesList, QHash<const KompareDiff2::Difference*, KChangeLVI*>* diffToChangeItemDict)
 {
     changesList->clear();
     diffToChangeItemDict->clear();
@@ -639,7 +639,7 @@ KDirLVI::KDirLVI(KDirLVI* parent, const QString& dir) : QTreeWidgetItem(parent)
 }
 
 // addModel always removes it own path from the beginning
-void KDirLVI::addModel(QString& path, DiffModel* model, QHash<const Diff2::DiffModel*, KDirLVI*>* modelToDirItemDict)
+void KDirLVI::addModel(QString& path, DiffModel* model, QHash<const KompareDiff2::DiffModel*, KDirLVI*>* modelToDirItemDict)
 {
 //     qCDebug(KOMPARENAVVIEW) << "KDirLVI::addModel called with path = " << path << " from KDirLVI with m_dirName = " << m_dirName ;
 
@@ -690,7 +690,7 @@ KDirLVI* KDirLVI::findChild(const QString& dir)
     return nullptr;
 }
 
-void KDirLVI::fillFileList(QTreeWidget* fileList, QHash<const Diff2::DiffModel*, KFileLVI*>* modelToFileItemDict)
+void KDirLVI::fillFileList(QTreeWidget* fileList, QHash<const KompareDiff2::DiffModel*, KFileLVI*>* modelToFileItemDict)
 {
     fileList->clear();
 

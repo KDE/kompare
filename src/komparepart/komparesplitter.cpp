@@ -34,7 +34,7 @@
 #include <KompareDiff2/DiffModel>
 #include <KompareDiff2/Difference>
 
-using namespace Diff2;
+using namespace KompareDiff2;
 
 KompareSplitter::KompareSplitter(ViewSettings* settings, QWidget* parent) :
     QSplitter(Qt::Horizontal, parent),

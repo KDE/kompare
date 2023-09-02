@@ -49,8 +49,8 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     I18n
 )
 
-find_package(LibKompareDiff2 6.0 CONFIG)
-set_package_properties(LibKompareDiff2 PROPERTIES
+find_package(KompareDiff2 6.0 CONFIG)
+set_package_properties(KompareDiff2 PROPERTIES
     TYPE REQUIRED
 )
 

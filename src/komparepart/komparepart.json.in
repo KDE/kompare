@@ -124,7 +124,6 @@
         "Description[zh_CN]": "用于显示两个文件之间差异的图形组件",
         "Description[zh_TW]": "以圖形化方式顯示兩個檔案之間差異的部件",
         "Icon": "kompare",
-        "Id": "komparepart",
         "InitialPreference": 10,
         "License": "GPLv2+",
         "MimeTypes": [

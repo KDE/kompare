@@ -96,7 +96,6 @@
             }
         ],
         "Icon": "kompare",
-        "Id": "komparenavtreepart",
         "License": "GPLv2+",
         "MimeTypes": [
             "text/x-patch"

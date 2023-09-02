@@ -28,9 +28,9 @@ target_link_libraries(kompare
     kompareinterface
     komparedialogpages
     KompareDiff2
-    KF${KF_MAJOR_VERSION}::TextEditor
-    KF${KF_MAJOR_VERSION}::WidgetsAddons
-    Qt::Widgets
+    KF6::TextEditor
+    KF6::WidgetsAddons
+    Qt6::Widgets
 )
 
 install(TARGETS kompare  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

@@ -15,7 +15,6 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 // KF
-#include <kparts_version.h>
 #include <KParts/ReadOnlyPart>
 // KompareDiff2
 #include <KompareDiff2/Kompare>

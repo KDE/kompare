@@ -17,12 +17,12 @@ ecm_qt_declare_logging_category(komparenavtreepart
 )
 
 target_link_libraries(komparenavtreepart
-    Qt::Widgets
-    KF${KF_MAJOR_VERSION}::Parts
-    KF${KF_MAJOR_VERSION}::IconThemes
-    KF${KF_MAJOR_VERSION}::I18n
     KompareDiff2
+    KF6::Parts
+    KF6::IconThemes
+    KF6::I18n
+    Qt6::Widgets
 )
 
-install(TARGETS komparenavtreepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/parts)
+install(TARGETS komparenavtreepart  DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/parts)
 

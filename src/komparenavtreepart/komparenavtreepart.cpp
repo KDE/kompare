@@ -30,11 +30,7 @@ using namespace Diff2;
 
 KompareNavTreePart::KompareNavTreePart(QWidget* parentWidget, QObject* parent,
                                        const KPluginMetaData& metaData, const QVariantList&)
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     : KParts::ReadOnlyPart(parent, metaData),
-#else
-    : KParts::ReadOnlyPart(parent),
-#endif
       m_splitter(nullptr),
       m_modelList(nullptr),
       m_srcDirTree(nullptr),
@@ -49,10 +45,6 @@ KompareNavTreePart::KompareNavTreePart(QWidget* parentWidget, QObject* parent,
       m_destination(),
       m_info(nullptr)
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    setMetaData(metaData);
-#endif
-
     m_splitter = new QSplitter(Qt::Horizontal, parentWidget);
 
     setWidget(m_splitter);

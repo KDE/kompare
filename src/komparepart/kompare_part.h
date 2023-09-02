@@ -15,7 +15,6 @@
 // Komparediff2
 #include <KompareDiff2/Kompare>
 // KF
-#include <kparts_version.h>
 #include <KParts/ReadWritePart>
 // Qt
 #include <QVariantList>

@@ -72,9 +72,6 @@ private:
     void buildDirectoryTree();
 
     QString compareFromEndAndReturnSame(const QString& string1, const QString& string2);
-    void addDirToTreeView(enum Kompare::Target, const QString& filename);
-
-    QTreeWidgetItem* findDirInDirTree(const QTreeWidgetItem* parent, const QString& dir);
 
 private:
     QSplitter*                         m_splitter;

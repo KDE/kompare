@@ -13,7 +13,7 @@
 #include <komparepartdebug.h>
 #include "kompareinterface.h"
 // Komparediff2
-#include <KompareDiff2/Kompare>
+#include <KompareDiff2/Info>
 // KF
 #include <KParts/ReadWritePart>
 // Qt
@@ -226,7 +226,7 @@ private:
     QAction*                 m_print;
     QAction*                 m_printPreview;
 
-    struct KompareDiff2::Info m_info;
+    KompareDiff2::Info       m_info;
 };
 
 #endif // KOMPAREPART_H

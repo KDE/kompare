@@ -99,7 +99,7 @@ KompareNavTreePart::~KompareNavTreePart()
     m_selectedDifference = nullptr;
 }
 
-void KompareNavTreePart::slotKompareInfo(struct KompareDiff2::Info* info)
+void KompareNavTreePart::slotKompareInfo(KompareDiff2::Info* info)
 {
     m_info = info;
 }

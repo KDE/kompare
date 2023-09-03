@@ -17,12 +17,12 @@
 // KF
 #include <KParts/ReadOnlyPart>
 // KompareDiff2
-#include <KompareDiff2/Kompare>
 #include <KompareDiff2/DiffModelList>
 
 namespace KompareDiff2 {
 class DiffModel;
 class Difference;
+class Info;
 }
 
 class KDirLVI;
@@ -95,7 +95,7 @@ private:
     QString                            m_source;
     QString                            m_destination;
 
-    struct KompareDiff2::Info*         m_info;
+    KompareDiff2::Info*                m_info;
 };
 
 // These 3 classes are need to store the models into a tree so it is easier

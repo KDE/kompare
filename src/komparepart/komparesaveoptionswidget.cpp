@@ -70,12 +70,12 @@ KompareSaveOptionsWidget::KompareSaveOptionsWidget(const QString& source, const 
     connect(m_directoryRequester, &KUrlRequester::textChanged, this, &KompareSaveOptionsWidget::updateCommandLine);
 
     m_FormatBG->setExclusive(true);
-    m_FormatBG->addButton(m_ContextRB, Kompare::Context);
-    m_FormatBG->addButton(m_EdRB, Kompare::Ed);
-    m_FormatBG->addButton(m_NormalRB, Kompare::Normal);
-    m_FormatBG->addButton(m_UnifiedRB, Kompare::Unified);
-    m_FormatBG->addButton(m_RCSRB, Kompare::RCS);
-    m_FormatBG->addButton(m_SideBySideRB, Kompare::SideBySide);
+    m_FormatBG->addButton(m_ContextRB, KompareDiff2::Context);
+    m_FormatBG->addButton(m_EdRB, KompareDiff2::Ed);
+    m_FormatBG->addButton(m_NormalRB, KompareDiff2::Normal);
+    m_FormatBG->addButton(m_UnifiedRB, KompareDiff2::Unified);
+    m_FormatBG->addButton(m_RCSRB, KompareDiff2::RCS);
+    m_FormatBG->addButton(m_SideBySideRB, KompareDiff2::SideBySide);
 
     loadOptions();
 }
@@ -96,24 +96,24 @@ void KompareSaveOptionsWidget::updateCommandLine()
 
     QString options;
 
-    switch (static_cast<Kompare::Format>(m_FormatBG->checkedId())) {
-    case Kompare::Unified :
+    switch (static_cast<KompareDiff2::Format>(m_FormatBG->checkedId())) {
+    case KompareDiff2::Unified :
         cmdLine += QLatin1String(" -U ") + QString::number(m_ContextLinesSB->value());
         break;
-    case Kompare::Context :
+    case KompareDiff2::Context :
         cmdLine += QLatin1String(" -C ") + QString::number(m_ContextLinesSB->value());
         break;
-    case Kompare::RCS :
+    case KompareDiff2::RCS :
         options += QLatin1Char('n');
         break;
-    case Kompare::Ed :
+    case KompareDiff2::Ed :
         options += QLatin1Char('e');
         break;
-    case Kompare::SideBySide:
+    case KompareDiff2::SideBySide:
         options += QLatin1Char('y');
         break;
-    case Kompare::Normal :
-    case Kompare::UnknownFormat :
+    case KompareDiff2::Normal :
+    case KompareDiff2::UnknownFormat :
     default:
         break;
     }
@@ -210,7 +210,7 @@ void KompareSaveOptionsWidget::saveOptions()
 
     m_settings->m_linesOfContext      = m_ContextLinesSB->value();
 
-    m_settings->m_format = static_cast<Kompare::Format>(m_FormatBG->checkedId());
+    m_settings->m_format = static_cast<KompareDiff2::Format>(m_FormatBG->checkedId());
 
 }
 

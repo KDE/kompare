@@ -199,9 +199,9 @@ void KomparePart::setupActions(Modus modus)
 void KomparePart::updateActions()
 {
     if (m_saveAll) m_saveAll->setEnabled(m_modelList->hasUnsavedChanges());
-    if (m_saveDiff) m_saveDiff->setEnabled(m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs);
-    if (m_swap) m_swap->setEnabled(m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs);
-    m_diffRefresh->setEnabled(m_modelList->mode() == Kompare::ComparingFiles || m_modelList->mode() == Kompare::ComparingDirs);
+    if (m_saveDiff) m_saveDiff->setEnabled(m_modelList->mode() == KompareDiff2::ComparingFiles || m_modelList->mode() == KompareDiff2::ComparingDirs);
+    if (m_swap) m_swap->setEnabled(m_modelList->mode() == KompareDiff2::ComparingFiles || m_modelList->mode() == KompareDiff2::ComparingDirs);
+    m_diffRefresh->setEnabled(m_modelList->mode() == KompareDiff2::ComparingFiles || m_modelList->mode() == KompareDiff2::ComparingDirs);
     m_diffStats->setEnabled(m_modelList->modelCount() > 0);
     m_print->setEnabled(m_modelList->modelCount() > 0);          // If modellist has models then we have something to print, it's that simple.
     m_printPreview->setEnabled(m_modelList);
@@ -217,7 +217,7 @@ bool KomparePart::openDiff(const QUrl& url)
 {
     qCDebug(KOMPAREPART) << "Url = " << url.url();
 
-    m_info.mode = Kompare::ShowingDiff;
+    m_info.mode = KompareDiff2::ShowingDiff;
     m_info.source = url;
     bool result = false;
     fetchURL(url, true);
@@ -244,7 +244,7 @@ bool KomparePart::openDiff(const QString& diffOutput)
 {
     bool value = false;
 
-    m_info.mode = Kompare::ShowingDiff;
+    m_info.mode = KompareDiff2::ShowingDiff;
 
     Q_EMIT kompareInfo(&m_info);
 
@@ -415,7 +415,7 @@ void KomparePart::compare(const QUrl& source, const QUrl& destination)
 void KomparePart::compareFileString(const QUrl& sourceFile, const QString& destination)
 {
     //Set the modeto specify that the source is a file, and the destination is a string
-    m_info.mode = Kompare::ComparingFileString;
+    m_info.mode = KompareDiff2::ComparingFileString;
 
     m_info.source = sourceFile;
     m_info.localDestination = destination;
@@ -430,7 +430,7 @@ void KomparePart::compareFileString(const QUrl& sourceFile, const QString& desti
 void KomparePart::compareStringFile(const QString& source, const QUrl& destinationFile)
 {
     //Set the modeto specify that the source is a file, and the destination is a string
-    m_info.mode = Kompare::ComparingStringFile;
+    m_info.mode = KompareDiff2::ComparingStringFile;
 
     m_info.localSource = source;
     m_info.destination = destinationFile;
@@ -444,7 +444,7 @@ void KomparePart::compareStringFile(const QString& source, const QUrl& destinati
 
 void KomparePart::compareFiles(const QUrl& sourceFile, const QUrl& destinationFile)
 {
-    m_info.mode = Kompare::ComparingFiles;
+    m_info.mode = KompareDiff2::ComparingFiles;
 
     m_info.source = sourceFile;
     m_info.destination = destinationFile;
@@ -461,7 +461,7 @@ void KomparePart::compareFiles(const QUrl& sourceFile, const QUrl& destinationFi
 
 void KomparePart::compareDirs(const QUrl& sourceDirectory, const QUrl& destinationDirectory)
 {
-    m_info.mode = Kompare::ComparingDirs;
+    m_info.mode = KompareDiff2::ComparingDirs;
 
     m_info.source = sourceDirectory;
     m_info.destination = destinationDirectory;
@@ -489,7 +489,7 @@ void KomparePart::openFileAndDiff(const QUrl& file, const QUrl& diffFile)
 
     fetchURL(file, true);
     fetchURL(diffFile, false);
-    m_info.mode = Kompare::BlendingFile;
+    m_info.mode = KompareDiff2::BlendingFile;
 
     Q_EMIT kompareInfo(&m_info);
 
@@ -503,7 +503,7 @@ void KomparePart::openDirAndDiff(const QUrl& dir,  const QUrl& diffFile)
 
     fetchURL(dir, true);
     fetchURL(diffFile, false);
-    m_info.mode = Kompare::BlendingDir;
+    m_info.mode = KompareDiff2::BlendingDir;
 
     Q_EMIT kompareInfo(&m_info);
 
@@ -615,21 +615,21 @@ void KomparePart::slotPaintRequested(QPrinter* printer)
     qCDebug(KOMPAREPART) << "Done painting something...";
 }
 
-void KomparePart::slotSetStatus(enum Kompare::Status status)
+void KomparePart::slotSetStatus(enum KompareDiff2::Status status)
 {
     updateActions();
 
     switch (status) {
-    case Kompare::RunningDiff:
+    case KompareDiff2::RunningDiff:
         Q_EMIT setStatusBarText(i18nc("@info:status", "Running diff..."));
         break;
-    case Kompare::Parsing:
+    case KompareDiff2::Parsing:
         Q_EMIT setStatusBarText(i18nc("@info:status", "Parsing diff output..."));
         break;
-    case Kompare::FinishedParsing:
+    case KompareDiff2::FinishedParsing:
         updateStatus();
         break;
-    case Kompare::FinishedWritingDiff:
+    case KompareDiff2::FinishedWritingDiff:
         updateStatus();
         Q_EMIT diffURLChanged();
         break;
@@ -654,13 +654,13 @@ void KomparePart::updateCaption()
 
     switch (m_info.mode)
     {
-    case Kompare::ComparingFiles :
-    case Kompare::ComparingDirs :
-    case Kompare::BlendingFile :
-    case Kompare::BlendingDir :
+    case KompareDiff2::ComparingFiles :
+    case KompareDiff2::ComparingDirs :
+    case KompareDiff2::BlendingFile :
+    case KompareDiff2::BlendingDir :
         text = source + QLatin1String(" -- ") + destination; // no need to translate this " -- "
         break;
-    case Kompare::ShowingDiff :
+    case KompareDiff2::ShowingDiff :
         text = source;
         break;
     default:
@@ -679,25 +679,25 @@ void KomparePart::updateStatus()
 
     switch (m_info.mode)
     {
-    case Kompare::ComparingFiles :
+    case KompareDiff2::ComparingFiles :
         text = i18nc("@info:status", "Comparing file %1 with file %2" ,
                     source,
                     destination);
         break;
-    case Kompare::ComparingDirs :
+    case KompareDiff2::ComparingDirs :
         text = i18nc("@info:status", "Comparing files in %1 with files in %2" ,
                     source,
                     destination);
         break;
-    case Kompare::ShowingDiff :
+    case KompareDiff2::ShowingDiff :
         text = i18nc("@info:status", "Viewing diff output from %1", source);
         break;
-    case Kompare::BlendingFile :
+    case KompareDiff2::BlendingFile :
         text = i18nc("@info:status", "Blending diff output from %1 into file %2" ,
                     source,
                     destination);
         break;
-    case Kompare::BlendingDir :
+    case KompareDiff2::BlendingDir :
         text = i18nc("@info:status", "Blending diff output from %1 into folder %2" ,
                     m_info.source.toDisplayString(),
                     m_info.destination.toDisplayString());
@@ -716,18 +716,18 @@ void KomparePart::compareAndUpdateAll()
         switch (m_info.mode)
         {
         default:
-        case Kompare::UnknownMode:
+        case KompareDiff2::UnknownMode:
             m_modelList->compare();
             break;
 
-        case Kompare::ComparingStringFile:
-        case Kompare::ComparingFileString:
-        case Kompare::ComparingFiles:
-        case Kompare::ComparingDirs:
+        case KompareDiff2::ComparingStringFile:
+        case KompareDiff2::ComparingFileString:
+        case KompareDiff2::ComparingFiles:
+        case KompareDiff2::ComparingDirs:
             m_modelList->compare(m_info.mode);
             break;
 
-        case Kompare::BlendingFile:
+        case KompareDiff2::BlendingFile:
             m_modelList->openFileAndDiff();
             break;
         }
@@ -763,7 +763,7 @@ void KomparePart::slotSwap()
             return; // Abort prematurely so no swapping
     }
 
-    // Swap the info in the Kompare::Info struct
+    // Swap the info in the KompareDiff2::Info struct
     m_info.swapSourceWithDestination();
 
     // Update window caption and statusbar text
@@ -820,22 +820,22 @@ void KomparePart::slotShowDiffstats()
     if (m_modelList->selectedModel())
     {
         switch (m_info.format) {
-        case Kompare::Unified :
+        case KompareDiff2::Unified :
             diffFormat = i18nc("@item diff format", "Unified");
             break;
-        case Kompare::Context :
+        case KompareDiff2::Context :
             diffFormat = i18nc("@item diff format", "Context");
             break;
-        case Kompare::RCS :
+        case KompareDiff2::RCS :
             diffFormat = i18nc("@item diff format", "RCS");
             break;
-        case Kompare::Ed :
+        case KompareDiff2::Ed :
             diffFormat = i18nc("@item diff format", "Ed");
             break;
-        case Kompare::Normal :
+        case KompareDiff2::Normal :
             diffFormat = i18nc("@item diff format", "Normal");
             break;
-        case Kompare::UnknownFormat :
+        case KompareDiff2::UnknownFormat :
         default:
             diffFormat = i18nc("@item diff format", "Unknown");
             break;

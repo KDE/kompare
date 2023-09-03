@@ -164,7 +164,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void appliedChanged();
     void diffURLChanged();
-    void kompareInfo(Kompare::Info* info);
+    void kompareInfo(KompareDiff2::Info* info);
     void setStatusBarModelInfo(int modelIndex, int differenceIndex, int modelCount, int differenceCount, int appliedCount);
 //     void setStatusBarText( const QString& text );
     void diffString(const QString&);
@@ -180,7 +180,7 @@ protected:
     bool saveFile() override { return true; };
 
 protected Q_SLOTS:
-    void slotSetStatus(Kompare::Status status);
+    void slotSetStatus(KompareDiff2::Status status);
     void slotShowError(const QString& error);
 
     void slotSwap();
@@ -226,7 +226,7 @@ private:
     QAction*                 m_print;
     QAction*                 m_printPreview;
 
-    struct Kompare::Info     m_info;
+    struct KompareDiff2::Info m_info;
 };
 
 #endif // KOMPAREPART_H

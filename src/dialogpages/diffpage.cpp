@@ -114,7 +114,7 @@ void DiffPage::apply()
 
     m_settings->m_linesOfContext                 = m_locSpinBox->value();
 
-    m_settings->m_format = static_cast<Kompare::Format>(m_modeButtonGroup->checkedId());
+    m_settings->m_format = static_cast<KompareDiff2::Format>(m_modeButtonGroup->checkedId());
 
     m_settings->m_excludeFilePattern             = m_excludeFilePatternGroupBox->isChecked();
     m_settings->m_excludeFilePatternList         = m_excludeFilePatternEditListBox->items();
@@ -144,7 +144,7 @@ void DiffPage::setDefaults()
 
     m_locSpinBox->setValue(3);
 
-    m_modeButtonGroup->button(Kompare::Unified)->setChecked(true);
+    m_modeButtonGroup->button(KompareDiff2::Unified)->setChecked(true);
 
     m_excludeFilePatternGroupBox->setChecked(false);
 
@@ -199,13 +199,13 @@ void DiffPage::addFormatTab()
     box->setTitle(i18nc("@title:group", "Output Format"));
 
     QRadioButton* radioButton = new QRadioButton(i18nc("@option:radio format type", "Context"), box);
-    m_modeButtonGroup->addButton(radioButton, Kompare::Context);
+    m_modeButtonGroup->addButton(radioButton, KompareDiff2::Context);
     bgLayout->addWidget(radioButton);
     radioButton = new QRadioButton(i18nc("@option:radio format type", "Normal"),  box);
-    m_modeButtonGroup->addButton(radioButton, Kompare::Normal);
+    m_modeButtonGroup->addButton(radioButton, KompareDiff2::Normal);
     bgLayout->addWidget(radioButton);
     radioButton =  new QRadioButton(i18nc("@option:radio format type", "Unified"), box);
-    m_modeButtonGroup->addButton(radioButton, Kompare::Unified);
+    m_modeButtonGroup->addButton(radioButton, KompareDiff2::Unified);
     bgLayout->addWidget(radioButton);
 
     // #lines of context (loc)

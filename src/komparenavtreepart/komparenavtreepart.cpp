@@ -99,7 +99,7 @@ KompareNavTreePart::~KompareNavTreePart()
     m_selectedDifference = nullptr;
 }
 
-void KompareNavTreePart::slotKompareInfo(struct Kompare::Info* info)
+void KompareNavTreePart::slotKompareInfo(struct KompareDiff2::Info* info)
 {
     m_info = info;
 }
@@ -152,7 +152,7 @@ void KompareNavTreePart::buildTreeInMemory()
 
     switch (m_info->mode)
     {
-    case Kompare::ShowingDiff:
+    case KompareDiff2::ShowingDiff:
         // BUG: 107489 No common root because it is a multi directory relative path diff
         // We need to detect this and create a different rootitem / or so or should we always add this?
         // Trouble we run into is that the directories do not start with a /
@@ -167,11 +167,11 @@ void KompareNavTreePart::buildTreeInMemory()
         if (destBase[0] != QLatin1Char('/'))
             destBase.clear();
         break;
-    case Kompare::ComparingFiles:
+    case KompareDiff2::ComparingFiles:
         srcBase  = model->sourcePath();
         destBase = model->destinationPath();
         break;
-    case Kompare::ComparingDirs:
+    case KompareDiff2::ComparingDirs:
         srcBase = m_info->localSource;
         if (!srcBase.endsWith(QLatin1Char('/')))
             srcBase += QLatin1Char('/');
@@ -179,8 +179,8 @@ void KompareNavTreePart::buildTreeInMemory()
         if (!destBase.endsWith(QLatin1Char('/')))
             destBase += QLatin1Char('/');
         break;
-    case Kompare::BlendingFile:
-    case Kompare::BlendingDir:
+    case KompareDiff2::BlendingFile:
+    case KompareDiff2::BlendingDir:
     default:
         qCDebug(KOMPARENAVVIEW) << "Oops needs to implement this..." ;
     }

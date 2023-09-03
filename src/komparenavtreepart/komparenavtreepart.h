@@ -45,7 +45,7 @@ public Q_SLOTS:
     void slotSetSelection(const KompareDiff2::DiffModel* model, const KompareDiff2::Difference* diff);
     void slotSetSelection(const KompareDiff2::Difference* diff);
     void slotModelsChanged(const KompareDiff2::DiffModelList* modelList);
-    void slotKompareInfo(Kompare::Info* info);
+    void slotKompareInfo(KompareDiff2::Info* info);
 
 Q_SIGNALS:
     void selectionChanged(const KompareDiff2::DiffModel* model, const KompareDiff2::Difference* diff);
@@ -95,7 +95,7 @@ private:
     QString                            m_source;
     QString                            m_destination;
 
-    struct Kompare::Info*              m_info;
+    struct KompareDiff2::Info*         m_info;
 };
 
 // These 3 classes are need to store the models into a tree so it is easier

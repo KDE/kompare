@@ -96,8 +96,8 @@ KompareShell::KompareShell()
     connect(m_viewPart, SIGNAL(modelsChanged(const KompareDiff2::DiffModelList*)),
             m_navTreePart, SLOT(slotModelsChanged(const KompareDiff2::DiffModelList*)));
 
-    connect(m_viewPart, SIGNAL(kompareInfo(Kompare::Info*)),
-            m_navTreePart, SLOT(slotKompareInfo(Kompare::Info*)));
+    connect(m_viewPart, SIGNAL(kompareInfo(KompareDiff2::Info*)),
+            m_navTreePart, SLOT(slotKompareInfo(KompareDiff2::Info*)));
 
     connect(m_navTreePart, SIGNAL(selectionChanged(const KompareDiff2::DiffModel*,const KompareDiff2::Difference*)),
             m_viewPart, SIGNAL(selectionChanged(const KompareDiff2::DiffModel*,const KompareDiff2::Difference*)));
@@ -260,13 +260,13 @@ void KompareShell::saveProperties(KConfigGroup& config)
     // The 'config' object points to the session managed
     // config file.  Anything you write here will be available
     // later when this app is restored
-    if (m_mode == Kompare::ComparingFiles)
+    if (m_mode == KompareDiff2::ComparingFiles)
     {
         config.writeEntry("Mode", "ComparingFiles");
         config.writePathEntry("SourceUrl", m_sourceURL.url());
         config.writePathEntry("DestinationUrl", m_destinationURL.url());
     }
-    else if (m_mode == Kompare::ShowingDiff)
+    else if (m_mode == KompareDiff2::ShowingDiff)
     {
         config.writeEntry("Mode", "ShowingDiff");
         config.writePathEntry("DiffUrl", m_diffURL.url());
@@ -285,7 +285,7 @@ void KompareShell::readProperties(const KConfigGroup& config)
     QString mode = config.readEntry("Mode", "ComparingFiles");
     if (mode == QLatin1String("ComparingFiles"))
     {
-        m_mode  = Kompare::ComparingFiles;
+        m_mode  = KompareDiff2::ComparingFiles;
         m_sourceURL  = QUrl::fromLocalFile(config.readPathEntry("SourceUrl", QString()));
         m_destinationURL = QUrl::fromLocalFile(config.readPathEntry("DestinationFile", QString()));
 
@@ -295,7 +295,7 @@ void KompareShell::readProperties(const KConfigGroup& config)
     }
     else if (mode == QLatin1String("ShowingDiff"))
     {
-        m_mode = Kompare::ShowingDiff;
+        m_mode = KompareDiff2::ShowingDiff;
         m_diffURL = QUrl::fromLocalFile(config.readPathEntry("DiffUrl", QString()));
 
         viewPart()->readProperties(const_cast<KConfig*>(config.config()));

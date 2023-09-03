@@ -134,7 +134,7 @@ private:
 
     KToggleAction*              m_showTextView;
 
-    enum Kompare::Mode          m_mode;
+    enum KompareDiff2::Mode          m_mode;
     // This is the statusbarwidget for displaying the general stuff
     KSqueezedTextLabel*         m_generalLabel;
 

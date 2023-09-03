@@ -15,17 +15,3 @@ Dependencies:
     'frameworks/ktexteditor': '@stable'
     'frameworks/kwidgetsaddons': '@stable'
     'sdk/libkomparediff2': '@same'
-
-- 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
-  'require':
-    'frameworks/extra-cmake-modules': '@latest-kf6'
-    'frameworks/kcoreaddons': '@latest-kf6'
-    'frameworks/kcodecs': '@latest-kf6'
-    'frameworks/kdoctools': '@latest-kf6'
-    'frameworks/kiconthemes': '@latest-kf6'
-    'frameworks/kjobwidgets': '@latest-kf6'
-    'frameworks/kconfig': '@latest-kf6'
-    'frameworks/kparts': '@latest-kf6'
-    'frameworks/ktexteditor': '@latest-kf6'
-    'frameworks/kwidgetsaddons': '@latest-kf6'
-    'sdk/libkomparediff2': '@same'

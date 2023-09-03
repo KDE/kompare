@@ -30,7 +30,7 @@ namespace KompareDiff2 {
 class Difference;
 class DiffModel;
 class DiffModelList;
-class KompareModelList;
+class ModelList;
 }
 class DiffSettings;
 class ViewSettings;
@@ -79,7 +79,7 @@ public:
     void setReadWrite(bool readWrite) override;
 
     // Do we really want to expose this ???
-    const KompareDiff2::KompareModelList* model() const { return m_modelList; };
+    const KompareDiff2::ModelList* model() const { return m_modelList; };
 
 public:
     // Reimplemented from the KompareInterface
@@ -126,8 +126,8 @@ public:
 
     // This is the interpart interface, it is signal and slot based so no "real" interface here
     // All you have to do is connect the parts from your application.
-    // These just point to their counterpart in the KompareModelList or get called from their
-    // counterpart in KompareModelList.
+    // These just point to their counterpart in the ModelList or get called from their
+    // counterpart in ModelList.
 Q_SIGNALS:
     void modelsChanged(const KompareDiff2::DiffModelList* models);
 
@@ -213,7 +213,7 @@ private:
     static ViewSettings* m_viewSettings;
     static DiffSettings* m_diffSettings;
 
-    KompareDiff2::KompareModelList* m_modelList;
+    KompareDiff2::ModelList* m_modelList;
 
     KompareView*             m_view;
     KompareSplitter*         m_splitter;

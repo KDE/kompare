@@ -22,7 +22,7 @@
 #include <KompareDiff2/DiffModel>
 #include <KompareDiff2/DiffHunk>
 #include <KompareDiff2/Difference>
-#include <KompareDiff2/KompareModelList>
+#include <KompareDiff2/ModelList>
 
 #include <komparepartdebug.h>
 #include "viewsettings.h"

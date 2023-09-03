@@ -111,8 +111,8 @@ KompareShell::KompareShell()
 
     // This is the interpart interface, it is signal and slot based so no "real" nterface here
     // All you have to do is connect the parts from your application.
-    // These just point to the method with the same name in the KompareModelList or get called
-    // from the method with the same name in KompareModelList.
+    // These just point to the method with the same name in the ModelList or get called
+    // from the method with the same name in ModelList.
 
     // There is currently no applying possible from the navtreepart to the viewpart
     connect(m_viewPart, SIGNAL(applyDifference(bool)),

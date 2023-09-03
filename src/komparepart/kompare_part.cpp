@@ -79,74 +79,74 @@ KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KPluginMe
     m_splitter = m_view->splitter();
 
     // This creates the "Model creator" and connects the signals and slots
-    m_modelList = new KompareDiff2::KompareModelList(m_diffSettings, this, "komparemodellist" , (modus == ReadWriteModus));
+    m_modelList = new KompareDiff2::ModelList(m_diffSettings, this, "komparemodellist" , (modus == ReadWriteModus));
 
     const auto modelListActions = m_modelList->actionCollection()->actions();
     for (QAction* action : modelListActions) {
         actionCollection()->addAction(action->objectName(), action);
     }
-    connect(m_modelList, &KompareModelList::status,
+    connect(m_modelList, &ModelList::status,
             this, &KomparePart::slotSetStatus);
-    connect(m_modelList, &KompareModelList::setStatusBarModelInfo,
+    connect(m_modelList, &ModelList::setStatusBarModelInfo,
             this, &KomparePart::setStatusBarModelInfo);
-    connect(m_modelList, &KompareModelList::error,
+    connect(m_modelList, &ModelList::error,
             this, &KomparePart::slotShowError);
-    connect(m_modelList, &KompareModelList::applyAllDifferences,
+    connect(m_modelList, &ModelList::applyAllDifferences,
             this, &KomparePart::updateActions);
-    connect(m_modelList, static_cast<void(KompareModelList::*)(bool)>(&KompareModelList::applyDifference),
+    connect(m_modelList, static_cast<void(ModelList::*)(bool)>(&ModelList::applyDifference),
             this, &KomparePart::updateActions);
-    connect(m_modelList, &KompareModelList::applyAllDifferences,
+    connect(m_modelList, &ModelList::applyAllDifferences,
             this, &KomparePart::appliedChanged);
-    connect(m_modelList, static_cast<void(KompareModelList::*)(bool)>(&KompareModelList::applyDifference),
+    connect(m_modelList, static_cast<void(ModelList::*)(bool)>(&ModelList::applyDifference),
             this, &KomparePart::appliedChanged);
-    connect(m_modelList, &KompareModelList::updateActions, this, &KomparePart::updateActions);
+    connect(m_modelList, &ModelList::updateActions, this, &KomparePart::updateActions);
 
     // This is the stuff to connect the "interface" of the kompare part to the model inside
-    connect(m_modelList, &KompareModelList::modelsChanged,
+    connect(m_modelList, &ModelList::modelsChanged,
             this, &KomparePart::modelsChanged);
 
-    typedef void(KompareModelList::*void_KompareModelList_argModelDiff)(const DiffModel*, const Difference*);
-    typedef void(KompareModelList::*void_KompareModelList_argDiffBool)(const Difference*, bool);
+    typedef void(ModelList::*void_ModelList_argModelDiff)(const DiffModel*, const Difference*);
+    typedef void(ModelList::*void_ModelList_argDiffBool)(const Difference*, bool);
     typedef void(KompareSplitter::*void_KompareSplitter_argModelDiff)(const DiffModel*, const Difference*);
     typedef void(KompareSplitter::*void_KompareSplitter_argDiffBool)(const Difference*, bool);
     typedef void(KomparePart::*void_KomparePart_argModelDiff)(const DiffModel*, const Difference*);
     typedef void(KomparePart::*void_KomparePart_argDiffBool)(const Difference*, bool);
-    connect(m_modelList, static_cast<void_KompareModelList_argModelDiff>(&KompareModelList::setSelection),
+    connect(m_modelList, static_cast<void_ModelList_argModelDiff>(&ModelList::setSelection),
             this, static_cast<void_KomparePart_argModelDiff>(&KomparePart::setSelection));
     connect(this, static_cast<void_KomparePart_argModelDiff>(&KomparePart::selectionChanged),
-            m_modelList, static_cast<void_KompareModelList_argModelDiff>(&KompareModelList::slotSelectionChanged));
+            m_modelList, static_cast<void_ModelList_argModelDiff>(&ModelList::slotSelectionChanged));
 
-    connect(m_modelList, static_cast<void(KompareModelList::*)(const Difference*)>(&KompareModelList::setSelection),
+    connect(m_modelList, static_cast<void(ModelList::*)(const Difference*)>(&ModelList::setSelection),
             this, static_cast<void(KomparePart::*)(const Difference*)>(&KomparePart::setSelection));
     connect(this, static_cast<void(KomparePart::*)(const Difference*)>(&KomparePart::selectionChanged),
-            m_modelList, static_cast<void(KompareModelList::*)(const Difference*)>(&KompareModelList::slotSelectionChanged));
+            m_modelList, static_cast<void(ModelList::*)(const Difference*)>(&ModelList::slotSelectionChanged));
 
-    connect(m_modelList, static_cast<void(KompareModelList::*)(bool)>(&KompareModelList::applyDifference),
+    connect(m_modelList, static_cast<void(ModelList::*)(bool)>(&ModelList::applyDifference),
             this, static_cast<void(KomparePart::*)(bool)>(&KomparePart::applyDifference));
-    connect(m_modelList, &KompareModelList::applyAllDifferences,
+    connect(m_modelList, &ModelList::applyAllDifferences,
             this, &KomparePart::applyAllDifferences);
-    connect(m_modelList, static_cast<void_KompareModelList_argDiffBool>(&KompareModelList::applyDifference),
+    connect(m_modelList, static_cast<void_ModelList_argDiffBool>(&ModelList::applyDifference),
             this, static_cast<void_KomparePart_argDiffBool>(&KomparePart::applyDifference));
-    connect(m_modelList, &KompareModelList::diffString,
+    connect(m_modelList, &ModelList::diffString,
             this, &KomparePart::diffString);
 
-    connect(this, &KomparePart::kompareInfo, m_modelList, &KompareModelList::slotKompareInfo);
+    connect(this, &KomparePart::kompareInfo, m_modelList, &ModelList::slotKompareInfo);
 
     // Here we connect the splitter to the modellist
-    connect(m_modelList, static_cast<void_KompareModelList_argModelDiff>(&KompareModelList::setSelection),
+    connect(m_modelList, static_cast<void_ModelList_argModelDiff>(&ModelList::setSelection),
             m_splitter,  static_cast<void_KompareSplitter_argModelDiff>(&KompareSplitter::slotSetSelection));
 //     connect(m_splitter,  SIGNAL(selectionChanged(const KompareDiff2::Difference*,const KompareDiff2::Difference*)),
 //             m_modelList, SLOT(slotSelectionChanged(const KompareDiff2::Difference*,const KompareDiff2::Difference*)));
-    connect(m_modelList, static_cast<void(KompareModelList::*)(const Difference*)>(&KompareModelList::setSelection),
+    connect(m_modelList, static_cast<void(ModelList::*)(const Difference*)>(&ModelList::setSelection),
             m_splitter,  static_cast<void(KompareSplitter::*)(const Difference*)>(&KompareSplitter::slotSetSelection));
     connect(m_splitter,  static_cast<void(KompareSplitter::*)(const Difference*)>(&KompareSplitter::selectionChanged),
-            m_modelList, static_cast<void(KompareModelList::*)(const Difference*)>(&KompareModelList::slotSelectionChanged));
+            m_modelList, static_cast<void(ModelList::*)(const Difference*)>(&ModelList::slotSelectionChanged));
 
-    connect(m_modelList, static_cast<void(KompareModelList::*)(bool)>(&KompareModelList::applyDifference),
+    connect(m_modelList, static_cast<void(ModelList::*)(bool)>(&ModelList::applyDifference),
             m_splitter, static_cast<void(KompareSplitter::*)(bool)>(&KompareSplitter::slotApplyDifference));
-    connect(m_modelList, &KompareModelList::applyAllDifferences,
+    connect(m_modelList, &ModelList::applyAllDifferences,
             m_splitter, &KompareSplitter::slotApplyAllDifferences);
-    connect(m_modelList, static_cast<void_KompareModelList_argDiffBool>(&KompareModelList::applyDifference),
+    connect(m_modelList, static_cast<void_ModelList_argDiffBool>(&ModelList::applyDifference),
             m_splitter, static_cast<void_KompareSplitter_argDiffBool>(&KompareSplitter::slotApplyDifference));
     connect(this, &KomparePart::configChanged, m_splitter, &KompareSplitter::configChanged);
 

@@ -17,7 +17,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 
-#include <KompareDiff2/KompareModelList>
+#include <KompareDiff2/ModelList>
 
 namespace KompareDiff2 {
 class DiffModel;

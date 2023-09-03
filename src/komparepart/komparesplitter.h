@@ -10,7 +10,7 @@
 
 #include <QSplitter>
 
-#include <KompareDiff2/KompareModelList>
+#include <KompareDiff2/ModelList>
 
 class QSplitterHandle;
 class QTimer;

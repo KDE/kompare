@@ -18,7 +18,7 @@
 #include <KompareDiff2/Difference>
 #include <KompareDiff2/DiffModel>
 #include <KompareDiff2/DiffModelList>
-#include <KompareDiff2/KompareModelList>
+#include <KompareDiff2/ModelList>
 
 #include <komparenavviewdebug.h>
 

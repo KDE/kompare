@@ -79,7 +79,7 @@ KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KPluginMe
     m_splitter = m_view->splitter();
 
     // This creates the "Model creator" and connects the signals and slots
-    m_modelList = new KompareDiff2::ModelList(m_diffSettings, this, "komparemodellist" , (modus == ReadWriteModus));
+    m_modelList = new KompareDiff2::ModelList(m_diffSettings, this, (modus == ReadWriteModus));
 
     const auto modelListActions = m_modelList->actionCollection()->actions();
     for (QAction* action : modelListActions) {

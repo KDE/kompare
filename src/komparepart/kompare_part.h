@@ -31,8 +31,8 @@ class Difference;
 class DiffModel;
 class DiffModelList;
 class ModelList;
-}
 class DiffSettings;
+}
 class ViewSettings;
 class KompareSplitter;
 class KompareView;
@@ -211,7 +211,7 @@ private:
     // Ah yes, so multiple instances of kompare use the
     // same settings after one of them changes them
     static ViewSettings* m_viewSettings;
-    static DiffSettings* m_diffSettings;
+    static KompareDiff2::DiffSettings* m_diffSettings;
 
     KompareDiff2::ModelList* m_modelList;
 

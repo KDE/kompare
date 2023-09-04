@@ -53,7 +53,7 @@
 using namespace KompareDiff2;
 
 ViewSettings* KomparePart::m_viewSettings = nullptr;
-DiffSettings* KomparePart::m_diffSettings = nullptr;
+KompareDiff2::DiffSettings* KomparePart::m_diffSettings = nullptr;
 
 KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KPluginMetaData& metaData, Modus modus) :
     KParts::ReadWritePart(parent, metaData),
@@ -66,7 +66,7 @@ KomparePart::KomparePart(QWidget* parentWidget, QObject* parent, const KPluginMe
         m_viewSettings = new ViewSettings(nullptr);
     }
     if (!m_diffSettings) {
-        m_diffSettings = new DiffSettings(nullptr);
+        m_diffSettings = new KompareDiff2::DiffSettings();
     }
 
     readProperties(KSharedConfig::openConfig().data());

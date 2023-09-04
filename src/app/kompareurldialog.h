@@ -10,10 +10,15 @@
 
 #include <KPageDialog>
 
+#include <memory>
+
+namespace KompareDiff2 {
+class DiffSettings;
+}
+
 class FilesPage;
 class FilesSettings;
 class DiffPage;
-class DiffSettings;
 class ViewPage;
 class ViewSettings;
 
@@ -54,7 +59,7 @@ private:
     FilesPage*     m_filesPage;
     FilesSettings* m_filesSettings;
     DiffPage*      m_diffPage;
-    DiffSettings*  m_diffSettings;
+    std::unique_ptr<KompareDiff2::DiffSettings> const  m_diffSettings;
     ViewPage*      m_viewPage;
     ViewSettings*  m_viewSettings;
 };

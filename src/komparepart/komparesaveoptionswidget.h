@@ -12,7 +12,9 @@
 
 #include "komparesaveoptionsbase.h"
 
+namespace KompareDiff2 {
 class DiffSettings;
+}
 class QButtonGroup;
 
 class KompareSaveOptionsWidget : public KompareSaveOptionsBase
@@ -20,7 +22,7 @@ class KompareSaveOptionsWidget : public KompareSaveOptionsBase
     Q_OBJECT
 public:
     KompareSaveOptionsWidget(const QString& source, const QString& destination,
-                             DiffSettings* settings, QWidget* parent);
+                             KompareDiff2::DiffSettings* settings, QWidget* parent);
     ~KompareSaveOptionsWidget() override;
 
     void      saveOptions();
@@ -32,7 +34,7 @@ protected Q_SLOTS:
 private:
     void      loadOptions();
 
-    DiffSettings*   m_settings;
+    KompareDiff2::DiffSettings* m_settings;
     QString         m_source;
     QString         m_destination;
     QButtonGroup*   m_FormatBG;

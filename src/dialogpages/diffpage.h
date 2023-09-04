@@ -26,7 +26,9 @@ class KEditListWidget;
 class KUrlComboBox;
 class KUrlRequester;
 
+namespace KompareDiff2 {
 class DiffSettings;
+}
 
 class DIALOGPAGES_EXPORT DiffPage : public QFrame
 {
@@ -36,8 +38,8 @@ public:
     ~DiffPage() override;
 
 public:
-    void setSettings(DiffSettings*);
-    DiffSettings* settings();
+    void setSettings(KompareDiff2::DiffSettings*);
+    KompareDiff2::DiffSettings* settings();
 
 public:
     virtual void restore();
@@ -55,7 +57,7 @@ private:
     void addExcludeTab();
 
 public:
-    DiffSettings*  m_settings;
+    KompareDiff2::DiffSettings*  m_settings;
 
     KUrlRequester* m_diffURLRequester;
 

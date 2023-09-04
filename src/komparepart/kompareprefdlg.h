@@ -11,8 +11,11 @@
 
 #include <KPageDialog>
 
-class DiffPage;
+namespace KompareDiff2 {
 class DiffSettings;
+}
+
+class DiffPage;
 class ViewPage;
 class ViewSettings;
 
@@ -20,7 +23,7 @@ class KomparePrefDlg : public KPageDialog
 {
     Q_OBJECT
 public:
-    KomparePrefDlg(ViewSettings*, DiffSettings*);
+    KomparePrefDlg(ViewSettings*, KompareDiff2::DiffSettings*);
     ~KomparePrefDlg() override;
 
 protected Q_SLOTS:

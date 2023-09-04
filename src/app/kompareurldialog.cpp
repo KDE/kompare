@@ -29,6 +29,7 @@
 
 KompareURLDialog::KompareURLDialog(QWidget* parent)
     : KPageDialog(parent)
+    , m_diffSettings(new KompareDiff2::DiffSettings())
 {
     setFaceType(List);
     KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
@@ -45,9 +46,8 @@ KompareURLDialog::KompareURLDialog(QWidget* parent)
     KPageWidgetItem* diffItem = addPage(m_diffPage, i18nc("@title:tab", "Diff"));
     diffItem->setIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
     diffItem->setHeader(i18n("Here you can change the options for comparing the files."));
-    m_diffSettings = new DiffSettings(this);
     m_diffSettings->loadSettings(cfg.data());
-    m_diffPage->setSettings(m_diffSettings);
+    m_diffPage->setSettings(m_diffSettings.get());
 
     m_viewPage = new ViewPage();
     KPageWidgetItem* viewItem = addPage(m_viewPage, i18nc("@title:tab", "Appearance"));

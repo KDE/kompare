@@ -50,7 +50,7 @@ DiffPage::~DiffPage()
     m_settings = nullptr;
 }
 
-void DiffPage::setSettings(DiffSettings* setts)
+void DiffPage::setSettings(KompareDiff2::DiffSettings* setts)
 {
     m_settings = setts;
 
@@ -84,7 +84,7 @@ void DiffPage::setSettings(DiffSettings* setts)
     m_excludeFileURLComboBox->setUrl(QUrl::fromUserInput(m_settings->m_excludeFilesFileURL, QDir::currentPath(), QUrl::AssumeLocalFile));
 }
 
-DiffSettings* DiffPage::settings()
+KompareDiff2::DiffSettings* DiffPage::settings()
 {
     return m_settings;
 }

@@ -20,7 +20,7 @@
 #include <KompareDiff2/DiffSettings>
 
 KompareSaveOptionsWidget::KompareSaveOptionsWidget(const QString& source, const QString& destination,
-                                                   DiffSettings* settings, QWidget* parent)
+                                                   KompareDiff2::DiffSettings* settings, QWidget* parent)
     : KompareSaveOptionsBase(parent)
     , m_source(source)
     , m_destination(destination)

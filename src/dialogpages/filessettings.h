@@ -10,7 +10,7 @@
 #include <QString>
 #include <QStringList>
 
-#include <KompareDiff2/SettingsBase>
+#include "settingsbase.h"
 
 #include "dialogpages_export.h"
 

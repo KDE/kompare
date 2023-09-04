@@ -3,6 +3,7 @@ add_definitions(-DTRANSLATION_DOMAIN=\"kompare\")
 add_library(komparedialogpages SHARED)
 
 target_sources(komparedialogpages PRIVATE
+    settingsbase.cpp
     filessettings.cpp
     viewsettings.cpp
     diffpage.cpp

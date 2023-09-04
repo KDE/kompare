@@ -12,8 +12,8 @@
 #include <QWidget>
 
 #include <KompareDiff2/Difference>
-#include <KompareDiff2/SettingsBase>
 
+#include "settingsbase.h"
 #include "dialogpages_export.h"
 
 class DIALOGPAGES_EXPORT ViewSettings : public SettingsBase

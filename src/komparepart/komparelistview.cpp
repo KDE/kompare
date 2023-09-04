@@ -362,8 +362,9 @@ void KompareListView::slotSetSelection(const DiffModel* model, const Difference*
     m_itemDict.clear();
     m_selectedModel = model;
 
-    DiffHunkListConstIterator hunkIt = model->hunks()->begin();
-    DiffHunkListConstIterator hEnd   = model->hunks()->end();
+    const DiffHunkList* hunks = model->hunks();
+    DiffHunkListConstIterator hunkIt = hunks->begin();
+    DiffHunkListConstIterator hEnd   = hunks->end();
 
     KompareListViewItem* item = nullptr;
     m_nextPaintOffset = 0;
@@ -375,8 +376,9 @@ void KompareListView::slotSetSelection(const DiffModel* model, const Difference*
         else
             item = new KompareListViewHunkItem(this, *hunkIt, model->isBlended());
 
-        DifferenceListConstIterator diffIt = (*hunkIt)->differences().begin();
-        DifferenceListConstIterator dEnd   = (*hunkIt)->differences().end();
+        const DifferenceList differences = (*hunkIt)->differences();
+        DifferenceListConstIterator diffIt = differences.begin();
+        DifferenceListConstIterator dEnd   = differences.end();
 
         for (; diffIt != dEnd; ++diffIt)
         {
@@ -812,10 +814,11 @@ void KompareListViewLineItem::paintText(QPainter* p, const QColor& bg, int colum
 
         p->fillRect(0, 0, offset, paintHeight(), normalBrush);
 
-        if (!m_text->markerList().isEmpty())
+        const MarkerList markerList = m_text->markerList();
+        if (!markerList.isEmpty())
         {
-            MarkerListConstIterator markerIt = m_text->markerList().begin();
-            MarkerListConstIterator mEnd     = m_text->markerList().end();
+            MarkerListConstIterator markerIt = markerList.begin();
+            MarkerListConstIterator mEnd     = markerList.end();
             Marker* m = *markerIt;
 
             for (; markerIt != mEnd; ++markerIt)

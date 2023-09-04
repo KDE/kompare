@@ -599,8 +599,9 @@ void KFileLVI::fillChangesList(QTreeWidget* changesList, QHash<const KompareDiff
     changesList->clear();
     diffToChangeItemDict->clear();
 
-    DifferenceListConstIterator diffIt = m_model->differences()->constBegin();
-    DifferenceListConstIterator dEnd   = m_model->differences()->constEnd();
+    const DifferenceList* differences = m_model->differences();
+    DifferenceListConstIterator diffIt = differences->constBegin();
+    DifferenceListConstIterator dEnd   = differences->constEnd();
 
     for (; diffIt != dEnd; ++diffIt)
     {

@@ -201,7 +201,7 @@ Using the scrollbars it is possible to move rapidly through the comparison.</par
 <varlistentry>
 <term>Share Grip Handle</term>
 <listitem><para>The vertical space between the source and destination view not only makes it possible to clearly see the start and end of lines in each of the panes, 
-but is also a grip handle that allows adjustment of percentage occupied between the source and destinate views that comprise the view pane. 
+but is also a grip handle that allows adjustment of percentage occupied between the source and destination views that comprise the view pane. 
 To change pane size for one of the views, hover the mouse pointer over the grip handle then hold down the mouse button and drag left or right. 
 Naturally, increasing the area of one pane will decrease the area available to the opposite pane within the view panel area.</para>
 <para>A second horizontal handle is available between the navigation panel and the source and destination view.</para></listitem>
@@ -229,8 +229,8 @@ To display a hidden navigation bar again, click with the &RMB; into the menubar 
 <title>Switching Source and Destination Views</title>
 
 <para>Sometimes it can be useful to consider what the file to which differences where to be applied as the source. 
-For example, when comparing two modified versions of a file and discovering that the one file has many more modifications that the other.
-The file with more changed would be better as the source, since then fewer differences would need to be applied.</para>
+For example, when comparing two modified versions of a file and discovering that one file has many more modifications than the other.
+The file with more changes would be better as the source, since then fewer differences would need to be applied.</para>
 <para>In this case select <menuchoice><guimenu>File</guimenu><guimenuitem>Swap Source with Destination</guimenuitem></menuchoice>. 
 This will switch the files displayed in all &kompare; panels.</para>
 </sect2>
@@ -698,7 +698,7 @@ When this option is checked such changes are ignored.</para></listitem>
 <keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo>
 </shortcut>
 <guimenu>File</guimenu><guimenuitem>Save</guimenuitem></menuchoice></term>
-<listitem><para>Writes applied differences to current source and or destination file.</para></listitem>
+<listitem><para>Writes applied differences to the current source and or destination file.</para></listitem>
 </varlistentry>
 
 <varlistentry>

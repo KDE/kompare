@@ -289,7 +289,7 @@ msgstr "Aquí pode cambiar as opcións da vista."
 msgid ""
 "File used for excluding files cannot be found, please specify another file."
 msgstr ""
-"Non se pode atopar o ficheiro empregado para as exclusións. Indique outro."
+"Non é posíbel atopar o ficheiro empregado para as exclusións. Indique outro."
 
 #: app/main.cpp:49
 #, kde-format

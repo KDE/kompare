@@ -125,7 +125,7 @@ void FilesPage::doOpen(KUrlComboBox* urlComboBox, bool selectFolders)
     QUrl newUrl = selectFolders ? QFileDialog::getExistingDirectoryUrl(this,
                                                                        i18nc("@title:window", "Select Folder"),
                                                                        currentUrl,
-                                                                       QFileDialog::ReadOnly)
+                                                                       QFileDialog::ReadOnly | QFileDialog::ShowDirsOnly)
                                 : QFileDialog::getOpenFileUrl(this,
                                                               i18nc("@title:window", "Select File"),
                                                               currentUrl);

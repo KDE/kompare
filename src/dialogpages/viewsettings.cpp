@@ -38,7 +38,7 @@ ViewSettings::~ViewSettings()
 
 void ViewSettings::loadSettings(KConfig* config)
 {
-    KConfigGroup cfg(config, "View Options");
+    KConfigGroup cfg(config, QStringLiteral("View Options"));
     m_removeColor         = cfg.readEntry("RemoveColor",         default_removeColor);
     m_changeColor         = cfg.readEntry("ChangeColor",         default_changeColor);
     m_addColor            = cfg.readEntry("AddColor",            default_addColor);
@@ -53,7 +53,7 @@ void ViewSettings::loadSettings(KConfig* config)
 
 void ViewSettings::saveSettings(KConfig* config)
 {
-    KConfigGroup cfg(config, "View Options");
+    KConfigGroup cfg(config, QStringLiteral("View Options"));
     cfg.writeEntry("RemoveColor",         m_removeColor);
     cfg.writeEntry("ChangeColor",         m_changeColor);
     cfg.writeEntry("AddColor",            m_addColor);

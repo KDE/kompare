@@ -37,7 +37,7 @@ KompareURLDialog::KompareURLDialog(QWidget* parent)
     m_filesPage = new FilesPage();
     KPageWidgetItem* filesItem = addPage(m_filesPage, i18nc("@title:tab", "Files"));
     filesItem->setIcon(QIcon::fromTheme(QStringLiteral("text-plain")));
-    filesItem->setHeader(i18n("Here you can enter the files you want to compare."));
+    filesItem->setHeader(i18n("Enter the files you want to compare."));
     m_filesSettings = new FilesSettings(this);
     m_filesSettings->loadSettings(cfg.data());
     m_filesPage->setSettings(m_filesSettings);
@@ -45,23 +45,23 @@ KompareURLDialog::KompareURLDialog(QWidget* parent)
     m_diffPage = new DiffPage();
     KPageWidgetItem* diffItem = addPage(m_diffPage, i18nc("@title:tab", "Diff"));
     diffItem->setIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
-    diffItem->setHeader(i18n("Here you can change the options for comparing the files."));
+    diffItem->setHeader(i18nc("@title", "Comparaison Options"));
     m_diffSettings->loadSettings(cfg.data());
     m_diffPage->setSettings(m_diffSettings.get());
 
     m_viewPage = new ViewPage();
     KPageWidgetItem* viewItem = addPage(m_viewPage, i18nc("@title:tab", "Appearance"));
     viewItem->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-theme")));
-    viewItem->setHeader(i18n("Here you can change the options for the view."));
+    viewItem->setHeader(i18nc("@title", "View Options"));
     m_viewSettings = new ViewSettings(this);
     m_viewSettings->loadSettings(cfg.data());
     m_viewPage->setSettings(m_viewSettings);
 
     adjustSize();
 
-    connect(m_filesPage->firstURLRequester(), &KUrlRequester::textChanged,
+    connect(m_filesPage->sourceURLRequester(), &KUrlRequester::textChanged,
             this, &KompareURLDialog::slotEnableOk);
-    connect(m_filesPage->secondURLRequester(), &KUrlRequester::textChanged,
+    connect(m_filesPage->destinationURLRequester(), &KUrlRequester::textChanged,
             this, &KompareURLDialog::slotEnableOk);
     connect(m_filesPage, &FilesPage::urlChanged,
             this, &KompareURLDialog::slotEnableOk);
@@ -124,26 +124,26 @@ void KompareURLDialog::accept()
 
 void KompareURLDialog::slotEnableOk()
 {
-    button(QDialogButtonBox::Ok)->setEnabled(!m_filesPage->firstURLRequester()->url().isEmpty() &&
-            !m_filesPage->secondURLRequester()->url().isEmpty());
+    button(QDialogButtonBox::Ok)->setEnabled(!m_filesPage->sourceURLRequester()->url().isEmpty() &&
+            !m_filesPage->destinationURLRequester()->url().isEmpty());
 }
 
 /**
- * Returns the first URL, which was entered.
- * @return first URL
+ * Returns the source URL, which was entered.
+ * @return source URL
  */
-QUrl KompareURLDialog::getFirstURL() const
+QUrl KompareURLDialog::getSourceURL() const
 {
-    return m_filesPage->firstURLRequester()->url();
+    return m_filesPage->sourceURLRequester()->url();
 }
 
 /**
- * Returns the second URL, which was entered.
- * @return second URL
+ * Returns the destination URL, which was entered.
+ * @return destination URL
  */
-QUrl KompareURLDialog::getSecondURL() const
+QUrl KompareURLDialog::getDestinationURL() const
 {
-    return m_filesPage->secondURLRequester()->url();
+    return m_filesPage->sourceURLRequester()->url();
 }
 
 /**
@@ -155,14 +155,14 @@ QString KompareURLDialog::encoding() const
     return m_filesPage->encoding();
 }
 
-void KompareURLDialog::setFirstGroupBoxTitle(const QString& title)
+void KompareURLDialog::setSourceTitle(const QString& title)
 {
-    m_filesPage->setFirstGroupBoxTitle(title);
+    m_filesPage->setSourceTitle(title);
 }
 
-void KompareURLDialog::setSecondGroupBoxTitle(const QString& title)
+void KompareURLDialog::setDestinationTitle(const QString& title)
 {
-    m_filesPage->setSecondGroupBoxTitle(title);
+    m_filesPage->setDestinationTitle(title);
 }
 
 void KompareURLDialog::setGroup(const QString& groupName)
@@ -172,14 +172,14 @@ void KompareURLDialog::setGroup(const QString& groupName)
     m_filesPage->setSettings(m_filesSettings);
 }
 
-void KompareURLDialog::setFirstURLRequesterMode(unsigned int mode)
+void KompareURLDialog::setSourceURLRequesterMode(unsigned int mode)
 {
-    m_filesPage->setFirstURLRequesterMode(mode);
+    m_filesPage->setSourceURLRequesterMode(mode);
 }
 
-void KompareURLDialog::setSecondURLRequesterMode(unsigned int mode)
+void KompareURLDialog::setDestinationURLRequesterMode(unsigned int mode)
 {
-    m_filesPage->setSecondURLRequesterMode(mode);
+    m_filesPage->setDestinationURLRequesterMode(mode);
 }
 
 #include "moc_kompareurldialog.cpp"

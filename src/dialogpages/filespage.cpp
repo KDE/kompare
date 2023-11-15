@@ -7,9 +7,9 @@
 
 #include "filespage.h"
 
-#include <QLayout>
+#include <QLabel>
 #include <QGroupBox>
-#include <QVBoxLayout>
+#include <QFormLayout>
 #include <QHBoxLayout>
 
 #include <KCharsets>
@@ -20,27 +20,27 @@
 
 #include "filessettings.h"
 
-FilesPage::FilesPage() : QFrame()
+FilesPage::FilesPage()
+    : QFrame()
 {
-    QVBoxLayout* layout = new QVBoxLayout(this);
+    m_formLayout = new QFormLayout(this);
 
-    m_firstGB = new QGroupBox(QStringLiteral("You have to set this moron :)"), this);  // whut?
-    layout->addWidget(m_firstGB);
-    QHBoxLayout* gb1Layout = new QHBoxLayout(m_firstGB);
-    m_firstURLComboBox = new KUrlComboBox(KUrlComboBox::Both, true, m_firstGB);
-    m_firstURLComboBox->setMaxItems(10);
-    m_firstURLComboBox->setObjectName(QStringLiteral("SourceURLComboBox"));
-    m_firstURLRequester = new KUrlRequester(m_firstURLComboBox, nullptr);
-    gb1Layout->addWidget(m_firstURLComboBox);
-    m_firstURLComboBox->setFocus();
+    // Source
+    auto sourceLayout = new QHBoxLayout(this);
+    m_sourceURLComboBox = new KUrlComboBox(KUrlComboBox::Both, true, this);
+    m_sourceURLComboBox->setMaxItems(10);
+    m_sourceURLComboBox->setObjectName(QStringLiteral("SourceURLComboBox"));
+    m_sourceURLRequester = new KUrlRequester(m_sourceURLComboBox, nullptr);
+    sourceLayout->addWidget(m_sourceURLComboBox);
+    m_sourceURLComboBox->setFocus();
 
-    QPushButton* button = new QPushButton(this);
+    auto button = new QPushButton(this);
     button->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
     button->setToolTip(i18nc("@info:tooltip", "Select file"));
     button->setProperty("combobox", QStringLiteral("SourceURLComboBox"));
     button->setProperty("folder", false);
     connect(button, &QPushButton::clicked, this, &FilesPage::open);
-    gb1Layout->addWidget(button);
+    sourceLayout->addWidget(button);
 
     button = new QPushButton(this);
     button->setIcon(QIcon::fromTheme(QStringLiteral("folder-open")));
@@ -52,16 +52,18 @@ FilesPage::FilesPage() : QFrame()
     button->setProperty("combobox", QStringLiteral("SourceURLComboBox"));
     button->setProperty("folder", true);
     connect(button, &QPushButton::clicked, this, &FilesPage::open);
-    gb1Layout->addWidget(button);
+    sourceLayout->addWidget(button);
 
-    m_secondGB = new QGroupBox(QStringLiteral("This too moron !"), this);  // whut again?
-    layout->addWidget(m_secondGB);
-    QHBoxLayout* gb2Layout = new QHBoxLayout(m_secondGB);
-    m_secondURLComboBox = new KUrlComboBox(KUrlComboBox::Both, true, m_secondGB);
-    m_secondURLComboBox->setMaxItems(10);
-    m_secondURLComboBox->setObjectName(QStringLiteral("DestURLComboBox"));
-    m_secondURLRequester = new KUrlRequester(m_secondURLComboBox, nullptr);
-    gb2Layout->addWidget(m_secondURLComboBox);
+    m_formLayout->addRow(i18nc("@label:file", "Source:"), sourceLayout);
+    m_sourceLabel = static_cast<QLabel *>(m_formLayout->labelForField(sourceLayout));
+
+    // Destination
+    auto destinationLayout = new QHBoxLayout(this);
+    m_destinationURLComboBox = new KUrlComboBox(KUrlComboBox::Both, true, this);
+    m_destinationURLComboBox->setMaxItems(10);
+    m_destinationURLComboBox->setObjectName(QStringLiteral("DestURLComboBox"));
+    m_destinationURLRequester = new KUrlRequester(this, nullptr);
+    destinationLayout->addWidget(m_destinationURLComboBox);
 
     button = new QPushButton(this);
     button->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
@@ -69,7 +71,7 @@ FilesPage::FilesPage() : QFrame()
     button->setProperty("combobox", QStringLiteral("DestURLComboBox"));
     button->setProperty("folder", false);
     connect(button, &QPushButton::clicked, this, &FilesPage::open);
-    gb2Layout->addWidget(button);
+    destinationLayout->addWidget(button);
 
     button = new QPushButton(this);
     button->setIcon(QIcon::fromTheme(QStringLiteral("folder-open")));
@@ -81,33 +83,28 @@ FilesPage::FilesPage() : QFrame()
     button->setProperty("combobox", QStringLiteral("DestURLComboBox"));
     button->setProperty("folder", true);
     connect(button, &QPushButton::clicked, this, &FilesPage::open);
-    gb2Layout->addWidget(button);
+    destinationLayout->addWidget(button);
 
+    m_formLayout->addRow(i18nc("@label:file", "Destination:"), destinationLayout);
+    m_destinationLabel = static_cast<QLabel *>(m_formLayout->labelForField(destinationLayout));
 
-    m_thirdGB = new QGroupBox(i18nc("@title:group", "Encoding"), this);
-    layout->addWidget(m_thirdGB);
-    QHBoxLayout* gb3Layout = new QHBoxLayout(m_thirdGB);
-    m_encodingComboBox = new KComboBox(false, m_thirdGB);
+    // Encoding
+    m_encodingComboBox = new KComboBox(false, this);
     m_encodingComboBox->setObjectName(QStringLiteral("encoding_combobox"));
     m_encodingComboBox->insertItem(0, i18nc("@item:inlistbox encoding", "Default"));
     m_encodingComboBox->insertItems(1, KCharsets::charsets()->availableEncodingNames());
-    gb3Layout->addWidget(m_encodingComboBox);
-
-    layout->addWidget(m_firstGB);
-    layout->addWidget(m_secondGB);
-    layout->addWidget(m_thirdGB);
-
-    layout->addStretch(1);
+    m_formLayout->addRow(i18nc("@label:checkbox", "Encoding:"), m_encodingComboBox);
 }
 
 FilesPage::~FilesPage()
 {
-    delete m_firstURLRequester;
-    m_firstURLRequester = nullptr;
-    delete m_secondURLRequester;
-    m_secondURLRequester = nullptr;
+    delete m_sourceURLRequester;
+    m_sourceURLRequester = nullptr;
+    delete m_destinationURLRequester;
+    m_destinationURLRequester = nullptr;
     m_settings = nullptr;
 }
+
 
 void FilesPage::open()
 {
@@ -138,14 +135,14 @@ void FilesPage::doOpen(KUrlComboBox* urlComboBox, bool selectFolders)
 
 }
 
-KUrlRequester* FilesPage::firstURLRequester() const
+KUrlRequester* FilesPage::sourceURLRequester() const
 {
-    return m_firstURLRequester;
+    return m_sourceURLRequester;
 }
 
-KUrlRequester* FilesPage::secondURLRequester() const
+KUrlRequester* FilesPage::destinationURLRequester() const
 {
-    return m_secondURLRequester;
+    return m_destinationURLRequester;
 }
 
 QString FilesPage::encoding() const
@@ -153,28 +150,28 @@ QString FilesPage::encoding() const
     return m_encodingComboBox->currentText();
 }
 
-void FilesPage::setFirstGroupBoxTitle(const QString& title)
+void FilesPage::setSourceTitle(const QString& title)
 {
-    m_firstGB->setTitle(title);
+    m_sourceLabel->setText(title);
 }
 
-void FilesPage::setSecondGroupBoxTitle(const QString& title)
+void FilesPage::setDestinationTitle(const QString& title)
 {
-    m_secondGB->setTitle(title);
+    m_destinationLabel->setText(title);
 }
 
 void FilesPage::setURLsInComboBoxes()
 {
 //     qDebug() << "first : " << m_firstURLComboBox->currentText() ;
 //     qDebug() << "second: " << m_secondURLComboBox->currentText() ;
-    m_firstURLComboBox->setUrl(QUrl::fromUserInput(m_firstURLComboBox->currentText(), QDir::currentPath(), QUrl::AssumeLocalFile));
-    m_secondURLComboBox->setUrl(QUrl::fromUserInput(m_secondURLComboBox->currentText(), QDir::currentPath(), QUrl::AssumeLocalFile));
+    m_sourceURLComboBox->setUrl(QUrl::fromUserInput(m_sourceURLComboBox->currentText(), QDir::currentPath(), QUrl::AssumeLocalFile));
+    m_destinationURLComboBox->setUrl(QUrl::fromUserInput(m_destinationURLComboBox->currentText(), QDir::currentPath(), QUrl::AssumeLocalFile));
 }
 
 
-void FilesPage::setFirstURLRequesterMode(unsigned int mode)
+void FilesPage::setSourceURLRequesterMode(unsigned int mode)
 {
-    m_firstURLRequester->setMode((KFile::Mode) mode);
+    m_sourceURLRequester->setMode((KFile::Mode) mode);
     if ((mode & KFile::Directory) == 0)
     {
         QPushButton* button = findChild<QPushButton*>(QStringLiteral("firstURLOpenFolder"));
@@ -182,9 +179,9 @@ void FilesPage::setFirstURLRequesterMode(unsigned int mode)
     }
 }
 
-void FilesPage::setSecondURLRequesterMode(unsigned int mode)
+void FilesPage::setDestinationURLRequesterMode(unsigned int mode)
 {
-    m_secondURLRequester->setMode((KFile::Mode) mode);
+    m_destinationURLRequester->setMode((KFile::Mode) mode);
     if ((mode & KFile::Directory) == 0)
     {
         QPushButton* button = findChild<QPushButton*>(QStringLiteral("secondURLOpenFolder"));
@@ -196,10 +193,10 @@ void FilesPage::setSettings(FilesSettings* settings)
 {
     m_settings = settings;
 
-    m_firstURLComboBox->setUrls(m_settings->m_recentSources);
-    m_firstURLComboBox->setUrl(QUrl::fromUserInput(m_settings->m_lastChosenSourceURL, QDir::currentPath(), QUrl::AssumeLocalFile));
-    m_secondURLComboBox->setUrls(m_settings->m_recentDestinations);
-    m_secondURLComboBox->setUrl(QUrl::fromUserInput(m_settings->m_lastChosenDestinationURL, QDir::currentPath(), QUrl::AssumeLocalFile));
+    m_sourceURLComboBox->setUrls(m_settings->m_recentSources);
+    m_sourceURLComboBox->setUrl(QUrl::fromUserInput(m_settings->m_lastChosenSourceURL, QDir::currentPath(), QUrl::AssumeLocalFile));
+    m_destinationURLComboBox->setUrls(m_settings->m_recentDestinations);
+    m_destinationURLComboBox->setUrl(QUrl::fromUserInput(m_settings->m_lastChosenDestinationURL, QDir::currentPath(), QUrl::AssumeLocalFile));
     m_encodingComboBox->setCurrentIndex(m_encodingComboBox->findText(m_settings->m_encoding, Qt::MatchFixedString));
 }
 
@@ -211,22 +208,22 @@ void FilesPage::restore()
 void FilesPage::apply()
 {
     // set the current items as the first ones
-    m_firstURLComboBox->insertUrl(0, QUrl(m_firstURLComboBox->currentText()));
-    m_secondURLComboBox->insertUrl(0, QUrl(m_secondURLComboBox->currentText()));
+    m_sourceURLComboBox->insertUrl(0, QUrl(m_sourceURLComboBox->currentText()));
+    m_destinationURLComboBox->insertUrl(0, QUrl(m_destinationURLComboBox->currentText()));
 
-    m_settings->m_recentSources            = m_firstURLComboBox->urls();
-    m_settings->m_lastChosenSourceURL      = m_firstURLComboBox->currentText();
-    m_settings->m_recentDestinations       = m_secondURLComboBox->urls();
-    m_settings->m_lastChosenDestinationURL = m_secondURLComboBox->currentText();
+    m_settings->m_recentSources            = m_sourceURLComboBox->urls();
+    m_settings->m_lastChosenSourceURL      = m_sourceURLComboBox->currentText();
+    m_settings->m_recentDestinations       = m_destinationURLComboBox->urls();
+    m_settings->m_lastChosenDestinationURL = m_destinationURLComboBox->currentText();
     m_settings->m_encoding                 = m_encodingComboBox->currentText();
 }
 
 void FilesPage::setDefaults()
 {
-    m_firstURLComboBox->setUrls(QStringList());
-    m_firstURLComboBox->setUrl(QUrl());
-    m_secondURLComboBox->setUrls(QStringList());
-    m_secondURLComboBox->setUrl(QUrl());
+    m_sourceURLComboBox->setUrls(QStringList());
+    m_sourceURLComboBox->setUrl(QUrl());
+    m_destinationURLComboBox->setUrls(QStringList());
+    m_destinationURLComboBox->setUrl(QUrl());
     m_encodingComboBox->setCurrentIndex(0);   // "Default"
 }
 

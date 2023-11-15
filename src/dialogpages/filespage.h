@@ -18,6 +18,8 @@ class QGroupBox;
 class KComboBox;
 class KUrlComboBox;
 class KUrlRequester;
+class QFormLayout;
+class QLabel;
 
 class FilesSettings;
 
@@ -29,18 +31,18 @@ public:
     ~FilesPage() override;
 
 public:
-    KUrlRequester* firstURLRequester() const;
-    KUrlRequester* secondURLRequester() const;
+    KUrlRequester* sourceURLRequester() const;
+    KUrlRequester* destinationURLRequester() const;
 
     QString encoding() const;
 
-    void setFirstGroupBoxTitle(const QString& title);
-    void setSecondGroupBoxTitle(const QString& title);
+    void setSourceTitle(const QString& title);
+    void setDestinationTitle(const QString& title);
 
     void setURLsInComboBoxes();
 
-    void setFirstURLRequesterMode(unsigned int mode);
-    void setSecondURLRequesterMode(unsigned int mode);
+    void setSourceURLRequesterMode(unsigned int mode);
+    void setDestinationURLRequesterMode(unsigned int mode);
 
 public:
     virtual void setSettings(FilesSettings* settings);
@@ -62,13 +64,13 @@ private:
     void doOpen(KUrlComboBox* urlComboBox, bool selectFolders);
 
 private:
-    QGroupBox*     m_firstGB;
-    QGroupBox*     m_secondGB;
-    QGroupBox*     m_thirdGB;
-    KUrlComboBox*  m_firstURLComboBox;
-    KUrlComboBox*  m_secondURLComboBox;
-    KUrlRequester* m_firstURLRequester;
-    KUrlRequester* m_secondURLRequester;
+    QFormLayout *  m_formLayout;
+    KUrlComboBox*  m_sourceURLComboBox;
+    KUrlComboBox*  m_destinationURLComboBox;
+    KUrlRequester* m_sourceURLRequester;
+    KUrlRequester* m_destinationURLRequester;
+    QLabel*        m_sourceLabel;
+    QLabel*        m_destinationLabel;
     KComboBox*     m_encodingComboBox;
 
     FilesSettings* m_settings;

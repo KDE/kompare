@@ -326,8 +326,8 @@ void KompareShell::slotFileBlendURLAndDiff()
     KompareURLDialog dialog(this);
 
     dialog.setWindowTitle(i18nc("@title:window", "Blend File/Folder with diff Output"));
-    dialog.setFirstGroupBoxTitle(i18nc("@title:group", "File/Folder"));
-    dialog.setSecondGroupBoxTitle(i18nc("@title:group", "Diff Output"));
+    dialog.setSourceTitle(i18nc("@title:group", "File/Folder:"));
+    dialog.setDestinationTitle(i18nc("@title:group", "Diff Output:"));
 
     QPushButton* okButton = dialog.button(QDialogButtonBox::Ok);
     okButton->setText(i18nc("@action:button", "Blend"));
@@ -336,13 +336,13 @@ void KompareShell::slotFileBlendURLAndDiff()
 
     dialog.setGroup(QStringLiteral("Recent Blend Files"));
 
-    dialog.setFirstURLRequesterMode(KFile::File | KFile::Directory | KFile::ExistingOnly);
+    dialog.setSourceURLRequesterMode(KFile::File | KFile::Directory | KFile::ExistingOnly);
     // diff output can not be a directory
-    dialog.setSecondURLRequesterMode(KFile::File | KFile::ExistingOnly);
+    dialog.setDestinationURLRequesterMode(KFile::File | KFile::ExistingOnly);
     if (dialog.exec() == QDialog::Accepted)
     {
-        m_sourceURL = dialog.getFirstURL();
-        m_destinationURL = dialog.getSecondURL();
+        m_sourceURL = dialog.getSourceURL();
+        m_destinationURL = dialog.getDestinationURL();
         // Leak???
         KompareShell* shell = new KompareShell();
         shell->show();
@@ -356,8 +356,8 @@ void KompareShell::slotFileCompareFiles()
     KompareURLDialog dialog(this);
 
     dialog.setWindowTitle(i18nc("@title:window", "Compare Files or Folders"));
-    dialog.setFirstGroupBoxTitle(i18nc("@title:group", "Source"));
-    dialog.setSecondGroupBoxTitle(i18nc("@title:group", "Destination"));
+    dialog.setSourceTitle(i18nc("@title:group", "Source:"));
+    dialog.setDestinationTitle(i18nc("@title:group", "Destination:"));
 
     QPushButton* okButton = dialog.button(QDialogButtonBox::Ok);
     okButton->setText(i18nc("@action:button", "Compare"));
@@ -366,13 +366,13 @@ void KompareShell::slotFileCompareFiles()
 
     dialog.setGroup(QStringLiteral("Recent Compare Files"));
 
-    dialog.setFirstURLRequesterMode(KFile::File | KFile::Directory | KFile::ExistingOnly);
-    dialog.setSecondURLRequesterMode(KFile::File | KFile::Directory | KFile::ExistingOnly);
+    dialog.setSourceURLRequesterMode(KFile::File | KFile::Directory | KFile::ExistingOnly);
+    dialog.setDestinationURLRequesterMode(KFile::File | KFile::Directory | KFile::ExistingOnly);
 
     if (dialog.exec() == QDialog::Accepted)
     {
-        m_sourceURL = dialog.getFirstURL();
-        m_destinationURL = dialog.getSecondURL();
+        m_sourceURL = dialog.getSourceURL();
+        m_destinationURL = dialog.getDestinationURL();
         KompareShell* shell = new KompareShell();
         shell->show();
         qCDebug(KOMPARESHELL) << "The encoding is: " << dialog.encoding() ;

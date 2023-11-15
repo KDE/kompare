@@ -35,17 +35,17 @@ public:
     explicit KompareURLDialog(QWidget* parent = nullptr);
     ~KompareURLDialog() override;
 
-    QUrl getFirstURL() const;
-    QUrl getSecondURL() const;
+    QUrl getSourceURL() const;
+    QUrl getDestinationURL() const;
     QString encoding() const;
 
-    void setFirstGroupBoxTitle(const QString& title);
-    void setSecondGroupBoxTitle(const QString& title);
+    void setSourceTitle(const QString& title);
+    void setDestinationTitle(const QString& title);
 
     void setGroup(const QString& groupName);
 
-    void setFirstURLRequesterMode(unsigned int mode);
-    void setSecondURLRequesterMode(unsigned int mode);
+    void setSourceURLRequesterMode(unsigned int mode);
+    void setDestinationURLRequesterMode(unsigned int mode);
 
 public Q_SLOTS:
     void accept() override;

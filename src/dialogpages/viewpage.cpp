@@ -33,8 +33,10 @@ ViewPage::ViewPage() : QFrame()
     QGroupBox*   tabGroupBox;
 
     m_tabWidget = new QTabWidget(this);
+    m_tabWidget->setDocumentMode(true);
     layout = new QVBoxLayout(this);
     layout->addWidget(m_tabWidget);
+    layout->setContentsMargins({});
 
     page   = new QWidget(m_tabWidget);
     layout = new QVBoxLayout(page);
@@ -89,16 +91,14 @@ ViewPage::ViewPage() : QFrame()
     page   = new QWidget(m_tabWidget);
     layout = new QVBoxLayout(page);
 
-    QGroupBox* gb = new QGroupBox(page);
-    QFormLayout* layfont = new QFormLayout(gb);
-    gb->setTitle(i18nc("@title:group", "Text Font"));
-    layout->addWidget(gb);
+    QFormLayout* layfont = new QFormLayout(page);
+    layout->addLayout(layfont);
 
-    m_fontCombo = new QFontComboBox;
+    m_fontCombo = new QFontComboBox(page);
     layfont->addRow(i18nc("@label:listbox", "Font:"), m_fontCombo);
     m_fontCombo->setObjectName(QStringLiteral("fontcombo"));
 
-    m_fontSizeSpinBox = new QSpinBox(gb);
+    m_fontSizeSpinBox = new QSpinBox(page);
     m_fontSizeSpinBox->setRange(6, 24);
     layfont->addRow(i18nc("@label:spinbox", "Size:"), m_fontSizeSpinBox);
 

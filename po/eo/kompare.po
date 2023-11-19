@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-16 00:49+0000\n"
-"PO-Revision-Date: 2023-05-17 11:58+0100\n"
+"POT-Creation-Date: 2023-11-05 12:38+0000\n"
+"PO-Revision-Date: 2023-09-04 20:29+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -925,7 +925,7 @@ msgstr "Fonta Dosierujo"
 #, kde-format
 msgctxt "@title:column"
 msgid "Destination Folder"
-msgstr "Destina Dosierujo"
+msgstr "Cela Dosierujo"
 
 #: komparenavtreepart/komparenavtreepart.cpp:74
 #, kde-format

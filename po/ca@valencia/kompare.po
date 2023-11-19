@@ -1,25 +1,25 @@
 # Translation of kompare.po to Catalan (Valencian)
-# Copyright (C) 2002-2022 This_file_is_part_of_KDE
+# Copyright (C) 2002-2023 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # Albert Astals Cid <aacid@kde.org>, 2002, 2003, 2004, 2005.
-# Antoni Bella Pérez <antonibella5@yahoo.com>, 2003, 2006, 2012, 2014, 2015, 2020.
+# SPDX-FileCopyrightText: 2003, 2006, 2012, 2014, 2015, 2020, 2023 Antoni Bella Pérez <antonibella5@yahoo.com>
 # Josep M. Ferrer <txemaq@gmail.com>, 2007, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2017, 2020, 2021, 2022.
 # Manuel Tortosa <manutortosa@chakra-project.org>, 2009, 2010, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-16 00:49+0000\n"
-"PO-Revision-Date: 2022-10-14 12:28+0200\n"
-"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"POT-Creation-Date: 2023-11-05 12:38+0000\n"
+"PO-Revision-Date: 2023-11-04 19:42+0100\n"
+"Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 23.08.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -426,7 +426,7 @@ msgid ""
 "is used most frequently because it is very readable. The KDE developers like "
 "this format the best so use it for sending patches."
 msgstr ""
-"Seleccioneu el format de l'eixida generada per «diff». Unificada és "
+"Seleccioneu el format de l'eixida generada pel «diff». Unificada és "
 "l'emprada més sovint atés que és de més fàcil lectura. És la que agrada més "
 "als desenvolupadors de KDE, i per açò es recomana utilitzar-la per a enviar "
 "pedaços."
@@ -512,9 +512,9 @@ msgid ""
 "compared with an empty file and because of this will appear as one big "
 "insertion or deletion."
 msgstr ""
-"Amb esta opció activada «diff» tractarà un fitxer que només existix a un "
-"dels directoris com si fora buit a un altre directori. Açò significa que el "
-"fitxer es compara amb un fitxer buit i per açò apareixerà com una gran "
+"Amb esta opció seleccionada, «diff» tractarà un fitxer que només existix a "
+"un dels directoris com si fora buit a un altre directori. Açò significa que "
+"el fitxer es compara amb un fitxer buit i per açò apareixerà com una gran "
 "inserció o supressió."
 
 #: dialogpages/diffpage.cpp:244
@@ -536,8 +536,8 @@ msgid ""
 "With this option enabled diff will try a little harder (at the cost of more "
 "memory) to find fewer changes."
 msgstr ""
-"Amb esta opció activada «diff» tractarà de buscar petits canvis difícils de "
-"trobar (gastant més memòria)."
+"Amb esta opció seleccionada, «diff» tractarà de buscar petits canvis "
+"difícils de trobar (gastant més memòria)."
 
 #: dialogpages/diffpage.cpp:248
 #, kde-format
@@ -757,8 +757,8 @@ msgid ""
 "If this is checked you can enter a shell pattern in the text box on the "
 "right or select entries from the list."
 msgstr ""
-"Si està marcada, podeu introduir un patró d'intèrpret d'ordres al quadro de "
-"text de la dreta o triar-ne una entrada de la llista."
+"Si se selecciona, podreu introduir un patró d'intèrpret d'ordres en el "
+"quadro de text de la dreta o triar una entrada de la llista."
 
 #: dialogpages/diffpage.cpp:318
 #, kde-format
@@ -781,8 +781,8 @@ msgstr "Fitxer amb noms de fitxer que s'han d'excloure"
 msgctxt "@info:tooltip"
 msgid "If this is checked you can enter a filename in the combo box below."
 msgstr ""
-"Si açò està marcat, podreu introduir un nom de fitxer en el quadro combinat "
-"de la dreta."
+"Si se selecciona, podreu introduir un nom de fitxer en el quadro combinat de "
+"la dreta."
 
 #: dialogpages/diffpage.cpp:333
 #, kde-format

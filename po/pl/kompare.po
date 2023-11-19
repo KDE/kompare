@@ -1,6 +1,6 @@
 # translation of kompare.po to Polish
 # translation of kompare.po to
-# Version: $Revision: 1651772 $
+# Version: $Revision: 1664120 $
 # Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2010 Free Software Foundation, Inc.
 #
 # Marta Rybczynska <mrybczynska@poczta.onet.pl>, 2002, 2004, 2005.
@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-16 00:49+0000\n"
+"POT-Creation-Date: 2023-11-05 12:38+0000\n"
 "PO-Revision-Date: 2022-10-18 18:00+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"

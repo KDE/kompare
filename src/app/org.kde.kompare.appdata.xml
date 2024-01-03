@@ -276,7 +276,7 @@
       <image>https://cdn.kde.org/screenshots/kompare/kompare.png</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://kde.org/applications/development/kompare/</url>
+  <url type="homepage">https://apps.kde.org/kompare</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kompare</url>
   <url type="help">https://docs.kde.org/?application=kompare</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kompare&amp;source=appdata</url>
@@ -290,9 +290,9 @@
     <category>Development</category>
   </categories>
   <releases>
+    <release version="4.1.23084" date="2023-12-07"/>
     <release version="4.1.23083" date="2023-11-09"/>
     <release version="4.1.23082" date="2023-10-12"/>
     <release version="4.1.23081" date="2023-09-14"/>
-    <release version="4.1.23080" date="2023-08-24"/>
   </releases>
 </component>

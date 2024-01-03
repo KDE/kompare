@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
                          KAboutLicense::GPL,
                          i18n("(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) 2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"),
                          QString(),
-                         QStringLiteral("https://commits.kde.org/kompare"));
+                         QStringLiteral("https://apps.kde.org/kompare"));
     aboutData.addAuthor(i18n("John Firebaugh"), i18n("Author"), QStringLiteral("jfirebaugh@kde.org"));
     aboutData.addAuthor(i18n("Otto Bruggeman"), i18n("Author"), QStringLiteral("bruggie@gmail.com"));
     aboutData.addAuthor(i18n("Jeff Snyder"), i18n("Developer"), QStringLiteral("jeff@caffeinated.me.uk"));

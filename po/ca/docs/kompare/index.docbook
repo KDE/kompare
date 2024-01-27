@@ -69,7 +69,7 @@
 > 
 
 <para
->Quan dues o més persones treballen sobre un mateix fitxer, van i venen, es torna molt difícil veure quins canvis han realitzat a una nova versió o còpia del fitxer. Obrir cara-a-cara la nova còpia i l'original en l'aplicació usada per a crear la còpia final és una solució però resulta laboriós, una gran pèrdua de temps i esdevé un error. Aquí és a on un programa per a mostrar diferències, diffs curts, esdevé d'utilitat.</para>
+>Quan dues o més persones treballen sobre un mateix fitxer, van i venen, es torna molt difícil veure quins canvis han realitzat a una versió nova o còpia del fitxer. Obrir cara-a-cara la còpia nova i l'original en l'aplicació usada per a crear la còpia final és una solució però resulta laboriós, una gran pèrdua de temps i esdevé un error. Aquí és a on un programa per a mostrar diferències, diffs curts, esdevé d'utilitat.</para>
 
 <para
 >Tal com s'espera, un nom apropiat per a un programa com aquest seria <quote
@@ -119,7 +119,7 @@
 >Iniciar &kompare;</title>
 
 <para
->Una drecera per iniciar el &kompare; es pot trobar al menú d'aplicacions a <menuchoice
+>Una drecera per a iniciar el &kompare; es pot trobar al menú d'aplicacions a <menuchoice
 ><guimenu
 >Desenvolupament</guimenu
 ><guimenuitem
@@ -290,7 +290,7 @@
 ><imageobject
 ><imagedata fileref="dock.png" format="PNG"/></imageobject
 ></inlinemediaobject
->. Per mostrar una altra vegada una barra de navegació oculta, feu clic amb el &BDR; a la barra de menús i seleccioneu <guilabel
+>. Per a mostrar una altra vegada una barra de navegació oculta, feu clic amb el &BDR; a la barra de menús i seleccioneu <guilabel
 >Navegació</guilabel
 > des del menú contextual. </para
 ></listitem>
@@ -523,7 +523,7 @@
 <title
 >Aplicar una diferència</title>
 <para
->Per aplicar una diferència, feu clic sobre la regió de diferència per a ressaltar-la, llavors seleccioneu <menuchoice
+>Per a aplicar una diferència, feu clic sobre la regió de diferència per a ressaltar-la, llavors seleccioneu <menuchoice
 ><guimenu
 >Diferència</guimenu
 ><guimenuitem
@@ -761,7 +761,7 @@
 <title
 >Grup de color</title>
 <para
->Per ajustar les preferències de color usades quan es mostren les diferències, feu clic al botó de color per a mostrar el diàleg <guilabel
+>Per a ajustar les preferències de color usades quan es mostren les diferències, feu clic al botó de color per a mostrar el diàleg <guilabel
 >Trieu el color</guilabel
 > perla següents estats:</para>
 <varlistentry>
@@ -891,7 +891,7 @@
     </mediaobject>
 </screenshot>
 <para
->L'ordre usada per executar el programa diff (per omissió <application
+>L'ordre usada per a executar el programa diff (per omissió <application
 >diff</application
 >).</para>
 </sect2>
@@ -1635,7 +1635,7 @@
 ></term>
 <listitem
 ><para
->Empreu-la per especificar la codificació en cridar des de la línia d'ordres. Per omissió s'utilitzarà la codificació local.</para
+>Empreu-la per a especificar la codificació en cridar des de la línia d'ordres. Per omissió s'utilitzarà la codificació local.</para
 ></listitem>
 </varlistentry>
 

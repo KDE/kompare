@@ -290,9 +290,9 @@
     <category>Development</category>
   </categories>
   <releases>
+    <release version="4.1.24020" date="2024-02-28"/>
+    <release version="4.1.23085" date="2024-02-15"/>
     <release version="4.1.23084" date="2023-12-07"/>
     <release version="4.1.23083" date="2023-11-09"/>
-    <release version="4.1.23082" date="2023-10-12"/>
-    <release version="4.1.23081" date="2023-09-14"/>
   </releases>
 </component>

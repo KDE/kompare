@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component type="desktop">
+<component type="desktop-application">
   <id>org.kde.kompare.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
+  <developer id="org.kde">
+    <name translate="no">KDE</name>
+  </developer>
   <name>Kompare</name>
   <name xml:lang="ar">قارن</name>
   <name xml:lang="bg">Kompare</name>
@@ -227,7 +230,7 @@
       <li xml:lang="sr-ijekavian">Подршка за многобројне формате разлика, многе опције за прилагођавање нивоа приказа информација.</li>
       <li xml:lang="sr-ijekavianlatin">Podrška za mnogobrojne formate razlika, mnoge opcije za prilagođavanje nivoa prikaza informacija.</li>
       <li xml:lang="sv">Stöder en mängd olika jämförelseformat, och tillhandahåller många alternativ för att anpassa informationsnivån som visas.</li>
-      <li xml:lang="tr">Bilgi görüntüleme düzeyini özelleştirebilmek için çeşitli diff biçimlerini destekler ve bir çok seçenek sağlar.</li>
+      <li xml:lang="tr">Bilgi görüntüleme düzeyini özelleştirebilmek için çeşitli diff biçimlerini destekler ve birçok seçenek sağlar.</li>
       <li xml:lang="uk">У Kompare передбачено підтримку багатьох різних форматів різниці між файлами, у цій програми передбачено багато параметрів, за допомогою яких ви зможете налаштувати рівень показу інформації.</li>
       <li xml:lang="x-test">xxSupports a variety of diff formats and provides many options to customize the information level displayed.xx</li>
       <li xml:lang="zh-CN">支持多种不同的格式，并提供许多选项来自定义显示的信息级别。</li>
@@ -290,9 +293,9 @@
     <category>Development</category>
   </categories>
   <releases>
+    <release version="4.1.24022" date="2024-04-11"/>
+    <release version="4.1.24021" date="2024-03-21"/>
     <release version="4.1.24020" date="2024-02-28"/>
     <release version="4.1.23085" date="2024-02-15"/>
-    <release version="4.1.23084" date="2023-12-07"/>
-    <release version="4.1.23083" date="2023-11-09"/>
   </releases>
 </component>

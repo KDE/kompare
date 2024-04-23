@@ -15,3 +15,6 @@ Dependencies:
     'frameworks/ktexteditor': '@stable'
     'frameworks/kwidgetsaddons': '@stable'
     'sdk/libkomparediff2': '@same'
+
+Options:
+  require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']

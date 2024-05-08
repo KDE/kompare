@@ -42,7 +42,7 @@ msgstr "No s'ha pogut carregar el nostre KompareViewPart: %1"
 #, kde-format
 msgctxt "@title:window"
 msgid "Navigation"
-msgstr "Navegació"
+msgstr "Navegueu"
 
 #: app/kompare_shell.cpp:91
 #, kde-format
@@ -53,19 +53,19 @@ msgstr "No s'ha pogut carregar el nostre KompareNavigationPart: %1"
 #, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
-msgstr "O&bri «diff»..."
+msgstr "O&bri «diff»…"
 
 #: app/kompare_shell.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
-msgstr "&Compara fitxers..."
+msgstr "&Compara fitxers…"
 
 #: app/kompare_shell.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
-msgstr "&Fusiona l'URL amb «diff»..."
+msgstr "&Fusiona l'URL amb «diff»…"
 
 #: app/kompare_shell.cpp:208
 #, kde-format
@@ -512,9 +512,9 @@ msgid ""
 "compared with an empty file and because of this will appear as one big "
 "insertion or deletion."
 msgstr ""
-"Amb esta opció seleccionada, «diff» tractarà un fitxer que només existix a "
-"un dels directoris com si fora buit a un altre directori. Açò significa que "
-"el fitxer es compara amb un fitxer buit, i per açò apareixerà com una gran "
+"Amb esta opció activada «diff» tractarà un fitxer que només existix a un "
+"dels directoris com si fora buit a un altre directori. Açò significa que el "
+"fitxer es compara amb un fitxer buit, i per açò apareixerà com una gran "
 "inserció o supressió."
 
 #: dialogpages/diffpage.cpp:244
@@ -536,8 +536,8 @@ msgid ""
 "With this option enabled diff will try a little harder (at the cost of more "
 "memory) to find fewer changes."
 msgstr ""
-"Amb esta opció seleccionada, «diff» tractarà de buscar petits canvis "
-"difícils de trobar (gastant més memòria)."
+"Amb esta opció activada «diff» tractarà de buscar petits canvis difícils de "
+"trobar (gastant més memòria)."
 
 #: dialogpages/diffpage.cpp:248
 #, kde-format
@@ -757,8 +757,8 @@ msgid ""
 "If this is checked you can enter a shell pattern in the text box on the "
 "right or select entries from the list."
 msgstr ""
-"Si se selecciona, podreu introduir un patró d'intèrpret d'ordres en el "
-"quadro de text de la dreta o triar una entrada de la llista."
+"Si està marcada, podreu introduir un patró d'intèrpret d'ordres en el quadro "
+"de text de la dreta o triar una entrada de la llista."
 
 #: dialogpages/diffpage.cpp:318
 #, kde-format
@@ -781,7 +781,7 @@ msgstr "Fitxer amb noms de fitxer que s'han d'excloure"
 msgctxt "@info:tooltip"
 msgid "If this is checked you can enter a filename in the combo box below."
 msgstr ""
-"Si se selecciona, podreu introduir un nom de fitxer en el quadro combinat de "
+"Si està marcada, podreu introduir un nom de fitxer en el quadro combinat de "
 "la dreta."
 
 #: dialogpages/diffpage.cpp:333
@@ -1024,7 +1024,7 @@ msgstr "Guarda-ho &tot"
 #, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
-msgstr "Guarda el «&diff»..."
+msgstr "Guarda «&diff»…"
 
 #: komparepart/kompare_part.cpp:190
 #, kde-format
@@ -1075,13 +1075,13 @@ msgstr "Fitxers pedaç (*.diff *.dif *.patch)"
 #, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
-msgstr "S'està executant «diff»..."
+msgstr "S'està executant «diff»…"
 
 #: komparepart/kompare_part.cpp:636
 #, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
-msgstr "S'està analitzant l'eixida de «diff»..."
+msgstr "S'està analitzant l'eixida de «diff»…"
 
 #: komparepart/kompare_part.cpp:692
 #, kde-format

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:38+0000\n"
+"POT-Creation-Date: 2024-07-19 00:41+0000\n"
 "PO-Revision-Date: 2024-04-23 19:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf5-trunk/messages/kompare/kompare.pot\n"
-"X-Crowdin-File-ID: 5846\n"
+"X-Crowdin-File: /kf6-trunk/messages/kompare/kompare.pot\n"
+"X-Crowdin-File-ID: 54612\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -145,37 +145,37 @@ msgstr ""
 "可以使用。单击此按钮后，将打开 kompare 的主视图，输入的文件或文件夹中的文件将"
 "会与 diff 输出混合，这样您就可以将差异应用到文件了。"
 
-#: app/kompare_shell.cpp:358 app/main.cpp:198
+#: app/kompare_shell.cpp:358 app/main.cpp:195
 #, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "比较文件或文件夹"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:199
+#: app/kompare_shell.cpp:359 app/main.cpp:196
 #, kde-format
 msgctxt "@title:group"
 msgid "Source"
 msgstr "源文件"
 
-#: app/kompare_shell.cpp:360 app/main.cpp:200
+#: app/kompare_shell.cpp:360 app/main.cpp:197
 #, kde-format
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "目标文件"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:203
+#: app/kompare_shell.cpp:363 app/main.cpp:200
 #, kde-format
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "比较"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:204
+#: app/kompare_shell.cpp:364 app/main.cpp:201
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "比较这些文件或文件夹"
 
-#: app/kompare_shell.cpp:365 app/main.cpp:205
+#: app/kompare_shell.cpp:365 app/main.cpp:202
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -210,25 +210,25 @@ msgstr "设置(&S)"
 msgid "Main Toolbar"
 msgstr "主工具栏"
 
-#: app/kompareurldialog.cpp:37
+#: app/kompareurldialog.cpp:38
 #, kde-format
 msgctxt "@title:tab"
 msgid "Files"
 msgstr "文件"
 
-#: app/kompareurldialog.cpp:39
+#: app/kompareurldialog.cpp:40
 #, kde-format
 msgid "Here you can enter the files you want to compare."
 msgstr "您可以在这里输入想要比较的文件。"
 
-#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
-#: komparepart/kompareprefdlg.cpp:42
+#: app/kompareurldialog.cpp:46 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:43
 #, kde-format
 msgctxt "@title:tab"
 msgid "Diff"
 msgstr "Diff"
 
-#: app/kompareurldialog.cpp:47
+#: app/kompareurldialog.cpp:48
 #, kde-format
 msgid "Here you can change the options for comparing the files."
 msgstr "您可以在这里更改文件比较的选项。"
@@ -250,19 +250,19 @@ msgid ""
 "File used for excluding files cannot be found, please specify another file."
 msgstr "找不到用于排除的文件。请另行指定文件。"
 
-#: app/main.cpp:49
+#: app/main.cpp:46
 #, kde-format
 msgid "Kompare"
 msgstr "Kompare"
 
-#: app/main.cpp:51
+#: app/main.cpp:48
 #, kde-format
 msgid ""
 "A program to view the differences between files and optionally generate a "
 "diff"
 msgstr "本程序查看文件间的差异，并可以生成 diff 结果"
 
-#: app/main.cpp:53
+#: app/main.cpp:50
 #, kde-format
 msgid ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
@@ -271,77 +271,77 @@ msgstr ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
 "2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
 
-#: app/main.cpp:56
+#: app/main.cpp:53
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: app/main.cpp:56 app/main.cpp:57
+#: app/main.cpp:53 app/main.cpp:54
 #, kde-format
 msgid "Author"
 msgstr "作者"
 
-#: app/main.cpp:57
+#: app/main.cpp:54
 #, kde-format
 msgid "Otto Bruggeman"
 msgstr "Otto Bruggeman"
 
-#: app/main.cpp:58
+#: app/main.cpp:55
 #, kde-format
 msgid "Jeff Snyder"
 msgstr "Jeff Snyder"
 
-#: app/main.cpp:58
+#: app/main.cpp:55
 #, kde-format
 msgid "Developer"
 msgstr "开发者"
 
-#: app/main.cpp:59
+#: app/main.cpp:56
 #, kde-format
 msgid "Kevin Kofler"
 msgstr "Kevin Kofler"
 
-#: app/main.cpp:59
+#: app/main.cpp:56
 #, kde-format
 msgid "Maintainer"
 msgstr "维护者"
 
-#: app/main.cpp:60
+#: app/main.cpp:57
 #, kde-format
 msgid "Chris Luetchford"
 msgstr "Chris Luetchford"
 
-#: app/main.cpp:60
+#: app/main.cpp:57
 #, kde-format
 msgid "Kompare icon artist"
 msgstr "Kompare 图标制作者"
 
-#: app/main.cpp:61
+#: app/main.cpp:58
 #, kde-format
 msgid "Malte Starostik"
 msgstr "Malte Starostik"
 
-#: app/main.cpp:61
+#: app/main.cpp:58
 #, kde-format
 msgid "A lot of good advice"
 msgstr "许多好建议"
 
-#: app/main.cpp:62
+#: app/main.cpp:59
 #, kde-format
 msgid "Bernd Gehrmann"
 msgstr "Bernd Gehrmann"
 
-#: app/main.cpp:62
+#: app/main.cpp:59
 #, kde-format
 msgid "Cervisia diff viewer"
 msgstr "Cervisia diff 查看器"
 
-#: app/main.cpp:69
+#: app/main.cpp:66
 #, kde-format
 msgid "This will compare URL1 with URL2"
 msgstr "这将比较 URL1 和 URL2"
 
-#: app/main.cpp:70
+#: app/main.cpp:67
 #, kde-format
 msgid ""
 "This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
@@ -354,7 +354,7 @@ msgstr ""
 "用例子为“cvs diff | kompare -o -”。Kompare 会检查能否找到原始文件，然后合并原"
 "始文件并将结果显示在查看器中，“-n”选项关闭此检查。"
 
-#: app/main.cpp:71
+#: app/main.cpp:68
 #, kde-format
 msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
@@ -363,14 +363,14 @@ msgstr ""
 "这将合并 URL2 到 URL1，URL2 应为 diff 结果而 URL1 则是要被合并的文件或文件"
 "夹。"
 
-#: app/main.cpp:72
+#: app/main.cpp:69
 #, kde-format
 msgid ""
 "Disables the check for automatically finding the original file(s) when using "
 "'-' as URL with the -o option."
 msgstr "当使用“-o”选项且 URL 为“-”时，不自动检查原始文件的存在。"
 
-#: app/main.cpp:73
+#: app/main.cpp:70
 #, kde-format
 msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
@@ -874,191 +874,191 @@ msgctxt "@title:tab"
 msgid "Fonts"
 msgstr "字体"
 
-#: komparenavtreepart/komparenavtreepart.cpp:61
+#: komparenavtreepart/komparenavtreepart.cpp:53
 #, kde-format
 msgctxt "@title:column"
 msgid "Source Folder"
 msgstr "源文件夹"
 
-#: komparenavtreepart/komparenavtreepart.cpp:67
+#: komparenavtreepart/komparenavtreepart.cpp:59
 #, kde-format
 msgctxt "@title:column"
 msgid "Destination Folder"
 msgstr "目标文件夹"
 
-#: komparenavtreepart/komparenavtreepart.cpp:74
+#: komparenavtreepart/komparenavtreepart.cpp:66
 #, kde-format
 msgctxt "@title:column"
 msgid "Source File"
 msgstr "源文件"
 
-#: komparenavtreepart/komparenavtreepart.cpp:75
+#: komparenavtreepart/komparenavtreepart.cpp:67
 #, kde-format
 msgctxt "@title:column"
 msgid "Destination File"
 msgstr "目标文件"
 
-#: komparenavtreepart/komparenavtreepart.cpp:84
+#: komparenavtreepart/komparenavtreepart.cpp:76
 #, kde-format
 msgctxt "@title:column"
 msgid "Source Line"
 msgstr "源文件行"
 
-#: komparenavtreepart/komparenavtreepart.cpp:85
+#: komparenavtreepart/komparenavtreepart.cpp:77
 #, kde-format
 msgctxt "@title:column"
 msgid "Destination Line"
 msgstr "目标文件行"
 
-#: komparenavtreepart/komparenavtreepart.cpp:86
+#: komparenavtreepart/komparenavtreepart.cpp:78
 #, kde-format
 msgctxt "@title:column"
 msgid "Difference"
 msgstr "差异"
 
-#: komparenavtreepart/komparenavtreepart.cpp:461
+#: komparenavtreepart/komparenavtreepart.cpp:453
 #, kde-format
 msgid "Applied: Changes made to %1 line undone"
 msgid_plural "Applied: Changes made to %1 lines undone"
 msgstr[0] "应用结果：未完成 %1 行的修改"
 
-#: komparenavtreepart/komparenavtreepart.cpp:464
+#: komparenavtreepart/komparenavtreepart.cpp:456
 #, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
 msgstr[0] "更改了 %1 行"
 
-#: komparenavtreepart/komparenavtreepart.cpp:469
+#: komparenavtreepart/komparenavtreepart.cpp:461
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
 msgstr[0] "应用结果：未完成 %1 行的插入"
 
-#: komparenavtreepart/komparenavtreepart.cpp:472
+#: komparenavtreepart/komparenavtreepart.cpp:464
 #, kde-format
 msgid "Inserted %1 line"
 msgid_plural "Inserted %1 lines"
 msgstr[0] "插入了 %1 行"
 
-#: komparenavtreepart/komparenavtreepart.cpp:477
+#: komparenavtreepart/komparenavtreepart.cpp:469
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
 msgstr[0] "应用结果：未完成 %1 行的删除"
 
-#: komparenavtreepart/komparenavtreepart.cpp:480
+#: komparenavtreepart/komparenavtreepart.cpp:472
 #, kde-format
 msgid "Deleted %1 line"
 msgid_plural "Deleted %1 lines"
 msgstr[0] "删除了 %1 行"
 
-#: komparenavtreepart/komparenavtreepart.cpp:634
+#: komparenavtreepart/komparenavtreepart.cpp:627
 #, kde-format
 msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "未知"
 
-#: komparepart/kompare_part.cpp:186
+#: komparepart/kompare_part.cpp:177
 #, kde-format
 msgctxt "@action"
 msgid "Save &All"
 msgstr "全部保存(&A)"
 
-#: komparepart/kompare_part.cpp:188
+#: komparepart/kompare_part.cpp:179
 #, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
 msgstr "保存差异文件(&D)..."
 
-#: komparepart/kompare_part.cpp:190
+#: komparepart/kompare_part.cpp:181
 #, kde-format
 msgctxt "@action"
 msgid "Swap Source with Destination"
 msgstr "交换源文件和目标文件"
 
-#: komparepart/kompare_part.cpp:197
+#: komparepart/kompare_part.cpp:188
 #, kde-format
 msgctxt "@action"
 msgid "Show Statistics"
 msgstr "显示统计信息"
 
-#: komparepart/kompare_part.cpp:200
+#: komparepart/kompare_part.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
 msgstr "刷新 Diff"
 
-#: komparepart/kompare_part.cpp:312 komparepart/kompare_part.cpp:325
+#: komparepart/kompare_part.cpp:303 komparepart/kompare_part.cpp:316
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
 msgstr "<qt>URL <b>%1</b> 无法下载。</qt>"
 
-#: komparepart/kompare_part.cpp:363
+#: komparepart/kompare_part.cpp:354
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
 msgstr "<qt>URL <b>%1</b> 在您的系统上不存在。</qt>"
 
-#: komparepart/kompare_part.cpp:551
+#: komparepart/kompare_part.cpp:542
 #, kde-format
 msgctxt "@title:window"
 msgid "Diff Options"
 msgstr "Diff 选项"
 
-#: komparepart/kompare_part.cpp:570
+#: komparepart/kompare_part.cpp:561
 #, kde-format
 msgctxt "@title:window"
 msgid "Save .diff"
 msgstr "保存 .diff 文件"
 
-#: komparepart/kompare_part.cpp:572
+#: komparepart/kompare_part.cpp:563
 #, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
 msgstr "补丁文件 (*.diff *.dif *.patch)"
 
-#: komparepart/kompare_part.cpp:633
+#: komparepart/kompare_part.cpp:624
 #, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
 msgstr "运行 diff..."
 
-#: komparepart/kompare_part.cpp:636
+#: komparepart/kompare_part.cpp:627
 #, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
 msgstr "分析 diff 输出..."
 
-#: komparepart/kompare_part.cpp:692
+#: komparepart/kompare_part.cpp:683
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
 msgstr "正在比较文件 %1 和 %2"
 
-#: komparepart/kompare_part.cpp:697
+#: komparepart/kompare_part.cpp:688
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
 msgstr "正在比较 %1 和 %2 中的文件"
 
-#: komparepart/kompare_part.cpp:702
+#: komparepart/kompare_part.cpp:693
 #, kde-format
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
 msgstr "查看 %1 的 diff 结果"
 
-#: komparepart/kompare_part.cpp:705
+#: komparepart/kompare_part.cpp:696
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
 msgstr "合并 %1 的 diff 结果到文件 %2"
 
-#: komparepart/kompare_part.cpp:710
+#: komparepart/kompare_part.cpp:701
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
 msgstr "合并 %1 的 diff 结果到文件夹 %2"
 
-#: komparepart/kompare_part.cpp:765 komparepart/kompare_part.cpp:804
-#: komparepart/kompare_part.cpp:928
+#: komparepart/kompare_part.cpp:752 komparepart/kompare_part.cpp:783
+#: komparepart/kompare_part.cpp:899
 #, kde-format
 msgid ""
 "You have made changes to the destination file(s).\n"
@@ -1067,64 +1067,64 @@ msgstr ""
 "目标文件已经修改,\n"
 "要保存吗？"
 
-#: komparepart/kompare_part.cpp:767 komparepart/kompare_part.cpp:806
-#: komparepart/kompare_part.cpp:930
+#: komparepart/kompare_part.cpp:754 komparepart/kompare_part.cpp:785
+#: komparepart/kompare_part.cpp:901
 #, kde-format
 msgctxt "@title:window"
 msgid "Save Changes?"
 msgstr "保存修改？"
 
-#: komparepart/kompare_part.cpp:849
+#: komparepart/kompare_part.cpp:824
 #, kde-format
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "统一"
 
-#: komparepart/kompare_part.cpp:852
+#: komparepart/kompare_part.cpp:827
 #, kde-format
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "上下文"
 
-#: komparepart/kompare_part.cpp:855
+#: komparepart/kompare_part.cpp:830
 #, kde-format
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
-#: komparepart/kompare_part.cpp:858
+#: komparepart/kompare_part.cpp:833
 #, kde-format
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
-#: komparepart/kompare_part.cpp:861
+#: komparepart/kompare_part.cpp:836
 #, kde-format
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "正常"
 
-#: komparepart/kompare_part.cpp:865
+#: komparepart/kompare_part.cpp:840
 #, kde-format
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "未知"
 
-#: komparepart/kompare_part.cpp:881
+#: komparepart/kompare_part.cpp:856
 #, kde-format
 msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
 "available."
 msgstr "没有 diff 文件，或没有比较两个文件，因为统计信息不可用。"
 
-#: komparepart/kompare_part.cpp:883 komparepart/kompare_part.cpp:897
-#: komparepart/kompare_part.cpp:913
+#: komparepart/kompare_part.cpp:858 komparepart/kompare_part.cpp:872
+#: komparepart/kompare_part.cpp:888
 #, kde-format
 msgctxt "@title:window"
 msgid "Diff Statistics"
 msgstr "Diff 统计"
 
-#: komparepart/kompare_part.cpp:887
+#: komparepart/kompare_part.cpp:862
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1145,7 +1145,7 @@ msgstr ""
 "相同个数：%4\n"
 "差异个数：%5"
 
-#: komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:875
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1176,25 +1176,25 @@ msgstr ""
 msgid "&Difference"
 msgstr "差异(&D)"
 
-#: komparepart/kompareprefdlg.cpp:26
+#: komparepart/kompareprefdlg.cpp:27
 #, kde-format
 msgctxt "@title:window"
 msgid "Preferences"
 msgstr "首选项"
 
-#: komparepart/kompareprefdlg.cpp:36
+#: komparepart/kompareprefdlg.cpp:37
 #, kde-format
 msgctxt "@title:tab"
 msgid "View"
 msgstr "视图"
 
-#: komparepart/kompareprefdlg.cpp:38
+#: komparepart/kompareprefdlg.cpp:39
 #, kde-format
 msgctxt "@title"
 msgid "View Settings"
 msgstr "视图设置"
 
-#: komparepart/kompareprefdlg.cpp:44
+#: komparepart/kompareprefdlg.cpp:45
 #, kde-format
 msgctxt "@title"
 msgid "Diff Settings"

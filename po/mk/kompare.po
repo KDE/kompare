@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:38+0000\n"
+"POT-Creation-Date: 2024-07-19 00:41+0000\n"
 "PO-Revision-Date: 2006-01-26 23:14+0100\n"
 "Last-Translator: Bozidar Proevski <bobibobi@freemail.com.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
@@ -156,42 +156,42 @@ msgid ""
 "apply the difference(s) to a file or to the files. "
 msgstr ""
 
-#: app/kompare_shell.cpp:358 app/main.cpp:198
+#: app/kompare_shell.cpp:358 app/main.cpp:195
 #, fuzzy, kde-format
 #| msgid "Compare Files or Folders"
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "Споредете датотеки или папки"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:199
+#: app/kompare_shell.cpp:359 app/main.cpp:196
 #, fuzzy, kde-format
 #| msgid "Source"
 msgctxt "@title:group"
 msgid "Source"
 msgstr "Извор"
 
-#: app/kompare_shell.cpp:360 app/main.cpp:200
+#: app/kompare_shell.cpp:360 app/main.cpp:197
 #, fuzzy, kde-format
 #| msgid "Destination"
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Одредиште"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:203
+#: app/kompare_shell.cpp:363 app/main.cpp:200
 #, fuzzy, kde-format
 #| msgid "KomparePart"
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "KomparePart"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:204
+#: app/kompare_shell.cpp:364 app/main.cpp:201
 #, fuzzy, kde-format
 #| msgid "Compare Files or Folders"
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "Споредете датотеки или папки"
 
-#: app/kompare_shell.cpp:365 app/main.cpp:205
+#: app/kompare_shell.cpp:365 app/main.cpp:202
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -224,26 +224,26 @@ msgstr "Поставувања за преглед"
 msgid "Main Toolbar"
 msgstr ""
 
-#: app/kompareurldialog.cpp:37
+#: app/kompareurldialog.cpp:38
 #, fuzzy, kde-format
 msgctxt "@title:tab"
 msgid "Files"
 msgstr "&Датотеки"
 
-#: app/kompareurldialog.cpp:39
+#: app/kompareurldialog.cpp:40
 #, kde-format
 msgid "Here you can enter the files you want to compare."
 msgstr "Тука може да ги внесете датотеките што сакате да ги споредите."
 
-#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
-#: komparepart/kompareprefdlg.cpp:42
+#: app/kompareurldialog.cpp:46 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:43
 #, fuzzy, kde-format
 #| msgid "Diff"
 msgctxt "@title:tab"
 msgid "Diff"
 msgstr "Разлика"
 
-#: app/kompareurldialog.cpp:47
+#: app/kompareurldialog.cpp:48
 #, kde-format
 msgid "Here you can change the options for comparing the files."
 msgstr "Тука може да ги смените опциите за споредбата на датотеките."
@@ -266,12 +266,12 @@ msgid ""
 "File used for excluding files cannot be found, please specify another file."
 msgstr ""
 
-#: app/main.cpp:49
+#: app/main.cpp:46
 #, kde-format
 msgid "Kompare"
 msgstr ""
 
-#: app/main.cpp:51
+#: app/main.cpp:48
 #, kde-format
 msgid ""
 "A program to view the differences between files and optionally generate a "
@@ -280,7 +280,7 @@ msgstr ""
 "Програма за прегледување на разликите меѓу датотеки и евентуално генерирање "
 "на разлика"
 
-#: app/main.cpp:53
+#: app/main.cpp:50
 #, fuzzy, kde-format
 #| msgid "(c) 2001-2004, John Firebaugh and Otto Bruggeman"
 msgid ""
@@ -288,77 +288,77 @@ msgid ""
 "2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
 msgstr "(c) 2001-2004, John Firebaugh и Otto Bruggeman"
 
-#: app/main.cpp:56
+#: app/main.cpp:53
 #, kde-format
 msgid "John Firebaugh"
 msgstr ""
 
-#: app/main.cpp:56 app/main.cpp:57
+#: app/main.cpp:53 app/main.cpp:54
 #, kde-format
 msgid "Author"
 msgstr "Автор"
 
-#: app/main.cpp:57
+#: app/main.cpp:54
 #, kde-format
 msgid "Otto Bruggeman"
 msgstr ""
 
-#: app/main.cpp:58
+#: app/main.cpp:55
 #, kde-format
 msgid "Jeff Snyder"
 msgstr ""
 
-#: app/main.cpp:58
+#: app/main.cpp:55
 #, kde-format
 msgid "Developer"
 msgstr ""
 
-#: app/main.cpp:59
+#: app/main.cpp:56
 #, kde-format
 msgid "Kevin Kofler"
 msgstr ""
 
-#: app/main.cpp:59
+#: app/main.cpp:56
 #, kde-format
 msgid "Maintainer"
 msgstr ""
 
-#: app/main.cpp:60
+#: app/main.cpp:57
 #, kde-format
 msgid "Chris Luetchford"
 msgstr ""
 
-#: app/main.cpp:60
+#: app/main.cpp:57
 #, kde-format
 msgid "Kompare icon artist"
 msgstr "Уметникот што ја изработи иконата на Kompare"
 
-#: app/main.cpp:61
+#: app/main.cpp:58
 #, kde-format
 msgid "Malte Starostik"
 msgstr ""
 
-#: app/main.cpp:61
+#: app/main.cpp:58
 #, kde-format
 msgid "A lot of good advice"
 msgstr "Многу добри совети"
 
-#: app/main.cpp:62
+#: app/main.cpp:59
 #, kde-format
 msgid "Bernd Gehrmann"
 msgstr ""
 
-#: app/main.cpp:62
+#: app/main.cpp:59
 #, kde-format
 msgid "Cervisia diff viewer"
 msgstr ""
 
-#: app/main.cpp:69
+#: app/main.cpp:66
 #, kde-format
 msgid "This will compare URL1 with URL2"
 msgstr "Ова ќе го спореди URL1 со URL2"
 
-#: app/main.cpp:70
+#: app/main.cpp:67
 #, kde-format
 msgid ""
 "This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
@@ -368,21 +368,21 @@ msgid ""
 "show that in the viewer. -n disables the check."
 msgstr ""
 
-#: app/main.cpp:71
+#: app/main.cpp:68
 #, kde-format
 msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
 "the file or folder that the diffoutput needs to be blended into. "
 msgstr ""
 
-#: app/main.cpp:72
+#: app/main.cpp:69
 #, kde-format
 msgid ""
 "Disables the check for automatically finding the original file(s) when using "
 "'-' as URL with the -o option."
 msgstr ""
 
-#: app/main.cpp:73
+#: app/main.cpp:70
 #, kde-format
 msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
@@ -894,56 +894,56 @@ msgctxt "@title:tab"
 msgid "Fonts"
 msgstr "Фонт:"
 
-#: komparenavtreepart/komparenavtreepart.cpp:61
+#: komparenavtreepart/komparenavtreepart.cpp:53
 #, fuzzy, kde-format
 #| msgid "Source Folder"
 msgctxt "@title:column"
 msgid "Source Folder"
 msgstr "Изворишна папка"
 
-#: komparenavtreepart/komparenavtreepart.cpp:67
+#: komparenavtreepart/komparenavtreepart.cpp:59
 #, fuzzy, kde-format
 #| msgid "Destination Folder"
 msgctxt "@title:column"
 msgid "Destination Folder"
 msgstr "Одредишна папка"
 
-#: komparenavtreepart/komparenavtreepart.cpp:74
+#: komparenavtreepart/komparenavtreepart.cpp:66
 #, fuzzy, kde-format
 #| msgid "Source File"
 msgctxt "@title:column"
 msgid "Source File"
 msgstr "Изворишна датотека"
 
-#: komparenavtreepart/komparenavtreepart.cpp:75
+#: komparenavtreepart/komparenavtreepart.cpp:67
 #, fuzzy, kde-format
 #| msgid "Destination File"
 msgctxt "@title:column"
 msgid "Destination File"
 msgstr "Одредишна датотека"
 
-#: komparenavtreepart/komparenavtreepart.cpp:84
+#: komparenavtreepart/komparenavtreepart.cpp:76
 #, fuzzy, kde-format
 #| msgid "Source Line"
 msgctxt "@title:column"
 msgid "Source Line"
 msgstr "Изворишна линија"
 
-#: komparenavtreepart/komparenavtreepart.cpp:85
+#: komparenavtreepart/komparenavtreepart.cpp:77
 #, fuzzy, kde-format
 #| msgid "Destination Line"
 msgctxt "@title:column"
 msgid "Destination Line"
 msgstr "Одредишна линија"
 
-#: komparenavtreepart/komparenavtreepart.cpp:86
+#: komparenavtreepart/komparenavtreepart.cpp:78
 #, fuzzy, kde-format
 #| msgid "Difference"
 msgctxt "@title:column"
 msgid "Difference"
 msgstr "Разлика"
 
-#: komparenavtreepart/komparenavtreepart.cpp:461
+#: komparenavtreepart/komparenavtreepart.cpp:453
 #, fuzzy, kde-format
 #| msgid "Applied: Changes made to %1 line undone"
 #| msgid_plural "Applied: Changes made to  %1 lines undone"
@@ -953,7 +953,7 @@ msgstr[0] "Применето: Измените на %1 линија се вра
 msgstr[1] "Применето: Измените на %1 линии се вратени назад"
 msgstr[2] "Применето: Измените на %1 линии се вратени назад"
 
-#: komparenavtreepart/komparenavtreepart.cpp:464
+#: komparenavtreepart/komparenavtreepart.cpp:456
 #, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
@@ -961,7 +961,7 @@ msgstr[0] "Изменета е %1 линија"
 msgstr[1] "Изменети се %1 линии"
 msgstr[2] "Изменети се %1 линии"
 
-#: komparenavtreepart/komparenavtreepart.cpp:469
+#: komparenavtreepart/komparenavtreepart.cpp:461
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
@@ -969,7 +969,7 @@ msgstr[0] "Применето: Вметнувањето на %1 линија е 
 msgstr[1] "Применето: Вметнувањето на %1 линии е вратено назад"
 msgstr[2] "Применето: Вметнувањето на %1 линии е вратено назад"
 
-#: komparenavtreepart/komparenavtreepart.cpp:472
+#: komparenavtreepart/komparenavtreepart.cpp:464
 #, kde-format
 msgid "Inserted %1 line"
 msgid_plural "Inserted %1 lines"
@@ -977,7 +977,7 @@ msgstr[0] "Вметната е %1 линија"
 msgstr[1] "Вметнати се %1 линии"
 msgstr[2] "Вметнати се %1 линии"
 
-#: komparenavtreepart/komparenavtreepart.cpp:477
+#: komparenavtreepart/komparenavtreepart.cpp:469
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
@@ -985,7 +985,7 @@ msgstr[0] "Применето: Бришењето на %1 линија е вра
 msgstr[1] "Применето: Бришењето на %1 линии е вратено назад"
 msgstr[2] "Применето: Бришењето на %1 линии е вратено назад"
 
-#: komparenavtreepart/komparenavtreepart.cpp:480
+#: komparenavtreepart/komparenavtreepart.cpp:472
 #, kde-format
 msgid "Deleted %1 line"
 msgid_plural "Deleted %1 lines"
@@ -993,128 +993,128 @@ msgstr[0] "Избришана е %1 линија"
 msgstr[1] "Избришани се %1 линии"
 msgstr[2] "Избришани се %1 линии"
 
-#: komparenavtreepart/komparenavtreepart.cpp:634
+#: komparenavtreepart/komparenavtreepart.cpp:627
 #, fuzzy, kde-format
 #| msgid "Unknown"
 msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "Непознат"
 
-#: komparepart/kompare_part.cpp:186
+#: komparepart/kompare_part.cpp:177
 #, fuzzy, kde-format
 #| msgid "Save &All"
 msgctxt "@action"
 msgid "Save &All"
 msgstr "З&ачувај ги сите"
 
-#: komparepart/kompare_part.cpp:188
+#: komparepart/kompare_part.cpp:179
 #, fuzzy, kde-format
 #| msgid "Save .&diff..."
 msgctxt "@action"
 msgid "Save &Diff..."
 msgstr "Зачу&вај .diff..."
 
-#: komparepart/kompare_part.cpp:190
+#: komparepart/kompare_part.cpp:181
 #, fuzzy, kde-format
 #| msgid "Swap Source with Destination"
 msgctxt "@action"
 msgid "Swap Source with Destination"
 msgstr "Размени извор со одредиште"
 
-#: komparepart/kompare_part.cpp:197
+#: komparepart/kompare_part.cpp:188
 #, fuzzy, kde-format
 #| msgid "Show Statistics"
 msgctxt "@action"
 msgid "Show Statistics"
 msgstr "Прикажи статистика"
 
-#: komparepart/kompare_part.cpp:200
+#: komparepart/kompare_part.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
 msgstr ""
 
-#: komparepart/kompare_part.cpp:312 komparepart/kompare_part.cpp:325
+#: komparepart/kompare_part.cpp:303 komparepart/kompare_part.cpp:316
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
 msgstr "<qt>URL <b>%1</b> не може да биде симнато.</qt>"
 
-#: komparepart/kompare_part.cpp:363
+#: komparepart/kompare_part.cpp:354
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
 msgstr "<qt>URL <b>%1</b> не постои на вашиот систем.</qt>"
 
-#: komparepart/kompare_part.cpp:551
+#: komparepart/kompare_part.cpp:542
 #, fuzzy, kde-format
 #| msgid "Diff Options"
 msgctxt "@title:window"
 msgid "Diff Options"
 msgstr "Опции за разлики"
 
-#: komparepart/kompare_part.cpp:570
+#: komparepart/kompare_part.cpp:561
 #, fuzzy, kde-format
 #| msgid "Save .diff"
 msgctxt "@title:window"
 msgid "Save .diff"
 msgstr "Зачувајте .diff"
 
-#: komparepart/kompare_part.cpp:572
+#: komparepart/kompare_part.cpp:563
 #, fuzzy, kde-format
 #| msgid "*.diff *.dif *.patch|Patch Files"
 msgid "Patch Files (*.diff *.dif *.patch)"
 msgstr "*.diff *.dif *.patch|Датотеки со закрпи"
 
-#: komparepart/kompare_part.cpp:633
+#: komparepart/kompare_part.cpp:624
 #, fuzzy, kde-format
 #| msgid "Running diff..."
 msgctxt "@info:status"
 msgid "Running diff..."
 msgstr "Извршувам diff..."
 
-#: komparepart/kompare_part.cpp:636
+#: komparepart/kompare_part.cpp:627
 #, fuzzy, kde-format
 #| msgid "Parsing diff output..."
 msgctxt "@info:status"
 msgid "Parsing diff output..."
 msgstr "Анализирам излез од diff..."
 
-#: komparepart/kompare_part.cpp:692
+#: komparepart/kompare_part.cpp:683
 #, fuzzy, kde-format
 #| msgid "Comparing file %1 with file %2"
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
 msgstr "Ја споредувам датотеката %1 со датотеката %2"
 
-#: komparepart/kompare_part.cpp:697
+#: komparepart/kompare_part.cpp:688
 #, fuzzy, kde-format
 #| msgid "Comparing files in %1 with files in %2"
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
 msgstr "Ги споредувам датотеките во %1 со датотеките во %2"
 
-#: komparepart/kompare_part.cpp:702
+#: komparepart/kompare_part.cpp:693
 #, fuzzy, kde-format
 #| msgid "Viewing diff output from %1"
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
 msgstr "Прегледувам излез на diff од %1"
 
-#: komparepart/kompare_part.cpp:705
+#: komparepart/kompare_part.cpp:696
 #, fuzzy, kde-format
 #| msgid "Viewing diff output from %1"
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
 msgstr "Прегледувам излез на diff од %1"
 
-#: komparepart/kompare_part.cpp:710
+#: komparepart/kompare_part.cpp:701
 #, fuzzy, kde-format
 #| msgid "Viewing diff output from %1"
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
 msgstr "Прегледувам излез на diff од %1"
 
-#: komparepart/kompare_part.cpp:765 komparepart/kompare_part.cpp:804
-#: komparepart/kompare_part.cpp:928
+#: komparepart/kompare_part.cpp:752 komparepart/kompare_part.cpp:783
+#: komparepart/kompare_part.cpp:899
 #, kde-format
 msgid ""
 "You have made changes to the destination file(s).\n"
@@ -1123,57 +1123,57 @@ msgstr ""
 "Направивте измени во одредишните датотеки.\n"
 "Дали сакате да ги зачувате?"
 
-#: komparepart/kompare_part.cpp:767 komparepart/kompare_part.cpp:806
-#: komparepart/kompare_part.cpp:930
+#: komparepart/kompare_part.cpp:754 komparepart/kompare_part.cpp:785
+#: komparepart/kompare_part.cpp:901
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title:window"
 msgid "Save Changes?"
 msgstr "Зачувувате промени"
 
-#: komparepart/kompare_part.cpp:849
+#: komparepart/kompare_part.cpp:824
 #, fuzzy, kde-format
 #| msgid "Unified"
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "Унифициран"
 
-#: komparepart/kompare_part.cpp:852
+#: komparepart/kompare_part.cpp:827
 #, fuzzy, kde-format
 #| msgid "Context"
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "Контекстуален"
 
-#: komparepart/kompare_part.cpp:855
+#: komparepart/kompare_part.cpp:830
 #, fuzzy, kde-format
 #| msgid "RCS"
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
-#: komparepart/kompare_part.cpp:858
+#: komparepart/kompare_part.cpp:833
 #, fuzzy, kde-format
 #| msgid "Ed"
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
-#: komparepart/kompare_part.cpp:861
+#: komparepart/kompare_part.cpp:836
 #, fuzzy, kde-format
 #| msgid "Normal"
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "Нормален"
 
-#: komparepart/kompare_part.cpp:865
+#: komparepart/kompare_part.cpp:840
 #, fuzzy, kde-format
 #| msgid "Unknown"
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "Непознат"
 
-#: komparepart/kompare_part.cpp:881
+#: komparepart/kompare_part.cpp:856
 #, kde-format
 msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
@@ -1182,15 +1182,15 @@ msgstr ""
 "Нема diff-датотека или не биле споредени 2 датотеки. Поради тоа нема "
 "достапна статистика."
 
-#: komparepart/kompare_part.cpp:883 komparepart/kompare_part.cpp:897
-#: komparepart/kompare_part.cpp:913
+#: komparepart/kompare_part.cpp:858 komparepart/kompare_part.cpp:872
+#: komparepart/kompare_part.cpp:888
 #, fuzzy, kde-format
 #| msgid "Diff Statistics"
 msgctxt "@title:window"
 msgid "Diff Statistics"
 msgstr "Статистика за разликите"
 
-#: komparepart/kompare_part.cpp:887
+#: komparepart/kompare_part.cpp:862
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1211,7 +1211,7 @@ msgstr ""
 "Број на парчиња: %4\n"
 "Број на разлики: %5"
 
-#: komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:875
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1242,27 +1242,27 @@ msgstr ""
 msgid "&Difference"
 msgstr "&Разлика"
 
-#: komparepart/kompareprefdlg.cpp:26
+#: komparepart/kompareprefdlg.cpp:27
 #, fuzzy, kde-format
 #| msgid "Preferences"
 msgctxt "@title:window"
 msgid "Preferences"
 msgstr "Параметри"
 
-#: komparepart/kompareprefdlg.cpp:36
+#: komparepart/kompareprefdlg.cpp:37
 #, kde-format
 msgctxt "@title:tab"
 msgid "View"
 msgstr ""
 
-#: komparepart/kompareprefdlg.cpp:38
+#: komparepart/kompareprefdlg.cpp:39
 #, fuzzy, kde-format
 #| msgid "View Settings"
 msgctxt "@title"
 msgid "View Settings"
 msgstr "Поставувања за преглед"
 
-#: komparepart/kompareprefdlg.cpp:44
+#: komparepart/kompareprefdlg.cpp:45
 #, fuzzy, kde-format
 #| msgid "Diff Settings"
 msgctxt "@title"

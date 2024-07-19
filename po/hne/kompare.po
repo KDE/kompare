@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:38+0000\n"
+"POT-Creation-Date: 2024-07-19 00:41+0000\n"
 "PO-Revision-Date: 2009-03-01 11:17+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -160,42 +160,42 @@ msgid ""
 "apply the difference(s) to a file or to the files. "
 msgstr ""
 
-#: app/kompare_shell.cpp:358 app/main.cpp:198
+#: app/kompare_shell.cpp:358 app/main.cpp:195
 #, fuzzy, kde-format
 #| msgid "Compare Files or Folders"
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "फाइल मन या फोल्डर मं तुलना करव"
 
-#: app/kompare_shell.cpp:359 app/main.cpp:199
+#: app/kompare_shell.cpp:359 app/main.cpp:196
 #, fuzzy, kde-format
 #| msgid "Source"
 msgctxt "@title:group"
 msgid "Source"
 msgstr "स्रोत"
 
-#: app/kompare_shell.cpp:360 app/main.cpp:200
+#: app/kompare_shell.cpp:360 app/main.cpp:197
 #, fuzzy, kde-format
 #| msgid "Destination"
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "गंतव्य"
 
-#: app/kompare_shell.cpp:363 app/main.cpp:203
+#: app/kompare_shell.cpp:363 app/main.cpp:200
 #, fuzzy, kde-format
 #| msgid "Compare"
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "तुलना करव"
 
-#: app/kompare_shell.cpp:364 app/main.cpp:204
+#: app/kompare_shell.cpp:364 app/main.cpp:201
 #, fuzzy, kde-format
 #| msgid "Compare these files or folders"
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "ए फाइल मन ल या फोल्डर के तुलना करव"
 
-#: app/kompare_shell.cpp:365 app/main.cpp:205
+#: app/kompare_shell.cpp:365 app/main.cpp:202
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -229,27 +229,27 @@ msgstr "सेटिंग (&S)"
 msgid "Main Toolbar"
 msgstr "मुख्य औजार पट्टी"
 
-#: app/kompareurldialog.cpp:37
+#: app/kompareurldialog.cpp:38
 #, fuzzy, kde-format
 #| msgid "Files"
 msgctxt "@title:tab"
 msgid "Files"
 msgstr "फाइल"
 
-#: app/kompareurldialog.cpp:39
+#: app/kompareurldialog.cpp:40
 #, kde-format
 msgid "Here you can enter the files you want to compare."
 msgstr "इहां आप मन ओखर फाइल मन ल भर सकथो जऊन ल आप मन तुलना करना चाहथो ."
 
-#: app/kompareurldialog.cpp:45 dialogpages/diffpage.cpp:185
-#: komparepart/kompareprefdlg.cpp:42
+#: app/kompareurldialog.cpp:46 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:43
 #, fuzzy, kde-format
 #| msgid "Diff"
 msgctxt "@title:tab"
 msgid "Diff"
 msgstr "डिफ"
 
-#: app/kompareurldialog.cpp:47
+#: app/kompareurldialog.cpp:48
 #, kde-format
 msgid "Here you can change the options for comparing the files."
 msgstr "इहां आप मन फाइल मन के तुलना करे के विकल्प मन ल बदल सकथो ."
@@ -272,12 +272,12 @@ msgid ""
 "File used for excluding files cannot be found, please specify another file."
 msgstr ""
 
-#: app/main.cpp:49
+#: app/main.cpp:46
 #, kde-format
 msgid "Kompare"
 msgstr "काम्पेयर"
 
-#: app/main.cpp:51
+#: app/main.cpp:48
 #, kde-format
 msgid ""
 "A program to view the differences between files and optionally generate a "
@@ -285,7 +285,7 @@ msgid ""
 msgstr ""
 "एक प्रोग्राम जऊन फाइल मन के बीच भिन्नताओं ल देखथे  अउ वैकल्पिक रूप से डिफ तैयार करथे "
 
-#: app/main.cpp:53
+#: app/main.cpp:50
 #, fuzzy, kde-format
 msgid ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
@@ -294,77 +294,77 @@ msgstr ""
 "(c) 2001-2004, जान फायरबाग अउ ओटो ब्रगमेन, (c) 2004-2005 जेफ सिंडर, (c) "
 "2007-2008 केविन कोफ्लर"
 
-#: app/main.cpp:56
+#: app/main.cpp:53
 #, kde-format
 msgid "John Firebaugh"
 msgstr "जान फायरबाग"
 
-#: app/main.cpp:56 app/main.cpp:57
+#: app/main.cpp:53 app/main.cpp:54
 #, kde-format
 msgid "Author"
 msgstr "लेखक"
 
-#: app/main.cpp:57
+#: app/main.cpp:54
 #, kde-format
 msgid "Otto Bruggeman"
 msgstr "ओटो ब्रगमेन"
 
-#: app/main.cpp:58
+#: app/main.cpp:55
 #, kde-format
 msgid "Jeff Snyder"
 msgstr "जेफ सिंडर"
 
-#: app/main.cpp:58
+#: app/main.cpp:55
 #, kde-format
 msgid "Developer"
 msgstr "डेवलपर"
 
-#: app/main.cpp:59
+#: app/main.cpp:56
 #, kde-format
 msgid "Kevin Kofler"
 msgstr "केविन कोफ्लर"
 
-#: app/main.cpp:59
+#: app/main.cpp:56
 #, kde-format
 msgid "Maintainer"
 msgstr "मेंटेनर"
 
-#: app/main.cpp:60
+#: app/main.cpp:57
 #, kde-format
 msgid "Chris Luetchford"
 msgstr "क्रिस लुएचफोर्ड"
 
-#: app/main.cpp:60
+#: app/main.cpp:57
 #, kde-format
 msgid "Kompare icon artist"
 msgstr "काम्पेयर चिनहा कलाकार"
 
-#: app/main.cpp:61
+#: app/main.cpp:58
 #, kde-format
 msgid "Malte Starostik"
 msgstr "माल्ते स्टारोस्टिक"
 
-#: app/main.cpp:61
+#: app/main.cpp:58
 #, kde-format
 msgid "A lot of good advice"
 msgstr "बहुत से अच्छे परामर्स"
 
-#: app/main.cpp:62
+#: app/main.cpp:59
 #, kde-format
 msgid "Bernd Gehrmann"
 msgstr "बर्नद गेहमन"
 
-#: app/main.cpp:62
+#: app/main.cpp:59
 #, kde-format
 msgid "Cervisia diff viewer"
 msgstr "सर्विसिया डिफ प्रदर्सक"
 
-#: app/main.cpp:69
+#: app/main.cpp:66
 #, kde-format
 msgid "This will compare URL1 with URL2"
 msgstr "ये यूआरएल1 ल यूआरएल2 के साथ तुलना करथे "
 
-#: app/main.cpp:70
+#: app/main.cpp:67
 #, kde-format
 msgid ""
 "This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
@@ -374,21 +374,21 @@ msgid ""
 "show that in the viewer. -n disables the check."
 msgstr ""
 
-#: app/main.cpp:71
+#: app/main.cpp:68
 #, kde-format
 msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
 "the file or folder that the diffoutput needs to be blended into. "
 msgstr ""
 
-#: app/main.cpp:72
+#: app/main.cpp:69
 #, kde-format
 msgid ""
 "Disables the check for automatically finding the original file(s) when using "
 "'-' as URL with the -o option."
 msgstr ""
 
-#: app/main.cpp:73
+#: app/main.cpp:70
 #, kde-format
 msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
@@ -920,220 +920,220 @@ msgctxt "@title:tab"
 msgid "Fonts"
 msgstr "फोंट"
 
-#: komparenavtreepart/komparenavtreepart.cpp:61
+#: komparenavtreepart/komparenavtreepart.cpp:53
 #, fuzzy, kde-format
 #| msgid "Source Folder"
 msgctxt "@title:column"
 msgid "Source Folder"
 msgstr "स्रोत फोल्डर"
 
-#: komparenavtreepart/komparenavtreepart.cpp:67
+#: komparenavtreepart/komparenavtreepart.cpp:59
 #, fuzzy, kde-format
 #| msgid "Destination Folder"
 msgctxt "@title:column"
 msgid "Destination Folder"
 msgstr "गंतव्य फोल्डर"
 
-#: komparenavtreepart/komparenavtreepart.cpp:74
+#: komparenavtreepart/komparenavtreepart.cpp:66
 #, fuzzy, kde-format
 #| msgid "Source File"
 msgctxt "@title:column"
 msgid "Source File"
 msgstr "स्रोत फाइल"
 
-#: komparenavtreepart/komparenavtreepart.cpp:75
+#: komparenavtreepart/komparenavtreepart.cpp:67
 #, fuzzy, kde-format
 #| msgid "Destination File"
 msgctxt "@title:column"
 msgid "Destination File"
 msgstr "गंतव्य फाइल"
 
-#: komparenavtreepart/komparenavtreepart.cpp:84
+#: komparenavtreepart/komparenavtreepart.cpp:76
 #, fuzzy, kde-format
 #| msgid "Source Line"
 msgctxt "@title:column"
 msgid "Source Line"
 msgstr "स्रोत पंक्ति"
 
-#: komparenavtreepart/komparenavtreepart.cpp:85
+#: komparenavtreepart/komparenavtreepart.cpp:77
 #, fuzzy, kde-format
 #| msgid "Destination Line"
 msgctxt "@title:column"
 msgid "Destination Line"
 msgstr "गंतव्य पंक्ति"
 
-#: komparenavtreepart/komparenavtreepart.cpp:86
+#: komparenavtreepart/komparenavtreepart.cpp:78
 #, fuzzy, kde-format
 #| msgid "Difference"
 msgctxt "@title:column"
 msgid "Difference"
 msgstr "भिन्नता"
 
-#: komparenavtreepart/komparenavtreepart.cpp:461
+#: komparenavtreepart/komparenavtreepart.cpp:453
 #, kde-format
 msgid "Applied: Changes made to %1 line undone"
 msgid_plural "Applied: Changes made to %1 lines undone"
 msgstr[0] ""
 msgstr[1] ""
 
-#: komparenavtreepart/komparenavtreepart.cpp:464
+#: komparenavtreepart/komparenavtreepart.cpp:456
 #, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
 msgstr[0] "बदला %1 पंक्ति"
 msgstr[1] "बदलिस %1 पंक्ति"
 
-#: komparenavtreepart/komparenavtreepart.cpp:469
+#: komparenavtreepart/komparenavtreepart.cpp:461
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
 msgstr[0] ""
 msgstr[1] ""
 
-#: komparenavtreepart/komparenavtreepart.cpp:472
+#: komparenavtreepart/komparenavtreepart.cpp:464
 #, kde-format
 msgid "Inserted %1 line"
 msgid_plural "Inserted %1 lines"
 msgstr[0] "भरिस %1 लाइन"
 msgstr[1] "भरिस %1 लाइन"
 
-#: komparenavtreepart/komparenavtreepart.cpp:477
+#: komparenavtreepart/komparenavtreepart.cpp:469
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
 msgstr[0] ""
 msgstr[1] ""
 
-#: komparenavtreepart/komparenavtreepart.cpp:480
+#: komparenavtreepart/komparenavtreepart.cpp:472
 #, fuzzy, kde-format
 msgid "Deleted %1 line"
 msgid_plural "Deleted %1 lines"
 msgstr[0] "मेटाइस %1 पंक्ति"
 msgstr[1] ""
 
-#: komparenavtreepart/komparenavtreepart.cpp:634
+#: komparenavtreepart/komparenavtreepart.cpp:627
 #, fuzzy, kde-format
 #| msgid "Unknown"
 msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "अग्यात"
 
-#: komparepart/kompare_part.cpp:186
+#: komparepart/kompare_part.cpp:177
 #, fuzzy, kde-format
 #| msgid "Save &All"
 msgctxt "@action"
 msgid "Save &All"
 msgstr "सब्बो सहेजव (&A)"
 
-#: komparepart/kompare_part.cpp:188
+#: komparepart/kompare_part.cpp:179
 #, fuzzy, kde-format
 #| msgid "Save .&diff..."
 msgctxt "@action"
 msgid "Save &Diff..."
 msgstr "सहेजव .&diff..."
 
-#: komparepart/kompare_part.cpp:190
+#: komparepart/kompare_part.cpp:181
 #, fuzzy, kde-format
 #| msgid "Swap Source with Destination"
 msgctxt "@action"
 msgid "Swap Source with Destination"
 msgstr "स्रोत अउ गंतव्य अदला-बदली करव"
 
-#: komparepart/kompare_part.cpp:197
+#: komparepart/kompare_part.cpp:188
 #, fuzzy, kde-format
 #| msgid "Show Statistics"
 msgctxt "@action"
 msgid "Show Statistics"
 msgstr "आंकड़ा देखाव"
 
-#: komparepart/kompare_part.cpp:200
+#: komparepart/kompare_part.cpp:191
 #, fuzzy, kde-format
 #| msgid "Refresh Diff"
 msgctxt "@action"
 msgid "Refresh Diff"
 msgstr "डिफ ताजा करव"
 
-#: komparepart/kompare_part.cpp:312 komparepart/kompare_part.cpp:325
+#: komparepart/kompare_part.cpp:303 komparepart/kompare_part.cpp:316
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
 msgstr "<qt>यूआरएल <b>%1</b> डाउनलोड नइ कर सकिस..</qt>"
 
-#: komparepart/kompare_part.cpp:363
+#: komparepart/kompare_part.cpp:354
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
 msgstr "<qt>यूआरएल <b>%1</b> आप मन के तंत्र मं मौजूद नइ हे..</qt>"
 
-#: komparepart/kompare_part.cpp:551
+#: komparepart/kompare_part.cpp:542
 #, fuzzy, kde-format
 #| msgid "Diff Options"
 msgctxt "@title:window"
 msgid "Diff Options"
 msgstr "डिफ विकल्प"
 
-#: komparepart/kompare_part.cpp:570
+#: komparepart/kompare_part.cpp:561
 #, fuzzy, kde-format
 #| msgid "Save .diff"
 msgctxt "@title:window"
 msgid "Save .diff"
 msgstr "सहेजव .diff"
 
-#: komparepart/kompare_part.cpp:572
+#: komparepart/kompare_part.cpp:563
 #, fuzzy, kde-format
 #| msgid "*.diff *.dif *.patch|Patch Files"
 msgid "Patch Files (*.diff *.dif *.patch)"
 msgstr "*.diff *.dif *.patch|पैच फाइल मन ल"
 
-#: komparepart/kompare_part.cpp:633
+#: komparepart/kompare_part.cpp:624
 #, fuzzy, kde-format
 #| msgid "Running diff..."
 msgctxt "@info:status"
 msgid "Running diff..."
 msgstr "डिफ चला रहे..."
 
-#: komparepart/kompare_part.cpp:636
+#: komparepart/kompare_part.cpp:627
 #, fuzzy, kde-format
 #| msgid "Parsing diff output..."
 msgctxt "@info:status"
 msgid "Parsing diff output..."
 msgstr "डिफ आउटपुट पारसिंग कर रहे..."
 
-#: komparepart/kompare_part.cpp:692
+#: komparepart/kompare_part.cpp:683
 #, fuzzy, kde-format
 #| msgid "Comparing file %1 with file %2"
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
 msgstr "फाइल %1 ल फाइल %2 से तुलना करत हे"
 
-#: komparepart/kompare_part.cpp:697
+#: komparepart/kompare_part.cpp:688
 #, fuzzy, kde-format
 #| msgid "Comparing files in %1 with files in %2"
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
 msgstr "फाइल मन ल %1 मं से %2 के फाइल मन ल तुलना करत हे"
 
-#: komparepart/kompare_part.cpp:702
+#: komparepart/kompare_part.cpp:693
 #, fuzzy, kde-format
 #| msgid "Viewing diff output from %1"
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
 msgstr "%1 से डिफ आउटपुट देख रहे"
 
-#: komparepart/kompare_part.cpp:705
+#: komparepart/kompare_part.cpp:696
 #, fuzzy, kde-format
 #| msgid "Blending diff output from %1 into file %2"
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
 msgstr "डिफ आउटपुट %1 से फाइल %2 मं ब्लैंड करत हे"
 
-#: komparepart/kompare_part.cpp:710
+#: komparepart/kompare_part.cpp:701
 #, fuzzy, kde-format
 #| msgid "Blending diff output from %1 into folder %2"
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
 msgstr "डिफ आउटपुट %1 से फोल्डर %2 मं ब्लैंड करत हे"
 
-#: komparepart/kompare_part.cpp:765 komparepart/kompare_part.cpp:804
-#: komparepart/kompare_part.cpp:928
+#: komparepart/kompare_part.cpp:752 komparepart/kompare_part.cpp:783
+#: komparepart/kompare_part.cpp:899
 #, kde-format
 msgid ""
 "You have made changes to the destination file(s).\n"
@@ -1142,57 +1142,57 @@ msgstr ""
 "आप मन गंतव्य फाइल मन बदलाव करे हो.\n"
 "का आप मन एला सहेजना चाहथो ?"
 
-#: komparepart/kompare_part.cpp:767 komparepart/kompare_part.cpp:806
-#: komparepart/kompare_part.cpp:930
+#: komparepart/kompare_part.cpp:754 komparepart/kompare_part.cpp:785
+#: komparepart/kompare_part.cpp:901
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title:window"
 msgid "Save Changes?"
 msgstr "बदलाव सहेजव?"
 
-#: komparepart/kompare_part.cpp:849
+#: komparepart/kompare_part.cpp:824
 #, fuzzy, kde-format
 #| msgid "Unified"
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "एकीकृत"
 
-#: komparepart/kompare_part.cpp:852
+#: komparepart/kompare_part.cpp:827
 #, fuzzy, kde-format
 #| msgid "Context"
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "कान्टेक्स्ट"
 
-#: komparepart/kompare_part.cpp:855
+#: komparepart/kompare_part.cpp:830
 #, fuzzy, kde-format
 #| msgid "RCS"
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "आरसीएस"
 
-#: komparepart/kompare_part.cpp:858
+#: komparepart/kompare_part.cpp:833
 #, fuzzy, kde-format
 #| msgid "Ed"
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "ईडी"
 
-#: komparepart/kompare_part.cpp:861
+#: komparepart/kompare_part.cpp:836
 #, fuzzy, kde-format
 #| msgid "Normal"
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "सामान्य"
 
-#: komparepart/kompare_part.cpp:865
+#: komparepart/kompare_part.cpp:840
 #, fuzzy, kde-format
 #| msgid "Unknown"
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "अग्यात"
 
-#: komparepart/kompare_part.cpp:881
+#: komparepart/kompare_part.cpp:856
 #, kde-format
 msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
@@ -1200,15 +1200,15 @@ msgid ""
 msgstr ""
 "कोई डिफ फाइल नइ, या कोनो 2 फाइल मन ल डिफ्ड नइ. जेखर सेती कोनो आंकड़ा नइ मिलत."
 
-#: komparepart/kompare_part.cpp:883 komparepart/kompare_part.cpp:897
-#: komparepart/kompare_part.cpp:913
+#: komparepart/kompare_part.cpp:858 komparepart/kompare_part.cpp:872
+#: komparepart/kompare_part.cpp:888
 #, fuzzy, kde-format
 #| msgid "Diff Statistics"
 msgctxt "@title:window"
 msgid "Diff Statistics"
 msgstr "डिफ आंकड़ा"
 
-#: komparepart/kompare_part.cpp:887
+#: komparepart/kompare_part.cpp:862
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1229,7 +1229,7 @@ msgstr ""
 "हंक्स के संख्या: %4\n"
 "भिन्नताओं के संख्या: %5"
 
-#: komparepart/kompare_part.cpp:900
+#: komparepart/kompare_part.cpp:875
 #, kde-format
 msgid ""
 "Statistics:\n"
@@ -1260,28 +1260,28 @@ msgstr ""
 msgid "&Difference"
 msgstr "भिन्नता (&D)"
 
-#: komparepart/kompareprefdlg.cpp:26
+#: komparepart/kompareprefdlg.cpp:27
 #, fuzzy, kde-format
 #| msgid "Preferences"
 msgctxt "@title:window"
 msgid "Preferences"
 msgstr "प्राथमिकता"
 
-#: komparepart/kompareprefdlg.cpp:36
+#: komparepart/kompareprefdlg.cpp:37
 #, fuzzy, kde-format
 #| msgid "View"
 msgctxt "@title:tab"
 msgid "View"
 msgstr "दृस्य"
 
-#: komparepart/kompareprefdlg.cpp:38
+#: komparepart/kompareprefdlg.cpp:39
 #, fuzzy, kde-format
 #| msgid "View Settings"
 msgctxt "@title"
 msgid "View Settings"
 msgstr "दृस्य सेटिंग"
 
-#: komparepart/kompareprefdlg.cpp:44
+#: komparepart/kompareprefdlg.cpp:45
 #, fuzzy, kde-format
 #| msgid "Diff Settings"
 msgctxt "@title"

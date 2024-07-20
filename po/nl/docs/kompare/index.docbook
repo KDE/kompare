@@ -315,7 +315,7 @@
 >Omwisselen bron en doel panelen</title>
 
 <para
->Soms kan het handig zijn om te bepalen welk bestand de bron is waarvan u de wijzigingen toepast. Bijvoorbeeld, bij het vergelijken van twee gewijzigde versies van een bestand, kunt u ontdekken dat een bestand veel meer wijzigingen heeft dan de andere. Het bestand dat meer gewijzigd is, kan dan beter dienen als bron, omdat dan minder wijzigingen hoeft te worden toegepast.</para>
+>Soms kan het handig zijn om te bepalen welk bestand de bron is waarvan u de wijzigingen toepast. Bijvoorbeeld, bij het vergelijken van twee gewijzigde versies van een bestand, kunt u ontdekken dat een bestand veel meer wijzigingen heeft dan de andere. Het bestand dat meer wijzigingen heeft, kan dan beter dienen als bron, omdat dan minder wijzigingen toegepast hoeven te worden.</para>
 <para
 >Selecteer in dat geval <menuchoice
 ><guimenu
@@ -1258,7 +1258,7 @@
 ></term>
 <listitem
 ><para
->Schrijft de toegepaste verschillen naar de geselecteerde bron en/of doel bestand.</para
+>Schrijft de toegepaste verschillen naar het geselecteerde bron- en/of doelbestand.</para
 ></listitem>
 </varlistentry>
 

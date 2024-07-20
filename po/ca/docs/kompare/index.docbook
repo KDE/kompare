@@ -72,9 +72,7 @@
 >Quan dues o més persones treballen sobre un mateix fitxer, van i venen, es torna molt difícil veure quins canvis han realitzat a una versió nova o còpia del fitxer. Obrir cara-a-cara la còpia nova i l'original en l'aplicació usada per a crear la còpia final és una solució però resulta laboriós, una gran pèrdua de temps i esdevé un error. Aquí és a on un programa per a mostrar diferències, diffs curts, esdevé d'utilitat.</para>
 
 <para
->Tal com s'espera, un nom apropiat per a un programa com aquest seria <quote
->diff</quote
->. Per descomptat el programa <ulink url="https://www.gnu.org/software/diffutils/"
+>Tal com s'espera, un nom apropiat per a un programa com aquest seria «diff». Per descomptat el programa <ulink url="https://www.gnu.org/software/diffutils/"
 >diff</ulink
 > es troba instal·lat a la majoria de sistemes basats en &Linux; i s'usa exactament amb aquesta intenció. Els desenvolupadors usen diff tot sovint, com a una eina de línia d'ordres, per a mostrar diferències entre versions d'un fitxer de codi font. De tota manera, l'ús de diff no es troba limitat a mostrar les diferències, es pot usar sobre molts altres tipus de fitxer basats en text.</para>
 
@@ -85,18 +83,10 @@
 >A més de per a mostrar diferències entre fitxer font i destinació, &kompare; es pot usar per a crear i veure un fitxer especial anomenat &apos;diff&apos;. Aquest fitxer captura les diferències entre les dues fonts dintre d'un únic fitxer que es podrà usar per a veure i aplicar canvis a qualsevol altra còpia del fitxer. Per exemple, si dues persones editen un document. La primera persona crearà canvis i els enviarà a la segona persona. Normalment, la primera persona enviarà una còpia completa de les modificacions a la segona persona, de manera que aquesta haurà de comparar el document modificat cara-a-cara amb una versió sense modificar del document. El procés per a això és una mica més elaborat del que s'ha exposat en els anteriors paràgrafs. Amb &kompare; la primera persona primer haurà de crear una còpia local del fitxer a modificar, aleshores crear els canvis i comparar l'original i la còpia modificada. Ara usant &kompare; es podrà crear un fitxer diff que només capturi els canvis fets. Aquests es podran enviar a la segona persona en comptes de tot el fitxer que conté els canvis.</para>
 
 <para
->Usant &kompare; la segona persona podrà veure el fitxer diff, comparar-lo amb la còpia local del document i aplicar els canvis fets per la primera persona. De manera que aquest procés es podrà fer sobre moltes versions diferents del document, cada persona podrà fer canvis, crear diff, distribuir-los i aplicar-los. Aquest procés s'anomena comunament <quote
->apedaçat</quote
-> (<quote
->patching</quote
->), un terme agafat del programa anomenat <quote
->patch</quote
->, el qual és una altra eina de línia d'ordres específicament dissenyada amb la finalitat d'aplicar fitxers diff.</para>
+>Usant &kompare; la segona persona podrà veure el fitxer diff, comparar-lo amb la còpia local del document i aplicar els canvis fets per la primera persona. De manera que aquest procés es podrà fer sobre moltes versions diferents del document, cada persona podrà fer canvis, crear diff, distribuir-los i aplicar-los. Aquest procés s'anomena comunament «apedaçat» («patching»), un terme agafat del programa anomenat «patch», el qual és una altra eina de línia d'ordres específicament dissenyada amb la finalitat d'aplicar fitxers diff.</para>
 
 <para
->A vegades succeeix que gent edita un fitxer alhora. En aquesta situació es pot donar el cas que creïn canvis sobre una mateixa línia. Això origina un problema, atès que si no s'apliquen amb cura, la gent pot estar sobreescrivint la feina d'altres persones que ja han aplicat els seus fitxers de diff. Per sort els desenvolupadors dels programes diff i patch els sembla una qüestió a considerar i aquestes eines no permetran dits canvis sense una intervenció manual. Quan s'abasti dit estat, el coneixereu com a <quote
->conflicte</quote
->. El &kompare; els mostrarà de manera que els pugueu resoldre, decidint quins aplicar al fitxer.</para>
+>A vegades succeeix que gent edita un fitxer alhora. En aquesta situació es pot donar el cas que creïn canvis sobre una mateixa línia. Això origina un problema, atès que si no s'apliquen amb cura, la gent pot estar sobreescrivint la feina d'altres persones que ja han aplicat els seus fitxers de diff. Per sort els desenvolupadors dels programes diff i patch els sembla una qüestió a considerar i aquestes eines no permetran dits canvis sense una intervenció manual. Quan s'abasti dit estat, el coneixereu com a «conflicte». El &kompare; els mostrarà de manera que els pugueu resoldre, decidint quins aplicar al fitxer.</para>
 
 <para
 >&kompare; també és un gran programa per a comparar canvis de fitxer sobre un nivell de carpeta. Quan s'usa per a comparar carpetes &kompare; examina recursivament les subcarpetes i els seus continguts de fitxer per a les diferències. En aquest cas d'ús, cada fitxer a on es trobin diferències serà automàticament obert i llistat per &kompare; en una manera fàcil de navegació entre els diversos fitxers, a ser possible.</para>
@@ -465,21 +455,13 @@
 <title
 >Canviar entre fitxers</title>
 <para
->Quan s'ha realitzat una comparació dintre d'un nivell de carpeta, la majoria de fitxers poden trobar-se amb diferències. Una llista completa dels fitxers comparats amb les diferències trobades és proveïda a les subfinestres <quote
->Carpetes font i destinació</quote
-> i <quote
->Fitxers font i destinació</quote
->. De tota manera, el &kompare; mostrarà les diferències entre la font i la destinació en una comparació cada vegada.</para>
+>Quan s'ha realitzat una comparació dintre d'un nivell de carpeta, la majoria de fitxers poden trobar-se amb diferències. Una llista completa dels fitxers comparats amb les diferències trobades és proveïda a les subfinestres «Carpetes font i destinació» i «Fitxers font i destinació». De tota manera, el &kompare; mostrarà les diferències entre la font i la destinació en una comparació cada vegada.</para>
 <para
 >Per a canviar entre documents en aquest escenari estan disponibles les següents opcions:</para>
 <itemizedlist>
 <listitem
 ><para
->Seleccionar la subfinestra <quote
->Carpetes font i destinació</quote
-> per a mostrar les diferències trobades a la subfinestra <quote
->Fitxers font i destinació</quote
->, llavors seleccioneu un fitxer.</para
+>Seleccionar la subfinestra «Carpetes font i destinació» per a mostrar les diferències trobades a la subfinestra «Fitxers font i destinació», llavors seleccioneu un fitxer.</para
 ></listitem>
 <listitem
 ><para
@@ -503,9 +485,7 @@
 >&Ctrl;<keycap
 >Av Pàg</keycap
 ></keycombo
->) per a mostrar la diferència anterior o següent trobada en el fitxer a la subfinestra <quote
->Fitxers font i destinació</quote
->.</para>
+>) per a mostrar la diferència anterior o següent trobada en el fitxer a la subfinestra «Fitxers font i destinació».</para>
 </listitem>
 </itemizedlist>
 </sect3>
@@ -728,7 +708,7 @@
 > i mostra els formularis en pestanya <guilabel
 >Aparença</guilabel
 > i <guilabel
->Tipus de lletra</guilabel
+>Lletres</guilabel
 >.</para>
 
 <sect2 id="appearance">
@@ -837,22 +817,22 @@
 
 <sect2 id="fonts">
 <title
->Tipus de lletra</title>
+>Lletres</title>
 <screenshot>
 <screeninfo
->Arranjament de tipus de lletra a &kompare;</screeninfo>
+>Arranjament de les lletres a &kompare;</screeninfo>
     <mediaobject>
       <imageobject>
         <imagedata fileref="settings-view2.png" format="PNG"/>
       </imageobject>
         <textobject>
         <phrase
->Arranjament de tipus de lletra a &kompare;</phrase>
+>Arranjament de les lletres a &kompare;</phrase>
       </textobject>
     </mediaobject>
 </screenshot>
 <para
->Selecciona la família i mida del tipus de lletra a visualitzar quan es mostrin les diferències.</para>
+>Selecciona la família i mida de la lletra a visualitzar quan es mostrin les diferències.</para>
 </sect2>
 </sect1>
 

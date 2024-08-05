@@ -180,6 +180,7 @@
       <li xml:lang="fi">Tiedostojen tai kansioiden sisällön vertailu rekursiivisesti.</li>
       <li xml:lang="fr">Comparer les différences entre fichiers ou récursivement entre contenus de dossiers</li>
       <li xml:lang="gl">Comparación de diferenzas entre ficheiros ou cartafoles.</li>
+      <li xml:lang="he">השוואת הבדלים בין קבצים או תכנים של תיקיות באופן רקורסיבי.</li>
       <li xml:lang="id">Membandingkan perbedaan pada file atau konten folder secara saksama</li>
       <li xml:lang="it">Confronta ricorsivamente le differenze di file o di contenuti di cartelle.</li>
       <li xml:lang="ka">ფაილების ან საქაღალდეების შემცველობის რეკურსიული შედარება.</li>
@@ -217,6 +218,7 @@
       <li xml:lang="fi">Tukee eri diff-muotoja ja tarjoaa monia mahdollisuuksia mukauttaa, miten tieto esitetään.</li>
       <li xml:lang="fr">Gère de nombreux formats de fichiers de différences et propose de nombreuses options de personnalisation du niveau d'informations affiché.</li>
       <li xml:lang="gl">É compatíbel con varios formatos de diferenzas e fornece moitas opcións para personalizar o nivel de información que se amosa.</li>
+      <li xml:lang="he">תמיכה במגוון של תצורות הבדלים תוך אספקת מגוון אפשרויות להתאמת רמת הפירוט שתוצג.</li>
       <li xml:lang="id">Dukungan bermacam format diff dan menyediakan banyak opsi untuk mengkustomisasi tingkat informasi yang didisplaikan.</li>
       <li xml:lang="it">Supporta vari formati di differenze, e fornisce anche molte opzioni per personalizzare il livello di informazioni visualizzato.</li>
       <li xml:lang="ka">აქვს განსხვავებების სხვადასხვა ფორმატის მხარდაჭერა და გამოტანილი ინფორმაციის დონის კონტროლისთვის მრავალ პარამეტრს წარმოგიდგენთ.</li>
@@ -254,6 +256,7 @@
       <li xml:lang="fi">Mahdollisuus luoda paikkauksia ja ottaa ne käyttöön.</li>
       <li xml:lang="fr">Créer et appliquer des correctifs</li>
       <li xml:lang="gl">Creación e aplicación de parches.</li>
+      <li xml:lang="he">יצירת והחלת טלאים.</li>
       <li xml:lang="id">Penciptaan dan penerapan patch.</li>
       <li xml:lang="it">Creare ed applica le patch.</li>
       <li xml:lang="ka">პაჩების შექმნა და გადატარება.</li>

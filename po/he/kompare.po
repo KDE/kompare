@@ -1,0 +1,1375 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kompare package.
+#
+# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kompare\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-07-19 00:41+0000\n"
+"PO-Revision-Date: 2024-08-12 17:56+0300\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
+"2 : 3);\n"
+"X-Generator: Lokalize 24.05.2\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "צוות התרגום של KDE ישראל"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde-l10n-he@kde.org"
+
+#: app/kompare_shell.cpp:69
+#, kde-format
+msgid "Could not load our KompareViewPart: %1"
+msgstr "לא ניתן לטעון את חלק תצוגת Kompare:‏ %1"
+
+#: app/kompare_shell.cpp:73
+#, kde-format
+msgctxt "@title:window"
+msgid "Navigation"
+msgstr "ניווט"
+
+#: app/kompare_shell.cpp:91
+#, kde-format
+msgid "Could not load our KompareNavigationPart: %1"
+msgstr "לא ניתן לטעון את חלק הניווט ב־Kompare שלנו: %1"
+
+#: app/kompare_shell.cpp:196
+#, kde-format
+msgctxt "@action"
+msgid "&Open Diff..."
+msgstr "פתיחת ה&בדלים…"
+
+#: app/kompare_shell.cpp:199
+#, kde-format
+msgctxt "@action"
+msgid "&Compare Files..."
+msgstr "ה&שוואת קבצים…"
+
+#: app/kompare_shell.cpp:202
+#, kde-format
+msgctxt "@action"
+msgid "&Blend URL with Diff..."
+msgstr "מי&זוג כתובת עם הבדלים…"
+
+#: app/kompare_shell.cpp:208
+#, kde-format
+msgctxt "@action"
+msgid "Show T&ext View"
+msgstr "הצגת תצוגת &טקסט…"
+
+#: app/kompare_shell.cpp:221
+#, kde-format
+msgid " 0 of 0 differences "
+msgstr " 0 מתוך 0 הבדלים "
+
+#: app/kompare_shell.cpp:222
+#, kde-format
+msgid " 0 of 0 files "
+msgstr " 0 מתוך 0 קבצים "
+
+#: app/kompare_shell.cpp:239
+#, kde-format
+msgid " %2 of %1 file "
+msgid_plural " %2 of %1 files "
+msgstr[0] " %2 מתוך קובץ "
+msgstr[1] " %2 מתוך שני קבצים "
+msgstr[2] " %2 מתוך %1 קבצים "
+msgstr[3] " %2 מתוך %1 קבצים "
+
+#: app/kompare_shell.cpp:241
+#, kde-format
+msgid " %1 file "
+msgid_plural " %1 files "
+msgstr[0] "קובץ"
+msgstr[1] " שני קבצים "
+msgstr[2] " %1 קבצים "
+msgstr[3] " %1 קבצים "
+
+#: app/kompare_shell.cpp:244
+#, kde-format
+msgid " %2 of %1 difference, %3 applied "
+msgid_plural " %2 of %1 differences, %3 applied "
+msgstr[0] " %2 מתוך הבדל, %3 הוטמעו "
+msgstr[1] " %2 מתוך שני הבדלים ,%3 הוטמעו "
+msgstr[2] " %2 מתוך %1 הבדלים ,%3 הוטמעו "
+msgstr[3] " %2 מתוך %1 הבדלים ,%3 הוטמעו "
+
+#: app/kompare_shell.cpp:247
+#, kde-format
+msgid " %1 difference "
+msgid_plural " %1 differences "
+msgstr[0] " הבדל "
+msgstr[1] " %1 הבדלים "
+msgstr[2] " %1 הבדלים "
+msgstr[3] " %1 הבדלים "
+
+#: app/kompare_shell.cpp:328
+#, kde-format
+msgctxt "@title:window"
+msgid "Blend File/Folder with diff Output"
+msgstr "מיזוג קובץ/תיקייה עם פלט הבדלים"
+
+#: app/kompare_shell.cpp:329
+#, kde-format
+msgctxt "@title:group"
+msgid "File/Folder"
+msgstr "קובץ/תיקייה"
+
+#: app/kompare_shell.cpp:330
+#, kde-format
+msgctxt "@title:group"
+msgid "Diff Output"
+msgstr "פלט הבדלים"
+
+#: app/kompare_shell.cpp:333
+#, kde-format
+msgctxt "@action:button"
+msgid "Blend"
+msgstr "מיזוג"
+
+#: app/kompare_shell.cpp:334
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Blend this file or folder with the diff output"
+msgstr "למזג את הקובץ או התיקייה האלו עם פלט ההבדלים"
+
+#: app/kompare_shell.cpp:335
+#, kde-format
+msgctxt "@infor:whatsthis"
+msgid ""
+"If you have entered a file or folder name and a file that contains diff "
+"output in the fields in this dialog then this button will be enabled and "
+"pressing it will open kompare's main view where the output of the entered "
+"file or files from the folder are mixed with the diff output so you can then "
+"apply the difference(s) to a file or to the files. "
+msgstr ""
+"אם מילאת שם קובץ או תיקייה וקובץ שמכיל את פלט ההבדלים בשדות שבחלונית הזאת אז "
+"הכפתור הזה יופעל ולחיצה עליו תפתח את התצוגה הראשי של Kompare בה פלט הקובץ או "
+"הקבצים שמולאו מהתיקייה מעורבבים בפלט ההבדלים כדי לאפשר לך להטמיע את ההבדלים "
+"לקובץ או לקבצים."
+
+#: app/kompare_shell.cpp:358 app/main.cpp:195
+#, kde-format
+msgctxt "@title:window"
+msgid "Compare Files or Folders"
+msgstr "השוואת קבצים ותיקיות"
+
+#: app/kompare_shell.cpp:359 app/main.cpp:196
+#, kde-format
+msgctxt "@title:group"
+msgid "Source"
+msgstr "מקור"
+
+#: app/kompare_shell.cpp:360 app/main.cpp:197
+#, kde-format
+msgctxt "@title:group"
+msgid "Destination"
+msgstr "יעד"
+
+#: app/kompare_shell.cpp:363 app/main.cpp:200
+#, kde-format
+msgctxt "@action:button"
+msgid "Compare"
+msgstr "השוואה"
+
+#: app/kompare_shell.cpp:364 app/main.cpp:201
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Compare these files or folders"
+msgstr "השוואת הקבצים או התיקיות האלה"
+
+#: app/kompare_shell.cpp:365 app/main.cpp:202
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you have entered 2 filenames or 2 folders in the fields in this dialog "
+"then this button will be enabled and pressing it will start a comparison of "
+"the entered files or folders. "
+msgstr ""
+"אם מילאת 2 שמות קבצים או 2 תיקיות בשדות שבחלונית הזאת אז הכפתור הזה יופעל "
+"ולחיצה עליו תתחיל בהשוואה של הקבצים והתיקיות שנבחרו. "
+
+#: app/kompare_shell.cpp:399
+#, kde-format
+msgctxt "@title:window"
+msgid "Text View"
+msgstr "תצוגת טקסט"
+
+#. i18n: ectx: Menu (file)
+#: app/kompareui.rc:4 komparepart/komparepartui.rc:4
+#, kde-format
+msgid "&File"
+msgstr "&קובץ"
+
+#. i18n: ectx: Menu (settings)
+#: app/kompareui.rc:14 komparepart/komparepartui.rc:29
+#, kde-format
+msgid "&Settings"
+msgstr "ה&גדרות"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: app/kompareui.rc:27
+#, kde-format
+msgid "Main Toolbar"
+msgstr "סרגל כלים ראשי"
+
+#: app/kompareurldialog.cpp:38
+#, kde-format
+msgctxt "@title:tab"
+msgid "Files"
+msgstr "קבצים"
+
+#: app/kompareurldialog.cpp:40
+#, kde-format
+msgid "Here you can enter the files you want to compare."
+msgstr "כאן אפשר למלא את הקבצים להשוואה."
+
+#: app/kompareurldialog.cpp:46 dialogpages/diffpage.cpp:185
+#: komparepart/kompareprefdlg.cpp:43
+#, kde-format
+msgctxt "@title:tab"
+msgid "Diff"
+msgstr "הבדלים"
+
+#: app/kompareurldialog.cpp:48
+#, kde-format
+msgid "Here you can change the options for comparing the files."
+msgstr "כאן אפשר לשנות את האפשרויות להשוואת הקבצים."
+
+#: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
+#, kde-format
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "מראה"
+
+#: app/kompareurldialog.cpp:55
+#, kde-format
+msgid "Here you can change the options for the view."
+msgstr "כאן אפשר לשנות את האפשרויות של התצוגה"
+
+#: app/kompareurldialog.cpp:101
+#, kde-format
+msgid ""
+"File used for excluding files cannot be found, please specify another file."
+msgstr "לא נמצא קובץ שמשמש להחרגת קבצים, נא לציין שם אחר."
+
+#: app/main.cpp:46
+#, kde-format
+msgid "Kompare"
+msgstr "Kompare"
+
+#: app/main.cpp:48
+#, kde-format
+msgid ""
+"A program to view the differences between files and optionally generate a "
+"diff"
+msgstr "תוכנית להצגת ההבדלים בין קבצים ולייצר פלט הבדלים כרשות"
+
+#: app/main.cpp:50
+#, kde-format
+msgid ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+msgstr ""
+"(c) 2001‏-2004 ג׳ון פיירבו, (c) 2001‏-2005,‏2009 אוטו ברוגמן, (c) 2004‏-2005 ג׳ף "
+"סניידר, (c) 2007‏-2012 קווין קופלר"
+
+#: app/main.cpp:53
+#, kde-format
+msgid "John Firebaugh"
+msgstr "ג׳ון פיירבו"
+
+#: app/main.cpp:53 app/main.cpp:54
+#, kde-format
+msgid "Author"
+msgstr "יוצר"
+
+#: app/main.cpp:54
+#, kde-format
+msgid "Otto Bruggeman"
+msgstr "אוטו ברוגמן"
+
+#: app/main.cpp:55
+#, kde-format
+msgid "Jeff Snyder"
+msgstr "ג׳ף סניידר"
+
+#: app/main.cpp:55
+#, kde-format
+msgid "Developer"
+msgstr "מפתח"
+
+#: app/main.cpp:56
+#, kde-format
+msgid "Kevin Kofler"
+msgstr "קווין קופלר"
+
+#: app/main.cpp:56
+#, kde-format
+msgid "Maintainer"
+msgstr "מתחזק"
+
+#: app/main.cpp:57
+#, kde-format
+msgid "Chris Luetchford"
+msgstr "כריס לויצ׳פורד"
+
+#: app/main.cpp:57
+#, kde-format
+msgid "Kompare icon artist"
+msgstr "מעצב הסמל של Kompare"
+
+#: app/main.cpp:58
+#, kde-format
+msgid "Malte Starostik"
+msgstr "מאלטה שטארוסיק"
+
+#: app/main.cpp:58
+#, kde-format
+msgid "A lot of good advice"
+msgstr "הרבה עצות טובות"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Bernd Gehrmann"
+msgstr "ברנד גרמן"
+
+#: app/main.cpp:59
+#, kde-format
+msgid "Cervisia diff viewer"
+msgstr "מציג ההבדלים של Cervisia"
+
+#: app/main.cpp:66
+#, kde-format
+msgid "This will compare URL1 with URL2"
+msgstr "הפעולה הזאת תשווה את כתובת1 מול כתובת2"
+
+#: app/main.cpp:67
+#, kde-format
+msgid ""
+"This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
+"and then it will read from standard input. Can be used for instance for cvs "
+"diff | kompare -o -. Kompare will do a check to see if it can find the "
+"original file(s) and then blend the original file(s) into the diffoutput and "
+"show that in the viewer. -n disables the check."
+msgstr ""
+"הפעולה הזאת תפתח את כתובת1 ותצפנה ממנה להיות פלט הבדלים. כתובת1 יכולה גם "
+"להיות ‚-’ ואז היא תיקרא מהקלט התקני (stdin). יכול לשמש, למשל, גם באופן cvs "
+"diff | kompare -o -‎.‏ Kompare ינסה לבדוק אם הוא מצליח למצוא את הקבצים "
+"המקוריים ואז למזג את הקבצים המקוריים לתוך פלט ההבדלים ולהציג את זה במציג. ‎-n "
+"משביתה את הבדיקה."
+
+#: app/main.cpp:68
+#, kde-format
+msgid ""
+"This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
+"the file or folder that the diffoutput needs to be blended into. "
+msgstr ""
+"הפעולה הזאת תמזג את כתובת2 לתוך כתובת1, כתובת2 אמורה להיות פלט הבדלים "
+"וכתובת1 אמורה להיות הקובץ או התיקייה אליהם למזג את פלט ההבדלים."
+
+#: app/main.cpp:69
+#, kde-format
+msgid ""
+"Disables the check for automatically finding the original file(s) when using "
+"'-' as URL with the -o option."
+msgstr ""
+"השבתת הבדיקה לאיתור קובצי המקור אוטומטית בעת שימוש ב־‚-’ ככתובת עם האפשרות ‎-"
+"o."
+
+#: app/main.cpp:70
+#, kde-format
+msgid ""
+"Use this to specify the encoding when calling it from the command line. It "
+"will default to the local encoding if not specified."
+msgstr ""
+"אפשר להשתמש בזה כדי לציין את הקידוד בעת קריאה משורת הפקודה. ברירת המחדל תהיה "
+"הקידוד המקומי אלא אם צוין אחרת."
+
+#: dialogpages/diffpage.cpp:174
+#, kde-format
+msgctxt "@title:group"
+msgid "Diff Program"
+msgstr "תוכנית הבדלים"
+
+#: dialogpages/diffpage.cpp:179
+#, kde-format
+msgid ""
+"You can select a different diff program here. On Solaris the standard diff "
+"program does not support all the options that the GNU version does. This way "
+"you can select that version."
+msgstr ""
+"כאן אפשר לבחור תוכנית diff חלופית. ב־Solaris תוכנית ה־diff כברירת מחדל לא "
+"תומכת בכל האפשרויות בהן תומכת גרסת גנו. ככה אפשר לבחור בגרסה הזאת."
+
+#: dialogpages/diffpage.cpp:196
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"Select the format of the output generated by diff. Unified is the one that "
+"is used most frequently because it is very readable. The KDE developers like "
+"this format the best so use it for sending patches."
+msgstr ""
+"נא לבחור את תבנית הפלט של diff. מאוחד זה הנפוץ ביותר כיוון שהוא מאוד קריא. "
+"מפתחי KDE אוהבים את התבנית הזאת כי היא הטובה ביותר לשליחת טלאים."
+
+#: dialogpages/diffpage.cpp:199
+#, kde-format
+msgctxt "@title:group"
+msgid "Output Format"
+msgstr "צורת פלט"
+
+#: dialogpages/diffpage.cpp:201
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Context"
+msgstr "הקשר"
+
+#: dialogpages/diffpage.cpp:204
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Normal"
+msgstr "רגיל"
+
+#: dialogpages/diffpage.cpp:207
+#, kde-format
+msgctxt "@option:radio format type"
+msgid "Unified"
+msgstr "מאוחד"
+
+#: dialogpages/diffpage.cpp:215
+#, kde-format
+msgctxt "@title:group"
+msgid "Lines of Context"
+msgstr "שורות הקשר"
+
+#: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"The number of context lines is normally 2 or 3. This makes the diff readable "
+"and applicable in most cases. More than 3 lines will only bloat the diff "
+"unnecessarily."
+msgstr ""
+"מספר שורות ההקשר בדרך כלל עומד על 2 או 3. ככה תצוגת ההבדלים נשארת קריאה ברוב "
+"המקרים. עם יותר מ־3 שורות תצוגת ההבדלים מתנפחת ללא צורך."
+
+#: dialogpages/diffpage.cpp:220
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of context lines:"
+msgstr "מספר שורות ההקשר:"
+
+#: dialogpages/diffpage.cpp:225
+#, kde-format
+msgctxt "@title:tab"
+msgid "Format"
+msgstr "עיצוב"
+
+#: dialogpages/diffpage.cpp:237
+#, kde-format
+msgctxt "@title:group"
+msgid "General"
+msgstr "כללי"
+
+#: dialogpages/diffpage.cpp:239
+#, kde-format
+msgctxt "@option:check"
+msgid "&Treat new files as empty"
+msgstr "התייחסות לקבצים חדשים כ&ריקים"
+
+#: dialogpages/diffpage.cpp:240
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -N diff option."
+msgstr "האפשרות הזאת תואמת לאפשרות ‎-N ב־diff."
+
+#: dialogpages/diffpage.cpp:241
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will treat a file that only exists in one of "
+"the directories as empty in the other directory. This means that the file is "
+"compared with an empty file and because of this will appear as one big "
+"insertion or deletion."
+msgstr ""
+"כשהאפשרות הזאת פעילה diff יתייחס לקובץ שקיים באחת התיקיות כריק בתיקייה "
+"השנייה. המשמעות היא שהקובץ מושווה מול קובץ ריק ועקב כך יופיעו כהוספה או "
+"מחיקה גדולות."
+
+#: dialogpages/diffpage.cpp:244
+#, kde-format
+msgctxt "@option:check"
+msgid "&Look for smaller changes"
+msgstr "חיפוש אחר שינויים &קטנים יותר"
+
+#: dialogpages/diffpage.cpp:245
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -d diff option."
+msgstr "תואם לאפשרות ‎-d ב־diff."
+
+#: dialogpages/diffpage.cpp:246
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option enabled diff will try a little harder (at the cost of more "
+"memory) to find fewer changes."
+msgstr ""
+"כשהאפשרות הזאת פעילה, diff ינסה יותר בכוח (בתמורה לניצול של זיכרון נוסף) כדי "
+"למצוע פחות שינויים."
+
+#: dialogpages/diffpage.cpp:248
+#, kde-format
+msgctxt "@option:check"
+msgid "O&ptimize for large files"
+msgstr "מי&טוב לקבצים גדולים"
+
+#: dialogpages/diffpage.cpp:249
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -H diff option."
+msgstr "תואם לאפשרות ‎-H ב־diff."
+
+#: dialogpages/diffpage.cpp:250
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option lets diff makes better diffs when using large files. The "
+"definition of large is nowhere to be found though."
+msgstr ""
+"האפשרות הזאת מאפשר ל־diff להכין פלט הבדלים מוצלח יותר כשמשתמשים בו על קבצים "
+"גדולים. ההגדרה מה זה גדול לא ברורה עדיין."
+
+#: dialogpages/diffpage.cpp:252
+#, kde-format
+msgctxt "@option:check"
+msgid "&Ignore changes in case"
+msgstr "התעלמות משינויים באותיות &רישיות"
+
+#: dialogpages/diffpage.cpp:253
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This corresponds to the -i diff option."
+msgstr "תואם לאפשרות ‎-i ב־diff."
+
+#: dialogpages/diffpage.cpp:254
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"With this option to ignore changes in case enabled, diff will not indicate a "
+"difference when something in one file is changed into SoMEthing in the other "
+"file."
+msgstr ""
+"כשהאפשרות הזאת להתעלמות משינויים באותיות רישיות מסומנת, diff לא יציין הבדל "
+"כשמשהו (something) בקובץ אחד משתנה למשהו (SoMEthing) אחר בקובץ השני."
+
+#: dialogpages/diffpage.cpp:262
+#, kde-format
+msgctxt "@option:check"
+msgid "Ignore regexp:"
+msgstr "ביטוי רגולרי להתעלמות:"
+
+#: dialogpages/diffpage.cpp:263
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -I diff option."
+msgstr "האפשרות הזאת תואמת לאפשרות ‎-I ב־diff."
+
+#: dialogpages/diffpage.cpp:264
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"When this checkbox is enabled, an option to diff is given that will make "
+"diff ignore lines that match the regular expression."
+msgstr ""
+"כשהתיבה הזאת מסומנת, תסופק אפשרות ל־diff שתגרום לו להתעלם משורות שעונות על "
+"הביטוי הרגולרי."
+
+#: dialogpages/diffpage.cpp:268
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Add the regular expression here that you want to use\n"
+"to ignore lines that match it."
+msgstr ""
+"אפשר להוסיף כאן את הביטוי הרגולרי לשימוש כדי\n"
+"להתעלם משורות כדי ללכוד אותו."
+
+#: dialogpages/diffpage.cpp:274
+#, kde-format
+msgctxt "@title:group"
+msgid "Whitespace"
+msgstr "רווח"
+
+#: dialogpages/diffpage.cpp:276
+#, kde-format
+msgctxt "@option:check"
+msgid "E&xpand tabs to spaces in output"
+msgstr "להר&חיב טאבים לרווחים בפלט"
+
+#: dialogpages/diffpage.cpp:277
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -t diff option."
+msgstr "האפשרות הזאת תואמת לאפשרות ‎-t ב־diff."
+
+#: dialogpages/diffpage.cpp:278
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This option does not always produce the right result. Due to this expansion "
+"Kompare may have problems applying the change to the destination file."
+msgstr ""
+"האפשרות הזאת לא תמיד מייצרת את התוצאה הרצויה. עקב ההרחבה הזאת Kompare עשוי "
+"להיתקל בבעיות בהטמעת השינוי לקובץ היעד."
+
+#: dialogpages/diffpage.cpp:280
+#, kde-format
+msgctxt "@option:check"
+msgid "I&gnore added or removed empty lines"
+msgstr "התעלמות מ&שורות ריקות חדשות שנוספו או נמחקו"
+
+#: dialogpages/diffpage.cpp:281
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -B diff option."
+msgstr "האפשרות הזאת תואמת לאפשרות ‎-B ב־diff."
+
+#: dialogpages/diffpage.cpp:282
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This can be very useful in situations where code has been reorganized and "
+"empty lines have been added or removed to improve legibility."
+msgstr ""
+"יכול להיות מאוד שימושי במצבים בהם יש לסדר קוד מחדש ונוספו או הוסרו שורות "
+"ריקות כדי לשפר את הקריאות."
+
+#: dialogpages/diffpage.cpp:284
+#, kde-format
+msgctxt "@option:check"
+msgid "Ig&nore changes in the amount of whitespace"
+msgstr "התעלמות משינויים ב&כמות הרווחים"
+
+#: dialogpages/diffpage.cpp:285
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -b diff option."
+msgstr "האפשרות הזאת תואמת לאפשרות ‎-b ב־diff."
+
+#: dialogpages/diffpage.cpp:286
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If you are uninterested in differences arising due to, for example, changes "
+"in indentation, then use this option."
+msgstr ""
+"אם לא מעניין אותך הבדלים שחלים עקב, למשל, שינויים בהזחה, מוטב להשתמש באפשרות "
+"הזאת."
+
+#: dialogpages/diffpage.cpp:288
+#, kde-format
+msgctxt "@option:check"
+msgid "Ign&ore all whitespace"
+msgstr "התעלמות מכל ה&רווחים"
+
+#: dialogpages/diffpage.cpp:289
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -w diff option."
+msgstr "האפשרות הזאת תואמת לאפשרות ‎-w ב־diff."
+
+#: dialogpages/diffpage.cpp:290
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"This is useful for seeing the significant changes without being overwhelmed "
+"by all the white space changes."
+msgstr "שימושי לצפייה בשינויים מהותיים מבלי לקבל הצפה של כל שינויי הרווחים."
+
+#: dialogpages/diffpage.cpp:292
+#, kde-format
+msgctxt "@option:check"
+msgid "Igno&re changes due to tab expansion"
+msgstr "הת&עלמות משינויים עקב הרחבת טאבים"
+
+#: dialogpages/diffpage.cpp:293
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "This option corresponds to the -E diff option."
+msgstr "האפשרות הזאת תואמת לאפשרות ‎-E ב־diff."
+
+#: dialogpages/diffpage.cpp:294
+#, kde-format
+msgctxt "@info:whatsthis"
+msgid ""
+"If there is a change because tabs have been expanded into spaces in the "
+"other file, then this option will make sure that these do not show up. "
+"Kompare currently has some problems applying such changes so be careful when "
+"you use this option."
+msgstr ""
+"אם יש שינוי כי הטאבים הורחבו לרווחים בקובץ השני, אז האפשרות הזאת תוודא שהם "
+"לא יופיעו. נכון לעכשיו, ל־Kompare יש בעיות בהטמעת שינויים כאלה לכן מוטב "
+"לנקוט במשנה זהירות כשמשתמשים באפשרות הזאת."
+
+#: dialogpages/diffpage.cpp:299
+#, kde-format
+msgctxt "@title:tab"
+msgid "Options"
+msgstr "אפשרויות"
+
+#: dialogpages/diffpage.cpp:311
+#, kde-format
+msgctxt "@title:group"
+msgid "File Pattern to Exclude"
+msgstr "תבנית קבצים להחרגה"
+
+#: dialogpages/diffpage.cpp:312
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"If this is checked you can enter a shell pattern in the text box on the "
+"right or select entries from the list."
+msgstr ""
+"אם זה מסומן אפשר למלא תבנית מעטפת בתיבת הטקסט משמאל או לבחור רשומות מהרשימה."
+
+#: dialogpages/diffpage.cpp:318
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter or remove a shell pattern or select one or more entries "
+"from the list."
+msgstr ""
+"כאן אפשר למלא או להסיר תבנית מעטפת או לבחור ברשומה אחת או יותר מהרשימה."
+
+#: dialogpages/diffpage.cpp:328
+#, kde-format
+msgctxt "@title:group"
+msgid "File with Filenames to Exclude"
+msgstr "קובץ עם שמות קבצים להחרגה"
+
+#: dialogpages/diffpage.cpp:329
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "If this is checked you can enter a filename in the combo box below."
+msgstr ""
+"אם האפשרות הזאת מסומנת אפשר למלא את שם הקובץ בתיבת הבחירה המשולבת שלהלן."
+
+#: dialogpages/diffpage.cpp:333
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Here you can enter the URL of a file with shell patterns to ignore during "
+"the comparison of the folders."
+msgstr ""
+"כאן אפשר למלא את כתובת הקובץ עם תבניות מעטפת להתעלמות במהלך השוואת התיקיות."
+
+#: dialogpages/diffpage.cpp:337
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Any file you select in the dialog that pops up when you click it will be put "
+"in the dialog to the left of this button."
+msgstr ""
+"כל קובץ שייבחר בחלונית שקופצת בלחיצה עליה יוצב בחלונית שמימין לכפתור הזה."
+
+#: dialogpages/diffpage.cpp:344
+#, kde-format
+msgctxt "@title:tab"
+msgid "Exclude"
+msgstr "החרגה"
+
+#: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select file"
+msgstr "בחירת קובץ"
+
+#: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select folder"
+msgstr "בחירת תיקייה"
+
+#: dialogpages/filespage.cpp:87
+#, kde-format
+msgctxt "@title:group"
+msgid "Encoding"
+msgstr "קידוד"
+
+#: dialogpages/filespage.cpp:92
+#, kde-format
+msgctxt "@item:inlistbox encoding"
+msgid "Default"
+msgstr "ברירת מחדל"
+
+#: dialogpages/filespage.cpp:126
+#, kde-format
+msgctxt "@title:window"
+msgid "Select Folder"
+msgstr "בחירת תיקייה"
+
+#: dialogpages/filespage.cpp:130
+#, kde-format
+msgctxt "@title:window"
+msgid "Select File"
+msgstr "בחירת קובץ"
+
+#: dialogpages/viewpage.cpp:44
+#, kde-format
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "צבעים"
+
+#: dialogpages/viewpage.cpp:50
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Removed color:"
+msgstr "צבע הסרה:"
+
+#: dialogpages/viewpage.cpp:54
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Changed color:"
+msgstr "צבע שינוי:"
+
+#: dialogpages/viewpage.cpp:58
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Added color:"
+msgstr "צבע הוספה:"
+
+#: dialogpages/viewpage.cpp:62
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Applied color:"
+msgstr "צבע הטמעה:"
+
+#: dialogpages/viewpage.cpp:66
+#, kde-format
+msgctxt "@title:group"
+msgid "Mouse Wheel"
+msgstr "גלגלת העכבר"
+
+#: dialogpages/viewpage.cpp:72
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of lines:"
+msgstr "מספר השורות:"
+
+#: dialogpages/viewpage.cpp:77
+#, kde-format
+msgctxt "@title:group"
+msgid "Tabs to Spaces"
+msgstr "טאבים לרווחים"
+
+#: dialogpages/viewpage.cpp:83
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Number of spaces to convert a tab character to:"
+msgstr "מספר הרווחים להמרה לתו טאב:"
+
+#: dialogpages/viewpage.cpp:94
+#, kde-format
+msgctxt "@title:group"
+msgid "Text Font"
+msgstr "גופן כתב"
+
+#: dialogpages/viewpage.cpp:98
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Font:"
+msgstr "גופן:"
+
+#: dialogpages/viewpage.cpp:103
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Size:"
+msgstr "גודל:"
+
+#: dialogpages/viewpage.cpp:107
+#, kde-format
+msgctxt "@title:tab"
+msgid "Fonts"
+msgstr "גופנים"
+
+#: komparenavtreepart/komparenavtreepart.cpp:53
+#, kde-format
+msgctxt "@title:column"
+msgid "Source Folder"
+msgstr "תיקיית מקור"
+
+#: komparenavtreepart/komparenavtreepart.cpp:59
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination Folder"
+msgstr "תיקיית יעד"
+
+#: komparenavtreepart/komparenavtreepart.cpp:66
+#, kde-format
+msgctxt "@title:column"
+msgid "Source File"
+msgstr "קובץ מקור"
+
+#: komparenavtreepart/komparenavtreepart.cpp:67
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination File"
+msgstr "קובץ יעד"
+
+#: komparenavtreepart/komparenavtreepart.cpp:76
+#, kde-format
+msgctxt "@title:column"
+msgid "Source Line"
+msgstr "שורת מקור"
+
+#: komparenavtreepart/komparenavtreepart.cpp:77
+#, kde-format
+msgctxt "@title:column"
+msgid "Destination Line"
+msgstr "שורת יעד"
+
+#: komparenavtreepart/komparenavtreepart.cpp:78
+#, kde-format
+msgctxt "@title:column"
+msgid "Difference"
+msgstr "הבדל"
+
+#: komparenavtreepart/komparenavtreepart.cpp:453
+#, kde-format
+msgid "Applied: Changes made to %1 line undone"
+msgid_plural "Applied: Changes made to %1 lines undone"
+msgstr[0] "הוטמע: שינויים שבוצעו בשורה הוסגו"
+msgstr[1] "הוטמעו: שינויים שבוצעו בשתי שורות הוסגו"
+msgstr[2] "הוטמעו: שינויים שבוצעו ב־%1 שורות הוסגו"
+msgstr[3] "הוטמעו: שינויים שבוצעו ב־%1 שורות הוסגו"
+
+#: komparenavtreepart/komparenavtreepart.cpp:456
+#, kde-format
+msgid "Changed %1 line"
+msgid_plural "Changed %1 lines"
+msgstr[0] "שורה השתנתה"
+msgstr[1] "שתי שורות השתנו"
+msgstr[2] "%1 שורות השתנו"
+msgstr[3] "%1 שורות השתנו"
+
+#: komparenavtreepart/komparenavtreepart.cpp:461
+#, kde-format
+msgid "Applied: Insertion of %1 line undone"
+msgid_plural "Applied: Insertion of %1 lines undone"
+msgstr[0] "הוטמע: הוספת שורה הוסגה"
+msgstr[1] "הוטמע: הוספת שתי שורות הוסגו"
+msgstr[2] "הוטמע: הוספת %1 שורות הוסגו"
+msgstr[3] "הוטמע: הוספת %1 שורות הוסגו"
+
+#: komparenavtreepart/komparenavtreepart.cpp:464
+#, kde-format
+msgid "Inserted %1 line"
+msgid_plural "Inserted %1 lines"
+msgstr[0] "נוספה שורה"
+msgstr[1] "נוספו שתי שורות"
+msgstr[2] "נוספו %1 שורות"
+msgstr[3] "נוספו %1 שורות"
+
+#: komparenavtreepart/komparenavtreepart.cpp:469
+#, kde-format
+msgid "Applied: Deletion of %1 line undone"
+msgid_plural "Applied: Deletion of %1 lines undone"
+msgstr[0] "הוטמע: מחיקת שורה הוסגה"
+msgstr[1] "הוטמע: מחיקת שתי שורות הוסגה"
+msgstr[2] "הוטמע: מחיקת %1 שורות הוסגה"
+msgstr[3] "הוטמע: מחיקת %1 שורות הוסגה"
+
+#: komparenavtreepart/komparenavtreepart.cpp:472
+#, kde-format
+msgid "Deleted %1 line"
+msgid_plural "Deleted %1 lines"
+msgstr[0] "מחיקת שורה"
+msgstr[1] "מחיקת שתי שורות"
+msgstr[2] "מחיקת %1 שורות"
+msgstr[3] "מחיקת %1 שורות"
+
+#: komparenavtreepart/komparenavtreepart.cpp:627
+#, kde-format
+msgctxt "@item directory name not known"
+msgid "Unknown"
+msgstr "לא ידוע"
+
+#: komparepart/kompare_part.cpp:177
+#, kde-format
+msgctxt "@action"
+msgid "Save &All"
+msgstr "שמירה של ה&כול"
+
+#: komparepart/kompare_part.cpp:179
+#, kde-format
+msgctxt "@action"
+msgid "Save &Diff..."
+msgstr "שמירת ה&בדלים…"
+
+#: komparepart/kompare_part.cpp:181
+#, kde-format
+msgctxt "@action"
+msgid "Swap Source with Destination"
+msgstr "החלפה בין המקור ליעד"
+
+#: komparepart/kompare_part.cpp:188
+#, kde-format
+msgctxt "@action"
+msgid "Show Statistics"
+msgstr "הצגת סטטיסטיקה"
+
+#: komparepart/kompare_part.cpp:191
+#, kde-format
+msgctxt "@action"
+msgid "Refresh Diff"
+msgstr "רענון הבדלים"
+
+#: komparepart/kompare_part.cpp:303 komparepart/kompare_part.cpp:316
+#, kde-format
+msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
+msgstr "<qt>אי אפשר להוריד את הכתובת <b>%1</b>.</qt>"
+
+#: komparepart/kompare_part.cpp:354
+#, kde-format
+msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
+msgstr "<qt>הכתובת <b>%1</b> לא קיימת במערכת שלך.</qt>"
+
+#: komparepart/kompare_part.cpp:542
+#, kde-format
+msgctxt "@title:window"
+msgid "Diff Options"
+msgstr "אפשרויות הבדלים"
+
+#: komparepart/kompare_part.cpp:561
+#, kde-format
+msgctxt "@title:window"
+msgid "Save .diff"
+msgstr "שמירת ‎.diff"
+
+#: komparepart/kompare_part.cpp:563
+#, kde-format
+msgid "Patch Files (*.diff *.dif *.patch)"
+msgstr "קובצי טלאי (‎*.diff‏ ‎*.dif‏ ‎*.patch)"
+
+#: komparepart/kompare_part.cpp:624
+#, kde-format
+msgctxt "@info:status"
+msgid "Running diff..."
+msgstr "בדיקת הבדלים מופעלת…"
+
+#: komparepart/kompare_part.cpp:627
+#, kde-format
+msgctxt "@info:status"
+msgid "Parsing diff output..."
+msgstr "פלט ההבדלים מפוענח…"
+
+#: komparepart/kompare_part.cpp:683
+#, kde-format
+msgctxt "@info:status"
+msgid "Comparing file %1 with file %2"
+msgstr "השוואת הקובץ %1 עם הקובץ %2"
+
+#: komparepart/kompare_part.cpp:688
+#, kde-format
+msgctxt "@info:status"
+msgid "Comparing files in %1 with files in %2"
+msgstr "הקבצים ב־%1 מושווים מול הקבצים ב־%2"
+
+#: komparepart/kompare_part.cpp:693
+#, kde-format
+msgctxt "@info:status"
+msgid "Viewing diff output from %1"
+msgstr "הצגת פלט ההבדלים מ־%1"
+
+#: komparepart/kompare_part.cpp:696
+#, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into file %2"
+msgstr "פלט ההבדלים מ־%1 ממוזג לתוך הקובץ %2"
+
+#: komparepart/kompare_part.cpp:701
+#, kde-format
+msgctxt "@info:status"
+msgid "Blending diff output from %1 into folder %2"
+msgstr "פלט ההבדלים מ־%1 ממוזג לתוך התיקייה %2"
+
+#: komparepart/kompare_part.cpp:752 komparepart/kompare_part.cpp:783
+#: komparepart/kompare_part.cpp:899
+#, kde-format
+msgid ""
+"You have made changes to the destination file(s).\n"
+"Would you like to save them?"
+msgstr ""
+"ערכת שינויים בקובצי היעד.\n"
+"לשמור אותם?"
+
+#: komparepart/kompare_part.cpp:754 komparepart/kompare_part.cpp:785
+#: komparepart/kompare_part.cpp:901
+#, kde-format
+msgctxt "@title:window"
+msgid "Save Changes?"
+msgstr "לשמור את השינויים?"
+
+#: komparepart/kompare_part.cpp:824
+#, kde-format
+msgctxt "@item diff format"
+msgid "Unified"
+msgstr "מאוחד"
+
+#: komparepart/kompare_part.cpp:827
+#, kde-format
+msgctxt "@item diff format"
+msgid "Context"
+msgstr "הקשר"
+
+#: komparepart/kompare_part.cpp:830
+#, kde-format
+msgctxt "@item diff format"
+msgid "RCS"
+msgstr "RCS"
+
+#: komparepart/kompare_part.cpp:833
+#, kde-format
+msgctxt "@item diff format"
+msgid "Ed"
+msgstr "Ed"
+
+#: komparepart/kompare_part.cpp:836
+#, kde-format
+msgctxt "@item diff format"
+msgid "Normal"
+msgstr "רגיל"
+
+#: komparepart/kompare_part.cpp:840
+#, kde-format
+msgctxt "@item diff format"
+msgid "Unknown"
+msgstr "לא ידוע"
+
+#: komparepart/kompare_part.cpp:856
+#, kde-format
+msgid ""
+"No diff file, or no 2 files have been diffed. Therefore no stats are "
+"available."
+msgstr "אין קובץ הבדלים או שלא נבדק הבדל בין 2 קבצים. לכן אין סטטיסטיקה."
+
+#: komparepart/kompare_part.cpp:858 komparepart/kompare_part.cpp:872
+#: komparepart/kompare_part.cpp:888
+#, kde-format
+msgctxt "@title:window"
+msgid "Diff Statistics"
+msgstr "סטטיסטיקת הבדלים"
+
+#: komparepart/kompare_part.cpp:862
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Old file: %1\n"
+"New file: %2\n"
+"\n"
+"Format: %3\n"
+"Number of hunks: %4\n"
+"Number of differences: %5"
+msgstr ""
+"סטטיסטיקה:\n"
+"\n"
+"קובץ ישן: %1\n"
+"קובץ חדש: %2\n"
+"\n"
+"תבנית: %3\n"
+"מספר חתיכות: %4\n"
+"מספר הבדלים: %5"
+
+#: komparepart/kompare_part.cpp:875
+#, kde-format
+msgid ""
+"Statistics:\n"
+"\n"
+"Number of files in diff file: %1\n"
+"Format: %2\n"
+"\n"
+"Current old file: %3\n"
+"Current new file: %4\n"
+"\n"
+"Number of hunks: %5\n"
+"Number of differences: %6"
+msgstr ""
+"סטטיסטיקה:\n"
+"\n"
+"מספר הקבצים בקובץ ההבדלים: %1\n"
+"תבנית: %2\n"
+"קובץ ישן נוכחי: %3\n"
+"קובץ חדש נוכחי: %4\n"
+"\n"
+"מספר חתיכות: %5\n"
+"מספר הבדלים: %6"
+
+#. i18n: ectx: Menu (difference)
+#: komparepart/komparepartui.rc:17
+#, kde-format
+msgid "&Difference"
+msgstr "ה&בדל"
+
+#: komparepart/kompareprefdlg.cpp:27
+#, kde-format
+msgctxt "@title:window"
+msgid "Preferences"
+msgstr "העדפות"
+
+#: komparepart/kompareprefdlg.cpp:37
+#, kde-format
+msgctxt "@title:tab"
+msgid "View"
+msgstr "תצוגה"
+
+#: komparepart/kompareprefdlg.cpp:39
+#, kde-format
+msgctxt "@title"
+msgid "View Settings"
+msgstr "הגדרות תצוגה"
+
+#: komparepart/kompareprefdlg.cpp:45
+#, kde-format
+msgctxt "@title"
+msgid "Diff Settings"
+msgstr "הגדרות הבדלים"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
+#: komparepart/komparesaveoptionsbase.ui:29
+#, kde-format
+msgid "Format"
+msgstr "עיצוב"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
+#: komparepart/komparesaveoptionsbase.ui:35
+#, kde-format
+msgid "&Context"
+msgstr "ה&קשר"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
+#: komparepart/komparesaveoptionsbase.ui:42
+#, kde-format
+msgid "Ed"
+msgstr "Ed"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
+#: komparepart/komparesaveoptionsbase.ui:49
+#, kde-format
+msgid "&Normal"
+msgstr "&רגיל"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
+#: komparepart/komparesaveoptionsbase.ui:56
+#, kde-format
+msgid "RCS"
+msgstr "RCS"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
+#: komparepart/komparesaveoptionsbase.ui:63
+#, kde-format
+msgid "&Unified"
+msgstr "מ&אוחד"
+
+#. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
+#: komparepart/komparesaveoptionsbase.ui:73
+#, kde-format
+msgid "&Side-by-side"
+msgstr "ב&שתי עמודות"
+
+#. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
+#: komparepart/komparesaveoptionsbase.ui:85
+#, kde-format
+msgid "Number of context lines:"
+msgstr "מספר שורות ההקשר:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
+#: komparepart/komparesaveoptionsbase.ui:126
+#, kde-format
+msgid "Options"
+msgstr "אפשרויות"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_SmallerChangesCB)
+#: komparepart/komparesaveoptionsbase.ui:132
+#, kde-format
+msgid "Look for smaller changes"
+msgstr "חיפוש אחר שינויים קטנים יותר"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:142
+#, kde-format
+msgid "Optimize for large files"
+msgstr "מיטוב לקבצים גדולים"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
+#: komparepart/komparesaveoptionsbase.ui:152
+#, kde-format
+msgid "Ignore changes in case"
+msgstr "התעלמות משינויים באותיות רישיות"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
+#: komparepart/komparesaveoptionsbase.ui:159
+#, kde-format
+msgid "Expand tabs to spaces"
+msgstr "הרחבת טאבים לרווחים"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
+#: komparepart/komparesaveoptionsbase.ui:166
+#, kde-format
+msgid "Ignore added or removed empty lines"
+msgstr "התעלמות משורות ריקות חדשות שנוספו או נמחקו"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreWhiteSpaceCB)
+#: komparepart/komparesaveoptionsbase.ui:173
+#, kde-format
+msgid "Ignore changes in whitespace"
+msgstr "התעלמות משינויים ברווחים"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
+#: komparepart/komparesaveoptionsbase.ui:180
+#, kde-format
+msgid "Show function names"
+msgstr "הצגת שמות פונקציות"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
+#: komparepart/komparesaveoptionsbase.ui:190
+#, kde-format
+msgid "Compare folders recursively"
+msgstr "השוואת תיקיות ברקורסיה"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
+#: komparepart/komparesaveoptionsbase.ui:200
+#, kde-format
+msgid "Treat new files as empty"
+msgstr "התייחסות לקבצים חדשים כריקים"
+
+#. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
+#: komparepart/komparesaveoptionsbase.ui:222
+#, kde-format
+msgid "Run Diff In"
+msgstr "הרצת הבדלים/Diff דרך"
+
+#. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
+#: komparepart/komparesaveoptionsbase.ui:247
+#, kde-format
+msgid "Command Line"
+msgstr "שורת פקודה"
+
+#. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
+#: komparepart/komparesaveoptionsbase.ui:256
+#, kde-format
+msgid "cd dir && diff -udHprNa -- source destination"
+msgstr "cd dir && diff -udHprNa -- source destination"

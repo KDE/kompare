@@ -23,6 +23,7 @@
   <name xml:lang="fi">Kompare</name>
   <name xml:lang="fr">Kompare</name>
   <name xml:lang="gl">Kompare</name>
+  <name xml:lang="he">Kompare</name>
   <name xml:lang="id">Kompare</name>
   <name xml:lang="it">Kompare</name>
   <name xml:lang="ka">Kompare</name>
@@ -61,6 +62,7 @@
   <summary xml:lang="fi">Diff/Patch-käyttöliittymä</summary>
   <summary xml:lang="fr">Interface graphique pour « Diff » et « Patch »</summary>
   <summary xml:lang="gl">Interface para Diff e Patch</summary>
+  <summary xml:lang="he">ממשק תפעול ל־Diff/Patch (הבדלים/טלאי)</summary>
   <summary xml:lang="id">Frontend Diff/Patch</summary>
   <summary xml:lang="it">Interfaccia a Diff/Patch</summary>
   <summary xml:lang="ka">Diff/Patch -ის წინაბოლო</summary>
@@ -101,6 +103,7 @@
     <p xml:lang="fi">Kompare on graafisen käyttöliittymän ohjelma, jolla tarkastella ja yhdistää tiedostojen eroavuuksia. Sillä voi verrata tiedostojen tai kansioiden sisältöjen eroja, se tukee useita diff-muotoja ja tarjoaa monia mahdollisuuksia mukauttaa, miten tieto esitetään.</p>
     <p xml:lang="fr">Kompare est une interface graphique qui permet d'afficher les différences entre fichiers sources et de les fusionner. Il peut être utilisé pour comparer les différences entre fichiers ou les contenus de dossiers, il gère de nombreux formats de fichiers de différences et propose une multitude d'options de personnalisation du niveau d'informations affiché.</p>
     <p xml:lang="gl">Kompare é unha interface gráfica que permite visualizar e combinar diferenzas entre ficheiros de código. Pode usarse para comparar diferenzas entre ficheiros ou cartafoles, é compatíbel con varios formatos de diferenzas, e fornece moitas opcións para personalizar o nivel de información que se amosa.</p>
+    <p xml:lang="he">Kompare היא תוכנית עם ממשק משתמש שמאפשר לצפות ולמזג הבדלים בין קובצי קוד מקור. אפשר להשתמש בה כדי להשוות הבדלים בין קבצים או תוכני תיקיות, והיא תומכת במגוון סוגי ייצוג הבדלים ומספר מגוון אפשרויות להתאמת רמת הפירוט שמופיעה.</p>
     <p xml:lang="id">Kompare adalah program front-end GUI yang memungkinkan perbedaan antara file sumber untuk dilihat dan digabungkan. Ini dapat digunakan untuk membandingkan perbedaan pada file atau konten folder, dan mendukung beragam format yang berbeda dan menyediakan banyak opsi untuk menyesuaikan tingkat informasi yang didisplaikan.</p>
     <p xml:lang="it">Kompare è un programma a interfaccia grafica che permette di visualizzare e fondere le differenze tra file sorgente. Può essere usato per confrontare le differenze di file o dei contenuti di cartelle, e supporta vari formati di differenze; fornisce anche molte opzioni per personalizzare il livello di informazioni visualizzato.</p>
     <p xml:lang="ka">Kompare გრაფიკული წინაბოლოა, რომელიც წყარო ფაილებს შორს სხვაობას გაჩვენებთ და ამ სხვაობების შერწყმაში დაგეხმარებათ. შეგიძლიათ გამოიყენოთ სხვაობის საპოვნელად საქაღალდეებს შორის და აქვს სხვადასხვა სხვაობის ფორმატების მხარდაჭერა. ამასთან ერთად, გაძლევთ საშუალებას, ბოლომდე მოირგოთ გამოტანილი ინფორმაციის რაობა და რაოდენობა.</p>
@@ -139,6 +142,7 @@
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
     <p xml:lang="gl">Funcionalidades:</p>
+    <p xml:lang="he">יכולות:</p>
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="ka">თვისებები:</p>
@@ -177,6 +181,7 @@
       <li xml:lang="fi">Tiedostojen tai kansioiden sisällön vertailu rekursiivisesti.</li>
       <li xml:lang="fr">Comparer les différences entre fichiers ou récursivement entre contenus de dossiers</li>
       <li xml:lang="gl">Comparación de diferenzas entre ficheiros ou cartafoles.</li>
+      <li xml:lang="he">השוואת הבדלים בין קבצים או תכנים של תיקיות באופן רקורסיבי.</li>
       <li xml:lang="id">Membandingkan perbedaan pada file atau konten folder secara saksama</li>
       <li xml:lang="it">Confronta ricorsivamente le differenze di file o di contenuti di cartelle.</li>
       <li xml:lang="ka">ფაილების ან საქაღალდეების შემცველობის რეკურსიული შედარება.</li>
@@ -214,6 +219,7 @@
       <li xml:lang="fi">Tukee eri diff-muotoja ja tarjoaa monia mahdollisuuksia mukauttaa, miten tieto esitetään.</li>
       <li xml:lang="fr">Gère de nombreux formats de fichiers de différences et propose de nombreuses options de personnalisation du niveau d'informations affiché.</li>
       <li xml:lang="gl">É compatíbel con varios formatos de diferenzas e fornece moitas opcións para personalizar o nivel de información que se amosa.</li>
+      <li xml:lang="he">תמיכה במגוון של תצורות הבדלים תוך אספקת מגוון אפשרויות להתאמת רמת הפירוט שתוצג.</li>
       <li xml:lang="id">Dukungan bermacam format diff dan menyediakan banyak opsi untuk mengkustomisasi tingkat informasi yang didisplaikan.</li>
       <li xml:lang="it">Supporta vari formati di differenze, e fornisce anche molte opzioni per personalizzare il livello di informazioni visualizzato.</li>
       <li xml:lang="ka">აქვს განსხვავებების სხვადასხვა ფორმატის მხარდაჭერა და გამოტანილი ინფორმაციის დონის კონტროლისთვის მრავალ პარამეტრს წარმოგიდგენთ.</li>
@@ -251,6 +257,7 @@
       <li xml:lang="fi">Mahdollisuus luoda paikkauksia ja ottaa ne käyttöön.</li>
       <li xml:lang="fr">Créer et appliquer des correctifs</li>
       <li xml:lang="gl">Creación e aplicación de parches.</li>
+      <li xml:lang="he">יצירת והחלת טלאים.</li>
       <li xml:lang="id">Penciptaan dan penerapan patch.</li>
       <li xml:lang="it">Creare ed applica le patch.</li>
       <li xml:lang="ka">პაჩების შექმნა და გადატარება.</li>

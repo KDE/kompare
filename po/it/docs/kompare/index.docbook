@@ -294,7 +294,7 @@
 >Maniglia condivisa</term>
 <listitem
 ><para
->Lo spazio verticale tra l'origine e la destinazione non solo rende possibile vedere chiaramente l'inizio e la fine di ogni riga nelle due aree, ma è anche una maniglia che permette di regolare la parte dell'area di visualizzazione occupata da ciascuna delle due aree. Per cambiare la dimensione di una delle due viste, posiziona il puntatore del mouse sulla maniglia, tieni premuto il pulsante e trascina a destra o a sinistra. Naturalmente, aumentare l'area di una vista diminuisce quella disponibile per l'altra.</para>
+>Lo spazio verticale tra la vista di origine e quella di destinazione non solo rende possibile vedere chiaramente l'inizio e la fine di ogni riga in ciascun pannello, ma è anche una maniglia per regolare la percentuale dell'area occupata tra le due viste. Per modificare la dimensione del pannello di una delle due viste passa col mouse sulla maniglia, quindi tieni premuto il pulsante e trascina a destra o a sinistra. Naturalmente, l'aumento dell'area di un pannello diminuisce quella disponibile per l'altro nella vista dell'area del pannello.</para>
 <para
 >È disponibile una seconda maniglia orizzontale tra il pannello di navigazione e le viste di origine e destinazione.</para
 ></listitem>
@@ -339,7 +339,7 @@
 >Scambiare le viste di origine e destinazione</title>
 
 <para
->A volte è utile considerare il file su cui sono state applicate le differenze come l'origine. Per esempio, quando confronti due versioni modificate di un file e scopri che un fine ha molte più modifiche dell'altro. Il file con più modifiche sarebbe un'origine migliore, perché si dovrebbero applicare meno differenze.</para>
+>A volte è utile considerare il file su cui sono state applicate le differenze come l'origine. Per esempio, quando confronti due versioni modificate di un file e scopri che un file ha molte più modifiche dell'altro. Il file con più modifiche sarebbe un'origine migliore, perché si dovrebbero applicare meno differenze.</para>
 <para
 >In questo caso, selezione <menuchoice
 ><guimenu
@@ -1288,7 +1288,7 @@
 ></term>
 <listitem
 ><para
->Scrive le differenze applicate sull'origine attuale o sul file di destinazione.</para
+>Scrive le differenze applicate sul file di origine o di destinazione corrente.</para
 ></listitem>
 </varlistentry>
 

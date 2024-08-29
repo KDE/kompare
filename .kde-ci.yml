@@ -14,6 +14,7 @@ Dependencies:
     'frameworks/kparts': '@latest-kf6'
     'frameworks/ktexteditor': '@latest-kf6'
     'frameworks/kwidgetsaddons': '@latest-kf6'
+    'frameworks/kcrash': '@latest-kf6'
     'sdk/libkomparediff2': '@same'
 
 Options:

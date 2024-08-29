@@ -47,6 +47,7 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     TextEditor
     WidgetsAddons
     I18n
+    Crash
 )
 
 find_package(KompareDiff2 6.0 CONFIG)

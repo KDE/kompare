@@ -30,6 +30,7 @@ target_link_libraries(kompare
     KompareDiff2
     KF6::TextEditor
     KF6::WidgetsAddons
+    KF6::Crash
     Qt6::Widgets
 )
 

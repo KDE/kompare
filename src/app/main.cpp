@@ -16,7 +16,7 @@
  */
 
 #include <KAboutData>
-
+#include <KCrash>
 #include <KFile>
 #include <KLocalizedString>
 
@@ -60,6 +60,8 @@ int main(int argc, char* argv[])
 
     KAboutData::setApplicationData(aboutData);
     app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kompare"), app.windowIcon()));
+
+    KCrash::initialize();
 
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);

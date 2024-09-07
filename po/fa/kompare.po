@@ -3,19 +3,20 @@
 # Nasim Daniarzadeh <daniarzadeh@itland.ir>, 2006.
 # Tahereh Dadkhahfar <dadkhahfar@itland.ir>, 2006.
 # translation of kompare.po to
+# SPDX-FileCopyrightText: 2024 Mohi Mirdamadi <mohi.pub@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2007-06-30 17:00+0330\n"
-"Last-Translator: Nazanin Kazemi <kazemi@itland.ir>\n"
-"Language-Team: Persian <kde-i18n-fa@kde.org>\n"
+"PO-Revision-Date: 2024-09-06 22:32+0330\n"
+"Last-Translator: Mohi Mirdamadi <mohi.pub@gmail.com>\n"
+"Language-Team: fa\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #, kde-format
@@ -1133,7 +1134,7 @@ msgstr "<qt>نشانی وب<b>%1</b> نمی‌تواند بارگذاری رو �
 #: komparepart/kompare_part.cpp:354
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
-msgstr "<qt>نشانی وب <b>%1</b> روی سیستم شما وجود ندارد.</qt>"
+msgstr "<qt>نشانی وب <b>%1</b> روی سامانه شما وجود ندارد.</qt>"
 
 #: komparepart/kompare_part.cpp:542
 #, fuzzy, kde-format

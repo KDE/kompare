@@ -57,7 +57,7 @@ msgstr "Αδυναμία φόρτωσης του δικού μας KompareNaviga
 #, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
-msgstr "&Άνοιγμα diff..."
+msgstr "Άνοιγ&μα diff..."
 
 #: app/kompare_shell.cpp:199
 #, kde-format

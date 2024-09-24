@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2024-03-01 15:26+0300\n"
+"PO-Revision-Date: 2024-09-23 15:18+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -281,8 +281,8 @@ msgid ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
 "2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
 msgstr ""
-"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
-"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
+"(c) 2001–2004 John Firebaugh, (c) 2001–2005,2009 Otto Bruggeman, (c) 2004–"
+"2005 Jeff Snyder, (c) 2007–2012 Kevin Kofler"
 
 #: app/main.cpp:53
 #, kde-format

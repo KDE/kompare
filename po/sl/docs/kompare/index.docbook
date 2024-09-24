@@ -1,0 +1,1703 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % Slovenian "INCLUDE">
+]>
+
+<book id="kompare" lang="&language;">
+
+<bookinfo>
+ <title
+>&kompare; Priročnik</title>
+
+ <authorgroup>
+
+<author
+><firstname
+>Sean</firstname
+><surname
+>Wheller</surname
+><email
+>sean@inwords.co.za</email
+></author>
+ <othercredit role="translator"
+><firstname
+>Matjaž</firstname
+><surname
+>Jeran</surname
+><affiliation
+><address
+><email
+>matjaz.jeran@amis.net</email
+></address
+></affiliation
+><contrib
+>Prevod</contrib
+></othercredit
+> 
+ </authorgroup>
+
+<copyright>
+<year
+>2007</year>
+<holder
+>Sean Wheller</holder>
+</copyright>
+
+ <legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>05.07.2016</date>
+<releaseinfo
+>4.1.3 (Applications 16.04)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>&kompare; je program &GUI; front-end, ki omogoča pregledovanje in združevanje razlik med izvornimi datotekami. &kompare; lahko uporabite za primerjavo razlik v datotekah ali vsebini map. &kompare; podpira različne formate razlik in zagotavlja številne možnosti za prilagajanje ravni prikazanih informacij.</para>
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>Kompare</keyword>
+<keyword
+>Diff</keyword>
+<keyword
+>Združi</keyword>
+<keyword
+>Popravek</keyword>
+<keyword
+>Kos</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Uvod</title
+> 
+
+<para
+>Ko dve ali več oseb dela na datoteki in si jo med seboj izmenjujejo, je težko ugotoviti, katere spremembe so bile vnesene v novo različico ali kopijo datoteke. Odpiranje nove kopije in izvirnika drug ob drugem v aplikaciji, s katero sta bila ustvarjena, je ena od rešitev, vendar je zamudna, dolgotrajna in nagnjena k napakam. Tu je uporaben program za prikazovanje razlik, skrajšano diffs.</para>
+
+<para
+>Po pričakovanjih bi bilo primerno ime za tak program <quote
+>diff</quote
+>. Program <ulink url="https://www.gnu.org/software/diffutils/"
+>diff</ulink
+> je nameščen v večini sistemov, ki temeljijo na operacijskem sistemu &Linux; in se uporablja prav v ta namen. Razvijalci pogosto uporabljajo orodje za ukazno vrstico diff za prikaz razlik med različicami datotek izvorne kode. Vendar pa uporaba razlikovanja ni omejena na prikazovanje razlik v izvornih datotekah s kodo, temveč se lahko uporablja za številne vrste besedilnih datotek.</para>
+
+<para
+>Uporaba ukazov za razlikovanje iz ukazne vrstice je lahko zmedena, učenje sintakse ukazov za razlikovanje in dešifriranje izpisa lahko večino ljudi zmede. Tu pride v poštev funkcija &kompare;. Vmesnik, ki je grafični vmesnik programa za razlikovanje, prikazuje izvorne in ciljne datoteke drugo ob drugi, pri čemer so vse razlike samodejno označene. S tega izhodišča se lahko spremembe v eni datoteki zaporedno zaporedoma uporabijo v drugi datoteki na selektivni in nadzorovani podlagi. Vseh sprememb ni treba uporabiti, in če spremembo uporabite, jo lahko vedno &apos;neuporabljen&apos;. Ko so bile uporabljene vse zahtevane spremembe, jih lahko shranite in bodo prikazane kot običajno v prvotni aplikaciji, ki je bila uporabljena za ustvarjanje datoteke.</para>
+
+<para
+>Poleg prikaza razlik med izvorno in ciljno datoteko lahko s programom &kompare; ustvarite in prikažete posebno datoteko, imenovano &apos;diff&apos;. V tej datoteki so razlike med obema viroma zajete v eni sami datoteki, ki jo je mogoče uporabiti za pregledovanje in uporabo sprememb v kateri koli drugi kopiji datoteke. Če na primer dokument urejata dve osebi. Prva oseba želi opraviti spremembe in drugi osebi poslati samo opravljene spremembe. Običajno bi prva oseba poslala celotno kopijo spremenjenega dokumenta drugi osebi, ki bi nato morala primerjati spremenjeni dokument z nespremenjeno različico. Postopek je podoben tistemu, ki smo ga opisali v prejšnjih odstavkih. S funkcijo &kompare; bi prva oseba najprej naredila lokalno kopijo datoteke, ki jo je treba spremeniti, nato bi opravila spremembe in primerjala izvirno in spremenjeno kopijo. Zdaj lahko z uporabo funkcije &kompare; ustvarite datoteko z razlikami, v kateri so zajete samo opravljene spremembe. To lahko pošljete drugi osebi namesto celotne datoteke s spremembami.</para>
+
+<para
+>Druga oseba si lahko z uporabo funkcije &kompare; ogleda datoteko razlike, jo primerja z lokalno kopijo dokumenta in uporabi spremembe, ki jih je opravila prva oseba. Tako se lahko postopek nadaljuje za več različic dokumenta, pri čemer vsaka oseba vnaša spremembe, ustvarja razlike, jih razpošilja in uporablja. Ta postopek se običajno imenuje <quote
+>krpanje</quote
+> , izraz pa je prevzet iz programa <quote
+>patch</quote
+>, ki je še eno orodje ukazne vrstice, posebej zasnovano za uporabo datotek z razlikami.</para>
+
+<para
+>Včasih se zgodi, da ljudje hkrati urejajo datoteko. V tem primeru je verjetno, da bodo ljudje vnesli spremembe v dokument v natanko isti vrstici. To predstavlja težavo, saj bi lahko ljudje brez previdnosti pri uporabi prejetih datotek z razlikami prepisovali delo drug drugega. Na srečo so razvijalci programov za razlikovanje in popravke to upoštevali, zato ta orodja ne bodo omogočala uporabe takšnih sprememb brez ročnega posredovanja. Ko je to stanje doseženo, se imenuje <quote
+>konflikt</quote
+> . &kompare; prikaže konflikte, tako da jih lahko ročno rešite in se odločite, katere spremembe naj se uporabijo za katero datoteko.</para>
+
+<para
+>&kompare; je tudi odličen program za primerjavo sprememb datotek na ravni mape. Pri uporabi za primerjavo map &kompare; rekurzivno preveri podmape in njihovo vsebino datotek za iskanje razlik. V tem primeru uporabe se vsaka datoteka, v kateri so ugotovljene razlike, samodejno odpre in izpiše s programom &kompare; pri tem je mogoča enostavna navigacija med različnimi datotekami.</para>
+
+</chapter>
+
+<chapter id="using">
+<title
+>Uporaba &kompare;</title>
+
+<sect1 id="getting-started">
+<title
+>Kako začeti</title>
+
+<para
+>V tem razdelku so navodila za zagon programa &kompare; in hiter ogled glavnega vmesnika programa &kompare;.</para>
+
+<sect2 id="starting-kompare">
+<title
+>Začetek &kompare;</title>
+
+<para
+>Bližnjico za zagon programa &kompare; najdete v meniju aplikacije v skupini Razvoj <menuchoice
+><guimenu
+>Razvoj</guimenu
+><guimenuitem
+>Kompare</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>Ko se program &kompare; zažene, najprej prikaže pogovorno okno, v katerem izberete datoteke, ki jih želite primerjati. Izberete lahko tudi posebne nastavitve za lastnosti razlike in njen videz. V obrazcu za datoteke izberite izvorni in ciljni vir za primerjavo. To sta lahko dve poljubni datoteki, mapi ali &URL; in datoteka. Ko sta izbrana izvor in cilj, kliknite gumb <guibutton
+>Primerjaj</guibutton
+>.</para>
+
+<para
+>Ko &kompare; odkrije razlike, prikaže glavni vmesnik. Primerjava dveh datotek ali URL in datoteke traja le nekaj sekund. Če primerjate mape s številnimi podmapami in datotekami, lahko ta postopek traja nekaj časa.</para>
+
+<para
+>Za razlago možnosti, ki so na voljo v obrazcih za razlikovanje in videz, glejte <xref linkend="configure-preferences"/>.</para>
+</sect2>
+
+<sect2 id="main-interface">
+<title
+>Glavni vmesnik</title>
+
+<para
+>V tem razdelku je na voljo hiter ogled glavnega vmesnika, ki ga sestavljajo naslednja področja:</para>
+<itemizedlist>
+<listitem
+><para
+>Meni</para
+></listitem>
+<listitem
+><para
+>Orodna vrstica</para
+></listitem>
+<listitem
+><para
+>Izvorne in ciljne mape</para
+></listitem>
+<listitem
+><para
+>Izvorne in ciljne datoteke</para
+></listitem>
+<listitem
+><para
+>Izvorne in ciljne spremembe vrstice</para
+></listitem>
+<listitem
+><para
+>Prikaz izvornega in ciljnega besedila</para
+></listitem>
+<listitem
+><para
+>Statusna vrstica</para
+></listitem>
+</itemizedlist>
+
+<sect3 id="menus">
+<title
+>Meni</title>
+<para
+>&kompare; zagotavlja vmesnik, ki ga poganja meni. Pojasnila k elementom menija in njihovim možnostim so na voljo v <xref linkend="command-reference"/>.</para>
+</sect3>
+
+<sect3 id="toolbar">
+<title
+>Orodna vrstica</title>
+<para
+>Orodna vrstica &kompare; omogoča bližnjice za najpogosteje uporabljene operacije razlikovanja in združevanja. Orientacijo orodne vrstice, postavitev besedila, lastnosti velikosti ikon in prikazane ikone bližnjic lahko prilagodite v kontekstnem meniju orodne vrstice, do katerega dostopate z desnim klikom miške na orodno vrstico. Kontekstni meni orodne vrstice omogoča tudi skrivanje orodne vrstice. Če je orodna vrstica skrita in jo želite odkriti, izberite <menuchoice
+><guimenu
+>Nastavitve</guimenu
+><guimenuitem
+>Pokaži orodno vrstico</guimenuitem
+></menuchoice
+>.</para>
+</sect3>
+
+<sect3 id="source-destination-folders">
+<title
+>Izvorne in ciljne mape</title>
+<para
+>V podoknu izvorne in ciljne mape so prikazane mape, v katerih se nahajajo primerjane datoteke. Če je v primerjavo vključenih veliko podmap, se ob izbiri mape prikaže prvi dokument v tej mapi, pri katerem je bila ugotovljena razlika med izvornim in ciljnim dokumentom.</para>
+</sect3>
+
+<sect3 id="source-destination-files">
+<title
+>Izvorne in ciljne datoteke</title>
+<para
+>V podoknu izvorne in ciljne datoteke so prikazane datoteke, pri katerih je bila za trenutno izbrano izvorno ali ciljno mapo ugotovljena razlika. Če je v mapi več dokumentov z razlikami, so navedeni vsi dokumenti z razlikami. Prikaže se izbrani dokument.</para>
+</sect3>
+
+<sect3 id="source-destination-lines">
+<title
+>Izvorne in ciljne spremembe vrstice</title>
+<para
+>V podoknu Spremembe izvorne in ciljne vrstice so povzete razlike, ugotovljene med trenutnimi izvornimi in ciljnimi dokumenti. Z izbiro zapisa v podoknu se poudari in izbere razlika. To je uporaben način za navigacijo in pregledovanje dolgih dokumentov z veliko razlikami.</para>
+</sect3>
+
+<sect3 id="source-destination-view">
+<title
+>Pogled vira in cilja</title>
+<para
+>Pogled vira in cilja je glavni delovni prostor programa &kompare;. Tu so prikazani vsebina in označene razlike trenutno izbrane izvorne in ciljne datoteke s številkami vrstic.</para>
+</sect3>
+
+<sect3 id="text-view">
+<title
+>Prikaz besedila</title>
+<para
+><guilabel
+>Prikaz Besedila</guilabel
+> privzeto ni prikazan. Odprete ga lahko z izbiro <menuchoice
+><guimenu
+>Nastavitve</guimenu
+><guimenuitem
+>Prikaži besedilni prikaz</guimenuitem
+></menuchoice
+>.</para>
+<!-- Other than a notepad, what is this text view good for?  -->
+</sect3>
+
+<sect3 id="statusbar">
+<title
+>Statusna vrstica</title>
+<para
+>V vrstici stanja je prikazan povzetek trenutne izvorne in ciljne datoteke ali mape, ki ju primerjate. Vrstica stanja poroča tudi o številu najdenih sprememb v trenutnem dokumentu in šteje razlike, ki so bile uporabljene. Poleg tega je v vrstici stanja prikazano skupno število dokumentov, ki vsebujejo razlike, in trenutna številka dokumenta, izbranega iz tega niza. Primerjava dveh map lahko na primer vrne 1890 datotek z razlikami. Trenutno izbrani dokument je številka 18 od 1890.</para>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="viewing-differences">
+<title
+>Pregledovanje razlik</title>
+
+<sect2 id="managing-screen-real-estate">
+<title
+>Upravljanje zaslona nepremičnin</title>
+<para
+>&kompare; prikaže izvorno in ciljno datoteko v enakem odstotku delovnega območja glavnega vmesnika. To območje prikaza ponuja nekaj funkcij, ki pomagajo optimizirati uporabo zaslonskega prostora med pregledovanjem razlik, med drugim:</para>
+<variablelist>
+<varlistentry>
+<term
+>Dvojne drsne vrstice</term>
+<listitem
+><para
+>Najbolj očitna lastnost je, da so na desnem in spodnjem robu prikaznega območja na voljo vrstice za pomikanje. Z uporabo drsnih črt se lahko hitro premikate po primerjavi.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Skupna uporaba ročaja za oprijem</term>
+<listitem
+><para
+>Navpični prostor med izvornim in ciljnim prikazom ne omogoča le jasnega pogleda na začetek in konec vrstic v vsaki plošči, temveč je tudi ročica, ki omogoča nastavitev odstotka zasedenosti med izvornim in ciljnim prikazom, ki sestavljata ploščo pogleda. Če želite spremeniti velikost plošče enega od pogledov, se z miškinim kazalcem pomaknite nad ročaj za oprijem, nato pridržite pritisnjen gumb miške in povlecite v levo ali desno. Seveda, če povečate površino ene plošče, se zmanjša površina, ki je na voljo drugi plošči v območju pogleda.</para>
+<para
+>Drugi vodoravni ročaj je na voljo med navigacijsko ploščo ter izvornim in ciljnim prikazom.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Priključitev</term>
+<listitem>
+<para
+>Navigacijsko ploščo lahko z glavnega vmesnika odvežete tako, da kliknete ikono <inlinemediaobject
+> <imageobject
+><imagedata fileref="undock.png" format="PNG"/></imageobject
+></inlinemediaobject
+>, ki se nahaja zgoraj desno od plošče. Tako ga odprete v lastnem oknu in ga lahko premikate po zaslonu. Navigacijsko ploščo lahko skrijete tudi tako, da kliknete ikono <inlinemediaobject
+><imageobject
+><imagedata fileref="dock.png" format="PNG"/></imageobject
+></inlinemediaobject
+>. Če želite ponovno prikazati skrito navigacijsko vrstico, kliknite z &RMB; v menijska vrstica in v kontekstnem meniju izberite <guilabel
+>Navigacija</guilabel
+>. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Preklapljanje statusne vrstice</term>
+<listitem>
+<para
+>Vrstico stanja na prikazni plošči lahko vklopite in izklopite z izbiro <menuchoice
+><guimenu
+>Nastavitve</guimenu
+><guimenuitem
+>Pokaži vrstico stanja</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="switching-source-and-destination-view">
+<title
+>Preklapljanje pogledov vira in cilja</title>
+
+<para
+>Včasih je lahko koristno upoštevati, katera datoteka, v kateri se uporabljajo razlike, je vir. Na primer, ko primerjate dve spremenjeni različici datoteke in ugotovite, da ima ena datoteka veliko več sprememb kot druga. Datoteka z več spremembami bi bila boljša kot vir, saj bi bilo treba uveljaviti manj razlik.</para>
+<para
+>V tem primeru izberite <menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Zamenjava vira z namembnim krajem</guimenuitem
+></menuchoice
+>. S tem boste preklopili datoteke, prikazane na vseh ploščah &kompare;.</para>
+</sect2>
+	
+<sect2 id="display-difference-statistics">
+<title
+>Prikaz statistike razlik</title>
+<para
+>Za hiter pregled razlik izberite <menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Prikaži statistiko</guimenuitem
+></menuchoice
+>. Prikaže se pogovorno okno <guilabel
+>Statistika razlik</guilabel
+>. Na voljo so naslednje informacije:</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Stara datoteka:</guilabel
+></term>
+<listitem
+><para
+>Ime datoteke, ki je običajno izvorna datoteka ali datoteka, ki ni spremenjena.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Nova datoteka:</guilabel
+></term>
+<listitem
+><para
+>Ime datoteke, ki je običajno ciljna datoteka ali datoteka, ki se spremeni in za katero se uporabijo razlike.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Format:</guilabel
+></term>
+<listitem
+><para
+>Oblika razlike, ki se uporablja za prikaz razlike (glejte <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Število kosov:</guilabel
+></term>
+<listitem>
+<para
+>Število kosov v razliki.</para>
+<para
+>Kos je <quote
+>c<emphasis
+>del</emphasis
+></quote
+> vrstic, ki so bile označene kot različne med izvorom in ciljem in lahko vključujejo vrstice konteksta, odvisno od vrednosti <guilabel
+>Vrstice konteksta</guilabel
+> formata razlike (glejte <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Število razlik</guilabel
+></term>
+<listitem
+><para
+>Dejansko število najdenih razlik, ne kosov. V kosu je lahko ena ali več razlik, če se območje sprememb vrstic in kontekstne vrstice katerih koli dveh ali več sprememb prekrivajo.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="navigating-the-difference-view">
+<title
+>Navigacija v prikazu razlik</title>
+<para
+>&kompare; omogoča hitro iskanje razlik na ravni datotek in več datotek z razlikami pri primerjavi dreves map.</para>
+
+<sect3 id="selecting-a-difference">
+<title
+>Izbira razlike</title>
+<para
+>Razliko lahko izberete z:</para>
+<itemizedlist>
+<listitem
+><para
+>s klikom na vrstico v podoknu Spremembe izvorne in ciljne vrstice (zgoraj desno v glavnem oknu).</para
+></listitem>
+<listitem
+><para
+>klikom na označeno razliko v podoknu Pogled.</para
+></listitem>
+<listitem
+><para
+>premagovanje naštetih razlik v primerjavi (glejte <xref linkend="traversing-differences"/>).</para
+></listitem>
+</itemizedlist>
+<para
+>Ko je razlika izbrana, se šteje, da je <quote
+>v fokusu</quote
+>, in je prikazana v svetlejši barvi kot neizbrane razlike.</para>
+</sect3>
+			
+<sect3 id="traversing-differences">
+<title
+>Premagovanje razlik</title>
+<para
+>Kadar je pri primerjavi ugotovljenih veliko razlik, je eden od najboljših načinov za pregledovanje teh razlik, da jih pregledamo v logičnem vrstnem redu, običajno od zgoraj navzdol.</para>
+<para
+>Privzeto &kompare; izbere prvo razliko, najdeno v primerjavi. Z izbiro <menuchoice
+><guimenu
+>Razlika</guimenu
+><guimenuitem
+>Naslednja razlika</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Down</keycap
+></keycombo
+>) se izostri razlika, ki sledi trenutnemu izboru. Če želite izbrati razliko pred trenutno razliko, izberite <menuchoice
+><guimenu
+>Razlika</guimenu
+><guimenuitem
+>Prejšnja razlika</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>Up</keycap
+></keycombo
+>).</para>
+<para
+>Na ta način je mogoče razlike odpraviti na urejen način, pri čemer se razlike ob pregledu uporabijo in ne uporabijo.</para>
+</sect3>
+
+<sect3 id="switching-between-files">
+<title
+>Preklapljanje med datotekami</title>
+<para
+>Pri primerjavi na ravni mape se lahko najdejo razlike med številnimi datotekami. Celoten seznam primerjanih datotek z najdenimi razlikami je na voljo v podoknih <quote
+>Izvorne in ciljne mape</quote
+> ter <quote
+>Izvorne in ciljne datoteke</quote
+>. S funkcijo &kompare; pa se razlike med izvorom in ciljem prikažejo po ena primerjava naenkrat.</para>
+<para
+>Za preklapljanje med dokumenti v tem scenariju so na voljo naslednje možnosti:</para>
+<itemizedlist>
+<listitem
+><para
+>Izberite podokno <quote
+>Izvorne in ciljne mape</quote
+>, da prikažete razlike med datotekami, najdenimi v podoknu <quote
+>Izvorne in ciljne datoteke</quote
+>, nato pa izberite datoteko.</para
+></listitem>
+<listitem
+><para
+>Izberite <menuchoice
+><guimenu
+>Razlika</guimenu
+><guimenuitem
+>Prejšnja datoteka</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+>) ali <menuchoice
+><guimenu
+>Razlika</guimenu
+><guimenuitem
+>Naslednja datoteka</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>PgDown</keycap
+></keycombo
+>), da prikažete prejšnjo ali naslednjo datoteko razlike, najdeno v podoknu <quote
+>Izhodne in ciljne datoteke</quote
+>.</para>
+</listitem>
+</itemizedlist>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="merging-differences">
+<title
+>Združevanje razlik</title>
+
+<para
+>&kompare; omogoča, da je uporaba in odprava razlik tako preprosta, kot da pokažete in kliknete. Na razliki lahko izvedete več operacij uporabe in neuporabe, saj se vse operacije izvedejo v pomnilniku in se ne zapišejo v datoteke na disku, dokler se ne izvede operacija shranjevanja.</para>
+
+<sect2 id="applying-a-difference">
+<title
+>Uporaba razlik</title>
+<para
+>Če želite uporabiti razliko, kliknite označeno območje razlike in izberite <menuchoice
+><guimenu
+>Razlika</guimenu
+><guimenuitem
+>Uporabi razliko</guimenuitem
+></menuchoice
+> (<keycombo
+><keycap
+>Space</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-a-difference">
+<title
+>Neuporaba razlike</title>
+<para
+>Če želite razveljaviti uporabo razlike, kliknite označeno področje razlike, ki je bilo predhodno uporabljeno, nato izberite <menuchoice
+><guimenu
+>Razlika</guimenu
+><guimenuitem
+>Neuporabi razlike</guimenuitem
+></menuchoice
+> (<keycombo
+>&Backspace;</keycombo
+>).</para>
+</sect2>
+	
+<sect2 id="applying-all-differences">
+<title
+>Uporaba vseh razlik</title>
+<para
+>Po pregledu razlik med datotekami in ugotovitvi, da so vse sprejemljive, jih je mogoče uporabiti vse z eno operacijo z izbiro <menuchoice
+><guimenu
+>Razlike</guimenu
+><guimenuitem
+>Uporabi vse</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-all-differences">
+<title
+>Neuporabi vseh razlik</title>
+<para
+>Če želite povrniti vse razlike, ki so bile predhodno uporabljene, izberite <menuchoice
+><guimenu
+>Razlika</guimenu
+><guimenuitem
+>Neuporabi vseh</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="saving-changes">
+<title
+>Shranjevanje sprememb</title>
+<para
+>Ko so razlike uporabljene, jih lahko shranite z izbiro <menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Shrani</guimenuitem
+></menuchoice
+> ali <menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Shrani vsel</guimenuitem
+></menuchoice
+>.</para>
+<para
+>Uporabljene razlike se shranijo v izvorno in ciljno datoteko.</para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-diff-files">
+<title
+>Delo z diff datotekami</title>
+<para
+>Datoteke z razlikami vsebujejo samo spremembe med datotekami ali nizom datotek v sistemu map in lahko vsebujejo ali ne vsebujejo več kontekstnih vrstic pred in za spremembami vrstic. Vsota spremembe črte in njenih kontekstnih črt je znana kot kos. Razlikovalna datoteka lahko zato vsebuje več kosov iz ene ali več datotek. Če se kontekstne črte dveh ali več kosov prekrivajo, se štejejo za en kos. Datoteke z razlikami lahko uporabite za:</para>
+<itemizedlist>
+<listitem
+><para
+>Uporabi spremembe, ki jih vsebujejo kosi, na izvirno datoteko.</para
+></listitem>
+<listitem
+><para
+>Uporabite spremembe, ki jih vsebujejo kosi, v datoteki ali nizu izvirnih datotek v sistemu map.</para
+></listitem>
+<listitem
+><para
+>Spremenjeno, preden se uporabi za izvirno datoteko ali niz izvirnih datotek v sistemu map.</para
+></listitem>
+</itemizedlist>
+
+<sect2 id="creating-a-diff">
+<title
+>Ustvarjanje diff</title>
+<para
+>Če želite ustvariti datoteko diff, je treba primerjavo prikazati v oknu &kompare;. Če je tako, potem izberite <menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Shrani Diff...</guimenuitem
+></menuchoice
+> To bo prikazalo pogovorno okno <guilabel
+>Možnosti Diff</guilabel
+> (glejte <xref linkend="diff-settings"/> za več informacij o oblikah in možnostih razlikovanja). Po konfiguriranju teh možnosti kliknite gumb <guibutton
+>Shrani</guibutton
+> in shranite razliko v datoteko s končnico <filename class="extension"
+>.diff</filename
+>.</para>
+</sect2>
+
+<sect2 id="displaying-a-diff">
+<title
+>Prikaz razlike</title>
+<para
+>Vsebino datoteke diff je mogoče prikazati v programu &kompare; tako da odprete datoteko razlike iz <menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Odpri Diff...</guimenuitem
+></menuchoice
+>.</para>
+<para
+>Pri pregledovanju datoteke diff so prikazani kosi med izvorno in ciljno datoteko; ne pozabite, da so prikazani samo kosi, nespremenjene vrstice ne bodo prikazane. V nekaterih primerih se ustvari datoteka z 0 vrsticami konteksta. V tem primeru bodo prikazane samo spremenjene vrstice.</para>
+<para
+>Kadar datoteka diff vsebuje kose iz več datotek, &kompare; prikaže kose iz vsake datoteke posebej in med datotekami lahko preklapljate, kot da so prave datoteke, čeprav je ta informacija na voljo le v vsebini datoteke za primerjavo.</para>
+</sect2>
+
+<sect2 id="applying-a-diff">
+<title
+>Uporaba razlik v datoteki diff</title>
+<para
+>Pri pregledovanju razlik v datoteki diff je mogoče uporabiti razliko, kot bi jo uporabili pri primerjavi izvorne in ciljne datoteke (glejte <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+<sect2 id="blending-a-diff">
+<title
+>Mešanje &URL; z Diff</title>
+<para
+>Če je na voljo datoteka diff, je mogoče primerjati kose v razliki z datoteko ali mapo. Za to izberite <menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Zmešaj URL z Diff...</guimenuitem
+></menuchoice
+>. Nato vnesite poti <guilabel
+>Datoteka/Mapa</guilabel
+> in <guilabel
+>Diff Izhod</guilabel
+>.</para>
+<para
+>Pri pregledovanju razlik med izvorno datoteko in datoteko diff je mogoče uporabiti razliko, kot bi jo uporabili pri primerjavi izvorne in ciljne datoteke (glejte <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="configure-preferences">
+<title
+>Konfiguriranje nastavitev</title>
+
+<para
+>&kompare; omogoča uporabnikom, da v glavnem vmesniku nastavijo nastavitve videza za oblikovanje razlik in nastavijo vedenjske lastnosti programa za razlikovanje. Do pogovornega okna <guilabel
+>Preference</guilabel
+> lahko dostopate z izbiro <menuchoice
+><guimenu
+>Nastavitve</guimenu
+><guisubmenu
+>konfiguriraj &kompare;...</guisubmenu
+></menuchoice
+>.</para>
+
+<para
+>Če želite konfigurirati nastavitve za videz, izberite element menija <guilabel
+>Pogled</guilabel
+> (glejte <xref linkend="view-settings"/>).</para>
+
+<para
+>Če želite konfigurirati nastavitve za lastnosti programa diff, izberite element menija <guilabel
+>Diff</guilabel
+> (glejte <xref linkend="diff-settings"/>).</para>
+
+<sect1 id="view-settings">
+<title
+>Nastavitve pogleda</title>
+<para
+>Na strani <guimenu
+>Pogled</guimenu
+> v pogovornem oknu <guilabel
+>Nastavitve</guilabel
+> sta prikazana obrazca z zavihkoma <guilabel
+>Videz</guilabel
+> in <guilabel
+>Pisave</guilabel
+>.</para>
+
+<sect2 id="appearance">
+<title
+>Videz</title>
+<para
+>Obrazec <guilabel
+>Videz</guilabel
+> zagotavlja kontrolnike za upravljanje <guilabel
+>Barve</guilabel
+>, ki se uporabljajo za označevanje razlik v glavnem vmesniku, obnašanje <guilabel
+>Kolesce miške</guilabel
+> pri teku navzgor in navzdol ter upravljanje pretvorbe <guilabel
+>Zavihki v prostore</guilabel
+>.</para>
+<screenshot>
+<screeninfo
+>&kompare; Nastavitve videza</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; Nastavitve videza</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Skupina barv</title>
+<para
+>Če želite prilagoditi nastavitve barv, ki se uporabljajo pri prikazovanju razlik, kliknite gumb za barvo, da se prikaže pogovorno okno <guilabel
+>Izberite barvo</guilabel
+> za naslednja stanja:</para>
+<varlistentry>
+<term
+><guilabel
+>Odstranjena barva</guilabel
+></term>
+<listitem
+><para
+>Črte, ki so bile odstranjene, med izvorom in ciljnim krajem ne obstajajo.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Spremenjena barva</guilabel
+></term>
+<listitem
+><para
+>Vrstice, ki so bile spremenjene, modificirane med virom in ciljem. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Dodana barva</guilabel
+></term>
+<listitem
+><para
+>Vrstice, ki so bile dodane med vir in cilj.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Uporabljena barva</guilabel
+></term>
+<listitem
+><para
+>Katera koli od zgornjih stanj, kjer je bila uporabljena razlika med izvorom in namembnim krajem.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Kolesce miške</title>
+<varlistentry>
+<term
+><guilabel
+>Število vrstic</guilabel
+></term>
+<listitem
+><para
+>Število vrstic za premikanje razlik pri vrtenju kolesca miške naprej ali nazaj.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Tabulatorji v presledke</title>
+<varlistentry>
+<term
+><guilabel
+>Število presledkov za pretvorbo tabulatorskega znaka v</guilabel
+></term>
+<listitem
+><para
+>Pretvori vsak tabulatorski znak v n presledkov.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="fonts">
+<title
+>Pisave</title>
+<screenshot>
+<screeninfo
+>&kompare; Nastavitve pisav</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; Nastavitve pisav</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Nastavitve pisav Izberite družino in velikost pisave, ki se prikaže pri prikazovanju razlik.</para>
+</sect2>
+</sect1>
+
+<sect1 id="diff-settings">
+<title
+>Nastavitve Diff</title>
+<para
+>Stran <guimenu
+>Diff</guimenu
+> v pogovornem oknu <guilabel
+>Preference</guilabel
+> prikazuje zavihke <guilabel
+>Diff</guilabel
+>, <guilabel
+>Format</guilabel
+>, <guilabel
+>Možnosti</guilabel
+> in <guilabel
+>Izključite</guilabel
+>. Te obrazce lahko uporabite za konfiguracijo vedenjskih lastnosti programa Diff.</para>
+
+<sect2 id="diff">
+<title
+>Diff</title>
+<screenshot>
+<screeninfo
+>&kompare; Diff Nastavitve</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; Diff Nastavitve</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Ukaz za zagon programa diff (privzeto <application
+>diff</application
+>).</para>
+</sect2>
+
+<sect2 id="diff-format">
+<title
+>Format</title>
+<screenshot>
+<screeninfo
+>&kompare; Nastavitve formata</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; Nastavitve formata</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Prilagodite možnosti za <guilabel
+>izhodni format</guilabel
+> in število <guilabel
+>vrstic konteksta</guilabel
+>.</para>
+<variablelist>
+<title
+>Izhodni format</title>
+<varlistentry>
+<term
+><guilabel
+>Kontekst</guilabel
+></term>
+<listitem>
+<para
+>Izhodna oblika konteksta doda več vrstic konteksta okoli vrstic, ki se razlikujejo.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Normalno</guilabel
+></term>
+<listitem>
+<para
+>Običajna izhodna oblika prikaže različne vrstice brez okoliških vrstic konteksta. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Združeni</guilabel
+></term>
+<listitem>
+<para
+>Združeni izhodni format je različica formata konteksta. Velja za boljšo od konteksta, ker je rezultat bolj kompakten kot pri kontekstu, saj izpusti odvečne vrstice konteksta.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+<variablelist>
+<title
+>Vrstice konteksta</title>
+<varlistentry>
+<term
+><guilabel
+>Število vrstic konteksta</guilabel
+></term>
+<listitem>
+<para
+>Pri izvajanju diff s kontekstom ali združeno izhodno obliko uporabite ta parameter za nadzor števila vključenih vrstic konteksta.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="options">
+<title
+>Možnosti</title>
+<screenshot>
+<screeninfo
+>&kompare; Nastavitve možnosti</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff3.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; Nastavite možnosti</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>Obrazec zavihka <guilabel
+>Moznosti</guilabel
+> omogoča konfiguracijo možnosti, ki jih podpira program diff.</para>
+<variablelist>
+<title
+>Splošno</title>
+<varlistentry>
+<term
+><guilabel
+>Nove datoteke obravnavajte kot prazne</guilabel
+></term>
+<listitem
+><para
+>Če je ta možnost omogočena, bo diff obravnavalo datoteko, ki obstaja samo v enem od imenikov, kot prazno v drugem imeniku. To pomeni, da se datoteka primerja s prazno datoteko in se zato zdi kot en velik vnos ali brisanje.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Poiščite manjše spremembe</guilabel
+></term>
+<listitem
+><para
+>Prisili diff da prikaže spremembe velikosti črk, ločil, presledkov itd. , ko je to preverjeno.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Optimizacija za velike datoteke</guilabel
+></term>
+<listitem
+><para
+>Preklopi diff na obdelavo datotek z visoko hitrostjo, če je označeno.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ne upoštevajte sprememb v primeru</guilabel
+></term>
+<listitem
+><para
+>Spremembe malih in velikih črk so izpuščene, če je ta možnost označena.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ignoriranje regexp</guilabel
+></term>
+<listitem
+><para
+>Ignoriranje vrstic, ki ustrezajo regularnemu izrazu.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Beli prostor</title>
+<varlistentry>
+<term
+><guilabel
+>Razširi tabulatorje na presledke v izpisu</guilabel
+></term>
+<listitem
+><para
+>Če je ta možnost označena, bo diff pretvoril znake tabulatorja v število presledkov, določeno v meniju <guilabel
+>Preference</guilabel
+> <guimenu
+>Pogled</guimenu
+> menija <guilabel
+>Zavihki v prostore</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignoriranje dodanih ali odstranjenih praznih vrstic</guilabel
+></term>
+<listitem
+><para
+>če je ta možnost označena, se vrstice z ničelno dolžino, ki se razlikujejo med izvorom in ciljem, ne upoštevajo.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignoriranje sprememb v količini belih znakov</guilabel
+></term>
+<listitem
+><para
+>Beli prostor pred, za in med vrsticami se lahko spreminja glede na različne urejevalnike. Če je ta možnost označena, se takšne spremembe ne upoštevajo.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ignoriranje vseh belih znakov</guilabel
+></term>
+<listitem
+><para
+>ko je označeno, so razlike v praznem prostoru popolnoma prezrte.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Prezri spremembe zaradi razširitve zavihka</guilabel
+></term>
+<listitem
+><para
+>ko je označeno, je presledek, ki izhaja iz tabulatorjev, prezrt.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="exclude">
+<title
+>Izključi</title>
+<para
+>Obrazec <guilabel
+>Izključi</guilabel
+> omogoča uporabo možnosti filtriranja, ki jih zagotavlja program diff.</para>
+<screenshot>
+<screeninfo
+>&kompare; Izključi nastavitve</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff4.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>&kompare; Izključi nastavitve</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>Vzorci datotek za izključitev</title>
+<varlistentry>
+<term
+><guilabel
+>Vzorec datoteke za izključitev</guilabel
+></term>
+<listitem
+><para
+>Izključi datoteke na podlagi filtriranja nadomestnih znakov</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>Datoteka z imeni datotek za izključitev</title>
+<varlistentry>
+<term
+><guilabel
+>Datoteka z imeni datotek za izključitev</guilabel
+></term>
+<listitem
+><para
+>Definirajte filter na podlagi vsebine zunanje upravljane datoteke.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+</sect1>
+
+</chapter>
+
+<chapter id="command-reference">
+<title
+>Referenca ukazov</title>
+
+<sect1 id="menu-items">
+
+<title
+>Elementi menija</title>
+<sect2 id="file-menu">
+<title
+>Meni Datoteka</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Odpri Diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Prikaže pogovorno okno <guilabel
+>Odpri</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Primerjaj datoteke...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Prikaže pogovorno okno <guilabel
+>Primerjaj datoteke ali mape</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Združi URL z Diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Prikaže pogovorno okno <guilabel
+>Združi File/Folder z diff izhod</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Shrani</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Zapiše uveljavljene razlike v trenutno izvorno in/ali ciljno datoteko.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Shrani vse</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Zapiše uporabljene razlike v vse izvorne in/ali ciljne datoteke.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Shrani razliko...</guimenuitem
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Shrani razliko...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Prikaže pogovorno okno <guilabel
+>Možnosti Diff</guilabel
+> za določitev oblike in možnosti diff.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>F5</keycap
+></shortcut
+> <guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Osveži Diff</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Posodobi razliko prvotnih poti. Uporabno, če ste uporabili nekaj sprememb, jih shranili in želite videti, kaj je ostalo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Zamenjaj izvor s ciljem</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Spremeni vir in cilj.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Prikaži statistiko</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Prikaže pogovorno okno <guilabel
+>Prikaži statistiko</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Opustite</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Izhodi &kompare;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="difference-menu">
+<title
+>Meni razlike</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Razlika</guimenu
+><guimenuitem
+>Neuporabi vse</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Neuporabi vseh razlik, ki so bile predhodno uporabljene med izvorom in namembnim krajem.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Backspace;</shortcut
+> <guimenu
+>Razlike</guimenu
+><guimenuitem
+>Neuporabi Razlike</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Razveljavi izbrano razliko, ki je bila prej uporabljena.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>Space</keycap
+></shortcut
+> <guimenu
+>Razlika</guimenu
+><guimenuitem
+>Uporaba razlike</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Uporabi izbrano razliko.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Razlike</guimenu
+><guimenuitem
+>Uporabi vse</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Uporabi vse razlike med virom in ciljem.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Razlike</guimenu
+><guimenuitem
+>Prejšnja datoteka</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Prejšnja razlika na seznamu razlik postane trenutna datoteka v podoknu pogleda.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgDown</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Razlike</guimenu
+><guimenuitem
+>Naslednja datoteka</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Naslednja razlika na seznamu razlik je trenutna datoteka v podoknu za prikaz.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Up</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Razlika</guimenu
+><guimenuitem
+>Prejšnja razlika</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Izberite razliko nad trenutno izbrano razliko.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Down</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Razlike</guimenu
+><guimenuitem
+>Naslednja razlika</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Izberite razliko pod trenutno izbrano razliko.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="settingshelpmenu">
+
+<title
+>Meni z nastavitvami in pomočjo</title>
+<para
+>&kompare; ima skupna menija &kde; <guimenu
+>Nastavitve</guimenu
+> in <guimenu
+>Pomoč</guimenu
+>, za več informacij preberite poglavja o <ulink url="help:/fundamentals/menus.html#menus-settings"
+>Menij Nastavitve</ulink
+> in <ulink url="help:/fundamentals/menus.html#menus-help"
+>Menij Pomoč</ulink
+> iz &kde; Osnove. </para>
+</sect2>
+</sect1>
+
+<sect1 id="commandline-options">
+<title
+>Možnosti ukazne vrstice</title>
+
+<variablelist>
+<varlistentry>
+<term
+>-c</term>
+<listitem
+><para
+>To bo primerjalo URL1 z URL2.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-o</option
+></userinput
+></term>
+<listitem
+><para
+>To bo odprlo naslov URL1 in pričakovalo, da bo to razlikovalni izpis. URL1 je lahko tudi '-' in potem se bo bral iz standardnega vhoda. Uporablja se lahko na primer za <userinput
+><command
+>cvs diff | kompare -o -</command
+></userinput
+>. Kompare bo preveril, ali lahko najde izvirno(-e) datoteko(-e), nato pa izvirno(-e) datoteko(-e) pomešal v izpis razlike in jo prikazal v pregledovalniku. <option
+>-n</option
+> onemogoči preverjanje.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-b</option
+></userinput
+></term>
+<listitem
+><para
+>To bo zmešalo URL2 v URL1, URL2 bo predvidoma izhodni rezultat diff, URL1 pa datoteka ali mapa, v katero je treba zmešati izhodni rezultat.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-n</option
+></userinput
+></term>
+<listitem
+><para
+>Onemogoči preverjanje samodejnega iskanja izvirnih datotek pri uporabi '-' kot URL z možnostjo <option
+>-o</option
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-e</option
+> <replaceable
+>encoding</replaceable
+></userinput
+></term>
+<listitem
+><para
+>Uporabite ga za določitev kodiranja, ko ga kličete iz ukazne vrstice. Če ga ne navedete, bo privzeto uporabljeno lokalno kodiranje.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1
+></chapter>
+
+<chapter id="credits">
+
+<title
+>Zasluge in licenca</title>
+
+<para
+>&kompare; </para>
+<para
+>Avtorske pravice za program 2001-2004, &John.Firebaugh; &John.Firebaugh.mail; in Otto Bruggeman <email
+>otto.bruggeman@home.nl</email
+> </para>
+
+<para
+>Dokumentacija Avtorske pravice &copy; 2007 Sean Wheller <email
+>sean@inwords.co.za</email
+> </para>
+
+<para
+>Prevod: Matjaž Jeran<email
+>matjaz.jeran@amis.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index; 
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

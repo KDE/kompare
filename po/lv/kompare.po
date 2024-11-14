@@ -3,75 +3,69 @@
 #
 # Viesturs Zarins <viesturs.zarins@mii.lu.lv>, 2007, 2008.
 # Viesturs Zariņš <viesturs.zarins@mii.lu.lv>, 2009.
+# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2009-06-04 12:04+0300\n"
-"Last-Translator: Viesturs Zariņš <viesturs.zarins@mii.lu.lv>\n"
-"Language-Team: Latvian <locale@laka.lv>\n"
+"PO-Revision-Date: 2024-10-26 22:33+0300\n"
+"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
+"Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 24.08.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Andris Maziks,Viesturs Zariņš"
+msgstr "Andris Maziks,Viesturs Zariņš, Toms Trasūns"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "andzha@latnet.lv,viesturs.zarins@mi.lu.lv"
+msgstr "andzha@latnet.lv,viesturs.zarins@mi.lu.lv, toms.trasuns@posteo.net"
 
 #: app/kompare_shell.cpp:69
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareViewPart."
+#, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr "Neizdevās ielādēt KompareViewPart."
+msgstr "Neizdevās ielādēt „KompareViewPart“: %1"
 
 #: app/kompare_shell.cpp:73
-#, fuzzy, kde-format
-#| msgid "Navigation"
+#, kde-format
 msgctxt "@title:window"
 msgid "Navigation"
 msgstr "Navigācija"
 
 #: app/kompare_shell.cpp:91
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareNavigationPart."
+#, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr "Neizdevās ielādēt KompareNavigationPart."
+msgstr "Neizdevās ielādēt „KompareNavigationPart“: %1"
 
 #: app/kompare_shell.cpp:196
-#, fuzzy, kde-format
-#| msgid "&Open Diff..."
+#, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
-msgstr "&Atvērt diff..."
+msgstr "&Atvērt „Diff“ datni..."
 
 #: app/kompare_shell.cpp:199
-#, fuzzy, kde-format
-#| msgid "&Compare Files..."
+#, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
-msgstr "&Salīdzināt failus"
+msgstr "&Salīdzināt datnes..."
 
 #: app/kompare_shell.cpp:202
-#, fuzzy, kde-format
-#| msgid "&Blend URL with Diff..."
+#, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
-msgstr "&Pielietot diff uz URL..."
+msgstr "&Pielietot URL ar atšķirībām..."
 
 #: app/kompare_shell.cpp:208
-#, fuzzy, kde-format
-#| msgid "Show T&ext View"
+#, kde-format
 msgctxt "@action"
 msgid "Show T&ext View"
 msgstr "Rādīt t&eksta skatu"
@@ -84,23 +78,23 @@ msgstr " 0 no 0 atšķirībām"
 #: app/kompare_shell.cpp:222
 #, kde-format
 msgid " 0 of 0 files "
-msgstr " 0 no 0 failiem "
+msgstr " 0 no 0 datnēm "
 
 #: app/kompare_shell.cpp:239
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
-msgstr[0] " %2 no %1 faila "
-msgstr[1] " %2 no %1 failiem "
-msgstr[2] " %2 no %1 failu "
+msgstr[0] " %2. no %1 datnes "
+msgstr[1] " %2. no %1 datnēm "
+msgstr[2] " %2. no %1 datnēm "
 
 #: app/kompare_shell.cpp:241
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
-msgstr[0] " %1 fails "
-msgstr[1] " %1 faili "
-msgstr[2] " %1 failu "
+msgstr[0] " %1 datne "
+msgstr[1] " %1 datnes "
+msgstr[2] " %1 datņu "
 
 #: app/kompare_shell.cpp:244
 #, kde-format
@@ -108,7 +102,7 @@ msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
 msgstr[0] " %2 no %1 atšķirības, %3 pielietotas "
 msgstr[1] " %2 no %1 atšķirībām, %3 pielietotas "
-msgstr[2] " %2 no %1 atšķirību, %3 pielietotas "
+msgstr[2] " %2 no %1 atšķirībām, %3 pielietotas "
 
 #: app/kompare_shell.cpp:247
 #, kde-format
@@ -119,48 +113,37 @@ msgstr[1] " %1 atšķirības "
 msgstr[2] " %1 atšķirību "
 
 #: app/kompare_shell.cpp:328
-#, fuzzy, kde-format
-#| msgid "Blend File/Folder with diff Output"
+#, kde-format
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
-msgstr "Pielietot diff izvadu failam/mapei"
+msgstr "Pielietot „diff“ izvadu datnei/mapei"
 
 #: app/kompare_shell.cpp:329
-#, fuzzy, kde-format
-#| msgid "File/Folder"
+#, kde-format
 msgctxt "@title:group"
 msgid "File/Folder"
-msgstr "Fails/Mape"
+msgstr "Datne/Mape"
 
 #: app/kompare_shell.cpp:330
-#, fuzzy, kde-format
-#| msgid "Diff Output"
+#, kde-format
 msgctxt "@title:group"
 msgid "Diff Output"
-msgstr "Diff izvads"
+msgstr "„Diff“ izvade"
 
 #: app/kompare_shell.cpp:333
-#, fuzzy, kde-format
-#| msgid "Blend"
+#, kde-format
 msgctxt "@action:button"
 msgid "Blend"
 msgstr "Pielietot"
 
 #: app/kompare_shell.cpp:334
-#, fuzzy, kde-format
-#| msgid "Blend this file or folder with the diff output"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
-msgstr "Pielietot diff izvadu šim failam vai mapei"
+msgstr "Pielietot „diff“ izvadu šai datnei vai mapei"
 
 #: app/kompare_shell.cpp:335
-#, fuzzy, kde-format
-#| msgid ""
-#| "If you have entered a file or folder name and a file that contains diff "
-#| "output in the fields in this dialog then this button will be enabled and "
-#| "pressing it will open kompare's main view where the output of the entered "
-#| "file or files from the folder are mixed with the diff output so you can "
-#| "then apply the difference(s) to a file or to the files. "
+#, kde-format
 msgctxt "@infor:whatsthis"
 msgid ""
 "If you have entered a file or folder name and a file that contains diff "
@@ -169,64 +152,55 @@ msgid ""
 "file or files from the folder are mixed with the diff output so you can then "
 "apply the difference(s) to a file or to the files. "
 msgstr ""
-"Šī poga tiks aktivizēta, ja šī loga laukos būs ievadīti faila vai mapes "
-"nosaukums un diff izvada faila nosaukums. Nospiežot to, tiks atvērts Kompare "
-"galvenais skats, kur tiks parādīts failu sākotnējais stāvoklis un izmaiņas "
-"tajos un jūs varēsiet pielietot vai atcelt izmaiņas. "
+"Šī poga darbosies, ja ievadīsiet datnes vai mapes nosaukumu un datni, kas "
+"satur „diff“ izvadi šī lodziņa laukos, bet tās nospiešana atvērs „Kompare“ "
+"pamatskatu, kurā norādītās datnes vai datņu izvade būs sajaukta kopā ar "
+"„diff“ izvadi, lai varat pielietot atšķirību(-as) datnei vai datnēm. "
 
 #: app/kompare_shell.cpp:358 app/main.cpp:195
-#, fuzzy, kde-format
-#| msgid "Compare Files or Folders"
+#, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
-msgstr "Salīdzināt failus vai mapes"
+msgstr "Salīdzināt datnes vai mapes"
 
 #: app/kompare_shell.cpp:359 app/main.cpp:196
-#, fuzzy, kde-format
-#| msgid "Source"
+#, kde-format
 msgctxt "@title:group"
 msgid "Source"
 msgstr "Avots"
 
 #: app/kompare_shell.cpp:360 app/main.cpp:197
-#, fuzzy, kde-format
-#| msgid "Destination"
+#, kde-format
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Mērķis"
 
 #: app/kompare_shell.cpp:363 app/main.cpp:200
-#, fuzzy, kde-format
-#| msgid "Compare"
+#, kde-format
 msgctxt "@action:button"
 msgid "Compare"
-msgstr "Salīdzīnāt"
+msgstr "Salīdzināt"
 
 #: app/kompare_shell.cpp:364 app/main.cpp:201
-#, fuzzy, kde-format
-#| msgid "Compare these files or folders"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
-msgstr "Salīdzināt šos failus vai mapes"
+msgstr "Salīdzināt šīs datnes vai mapes"
 
 #: app/kompare_shell.cpp:365 app/main.cpp:202
-#, fuzzy, kde-format
-#| msgid ""
-#| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
-#| "then this button will be enabled and pressing it will start a comparison "
-#| "of the entered files or folders. "
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered 2 filenames or 2 folders in the fields in this dialog "
 "then this button will be enabled and pressing it will start a comparison of "
 "the entered files or folders. "
 msgstr ""
-"Šī poga tiks aktivizēta, kad laukos būs ievadīti divi faili vai divas mapes. "
-"Nospiežot to tiks veikta norādīto failu vai mapju satura salīdzināšana. "
+"Šī poga darbosies, Ja ievadīsiet divus datņu nosaukumus vai divas mapes šī "
+"lodziņa laukos, tad šīs pogas nospiešana uzsāks norādīto datņu vai mapju "
+"salīdzināšanu. "
 
 #: app/kompare_shell.cpp:399
-#, fuzzy, kde-format
-#| msgid "Text View"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text View"
 msgstr "Teksta skats"
@@ -235,7 +209,7 @@ msgstr "Teksta skats"
 #: app/kompareui.rc:4 komparepart/komparepartui.rc:4
 #, kde-format
 msgid "&File"
-msgstr "&Fails"
+msgstr "&Datne"
 
 #. i18n: ectx: Menu (settings)
 #: app/kompareui.rc:14 komparepart/komparepartui.rc:29
@@ -247,24 +221,22 @@ msgstr "&Iestatījumi"
 #: app/kompareui.rc:27
 #, kde-format
 msgid "Main Toolbar"
-msgstr "Galvenā rīkjosla "
+msgstr "Galvenā rīkjosla"
 
 #: app/kompareurldialog.cpp:38
-#, fuzzy, kde-format
-#| msgid "Files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Files"
-msgstr "Faili"
+msgstr "Datnes"
 
 #: app/kompareurldialog.cpp:40
 #, kde-format
 msgid "Here you can enter the files you want to compare."
-msgstr "Šeit var ievadīt salīdzināmos failus."
+msgstr "Šeit varat norādīt salīdzināmās datnes."
 
 #: app/kompareurldialog.cpp:46 dialogpages/diffpage.cpp:185
 #: komparepart/kompareprefdlg.cpp:43
-#, fuzzy, kde-format
-#| msgid "Diff"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Diff"
 msgstr "Diff"
@@ -272,11 +244,10 @@ msgstr "Diff"
 #: app/kompareurldialog.cpp:48
 #, kde-format
 msgid "Here you can change the options for comparing the files."
-msgstr "Šeit var izmainīt failu salīdzināšanas režīmu."
+msgstr "Šeit varat izmainīt datņu salīdzināšanas opcijas."
 
 #: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Appearance"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Izskats"
@@ -284,15 +255,14 @@ msgstr "Izskats"
 #: app/kompareurldialog.cpp:55
 #, kde-format
 msgid "Here you can change the options for the view."
-msgstr "Šeit var izmainīt skata režīmu."
+msgstr "Šeit varat izmainīt skata opcijas."
 
 #: app/kompareurldialog.cpp:101
 #, kde-format
 msgid ""
 "File used for excluding files cannot be found, please specify another file."
 msgstr ""
-"Neizdevās atrast failu, ko izmantot failu izlaišanai, lūdzu norādie citu "
-"failu."
+"Neizdevās atrast datni, ko izmantot datņu izlaišanai, norādiet citu datni."
 
 #: app/main.cpp:46
 #, kde-format
@@ -305,24 +275,21 @@ msgid ""
 "A program to view the differences between files and optionally generate a "
 "diff"
 msgstr ""
-"Programma failu atšķirību apskatīšanai, kas spēj arī ģenerēt diff failus"
+"Programma datņu atšķirību apskatīšanai, kas spēj arī ģenerēt atšķirību datnes"
 
 #: app/main.cpp:50
-#, fuzzy, kde-format
-#| msgid ""
-#| "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
-#| "2004-2005 Jeff Snyder, (c) 2007-2008 Kevin Kofler"
+#, kde-format
 msgid ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
 "2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
 msgstr ""
-"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
-"2004-2005 Jeff Snyder, (c) 2007-2008 Kevin Kofler"
+"(c) 2001—2004 John Firebaugh, (c) 2001—2005,2009 Otto Bruggeman, (c) 2004—"
+"2005 Jeff Snyder, (c) 2007—2012 Kevin Kofler"
 
 #: app/main.cpp:53
 #, kde-format
 msgid "John Firebaugh"
-msgstr "Džons Faierbohs (John Firebaugh)"
+msgstr "John Firebaugh"
 
 #: app/main.cpp:53 app/main.cpp:54
 #, kde-format
@@ -362,7 +329,7 @@ msgstr "Chris Luetchford"
 #: app/main.cpp:57
 #, kde-format
 msgid "Kompare icon artist"
-msgstr "Kompare ikonu mākslinieks"
+msgstr "„Kompare“ ikonu mākslinieks"
 
 #: app/main.cpp:58
 #, kde-format
@@ -382,7 +349,7 @@ msgstr "Bernd Gehrmann"
 #: app/main.cpp:59
 #, kde-format
 msgid "Cervisia diff viewer"
-msgstr "Cervisia diff skatītājs"
+msgstr "„Cervisia diff“ skatītājs"
 
 #: app/main.cpp:66
 #, kde-format
@@ -398,10 +365,11 @@ msgid ""
 "original file(s) and then blend the original file(s) into the diffoutput and "
 "show that in the viewer. -n disables the check."
 msgstr ""
-"Šis atvērs URL1 un uztvers to kā diff izvadu. URL1 var būt arī '-', tad tiks "
-"lasīts no standarta ievada. To var izmantot, piemēram šādi: cvs diff | "
-"kompare -o -. Kompare mēģinās atrast orģinālos failus un parādīs skatītājā "
-"izmaiņas, pielietotas uz tiem. -n atslēdz šo pārbaudi."
+"Šis atvērs URL1 un uztvers to kā „diff“ izvadi. URL1 var būt arī '-' — tādā "
+"gadījumā programma lasīts no standarta izvades. To varat izmantot, piemēram, "
+"šādi: „cvs diff | kompare -o -“. „Kompare“ mēģinās atrast oriģinālās datnes "
+"un skatītājā parādīt uz tām pielietotās izmaiņas. Parametrs „-n“ izslēdz šo "
+"pārbaudi."
 
 #: app/main.cpp:68
 #, kde-format
@@ -409,8 +377,8 @@ msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
 "the file or folder that the diffoutput needs to be blended into. "
 msgstr ""
-"Šis pielietos URL2 uz URL1, URL2 tiks uztverts kā diff izvads un URL1 kā "
-"fails vai mape, kam diff izvads pielietojams. "
+"Šis pielietos URL2 pret URL1. URL2 uztvers kā „diff“ izvadi, bet URL1 kā "
+"datni vai mapi, kam „diff“ izvade ir pielietojama. "
 
 #: app/main.cpp:69
 #, kde-format
@@ -418,8 +386,8 @@ msgid ""
 "Disables the check for automatically finding the original file(s) when using "
 "'-' as URL with the -o option."
 msgstr ""
-"Atslēdz automātisku orģinālo failu meklēšanu, kad par URL tiek izmantots "
-"'-', ar opciju -o."
+"Izslēdz automātisku oriģinālo datņu meklēšanu, kad par URL izmanto '-', ar "
+"parametru „-o“."
 
 #: app/main.cpp:70
 #, kde-format
@@ -428,14 +396,13 @@ msgid ""
 "will default to the local encoding if not specified."
 msgstr ""
 "Lietojiet šo, lai norādītu kodējumu, darbinot no komandrindas. Ja nav "
-"norādīts, tiks lietots lokālais kodēmums."
+"norādīts, lieto lokālo kodējumu."
 
 #: dialogpages/diffpage.cpp:174
-#, fuzzy, kde-format
-#| msgid "Diff Program"
+#, kde-format
 msgctxt "@title:group"
 msgid "Diff Program"
-msgstr "Diff programma"
+msgstr "Atšķirību programma"
 
 #: dialogpages/diffpage.cpp:179
 #, kde-format
@@ -444,119 +411,96 @@ msgid ""
 "program does not support all the options that the GNU version does. This way "
 "you can select that version."
 msgstr ""
-"Šeit jūs varat izvēlēties citu diff programmu. Solaris sistēmās standarta "
-"diff programma neatbalsta visas GNU versijas iespējas. Šādā veidā jūs varat "
-"izvēlēties citu versiju."
+"Šeit varat izvēlēties citu atšķirību meklēšanas programmu. Piemēram, "
+"„Solaris“ sistēmās standarta atšķirību programma neatbalsta visas GNU "
+"versijas iespējas. Šī opcija ļauj izvēlēties citu versiju."
 
 #: dialogpages/diffpage.cpp:196
-#, fuzzy, kde-format
-#| msgid ""
-#| "Select the format of the output generated by diff. Unified is the one "
-#| "that is used most frequently because it is very readable. The KDE "
-#| "developers like this format the best so use it for sending patches."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "Select the format of the output generated by diff. Unified is the one that "
 "is used most frequently because it is very readable. The KDE developers like "
 "this format the best so use it for sending patches."
 msgstr ""
-"Izvēlieties diff ģenerētā izvada formātu. Apvienotais ir visbiežāk "
-"lietotais, jo tas ir viegli lasāms. KDE izstrādātājiem patiks, ja jūs "
-"iesūtīsiet ielāpus šajā formātā."
+"Norādiet vēlamo „diff“ izvades formātu. Apvienotais ir biežāk lietotais, jo "
+"ir viegli lasāms. KDE izstrādātāji labprāt izmanto šo formātu ielāpu "
+"nosūtīšanai."
 
 #: dialogpages/diffpage.cpp:199
-#, fuzzy, kde-format
-#| msgid "Output Format"
+#, kde-format
 msgctxt "@title:group"
 msgid "Output Format"
-msgstr "Izvada formāts"
+msgstr "Izvades formāts"
 
 #: dialogpages/diffpage.cpp:201
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Context"
 msgstr "Konteksts"
 
 #: dialogpages/diffpage.cpp:204
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Normal"
 msgstr "Normāls"
 
 #: dialogpages/diffpage.cpp:207
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Unified"
 msgstr "Apvienots"
 
 #: dialogpages/diffpage.cpp:215
-#, fuzzy, kde-format
-#| msgid "Lines of Context"
+#, kde-format
 msgctxt "@title:group"
 msgid "Lines of Context"
 msgstr "Konteksta rindas"
 
 #: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
-#, fuzzy, kde-format
-#| msgid ""
-#| "The number of context lines is normally 2 or 3. This makes the diff "
-#| "readable and applicable in most cases. More than 3 lines will only bloat "
-#| "the diff unnecessarily."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "The number of context lines is normally 2 or 3. This makes the diff readable "
 "and applicable in most cases. More than 3 lines will only bloat the diff "
 "unnecessarily."
 msgstr ""
-"Parasti tiek izmantotas 2 vai 3 konteksta rindas. Tas padara diff izvadu "
-"lasāmu un gandrīz vienmēr pielietojamu. Vairāk par 3 rindām tikai padarīs "
-"diff izvadu nevajadzīgi lielu."
+"Parasti izmanto divas vai trīs konteksta rindas. Tas padara „diff“ izvadi "
+"lasāmu un gandrīz vienmēr pielietojamu. Vairāk par trim rindām „diff“ izvadi "
+"tikai padarīs nevajadzīgi lielu."
 
 #: dialogpages/diffpage.cpp:220
-#, fuzzy, kde-format
-#| msgid "Number of context lines:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of context lines:"
 msgstr "Konteksta rindu skaits:"
 
 #: dialogpages/diffpage.cpp:225
-#, fuzzy, kde-format
-#| msgid "Format"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Format"
 msgstr "Formāts"
 
 #: dialogpages/diffpage.cpp:237
-#, fuzzy, kde-format
-#| msgid "General"
+#, kde-format
 msgctxt "@title:group"
 msgid "General"
 msgstr "Pamata"
 
 #: dialogpages/diffpage.cpp:239
-#, fuzzy, kde-format
-#| msgid "&Treat new files as empty"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Treat new files as empty"
-msgstr "&Uzskatīt jaunus failus par tukšiem"
+msgstr "&Uzskatīt jaunas datnes par tukšām"
 
 #: dialogpages/diffpage.cpp:240
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -N diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -N diff option."
-msgstr "Šis atbilst -N diff parametram."
+msgstr "Šī opcija atbilst „diff“ parametram „-N“."
 
 #: dialogpages/diffpage.cpp:241
-#, fuzzy, kde-format
-#| msgid ""
-#| "With this option enabled diff will treat a file that only exists in one "
-#| "of the directories as empty in the other directory. This means that the "
-#| "file is compared with an empty file and because of this will appear as "
-#| "one big insertion or deletion."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "With this option enabled diff will treat a file that only exists in one of "
@@ -564,268 +508,215 @@ msgid ""
 "compared with an empty file and because of this will appear as one big "
 "insertion or deletion."
 msgstr ""
-"Ar šo ieslēgtu diff failus kas pastās tikai vienā no mapēm, otrā uzskatīs "
-"par tukšiem. Tas nozīmē ka fails tiks salīdzināts ar tukšu failu un "
-"izskatīsies kā liels dzēsums vai ievietojums."
+"Kad ir ieslēgta šī opcija, „diff“ apstrādās datni, kas atrodas tikai kādā  "
+"no mapēm kā tukšu citā mapē. Tas nozīmē, ka datni salīdzina ar tukšu datni, "
+"tāpēc viss izskatīsies kā viena liela ievietošana vai dzēšana."
 
 #: dialogpages/diffpage.cpp:244
-#, fuzzy, kde-format
-#| msgid "&Look for smaller changes"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Look for smaller changes"
 msgstr "&Meklēt mazākas izmaiņas"
 
 #: dialogpages/diffpage.cpp:245
-#, fuzzy, kde-format
-#| msgid "This corresponds to the -d diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -d diff option."
-msgstr "Šis atbilst -d diff parametram."
+msgstr "Šis atbilst „diff“ parametram „-d“."
 
 #: dialogpages/diffpage.cpp:246
-#, fuzzy, kde-format
-#| msgid ""
-#| "With this option enabled diff will try a little harder (at the cost of "
-#| "more memory) to find fewer changes."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "With this option enabled diff will try a little harder (at the cost of more "
 "memory) to find fewer changes."
 msgstr ""
-"Ar šo ieslēgtu diff centīsies nedaudz labāk (tas prasīs vairāk atmiņas) "
-"samazināt izmaiņu daudzumu."
+"Ar šo ieslēgtu „diff“ centīsies pēc iespējas vairāk (tas prasīs vairāk "
+"atmiņas) samazināt izmaiņu daudzumu."
 
 #: dialogpages/diffpage.cpp:248
-#, fuzzy, kde-format
-#| msgid "O&ptimize for large files"
+#, kde-format
 msgctxt "@option:check"
 msgid "O&ptimize for large files"
-msgstr "O&ptimizēt lieliem failiem"
+msgstr "O&ptimizēt lielām datnēm"
 
 #: dialogpages/diffpage.cpp:249
-#, fuzzy, kde-format
-#| msgid "This corresponds to the -H diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -H diff option."
-msgstr "Šis atbilst -H diff parametram."
+msgstr "Šis atbilst „diff“ parametram „-H“."
 
 #: dialogpages/diffpage.cpp:250
-#, fuzzy, kde-format
-#| msgid ""
-#| "This option lets diff makes better diffs when using large files. The "
-#| "definition of large is nowhere to be found though."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "This option lets diff makes better diffs when using large files. The "
 "definition of large is nowhere to be found though."
 msgstr ""
-"Šī iespēja liek diff veidot labākas atšķirības lielos failus. Diemžēl lielu "
-"failu definīcija nekur nav atrodama."
+"Šī iespēja ļauj labāk parādīt atšķirības lielās datnēs. Diemžēl lielas "
+"datnes definīcija nekur nav atrodama."
 
 #: dialogpages/diffpage.cpp:252
-#, fuzzy, kde-format
-#| msgid "&Ignore changes in case"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Ignore changes in case"
 msgstr "&Ignorēt reģistra atšķirības"
 
 #: dialogpages/diffpage.cpp:253
-#, fuzzy, kde-format
-#| msgid "This corresponds to the -i diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -i diff option."
-msgstr "Šis atbilst -i diff parametram."
+msgstr "Šis atbilst „diff“ parametram „-i“."
 
 #: dialogpages/diffpage.cpp:254
-#, fuzzy, kde-format
-#| msgid ""
-#| "With this option to ignore changes in case enabled, diff will not "
-#| "indicate a difference when something in one file is changed into "
-#| "SoMEthing in the other file."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "With this option to ignore changes in case enabled, diff will not indicate a "
 "difference when something in one file is changed into SoMEthing in the other "
 "file."
 msgstr ""
-"Šī iespēja ignorēs lielo/mazo burtu atšķirības. Diff neparādīt izmaiņas ja "
-"kautkas failā ir izmanīts uz KauTKas otrā failā."
+"Šī opcija ignorēs lielo/mazo burtu atšķirības. „Diff“ neparādīs izmaiņas ja "
+"vienā datnē teksts „kaut kas“ otrā datnē būtu izmainīts pret „Kau TKas“."
 
 #: dialogpages/diffpage.cpp:262
-#, fuzzy, kde-format
-#| msgid "Ignore regexp:"
+#, kde-format
 msgctxt "@option:check"
 msgid "Ignore regexp:"
-msgstr "Ignorēt regexp:"
+msgstr "Ignorēšanas regulārās izteiksmes:"
 
 #: dialogpages/diffpage.cpp:263
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -I diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -I diff option."
-msgstr "Šis atbilst -I diff parametram."
+msgstr "Šis atbilst „diff“ parametram „-I“."
 
 #: dialogpages/diffpage.cpp:264
-#, fuzzy, kde-format
-#| msgid ""
-#| "When this checkbox is enabled, an option to diff is given that will make "
-#| "diff ignore lines that match the regular expression."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "When this checkbox is enabled, an option to diff is given that will make "
 "diff ignore lines that match the regular expression."
 msgstr ""
-"Kad ieslēgts, diff tiek dots parametrs, kas tam liek ignorēt rindas, kas "
+"Kad ieslēgts, „diff“ saņems parametru, liekot tam ignorēt rindas, kas "
 "atbilst regulārajai izteiksmei."
 
 #: dialogpages/diffpage.cpp:268
-#, fuzzy, kde-format
-#| msgid ""
-#| "Add the regular expression here that you want to use\n"
-#| "to ignore lines that match it."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Add the regular expression here that you want to use\n"
 "to ignore lines that match it."
 msgstr ""
-"Šeit ievadiet regulāro izteiksmi, ko lietot,\n"
+"Šeit ievadiet regulāro izteiksmi, ko vēlaties lietot,\n"
 "lai atrastu ignorējamās rindas."
 
 #: dialogpages/diffpage.cpp:274
-#, fuzzy, kde-format
-#| msgid "Whitespace"
+#, kde-format
 msgctxt "@title:group"
 msgid "Whitespace"
-msgstr "Tukšumsimboli"
+msgstr "Atstarpju simboli"
 
 #: dialogpages/diffpage.cpp:276
-#, fuzzy, kde-format
-#| msgid "E&xpand tabs to spaces in output"
+#, kde-format
 msgctxt "@option:check"
 msgid "E&xpand tabs to spaces in output"
-msgstr "&Pārveidot tabus par atstarpēm"
+msgstr "&Pārveidot tabulatorus par atstarpēm"
 
 #: dialogpages/diffpage.cpp:277
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -t diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -t diff option."
-msgstr "Šis atbilst -t diff parametram."
+msgstr "Šis atbilst „diff“ parametram „-t“."
 
 #: dialogpages/diffpage.cpp:278
-#, fuzzy, kde-format
-#| msgid ""
-#| "This option does not always produce the right result. Due to this "
-#| "expansion Kompare may have problems applying the change to the "
-#| "destination file."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "This option does not always produce the right result. Due to this expansion "
 "Kompare may have problems applying the change to the destination file."
 msgstr ""
-"Šī iespēja ne vienmēr izdod korektu rezultātu. Tās rezultātā Kompare var "
-"rasties grūtības izmaiņu pielietošanā mērķa failam."
+"Šī iespēja ne vienmēr izdod korektu rezultātu. Tās rezultātā „Kompare“ var "
+"rasties grūtības izmaiņu pielietošanā mērķa datnei."
 
 #: dialogpages/diffpage.cpp:280
-#, fuzzy, kde-format
-#| msgid "I&gnore added or removed empty lines"
+#, kde-format
 msgctxt "@option:check"
 msgid "I&gnore added or removed empty lines"
 msgstr "&Ignorēt pievienotas/noņemtas tukšas rindas"
 
 #: dialogpages/diffpage.cpp:281
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -B diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -B diff option."
-msgstr "Šis atbilst -B diff parametram."
+msgstr "Šis atbilst „diff“ parametram „-B“."
 
 #: dialogpages/diffpage.cpp:282
-#, fuzzy, kde-format
-#| msgid ""
-#| "This can be very useful in situations where code has been reorganized and "
-#| "empty lines have been added or removed to improve legibility."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "This can be very useful in situations where code has been reorganized and "
 "empty lines have been added or removed to improve legibility."
 msgstr ""
-"Šis var noderēt, ja koda bloki ir pārkārtoti un pievienotas vai izmestas "
+"Šis var noderēt, ja ir pārkārtoti koda bloki vai pievienotas vai izmestas "
 "tukšas rindas."
 
 #: dialogpages/diffpage.cpp:284
-#, fuzzy, kde-format
-#| msgid "Ig&nore changes in the amount of whitespace"
+#, kde-format
 msgctxt "@option:check"
 msgid "Ig&nore changes in the amount of whitespace"
-msgstr "Ig&norēt izmaiņas tukšumsimbolu daudzumā"
+msgstr "Ig&norēt izmaiņas atstarpju simbolu daudzumā"
 
 #: dialogpages/diffpage.cpp:285
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -b diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -b diff option."
-msgstr "Šis atbilst -b diff parametram."
+msgstr "Šis atbilst „diff“ parametram „-b“."
 
 #: dialogpages/diffpage.cpp:286
-#, fuzzy, kde-format
-#| msgid ""
-#| "If you are uninterested in differences arising due to, for example, "
-#| "changes in indentation, then use this option."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "If you are uninterested in differences arising due to, for example, changes "
 "in indentation, then use this option."
-msgstr "Ja jums neinteresē izmaiņas, piemēram, atkāpēs, ieslēdziet šo iespēju."
+msgstr "ieslēdziet šo iespēju, ja jums neinteresē izmaiņas, piemēram, atkāpēs."
 
 #: dialogpages/diffpage.cpp:288
-#, fuzzy, kde-format
-#| msgid "Ign&ore all whitespace"
+#, kde-format
 msgctxt "@option:check"
 msgid "Ign&ore all whitespace"
-msgstr "Ign&orēt visus tukšumsimbolus"
+msgstr "Ign&orēt visus atstarpju simbolus"
 
 #: dialogpages/diffpage.cpp:289
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -w diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -w diff option."
-msgstr "Šis atbilst -w diff parametram."
+msgstr "Šis atbilst „diff“ parametram „-w“."
 
 #: dialogpages/diffpage.cpp:290
-#, fuzzy, kde-format
-#| msgid ""
-#| "This is useful for seeing the significant changes without being "
-#| "overwhelmed by all the white space changes."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "This is useful for seeing the significant changes without being overwhelmed "
 "by all the white space changes."
 msgstr ""
-"Šis noder lai redzētu svarīgas izmaiņas, nerādot visas tukšumsimbolu "
+"Noder, lai redzētu svarīgas izmaiņas, nerādot visas atstarpju simbolu "
 "izmaiņas."
 
 #: dialogpages/diffpage.cpp:292
-#, fuzzy, kde-format
-#| msgid "Igno&re changes due to tab expansion"
+#, kde-format
 msgctxt "@option:check"
 msgid "Igno&re changes due to tab expansion"
-msgstr "Igno&rēt tabu/atstarpju atšķirības"
+msgstr "Igno&rēt tabulatoru/atstarpju izmaiņas"
 
 #: dialogpages/diffpage.cpp:293
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -E diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -E diff option."
-msgstr "Šis atbilst -E diff parametram."
+msgstr "Šis atbilst „diff“ parametram „-E“."
 
 #: dialogpages/diffpage.cpp:294
-#, fuzzy, kde-format
-#| msgid ""
-#| "If there is a change because tabs have been expanded into spaces in the "
-#| "other file, then this option will make sure that these do not show up. "
-#| "Kompare currently has some problems applying such changes so be careful "
-#| "when you use this option."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "If there is a change because tabs have been expanded into spaces in the "
@@ -833,115 +724,94 @@ msgid ""
 "Kompare currently has some problems applying such changes so be careful when "
 "you use this option."
 msgstr ""
-"Ja ir izmaiņas, kad tabulācijas ir pārvērstas par atstarpēm, šī iespēja tās "
-"noslēps. Komare šobrīd gan ir grūtības pielietot šādas izmaiņas, tāpēc esiet "
-"uzmanīgs ar šo."
+"Ja ir izmaiņas, jo tabulatori ir pārvērsti par atstarpēm, šī iespēja tās "
+"noslēps. „Kompare“ šobrīd ir grūtības pielietot šādas izmaiņas, tāpēc esiet "
+"uzmanīgs ar šo opciju."
 
 #: dialogpages/diffpage.cpp:299
-#, fuzzy, kde-format
-#| msgid "Options"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Options"
 msgstr "Opcijas"
 
 #: dialogpages/diffpage.cpp:311
-#, fuzzy, kde-format
-#| msgid "File Pattern to Exclude"
+#, kde-format
 msgctxt "@title:group"
 msgid "File Pattern to Exclude"
-msgstr "Izlaižamo failu paraugs"
+msgstr "Izlaižamo datņu paraugs"
 
 #: dialogpages/diffpage.cpp:312
-#, fuzzy, kde-format
-#| msgid ""
-#| "If this is checked you can enter a shell pattern in the text box on the "
-#| "right or select entries from the list."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "If this is checked you can enter a shell pattern in the text box on the "
 "right or select entries from the list."
 msgstr ""
-"Ieslēdzot šo, jūs varat ievadīt čaulas paraugu teksta laukā, vai izvēlēties "
-"no saraksta."
+"Ieslēdzot šo, varat ievadīt čaulas paraugu teksta laukā vai izvēlēties starp "
+"sarakstā esošiem ierakstiem."
 
 #: dialogpages/diffpage.cpp:318
-#, fuzzy, kde-format
-#| msgid ""
-#| "Here you can enter or remove a shell pattern or select one or more "
-#| "entries from the list."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Here you can enter or remove a shell pattern or select one or more entries "
 "from the list."
 msgstr ""
-"Šeit var ievadīt vai noņemt čaulas paraugu, vai izvēlēties vienu vai "
-"vairākus failus no saraksta."
+"Šeit varat ievadīt vai noņemt čaulas paraugu vai sarakstā izvēlēties vienu "
+"vai vairākas datnes."
 
 #: dialogpages/diffpage.cpp:328
-#, fuzzy, kde-format
-#| msgid "File with Filenames to Exclude"
+#, kde-format
 msgctxt "@title:group"
 msgid "File with Filenames to Exclude"
-msgstr "Izlaišamo failu nosaukumi"
+msgstr "Izlaižamo datņu nosaukumi"
 
 #: dialogpages/diffpage.cpp:329
-#, fuzzy, kde-format
-#| msgid ""
-#| "If this is checked you can enter a filename in the combo box on the right."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "If this is checked you can enter a filename in the combo box below."
-msgstr "Ieslēdzot šo, rāmītī pa labi var ievadīt faila nosaukumu."
+msgstr "Ja šis ir atzīmēts, rāmītī labajā pusē varat ievadīt datnes nosaukumu."
 
 #: dialogpages/diffpage.cpp:333
-#, fuzzy, kde-format
-#| msgid ""
-#| "Here you can enter the URL of a file with shell patterns to ignore during "
-#| "the comparison of the folders."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Here you can enter the URL of a file with shell patterns to ignore during "
 "the comparison of the folders."
 msgstr ""
-"Šeit jūs varat ievadīt izlaišamā faila URL, kas var saturēt čaulas paraugus. "
-"Tas tiks izmantots, salīdzinot mapju saturu."
+"Šeit varat ievadīt izlaižamās datnes URL, kas var saturēt čaulas paraugus. "
+"To programma izmantos, salīdzinot mapju saturu."
 
 #: dialogpages/diffpage.cpp:337
-#, fuzzy, kde-format
-#| msgid ""
-#| "Any file you select in the dialog that pops up when you click it will be "
-#| "put in the dialog to the left of this button."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Any file you select in the dialog that pops up when you click it will be put "
 "in the dialog to the left of this button."
 msgstr ""
-"Katrs, šo pogu nospiežot izlecošajā dialogā izvēlētais, fails tiks "
-"pievienots sarakstam pa kreisi no pogas."
+"Katru pēc šīs pogas nospiešanas izlecošajā lodziņā atlasīto datni pievienos "
+"sarakstam pogas kreisajā pusē."
 
 #: dialogpages/diffpage.cpp:344
-#, fuzzy, kde-format
-#| msgid "Exclude"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Exclude"
-msgstr "Izslēgt"
+msgstr "Izlaist"
 
 #: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
-#, fuzzy, kde-format
-#| msgid "N&ext File"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select file"
-msgstr "Nā&kamais fails"
+msgstr "Norādīt datni"
 
 #: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
-#, fuzzy, kde-format
-#| msgid "Source Folder"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select folder"
-msgstr "Avota fails"
+msgstr "Norādīt mapi"
 
 #: dialogpages/filespage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Encoding"
+#, kde-format
 msgctxt "@title:group"
 msgid "Encoding"
 msgstr "Kodējums"
@@ -950,171 +820,147 @@ msgstr "Kodējums"
 #, kde-format
 msgctxt "@item:inlistbox encoding"
 msgid "Default"
-msgstr ""
+msgstr "Noklusējums"
 
 #: dialogpages/filespage.cpp:126
-#, fuzzy, kde-format
-#| msgid "Source Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select Folder"
-msgstr "Avota fails"
+msgstr "Norādīt mapi"
 
 #: dialogpages/filespage.cpp:130
-#, fuzzy, kde-format
-#| msgid "N&ext File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select File"
-msgstr "Nā&kamais fails"
+msgstr "Norādīt datni"
 
 #: dialogpages/viewpage.cpp:44
-#, fuzzy, kde-format
-#| msgid "Colors"
+#, kde-format
 msgctxt "@title:group"
 msgid "Colors"
 msgstr "Krāsas"
 
 #: dialogpages/viewpage.cpp:50
-#, fuzzy, kde-format
-#| msgid "Removed color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Removed color:"
-msgstr "Noņemta krāsa:"
+msgstr "Krāsa dzēstajam:"
 
 #: dialogpages/viewpage.cpp:54
-#, fuzzy, kde-format
-#| msgid "Changed color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Changed color:"
-msgstr "Izmainīta krāsa:"
+msgstr "Krāsa izmainītajam:"
 
 #: dialogpages/viewpage.cpp:58
-#, fuzzy, kde-format
-#| msgid "Added color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Added color:"
-msgstr "Pievienota krāsa:"
+msgstr "Krāsa pievienotajam:"
 
 #: dialogpages/viewpage.cpp:62
-#, fuzzy, kde-format
-#| msgid "Applied color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Applied color:"
-msgstr "Pielietota krāsa:"
+msgstr "Krāsa pielietotajam:"
 
 #: dialogpages/viewpage.cpp:66
-#, fuzzy, kde-format
-#| msgid "Mouse Wheel"
+#, kde-format
 msgctxt "@title:group"
 msgid "Mouse Wheel"
-msgstr "Peles ritenis"
+msgstr "Peles rullītis"
 
 #: dialogpages/viewpage.cpp:72
-#, fuzzy, kde-format
-#| msgid "Number of lines:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of lines:"
 msgstr "Rindu skaits:"
 
 #: dialogpages/viewpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Tabs to Spaces"
+#, kde-format
 msgctxt "@title:group"
 msgid "Tabs to Spaces"
-msgstr "Tabus uz atstarpēm"
+msgstr "Tabulatorus par atstarpēm"
 
 #: dialogpages/viewpage.cpp:83
-#, fuzzy, kde-format
-#| msgid "Number of spaces to convert a tab character to:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of spaces to convert a tab character to:"
-msgstr "Atstarpju skaits, ko ievietot taba vietā:"
+msgstr "Atstarpju skaits, ko ievietot tabulatora vietā:"
 
 #: dialogpages/viewpage.cpp:94
-#, fuzzy, kde-format
-#| msgid "Text Font"
+#, kde-format
 msgctxt "@title:group"
 msgid "Text Font"
 msgstr "Teksta fonts"
 
 #: dialogpages/viewpage.cpp:98
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Font:"
 msgstr "Fonts:"
 
 #: dialogpages/viewpage.cpp:103
-#, fuzzy, kde-format
-#| msgid "Size:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Size:"
 msgstr "Izmērs:"
 
 #: dialogpages/viewpage.cpp:107
-#, fuzzy, kde-format
-#| msgid "Fonts"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Fonts"
 msgstr "Fonti"
 
 #: komparenavtreepart/komparenavtreepart.cpp:53
-#, fuzzy, kde-format
-#| msgid "Source Folder"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source Folder"
-msgstr "Avota fails"
+msgstr "Avota mape"
 
 #: komparenavtreepart/komparenavtreepart.cpp:59
-#, fuzzy, kde-format
-#| msgid "Destination Folder"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination Folder"
-msgstr "Mērķa fails"
+msgstr "Mērķa mape"
 
 #: komparenavtreepart/komparenavtreepart.cpp:66
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source File"
-msgstr "Avota fails"
+msgstr "Avota datne"
 
 #: komparenavtreepart/komparenavtreepart.cpp:67
-#, fuzzy, kde-format
-#| msgid "Destination File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination File"
-msgstr "Mērķa fails"
+msgstr "Mērķa datne"
 
 #: komparenavtreepart/komparenavtreepart.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source Line"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source Line"
-msgstr "Avota finda"
+msgstr "Avota rinda"
 
 #: komparenavtreepart/komparenavtreepart.cpp:77
-#, fuzzy, kde-format
-#| msgid "Destination Line"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination Line"
-msgstr "Mērķa finda"
+msgstr "Mērķa rinda"
 
 #: komparenavtreepart/komparenavtreepart.cpp:78
-#, fuzzy, kde-format
-#| msgid "Difference"
+#, kde-format
 msgctxt "@title:column"
 msgid "Difference"
-msgstr "Atšķirības"
+msgstr "Atšķirība"
 
 #: komparenavtreepart/komparenavtreepart.cpp:453
-#, fuzzy, kde-format
-#| msgid "Applied: Changes made to %1 line undone"
-#| msgid_plural "Applied: Changes made to  %1 lines undone"
+#, kde-format
 msgid "Applied: Changes made to %1 line undone"
 msgid_plural "Applied: Changes made to %1 lines undone"
-msgstr[0] "Pielietots: Atceltas izmaiņas %1 rindā"
-msgstr[1] "Pielietots: Atceltas izmaiņas %1 rindās"
-msgstr[2] "Pielietots: Atceltas izmaiņas %1 rindās"
+msgstr[0] "Pielietots: atceltas izmaiņas %1 rindā"
+msgstr[1] "Pielietots: atceltas izmaiņas %1 rindās"
+msgstr[2] "Pielietots: atceltas izmaiņas %1 rindās"
 
 #: komparenavtreepart/komparenavtreepart.cpp:456
 #, kde-format
@@ -1128,9 +974,9 @@ msgstr[2] "Izmainīts %1 rindu"
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
-msgstr[0] "Pielietots: Atcelta %1 rindas ievietošana"
-msgstr[1] "Pielietots: Atcelta %1 rindu ievietošana"
-msgstr[2] "Pielietots: Atcelta %1 rindu ievietošana"
+msgstr[0] "Pielietots: atcelta %1 rindas ievietošana"
+msgstr[1] "Pielietots: atcelta %1 rindu ievietošana"
+msgstr[2] "Pielietots: atcelta %1 rindu ievietošana"
 
 #: komparenavtreepart/komparenavtreepart.cpp:464
 #, kde-format
@@ -1144,9 +990,9 @@ msgstr[2] "Ievietots %1 rindu"
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
-msgstr[0] "Pielietots: Atcelta %1 rindas dzēšana"
-msgstr[1] "Pielietots: Atcelta %1 rindu dzēšana"
-msgstr[2] "Pielietots: Atcelta %1 rindu dzēšana"
+msgstr[0] "Pielietots: atcelta %1 rindas dzēšana"
+msgstr[1] "Pielietots: atcelta %1 rindu dzēšana"
+msgstr[2] "Pielietots: atcelta %1 rindu dzēšana"
 
 #: komparenavtreepart/komparenavtreepart.cpp:472
 #, kde-format
@@ -1157,51 +1003,45 @@ msgstr[1] "Dzēstas %1 rindas"
 msgstr[2] "Dzēsts %1 rindu"
 
 #: komparenavtreepart/komparenavtreepart.cpp:627
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "Nezināms"
 
 #: komparepart/kompare_part.cpp:177
-#, fuzzy, kde-format
-#| msgid "Save &All"
+#, kde-format
 msgctxt "@action"
 msgid "Save &All"
-msgstr "Saglabāt &visus"
+msgstr "Saglabāt &visu"
 
 #: komparepart/kompare_part.cpp:179
-#, fuzzy, kde-format
-#| msgid "Save &Diff..."
+#, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
-msgstr "Saglabāt &Diff..."
+msgstr "&Saglabāt „Diff“ datni..."
 
 #: komparepart/kompare_part.cpp:181
-#, fuzzy, kde-format
-#| msgid "Swap Source with Destination"
+#, kde-format
 msgctxt "@action"
 msgid "Swap Source with Destination"
-msgstr "Apmainīt avotu ar mērķi"
+msgstr "Mainīt vietām avotu un mērķi"
 
 #: komparepart/kompare_part.cpp:188
-#, fuzzy, kde-format
-#| msgid "Show Statistics"
+#, kde-format
 msgctxt "@action"
 msgid "Show Statistics"
 msgstr "Rādīt statistiku"
 
 #: komparepart/kompare_part.cpp:191
-#, fuzzy, kde-format
-#| msgid "Refresh Diff"
+#, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
-msgstr "Atsvaidzināt atšķirības"
+msgstr "Atsvaidzināt „Diff“"
 
 #: komparepart/kompare_part.cpp:303 komparepart/kompare_part.cpp:316
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
-msgstr "<qt>Neizdevās ielādēt URL <b>%1</b> saturu.</qt>"
+msgstr "<qt>Neizdevās lejupielādēt URL <b>%1</b> saturu.</qt>"
 
 #: komparepart/kompare_part.cpp:354
 #, kde-format
@@ -1209,73 +1049,63 @@ msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
 msgstr "<qt>Jūsu sistēmā nepastāv URL <b>%1</b>.</qt>"
 
 #: komparepart/kompare_part.cpp:542
-#, fuzzy, kde-format
-#| msgid "Diff Options"
+#, kde-format
 msgctxt "@title:window"
 msgid "Diff Options"
-msgstr "Diff opcijas"
+msgstr "„Diff“ opcijas"
 
 #: komparepart/kompare_part.cpp:561
-#, fuzzy, kde-format
-#| msgid "Save .diff"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save .diff"
-msgstr "Saglabāt .diff"
+msgstr "Saglabāt „.diff“"
 
 #: komparepart/kompare_part.cpp:563
-#, fuzzy, kde-format
-#| msgid "*.diff *.dif *.patch|Patch Files"
+#, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
-msgstr "*.diff *.dif *.patch|Ielāpu faili"
+msgstr "Ielāpu datnes (*.diff *.dif *.patch)"
 
 #: komparepart/kompare_part.cpp:624
-#, fuzzy, kde-format
-#| msgid "Running diff..."
+#, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
-msgstr "Darbina diff..."
+msgstr "Darbina „diff“..."
 
 #: komparepart/kompare_part.cpp:627
-#, fuzzy, kde-format
-#| msgid "Parsing diff output..."
+#, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
-msgstr "Analizē diff izvadu..."
+msgstr "Parsē „diff“ izvadi..."
 
 #: komparepart/kompare_part.cpp:683
-#, fuzzy, kde-format
-#| msgid "Comparing file %1 with file %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
-msgstr "Salīdzina failu %1 ar failu %2"
+msgstr "Salīdzina „%1“ datni ar „%2“ datni"
 
 #: komparepart/kompare_part.cpp:688
-#, fuzzy, kde-format
-#| msgid "Comparing files in %1 with files in %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
-msgstr "Salīdzina fails mapē %1 ar failiem mapē %2"
+msgstr "Salīdzina datnes „%1“ mapē ar datnēm „%2“ mapē"
 
 #: komparepart/kompare_part.cpp:693
-#, fuzzy, kde-format
-#| msgid "Viewing diff output from %1"
+#, kde-format
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
-msgstr "Rāda diff izvadu no %1"
+msgstr "Rāda „diff“ izvadi no „%1“"
 
 #: komparepart/kompare_part.cpp:696
-#, fuzzy, kde-format
-#| msgid "Blending diff output from %1 into file %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
-msgstr "Pielieto diff izvadu no %1 failam %2"
+msgstr "Pielieto „diff izvadi no „%1“ datnes „%2“ datnei"
 
 #: komparepart/kompare_part.cpp:701
-#, fuzzy, kde-format
-#| msgid "Blending diff output from %1 into folder %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
-msgstr "Pielieto diff izvadu no %1 mapei %2"
+msgstr "Pielieto „diff“ izvadi no „%1“ mapes „%2“ mapei"
 
 #: komparepart/kompare_part.cpp:752 komparepart/kompare_part.cpp:783
 #: komparepart/kompare_part.cpp:899
@@ -1284,55 +1114,48 @@ msgid ""
 "You have made changes to the destination file(s).\n"
 "Would you like to save them?"
 msgstr ""
-"Mērķa failā(os) ir veiktas izmaiņas.\n"
+"Mērķa datnē(-ēs) veicāt izmaiņas.\n"
 "Vai vēlaties tās saglabāt?"
 
 #: komparepart/kompare_part.cpp:754 komparepart/kompare_part.cpp:785
 #: komparepart/kompare_part.cpp:901
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save Changes?"
-msgstr "Saglabāt izmaiņas?"
+msgstr "Vai saglabāt izmaiņas?"
 
 #: komparepart/kompare_part.cpp:824
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "Apvienots"
 
 #: komparepart/kompare_part.cpp:827
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "Konteksts"
 
 #: komparepart/kompare_part.cpp:830
-#, fuzzy, kde-format
-#| msgid "RCS"
+#, kde-format
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
 #: komparepart/kompare_part.cpp:833
-#, fuzzy, kde-format
-#| msgid "Ed"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
 #: komparepart/kompare_part.cpp:836
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "Normāls"
 
 #: komparepart/kompare_part.cpp:840
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "Nezināms"
@@ -1343,15 +1166,15 @@ msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
 "available."
 msgstr ""
-"Nav diff faila, vai nav nevienas atķširības. Tāpēc statisktika nav pieejama."
+"Nav „diff“ datnes, vai arī nav meklētas atšķirības divās datnēs, tāpēc "
+"statistika nav pieejama."
 
 #: komparepart/kompare_part.cpp:858 komparepart/kompare_part.cpp:872
 #: komparepart/kompare_part.cpp:888
-#, fuzzy, kde-format
-#| msgid "Diff Statistics"
+#, kde-format
 msgctxt "@title:window"
 msgid "Diff Statistics"
-msgstr "Diff statistika"
+msgstr "„Diff“ statistika"
 
 #: komparepart/kompare_part.cpp:862
 #, kde-format
@@ -1367,8 +1190,8 @@ msgid ""
 msgstr ""
 "Statistika:\n"
 "\n"
-"Vecais fails: %1\n"
-"Jaunais fails: %2\n"
+"Vecā datne: %1\n"
+"Jaunā datne: %2\n"
 "\n"
 "Formāts: %3\n"
 "Gabalu skaits: %4\n"
@@ -1390,11 +1213,11 @@ msgid ""
 msgstr ""
 "Statistika:\n"
 "\n"
-"Failu skaits: %1\n"
+"Datņu skaits „diff“ datnē: %1\n"
 "Formāts: %2\n"
 "\n"
-"Aktīvais jaunais fails: %3\n"
-"Aktīvais vecais fails: %4\n"
+"Pašreizējā jaunā datne: %3\n"
+"Pašreizējā vecā datne: %4\n"
 "\n"
 "Gabalu skaits: %5\n"
 "Atšķirību skaits: %6"
@@ -1403,35 +1226,31 @@ msgstr ""
 #: komparepart/komparepartui.rc:17
 #, kde-format
 msgid "&Difference"
-msgstr "&Atšķirības"
+msgstr "&Atšķirība"
 
 #: komparepart/kompareprefdlg.cpp:27
-#, fuzzy, kde-format
-#| msgid "Preferences"
+#, kde-format
 msgctxt "@title:window"
 msgid "Preferences"
 msgstr "Iestatījumi"
 
 #: komparepart/kompareprefdlg.cpp:37
-#, fuzzy, kde-format
-#| msgid "View"
+#, kde-format
 msgctxt "@title:tab"
 msgid "View"
 msgstr "Skats"
 
 #: komparepart/kompareprefdlg.cpp:39
-#, fuzzy, kde-format
-#| msgid "View Settings"
+#, kde-format
 msgctxt "@title"
 msgid "View Settings"
 msgstr "Skata iestatījumi"
 
 #: komparepart/kompareprefdlg.cpp:45
-#, fuzzy, kde-format
-#| msgid "Diff Settings"
+#, kde-format
 msgctxt "@title"
 msgid "Diff Settings"
-msgstr "Diff iestatījumi"
+msgstr "„Diff“ iestatījumi"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
 #: komparepart/komparesaveoptionsbase.ui:29
@@ -1441,10 +1260,9 @@ msgstr "Formāts"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
 #: komparepart/komparesaveoptionsbase.ui:35
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgid "&Context"
-msgstr "Konteksts"
+msgstr "&Konteksts"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
 #: komparepart/komparesaveoptionsbase.ui:42
@@ -1454,10 +1272,9 @@ msgstr "Ed"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
 #: komparepart/komparesaveoptionsbase.ui:49
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgid "&Normal"
-msgstr "Normāls"
+msgstr "&Normāls"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
 #: komparepart/komparesaveoptionsbase.ui:56
@@ -1467,17 +1284,15 @@ msgstr "RCS"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
 #: komparepart/komparesaveoptionsbase.ui:63
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgid "&Unified"
-msgstr "Apvienots"
+msgstr "&Apvienots"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
 #: komparepart/komparesaveoptionsbase.ui:73
-#, fuzzy, kde-format
-#| msgid "Side-by-side"
+#, kde-format
 msgid "&Side-by-side"
-msgstr "Blakus"
+msgstr "&Blakus"
 
 #. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
 #: komparepart/komparesaveoptionsbase.ui:85
@@ -1501,7 +1316,7 @@ msgstr "Meklēt mazākas izmaiņas"
 #: komparepart/komparesaveoptionsbase.ui:142
 #, kde-format
 msgid "Optimize for large files"
-msgstr "Optimizēt lieliem failiem"
+msgstr "Optimizēt lielām datnēm"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
 #: komparepart/komparesaveoptionsbase.ui:152
@@ -1513,7 +1328,7 @@ msgstr "Ignorēt reģistra atšķirības"
 #: komparepart/komparesaveoptionsbase.ui:159
 #, kde-format
 msgid "Expand tabs to spaces"
-msgstr "Pārveidot tabus par atstarpēm"
+msgstr "Pārveidot tabulatorus par atstarpēm"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
 #: komparepart/komparesaveoptionsbase.ui:166
@@ -1531,7 +1346,7 @@ msgstr "Ignorēt atstarpju izmaiņas"
 #: komparepart/komparesaveoptionsbase.ui:180
 #, kde-format
 msgid "Show function names"
-msgstr "Rādīt funkciju nosaulumus"
+msgstr "Rādīt funkciju nosaukumus"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
 #: komparepart/komparesaveoptionsbase.ui:190
@@ -1543,19 +1358,19 @@ msgstr "Salīdzināt mapes rekursīvi"
 #: komparepart/komparesaveoptionsbase.ui:200
 #, kde-format
 msgid "Treat new files as empty"
-msgstr "Uzskatīt jaunus failus par tukšiem"
+msgstr "Uzskatīt jaunas datnes par tukšām"
 
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
 #: komparepart/komparesaveoptionsbase.ui:222
 #, kde-format
 msgid "Run Diff In"
-msgstr "Radbināt diff iekš"
+msgstr "Darbināt atšķirības"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
 #: komparepart/komparesaveoptionsbase.ui:247
 #, kde-format
 msgid "Command Line"
-msgstr "Komandrindas"
+msgstr "Komandrindā"
 
 #. i18n: ectx: property (text), widget (QLabel, m_CommandLineLabel)
 #: komparepart/komparesaveoptionsbase.ui:256

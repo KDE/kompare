@@ -5,13 +5,10 @@
   * the Recent Files group has been renamed to Recent Compare Files
 
 Very important:
-* Make sure unified and context actually work again !
 * Implement the rest of the interface (compare3 etc.)
 * Make sure the rest works too ! Still some problems parsing some files
-* Other various things that need to be fixed asap (before 3.2 is released)
 
 In descending order of importance:
-* Add a kompare manual/document
 * add support for handediting conflicts
 * session management (should almost work)
 * implement normal, ed and rcs format (normal got busted)

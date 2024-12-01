@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2024-06-13 10:01+0400\n"
+"PO-Revision-Date: 2024-11-30 07:49+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -24,13 +24,14 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Isam Bayazidi, Nuriddin Aminagha,أحمد محمد زواوي"
+msgstr "Isam Bayazidi, Nuriddin Aminagha,أحمد محمد زواوي,عمر أبو محمد,Omar TS"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
-"bayazidi@arabeyes.org, nuriddin@haydarlinux.org,azawawi@emirates.net.ae"
+"bayazidi@arabeyes.org, nuriddin@haydarlinux.org,azawawi@emirates.net.ae,"
+"omats@vivaldi.net"
 
 #: app/kompare_shell.cpp:69
 #, kde-format
@@ -105,15 +106,15 @@ msgstr[4] " %1 ملفًا "
 msgstr[5] " %1 ملف "
 
 #: app/kompare_shell.cpp:244
-#, fuzzy, kde-format
+#, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
-msgstr[0] "من اختلاف "
-msgstr[1] "من اختلاف "
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] " %2 من %1 اختلاف، طُبّق %3 "
+msgstr[1] " %2 من اختلاف واحد، طُبّق %3 "
+msgstr[2] " %2 من اختلافين، طُبّق %3 "
+msgstr[3] " %2 من %1 اختلافات، طُبّق %3 "
+msgstr[4] " %2 من %1  اختلافًا، طُبّق %3 "
+msgstr[5] " %2 من %1  اختلاف، طُبّق %3 "
 
 #: app/kompare_shell.cpp:247
 #, kde-format
@@ -127,10 +128,10 @@ msgstr[4] " %1 اختلافًا "
 msgstr[5] " %1 اختلاف "
 
 #: app/kompare_shell.cpp:328
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
-msgstr "الخليط ملف مجلّد مع مخرجات"
+msgstr "ادمج ملفا/مجلدا مع إخراج مختلف"
 
 #: app/kompare_shell.cpp:329
 #, kde-format
@@ -157,7 +158,7 @@ msgid "Blend this file or folder with the diff output"
 msgstr "اخلط هذا الملف أو المجلَد مع مخرجات الاختلافات"
 
 #: app/kompare_shell.cpp:335
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@infor:whatsthis"
 msgid ""
 "If you have entered a file or folder name and a file that contains diff "
@@ -166,9 +167,11 @@ msgid ""
 "file or files from the folder are mixed with the diff output so you can then "
 "apply the difference(s) to a file or to the files. "
 msgstr ""
-"إذا a ملفّ أو مجلد الاسم و a ملفّ يحتوي مخرجات بوصة بوصة حوار زر ممكن و "
-"الإيطالية فتح s رئيسي اعرض مخرجات من ملفّ أو ملفات من مجلد مع مخرجات تطبيق "
-"اختلاف s إلى a ملفّ أو إلى ملفات "
+"إذا أدخلتَ اسم ملف أو مجلد وملف يحتوي على إخراجات مختلفة في الحقول الموجودة "
+"في مربع الحوار هذا، فسيُمكّن هذا الزر والضغط عليه سيفتح العرض الرئيسي لـ قارن "
+"حيث سيُعرض إخراج البيانات المدخلة ويتم خلط الملف أو الملفات من المجلد مع "
+"الناتج المختلف حتى تتمكن بعد ذلك من تطبيق الاختلافات على الملف أو على "
+"الملفات."
 
 #: app/kompare_shell.cpp:358 app/main.cpp:195
 #, kde-format
@@ -201,13 +204,16 @@ msgid "Compare these files or folders"
 msgstr "قارن هذه الملفَات أو المجلَدات"
 
 #: app/kompare_shell.cpp:365 app/main.cpp:202
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered 2 filenames or 2 folders in the fields in this dialog "
 "then this button will be enabled and pressing it will start a comparison of "
 "the entered files or folders. "
-msgstr "إذا أو بوصة بوصة حوار زر ممكن و الإيطالية تشغيل a من ملفات أو "
+msgstr ""
+"إذا أدخلتَ اسمين للملفات أو مجلدين في الحقول الموجودة في مربع الحوار هذا "
+"فسيُمكّن هذا الزر، وبعد الضغط عليه سيبدأ مقارنة بين الملفات أو المجلدات "
+"المدخلة."
 
 #: app/kompare_shell.cpp:399
 #, kde-format
@@ -242,7 +248,7 @@ msgstr "الملفات"
 #: app/kompareurldialog.cpp:40
 #, kde-format
 msgid "Here you can enter the files you want to compare."
-msgstr ""
+msgstr "هنا يمكنك إدخال الملفات التي تريد مقارنتها."
 
 #: app/kompareurldialog.cpp:46 dialogpages/diffpage.cpp:185
 #: komparepart/kompareprefdlg.cpp:43
@@ -254,7 +260,7 @@ msgstr "أ&ظهر الاختلافات"
 #: app/kompareurldialog.cpp:48
 #, kde-format
 msgid "Here you can change the options for comparing the files."
-msgstr ""
+msgstr "يمكنك هنا تغيير الخيارات لمقارنة الملفات."
 
 #: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
 #, kde-format
@@ -265,13 +271,13 @@ msgstr "المظهر"
 #: app/kompareurldialog.cpp:55
 #, kde-format
 msgid "Here you can change the options for the view."
-msgstr ""
+msgstr "يمكنك هنا تغيير خيارات العرض."
 
 #: app/kompareurldialog.cpp:101
 #, kde-format
 msgid ""
 "File used for excluding files cannot be found, please specify another file."
-msgstr ""
+msgstr "لم يُعثر على الملف المستخدم لاستبعاد الملفات، يرجى تحديد ملف آخر."
 
 #: app/main.cpp:46
 #, kde-format
@@ -297,7 +303,7 @@ msgstr ""
 #: app/main.cpp:53
 #, kde-format
 msgid "John Firebaugh"
-msgstr "John Firebaugh"
+msgstr "جون فايربو"
 
 #: app/main.cpp:53 app/main.cpp:54
 #, kde-format
@@ -307,7 +313,7 @@ msgstr "المؤلف"
 #: app/main.cpp:54
 #, kde-format
 msgid "Otto Bruggeman"
-msgstr " Otto Bruggeman"
+msgstr "أوتو بروجمان"
 
 #: app/main.cpp:55
 #, kde-format
@@ -365,7 +371,7 @@ msgid "This will compare URL1 with URL2"
 msgstr "هذا سيقارن URL1 مع URL2"
 
 #: app/main.cpp:67
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
 "and then it will read from standard input. Can be used for instance for cvs "
@@ -373,32 +379,38 @@ msgid ""
 "original file(s) and then blend the original file(s) into the diffoutput and "
 "show that in the viewer. -n disables the check."
 msgstr ""
-"هذا فتح و الإيطالية إلى مخرجات a و الإيطالية قراءة من قياسي دَخْل يمكن أن "
-"مُستخدَم لـ مرة لـ o Kompare a تفقّد إلى IF الإيطالية ابحث أصلي ملفّ s و أصلي "
-"ملفّ s و إظهار بوصة مُظهر n تفقّد."
+"سيؤدي هذا إلى فتح URL1 وتوقع أن يكون ناتجًا مختلفًا. يمكن أن يكون URL1 أيضًا "
+"'-' ثم سيقرأ من الإدخال القياسي. يمكن استخدامه على سبيل المثال لـ cvs diff | "
+"kompare -o -. سيقوم قارن بإجراء فحص لمعرفة ما إذا كان يمكنه العثور على  "
+"الملفات الأصلية ثم دمج الملفات الأصلية في الناتج المختلف وإظهار ذلك في "
+"العارض. -n يعطل الفحص."
 
 #: app/main.cpp:68
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
 "the file or folder that the diffoutput needs to be blended into. "
-msgstr "هذا هو إلى مخرجات و ملفّ أو مجلد إلى "
+msgstr ""
+"سيؤدي هذا إلى دمج URL2 في URL1، ومن المتوقع أن يكون URL2 عبارة عن إخراج diff "
+"وURL1 هو الملف أو المجلد الذي يجب دمج diffoutput فيه. "
 
 #: app/main.cpp:69
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Disables the check for automatically finding the original file(s) when using "
 "'-' as URL with the -o option."
-msgstr "يعطّل تفقّد لـ أصلي ملفّ s URL مع o خيار."
+msgstr ""
+"يعطّل التحقق من العثور تلقائيًا على الملفات الأصلية عند استخدام '-' كعنوان URL "
+"مع الخيار -o."
 
 #: app/main.cpp:70
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
 "will default to the local encoding if not specified."
 msgstr ""
-"إستعمل إلى تحديد ترميز الإيطالية من أمر سطر itإيطالياهو افتراضي إلى محليّ "
-"ترميز IF ليس."
+"استخدم هذا لتحديد الترميز عند استدعائه من سطر الأوامر. سيعيّن افتراضيًا على "
+"الترميز المحلي إذا لم يُحدّد."
 
 #: dialogpages/diffpage.cpp:174
 #, kde-format
@@ -407,25 +419,26 @@ msgid "Diff Program"
 msgstr "برنامج الاختلافات"
 
 #: dialogpages/diffpage.cpp:179
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "You can select a different diff program here. On Solaris the standard diff "
 "program does not support all the options that the GNU version does. This way "
 "you can select that version."
 msgstr ""
-"أنت تحديد a مختلف برنامج تشغيل Solaris قياسي برنامج ليس دعم الكل خيارات جينو "
-"النسخة هذا تحديد النسخة."
+"يمكنك اختيار برنامج diff مختلف هنا. في سولاريس لا يدعم برنامج diff القياسي "
+"جميع الخيارات التي يدعمها إصدار غنو. بهذه الطريقة يمكنك اختيار هذا الإصدار."
 
 #: dialogpages/diffpage.cpp:196
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "Select the format of the output generated by diff. Unified is the one that "
 "is used most frequently because it is very readable. The KDE developers like "
 "this format the best so use it for sending patches."
 msgstr ""
-"انتقِ تنسيق من مخرجات أداء موحّد هو هو مُستخدَم الإيطالية هو مقروء الـ كِيدِي مثل "
-"تنسيق استخدام الإيطالية لـ."
+"حدد تنسيق الإخراج الناتج عن diff. الموحّد هو التنسيق الأكثر استخدامًا لأنه سهل "
+"القراءة. يفضل مطورو كيدي هذا التنسيق على أفضل وجه، لذا استخدمه لإرسال "
+"التصحيحات."
 
 #: dialogpages/diffpage.cpp:199
 #, kde-format
@@ -458,13 +471,16 @@ msgid "Lines of Context"
 msgstr "خطوط السَياق"
 
 #: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "The number of context lines is normally 2 or 3. This makes the diff readable "
 "and applicable in most cases. More than 3 lines will only bloat the diff "
 "unnecessarily."
-msgstr "الـ رقم من سياق سطور هو أو هذا مقروء و بوصة المزيد سطور."
+msgstr ""
+"يبلغ عدد أسطر السياق عادةً 2 أو 3. وهذا يجعل الاختلاف قابلاً للقراءة وقابلاً "
+"للتطبيق في معظم الحالات. أما وجود أكثر من 3 أسطر فلن يؤدي إلا إلى تضخيم "
+"الاختلاف بشكل غير ضروري."
 
 #: dialogpages/diffpage.cpp:220
 #, kde-format
@@ -491,10 +507,10 @@ msgid "&Treat new files as empty"
 msgstr "&عامل الملفات الجديدة كفارغة"
 
 #: dialogpages/diffpage.cpp:240
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -N diff option."
-msgstr "هذا خيار إلى I خيار."
+msgstr "يتوافق هذا الخيار مع الخيار -N diff."
 
 #: dialogpages/diffpage.cpp:241
 #, kde-format
@@ -505,6 +521,9 @@ msgid ""
 "compared with an empty file and because of this will appear as one big "
 "insertion or deletion."
 msgstr ""
+"عند تمكين هذا الخيار، سيعامل الأمر diff الملف الموجود فقط في أحد الدليلين "
+"على أنه فارغ في الدليل الآخر. وهذا يعني أن الملف يُقارن بملف فارغ، ونتيجة "
+"لهذا سيظهر وكأنه عملية إدخال أو حذف كبيرة."
 
 #: dialogpages/diffpage.cpp:244
 #, kde-format
@@ -513,10 +532,10 @@ msgid "&Look for smaller changes"
 msgstr "ابحث على تغيرات أ&صغر"
 
 #: dialogpages/diffpage.cpp:245
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -d diff option."
-msgstr "هذا إلى d خيار."
+msgstr "يتوافق هذا مع خيار -d diff."
 
 #: dialogpages/diffpage.cpp:246
 #, kde-format
@@ -525,6 +544,8 @@ msgid ""
 "With this option enabled diff will try a little harder (at the cost of more "
 "memory) to find fewer changes."
 msgstr ""
+"عند تمكين هذا الخيار، سيحاول diff بذل جهد أكبر (على حساب المزيد من الذاكرة) "
+"للعثور على عدد أقل من التغييرات."
 
 #: dialogpages/diffpage.cpp:248
 #, kde-format
@@ -533,10 +554,10 @@ msgid "O&ptimize for large files"
 msgstr "&حسن الملفات الكبيرة"
 
 #: dialogpages/diffpage.cpp:249
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -H diff option."
-msgstr "هذا إلى H خيار."
+msgstr "يتوافق هذا مع خيار -H diff."
 
 #: dialogpages/diffpage.cpp:250
 #, kde-format
@@ -545,6 +566,8 @@ msgid ""
 "This option lets diff makes better diffs when using large files. The "
 "definition of large is nowhere to be found though."
 msgstr ""
+"يتيح لك هذا الخيار diff إجراء اختلافات أفضل عند استخدام ملفات كبيرة. ولكن لا "
+"يوجد تعريف للكبير في أي مكان."
 
 #: dialogpages/diffpage.cpp:252
 #, kde-format
@@ -553,10 +576,10 @@ msgid "&Ignore changes in case"
 msgstr "&تجاهل الاختلاف في حالة"
 
 #: dialogpages/diffpage.cpp:253
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -i diff option."
-msgstr "هذا إلى i خيار."
+msgstr "يتوافق هذا مع خيار -i diff."
 
 #: dialogpages/diffpage.cpp:254
 #, kde-format
@@ -566,19 +589,20 @@ msgid ""
 "difference when something in one file is changed into SoMEthing in the other "
 "file."
 msgstr ""
+"عند تمكين هذا الخيار لتجاهل التغييرات في حالة الأحرف، لن يشير diff إلى وجود "
+"اختلاف عندما يتغير شيء ما في ملف واحد إلى SoMEthing في الملف الآخر."
 
 #: dialogpages/diffpage.cpp:262
-#, fuzzy, kde-format
-#| msgid "Ignore regexp:"
+#, kde-format
 msgctxt "@option:check"
 msgid "Ignore regexp:"
-msgstr "تجاهل الشكل:"
+msgstr "تجاهل التعبير العادي:"
 
 #: dialogpages/diffpage.cpp:263
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -I diff option."
-msgstr "هذا خيار إلى I خيار."
+msgstr "يتوافق هذا الخيار مع الخيار -I diff."
 
 #: dialogpages/diffpage.cpp:264
 #, kde-format
@@ -587,14 +611,18 @@ msgid ""
 "When this checkbox is enabled, an option to diff is given that will make "
 "diff ignore lines that match the regular expression."
 msgstr ""
+"عندما يُمكّن مربع الاختيار هذا، يُوفّر خيار diff الذي سيجعل diff يتجاهل الأسطر "
+"التي تطابق التعبيرات العادية."
 
 #: dialogpages/diffpage.cpp:268
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Add the regular expression here that you want to use\n"
 "to ignore lines that match it."
-msgstr "إضافة عادي تعبير إلى استخدام تجاهل سطور طابق الإيطالية."
+msgstr ""
+"أضف هنا التعبير العادي الذي تريد استخدامه\n"
+"لتجاهل الأسطر التي تتطابق معه."
 
 #: dialogpages/diffpage.cpp:274
 #, kde-format
@@ -603,16 +631,16 @@ msgid "Whitespace"
 msgstr "مساحة بيضاء"
 
 #: dialogpages/diffpage.cpp:276
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@option:check"
 msgid "E&xpand tabs to spaces in output"
-msgstr "توسيع إلى فراغات بوصة مخرجات"
+msgstr "و&سّع علامات التبويب إلى مسافات في الإخراج"
 
 #: dialogpages/diffpage.cpp:277
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -t diff option."
-msgstr "هذا خيار إلى t خيار."
+msgstr "يتوافق هذا الخيار مع الخيار -t diff."
 
 #: dialogpages/diffpage.cpp:278
 #, kde-format
@@ -621,6 +649,8 @@ msgid ""
 "This option does not always produce the right result. Due to this expansion "
 "Kompare may have problems applying the change to the destination file."
 msgstr ""
+"لا يؤدي هذا الخيار دائمًا إلى الحصول على النتيجة الصحيحة. وبسبب هذا التوسع قد "
+"يواجه قارن مشكلات في تطبيق التغيير على ملف الوجهة."
 
 #: dialogpages/diffpage.cpp:280
 #, kde-format
@@ -629,10 +659,10 @@ msgid "I&gnore added or removed empty lines"
 msgstr "&تجاهل الأسطر الفارغة المضافة أو المزالة"
 
 #: dialogpages/diffpage.cpp:281
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -B diff option."
-msgstr "هذا خيار إلى B خيار."
+msgstr "يتوافق هذا الخيار مع الخيار -B diff."
 
 #: dialogpages/diffpage.cpp:282
 #, kde-format
@@ -641,6 +671,8 @@ msgid ""
 "This can be very useful in situations where code has been reorganized and "
 "empty lines have been added or removed to improve legibility."
 msgstr ""
+"يمكن أن يكون هذا مفيدًا جدًا في المواقف التي أعيد فيها تنظيم الكود وأضيفت أو "
+"أزيلت أسطر فارغة لتحسين إمكانية القراءة."
 
 #: dialogpages/diffpage.cpp:284
 #, kde-format
@@ -649,10 +681,10 @@ msgid "Ig&nore changes in the amount of whitespace"
 msgstr "&تجاهل التغَيُّرَات في كمية الفراغات"
 
 #: dialogpages/diffpage.cpp:285
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -b diff option."
-msgstr "هذا خيار إلى b خيار."
+msgstr "يتوافق هذا الخيار مع الخيار  -b diff."
 
 #: dialogpages/diffpage.cpp:286
 #, kde-format
@@ -661,6 +693,8 @@ msgid ""
 "If you are uninterested in differences arising due to, for example, changes "
 "in indentation, then use this option."
 msgstr ""
+"إذا كنت غير مهتم بالاختلافات التي تنشأ بسبب، على سبيل المثال، التغييرات في "
+"المسافة البادئة، فاستخدم هذا الخيار."
 
 #: dialogpages/diffpage.cpp:288
 #, kde-format
@@ -669,10 +703,10 @@ msgid "Ign&ore all whitespace"
 msgstr "تجاهل &كل الفراغات"
 
 #: dialogpages/diffpage.cpp:289
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -w diff option."
-msgstr "هذا خيار إلى w خيار."
+msgstr "يتوافق هذا الخيار مع الخيار w diff-."
 
 #: dialogpages/diffpage.cpp:290
 #, kde-format
@@ -681,18 +715,20 @@ msgid ""
 "This is useful for seeing the significant changes without being overwhelmed "
 "by all the white space changes."
 msgstr ""
+"يعد هذا مفيدًا لرؤية التغييرات المهمة دون أن تطغى عليها جميع تغييرات المساحة "
+"البيضاء."
 
 #: dialogpages/diffpage.cpp:292
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@option:check"
 msgid "Igno&re changes due to tab expansion"
-msgstr "تجاهل إلى لسان توسيع"
+msgstr "تجا&هل التغييرات الناتجة عن توسيع علامة التبويب"
 
 #: dialogpages/diffpage.cpp:293
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -E diff option."
-msgstr "هذا خيار إلى E خيار."
+msgstr "يتوافق هذا الخيار مع خيار E diff-."
 
 #: dialogpages/diffpage.cpp:294
 #, kde-format
@@ -703,6 +739,9 @@ msgid ""
 "Kompare currently has some problems applying such changes so be careful when "
 "you use this option."
 msgstr ""
+"إذا حدث تغيير بسبب توسيع علامات التبويب إلى مسافات في الملف الآخر، فسيضمن "
+"هذا الخيار عدم ظهور هذه التغييرات.يواجه قارن حاليًا بعض المشكلات عند تطبيق "
+"مثل هذه التغييرات، لذا كن حذرًا عند استخدام هذا الخيار."
 
 #: dialogpages/diffpage.cpp:299
 #, kde-format
@@ -711,57 +750,60 @@ msgid "Options"
 msgstr "خيارات"
 
 #: dialogpages/diffpage.cpp:311
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:group"
 msgid "File Pattern to Exclude"
-msgstr "ملف نمط إلى إستثنِ"
+msgstr "ملف نمط للاستثناء"
 
 #: dialogpages/diffpage.cpp:312
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "If this is checked you can enter a shell pattern in the text box on the "
 "right or select entries from the list."
 msgstr ""
-"إذا هو مؤكّد أدخل a صدَفة التشكيلة بوصة نص مربّع يعمل يمين أو تحديد خانات من "
-"قائمة."
+"إذا حُدّد هذا المربع، فيمكنك إدخال نمط صدفة في مربع النص الموجود على اليمين أو "
+"تحديد الإدخالات من القائمة."
 
 #: dialogpages/diffpage.cpp:318
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Here you can enter or remove a shell pattern or select one or more entries "
 "from the list."
-msgstr "هنا أدخل أو أزِل a صدَفة التشكيلة أو تحديد أو المزيد خانات من قائمة."
+msgstr ""
+"هنا يمكنك إدخال نمط صدفة أو إزالته أو تحديد إدخال واحد أو أكثر من القائمة."
 
 #: dialogpages/diffpage.cpp:328
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:group"
 msgid "File with Filenames to Exclude"
-msgstr "ملف مع أسماء الملفات إلى إستثنِ"
+msgstr "ملف يحتوي على أسماء ملفات يجب استبعادها"
 
 #: dialogpages/diffpage.cpp:329
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "If this is checked you can enter a filename in the combo box below."
-msgstr "إذا هو مؤكّد أدخل a اسم الملف بوصة مربّع يعمل يمين."
+msgstr "إذا حُدّد هذا المربع، فيمكنك إدخال اسم الملف في المربع المنسدل أدناه."
 
 #: dialogpages/diffpage.cpp:333
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Here you can enter the URL of a file with shell patterns to ignore during "
 "the comparison of the folders."
-msgstr "هنا أدخل URL من a ملفّ مع صدَفة إلى تجاهل من."
+msgstr ""
+"هنا يمكنك إدخال عنوان رابط لملف مع أنماط صدفة لتجاهلها أثناء مقارنة المجلدات."
 
 #: dialogpages/diffpage.cpp:337
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid ""
 "Any file you select in the dialog that pops up when you click it will be put "
 "in the dialog to the left of this button."
 msgstr ""
-"أيّ ملفّ تحديد بوصة حوار أعلى انقر الإيطالية put بوصة حوار إلى يسار من زر."
+"أي ملف تحدده في مربع الحوار الذي يظهر عند النقر فوقه، سيوضع في مربع الحوار "
+"على يسار هذا الزر."
 
 #: dialogpages/diffpage.cpp:344
 #, kde-format
@@ -926,37 +968,37 @@ msgid "Difference"
 msgstr "الفرق"
 
 #: komparenavtreepart/komparenavtreepart.cpp:453
-#, fuzzy, kde-format
+#, kde-format
 msgid "Applied: Changes made to %1 line undone"
 msgid_plural "Applied: Changes made to %1 lines undone"
-msgstr[0] "انطبق التغييرات إلى سطر"
-msgstr[1] "انطبق التغييرات إلى سطر"
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "طُبّق: ألغي التغيير الذي أجري على السطر %1"
+msgstr[1] "طُبّق: ألغي التغييران اللذان أجريا على سطر واحد"
+msgstr[2] "طُبّق: أُلغيت التغييرات التي أجريت على السطرين"
+msgstr[3] "طُبّق: ألغيت التغييرات التي أجريت على %1 أسطر"
+msgstr[4] "طُبّق: ألغيت التغييرات التي أجريت على %1 سطرًا"
+msgstr[5] "طُبّق: ألغيت التغييرات التي أجريت على %1 سطر"
 
 #: komparenavtreepart/komparenavtreepart.cpp:456
-#, fuzzy, kde-format
+#, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
-msgstr[0] "غُيِّر سطر"
-msgstr[1] "غُيِّر سطر"
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "غُيِّر %1 سطر"
+msgstr[1] "غُيِّر سطر واحد"
+msgstr[2] "غُيِّرت سطران"
+msgstr[3] "غُيِّرت %1 أسطر"
+msgstr[4] "غُيِّرت %1 سطرًا"
+msgstr[5] "غُيِّرت %1 سطر"
 
 #: komparenavtreepart/komparenavtreepart.cpp:461
-#, fuzzy, kde-format
+#, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
-msgstr[0] "انطبق إدراج من سطر"
-msgstr[1] "انطبق إدراج من سطر"
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "طُبّق: ألغي إدراج 1% سطر"
+msgstr[1] "طُبّق: ألغي إدراج سطر واحد"
+msgstr[2] "طُبّق: ألغي إدراج سطرين"
+msgstr[3] "طُبّق: ألغي إدراج %1 أسطر"
+msgstr[4] "طُبّق: ألغي إدراج %1 سطرًا"
+msgstr[5] "طُبّق: ألغي إدراج %1 سطر"
 
 #: komparenavtreepart/komparenavtreepart.cpp:464
 #, kde-format
@@ -970,15 +1012,15 @@ msgstr[4] "أُدرج %1 سطرًا"
 msgstr[5] "أُدرج %1 سطر"
 
 #: komparenavtreepart/komparenavtreepart.cpp:469
-#, fuzzy, kde-format
+#, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
-msgstr[0] "انطبق حذف من سطر"
-msgstr[1] "انطبق حذف من سطر"
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "طُبّق: ألغي حذف %1 سطر"
+msgstr[1] "طُبّق: ألغي حذف سطر واحد"
+msgstr[2] "طُبّق: ألغي حذف سطرين"
+msgstr[3] "طُبّق: ألغي حذف %1 أسطر"
+msgstr[4] "طُبّق: ألغي حذف %1 سطرًا"
+msgstr[5] "طُبّق: ألغي حذف %1 سطر"
 
 #: komparenavtreepart/komparenavtreepart.cpp:472
 #, kde-format
@@ -1028,14 +1070,14 @@ msgid "Refresh Diff"
 msgstr "أنعش الفرق"
 
 #: komparepart/kompare_part.cpp:303 komparepart/kompare_part.cpp:316
-#, fuzzy, kde-format
+#, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
-msgstr "<qt> الـ URL<b></b></qt>"
+msgstr "<qt>عنوان الرابط <b>%1</b> لا يمكن تنزيله.</qt>"
 
 #: komparepart/kompare_part.cpp:354
-#, fuzzy, kde-format
+#, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
-msgstr "<qt> الـ URL<b></b> ليس يعمل نظام</qt>"
+msgstr "<qt>عنوان الرابط <b>%1</b> غير موجود على نظامك.</qt>"
 
 #: komparepart/kompare_part.cpp:542
 #, kde-format
@@ -1050,9 +1092,9 @@ msgid "Save .diff"
 msgstr "حفظ الفرق"
 
 #: komparepart/kompare_part.cpp:563
-#, fuzzy, kde-format
+#, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
-msgstr "patch الرقعة ملفات"
+msgstr "ملفات الترقيع (*.diff *.dif *.patch)"
 
 #: komparepart/kompare_part.cpp:624
 #, kde-format
@@ -1098,11 +1140,13 @@ msgstr "جاري مزج مخرجات الفرق من %1 إلى المجلَد %2
 
 #: komparepart/kompare_part.cpp:752 komparepart/kompare_part.cpp:783
 #: komparepart/kompare_part.cpp:899
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "You have made changes to the destination file(s).\n"
 "Would you like to save them?"
-msgstr "أنت إلى مقصد ملفّ s مثل إلى حفظ?"
+msgstr ""
+"لقد أجريت تغييرات على ملف(ات) الوجهة.\n"
+"هل ترغب في حفظها؟"
 
 #: komparepart/kompare_part.cpp:754 komparepart/kompare_part.cpp:785
 #: komparepart/kompare_part.cpp:901
@@ -1362,7 +1406,7 @@ msgstr "سطر الأوامر"
 #: komparepart/komparesaveoptionsbase.ui:256
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
-msgstr ""
+msgstr "‎cd dir && diff -udHprNa -- المصدر ‎ المقصد"
 
 #, fuzzy
 #~ msgid "The file exists or is write-protected; do you want to overwrite it?"

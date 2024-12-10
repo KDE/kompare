@@ -151,7 +151,7 @@
 >Iniciar &kompare;</title>
 
 <para
->Un acceso rápido para iniciar &kompare; se puede encontrar en el menú de aplicaciones en el grupo Desarrollo: <menuchoice
+>Un atajo de teclado para iniciar &kompare; se puede encontrar en el menú de aplicaciones en el grupo Desarrollo: <menuchoice
 ><guimenu
 >Desarrollo</guimenu
 ><guimenuitem
@@ -219,7 +219,7 @@
 <title
 >Barra de herramientas</title>
 <para
->La barra de herramientas de &kompare; proporciona accesos rápidos a las operaciones diff y de fusionado, usadas con más frecuencia. La orientación de la barra de herramientas, posición del texto, propiedades del tamaño de los iconos y los iconos de accesos rápidos a mostrar pueden personalizarse desde el menú contextual que aparece cuando se pulsa sobre la barra de herramientas con el botón derecho del ratón. Este menú contextual también permite activar la barra u ocultarla. Si la barra está oculta y desea mostrarla, seleccione <menuchoice
+>La barra de herramientas de &kompare; proporciona atajos para las operaciones diff y de fusión, usadas con más frecuencia. La orientación de la barra de herramientas, posición del texto, propiedades del tamaño de los iconos y los iconos de atajos a mostrar pueden personalizarse desde el menú contextual que aparece cuando se pulsa sobre la barra de herramientas con el botón derecho del ratón. Este menú contextual también permite activar la barra u ocultarla. Si la barra está oculta y desea mostrarla, seleccione <menuchoice
 ><guimenu
 >Preferencias</guimenu
 ><guimenuitem

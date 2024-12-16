@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2024-12-13 21:18+0100\n"
+"PO-Revision-Date: 2024-12-16 00:32+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -508,7 +508,7 @@ msgstr ""
 "Se activa esta opción «diff» ha tratar os ficheiros que só haxa nun dos "
 "directorios como se estivese baleiro no outro. Isto significa que o ficheiro "
 "se comparará cun baleiro e polo tanto que aparecerá como se fose unha "
-"inserción ou borrado enorme."
+"inserción ou eliminación enorme."
 
 #: dialogpages/diffpage.cpp:244
 #, kde-format
@@ -990,8 +990,8 @@ msgstr[1] "Inseríronse %1 liñas"
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
-msgstr[0] "Aplicado: desfíxose o borrado de %1 liña"
-msgstr[1] "Aplicado: desfíxose o borrado de %1 liñas"
+msgstr[0] "Aplicado: desfíxose a eliminación de %1 liña"
+msgstr[1] "Aplicado: desfíxose a eliminación de %1 liñas"
 
 #: komparenavtreepart/komparenavtreepart.cpp:472
 #, kde-format

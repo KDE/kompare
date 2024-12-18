@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2024-12-16 00:32+0100\n"
+"PO-Revision-Date: 2024-12-17 19:07+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -750,7 +750,7 @@ msgid ""
 "right or select entries from the list."
 msgstr ""
 "Se marca esta opción, poderá inserir un padrón do intérprete de ordes no "
-"campo de texto á dereita ou escoller elementos da lista."
+"campo de texto á dereita ou escoller entradas da lista."
 
 #: dialogpages/diffpage.cpp:318
 #, kde-format
@@ -759,8 +759,8 @@ msgid ""
 "Here you can enter or remove a shell pattern or select one or more entries "
 "from the list."
 msgstr ""
-"Aquí pode inserir ou retirar un padrón do intérprete de ordes ou escoller un "
-"ou máis elementos da lista."
+"Aquí pode inserir ou retirar un padrón do intérprete de ordes ou escoller "
+"unha ou máis entradas da lista."
 
 #: dialogpages/diffpage.cpp:328
 #, kde-format

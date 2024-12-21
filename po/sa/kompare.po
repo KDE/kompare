@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2024-12-14 01:42+0530\n"
+"PO-Revision-Date: 2024-12-20 21:52+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -464,7 +464,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of context lines:"
-msgstr "सन्दर्भपङ्क्तयः संख्या : १."
+msgstr "सन्दर्भपङ्क्तयः संख्या :"
 
 #: dialogpages/diffpage.cpp:225
 #, kde-format
@@ -837,25 +837,25 @@ msgstr "वर्णाः"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Removed color:"
-msgstr "निष्कासितः वर्णः : १."
+msgstr "निष्कासितः वर्णः :"
 
 #: dialogpages/viewpage.cpp:54
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Changed color:"
-msgstr "परिवर्तितः वर्णः : १."
+msgstr "परिवर्तितः वर्णः :"
 
 #: dialogpages/viewpage.cpp:58
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Added color:"
-msgstr "वर्णः योजितः : १."
+msgstr "वर्णः योजितः :"
 
 #: dialogpages/viewpage.cpp:62
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Applied color:"
-msgstr "प्रयुक्तः वर्णः : १."
+msgstr "प्रयुक्तः वर्णः :"
 
 #: dialogpages/viewpage.cpp:66
 #, kde-format
@@ -867,7 +867,7 @@ msgstr "मूषकचक्रम्"
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of lines:"
-msgstr "पङ्क्तयः संख्या : १."
+msgstr "पङ्क्तयः संख्या :"
 
 #: dialogpages/viewpage.cpp:77
 #, kde-format
@@ -891,7 +891,7 @@ msgstr "पाठ फॉन्ट"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Font:"
-msgstr "फन्ट् : १."
+msgstr "फन्ट् :"
 
 #: dialogpages/viewpage.cpp:103
 #, kde-format
@@ -1285,7 +1285,7 @@ msgstr "&पार्श्वतः"
 #: komparepart/komparesaveoptionsbase.ui:85
 #, kde-format
 msgid "Number of context lines:"
-msgstr "सन्दर्भपङ्क्तयः संख्या : १."
+msgstr "सन्दर्भपङ्क्तयः संख्या :"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
 #: komparepart/komparesaveoptionsbase.ui:126

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2024-09-11 10:10+0200\n"
+"PO-Revision-Date: 2024-12-20 15:06+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -252,7 +252,7 @@ msgstr ""
 #: app/main.cpp:46
 #, kde-format
 msgid "Kompare"
-msgstr ""
+msgstr "Kompare"
 
 #: app/main.cpp:48
 #, kde-format

@@ -318,6 +318,7 @@
     <category>Development</category>
   </categories>
   <releases>
+    <release version="4.2.24122" date="2025-02-06"/>
     <release version="4.2.24121" date="2025-01-09"/>
     <release version="4.2.24120" date="2024-12-12"/>
     <release version="4.2.24083" date="2024-11-07"/>

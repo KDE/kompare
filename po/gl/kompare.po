@@ -217,7 +217,7 @@ msgstr "&Configuración"
 #: app/kompareui.rc:27
 #, kde-format
 msgid "Main Toolbar"
-msgstr "Barra de ferramentas Principal"
+msgstr "Barra de ferramentas principal"
 
 #: app/kompareurldialog.cpp:38
 #, kde-format

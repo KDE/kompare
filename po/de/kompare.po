@@ -26,12 +26,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Thomas Diehl,Martin Derungs,Martin Ereth"
+msgstr "Deutsches KDE-Übersetzungsteam"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "thd@kde.org,martin.de@web.de,martin.ereth@arcor.de"
+msgstr "kde-i18n-de@kde.org"
 
 #: app/kompare_shell.cpp:69
 #, kde-format

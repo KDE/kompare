@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2025-03-07 23:26+0300\n"
+"PO-Revision-Date: 2025-03-13 22:25+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.03.70\n"
+"X-Generator: Lokalize 25.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -35,7 +35,7 @@ msgstr "mawilos@gmail.com, emir_sari@icloud.com"
 #: app/kompare_shell.cpp:69
 #, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr "KompareViewPart'ımız yüklenemiyor: %1"
+msgstr "KompareViewPart’ımız yüklenemiyor: %1"
 
 #: app/kompare_shell.cpp:73
 #, kde-format
@@ -46,25 +46,25 @@ msgstr "Dolaşım"
 #: app/kompare_shell.cpp:91
 #, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr "KompareNavigationPart'ımız yüklenemiyor: %1"
+msgstr "KompareNavigationPart’ımız yüklenemiyor: %1"
 
 #: app/kompare_shell.cpp:196
 #, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
-msgstr "Diff &Aç..."
+msgstr "Diff &Aç…"
 
 #: app/kompare_shell.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
-msgstr "D&osyaları Karşılaştır..."
+msgstr "D&osyaları Karşılaştır…"
 
 #: app/kompare_shell.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
-msgstr "&Bağlantıyı Diff ile Karıştır..."
+msgstr "&URL’yi Diff ile Harmanla…"
 
 #: app/kompare_shell.cpp:208
 #, kde-format
@@ -150,9 +150,9 @@ msgid ""
 "file or files from the folder are mixed with the diff output so you can then "
 "apply the difference(s) to a file or to the files. "
 msgstr ""
-"Bir dosya ya da klasör adı girdiyseniz ve dosya bir diff çıktısına sahipse "
+"Bir dosya veya klasör adı girdiyseniz ve dosya bir diff çıktısına sahipse "
 "verdiğiniz dosya ve klasörler diff çıktıları varsa bu çıktıları eklemek "
-"istediğinizde bu düğme etkin olacak ve basıldığında Karşılaştır'ın ana "
+"istediğinizde bu düğme etkin olacak ve basıldığında Karşılaştır’ın ana "
 "ekranını açacaktır."
 
 #: app/kompare_shell.cpp:358 app/main.cpp:195
@@ -352,7 +352,7 @@ msgstr "Cervisia diff görüntüleyicisi"
 #: app/main.cpp:66
 #, kde-format
 msgid "This will compare URL1 with URL2"
-msgstr "Bu URL1 ile URL2'yi karşılaştıracak"
+msgstr "Bu URL1 ile URL2’yi karşılaştıracak"
 
 #: app/main.cpp:67
 #, kde-format
@@ -363,9 +363,9 @@ msgid ""
 "original file(s) and then blend the original file(s) into the diffoutput and "
 "show that in the viewer. -n disables the check."
 msgstr ""
-"Bu, URL1'i açacak ve ayrım çıktısı olmasını bekleyecektir. URL1 ayrıca bir "
-"'-' olabilir ve ardından standart girdiden okuyacaktır. Örneğin cvs diff | -"
-"o - ile karşılaştırın. Kompare, özgün dosyaları bulup bulamayacağını "
+"Bu, URL1’i açacak ve ayrım çıktısı olmasını bekleyecektir. URL1 ayrıca bir "
+"“-” olabilir ve ardından standart girdiden okuyacaktır. Örneğin cvs diff | -"
+"o - ile karşılaştırın. Karşılaştır, özgün dosyaları bulup bulamayacağını "
 "denetleyecek ve ardından özgün dosyaları ayrım çıktısına harmanlayacak ve "
 "bunu görüntüleyicide gösterecektir. -n denetimi devre dışı bırakır."
 
@@ -375,7 +375,7 @@ msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
 "the file or folder that the diffoutput needs to be blended into. "
 msgstr ""
-"Bu, URL2'yi URL1'e harmanlar; URL2'nin diff çıktısı olması ve URL1'in ayrım "
+"Bu, URL2’yi URL1’e harmanlar; URL2’nin diff çıktısı olması ve URL1’in ayrım "
 "çıktısının harmanlanması gereken dosya veya klasör olması beklenir."
 
 #: app/main.cpp:69
@@ -384,8 +384,8 @@ msgid ""
 "Disables the check for automatically finding the original file(s) when using "
 "'-' as URL with the -o option."
 msgstr ""
-"-o seçeneğiyle URL olarak '-' kullanıldığında özgün dosyaları otomatik "
-"olarak bulma denetimini devre dışı bırakır."
+"-o seçeneğiyle URL olarak “-” kullanıldığında özgün dosyaları kendiliğinden "
+"bulma denetimini devre dışı bırakır."
 
 #: app/main.cpp:70
 #, kde-format
@@ -410,7 +410,7 @@ msgid ""
 "you can select that version."
 msgstr ""
 "Burada değişik diff programı seçebilirsiniz. GNU sürümünde olduğu gibi "
-"Solaris'te standart diff programı tüm seçenekleri desteklemez. Böylece o "
+"Solaris’te standart diff programı tüm seçenekleri desteklemez. Böylece o "
 "sürümü seçebilirsiniz."
 
 #: dialogpages/diffpage.cpp:196
@@ -463,8 +463,8 @@ msgid ""
 "and applicable in most cases. More than 3 lines will only bloat the diff "
 "unnecessarily."
 msgstr ""
-"İçerik sıraları sayısı normalde 2 veya 3'tür. Bu diff'i birçok durumda "
-"okunabilir ve uygulanabilir yapar. 3'ten fazla sıra diff'i gereksiz yere "
+"İçerik sıraları sayısı normalde 2 veya 3’tür. Bu diff’i birçok durumda "
+"okunabilir ve uygulanabilir yapar. 3’ten fazla sıra diff’i gereksiz yere "
 "şişirir."
 
 #: dialogpages/diffpage.cpp:220
@@ -552,7 +552,7 @@ msgid ""
 "This option lets diff makes better diffs when using large files. The "
 "definition of large is nowhere to be found though."
 msgstr ""
-"Bu seçenek diff'in büyük dosyalar üzerinde daha iyi çalışmasını sağlar. "
+"Bu seçenek diff’in büyük dosyalar üzerinde daha iyi çalışmasını sağlar. "
 "Büyük demek çok az yerde bulunabilen demektir."
 
 #: dialogpages/diffpage.cpp:252
@@ -782,7 +782,7 @@ msgid ""
 "the comparison of the folders."
 msgstr ""
 "Klasörlerin karşılaştırılması sırasında yok sayılacak kabuk dizgilerini "
-"içeren bir dosyanın URL'sini girebilirsiniz."
+"içeren bir dosyanın URL’sini girebilirsiniz."
 
 #: dialogpages/diffpage.cpp:337
 #, kde-format
@@ -1014,7 +1014,7 @@ msgstr "Tümünü &Kaydet"
 #, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
-msgstr "&Diff Kaydet..."
+msgstr "&Diff’i Kaydet…"
 
 #: komparepart/kompare_part.cpp:181
 #, kde-format
@@ -1032,7 +1032,7 @@ msgstr "İstatistikleri Göster"
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
-msgstr "Diff'i Yenile"
+msgstr "Diff’i Yenile"
 
 #: komparepart/kompare_part.cpp:303 komparepart/kompare_part.cpp:316
 #, kde-format
@@ -1065,13 +1065,13 @@ msgstr "Yama Dosyaları (*.diff *.dif *.patch)"
 #, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
-msgstr "diff çalıştırılıyor..."
+msgstr "Diff çalıştırılıyor…"
 
 #: komparepart/kompare_part.cpp:627
 #, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
-msgstr "diff çıktısı ayrıştırılıyor..."
+msgstr "Diff çıktısı ayrıştırılıyor…"
 
 #: komparepart/kompare_part.cpp:683
 #, kde-format
@@ -1360,7 +1360,7 @@ msgstr "Yeni dosyalara boş gibi davran"
 #: komparepart/komparesaveoptionsbase.ui:222
 #, kde-format
 msgid "Run Diff In"
-msgstr "Diff'i Şurada Çalıştır"
+msgstr "Diff’i Şurada Çalıştır"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
 #: komparepart/komparesaveoptionsbase.ui:247
@@ -1372,7 +1372,7 @@ msgstr "Komut Satırı"
 #: komparepart/komparesaveoptionsbase.ui:256
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
-msgstr "cd dir && diff -udHprNa -- kaynak hedef"
+msgstr "cd dir && diff -udHprNa — kaynak hedef"
 
 #~ msgid "The file exists or is write-protected; do you want to overwrite it?"
 #~ msgstr "Dosya mevcut veya yazmaya karşı korumalı; üzerine yazılsın mı?"

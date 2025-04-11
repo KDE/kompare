@@ -162,9 +162,9 @@ void KompareNavTreePart::buildTreeInMemory()
         srcBase = model->sourcePath();
         destBase = model->destinationPath();
         // FIXME: these tests will not work on windows, we need something else
-        if (srcBase[0] != QLatin1Char('/'))
+        if (!srcBase.isEmpty() && srcBase[0] != QLatin1Char('/'))
             srcBase.clear();
-        if (destBase[0] != QLatin1Char('/'))
+        if (!destBase.isEmpty() && destBase[0] != QLatin1Char('/'))
             destBase.clear();
         break;
     case KompareDiff2::ComparingFiles:

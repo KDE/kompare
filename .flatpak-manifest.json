@@ -19,8 +19,7 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://invent.kde.org/sdk/libkomparediff2",
-                    "branch": "kf6"
+                    "url": "https://invent.kde.org/sdk/libkomparediff2"
                 }
             ]
         },
@@ -31,8 +30,7 @@
             "sources": [
                 {
                     "type": "dir",
-                    "path": ".",
-		    "branch": "kf6"
+                    "path": "."
                 }
             ]
         }

@@ -1,16 +1,17 @@
-# translation of kompare.po to Spanish
-# Copyright (C) 2002,2003, 2005, 2007, 2008 Free Software Foundation, Inc.
+# Spanish translations for kompare.po package.
+# Copyright (C) 2002-2025 This file is copyright:
+# This file is distributed under the same license as the kompare package.
 #
-# Miguel Revilla Rodríguez <yo@miguelrevilla.com>, 2002,2003.
-# Pablo de Vicente <p.devicente@wanadoo.es>, 2005.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2005, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2017, 2020, 2022.
-# Javier Viñal <fjvinal@gmail.com>, 2013.
+# SPDX-FileCopyrightText: 2002, 2003 Miguel Revilla Rodríguez <yo@miguelrevilla.com>
+# SPDX-FileCopyrightText: 2005 Pablo de Vicente <p.devicente@wanadoo.es>
+# SPDX-FileCopyrightText: 2005, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2017, 2020, 2022, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2013 Javier Viñal <fjvinal@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2022-10-14 21:39+0200\n"
+"PO-Revision-Date: 2025-05-18 13:09+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -50,19 +51,19 @@ msgstr "No se ha podido cargar KompareNavigationPart: %1"
 #, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
-msgstr "&Abrir diff..."
+msgstr "&Abrir diff…"
 
 #: app/kompare_shell.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
-msgstr "&Comparar archivos..."
+msgstr "&Comparar archivos…"
 
 #: app/kompare_shell.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
-msgstr "&Fusionar URL con Diff..."
+msgstr "&Fusionar URL con Diff…"
 
 #: app/kompare_shell.cpp:208
 #, kde-format
@@ -1022,7 +1023,7 @@ msgstr "Guardar &todo"
 #, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
-msgstr "Guardar &diff..."
+msgstr "Guardar &diff…"
 
 #: komparepart/kompare_part.cpp:181
 #, kde-format
@@ -1073,13 +1074,13 @@ msgstr "Archivos de parche (*.diff *.dif *.patch)"
 #, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
-msgstr "Ejecutando diff..."
+msgstr "Ejecutando diff…"
 
 #: komparepart/kompare_part.cpp:627
 #, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
-msgstr "Analizando salida de diff..."
+msgstr "Analizando salida de diff…"
 
 #: komparepart/kompare_part.cpp:683
 #, kde-format
@@ -1381,122 +1382,3 @@ msgstr "Línea de órdenes"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd dir && diff -udHprNa -- destino de la fuente"
-
-#~ msgid "The file exists or is write-protected; do you want to overwrite it?"
-#~ msgstr ""
-#~ "El archivo existe o se encuentra protegido contra escritura; ¿desea "
-#~ "sobrescribirlo?"
-
-#~ msgctxt "@window:title"
-#~ msgid "File Exists"
-#~ msgstr "El archivo ya existe"
-
-#~ msgctxt "@action:button"
-#~ msgid "Do Not Overwrite"
-#~ msgstr "No sobrescribir"
-
-#~ msgid "KompareNavTreePart"
-#~ msgstr "KompareNavTreePart"
-
-#~ msgid "KomparePart"
-#~ msgstr "KomparePart"
-
-#~ msgctxt "@action:button"
-#~ msgid "&Edit..."
-#~ msgstr "&Editar..."
-
-#~ msgctxt "@info:tooltip"
-#~ msgid ""
-#~ "Clicking this will open a regular expression dialog where\n"
-#~ "you can graphically create regular expressions."
-#~ msgstr ""
-#~ "Al pulsar aquí se abrirá un diálogo de expresiones regulares donde\n"
-#~ "podrá crear expresiones regulares de forma gráfica."
-
-#~ msgid "Overwrite"
-#~ msgstr "Sobrescribir"
-
-#~ msgid "Compare these files or folder"
-#~ msgstr "Comparar estos archivos o directorios"
-
-#~ msgid "&Apply Difference"
-#~ msgstr "&Aplicar la diferencia"
-
-#~ msgid "Un&apply Difference"
-#~ msgstr "Desh&acer diferencia"
-
-#~ msgid "App&ly All"
-#~ msgstr "Ap&licar todo"
-
-#~ msgid "&Unapply All"
-#~ msgstr "&Ignorar todo"
-
-#~ msgid "P&revious File"
-#~ msgstr "A&rchivo anterior"
-
-#~ msgid "&Previous Difference"
-#~ msgstr "Anterior di&ferencia"
-
-#~ msgid "&Next Difference"
-#~ msgstr "Siguie&nte diferencia"
-
-#~ msgid ""
-#~ "<qt>No models or no differences, this file: <b>%1</b>, is not a valid "
-#~ "diff file.</qt>"
-#~ msgstr ""
-#~ "<qt>No hay modelos o diferencias, este archivo: <b>%1</b>, no es un "
-#~ "archivo diff válido.</qt>"
-
-#~ msgid ""
-#~ "<qt>There were problems applying the diff <b>%1</b> to the file <b>%2</b>."
-#~ "</qt>"
-#~ msgstr ""
-#~ "<qt>Se produjeron problemas aplicando el diff <b>%1</b> al archivo <b>%2</"
-#~ "b>.</qt>"
-
-#~ msgid ""
-#~ "<qt>There were problems applying the diff <b>%1</b> to the folder <b>%2</"
-#~ "b>.</qt>"
-#~ msgstr ""
-#~ "<qt>Se produjeron problemas aplicando el diff <b>%1</b> a la carpeta<b>"
-#~ "%2</b>.</qt>"
-
-#~ msgid "Could not open a temporary file."
-#~ msgstr "No se pudo abrir un archivo temporal."
-
-#~ msgid ""
-#~ "<qt>Could not write to the temporary file <b>%1</b>, deleting it.</qt>"
-#~ msgstr ""
-#~ "<qt>Imposible escribir en el archivo temporal <b>%1</b>, borrándolo.</qt>"
-
-#~ msgid ""
-#~ "<qt>Could not create destination directory <b>%1</b>.\n"
-#~ "The file has not been saved.</qt>"
-#~ msgstr ""
-#~ "<qt>Imposible crear directorio de destino<b>%1</b>.\n"
-#~ "El archivo no ha sido guardado.</qt>"
-
-#~ msgid ""
-#~ "<qt>Could not upload the temporary file to the destination location <b>"
-#~ "%1</b>. The temporary file is still available under: <b>%2</b>. You can "
-#~ "manually copy it to the right place.</qt>"
-#~ msgstr ""
-#~ "<qt>Imposible cargar el archivo temporal a la ubicación de destino. <b>"
-#~ "%1</b>. El archivo temporal está todavía disponible en: <b>%2</b>. Puede "
-#~ "copiarlo manualmente al lugar correcto.</qt>"
-
-#~ msgid "Could not parse diff output."
-#~ msgstr "No fue posible analizar la salida de diff."
-
-#~ msgid "The files are identical."
-#~ msgstr "Los archivos son idénticos."
-
-#~ msgid "Could not write to the temporary file."
-#~ msgstr "No se pudo escribir al archivo temporal."
-
-#~ msgid ""
-#~ "The diff is malformed. Some lines could not be parsed and will not be "
-#~ "displayed in the diff view."
-#~ msgstr ""
-#~ "La diferencia no está bien formada. Algunas líneas no se pueden analizar "
-#~ "y no se mostrarán en la vista de diferencias."

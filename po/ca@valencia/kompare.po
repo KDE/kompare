@@ -801,7 +801,7 @@ msgid ""
 "Any file you select in the dialog that pops up when you click it will be put "
 "in the dialog to the left of this button."
 msgstr ""
-"Qualsevol fitxer que seleccioneu en el diàleg que aparega quan feu clic serà "
+"Qualsevol fitxer que seleccioneu en el diàleg que aparega quan cliqueu serà "
 "inclòs en el diàleg que apareix a l'esquerra d'este botó."
 
 #: dialogpages/diffpage.cpp:344

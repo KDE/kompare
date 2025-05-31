@@ -3,7 +3,7 @@
 # Teemu Rytilahti <teemu.rytilahti@d5k.net>, 2003.
 # Juha Kari <Juha.J.Kari@uta.fi>, 2004.
 # Ilpo Kantonen <ilpo@iki.fi>, 2005, 2006.
-# Tommi Nieminen <translator@legisign.org>, 2009, 2011, 2018, 2020, 2022.
+# SPDX-FileCopyrightText: 2009, 2011, 2018, 2020, 2022, 2025 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2016.
 # Copyright © 2009, 2010, 2011 This_file_is_part_of_KDE
 #
@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2022-11-05 21:12+0200\n"
+"PO-Revision-Date: 2025-05-29 15:21+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -23,6 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -264,8 +265,7 @@ msgstr "Tässä voit muuttaa näytön asetuksia."
 #, kde-format
 msgid ""
 "File used for excluding files cannot be found, please specify another file."
-msgstr ""
-"Ohitettavat tiedostot sisältävää tiedostoa ei löydy, määritä toinen tiedosto."
+msgstr "Ohitettavat tiedostot sisältävää tiedostoa ei löydy, määritä toinen."
 
 # pmap: =/gen=Komparen/
 # pmap: =/elat=Komparesta/
@@ -360,7 +360,7 @@ msgstr "Cervisia diff-katseluohjelma"
 #: app/main.cpp:66
 #, kde-format
 msgid "This will compare URL1 with URL2"
-msgstr "Tämä vertaa URL1:ä URL2:een."
+msgstr "Tämä vertaa URL1:tä URL2:een."
 
 #: app/main.cpp:67
 #, kde-format
@@ -371,10 +371,11 @@ msgid ""
 "original file(s) and then blend the original file(s) into the diffoutput and "
 "show that in the viewer. -n disables the check."
 msgstr ""
-"Tämä avaa URL1:n odottaen diff-tulostetta. URL1 voi olla myös '-', jolloin "
-"se luetaan standardisyötevirrasta. Voidaan käyttää cvs:lle diff | kompare -o "
-"-. Kompare tarkastaa, löytyvätkö alkuperäiset tiedostot ja yhdistää ne diff-"
-"tulosteeseen sekä näyttää lopputuloksen. -n poistaa tarkastuksen käytöstä."
+"Tämä avaa URL1:n odottaen diff-tulostetta. URL1 voi olla myös ”-”, jolloin "
+"se luetaan vakiosyötevirrasta. Voidaan käyttää, esim. cvs:lle: diff | "
+"kompare -o -. Kompare tarkastaa, löytyvätkö alkuperäiset tiedostot, yhdistää "
+"ne diff-tulosteeseen ja näyttää lopputuloksen. -n poistaa tarkistuksen "
+"käytöstä."
 
 #: app/main.cpp:68
 #, kde-format
@@ -391,8 +392,8 @@ msgid ""
 "Disables the check for automatically finding the original file(s) when using "
 "'-' as URL with the -o option."
 msgstr ""
-"Jos tämä valitaan, alkuperäistiedosto(j)a ei etsitä "
-"automaattisestikäytettäessä URLina ”-” yhdessä -o-valitsimen kanssa."
+"Jos tämä valitaan, alkuperäistiedosto(j)a ei etsitä automaattisesti "
+"käytettäessä osoitteena ”-” -o-valitsimen kanssa."
 
 #: app/main.cpp:70
 #, kde-format
@@ -1045,12 +1046,12 @@ msgstr "Virkistä diff"
 #: komparepart/kompare_part.cpp:303 komparepart/kompare_part.cpp:316
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
-msgstr "<qt>URLia <b>%1</b> ei voida ladata.</qt>"
+msgstr "<qt>Verkko-osoitetta <b>%1</b> ei voida ladata.</qt>"
 
 #: komparepart/kompare_part.cpp:354
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
-msgstr "<qt>URLia <b>%1</b> ei ole järjestelmässäsi.</qt>"
+msgstr "<qt>Verkko-osoite <b>%1</b> ei ole järjestelmässäsi.</qt>"
 
 #: komparepart/kompare_part.cpp:542
 #, kde-format

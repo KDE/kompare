@@ -621,7 +621,7 @@
 ><guimenu
 >Archivo</guimenu
 ><guimenuitem
->Guardar todo...</guimenuitem
+>Guardar todo…</guimenuitem
 ></menuchoice
 >.</para>
 <para
@@ -725,7 +725,7 @@
 ><guimenu
 >Preferencias</guimenu
 ><guisubmenu
->Configurar &kompare;...</guisubmenu
+>Configurar &kompare;…</guisubmenu
 ></menuchoice
 >.</para>
 
@@ -1208,7 +1208,7 @@
 > <guimenu
 >Archivo</guimenu
 ><guimenuitem
->Abrir Diff...</guimenuitem
+>Abrir Diff…</guimenuitem
 ></menuchoice
 ></term>
 <listitem
@@ -1231,7 +1231,7 @@
 > <guimenu
 >Archivo</guimenu
 ><guimenuitem
->Comparar archivos...</guimenuitem
+>Comparar archivos…</guimenuitem
 ></menuchoice
 ></term>
 <listitem
@@ -1254,7 +1254,7 @@
 > <guimenu
 >Archivo</guimenu
 ><guimenuitem
->Fusionar URL con Diff...</guimenuitem
+>Fusionar URL con Diff…</guimenuitem
 ></menuchoice
 ></term>
 <listitem
@@ -1307,7 +1307,7 @@
 ><guimenu
 >Archivo</guimenu
 ><guimenuitem
->Guardar diferencias...</guimenuitem
+>Guardar diferencias…</guimenuitem
 ></menuchoice
 ></term>
 <listitem

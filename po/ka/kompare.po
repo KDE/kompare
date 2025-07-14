@@ -822,7 +822,7 @@ msgstr "კოდირება"
 #, kde-format
 msgctxt "@item:inlistbox encoding"
 msgid "Default"
-msgstr "ნაგულისხმები"
+msgstr "ნაგულისხმევი"
 
 #: dialogpages/filespage.cpp:126
 #, kde-format

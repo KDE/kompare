@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2025-06-28 17:17+0400\n"
+"PO-Revision-Date: 2025-08-04 15:05+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -333,7 +333,7 @@ msgstr " "
 #: app/main.cpp:56
 #, kde-format
 msgid "Maintainer"
-msgstr "المصين"
+msgstr "الصائن"
 
 #: app/main.cpp:57
 #, kde-format
@@ -400,8 +400,8 @@ msgid ""
 "Disables the check for automatically finding the original file(s) when using "
 "'-' as URL with the -o option."
 msgstr ""
-"يعطّل التحقق من العثور تلقائيًا على الملفات الأصلية عند استخدام '-' كعنوان URL "
-"مع الخيار -o."
+"يعطّل التحقق من العثور آليًّا على الملفات الأصلية عند استخدام '-' كعنوان URL مع "
+"الخيار -o."
 
 #: app/main.cpp:70
 #, kde-format
@@ -409,7 +409,7 @@ msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
 "will default to the local encoding if not specified."
 msgstr ""
-"استخدم هذا لتحديد الترميز عند استدعائه من سطر الأوامر. سيعيّن افتراضيًا على "
+"استخدم هذا لتحديد الترميز عند استدعائه من سطر الأوامر. سيعيّن مبدئيًا على "
 "الترميز المحلي إذا لم يُحدّد."
 
 #: dialogpages/diffpage.cpp:174

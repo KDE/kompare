@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2025-08-09 19:33+0400\n"
+"PO-Revision-Date: 2025-08-13 18:22+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -633,7 +633,7 @@ msgstr "مساحة بيضاء"
 #, kde-format
 msgctxt "@option:check"
 msgid "E&xpand tabs to spaces in output"
-msgstr "و&سّع علامات التبويب إلى مسافات في الإخراج"
+msgstr "و&سّع علامات الجدولة إلى مسافات في الإخراج"
 
 #: dialogpages/diffpage.cpp:277
 #, kde-format
@@ -721,7 +721,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "Igno&re changes due to tab expansion"
-msgstr "تجا&هل التغييرات الناتجة عن توسيع علامة التبويب"
+msgstr "تجا&هل التغييرات الناتجة عن توسيع علامة الجدولة"
 
 #: dialogpages/diffpage.cpp:293
 #, kde-format
@@ -738,7 +738,7 @@ msgid ""
 "Kompare currently has some problems applying such changes so be careful when "
 "you use this option."
 msgstr ""
-"إذا حدث تغيير بسبب توسيع علامات التبويب إلى مسافات في الملف الآخر، فسيضمن "
+"إذا حدث تغيير بسبب توسيع علامات الجدولة إلى مسافات في الملف الآخر، فسيضمن "
 "هذا الخيار عدم ظهور هذه التغييرات.يواجه قارن حاليًا بعض المشكلات عند تطبيق "
 "مثل هذه التغييرات، لذا كن حذرًا عند استخدام هذا الخيار."
 

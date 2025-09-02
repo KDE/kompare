@@ -426,9 +426,9 @@ msgid ""
 "is used most frequently because it is very readable. The KDE developers like "
 "this format the best so use it for sending patches."
 msgstr ""
-"Seleccioneu el format de l'eixida generada pel «diff». Unificada és "
-"l'emprada més sovint atés que és de més fàcil lectura. És la que agrada més "
-"als desenvolupadors de KDE, i per açò es recomana utilitzar-la per a enviar "
+"Trieu el format de l'eixida generada pel «diff». Unificada és l'emprada més "
+"sovint atés que és de més fàcil lectura. És la que agrada més als "
+"desenvolupadors de KDE, i per açò es recomana utilitzar-la per a enviar "
 "pedaços."
 
 #: dialogpages/diffpage.cpp:199
@@ -814,13 +814,13 @@ msgstr "Exclou"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select file"
-msgstr "Seleccioneu un fitxer"
+msgstr "Trieu un fitxer"
 
 #: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Select folder"
-msgstr "Seleccioneu una carpeta"
+msgstr "Trieu una carpeta"
 
 #: dialogpages/filespage.cpp:87
 #, kde-format
@@ -838,13 +838,13 @@ msgstr "Predeterminat"
 #, kde-format
 msgctxt "@title:window"
 msgid "Select Folder"
-msgstr "Seleccioneu una carpeta"
+msgstr "Trieu una carpeta"
 
 #: dialogpages/filespage.cpp:130
 #, kde-format
 msgctxt "@title:window"
 msgid "Select File"
-msgstr "Seleccioneu un fitxer"
+msgstr "Trieu un fitxer"
 
 #: dialogpages/viewpage.cpp:44
 #, kde-format

@@ -36,7 +36,6 @@
                 "Name[ta]": "ஜான் ஃபயர்பாக்",
                 "Name[tr]": "John Firebaugh",
                 "Name[uk]": "John Firebaugh",
-                "Name[x-test]": "xxJohn Firebaughxx",
                 "Name[zh_CN]": "John Firebaugh",
                 "Name[zh_TW]": "John Firebaugh"
             },
@@ -75,7 +74,6 @@
                 "Name[ta]": "ஓட்டோ புருகமான்",
                 "Name[tr]": "Otto Bruggeman",
                 "Name[uk]": "Otto Bruggeman",
-                "Name[x-test]": "xxOtto Bruggemanxx",
                 "Name[zh_CN]": "Otto Bruggeman",
                 "Name[zh_TW]": "Otto Bruggeman"
             },
@@ -114,7 +112,6 @@
                 "Name[ta]": "கெவின் கொஃப்லர்",
                 "Name[tr]": "Kevin Kofler",
                 "Name[uk]": "Kevin Kofler",
-                "Name[x-test]": "xxKevin Koflerxx",
                 "Name[zh_CN]": "Kevin Kofler",
                 "Name[zh_TW]": "Kevin Kofler"
             }
@@ -184,7 +181,6 @@
         "Name[tr]": "KompareNavTreePart",
         "Name[ug]": "KompareNavTreePart",
         "Name[uk]": "KompareNavTreePart",
-        "Name[x-test]": "xxKompareNavTreePartxx",
         "Name[xh]": "KompareNavTreePart",
         "Name[zh_CN]": "KompareNavTreePart",
         "Name[zh_TW]": "KompareNavTreePart",

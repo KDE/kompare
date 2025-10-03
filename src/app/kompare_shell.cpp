@@ -332,7 +332,7 @@ void KompareShell::slotFileBlendURLAndDiff()
     QPushButton* okButton = dialog.button(QDialogButtonBox::Ok);
     okButton->setText(i18nc("@action:button", "Blend"));
     okButton->setToolTip(i18nc("@info:tooltip", "Blend this file or folder with the diff output"));
-    okButton->setWhatsThis(i18nc("@infor:whatsthis", "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. "));
+    okButton->setWhatsThis(i18nc("@info:whatsthis", "If you have entered a file or folder name and a file that contains diff output in the fields in this dialog then this button will be enabled and pressing it will open kompare's main view where the output of the entered file or files from the folder are mixed with the diff output so you can then apply the difference(s) to a file or to the files. "));
 
     dialog.setGroup(QStringLiteral("Recent Blend Files"));
 

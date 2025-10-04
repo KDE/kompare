@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-19 00:41+0000\n"
+"POT-Creation-Date: 2025-10-04 00:45+0000\n"
 "PO-Revision-Date: 2008-12-19 10:22+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -140,7 +140,7 @@ msgstr ""
 
 #: app/kompare_shell.cpp:335
 #, kde-format
-msgctxt "@infor:whatsthis"
+msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered a file or folder name and a file that contains diff "
 "output in the fields in this dialog then this button will be enabled and "

@@ -1,6 +1,6 @@
 # translation of kompare.po to Polish
 # translation of kompare.po to
-# Version: $Revision: 1685058 $
+# Version: $Revision: 1719572 $
 # Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2010 Free Software Foundation, Inc.
 # Marta Rybczynska <mrybczynska@poczta.onet.pl>, 2002, 2004, 2005.
 # Krzysztof Lichota <lichota@mimuw.edu.pl>, 2002, 2004, 2005, 2006.
@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-19 00:41+0000\n"
+"POT-Creation-Date: 2025-10-04 00:45+0000\n"
 "PO-Revision-Date: 2022-10-18 18:00+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -148,8 +148,15 @@ msgid "Blend this file or folder with the diff output"
 msgstr "Nałóż ten plik lub katalog na wynik różnicy"
 
 #: app/kompare_shell.cpp:335
-#, kde-format
-msgctxt "@infor:whatsthis"
+#, fuzzy, kde-format
+#| msgctxt "@infor:whatsthis"
+#| msgid ""
+#| "If you have entered a file or folder name and a file that contains diff "
+#| "output in the fields in this dialog then this button will be enabled and "
+#| "pressing it will open kompare's main view where the output of the entered "
+#| "file or files from the folder are mixed with the diff output so you can "
+#| "then apply the difference(s) to a file or to the files. "
+msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered a file or folder name and a file that contains diff "
 "output in the fields in this dialog then this button will be enabled and "

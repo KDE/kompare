@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-19 00:41+0000\n"
+"POT-Creation-Date: 2025-10-04 00:45+0000\n"
 "PO-Revision-Date: 2007-10-28 14:03+0200\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@licei2.com>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -143,7 +143,7 @@ msgstr "Зліць гэты файл або тэчку з высновай diff"
 
 #: app/kompare_shell.cpp:335
 #, fuzzy, kde-format
-msgctxt "@infor:whatsthis"
+msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered a file or folder name and a file that contains diff "
 "output in the fields in this dialog then this button will be enabled and "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-19 00:41+0000\n"
+"POT-Creation-Date: 2025-10-04 00:45+0000\n"
 "PO-Revision-Date: 2023-01-24 15:30+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -141,8 +141,13 @@ msgid "Blend this file or folder with the diff output"
 msgstr "Mísit tuto složku, nebo soubor, s rozdílovým výstupem"
 
 #: app/kompare_shell.cpp:335
-#, kde-format
-msgctxt "@infor:whatsthis"
+#, fuzzy, kde-format
+#| msgctxt "@info:whatsthis"
+#| msgid ""
+#| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
+#| "then this button will be enabled and pressing it will start a comparison "
+#| "of the entered files or folders. "
+msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered a file or folder name and a file that contains diff "
 "output in the fields in this dialog then this button will be enabled and "
@@ -150,6 +155,8 @@ msgid ""
 "file or files from the folder are mixed with the diff output so you can then "
 "apply the difference(s) to a file or to the files. "
 msgstr ""
+"Pokud jste zadali 2 jména souborů nebo 2 složky, toto tlačítko bude povolené "
+"a jeho stisknutím se spustí porovnání zadaných souborů nebo složek. "
 
 #: app/kompare_shell.cpp:358 app/main.cpp:195
 #, kde-format

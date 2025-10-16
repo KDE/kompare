@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-04 00:45+0000\n"
-"PO-Revision-Date: 2025-10-05 10:38+0400\n"
+"PO-Revision-Date: 2025-10-15 20:22+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -24,13 +24,13 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Isam Bayazidi, Nuriddin Aminagha,أحمد محمد زواوي,عمر أبو محمد,Omar TS"
+msgstr "Isam Bayazidi, Nuriddin Aminagha,أحمد محمد زواوي,Omar TS"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
-"bayazidi@arabeyes.org, nuriddin@haydarlinux.org,azawawi@emirates.net.ae,"
+"bayazidi@arabeyes.org,nuriddin@haydarlinux.org,azawawi@emirates.net.ae,"
 "omats@vivaldi.net"
 
 #: app/kompare_shell.cpp:69

@@ -141,12 +141,7 @@ msgid "Blend this file or folder with the diff output"
 msgstr "Mísit tuto složku, nebo soubor, s rozdílovým výstupem"
 
 #: app/kompare_shell.cpp:335
-#, fuzzy, kde-format
-#| msgctxt "@info:whatsthis"
-#| msgid ""
-#| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
-#| "then this button will be enabled and pressing it will start a comparison "
-#| "of the entered files or folders. "
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered a file or folder name and a file that contains diff "
@@ -155,8 +150,6 @@ msgid ""
 "file or files from the folder are mixed with the diff output so you can then "
 "apply the difference(s) to a file or to the files. "
 msgstr ""
-"Pokud jste zadali 2 jména souborů nebo 2 složky, toto tlačítko bude povolené "
-"a jeho stisknutím se spustí porovnání zadaných souborů nebo složek. "
 
 #: app/kompare_shell.cpp:358 app/main.cpp:195
 #, kde-format

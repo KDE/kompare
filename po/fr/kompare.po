@@ -14,7 +14,7 @@
 # Jean-Jacques FINAZZI <mrjay01@users.sourceforge.net>, 2008.
 # Joëlle Cornavin <jcorn@free.fr>, 2009, 2010, 2012, 2013.
 # Simon Depiets <sdepiets@gmail.com>, 2017.
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2025 Xavier Besnard <xavier.besnard@kde.org>
 # Xavier Besnard <xavier.besnard@kde.org>, 2023.
 #
 msgid ""
@@ -22,15 +22,15 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-19 00:41+0000\n"
-"PO-Revision-Date: 2023-10-14 22:37+0200\n"
+"PO-Revision-Date: 2025-10-05 14:33+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
-"Language-Team: French <kde-francophone@kde.org>\n"
+"Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 25.08.1\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -173,7 +173,7 @@ msgid ""
 msgstr ""
 "Si vous avez saisi un nom de fichier ou de dossier ainsi qu'un fichier "
 "contenant la sortie de l'analyse des différences dans les champs de cette "
-"boîte de dialogue, alors ce bouton est activé. Un clic sur ce dernier "
+"boite de dialogue, alors ce bouton est activé. Un clic sur ce dernier "
 "ouvrira la fenêtre principale de kompare, où la sortie des fichiers saisis "
 "depuis le dossier est fusionnée avec la sortie de l'analyse des différences. "
 "Ainsi vous pouvez appliquer les différences au(x) fichier(s). "
@@ -217,7 +217,7 @@ msgid ""
 "the entered files or folders. "
 msgstr ""
 "Si vous avez saisi deux noms de fichiers ou de dossiers dans les champs de "
-"cette boîte de dialogue, alors, ce bouton sera activé. Lorsque vous cliquez "
+"cette boite de dialogue, alors, ce bouton sera activé. Lorsque vous cliquez "
 "dessus, il lancera une comparaison des fichiers ou des dossiers saisis. "
 
 #: app/kompare_shell.cpp:399
@@ -542,7 +542,7 @@ msgstr ""
 "Lorsque cette option est cochée, Diff considérera un fichier existant "
 "seulement dans un des dossiers comme étant vide dans l'autre dossier. Cela "
 "signifie que le fichier est comparé avec un fichier vide et, pour cette "
-"raison, il apparaîtra comme une seule insertion ou suppression importante."
+"raison, il apparaitra comme une seule insertion ou suppression importante."
 
 #: dialogpages/diffpage.cpp:244
 #, kde-format
@@ -839,8 +839,8 @@ msgid ""
 "Any file you select in the dialog that pops up when you click it will be put "
 "in the dialog to the left of this button."
 msgstr ""
-"Tout fichier sélectionné dans la boîte de dialogue lors d'un clic dessus "
-"sera placé dans la boîte de dialogue située à gauche de ce bouton."
+"Tout fichier sélectionné dans la boite de dialogue lors d'un clic dessus "
+"sera placé dans la boite de dialogue située à gauche de ce bouton."
 
 #: dialogpages/diffpage.cpp:344
 #, kde-format

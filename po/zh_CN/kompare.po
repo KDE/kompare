@@ -132,14 +132,7 @@ msgid "Blend this file or folder with the diff output"
 msgstr "合并 diff 输出到此文件或文件夹"
 
 #: app/kompare_shell.cpp:335
-#, fuzzy, kde-format
-#| msgctxt "@infor:whatsthis"
-#| msgid ""
-#| "If you have entered a file or folder name and a file that contains diff "
-#| "output in the fields in this dialog then this button will be enabled and "
-#| "pressing it will open kompare's main view where the output of the entered "
-#| "file or files from the folder are mixed with the diff output so you can "
-#| "then apply the difference(s) to a file or to the files. "
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered a file or folder name and a file that contains diff "

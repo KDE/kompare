@@ -164,7 +164,7 @@
 ></listitem>
 <listitem
 ><para
->Barra de Ferramentas</para
+>Barra de ferramentas</para
 ></listitem>
 <listitem
 ><para
@@ -184,7 +184,7 @@
 ></listitem>
 <listitem
 ><para
->Barra de Estado</para
+>Barra de estado</para
 ></listitem>
 </itemizedlist>
 
@@ -197,13 +197,13 @@
 
 <sect3 id="toolbar">
 <title
->Barra de Ferramentas</title>
+>Barra de ferramentas</title>
 <para
 >A barra de ferramentas do &kompare; oferece atalhos para as operações de diferenças e mesclagem usadas com maior frequência. A orientação da barra de ferramentas, a posição do texto, as propriedades do tamanho dos ícones e a visibilidade dos ícones de atalho poderão ser personalizadas no menu de contexto da barra de ferramentas, ao clicar com o botão direito do mouse na barra de ferramentas. O menu de contexto da barra de ferramentas também permite ocultar a barra de ferramentas. Se ela ficar oculta e você desejar torná-la visível novamente, selecione a opção do menu <menuchoice
 ><guimenu
 >Configurações</guimenu
 ><guimenuitem
->Mostrar a Barra de Ferramentas</guimenuitem
+>Mostrar barra de ferramentas</guimenuitem
 ></menuchoice
 >.</para>
 </sect3>
@@ -254,7 +254,7 @@
 
 <sect3 id="statusbar">
 <title
->Barra de Estado</title>
+>Barra de estado</title>
 <para
 >A barra de estado oferece um resumo do arquivo ou pasta de origem e de destino a serem comparados. A barra de estado apresenta também o número alterações encontradas no documento atual e conta as diferenças que foram aplicadas. Além disso, a barra de estado mostra o número global de documentos que contém diferenças, bem como o número do documento atualmente selecionado neste conjunto. Por exemplo, uma comparação efetuada sobre duas pastas poderá devolver 1890 arquivos com diferenças. O documento atualmente selecionado é o número 18 de 1890.</para>
 </sect3>
@@ -273,7 +273,7 @@
 <variablelist>
 <varlistentry>
 <term
->Barras de Rolagem Duplas</term>
+>Barras de rolagem duplas</term>
 <listitem
 ><para
 >A funcionalidade mais óbvia é que as barras de rolagem aparecem ambas nas pontas direita e inferior da área de visualização. Com as barras de rolagem, é possível percorrer rapidamente a comparação.</para
@@ -309,14 +309,14 @@
 </varlistentry>
 <varlistentry>
 <term
->Comutar a Barra de Estado</term>
+>Alternar barra de estado</term>
 <listitem>
 <para
 >A barra de estado do painel de visualização poderá ser comutada selecionando-se a opção <menuchoice
 ><guimenu
 >Configurações</guimenu
 ><guimenuitem
->Mostrar a Barra de Estado</guimenuitem
+>Mostrar barra de estado</guimenuitem
 ></menuchoice
 >.</para>
 </listitem>

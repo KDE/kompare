@@ -643,7 +643,7 @@ msgid ""
 "Kompare may have problems applying the change to the destination file."
 msgstr ""
 "Esta opció no sempre produïx el resultat correcte. A causa d'esta expansió "
-"Kompare pot tindre problemes en aplicar els canvis en el fitxer de "
+"Kompare pot tindre problemes mentre s'apliquen els canvis en el fitxer de "
 "destinació."
 
 #: dialogpages/diffpage.cpp:280

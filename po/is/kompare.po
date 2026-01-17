@@ -1,19 +1,19 @@
 # translation of kompare.po to Icelandic
 # Björgvin Ragnarsson <nifgraup@hotmail.com>, 2004.
-# Sveinn í Felli <sveinki@nett.is>, 2009, 2015.
+# SPDX-FileCopyrightText: 2009, 2015, 2026 Sveinn í Felli <sveinki@nett.is>
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2015-04-17 11:51+0000\n"
+"PO-Revision-Date: 2026-01-16 12:27+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic <kde-isl@molar.is>\n"
+"Language-Team: Icelandic\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 "\n"
 "\n"
@@ -42,10 +42,9 @@ msgid "Navigation"
 msgstr "Rötun"
 
 #: app/kompare_shell.cpp:91
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareNavigationPart."
+#, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr "Gat ekki hlaðið inn okkar KompareNavigationPart!"
+msgstr "Gat ekki hlaðið inn okkar KompareNavigationPart: %1"
 
 #: app/kompare_shell.cpp:196
 #, fuzzy, kde-format
@@ -148,7 +147,7 @@ msgid "Blend this file or folder with the diff output"
 msgstr "Blanda þessari skrá eða möppu við diff úttakið"
 
 #: app/kompare_shell.cpp:335
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered a file or folder name and a file that contains diff "
@@ -157,11 +156,11 @@ msgid ""
 "file or files from the folder are mixed with the diff output so you can then "
 "apply the difference(s) to a file or to the files. "
 msgstr ""
-"Ef þú hefur skrifað skráar- eða möppunafn og skrá sem inniheldur diff úttak "
-"í svæðin á þessum glugga, mun þessi hnappur vera virkjaður og með því að "
-"smella á hann opnast aðalgluggi kompare þar sem úttakið af valdri skrá eða "
-"skrám úr möppu eru blandaðar saman við diff úttakið svo þú getur síðan "
-"virkjað mismuninní skrá eða skrárnar. "
+"Ef þú hefur sett inn í svæðin á þessum glugga skráar- eða möppunafn og skrá "
+"sem inniheldur diff-mismunaúttak, mun þessi hnappur vera virkjaður og með "
+"því að smella á hann opnast aðalgluggi kompare þar sem úttaki valinnar "
+"skráar eða skráa úr möppu er blandað saman við diff úttakið svo þú getir "
+"síðan sett mismuninn yfir í skrá eða í skrárnar. "
 
 #: app/kompare_shell.cpp:358 app/main.cpp:195
 #, fuzzy, kde-format
@@ -249,7 +248,7 @@ msgstr "Skrár"
 #: app/kompareurldialog.cpp:40
 #, kde-format
 msgid "Here you can enter the files you want to compare."
-msgstr ""
+msgstr "Hér getur þú gefið upp skrárnar sem þú vilt bera saman."
 
 #: app/kompareurldialog.cpp:46 dialogpages/diffpage.cpp:185
 #: komparepart/kompareprefdlg.cpp:43
@@ -262,7 +261,7 @@ msgstr "Diff"
 #: app/kompareurldialog.cpp:48
 #, kde-format
 msgid "Here you can change the options for comparing the files."
-msgstr ""
+msgstr "Hér getur þú breytt valkostum fyrir samanburð skráa."
 
 #: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
 #, fuzzy, kde-format
@@ -274,13 +273,15 @@ msgstr "Útlit"
 #: app/kompareurldialog.cpp:55
 #, kde-format
 msgid "Here you can change the options for the view."
-msgstr ""
+msgstr "Hér getur þú breytt valkostum fyrir ásýndina."
 
 #: app/kompareurldialog.cpp:101
 #, kde-format
 msgid ""
 "File used for excluding files cannot be found, please specify another file."
 msgstr ""
+"Skrá sem notuð er til að undanskilja skrár fannst ekki, prófaðu einhverja "
+"aðra skrá."
 
 #: app/main.cpp:46
 #, kde-format
@@ -370,19 +371,19 @@ msgid "Cervisia diff viewer"
 msgstr "Cervisia diff skoðari"
 
 #: app/main.cpp:66
-#, fuzzy, kde-format
+#, kde-format
 msgid "This will compare URL1 with URL2"
-msgstr "Þetta mun bera slóð 1 við slóð 2."
+msgstr "Þetta mun bera SLÓÐ1 saman við SLÓÐ2."
 
 #: app/main.cpp:67
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "This will open URL1 and expect it to be diff output. URL1 can also be a '-' "
 "and then it will read from standard input. Can be used for instance for cvs "
 "diff | kompare -o -. Kompare will do a check to see if it can find the "
 "original file(s) and then blend the original file(s) into the diffoutput and "
 "show that in the viewer. -n disables the check."
-msgstr "Þetta mun opna slóð 1 og búast því það að hún sé"
+msgstr ""
 
 #: app/main.cpp:68
 #, kde-format
@@ -413,12 +414,15 @@ msgid "Diff Program"
 msgstr "Diff forrit"
 
 #: dialogpages/diffpage.cpp:179
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "You can select a different diff program here. On Solaris the standard diff "
 "program does not support all the options that the GNU version does. This way "
 "you can select that version."
-msgstr "Hér getur þú valið annað diff forrit. Á Solaris "
+msgstr ""
+"Hér getur þú valið annað diff forrit. Á Solaris styður staðlaða diff-"
+"mismunaforritið ekki við alla þá valkosti sem GNU-útgáfan gerir. Þarna "
+"geturðu tiltekið hvaða útgáfu þú ætlar að nota."
 
 #: dialogpages/diffpage.cpp:196
 #, kde-format
@@ -444,15 +448,13 @@ msgid "Context"
 msgstr "Samhengi"
 
 #: dialogpages/diffpage.cpp:204
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Normal"
 msgstr "Venjulegt"
 
 #: dialogpages/diffpage.cpp:207
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Unified"
 msgstr "Sameinað"
@@ -481,8 +483,7 @@ msgid "Number of context lines:"
 msgstr "Fjöldi samhengislína:"
 
 #: dialogpages/diffpage.cpp:225
-#, fuzzy, kde-format
-#| msgid "Format"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Format"
 msgstr "Snið"
@@ -563,10 +564,10 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:252
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@option:check"
 msgid "&Ignore changes in case"
-msgstr "Hunsa \""
+msgstr "&Hunsa breytingar á há-/lágstöfum"
 
 #: dialogpages/diffpage.cpp:253
 #, fuzzy, kde-format
@@ -613,6 +614,8 @@ msgid ""
 "Add the regular expression here that you want to use\n"
 "to ignore lines that match it."
 msgstr ""
+"Bættu við reglulegu segðinni sem þú vilt nota\n"
+"til að hunsa línur sem samsvara henni."
 
 #: dialogpages/diffpage.cpp:274
 #, fuzzy, kde-format
@@ -622,10 +625,10 @@ msgid "Whitespace"
 msgstr "Bil"
 
 #: dialogpages/diffpage.cpp:276
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@option:check"
 msgid "E&xpand tabs to spaces in output"
-msgstr "Breyta dálkalykli í bil"
+msgstr "Breyta dálkalyklum (Tab) í bil í úttaki"
 
 #: dialogpages/diffpage.cpp:277
 #, fuzzy, kde-format
@@ -687,10 +690,10 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:288
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@option:check"
 msgid "Ign&ore all whitespace"
-msgstr "Hunsa breytingar í bilum"
+msgstr "Hunsa öll biltákn"
 
 #: dialogpages/diffpage.cpp:289
 #, fuzzy, kde-format
@@ -708,10 +711,10 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:292
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@option:check"
 msgid "Igno&re changes due to tab expansion"
-msgstr "Hunsa breytingar í bilum"
+msgstr "Hunsa b&reytingar vegna útvíkkunar dálkmerkja"
 
 #: dialogpages/diffpage.cpp:293
 #, fuzzy, kde-format
@@ -731,8 +734,7 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:299
-#, fuzzy, kde-format
-#| msgid "Options"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Options"
 msgstr "Valkostir"
@@ -772,6 +774,7 @@ msgstr "Skráamynstur sem á að hunsa"
 msgctxt "@info:tooltip"
 msgid "If this is checked you can enter a filename in the combo box below."
 msgstr ""
+"Ef merkt er við þetta geturðu sett skráarheiti í reitinn hér fyrir neðan."
 
 #: dialogpages/diffpage.cpp:333
 #, kde-format
@@ -797,18 +800,16 @@ msgid "Exclude"
 msgstr "Útiloka"
 
 #: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
-#, fuzzy, kde-format
-#| msgid "N&ext File"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select file"
-msgstr "&Næsta skrá"
+msgstr "Veldu skrá"
 
 #: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
-#, fuzzy, kde-format
-#| msgid "Source Folder"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select folder"
-msgstr "Upprunamappa"
+msgstr "Veldu möppu"
 
 #: dialogpages/filespage.cpp:87
 #, fuzzy, kde-format
@@ -824,18 +825,16 @@ msgid "Default"
 msgstr ""
 
 #: dialogpages/filespage.cpp:126
-#, fuzzy, kde-format
-#| msgid "Source Folder"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select Folder"
-msgstr "Upprunamappa"
+msgstr "Veldu möppu"
 
 #: dialogpages/filespage.cpp:130
-#, fuzzy, kde-format
-#| msgid "N&ext File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select File"
-msgstr "&Næsta skrá"
+msgstr "Veldu skrá"
 
 #: dialogpages/viewpage.cpp:44
 #, fuzzy, kde-format
@@ -922,10 +921,10 @@ msgid "Size:"
 msgstr "Stærð:"
 
 #: dialogpages/viewpage.cpp:107
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:tab"
 msgid "Fonts"
-msgstr "Letur:"
+msgstr "Letur"
 
 #: komparenavtreepart/komparenavtreepart.cpp:53
 #, fuzzy, kde-format
@@ -980,8 +979,8 @@ msgstr "Mismunur"
 #, kde-format
 msgid "Applied: Changes made to %1 line undone"
 msgid_plural "Applied: Changes made to %1 lines undone"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Virkjað: Breytingar gerðar á %1 línu afturkallaðar"
+msgstr[1] "Virkjað: Breytingar gerðar á %1 línum afturkallaðar"
 
 #: komparenavtreepart/komparenavtreepart.cpp:456
 #, kde-format
@@ -994,8 +993,8 @@ msgstr[1] "Breytti %1 línum"
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Virkjað: Innsetning á %1 línu afturkölluð"
+msgstr[1] "Virkjað: Innsetning á %1 línum afturkölluð"
 
 #: komparenavtreepart/komparenavtreepart.cpp:464
 #, kde-format
@@ -1008,8 +1007,8 @@ msgstr[1] "Bætti við %1 línum"
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Virkjað: Eyðing á %1 línu afturkölluð"
+msgstr[1] "Virkjað: Eyðing á %1 línum afturkölluð"
 
 #: komparenavtreepart/komparenavtreepart.cpp:472
 #, kde-format
@@ -1019,8 +1018,7 @@ msgstr[0] "Eyddi %1 línu"
 msgstr[1] "Eyddi %1 línum"
 
 #: komparenavtreepart/komparenavtreepart.cpp:627
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item directory name not known"
 msgid "Unknown"
 msgstr "Óþekkt"
@@ -1033,11 +1031,10 @@ msgid "Save &All"
 msgstr "Vist&a Allt"
 
 #: komparepart/kompare_part.cpp:179
-#, fuzzy, kde-format
-#| msgid "Save .&diff..."
+#, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
-msgstr "Vista .&diff..."
+msgstr "Vista &diff-mismun..."
 
 #: komparepart/kompare_part.cpp:181
 #, fuzzy, kde-format
@@ -1084,10 +1081,9 @@ msgid "Save .diff"
 msgstr "Vista .diff"
 
 #: komparepart/kompare_part.cpp:563
-#, fuzzy, kde-format
-#| msgid "*.diff *.dif *.patch|Patch Files"
+#, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
-msgstr "*.diff *.dif *.patch|Patch skrár"
+msgstr "Patch-skrár (*.diff *.dif *.patch)"
 
 #: komparepart/kompare_part.cpp:624
 #, fuzzy, kde-format
@@ -1171,18 +1167,16 @@ msgid "Context"
 msgstr "Samhengi"
 
 #: komparepart/kompare_part.cpp:830
-#, fuzzy, kde-format
-#| msgid "RCS"
+#, kde-format
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
 #: komparepart/kompare_part.cpp:833
-#, fuzzy, kde-format
-#| msgid "Ed"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Ed"
-msgstr "Ed"
+msgstr "Br"
 
 #: komparepart/kompare_part.cpp:836
 #, fuzzy, kde-format
@@ -1303,10 +1297,9 @@ msgstr "Snið"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
 #: komparepart/komparesaveoptionsbase.ui:35
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgid "&Context"
-msgstr "Samhengi"
+msgstr "Sam&hengi"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
 #: komparepart/komparesaveoptionsbase.ui:42
@@ -1316,10 +1309,9 @@ msgstr "Ed"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
 #: komparepart/komparesaveoptionsbase.ui:49
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgid "&Normal"
-msgstr "Venjulegt"
+msgstr "Ve&njulegt"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
 #: komparepart/komparesaveoptionsbase.ui:56
@@ -1329,17 +1321,15 @@ msgstr "RCS"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
 #: komparepart/komparesaveoptionsbase.ui:63
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgid "&Unified"
-msgstr "Sameinað"
+msgstr "Sa&meinað"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
 #: komparepart/komparesaveoptionsbase.ui:73
-#, fuzzy, kde-format
-#| msgid "Side-by-side"
+#, kde-format
 msgid "&Side-by-side"
-msgstr "Hlið við hlið"
+msgstr "H&lið-við-hlið"
 
 #. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
 #: komparepart/komparesaveoptionsbase.ui:85

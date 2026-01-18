@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2026-01-16 12:27+0000\n"
+"PO-Revision-Date: 2026-01-17 09:14+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -21,7 +21,7 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Björgvin Ragnarsson,Sveinn í Felli"
+msgstr "Björgvin Ragnarsson, Sveinn í Felli"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -29,17 +29,15 @@ msgid "Your emails"
 msgstr "nifgraup@hotmail.com, sv1@fellsnet.is"
 
 #: app/kompare_shell.cpp:69
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareViewPart."
+#, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr "Gat ekki hlaðið inn okkar KompareViewPart!"
+msgstr "Gat ekki hlaðið inn okkar KompareViewPart: %1"
 
 #: app/kompare_shell.cpp:73
-#, fuzzy, kde-format
-#| msgid "Navigation"
+#, kde-format
 msgctxt "@title:window"
 msgid "Navigation"
-msgstr "Rötun"
+msgstr "Flakk"
 
 #: app/kompare_shell.cpp:91
 #, kde-format
@@ -47,28 +45,25 @@ msgid "Could not load our KompareNavigationPart: %1"
 msgstr "Gat ekki hlaðið inn okkar KompareNavigationPart: %1"
 
 #: app/kompare_shell.cpp:196
-#, fuzzy, kde-format
-#| msgid "&Open Diff..."
+#, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
-msgstr "&Opna Diff..."
+msgstr "&Opna diff-mismun..."
 
 #: app/kompare_shell.cpp:199
-#, fuzzy, kde-format
-#| msgid "&Compare Files..."
+#, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
 msgstr "&Bera saman skrár..."
 
 #: app/kompare_shell.cpp:202
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
-msgstr "Slóð með."
+msgstr "&Blanda slóð við mismun..."
 
 #: app/kompare_shell.cpp:208
-#, fuzzy, kde-format
-#| msgid "Show T&ext View"
+#, kde-format
 msgctxt "@action"
 msgid "Show T&ext View"
 msgstr "Sýna T&extasýn"
@@ -112,39 +107,34 @@ msgstr[0] " %1 mismunur "
 msgstr[1] " %1 mismunum "
 
 #: app/kompare_shell.cpp:328
-#, fuzzy, kde-format
-#| msgid "Blend File/Folder with diff Output"
+#, kde-format
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
-msgstr "Blanda skrá/möppu við diff úttak"
+msgstr "Blanda skrá/möppu við diff-mismunaúttak"
 
 #: app/kompare_shell.cpp:329
-#, fuzzy, kde-format
-#| msgid "File/Folder"
+#, kde-format
 msgctxt "@title:group"
 msgid "File/Folder"
 msgstr "Skrá/mappa"
 
 #: app/kompare_shell.cpp:330
-#, fuzzy, kde-format
-#| msgid "Diff Output"
+#, kde-format
 msgctxt "@title:group"
 msgid "Diff Output"
-msgstr "Diff úttak"
+msgstr "Diff-mismunaúttak"
 
 #: app/kompare_shell.cpp:333
-#, fuzzy, kde-format
-#| msgid "Blend"
+#, kde-format
 msgctxt "@action:button"
 msgid "Blend"
 msgstr "Blanda"
 
 #: app/kompare_shell.cpp:334
-#, fuzzy, kde-format
-#| msgid "Blend this file or folder with the diff output"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
-msgstr "Blanda þessari skrá eða möppu við diff úttakið"
+msgstr "Blanda þessari skrá eða möppu við diff-mismunaúttakið"
 
 #: app/kompare_shell.cpp:335
 #, kde-format
@@ -163,46 +153,37 @@ msgstr ""
 "síðan sett mismuninn yfir í skrá eða í skrárnar. "
 
 #: app/kompare_shell.cpp:358 app/main.cpp:195
-#, fuzzy, kde-format
-#| msgid "Compare Files or Folders"
+#, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
 msgstr "Bera saman skrár eða möppur"
 
 #: app/kompare_shell.cpp:359 app/main.cpp:196
-#, fuzzy, kde-format
-#| msgid "Source"
+#, kde-format
 msgctxt "@title:group"
 msgid "Source"
 msgstr "Uppruni"
 
 #: app/kompare_shell.cpp:360 app/main.cpp:197
-#, fuzzy, kde-format
-#| msgid "Destination"
+#, kde-format
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "Áfangastaður"
 
 #: app/kompare_shell.cpp:363 app/main.cpp:200
-#, fuzzy, kde-format
-#| msgid "Compare"
+#, kde-format
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "Bera saman"
 
 #: app/kompare_shell.cpp:364 app/main.cpp:201
-#, fuzzy, kde-format
-#| msgid "Compare these files or folders"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
 msgstr "Bera saman þessar skrár eða möppur"
 
 #: app/kompare_shell.cpp:365 app/main.cpp:202
-#, fuzzy, kde-format
-#| msgid ""
-#| "If you have entered 2 filenames or 2 folders in the fields in this dialog "
-#| "then this button will be enabled and pressing it will start a comparison "
-#| "of the entered files or folders. "
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered 2 filenames or 2 folders in the fields in this dialog "
@@ -214,8 +195,7 @@ msgstr ""
 "skrám eða möppum."
 
 #: app/kompare_shell.cpp:399
-#, fuzzy, kde-format
-#| msgid "Text View"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text View"
 msgstr "Textasýn"
@@ -239,8 +219,7 @@ msgid "Main Toolbar"
 msgstr "Aðalverkfæraslá"
 
 #: app/kompareurldialog.cpp:38
-#, fuzzy, kde-format
-#| msgid "Files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Files"
 msgstr "Skrár"
@@ -252,11 +231,10 @@ msgstr "Hér getur þú gefið upp skrárnar sem þú vilt bera saman."
 
 #: app/kompareurldialog.cpp:46 dialogpages/diffpage.cpp:185
 #: komparepart/kompareprefdlg.cpp:43
-#, fuzzy, kde-format
-#| msgid "Diff"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Diff"
-msgstr "Diff"
+msgstr "Mismunur/diff"
 
 #: app/kompareurldialog.cpp:48
 #, kde-format
@@ -264,8 +242,7 @@ msgid "Here you can change the options for comparing the files."
 msgstr "Hér getur þú breytt valkostum fyrir samanburð skráa."
 
 #: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Appearance"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Útlit"
@@ -368,7 +345,7 @@ msgstr "Bernd Gehrmann"
 #: app/main.cpp:59
 #, kde-format
 msgid "Cervisia diff viewer"
-msgstr "Cervisia diff skoðari"
+msgstr "Cervisia diff-mismunarskoðari"
 
 #: app/main.cpp:66
 #, kde-format
@@ -407,8 +384,7 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:174
-#, fuzzy, kde-format
-#| msgid "Diff Program"
+#, kde-format
 msgctxt "@title:group"
 msgid "Diff Program"
 msgstr "Diff forrit"
@@ -434,15 +410,13 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:199
-#, fuzzy, kde-format
-#| msgid "Output Format"
+#, kde-format
 msgctxt "@title:group"
 msgid "Output Format"
 msgstr "Úttakssnið"
 
 #: dialogpages/diffpage.cpp:201
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Context"
 msgstr "Samhengi"
@@ -460,8 +434,7 @@ msgid "Unified"
 msgstr "Sameinað"
 
 #: dialogpages/diffpage.cpp:215
-#, fuzzy, kde-format
-#| msgid "Lines of Context"
+#, kde-format
 msgctxt "@title:group"
 msgid "Lines of Context"
 msgstr "Línur af samhengi"
@@ -476,8 +449,7 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:220
-#, fuzzy, kde-format
-#| msgid "Number of context lines:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of context lines:"
 msgstr "Fjöldi samhengislína:"
@@ -489,22 +461,19 @@ msgid "Format"
 msgstr "Snið"
 
 #: dialogpages/diffpage.cpp:237
-#, fuzzy, kde-format
-#| msgid "General"
+#, kde-format
 msgctxt "@title:group"
 msgid "General"
 msgstr "Almennt"
 
 #: dialogpages/diffpage.cpp:239
-#, fuzzy, kde-format
-#| msgid "&Treat new files as empty"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Treat new files as empty"
 msgstr "Fara með nýjar skrár sem &tómar"
 
 #: dialogpages/diffpage.cpp:240
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -N diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -N diff option."
 msgstr "Þetta samsvarar -N diff valkostinum."
@@ -520,15 +489,13 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:244
-#, fuzzy, kde-format
-#| msgid "&Look for smaller changes"
+#, kde-format
 msgctxt "@option:check"
 msgid "&Look for smaller changes"
 msgstr "&Skoða eftir minniháttar breytingum"
 
 #: dialogpages/diffpage.cpp:245
-#, fuzzy, kde-format
-#| msgid "This corresponds to the -d diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -d diff option."
 msgstr "Þetta samsvarar -d diff valkostinum."
@@ -542,15 +509,13 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:248
-#, fuzzy, kde-format
-#| msgid "O&ptimize for large files"
+#, kde-format
 msgctxt "@option:check"
 msgid "O&ptimize for large files"
 msgstr "Besta fyrir stórar skrár"
 
 #: dialogpages/diffpage.cpp:249
-#, fuzzy, kde-format
-#| msgid "This corresponds to the -H diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -H diff option."
 msgstr "Þetta samsvarar -H diff valkostinum."
@@ -570,8 +535,7 @@ msgid "&Ignore changes in case"
 msgstr "&Hunsa breytingar á há-/lágstöfum"
 
 #: dialogpages/diffpage.cpp:253
-#, fuzzy, kde-format
-#| msgid "This corresponds to the -i diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This corresponds to the -i diff option."
 msgstr "Þetta samsvarar -i diff valkostinum."
@@ -586,15 +550,13 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:262
-#, fuzzy, kde-format
-#| msgid "Ignore regexp:"
+#, kde-format
 msgctxt "@option:check"
 msgid "Ignore regexp:"
 msgstr "Hunsa regexp:"
 
 #: dialogpages/diffpage.cpp:263
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -I diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -I diff option."
 msgstr "Þetta samsvarar -I diff valkostinum."
@@ -618,8 +580,7 @@ msgstr ""
 "til að hunsa línur sem samsvara henni."
 
 #: dialogpages/diffpage.cpp:274
-#, fuzzy, kde-format
-#| msgid "Whitespace"
+#, kde-format
 msgctxt "@title:group"
 msgid "Whitespace"
 msgstr "Bil"
@@ -631,8 +592,7 @@ msgid "E&xpand tabs to spaces in output"
 msgstr "Breyta dálkalyklum (Tab) í bil í úttaki"
 
 #: dialogpages/diffpage.cpp:277
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -t diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -t diff option."
 msgstr "Þetta samsvarar -t diff valkostinum."
@@ -646,15 +606,13 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:280
-#, fuzzy, kde-format
-#| msgid "I&gnore added or removed empty lines"
+#, kde-format
 msgctxt "@option:check"
 msgid "I&gnore added or removed empty lines"
 msgstr "&Hunsa viðbættar eða fjarlægðar tómar línur"
 
 #: dialogpages/diffpage.cpp:281
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -B diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -B diff option."
 msgstr "Þetta samsvarar -B diff valkostinum."
@@ -668,15 +626,13 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:284
-#, fuzzy, kde-format
-#| msgid "Ig&nore changes in the amount of whitespace"
+#, kde-format
 msgctxt "@option:check"
 msgid "Ig&nore changes in the amount of whitespace"
 msgstr "H&unsa breytingar í fjölda bila"
 
 #: dialogpages/diffpage.cpp:285
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -b diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -b diff option."
 msgstr "Þetta samsvarar -b diff valkostinum."
@@ -696,8 +652,7 @@ msgid "Ign&ore all whitespace"
 msgstr "Hunsa öll biltákn"
 
 #: dialogpages/diffpage.cpp:289
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -w diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -w diff option."
 msgstr "Þetta samsvarar -w diff valkostinum."
@@ -717,8 +672,7 @@ msgid "Igno&re changes due to tab expansion"
 msgstr "Hunsa b&reytingar vegna útvíkkunar dálkmerkja"
 
 #: dialogpages/diffpage.cpp:293
-#, fuzzy, kde-format
-#| msgid "This option corresponds to the -E diff option."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -E diff option."
 msgstr "Þetta samsvarar -E diff valkostinum."
@@ -740,8 +694,7 @@ msgid "Options"
 msgstr "Valkostir"
 
 #: dialogpages/diffpage.cpp:311
-#, fuzzy, kde-format
-#| msgid "File Pattern to Exclude"
+#, kde-format
 msgctxt "@title:group"
 msgid "File Pattern to Exclude"
 msgstr "Skráamynstur sem á að hunsa"
@@ -763,11 +716,10 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:328
-#, fuzzy, kde-format
-#| msgid "File Pattern to Exclude"
+#, kde-format
 msgctxt "@title:group"
 msgid "File with Filenames to Exclude"
-msgstr "Skráamynstur sem á að hunsa"
+msgstr "Skrár með skráaheitum sem á að undanskilja"
 
 #: dialogpages/diffpage.cpp:329
 #, kde-format
@@ -793,8 +745,7 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:344
-#, fuzzy, kde-format
-#| msgid "Exclude"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Exclude"
 msgstr "Útiloka"
@@ -812,8 +763,7 @@ msgid "Select folder"
 msgstr "Veldu möppu"
 
 #: dialogpages/filespage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Encoding"
+#, kde-format
 msgctxt "@title:group"
 msgid "Encoding"
 msgstr "Stafatafla"
@@ -822,7 +772,7 @@ msgstr "Stafatafla"
 #, kde-format
 msgctxt "@item:inlistbox encoding"
 msgid "Default"
-msgstr ""
+msgstr "Sjálfgefið"
 
 #: dialogpages/filespage.cpp:126
 #, kde-format
@@ -837,85 +787,73 @@ msgid "Select File"
 msgstr "Veldu skrá"
 
 #: dialogpages/viewpage.cpp:44
-#, fuzzy, kde-format
-#| msgid "Colors"
+#, kde-format
 msgctxt "@title:group"
 msgid "Colors"
 msgstr "Litir"
 
 #: dialogpages/viewpage.cpp:50
-#, fuzzy, kde-format
-#| msgid "Removed color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Removed color:"
 msgstr "Fjarlægt litur:"
 
 #: dialogpages/viewpage.cpp:54
-#, fuzzy, kde-format
-#| msgid "Changed color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Changed color:"
 msgstr "Breytt lítur"
 
 #: dialogpages/viewpage.cpp:58
-#, fuzzy, kde-format
-#| msgid "Added color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Added color:"
 msgstr "Bætt við litur:"
 
 #: dialogpages/viewpage.cpp:62
-#, fuzzy, kde-format
-#| msgid "Applied color:"
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Applied color:"
 msgstr "Virkjað litur:"
 
 #: dialogpages/viewpage.cpp:66
-#, fuzzy, kde-format
-#| msgid "Mouse Wheel"
+#, kde-format
 msgctxt "@title:group"
 msgid "Mouse Wheel"
 msgstr "Músarhjól"
 
 #: dialogpages/viewpage.cpp:72
-#, fuzzy, kde-format
-#| msgid "Number of lines:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of lines:"
 msgstr "Fjöldi lína:"
 
 #: dialogpages/viewpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Tabs to Spaces"
+#, kde-format
 msgctxt "@title:group"
 msgid "Tabs to Spaces"
 msgstr "Tab í bil"
 
 #: dialogpages/viewpage.cpp:83
-#, fuzzy, kde-format
-#| msgid "Number of spaces to convert a tab character to:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of spaces to convert a tab character to:"
 msgstr "Fjöldi bila til að breyta tab-stafi í:"
 
 #: dialogpages/viewpage.cpp:94
-#, fuzzy, kde-format
-#| msgid "Text Font"
+#, kde-format
 msgctxt "@title:group"
 msgid "Text Font"
 msgstr "Textaletur"
 
 #: dialogpages/viewpage.cpp:98
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Font:"
 msgstr "Letur:"
 
 #: dialogpages/viewpage.cpp:103
-#, fuzzy, kde-format
-#| msgid "Size:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Size:"
 msgstr "Stærð:"
@@ -927,50 +865,43 @@ msgid "Fonts"
 msgstr "Letur"
 
 #: komparenavtreepart/komparenavtreepart.cpp:53
-#, fuzzy, kde-format
-#| msgid "Source Folder"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source Folder"
 msgstr "Upprunamappa"
 
 #: komparenavtreepart/komparenavtreepart.cpp:59
-#, fuzzy, kde-format
-#| msgid "Destination Folder"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination Folder"
 msgstr "Úttaksmappa"
 
 #: komparenavtreepart/komparenavtreepart.cpp:66
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source File"
 msgstr "Upprunaskrá"
 
 #: komparenavtreepart/komparenavtreepart.cpp:67
-#, fuzzy, kde-format
-#| msgid "Destination File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination File"
 msgstr "Úttaksskrá"
 
 #: komparenavtreepart/komparenavtreepart.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source Line"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source Line"
 msgstr "Upprunalína"
 
 #: komparenavtreepart/komparenavtreepart.cpp:77
-#, fuzzy, kde-format
-#| msgid "Destination Line"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination Line"
 msgstr "Úttakslína"
 
 #: komparenavtreepart/komparenavtreepart.cpp:78
-#, fuzzy, kde-format
-#| msgid "Difference"
+#, kde-format
 msgctxt "@title:column"
 msgid "Difference"
 msgstr "Mismunur"
@@ -1024,8 +955,7 @@ msgid "Unknown"
 msgstr "Óþekkt"
 
 #: komparepart/kompare_part.cpp:177
-#, fuzzy, kde-format
-#| msgid "Save &All"
+#, kde-format
 msgctxt "@action"
 msgid "Save &All"
 msgstr "Vist&a Allt"
@@ -1037,15 +967,13 @@ msgid "Save &Diff..."
 msgstr "Vista &diff-mismun..."
 
 #: komparepart/kompare_part.cpp:181
-#, fuzzy, kde-format
-#| msgid "Swap Source with Destination"
+#, kde-format
 msgctxt "@action"
 msgid "Swap Source with Destination"
 msgstr "Víxla á uppruna og áfangastað"
 
 #: komparepart/kompare_part.cpp:188
-#, fuzzy, kde-format
-#| msgid "Show Statistics"
+#, kde-format
 msgctxt "@action"
 msgid "Show Statistics"
 msgstr "Sýna tölfræði"
@@ -1054,7 +982,7 @@ msgstr "Sýna tölfræði"
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
-msgstr ""
+msgstr "Endurlesa mismun"
 
 #: komparepart/kompare_part.cpp:303 komparepart/kompare_part.cpp:316
 #, kde-format
@@ -1067,15 +995,13 @@ msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
 msgstr "<qt>Slóðin <b>%1</b> er ekki til á kerfinu þínu.</qt>"
 
 #: komparepart/kompare_part.cpp:542
-#, fuzzy, kde-format
-#| msgid "Diff Options"
+#, kde-format
 msgctxt "@title:window"
 msgid "Diff Options"
-msgstr "Diff valkostir"
+msgstr "Valkostir diff-mismunar"
 
 #: komparepart/kompare_part.cpp:561
-#, fuzzy, kde-format
-#| msgid "Save .diff"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save .diff"
 msgstr "Vista .diff"
@@ -1086,53 +1012,46 @@ msgid "Patch Files (*.diff *.dif *.patch)"
 msgstr "Patch-skrár (*.diff *.dif *.patch)"
 
 #: komparepart/kompare_part.cpp:624
-#, fuzzy, kde-format
-#| msgid "Running diff..."
+#, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
 msgstr "Keyri diff..."
 
 #: komparepart/kompare_part.cpp:627
-#, fuzzy, kde-format
-#| msgid "Parsing diff output..."
+#, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
-msgstr "Þátta diff útták..."
+msgstr "Þátta diff-mismunaútták..."
 
 #: komparepart/kompare_part.cpp:683
-#, fuzzy, kde-format
-#| msgid "Comparing file %1 with file %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
 msgstr "Ber skrána %1 saman við skrána %2"
 
 #: komparepart/kompare_part.cpp:688
-#, fuzzy, kde-format
-#| msgid "Comparing files in %1 with files in %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
 msgstr "Ber saman skrár í %1 við skrár í %2"
 
 #: komparepart/kompare_part.cpp:693
-#, fuzzy, kde-format
-#| msgid "Viewing diff output from %1"
+#, kde-format
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
 msgstr "Sýni diff úttak frá %1"
 
 #: komparepart/kompare_part.cpp:696
-#, fuzzy, kde-format
-#| msgid "Blending diff output from %1 into file %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
-msgstr "Blanda diff úttaki frá %1 í skrá %2"
+msgstr "Blanda diff-mismunaúttaki frá %1 í skrá %2"
 
 #: komparepart/kompare_part.cpp:701
-#, fuzzy, kde-format
-#| msgid "Blending diff output from %1 into folder %2"
+#, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
-msgstr "Blanda diff úttaki frá %1 í möppu %2"
+msgstr "Blanda diff-mismunaúttaki frá %1 í möppu %2"
 
 #: komparepart/kompare_part.cpp:752 komparepart/kompare_part.cpp:783
 #: komparepart/kompare_part.cpp:899
@@ -1146,22 +1065,19 @@ msgstr ""
 
 #: komparepart/kompare_part.cpp:754 komparepart/kompare_part.cpp:785
 #: komparepart/kompare_part.cpp:901
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save Changes?"
 msgstr "Vista breytingar?"
 
 #: komparepart/kompare_part.cpp:824
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "Sameinað"
 
 #: komparepart/kompare_part.cpp:827
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "Samhengi"
@@ -1179,15 +1095,13 @@ msgid "Ed"
 msgstr "Br"
 
 #: komparepart/kompare_part.cpp:836
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Normal"
 msgstr "Venjulegt"
 
 #: komparepart/kompare_part.cpp:840
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Unknown"
 msgstr "Óþekkt"
@@ -1198,16 +1112,15 @@ msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
 "available."
 msgstr ""
-"Engin diff skrá, eða engar tvær skrár hafa verið athugaðar. Þess vegna eru "
+"Engin diff-skrá, eða engar tvær skrár hafa verið athugaðar. Þess vegna eru "
 "engar tölfræðiupplýsingar tiltækar."
 
 #: komparepart/kompare_part.cpp:858 komparepart/kompare_part.cpp:872
 #: komparepart/kompare_part.cpp:888
-#, fuzzy, kde-format
-#| msgid "Diff Statistics"
+#, kde-format
 msgctxt "@title:window"
 msgid "Diff Statistics"
-msgstr "Diff tölfræði"
+msgstr "Tölfræði diff-mismunar"
 
 #: komparepart/kompare_part.cpp:862
 #, kde-format
@@ -1246,7 +1159,7 @@ msgid ""
 msgstr ""
 "Tölfræði:\n"
 "\n"
-"Fjöldi skráa í diff skrá: %1\n"
+"Fjöldi skráa í diff-mismunaskrá: %1\n"
 "Snið: %2\n"
 "\n"
 "Núverandi gamla skrá: %3\n"
@@ -1262,32 +1175,28 @@ msgid "&Difference"
 msgstr "&Mismunur"
 
 #: komparepart/kompareprefdlg.cpp:27
-#, fuzzy, kde-format
-#| msgid "Preferences"
+#, kde-format
 msgctxt "@title:window"
 msgid "Preferences"
 msgstr "Stillingar"
 
 #: komparepart/kompareprefdlg.cpp:37
-#, fuzzy, kde-format
-#| msgid "View"
+#, kde-format
 msgctxt "@title:tab"
 msgid "View"
 msgstr "Skoðun"
 
 #: komparepart/kompareprefdlg.cpp:39
-#, fuzzy, kde-format
-#| msgid "View Settings"
+#, kde-format
 msgctxt "@title"
 msgid "View Settings"
 msgstr "Stillingar sýnar"
 
 #: komparepart/kompareprefdlg.cpp:45
-#, fuzzy, kde-format
-#| msgid "Diff Settings"
+#, kde-format
 msgctxt "@title"
 msgid "Diff Settings"
-msgstr "Stillingar diff"
+msgstr "Stillingar diff-mismunar"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
 #: komparepart/komparesaveoptionsbase.ui:29
@@ -1401,7 +1310,7 @@ msgstr "Fara með nýjar skrár sem tómar"
 #: komparepart/komparesaveoptionsbase.ui:222
 #, kde-format
 msgid "Run Diff In"
-msgstr "Keyra mismun/diff í"
+msgstr "Keyra diff-mismun í"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
 #: komparepart/komparesaveoptionsbase.ui:247

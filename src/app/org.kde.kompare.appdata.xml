@@ -26,6 +26,7 @@
   <name xml:lang="he">Kompare</name>
   <name xml:lang="ia">Kompare</name>
   <name xml:lang="id">Kompare</name>
+  <name xml:lang="is">Kompare</name>
   <name xml:lang="it">Kompare</name>
   <name xml:lang="ka">Kompare</name>
   <name xml:lang="ko">Kompare</name>
@@ -67,6 +68,7 @@
   <summary xml:lang="he">ממשק תפעול ל־Diff/Patch (הבדלים/טלאי)</summary>
   <summary xml:lang="ia">Fronte anterior de Diff/Patch</summary>
   <summary xml:lang="id">Frontend Diff/Patch</summary>
+  <summary xml:lang="is">Myndrænt viðmót á Diff/Patch</summary>
   <summary xml:lang="it">Interfaccia a Diff/Patch</summary>
   <summary xml:lang="ka">Diff/Patch -ის წინაბოლო</summary>
   <summary xml:lang="ko">Diff/Patch 프론트엔드</summary>
@@ -150,6 +152,7 @@
     <p xml:lang="he">יכולות:</p>
     <p xml:lang="ia">Characteristicas:</p>
     <p xml:lang="id">Fitur:</p>
+    <p xml:lang="is">Eiginleikar:</p>
     <p xml:lang="it">Caratteristiche:</p>
     <p xml:lang="ka">თვისებები:</p>
     <p xml:lang="ko">기능:</p>

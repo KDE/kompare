@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -30,10 +30,9 @@ msgstr ""
 "visnovsky@kde.org,jose1711@gmail.com,flashmann@szm.sk,wizzardsk@gmail.com"
 
 #: app/kompare_shell.cpp:69
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareViewPart."
+#, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr "Nepodarilo sa načítať KompareViewPart."
+msgstr "Could not load our KompareViewPart: %1"
 
 #: app/kompare_shell.cpp:73
 #, kde-format
@@ -42,10 +41,9 @@ msgid "Navigation"
 msgstr "Navigácia"
 
 #: app/kompare_shell.cpp:91
-#, fuzzy, kde-format
-#| msgid "Could not load our KompareNavigationPart."
+#, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr "Nepodarilo sa načítať KompareNavigationPart."
+msgstr "Could not load our KompareNavigationPart: %1"
 
 #: app/kompare_shell.cpp:196
 #, kde-format
@@ -144,14 +142,7 @@ msgid "Blend this file or folder with the diff output"
 msgstr "Spojiť tento súbor alebo priečinok s výstupom diff"
 
 #: app/kompare_shell.cpp:335
-#, fuzzy, kde-format
-#| msgctxt "@infor:whatsthis"
-#| msgid ""
-#| "If you have entered a file or folder name and a file that contains diff "
-#| "output in the fields in this dialog then this button will be enabled and "
-#| "pressing it will open kompare's main view where the output of the entered "
-#| "file or files from the folder are mixed with the diff output so you can "
-#| "then apply the difference(s) to a file or to the files. "
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "If you have entered a file or folder name and a file that contains diff "
@@ -1411,15 +1402,11 @@ msgstr "cd dir && diff -udHprNa -- zdroj cieľ"
 #~ msgstr "KomparePart"
 
 #, fuzzy
-#~| msgid "&Edit..."
 #~ msgctxt "@action:button"
 #~ msgid "&Edit..."
 #~ msgstr "&Upraviť..."
 
 #, fuzzy
-#~| msgid ""
-#~| "Clicking this will open a regular expression dialog where\n"
-#~| "you can graphically create regular expressions."
 #~ msgctxt "@info:tooltip"
 #~ msgid ""
 #~ "Clicking this will open a regular expression dialog where\n"

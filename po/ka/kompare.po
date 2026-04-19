@@ -912,7 +912,7 @@ msgstr "ზომა:"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Fonts"
-msgstr "შრიფტები"
+msgstr "ფონტები"
 
 #: komparenavtreepart/komparenavtreepart.cpp:53
 #, kde-format

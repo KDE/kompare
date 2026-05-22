@@ -8,33 +8,33 @@ msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2013-09-08 07:05+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-05-14 20:07-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ئابدۇقادىر ئابلىز, غەيرەت كەنجى"
+msgstr "ئابدۇقادىر ئابلىز، غەيرەت كەنجى"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
+msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 
 #: app/kompare_shell.cpp:69
 #, kde-format
 msgid "Could not load our KompareViewPart: %1"
-msgstr ""
+msgstr "KompareViewPart بۆلىكىنى يۈكلىيەلمەيدۇ: %1"
 
 #: app/kompare_shell.cpp:73
-#, fuzzy, kde-format
-#| msgid "Navigation"
+#, kde-format
 msgctxt "@title:window"
 msgid "Navigation"
 msgstr "يولباشچى"
@@ -42,48 +42,47 @@ msgstr "يولباشچى"
 #: app/kompare_shell.cpp:91
 #, kde-format
 msgid "Could not load our KompareNavigationPart: %1"
-msgstr ""
+msgstr "KompareNavigationPart بۆلىكىنى يۈكلىيەلمەيدۇ: %1"
 
 #: app/kompare_shell.cpp:196
 #, kde-format
 msgctxt "@action"
 msgid "&Open Diff..."
-msgstr ""
+msgstr "پەرقنى ئاچ(&O)…"
 
 #: app/kompare_shell.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "&Compare Files..."
-msgstr ""
+msgstr "ھۆججەت سېلىشتۇر(&C)…"
 
 #: app/kompare_shell.cpp:202
 #, kde-format
 msgctxt "@action"
 msgid "&Blend URL with Diff..."
-msgstr ""
+msgstr "پەرقنى تور ئادرېسىغا ئارىلاشتۇر(&B)…"
 
 #: app/kompare_shell.cpp:208
-#, fuzzy, kde-format
-#| msgid "Text View"
+#, kde-format
 msgctxt "@action"
 msgid "Show T&ext View"
-msgstr "تېكىست كۆرۈنۈش"
+msgstr "تېكىست كۆرۈنۈشنى كۆرسەت(&E)"
 
 #: app/kompare_shell.cpp:221
 #, kde-format
 msgid " 0 of 0 differences "
-msgstr ""
+msgstr " 0/0 پەرق يوق "
 
 #: app/kompare_shell.cpp:222
 #, kde-format
 msgid " 0 of 0 files "
-msgstr ""
+msgstr " 0/0 ھۆججەت يوق "
 
 #: app/kompare_shell.cpp:239
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
-msgstr[0] ""
+msgstr[0] " %2 / %1 ھۆججەت "
 
 #: app/kompare_shell.cpp:241
 #, kde-format
@@ -95,45 +94,43 @@ msgstr[0] " %1 ھۆججەت "
 #, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
-msgstr[0] ""
+msgstr[0] " %2 / %1 پەرقى، %3 قوللىنىلدى "
 
 #: app/kompare_shell.cpp:247
 #, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
-msgstr[0] " %1 ئوخشىماسلىق "
+msgstr[0] " %1 پەرق "
 
 #: app/kompare_shell.cpp:328
 #, kde-format
 msgctxt "@title:window"
 msgid "Blend File/Folder with diff Output"
-msgstr ""
+msgstr "پەرق چىقىرىشىنى ھۆججەت/قىسقۇچقا ئارىلاشتۇر"
 
 #: app/kompare_shell.cpp:329
 #, kde-format
 msgctxt "@title:group"
 msgid "File/Folder"
-msgstr ""
+msgstr "ھۆججەت/قىسقۇچ"
 
 #: app/kompare_shell.cpp:330
-#, fuzzy, kde-format
-#| msgid "Diff Output"
+#, kde-format
 msgctxt "@title:group"
 msgid "Diff Output"
 msgstr "پەرقىنى چىقىرىش"
 
 #: app/kompare_shell.cpp:333
-#, fuzzy, kde-format
-#| msgid "Blend"
+#, kde-format
 msgctxt "@action:button"
 msgid "Blend"
-msgstr "ئارىلاشما"
+msgstr "ئارىلاشتۇر"
 
 #: app/kompare_shell.cpp:334
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Blend this file or folder with the diff output"
-msgstr ""
+msgstr "پەرق چىقىرىشىنى بۇ ھۆججەت ياكى قىسقۇچقا ئارىلاشتۇر"
 
 #: app/kompare_shell.cpp:335
 #, kde-format
@@ -145,30 +142,32 @@ msgid ""
 "file or files from the folder are mixed with the diff output so you can then "
 "apply the difference(s) to a file or to the files. "
 msgstr ""
+"ئەگەر سىز بۇ سۆزلەشكۈدىكى ھۆججەت ياكى قىسقۇچ ئاتى ۋە پەرق چىقىرىشىنى ئۆز "
+"ئىچىگە ئالغان بۆلىكى بار ھۆججەتنى كىرگۈزگەن بولسىڭىز، ئۇنداقتا بۇ كۇنۇپكا "
+"قوزغىتىلىدۇ ۋە ئۇنى باسسىڭىز سېلىشتۇرغۇچنىڭ ئاساسلىق كۆرۈنۈشىنى ئاچىدۇ، بۇ "
+"يەرگە كىرگۈزۈلگەن ھۆججەت ياكى قىسقۇچتىكى ھۆججەت پەرق چىقىرىشى بىلەن "
+"ئارىلاشتۇرۇلىدۇ، شۇڭا پەرقنى ھۆججەتكە ياكى ھۆججەتلەرگە قوللىنالايسىز. "
 
 #: app/kompare_shell.cpp:358 app/main.cpp:195
 #, kde-format
 msgctxt "@title:window"
 msgid "Compare Files or Folders"
-msgstr ""
+msgstr "ھۆججەت ياكى قىسقۇچ سېلىشتۇر"
 
 #: app/kompare_shell.cpp:359 app/main.cpp:196
-#, fuzzy, kde-format
-#| msgid "Source"
+#, kde-format
 msgctxt "@title:group"
 msgid "Source"
 msgstr "مەنبە"
 
 #: app/kompare_shell.cpp:360 app/main.cpp:197
-#, fuzzy, kde-format
-#| msgid "Destination"
+#, kde-format
 msgctxt "@title:group"
 msgid "Destination"
 msgstr "نىشان"
 
 #: app/kompare_shell.cpp:363 app/main.cpp:200
-#, fuzzy, kde-format
-#| msgid "Compare"
+#, kde-format
 msgctxt "@action:button"
 msgid "Compare"
 msgstr "سېلىشتۇر"
@@ -177,7 +176,7 @@ msgstr "سېلىشتۇر"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Compare these files or folders"
-msgstr ""
+msgstr "بۇ ھۆججەت ياكى قىسقۇچنى سېلىشتۇر"
 
 #: app/kompare_shell.cpp:365 app/main.cpp:202
 #, kde-format
@@ -187,10 +186,12 @@ msgid ""
 "then this button will be enabled and pressing it will start a comparison of "
 "the entered files or folders. "
 msgstr ""
+"ئەگەر سۆزلەشكۈ بۆلىكىگە 2 ھۆججەت ئىسمى ياكى 2 قىسقۇچ ئىسمى كىرگۈزۈلسە ئاندىن "
+"بۇ توپچە قوزغىلىدۇ، ئۇنى بېسىپ، كىرگۈزۈلگەن ھۆججەت ياكى قىسقۇچنى "
+"سېلىشتۇرغىلى بولىدۇ. "
 
 #: app/kompare_shell.cpp:399
-#, fuzzy, kde-format
-#| msgid "Text View"
+#, kde-format
 msgctxt "@title:window"
 msgid "Text View"
 msgstr "تېكىست كۆرۈنۈش"
@@ -214,52 +215,49 @@ msgid "Main Toolbar"
 msgstr "ئاساسىي قورال بالداق"
 
 #: app/kompareurldialog.cpp:38
-#, fuzzy, kde-format
-#| msgid "Files"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Files"
-msgstr "ھۆججەتلەر"
+msgstr "ھۆججەت"
 
 #: app/kompareurldialog.cpp:40
 #, kde-format
 msgid "Here you can enter the files you want to compare."
-msgstr ""
+msgstr "بۇ جايدا سېلىشتۇرىدىغان ھۆججەتنى كىرگۈزەلەيسىز."
 
 #: app/kompareurldialog.cpp:46 dialogpages/diffpage.cpp:185
 #: komparepart/kompareprefdlg.cpp:43
-#, fuzzy, kde-format
-#| msgid "Diff"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Diff"
-msgstr "سېلىشتۇرۇش(Diff)"
+msgstr "پەرق"
 
 #: app/kompareurldialog.cpp:48
 #, kde-format
 msgid "Here you can change the options for comparing the files."
-msgstr ""
+msgstr "بۇ جايدا سېلىشتۇرىدىغان ھۆججەت تاللانمىسىنى ئۆزگەرتەلەيسىز."
 
 #: app/kompareurldialog.cpp:53 dialogpages/viewpage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Appearance"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
-msgstr "كۆرۈنۈشى"
+msgstr "قىياپەت"
 
 #: app/kompareurldialog.cpp:55
 #, kde-format
 msgid "Here you can change the options for the view."
-msgstr ""
+msgstr "بۇ جايدا كۆرۈنۈشنىڭ تاللانمىسىنى ئۆزگەرتەلەيسىز."
 
 #: app/kompareurldialog.cpp:101
 #, kde-format
 msgid ""
 "File used for excluding files cannot be found, please specify another file."
-msgstr ""
+msgstr "مۇستەسناغا ئىشلىتىدىغان ھۆججەت تېپىلمىدى. باشقا ھۆججەت بەلگىلەڭ."
 
 #: app/main.cpp:46
 #, kde-format
 msgid "Kompare"
-msgstr "Kompare"
+msgstr "سېلىشتۇر"
 
 #: app/main.cpp:48
 #, kde-format
@@ -267,6 +265,8 @@ msgid ""
 "A program to view the differences between files and optionally generate a "
 "diff"
 msgstr ""
+"ھۆججەت پەرقىنى كۆرسىتىپ ۋە پەرق نەتىجىسىنى تاللاپ ھاسىللىيالايدىغان "
+"پىروگرامما"
 
 #: app/main.cpp:50
 #, kde-format
@@ -274,6 +274,8 @@ msgid ""
 "(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
 "2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
 msgstr ""
+"(c) 2001-2004 John Firebaugh, (c) 2001-2005,2009 Otto Bruggeman, (c) "
+"2004-2005 Jeff Snyder, (c) 2007-2012 Kevin Kofler"
 
 #: app/main.cpp:53
 #, kde-format
@@ -283,42 +285,42 @@ msgstr "John Firebaugh"
 #: app/main.cpp:53 app/main.cpp:54
 #, kde-format
 msgid "Author"
-msgstr "ئاپتور"
+msgstr "يازغۇچى"
 
 #: app/main.cpp:54
 #, kde-format
 msgid "Otto Bruggeman"
-msgstr ""
+msgstr "Otto Bruggeman"
 
 #: app/main.cpp:55
 #, kde-format
 msgid "Jeff Snyder"
-msgstr ""
+msgstr "Jeff Snyder"
 
 #: app/main.cpp:55
 #, kde-format
 msgid "Developer"
-msgstr "ئىجادىيەتچى"
+msgstr "ئىجادكار"
 
 #: app/main.cpp:56
 #, kde-format
 msgid "Kevin Kofler"
-msgstr ""
+msgstr "Kevin Kofler"
 
 #: app/main.cpp:56
 #, kde-format
 msgid "Maintainer"
-msgstr "مەسئۇل كىشى"
+msgstr "ئاسرىغۇچى"
 
 #: app/main.cpp:57
 #, kde-format
 msgid "Chris Luetchford"
-msgstr ""
+msgstr "Chris Luetchford"
 
 #: app/main.cpp:57
 #, kde-format
 msgid "Kompare icon artist"
-msgstr ""
+msgstr "Kompare سىنبەلگە سەنئەتكارى"
 
 #: app/main.cpp:58
 #, kde-format
@@ -328,7 +330,7 @@ msgstr "Malte Starostik"
 #: app/main.cpp:58
 #, kde-format
 msgid "A lot of good advice"
-msgstr ""
+msgstr "نۇرغۇن ياخشى تەكلىپ"
 
 #: app/main.cpp:59
 #, kde-format
@@ -338,12 +340,12 @@ msgstr "Bernd Gehrmann"
 #: app/main.cpp:59
 #, kde-format
 msgid "Cervisia diff viewer"
-msgstr ""
+msgstr "Cervisia پەرق كۆرگۈچ"
 
 #: app/main.cpp:66
 #, kde-format
 msgid "This will compare URL1 with URL2"
-msgstr ""
+msgstr "URL1 بىلەن URL2 نى سېلىشتۇرىدۇ"
 
 #: app/main.cpp:67
 #, kde-format
@@ -380,7 +382,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:group"
 msgid "Diff Program"
-msgstr ""
+msgstr "پەرق پىروگراممىسى"
 
 #: dialogpages/diffpage.cpp:179
 #, kde-format
@@ -400,39 +402,34 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:199
-#, fuzzy, kde-format
-#| msgid "Output Format"
+#, kde-format
 msgctxt "@title:group"
 msgid "Output Format"
 msgstr "چىقىرىش پىچىمى"
 
 #: dialogpages/diffpage.cpp:201
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Context"
 msgstr "مەزمۇن"
 
 #: dialogpages/diffpage.cpp:204
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Normal"
-msgstr "نورمال"
+msgstr "ئادەتتىكى"
 
 #: dialogpages/diffpage.cpp:207
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgctxt "@option:radio format type"
 msgid "Unified"
 msgstr "بىر تۇتاش"
 
 #: dialogpages/diffpage.cpp:215
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@title:group"
 msgid "Lines of Context"
-msgstr "مەزمۇن"
+msgstr "مەزمۇن قۇر سانى"
 
 #: dialogpages/diffpage.cpp:216 dialogpages/diffpage.cpp:221
 #, kde-format
@@ -444,22 +441,19 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:220
-#, fuzzy, kde-format
-#| msgid "Number of lines:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of context lines:"
-msgstr "قۇر سانى:"
+msgstr "مەزمۇننىڭ قۇر سانى:"
 
 #: dialogpages/diffpage.cpp:225
-#, fuzzy, kde-format
-#| msgid "Format"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Format"
 msgstr "پىچىمى"
 
 #: dialogpages/diffpage.cpp:237
-#, fuzzy, kde-format
-#| msgid "General"
+#, kde-format
 msgctxt "@title:group"
 msgid "General"
 msgstr "ئادەتتىكى"
@@ -468,13 +462,13 @@ msgstr "ئادەتتىكى"
 #, kde-format
 msgctxt "@option:check"
 msgid "&Treat new files as empty"
-msgstr ""
+msgstr "يېڭى ھۆججەتكە بوش ھۆججەتتەك مۇئامىلە قىلىدۇ(&T)"
 
 #: dialogpages/diffpage.cpp:240
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "This option corresponds to the -N diff option."
-msgstr ""
+msgstr "بۇ تاللانما پەرق تاللانمىسىنىڭ «-N» غا ماس كېلىدۇ."
 
 #: dialogpages/diffpage.cpp:241
 #, kde-format
@@ -490,7 +484,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "&Look for smaller changes"
-msgstr ""
+msgstr "ئازراق ئۆزگەرتىشنى ئىزدە(&L)"
 
 #: dialogpages/diffpage.cpp:245
 #, kde-format
@@ -510,7 +504,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "O&ptimize for large files"
-msgstr ""
+msgstr "چوڭ ھۆججەتكە ئەلالاشتۇرىدۇ(&P)"
 
 #: dialogpages/diffpage.cpp:249
 #, kde-format
@@ -530,7 +524,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "&Ignore changes in case"
-msgstr ""
+msgstr "چوڭ كىچىك ھەرپ ئۆزگىرىشىگە پەرۋا قىلما(&I)"
 
 #: dialogpages/diffpage.cpp:253
 #, kde-format
@@ -551,7 +545,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "Ignore regexp:"
-msgstr ""
+msgstr "مۇنتىزىم ئىپادىگە پەرۋا قىلمايدۇ:"
 
 #: dialogpages/diffpage.cpp:263
 #, kde-format
@@ -579,7 +573,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:group"
 msgid "Whitespace"
-msgstr ""
+msgstr "بوشلۇق"
 
 #: dialogpages/diffpage.cpp:276
 #, kde-format
@@ -602,11 +596,10 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:280
-#, fuzzy, kde-format
-#| msgid "Ignore added or removed empty lines"
+#, kde-format
 msgctxt "@option:check"
 msgid "I&gnore added or removed empty lines"
-msgstr "قوشۇلغان ياكى چىقىرىۋېتىلگەن قۇرۇق قۇرلارغا پەرۋا قىلما"
+msgstr ""
 
 #: dialogpages/diffpage.cpp:281
 #, kde-format
@@ -685,8 +678,7 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:299
-#, fuzzy, kde-format
-#| msgid "Options"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Options"
 msgstr "تاللانما"
@@ -695,7 +687,7 @@ msgstr "تاللانما"
 #, kde-format
 msgctxt "@title:group"
 msgid "File Pattern to Exclude"
-msgstr ""
+msgstr "مۇستەسنا ھۆججەت ئەندىزە"
 
 #: dialogpages/diffpage.cpp:312
 #, kde-format
@@ -742,29 +734,25 @@ msgid ""
 msgstr ""
 
 #: dialogpages/diffpage.cpp:344
-#, fuzzy, kde-format
-#| msgid "Exclude"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Exclude"
 msgstr "سىرتىدا"
 
 #: dialogpages/filespage.cpp:39 dialogpages/filespage.cpp:68
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select file"
-msgstr "مەنبە ھۆججەت"
+msgstr "ھۆججەت تاللا"
 
 #: dialogpages/filespage.cpp:51 dialogpages/filespage.cpp:80
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Select folder"
-msgstr "مەنبە ھۆججەت"
+msgstr "قىسقۇچ تاللا"
 
 #: dialogpages/filespage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Encoding"
+#, kde-format
 msgctxt "@title:group"
 msgid "Encoding"
 msgstr "كودلاش"
@@ -773,63 +761,58 @@ msgstr "كودلاش"
 #, kde-format
 msgctxt "@item:inlistbox encoding"
 msgid "Default"
-msgstr ""
+msgstr "كۆڭۈلدىكى"
 
 #: dialogpages/filespage.cpp:126
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select Folder"
-msgstr "مەنبە ھۆججەت"
+msgstr "قىسقۇچ تاللا"
 
 #: dialogpages/filespage.cpp:130
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Select File"
-msgstr "مەنبە ھۆججەت"
+msgstr "ھۆججەت تاللا"
 
 #: dialogpages/viewpage.cpp:44
-#, fuzzy, kde-format
-#| msgid "Colors"
+#, kde-format
 msgctxt "@title:group"
 msgid "Colors"
-msgstr "رەڭلەر"
+msgstr "رەڭ"
 
 #: dialogpages/viewpage.cpp:50
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Removed color:"
-msgstr ""
+msgstr "چىقىرىۋېتىلگەن رەڭ:"
 
 #: dialogpages/viewpage.cpp:54
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Changed color:"
-msgstr ""
+msgstr "ئۆزگەرگەن رەڭ:"
 
 #: dialogpages/viewpage.cpp:58
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Added color:"
-msgstr ""
+msgstr "قوشۇلغان رەڭ:"
 
 #: dialogpages/viewpage.cpp:62
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Applied color:"
-msgstr ""
+msgstr "قوللانغان رەڭ:"
 
 #: dialogpages/viewpage.cpp:66
-#, fuzzy, kde-format
-#| msgid "Mouse Wheel"
+#, kde-format
 msgctxt "@title:group"
 msgid "Mouse Wheel"
 msgstr "چاشقىنەك غالتىكى"
 
 #: dialogpages/viewpage.cpp:72
-#, fuzzy, kde-format
-#| msgid "Number of lines:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of lines:"
 msgstr "قۇر سانى:"
@@ -838,87 +821,76 @@ msgstr "قۇر سانى:"
 #, kde-format
 msgctxt "@title:group"
 msgid "Tabs to Spaces"
-msgstr ""
+msgstr "Tab نى بوشلۇققا ئايلاندۇر"
 
 #: dialogpages/viewpage.cpp:83
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Number of spaces to convert a tab character to:"
-msgstr ""
+msgstr "بىر tab نى بوشلۇققا ئايلاندۇرۇش سانى:"
 
 #: dialogpages/viewpage.cpp:94
-#, fuzzy, kde-format
-#| msgid "Text Font"
+#, kde-format
 msgctxt "@title:group"
 msgid "Text Font"
 msgstr "تېكىست خەت نۇسخىسى"
 
 #: dialogpages/viewpage.cpp:98
-#, fuzzy, kde-format
-#| msgid "Font:"
+#, kde-format
 msgctxt "@label:listbox"
 msgid "Font:"
 msgstr "خەت نۇسخا:"
 
 #: dialogpages/viewpage.cpp:103
-#, fuzzy, kde-format
-#| msgid "Size:"
+#, kde-format
 msgctxt "@label:spinbox"
 msgid "Size:"
 msgstr "چوڭلۇقى:"
 
 #: dialogpages/viewpage.cpp:107
-#, fuzzy, kde-format
-#| msgid "Fonts"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Fonts"
-msgstr "خەت نۇسخىلىرى"
+msgstr "خەت نۇسخا"
 
 #: komparenavtreepart/komparenavtreepart.cpp:53
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source Folder"
-msgstr "مەنبە ھۆججەت"
+msgstr "مەنبە قىسقۇچ"
 
 #: komparenavtreepart/komparenavtreepart.cpp:59
-#, fuzzy, kde-format
-#| msgid "Destination Folder"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination Folder"
 msgstr "نىشان قىسقۇچ"
 
 #: komparenavtreepart/komparenavtreepart.cpp:66
-#, fuzzy, kde-format
-#| msgid "Source File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source File"
 msgstr "مەنبە ھۆججەت"
 
 #: komparenavtreepart/komparenavtreepart.cpp:67
-#, fuzzy, kde-format
-#| msgid "Destination File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination File"
 msgstr "نىشان ھۆججەت"
 
 #: komparenavtreepart/komparenavtreepart.cpp:76
-#, fuzzy, kde-format
-#| msgid "Source Line"
+#, kde-format
 msgctxt "@title:column"
 msgid "Source Line"
 msgstr "مەنبە قۇر"
 
 #: komparenavtreepart/komparenavtreepart.cpp:77
-#, fuzzy, kde-format
-#| msgid "Destination File"
+#, kde-format
 msgctxt "@title:column"
 msgid "Destination Line"
-msgstr "نىشان ھۆججەت"
+msgstr "نىشان قۇر"
 
 #: komparenavtreepart/komparenavtreepart.cpp:78
-#, fuzzy, kde-format
-#| msgid "Difference"
+#, kde-format
 msgctxt "@title:column"
 msgid "Difference"
 msgstr "پەرق"
@@ -927,146 +899,142 @@ msgstr "پەرق"
 #, kde-format
 msgid "Applied: Changes made to %1 line undone"
 msgid_plural "Applied: Changes made to %1 lines undone"
-msgstr[0] ""
+msgstr[0] "قوللاندى: %1 قۇرنىڭ ئۆزگىرىشىنى تاماملىمىدى"
 
 #: komparenavtreepart/komparenavtreepart.cpp:456
 #, kde-format
 msgid "Changed %1 line"
 msgid_plural "Changed %1 lines"
-msgstr[0] ""
+msgstr[0] "%1 قۇر ئۆزگەردى"
 
 #: komparenavtreepart/komparenavtreepart.cpp:461
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
-msgstr[0] ""
+msgstr[0] "قوللاندى: %1 قۇر قىستۇرۇشنى تاماملىمىدى"
 
 #: komparenavtreepart/komparenavtreepart.cpp:464
 #, kde-format
 msgid "Inserted %1 line"
 msgid_plural "Inserted %1 lines"
-msgstr[0] ""
+msgstr[0] "%1 قۇر قىستۇردى"
 
 #: komparenavtreepart/komparenavtreepart.cpp:469
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
-msgstr[0] ""
+msgstr[0] "قوللاندى: %1 قۇر ئۆچۈرۈشنى تاماملىمىدى"
 
 #: komparenavtreepart/komparenavtreepart.cpp:472
 #, kde-format
 msgid "Deleted %1 line"
 msgid_plural "Deleted %1 lines"
-msgstr[0] ""
+msgstr[0] "%1 قۇر ئۆچۈرۈلدى"
 
 #: komparenavtreepart/komparenavtreepart.cpp:627
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item directory name not known"
 msgid "Unknown"
-msgstr "نامەلۇم"
+msgstr "يوچۇن"
 
 #: komparepart/kompare_part.cpp:177
 #, kde-format
 msgctxt "@action"
 msgid "Save &All"
-msgstr ""
+msgstr "ھەممىنى ساقلا(&A)"
 
 #: komparepart/kompare_part.cpp:179
 #, kde-format
 msgctxt "@action"
 msgid "Save &Diff..."
-msgstr ""
+msgstr "پەرقنى ساقلا(&D)…"
 
 #: komparepart/kompare_part.cpp:181
 #, kde-format
 msgctxt "@action"
 msgid "Swap Source with Destination"
-msgstr ""
+msgstr "ئەسلى بىلەن نىشاننى ئالماشتۇر"
 
 #: komparepart/kompare_part.cpp:188
-#, fuzzy, kde-format
-#| msgid "Show Statistics"
+#, kde-format
 msgctxt "@action"
 msgid "Show Statistics"
-msgstr "ستاتىستىكا كۆرسەت"
+msgstr "ئىستاتىستىكا كۆرسەت"
 
 #: komparepart/kompare_part.cpp:191
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
-msgstr ""
+msgstr "پەرقنى يېڭىلا"
 
 #: komparepart/kompare_part.cpp:303 komparepart/kompare_part.cpp:316
 #, kde-format
 msgid "<qt>The URL <b>%1</b> cannot be downloaded.</qt>"
-msgstr ""
+msgstr "<qt>بۇ <b>%1</b> تور ئادرېسىدىن چۈشۈرەلمەيدۇ.</qt>"
 
 #: komparepart/kompare_part.cpp:354
 #, kde-format
 msgid "<qt>The URL <b>%1</b> does not exist on your system.</qt>"
-msgstr ""
+msgstr "<qt>سىستېمىڭىزدا <b>%1</b> تور ئادرېسى مەۋجۇت ئەمەس.</qt>"
 
 #: komparepart/kompare_part.cpp:542
-#, fuzzy, kde-format
-#| msgid "Options"
+#, kde-format
 msgctxt "@title:window"
 msgid "Diff Options"
-msgstr "تاللانما"
+msgstr "پەرق تاللانمىسى"
 
 #: komparepart/kompare_part.cpp:561
 #, kde-format
 msgctxt "@title:window"
 msgid "Save .diff"
-msgstr ""
+msgstr ".diff ھۆججەتكە ساقلا"
 
 #: komparepart/kompare_part.cpp:563
 #, kde-format
 msgid "Patch Files (*.diff *.dif *.patch)"
-msgstr ""
+msgstr "ياماق ھۆججەت (*.diff *.dif *.patch)"
 
 #: komparepart/kompare_part.cpp:624
 #, kde-format
 msgctxt "@info:status"
 msgid "Running diff..."
-msgstr ""
+msgstr "پەرقنى ئىجرا قىلىۋاتىدۇ…"
 
 #: komparepart/kompare_part.cpp:627
-#, fuzzy, kde-format
-#| msgid "Could not parse diff output."
+#, kde-format
 msgctxt "@info:status"
 msgid "Parsing diff output..."
-msgstr "diff نىڭ نەتىجىسىنى تەھلىل قىلالمىدى."
+msgstr "پەرق چىقىرىشنى تەھلىل قىلىۋاتىدۇ…"
 
 #: komparepart/kompare_part.cpp:683
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing file %1 with file %2"
-msgstr ""
+msgstr "%1 ھۆججەت بىلەن %2 ھۆججەتنى سېلىشتۇرۇۋاتىدۇ"
 
 #: komparepart/kompare_part.cpp:688
 #, kde-format
 msgctxt "@info:status"
 msgid "Comparing files in %1 with files in %2"
-msgstr ""
+msgstr "%1 دىكى ھۆججەت بىلەن %2 دىكى ھۆججەتنى سېلىشتۇرۇۋاتىدۇ"
 
 #: komparepart/kompare_part.cpp:693
 #, kde-format
 msgctxt "@info:status"
 msgid "Viewing diff output from %1"
-msgstr ""
+msgstr "%1 دىن پەرق چىقىرىشىنى كۆرسىتىۋاتىدۇ"
 
 #: komparepart/kompare_part.cpp:696
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into file %2"
-msgstr ""
+msgstr "%1 نىڭ پەرق چىقىرىشىنى %2 ھۆججەتكە ئارىلاشتۇرۇۋاتىدۇ"
 
 #: komparepart/kompare_part.cpp:701
 #, kde-format
 msgctxt "@info:status"
 msgid "Blending diff output from %1 into folder %2"
-msgstr ""
+msgstr "%1 نىڭ پەرق چىقىرىشىنى %2 قىسقۇچقا ئارىلاشتۇرۇۋاتىدۇ"
 
 #: komparepart/kompare_part.cpp:752 komparepart/kompare_part.cpp:783
 #: komparepart/kompare_part.cpp:899
@@ -1075,56 +1043,51 @@ msgid ""
 "You have made changes to the destination file(s).\n"
 "Would you like to save them?"
 msgstr ""
+"نىشان ھۆججەتنى ئۆزگەرتتىڭىز.\n"
+"ئۇلارنى ساقلامسىز؟"
 
 #: komparepart/kompare_part.cpp:754 komparepart/kompare_part.cpp:785
 #: komparepart/kompare_part.cpp:901
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title:window"
 msgid "Save Changes?"
-msgstr "ئۆزگەرتكەننى ساقلامدۇ؟"
+msgstr "ئۆزگىرىشنى ساقلامدۇ؟"
 
 #: komparepart/kompare_part.cpp:824
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Unified"
 msgstr "بىر تۇتاش"
 
 #: komparepart/kompare_part.cpp:827
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Context"
 msgstr "مەزمۇن"
 
 #: komparepart/kompare_part.cpp:830
-#, fuzzy, kde-format
-#| msgid "RCS"
+#, kde-format
 msgctxt "@item diff format"
 msgid "RCS"
 msgstr "RCS"
 
 #: komparepart/kompare_part.cpp:833
-#, fuzzy, kde-format
-#| msgid "Ed"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Ed"
 msgstr "Ed"
 
 #: komparepart/kompare_part.cpp:836
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Normal"
-msgstr "نورمال"
+msgstr "ئادەتتىكى"
 
 #: komparepart/kompare_part.cpp:840
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "@item diff format"
 msgid "Unknown"
-msgstr "نامەلۇم"
+msgstr "يوچۇن"
 
 #: komparepart/kompare_part.cpp:856
 #, kde-format
@@ -1132,14 +1095,15 @@ msgid ""
 "No diff file, or no 2 files have been diffed. Therefore no stats are "
 "available."
 msgstr ""
+"پەرق ھۆججىتى يوق ياكى سېلىشتۇرغان 2 ھۆججەت يوق. ئىستاتىستىكا ئۇچۇرىنى "
+"ئىشلەتكىلى بولمايدۇ."
 
 #: komparepart/kompare_part.cpp:858 komparepart/kompare_part.cpp:872
 #: komparepart/kompare_part.cpp:888
-#, fuzzy, kde-format
-#| msgid "Show Statistics"
+#, kde-format
 msgctxt "@title:window"
 msgid "Diff Statistics"
-msgstr "ستاتىستىكا كۆرسەت"
+msgstr "پەرق ئىستاتىستىكىسى"
 
 #: komparepart/kompare_part.cpp:862
 #, kde-format
@@ -1153,6 +1117,14 @@ msgid ""
 "Number of hunks: %4\n"
 "Number of differences: %5"
 msgstr ""
+"ئىستاتىستىكا:\n"
+"\n"
+"كونا ھۆججەت: %1\n"
+"يېڭى ھۆججەت: %2\n"
+"\n"
+"پىچىم: %3\n"
+"ئوخشاشلىق سانى: %4\n"
+"پەرق سانى: %5"
 
 #: komparepart/kompare_part.cpp:875
 #, kde-format
@@ -1168,40 +1140,46 @@ msgid ""
 "Number of hunks: %5\n"
 "Number of differences: %6"
 msgstr ""
+"ئىستاتىستىكا:\n"
+"\n"
+"پەرق ھۆججەتتىكى ھۆججەت سانى: %1\n"
+"پىچىم: %2\n"
+"\n"
+"نۆۋەتتىكى كونا ھۆججەت: %3\n"
+"نۆۋەتتىكى يېڭى ھۆججەت: %4\n"
+"\n"
+"ئوخشاشلىق سانى: %5\n"
+"پەرق سانى: %6"
 
 #. i18n: ectx: Menu (difference)
 #: komparepart/komparepartui.rc:17
 #, kde-format
 msgid "&Difference"
-msgstr ""
+msgstr "پەرق(&D)"
 
 #: komparepart/kompareprefdlg.cpp:27
-#, fuzzy, kde-format
-#| msgid "Preferences"
+#, kde-format
 msgctxt "@title:window"
 msgid "Preferences"
 msgstr "مايىللىق"
 
 #: komparepart/kompareprefdlg.cpp:37
-#, fuzzy, kde-format
-#| msgid "View"
+#, kde-format
 msgctxt "@title:tab"
 msgid "View"
 msgstr "كۆرۈنۈش"
 
 #: komparepart/kompareprefdlg.cpp:39
-#, fuzzy, kde-format
-#| msgid "View Settings"
+#, kde-format
 msgctxt "@title"
 msgid "View Settings"
 msgstr "كۆرۈنۈش تەڭشىكى"
 
 #: komparepart/kompareprefdlg.cpp:45
-#, fuzzy, kde-format
-#| msgid "View Settings"
+#, kde-format
 msgctxt "@title"
 msgid "Diff Settings"
-msgstr "كۆرۈنۈش تەڭشىكى"
+msgstr "پەرق تەڭشىكى"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_FormatGB)
 #: komparepart/komparesaveoptionsbase.ui:29
@@ -1211,10 +1189,9 @@ msgstr "پىچىمى"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_ContextRB)
 #: komparepart/komparesaveoptionsbase.ui:35
-#, fuzzy, kde-format
-#| msgid "Context"
+#, kde-format
 msgid "&Context"
-msgstr "مەزمۇن"
+msgstr "مەزمۇن(&C)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_EdRB)
 #: komparepart/komparesaveoptionsbase.ui:42
@@ -1224,10 +1201,9 @@ msgstr "Ed"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_NormalRB)
 #: komparepart/komparesaveoptionsbase.ui:49
-#, fuzzy, kde-format
-#| msgid "Normal"
+#, kde-format
 msgid "&Normal"
-msgstr "نورمال"
+msgstr "ئادەتتىكى(&N)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_RCSRB)
 #: komparepart/komparesaveoptionsbase.ui:56
@@ -1237,22 +1213,21 @@ msgstr "RCS"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_UnifiedRB)
 #: komparepart/komparesaveoptionsbase.ui:63
-#, fuzzy, kde-format
-#| msgid "Unified"
+#, kde-format
 msgid "&Unified"
-msgstr "بىر تۇتاش"
+msgstr "بىر تۇتاش(&U)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, m_SideBySideRB)
 #: komparepart/komparesaveoptionsbase.ui:73
 #, kde-format
 msgid "&Side-by-side"
-msgstr ""
+msgstr "يانمۇيان (&S)"
 
 #. i18n: ectx: property (text), widget (QLabel, m_ContextLinesLabel)
 #: komparepart/komparesaveoptionsbase.ui:85
 #, kde-format
 msgid "Number of context lines:"
-msgstr ""
+msgstr "مەزمۇننىڭ قۇر سانى:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_OptionsGB)
 #: komparepart/komparesaveoptionsbase.ui:126
@@ -1264,25 +1239,25 @@ msgstr "تاللانما"
 #: komparepart/komparesaveoptionsbase.ui:132
 #, kde-format
 msgid "Look for smaller changes"
-msgstr ""
+msgstr "ئازراق ئۆزگەرتىشنى ئىزدە"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_LargeFilesCB)
 #: komparepart/komparesaveoptionsbase.ui:142
 #, kde-format
 msgid "Optimize for large files"
-msgstr ""
+msgstr "چوڭ ھۆججەتنى ئەلالاشتۇرىدۇ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreCaseCB)
 #: komparepart/komparesaveoptionsbase.ui:152
 #, kde-format
 msgid "Ignore changes in case"
-msgstr ""
+msgstr "چوڭ كىچىك ھەرپ ئۆزگىرىشىگە پەرۋا قىلما"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_ExpandTabsCB)
 #: komparepart/komparesaveoptionsbase.ui:159
 #, kde-format
 msgid "Expand tabs to spaces"
-msgstr ""
+msgstr "Tab نى بوشلۇققا كېڭەيتىدۇ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_IgnoreEmptyLinesCB)
 #: komparepart/komparesaveoptionsbase.ui:166
@@ -1294,31 +1269,31 @@ msgstr "قوشۇلغان ياكى چىقىرىۋېتىلگەن قۇرۇق قۇر
 #: komparepart/komparesaveoptionsbase.ui:173
 #, kde-format
 msgid "Ignore changes in whitespace"
-msgstr ""
+msgstr "بوشلۇق ئۆزگىرىشىگە پەرۋا قىلما"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_FunctionNamesCB)
 #: komparepart/komparesaveoptionsbase.ui:180
 #, kde-format
 msgid "Show function names"
-msgstr ""
+msgstr "فۇنكسىيە ئىسمىنى كۆرسەت"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_RecursiveCB)
 #: komparepart/komparesaveoptionsbase.ui:190
 #, kde-format
 msgid "Compare folders recursively"
-msgstr ""
+msgstr "قىسقۇچ سېلىشتۇرۇشنى قايتىلا"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_NewFilesCB)
 #: komparepart/komparesaveoptionsbase.ui:200
 #, kde-format
 msgid "Treat new files as empty"
-msgstr ""
+msgstr "يېڭى ھۆججەتكە بوش ھۆججەتتەك مۇئامىلە قىلىدۇ"
 
 #. i18n: ectx: property (title), widget (QGroupBox, GroupBox2)
 #: komparepart/komparesaveoptionsbase.ui:222
 #, kde-format
 msgid "Run Diff In"
-msgstr ""
+msgstr "پەرقنى ئىجرا قىلىش ئورنى"
 
 #. i18n: ectx: property (title), widget (QGroupBox, m_CommandLineGB)
 #: komparepart/komparesaveoptionsbase.ui:247
@@ -1332,13 +1307,11 @@ msgstr "بۇيرۇق قۇرى"
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr ""
 
-#, fuzzy
 #~| msgid "File Exists"
 #~ msgctxt "@window:title"
 #~ msgid "File Exists"
 #~ msgstr "ھۆججەت مەۋجۇت"
 
-#, fuzzy
 #~| msgid "Do Not Overwrite"
 #~ msgctxt "@action:button"
 #~ msgid "Do Not Overwrite"
@@ -1350,7 +1323,6 @@ msgstr ""
 #~ msgid "KomparePart"
 #~ msgstr "KomparePart"
 
-#, fuzzy
 #~| msgid "&Edit..."
 #~ msgctxt "@action:button"
 #~ msgid "&Edit..."

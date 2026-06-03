@@ -46,6 +46,7 @@
   <name xml:lang="sr-ijekavianlatin">K‑poređenje</name>
   <name xml:lang="sv">Kompare</name>
   <name xml:lang="tr">Karşılaştır</name>
+  <name xml:lang="ug">سېلىشتۇر</name>
   <name xml:lang="uk">Kompare</name>
   <name xml:lang="zh-CN">Kompare</name>
   <name xml:lang="zh-TW">Kompare</name>
@@ -88,6 +89,7 @@
   <summary xml:lang="sr-ijekavianlatin">Pročelje za diff i patch</summary>
   <summary xml:lang="sv">Gränssnitt för Diff/Patch</summary>
   <summary xml:lang="tr">Diff/Yama Ön Yüzü</summary>
+  <summary xml:lang="ug">سېلىشتۇرۇش/ياماش ئالدى ئۇچى</summary>
   <summary xml:lang="uk">Оболонка до Diff/Patch</summary>
   <summary xml:lang="zh-CN">Diff/Patch 前端</summary>
   <summary xml:lang="zh-TW">差異 / 補丁後端</summary>
@@ -172,6 +174,7 @@
     <p xml:lang="sr-ijekavianlatin">Mogućnosti:</p>
     <p xml:lang="sv">Funktioner:</p>
     <p xml:lang="tr">Özellikler:</p>
+    <p xml:lang="ug">ئىقتىدار:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="zh-CN">功能：</p>
     <p xml:lang="zh-TW">功能：</p>

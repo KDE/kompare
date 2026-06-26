@@ -311,6 +311,7 @@
     <category>Development</category>
   </categories>
   <releases>
+    <release version="4.2.26043" date="2026-07-02"/>
     <release version="4.2.26042" date="2026-06-04"/>
     <release version="4.2.26041" date="2026-05-07"/>
     <release version="4.2.26040" date="2026-04-16"/>

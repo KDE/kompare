@@ -335,7 +335,7 @@
 >Wechseln zwischen Quell- und Zielansichten</title>
 
 <para
->Manchmal sollte überlegt werden, welche Datei mit den Abweichungen als Quelle angenommen wird. Wenn zum Beispiel beim Vergleich von zwei veränderte Versionen einer Datei festgestellt wird, dass die eine Datei viel mehr Änderungen als die andere enthält, ist die Datei mit mehr Änderungen dann besser als Quelldatei geeignet, da dann weniger Änderungen angewendet werden müssen.</para>
+>Manchmal sollte überlegt werden, welche Datei mit den Abweichungen als Quelle angenommen wird. Wenn zum Beispiel beim Vergleich von zwei veränderten Versionen einer Datei festgestellt wird, dass die eine Datei viel mehr Änderungen als die andere enthält, ist die Datei mit mehr Änderungen dann besser als Quelldatei geeignet, da dann weniger Änderungen angewendet werden müssen.</para>
 <para
 >In diesem Fall wählen Sie <menuchoice
 ><guimenu
@@ -1270,7 +1270,7 @@
 ></term>
 <listitem
 ><para
->Speichert die angewendeten Abweichungen in der aktuellen Quell- und Zieldatei.</para
+>Speichert die angewendeten Abweichungen in die aktuellen Quell- oder Zieldatei.</para
 ></listitem>
 </varlistentry>
 

@@ -2,31 +2,33 @@
 # This file is distributed under the same license as the PACKAGE package.
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2017, 2019, 2020, 2023, 2025 Vít Pelčák <vit@pelcak.org>
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2013.
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kompare\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2023-01-24 15:30+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-07-28 11:15+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 25.08.3\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Lukáš Tinkl, Klára Cihlářová, Tomáš Chvátal"
+msgstr "Lukáš Tinkl,Klára Cihlářová,Tomáš Chvátal,Libor Filípek"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "lukas@kde.org, koty@seznam.cz, tomas.chvatal@gmail.com"
+msgstr ""
+"lukas@kde.org,koty@seznam.cz,tomas.chvatal@gmail.com,libor.filipek@gmail.com"
 
 #: app/kompare_shell.cpp:69
 #, kde-format
@@ -82,33 +84,33 @@ msgstr " 0 z 0 souborů "
 #, kde-format
 msgid " %2 of %1 file "
 msgid_plural " %2 of %1 files "
-msgstr[0] " %2 z %1 souboru"
-msgstr[1] " %2 z %1 souborů"
-msgstr[2] " %2 z %1 souborů"
+msgstr[0] " %2 z %1 souboru "
+msgstr[1] " %2 z %1 souborů "
+msgstr[2] " %2 z %1 souborů "
 
 #: app/kompare_shell.cpp:241
 #, kde-format
 msgid " %1 file "
 msgid_plural " %1 files "
-msgstr[0] " %1 soubor"
-msgstr[1] " %1 soubory"
-msgstr[2] " %1 souborů"
+msgstr[0] " %1 soubor "
+msgstr[1] " %1 soubory "
+msgstr[2] " %1 souborů "
 
 #: app/kompare_shell.cpp:244
 #, kde-format
 msgid " %2 of %1 difference, %3 applied "
 msgid_plural " %2 of %1 differences, %3 applied "
-msgstr[0] " %2 z %1 rozdílu, %3 použitý"
-msgstr[1] " %2 z %1 rozdílů, %3 použitých"
-msgstr[2] " %2 z %1 rozdílů, %3 použitých"
+msgstr[0] " %2 z %1 rozdílu, %3 použitý "
+msgstr[1] " %2 z %1 rozdílů, %3 použitých "
+msgstr[2] " %2 z %1 rozdílů, %3 použitých "
 
 #: app/kompare_shell.cpp:247
 #, kde-format
 msgid " %1 difference "
 msgid_plural " %1 differences "
-msgstr[0] "%1 rozdíl"
-msgstr[1] "%1 rozdíly"
-msgstr[2] "%1 rozdílů"
+msgstr[0] " %1 rozdíl "
+msgstr[1] " %1 rozdíly "
+msgstr[2] " %1 rozdílů "
 
 #: app/kompare_shell.cpp:328
 #, kde-format
@@ -150,6 +152,11 @@ msgid ""
 "file or files from the folder are mixed with the diff output so you can then "
 "apply the difference(s) to a file or to the files. "
 msgstr ""
+"Pokud jste do polí v tomto dialogovém okně zadali název souboru nebo složky "
+"a soubor obsahující výstup programu diff, bude toto tlačítko aktivní a jeho "
+"stisknutím se otevře hlavní okno programu Kompare, kde se výstup zadaného "
+"souboru nebo souborů ze složky prolíná s výstupem programu diff, takže "
+"můžete následně rozdíly aplikovat na daný soubor nebo soubory. "
 
 #: app/kompare_shell.cpp:358 app/main.cpp:195
 #, kde-format
@@ -255,6 +262,7 @@ msgstr "Zde můžete změnit nastavení pohledu."
 msgid ""
 "File used for excluding files cannot be found, please specify another file."
 msgstr ""
+"Nelze najít soubor použitý k vyloučení souborů. Zadejte prosím jiný soubor."
 
 #: app/main.cpp:46
 #, kde-format
@@ -356,6 +364,12 @@ msgid ""
 "original file(s) and then blend the original file(s) into the diffoutput and "
 "show that in the viewer. -n disables the check."
 msgstr ""
+"Tím se otevře URL1 a předpokládá se, že se jedná o výstup programu diff. "
+"URL1 může být také znak '-'; v takovém případě se bude číst ze standardního "
+"vstupu. Lze to použít například pro příkaz cvs diff | kompare -o -. Kompare "
+"zkontroluje, zda dokáže najít původní soubory, a poté je začlení do výstupu "
+"programu diff a zobrazí výsledek v prohlížeči. Parametr -n tuto kontrolu "
+"deaktivuje."
 
 #: app/main.cpp:68
 #, kde-format
@@ -363,6 +377,9 @@ msgid ""
 "This will blend URL2 into URL1, URL2 is expected to be diff output and URL1 "
 "the file or folder that the diffoutput needs to be blended into. "
 msgstr ""
+"Tímto způsobem se URL2 sloučí s URL1; URL2 by mělo představovat výstup "
+"programu diff a URL1 soubor nebo složku, do které má být výstup programu "
+"diff sloučen. "
 
 #: app/main.cpp:69
 #, kde-format
@@ -379,12 +396,14 @@ msgid ""
 "Use this to specify the encoding when calling it from the command line. It "
 "will default to the local encoding if not specified."
 msgstr ""
+"Tuto volbu použijte k určení kódování při volání z příkazového řádku. Pokud "
+"není kódování zadáno, použije se výchozí místní kódování."
 
 #: dialogpages/diffpage.cpp:174
 #, kde-format
 msgctxt "@title:group"
 msgid "Diff Program"
-msgstr "Diff program"
+msgstr "Program Diff"
 
 #: dialogpages/diffpage.cpp:179
 #, kde-format
@@ -393,7 +412,7 @@ msgid ""
 "program does not support all the options that the GNU version does. This way "
 "you can select that version."
 msgstr ""
-"Zde můžete zvolit jiný diff program. Ve standardní verzi pro Solaris nejsou "
+"Zde můžete zvolit jiný program diff. Ve standardní verzi pro Solaris nejsou "
 "podporovány všechny volby GNU verze. V takovém případě zde můžete zvolit GNU "
 "verzi."
 
@@ -405,6 +424,9 @@ msgid ""
 "is used most frequently because it is very readable. The KDE developers like "
 "this format the best so use it for sending patches."
 msgstr ""
+"Vyberte formát výstupu generovaného programem diff. Nejčastěji se používá "
+"sjednocený formát, protože je velmi přehledný. Vývojáři KDE tento formát "
+"upřednostňují, proto jej používejte při odesílání oprav."
 
 #: dialogpages/diffpage.cpp:199
 #, kde-format
@@ -444,6 +466,9 @@ msgid ""
 "and applicable in most cases. More than 3 lines will only bloat the diff "
 "unnecessarily."
 msgstr ""
+"Počet kontextových řádků je obvykle 2 nebo 3. Díky tomu je rozdíl čitelný a "
+"ve většině případů použitelný. Více než 3 řádky by rozdíl zbytečně nadměrně "
+"prodloužily."
 
 #: dialogpages/diffpage.cpp:220
 #, kde-format
@@ -484,6 +509,10 @@ msgid ""
 "compared with an empty file and because of this will appear as one big "
 "insertion or deletion."
 msgstr ""
+"Je-li tato volba zapnutá, program diff bude soubor, který existuje pouze v "
+"jednom z adresářů, v druhém adresáři považovat za prázdný. To znamená, že "
+"soubor bude porovnán s prázdným souborem, a proto se výsledek zobrazí jako "
+"jedna velké vložení nebo odstranění."
 
 #: dialogpages/diffpage.cpp:244
 #, kde-format
@@ -504,6 +533,8 @@ msgid ""
 "With this option enabled diff will try a little harder (at the cost of more "
 "memory) to find fewer changes."
 msgstr ""
+"Je-li tato volba zapnutá, program diff se bude snažit o něco více (na úkor "
+"větší paměťové náročnosti), aby našel méně změn."
 
 #: dialogpages/diffpage.cpp:248
 #, kde-format
@@ -524,6 +555,8 @@ msgid ""
 "This option lets diff makes better diffs when using large files. The "
 "definition of large is nowhere to be found though."
 msgstr ""
+"Tato volba umožňuje programu diff vytvářet přesnější srovnání při práci s "
+"velkými soubory. Definice pojmu velký však nikde není uvedena."
 
 #: dialogpages/diffpage.cpp:252
 #, kde-format
@@ -545,6 +578,9 @@ msgid ""
 "difference when something in one file is changed into SoMEthing in the other "
 "file."
 msgstr ""
+"Pokud je tato možnost ignorovat změny ve velikosti písmen povolena, program "
+"diff nebude indikovat rozdíl, když se něco v jednom souboru změní na něco v "
+"jiném souboru."
 
 #: dialogpages/diffpage.cpp:262
 #, kde-format
@@ -565,6 +601,8 @@ msgid ""
 "When this checkbox is enabled, an option to diff is given that will make "
 "diff ignore lines that match the regular expression."
 msgstr ""
+"Je-li toto políčko zaškrtnuto, je k dispozici volba pro program diff, díky "
+"níž bude diff ignorovat řádky, které odpovídají danému regulárnímu výrazu."
 
 #: dialogpages/diffpage.cpp:268
 #, kde-format
@@ -573,6 +611,8 @@ msgid ""
 "Add the regular expression here that you want to use\n"
 "to ignore lines that match it."
 msgstr ""
+"Zde zadejte regulární výraz, který chcete použít\n"
+"k ignorování řádků, které mu odpovídají."
 
 #: dialogpages/diffpage.cpp:274
 #, kde-format
@@ -599,6 +639,8 @@ msgid ""
 "This option does not always produce the right result. Due to this expansion "
 "Kompare may have problems applying the change to the destination file."
 msgstr ""
+"Tato volba ne vždy vede ke správnému výsledku. Kvůli tomuto rozšíření může "
+"mít program Kompare potíže s aplikováním změny na cílový soubor."
 
 #: dialogpages/diffpage.cpp:280
 #, kde-format
@@ -619,6 +661,8 @@ msgid ""
 "This can be very useful in situations where code has been reorganized and "
 "empty lines have been added or removed to improve legibility."
 msgstr ""
+"Toto může být velmi užitečné v situacích, kdy došlo k reorganizaci kódu a "
+"pro zlepšení čitelnosti byly přidány nebo odstraněny prázdné řádky."
 
 #: dialogpages/diffpage.cpp:284
 #, kde-format
@@ -639,6 +683,8 @@ msgid ""
 "If you are uninterested in differences arising due to, for example, changes "
 "in indentation, then use this option."
 msgstr ""
+"Pokud vás nezajímají rozdíly způsobené například změnami v odsazení, "
+"použijte tuto možnost."
 
 #: dialogpages/diffpage.cpp:288
 #, kde-format
@@ -659,6 +705,8 @@ msgid ""
 "This is useful for seeing the significant changes without being overwhelmed "
 "by all the white space changes."
 msgstr ""
+"Toto je užitečné pro zjištění významných změn, aniž by vás zahlcovaly "
+"všechny změny v prázdných místech."
 
 #: dialogpages/diffpage.cpp:292
 #, kde-format
@@ -681,6 +729,10 @@ msgid ""
 "Kompare currently has some problems applying such changes so be careful when "
 "you use this option."
 msgstr ""
+"Pokud v druhém souboru došlo ke změně tím, že se tabulátory nahradily "
+"mezerami, tato volba zajistí, že se tyto změny nezobrazí. Kompare má v "
+"současné době určité potíže s aplikací takových změn, proto buďte při "
+"používání této volby opatrní."
 
 #: dialogpages/diffpage.cpp:299
 #, kde-format
@@ -701,6 +753,8 @@ msgid ""
 "If this is checked you can enter a shell pattern in the text box on the "
 "right or select entries from the list."
 msgstr ""
+"Je-li toto políčko zaškrtnuto, můžete do textového pole vpravo zadat vzor "
+"příkazu shellu nebo vybrat položky ze seznamu."
 
 #: dialogpages/diffpage.cpp:318
 #, kde-format
@@ -709,6 +763,8 @@ msgid ""
 "Here you can enter or remove a shell pattern or select one or more entries "
 "from the list."
 msgstr ""
+"Zde můžete zadat nebo odstranit vzor příkazů shellu, případně vybrat jednu "
+"nebo více položek ze seznamu."
 
 #: dialogpages/diffpage.cpp:328
 #, kde-format
@@ -721,6 +777,8 @@ msgstr "Vyřadit názvy souborů"
 msgctxt "@info:tooltip"
 msgid "If this is checked you can enter a filename in the combo box below."
 msgstr ""
+"Je-li toto políčko zaškrtnuto, můžete do rozevíracího seznamu níže zadat "
+"název souboru."
 
 #: dialogpages/diffpage.cpp:333
 #, kde-format
@@ -729,6 +787,8 @@ msgid ""
 "Here you can enter the URL of a file with shell patterns to ignore during "
 "the comparison of the folders."
 msgstr ""
+"Zde můžete zadat adresu URL souboru obsahujícího vzory příkazů shellu, které "
+"se mají při porovnávání složek ignorovat."
 
 #: dialogpages/diffpage.cpp:337
 #, kde-format
@@ -737,6 +797,9 @@ msgid ""
 "Any file you select in the dialog that pops up when you click it will be put "
 "in the dialog to the left of this button."
 msgstr ""
+"Jakýkoli soubor, který vyberete v dialogovém okně, které se zobrazí po "
+"kliknutí na toto tlačítko, se umístí do dialogového okna nalevo od tohoto "
+"tlačítka."
 
 #: dialogpages/diffpage.cpp:344
 #, kde-format
@@ -920,9 +983,9 @@ msgstr[2] "Změněno %1 řádků"
 #, kde-format
 msgid "Applied: Insertion of %1 line undone"
 msgid_plural "Applied: Insertion of %1 lines undone"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Použito: Zrušeno vložení %1 řádku"
+msgstr[1] "Použito: Zrušeno vložení %1 řádků"
+msgstr[2] "Použito: Zrušeno vložení %1 řádků"
 
 #: komparenavtreepart/komparenavtreepart.cpp:464
 #, kde-format
@@ -936,9 +999,9 @@ msgstr[2] "Vložených %1 řádků"
 #, kde-format
 msgid "Applied: Deletion of %1 line undone"
 msgid_plural "Applied: Deletion of %1 lines undone"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Použito: Zrušeno odstranění %1 řádku"
+msgstr[1] "Použito: Zrušeno odstranění %1 řádků"
+msgstr[2] "Použito: Zrušeno odstranění %1 řádků"
 
 #: komparenavtreepart/komparenavtreepart.cpp:472
 #, kde-format

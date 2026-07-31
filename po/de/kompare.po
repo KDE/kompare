@@ -688,7 +688,7 @@ msgid ""
 "If you are uninterested in differences arising due to, for example, changes "
 "in indentation, then use this option."
 msgstr ""
-"Ist diese Einstellung aktiviert, werden Änderungen ignoriert, die z. B. "
+"Ist diese Einstellung aktiviert, werden Änderungen ignoriert, die z. B. "
 "durch Anpassung der Einrückung entstanden sind."
 
 #: dialogpages/diffpage.cpp:288

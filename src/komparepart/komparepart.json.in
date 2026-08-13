@@ -126,7 +126,7 @@
             }
         ],
         "Description": "A part to graphically show the difference between 2 files",
-        "Description[ar]": "جزء لإظهار الفرق بين ملفين بيانياً",
+        "Description[ar]": "جزء لإظهار الفرق بين ملفين بيانيًا",
         "Description[bg]": "Част за графично показване на разликата между 2 файла",
         "Description[ca@valencia]": "Una part per a mostrar gràficament les diferències entre 2 fitxers",
         "Description[ca]": "Una part per a mostrar gràficament les diferències entre 2 fitxers",

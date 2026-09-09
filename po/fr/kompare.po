@@ -1082,7 +1082,7 @@ msgstr "Afficher les statistiques"
 #, kde-format
 msgctxt "@action"
 msgid "Refresh Diff"
-msgstr "Rafraîchir l'affichage des différences"
+msgstr "Rafraichir l'affichage des différences"
 
 #: komparepart/kompare_part.cpp:303 komparepart/kompare_part.cpp:316
 #, kde-format

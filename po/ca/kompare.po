@@ -1385,16 +1385,3 @@ msgstr "Línia d'ordres"
 #, kde-format
 msgid "cd dir && diff -udHprNa -- source destination"
 msgstr "cd dir && diff -udHprNa -- origen destinació"
-
-#~ msgid "The file exists or is write-protected; do you want to overwrite it?"
-#~ msgstr ""
-#~ "El fitxer ja existeix o està protegit contra escriptura. Voleu "
-#~ "sobreescriure'l?"
-
-#~ msgctxt "@window:title"
-#~ msgid "File Exists"
-#~ msgstr "El fitxer ja existeix"
-
-#~ msgctxt "@action:button"
-#~ msgid "Do Not Overwrite"
-#~ msgstr "No sobreescriure"

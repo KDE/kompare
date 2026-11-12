@@ -45,7 +45,7 @@
   <name xml:lang="sr-ijekavian">К‑поређење</name>
   <name xml:lang="sr-ijekavianlatin">K‑poređenje</name>
   <name xml:lang="sv">Kompare</name>
-  <name xml:lang="tr">Karşılaştır</name>
+  <name xml:lang="tr">Kompare</name>
   <name xml:lang="ug">سېلىشتۇر</name>
   <name xml:lang="uk">Kompare</name>
   <name xml:lang="zh-CN">Kompare</name>
@@ -216,7 +216,7 @@
       <li xml:lang="sr-ijekavian">Поређење разлика међу фајловима или целим фасциклама рекурзивно.</li>
       <li xml:lang="sr-ijekavianlatin">Poređenje razlika među fajlovima ili celim fasciklama rekurzivno.</li>
       <li xml:lang="sv">Jämför skillnader mellan filer eller innehållet i kataloger rekursivt.</li>
-      <li xml:lang="tr">Dosyaların ya da dizinlerin özyinelemeli içeriğinin farklarının karşılaştırılması.</li>
+      <li xml:lang="tr">Dosyaların ya da dizinlerin özyineli içeriğinin farklarının karşılaştırılması</li>
       <li xml:lang="uk">Порівняння окремих файлів або вмісту цілих тек рекурсивно.</li>
       <li xml:lang="zh-CN">递归比较文件或文件夹内容的差异。</li>
       <li xml:lang="zh-TW">遞迴比較檔案或資料夾內檔案的差異</li>
@@ -296,7 +296,7 @@
       <li xml:lang="sr-ijekavian">Стварање и примењивање закрпа.</li>
       <li xml:lang="sr-ijekavianlatin">Stvaranje i primenjivanje zakrpa.</li>
       <li xml:lang="sv">Skapar och inför programfixar.</li>
-      <li xml:lang="tr">Yamaları oluşturma ve uygulama.</li>
+      <li xml:lang="tr">Yamaları oluşturma ve uygulama</li>
       <li xml:lang="uk">Створення і накладання латок.</li>
       <li xml:lang="zh-CN">创建和应用补丁。</li>
       <li xml:lang="zh-TW">建立、套用補丁</li>

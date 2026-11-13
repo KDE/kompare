@@ -1,0 +1,1699 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % Arabic "INCLUDE">
+]>
+
+<book id="kompare" lang="&language;">
+
+<bookinfo>
+ <title
+>دليل قارن</title>
+
+ <authorgroup>
+
+<author
+><firstname
+>Sean</firstname
+><surname
+>Wheller</surname
+><email
+>sean@inwords.co.za</email
+></author>
+ <othercredit role="translator"
+><firstname
+>زايد</firstname
+><surname
+>السعيدي</surname
+><affiliation
+><address
+><email
+>zayed.alsaidi@gmail.com</email
+></address
+></affiliation
+><contrib
+>التّرجمة العربيّة</contrib
+></othercredit
+> 
+ </authorgroup>
+
+<copyright>
+<year
+>2007</year>
+<holder
+>Sean Wheller</holder>
+</copyright>
+
+ <legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2016-07-05</date>
+<releaseinfo
+>4.1.3 (تطبيقات 16.04)</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>برنامج قارن هو واجهة رسومية أمامية تتيح عرض الفروق بين الملفات المصدرية ودمجها. يمكن استخدام قارن لمقارنة الفروق في الملفات أو محتويات المجلدات. يدعم قارن تشكيلة من تنسيقات الفروق (diff) ويوفر خيارات كثيرة لتخصيص مستوى المعلومات المعروضة.</para>
+</abstract>
+
+
+<keywordset>
+<keyword
+>كيدي</keyword>
+<keyword
+>قارن</keyword>
+<keyword
+>الفرق</keyword>
+<keyword
+>ادمج</keyword>
+<keyword
+>رقعة</keyword>
+<keyword
+>رقعة واحدة</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>مقدمة</title
+> 
+
+<para
+>عندما يعمل شخصان أو أكثر على ملف ويتبادلونه فيما بينهم، يصبح من الصعب رؤية التغييرات التي أُجريت على نسخة جديدة أو نسخة من الملف. يعد فتح النسخة الجديدة والأصلية جنبًا إلى جنب في التطبيق المستخدم لإنشائه أحد الحلول ولكنه شاق ومستهلك للوقت وعرضة للخطأ. وهنا تكمن فائدة برنامج لإظهار الفروق، أو ما يُعرف اختصارًا بـ diffs.</para>
+
+<para
+>كما هو متوقع، سيكون الاسم المناسب لمثل هذا البرنامج هو <quote
+>diff</quote
+>. وكما هو الحال، فإن برنامج <ulink url="https://www.gnu.org/software/diffutils/"
+>diff</ulink
+> مثبت على معظم الأنظمة المبنية على لينكس ويُستخدم لهذا الغرض تمامًا. غالبًا ما يستخدم المطورون diff، كأداة سطر الأوامر، لإظهار الفروق بين إصدارات ملف الشفرة المصدرية. ومع ذلك، لا يقتصر استخدام diff على إظهار الفروق في ملفات الشفرة المصدرية، بل يمكن استخدامه على العديد من أنواع الملفات النصية.</para>
+
+<para
+>يمكن أن يكون استخدام diff من سطر الأوامر مربكًا، فتعلم صياغة أمر diff وفك ترميز المخرجات يمكن أن يحير معظم الناس. وهنا يأتي دور قارن. حيث يوفر واجهة رسومية أمامية لبرنامج diff، وتعرض الواجهة الملفات المصدرية والوجهة جنبًا إلى جنب مع إبراز جميع الفروق آليًا. ومن هذه النقطة، يمكن تطبيق التغييرات في ملف واحد على الملف الآخر بالتسلسل وعلى أساس انتقائي ومتحكم فيه. لا يلزم تطبيق جميع التغييرات، وإذا طبقت تغييرًا فيمكن دائمًا 'إلغاء تطبيقه'. عند تطبيق جميع التغييرات المطلوبة، يمكن حفظها وستُعرض بشكل طبيعي في التطبيق الأصلي المستخدم لإنشاء الملف.</para>
+
+<para
+>بالإضافة إلى عرض الفروق بين ملف المصدر والوجهة، يمكن استخدام قارن لإنشاء وعرض ملف خاص يُسمى 'diff'. يلتقط هذا الملف الفروق بين المصدرين في ملف واحد يمكن استخدامه لعرض التغييرات وتطبيقها على أي نسخة أخرى من الملف. على سبيل المثال، إذا كان شخصان يحرران مستندًا. يريد الشخص الأول إجراء تغييرات وإرسال التغييرات التي أُجريت فقط إلى الشخص الثاني. عادةً، سيرسل الشخص الأول نسخة كاملة من المستند المعدل إلى الشخص الثاني، والذي سيتعين عليه بعد ذلك مقارنة المستند المعدل جنبًا إلى جنب مع النسخة غير المعدلة. تشبه هذه العملية إلى حد كبير ما وصفناه في الفقرات السابقة. باستخدام قارن، سيقوم الشخص الأول أولًا بعمل نسخة محلية من الملف المراد تعديله، ثم يجري التغييرات ويقارن النسخة الأصلية والمعدلة. والآن باستخدام قارن يمكن إنشاء ملف diff يلتقط التغييرات التي أُجريت فقط. يمكن إرسال هذا الملف إلى الشخص الثاني بدلًا من ملف كامل يحتوي على التغييرات.</para>
+
+<para
+>باستخدام قارن يمكن للشخص الثاني عرض ملف diff، ومقارنته بالنسخة المحلية من المستند وتطبيق التغييرات التي أجرها الشخص الأول. وبذلك يمكن أن تستمر العملية لإصدارات عديدة من المستند، حيث يقوم كل شخص بإجراء التغييرات، وإنشاء ملفات diff، وتوزيعها وتطبيقها. تُسمى هذه العملية عادةً <quote
+>الرقع</quote
+> (patching)، وهو مصطلح مأخوذ من البرنامج المسمى <quote
+>patch</quote
+> وهو أداة أخرى لسطر الأوامر صُممت خصيصًا لغرض تطبيق ملفات diff.</para>
+
+<para
+>يحدث أحيانًا أن يحرر الأشخاص ملفًا في الوقت نفسه. في هذه الحالة، من المحتمل أن يجروا تغييرات في المستند عند السطر نفسه تمامًا. يؤدي هذا إلى حدوث مشكلة لأنه، بدون توخي الحذر، قد يكتب الأشخاص فوق عمل بعضهم البعض عند تطبيق ملفات diff التي يتلقونها. لحسن الحظ، أخذ مطورو برنامجي diff و patch هذا الأمر في الحسبان، ولذا لن تسمح هذه الأدوات بتطبيق مثل هذه التغييرات دون تدخل يدوي. عند الوصول إلى هذه الحالة، تُعرف باسم <quote
+>التعارض</quote
+> (conflict). سيعرض قارن التعارضات بحيث يمكنك حلها يدويًا، وتقرير أي التغييرات يجب تطبيقها على أي ملف.</para>
+
+<para
+>يعد قارن أيضًا برنامجًا رائعًا لمقارنة تغييرات الملفات على مستوى المجلد. عند استخدامه لمقارنة المجلدات، يفحص قارن المجلدات الفرعية ومحتويات ملفاتها تكراريًا بحثًا عن الفروق. في حالة الاستخدام هذه، يُفتح كل ملف عُثر فيه على فروق آليًا ويُدرج بواسطة قارن حيث تتوفر إمكانية التنقل السهل بين الملفات المتنوعة.</para>
+
+</chapter>
+
+<chapter id="using">
+<title
+>استخدام قارن</title>
+
+<sect1 id="getting-started">
+<title
+>البدء</title>
+
+<para
+>يوفر هذا القسم تعليمات لبدء تشغيل قارن ويقدم جولة سريعة في الواجهة الرئيسة لبرنامج قارن.</para>
+
+<sect2 id="starting-kompare">
+<title
+>يبدأ قارن</title>
+
+<para
+>يمكن العثور على اختصار لبدء تشغيل قارن في قائمة التطبيقات في مجموعة التطوير <menuchoice
+><guimenu
+>التطوير</guimenu
+><guimenuitem
+>Kompare</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>عند بدء تشغيل قارن، فإن أول ما يفعله هو عرض حوار لتحديد الملفات التي ترغب في مقارنتها. يمكن أيضًا تحديد إعدادات خاصة لخصائص diff ومظهره. في استمارة الملف، اختر المصدر والوجهة للمقارنة. يمكن أن يكون هذا أي ملفين أو مجلدين أو عنوان ميفاق (URL) وملف. بمجرد اختيار المصدر والوجهة، انقر على زر <guibutton
+>قارن</guibutton
+>.</para>
+
+<para
+>بمجرد أن يكتشف قارن الفروق، سيعرض الواجهة الرئيسة. عند مقارنة ملفين أو عنوان ميفاق وملف، تستغرق العملية بضع ثوانٍ فقط. ومع ذلك، عند مقارنة المجلدات التي تحتوي على العديد من المجلدات الفرعية والملفات، قد تستغرق هذه العملية بعض الوقت.</para>
+
+<para
+>لشرح الخيارات المتاحة من استمارات diff والمظهر، انظر <xref linkend="configure-preferences"/>.</para>
+</sect2>
+
+<sect2 id="main-interface">
+<title
+>واجهة المستخدم الرئيسة</title>
+
+<para
+>يوفر هذا القسم جولة سريعة في الواجهة الرئيسة التي تتكون من المناطق التالية:</para>
+<itemizedlist>
+<listitem
+><para
+>القوائم</para
+></listitem>
+<listitem
+><para
+>شريط الأدوات</para
+></listitem>
+<listitem
+><para
+>مجلدات المصدر والوجهة</para
+></listitem>
+<listitem
+><para
+>ملفات المصدر والوجهة</para
+></listitem>
+<listitem
+><para
+>تغييرات الأسطر في المصدر والوجهة</para
+></listitem>
+<listitem
+><para
+>عرض النص للمصدر والوجهة</para
+></listitem>
+<listitem
+><para
+>شريط الحالة</para
+></listitem>
+</itemizedlist>
+
+<sect3 id="menus">
+<title
+>القوائم</title>
+<para
+>يوفر قارن واجهة تعتمد على القوائم. يتوفر شرح لعناصر القائمة وخياراتها في <xref linkend="command-reference"/>.</para>
+</sect3>
+
+<sect3 id="toolbar">
+<title
+>شريط الأدوات</title>
+<para
+>يوفر شريط أدوات قارن اختصارات لعمليات diff والدمج الأكثر استخدامًا. يمكن تخصيص اتجاه شريط الأدوات، وموضع النص، وخصائص حجم الأيقونات، وأيقونات الاختصارات المعروضة من القائمة السياقية لشريط الأدوات والتي يُوصَل إليها عند النقر بزر الفأرة الأيمن على شريط الأدوات. تتيح القائمة السياقية لشريط الأدوات أيضًا إخفاء شريط الأدوات. إذا أُخفي شريط الأدوات ورغبت في إظهاره، فاختر <menuchoice
+><guimenu
+>إعدادات</guimenu
+><guimenuitem
+>أظهر شريط الأدوات</guimenuitem
+></menuchoice
+>.</para>
+</sect3>
+
+<sect3 id="source-destination-folders">
+<title
+>المجلدات المصدر والوجهة</title>
+<para
+>تعرض لفتا المجلد المصدر ومجلد الوجهة المجلدات التي توجد بها الملفات المقارنة. عند تضمين مجلدات فرعية كثيرة في المقارنة، سيؤدي اختيار مجلد إلى عرض أول مستند في ذلك المجلد حيث وُجد اختلاف بين المصدر والوجهة.</para>
+</sect3>
+
+<sect3 id="source-destination-files">
+<title
+>الملفات المصدر والوجهة</title>
+<para
+>تعرض لفة الملف المصدر والملف الوجهة الملفات التي وُجد فيها اختلاف للمجلد المصدر أو مجلد الوجهة المحدد حاليًا. عندما يحتوي مجلد على مستندات متعددة تحتوي على اختلافات، تُدرج جميع المستندات ذات الاختلاف. يُعرض المستند المحدد.</para>
+</sect3>
+
+<sect3 id="source-destination-lines">
+<title
+>تغييرات الأسطر المصدر والوجهة</title>
+<para
+>تلخص لفة تغييرات الأسطر المصدر والوجهة الاختلافات الموجودة بين المستندين المصدر والوجهة الحاليين. يؤدي اختيار سجل داخل اللفة إلى إبراز الاختلاف وتحديده. هذه طريقة مفيدة للتنقل وفحص المستندات الطويلة ذات الاختلافات الكثيرة.</para>
+</sect3>
+
+<sect3 id="source-destination-view">
+<title
+>عرض المصدر والوجهة</title>
+<para
+>عرض المصدر والوجهة هو مساحة العمل الرئيسة لـقارن. تُعرض هنا محتويات الملف المصدر والملف الوجهة المحددين حاليًا والاختلافات المبرزة مع أرقام الأسطر.</para>
+</sect3>
+
+<sect3 id="text-view">
+<title
+>عرض النص</title>
+<para
+>لا يُعرض <guilabel
+>عرض النص</guilabel
+> مبدئيًا. يمكن فتحه باختيار <menuchoice
+><guimenu
+>الإعدادات</guimenu
+><guimenuitem
+>أظهر عرض النص</guimenuitem
+></menuchoice
+>.</para>
+<!-- Other than a notepad, what is this text view good for?  -->
+</sect3>
+
+<sect3 id="statusbar">
+<title
+>شريط الحالة</title>
+<para
+>يوفر شريط الحالة ملخصًا للملف أو المجلد المصدر والوجهة الحاليين قيد المقارنة. يبلغ شريط الحالة أيضًا عن عدد التغييرات الموجودة في المستند الحالي ويحسب الاختلافات التي طُبقت. علاوة على ذلك، يُظهر شريط الحالة العدد الإجمالي للمستندات التي تحتوي على اختلافات ورقم المستند الحالي المحدد من هذه المجموعة. على سبيل المثال، قد تُرجع مقارنة تُجرى على مجلدين 1890 ملفًا مع اختلافات. المستند المحدد حاليًا هو رقم 18 من 1890.</para>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="viewing-differences">
+<title
+>استعراض الفروق</title>
+
+<sect2 id="managing-screen-real-estate">
+<title
+>إدارة مساحة الشاشة</title>
+<para
+>يعرض قارن الملف المصدر والملف الوجهة باستخدام نسبة مئوية متساوية من منطقة عمل عرض الواجهة الرئيسة. توفر منطقة العرض هذه بعض الميزات التي تساعد على تحسين استخدام مساحة الشاشة أثناء عرض الاختلافات، بما في ذلك:</para>
+<variablelist>
+<varlistentry>
+<term
+>أشرطة تمرير مزدوجة</term>
+<listitem
+><para
+>الميزة الأكثر وضوحًا هي توفير أشرطة تمرير على الحافتين اليمنى والسفلية لمنطقة العرض. باستخدام أشرطة التمرير، يمكن التنقل بسرعة عبر المقارنة.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>مقبض إمساك مشترك</term>
+<listitem
+><para
+>المسافة العمودية بين عرض المصدر وعرض الوجهة لا تتيح فقط رؤية بداية ونهاية الأسطر في كل من اللفتين بوضوح، بل هي أيضًا مقبض إمساك يسمح بضبط النسبة المئوية المشغولة بين عرضي المصدر والوجهة اللذين يشكلان لفة العرض. لتغيير حجم لفة لأحد العرضين، حرّك مؤشر الفأرة فوق مقبض الإمساك ثم اضغط مع الاستمرار على زر الفأرة واسحب لليسار أو اليمين. بطبيعة الحال، ستؤدي زيادة مساحة إحدى اللفتين إلى تقليل المساحة المتاحة للفة المقابلة داخل منطقة لوحة العرض.</para>
+<para
+>مقبض أفقي ثانٍ متاح بين لوحة التنقل وعرض المصدر والوجهة.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>الإرساء</term>
+<listitem>
+<para
+>يمكن فصل لوحة التنقل عن الواجهة الرئيسة بالنقر على أيقونة <inlinemediaobject
+> <imageobject
+><imagedata fileref="undock.png" format="PNG"/></imageobject
+></inlinemediaobject
+> الواقعة في أعلى يمين اللوحة. يفتح ذلك اللوحة في نافذة مستقلة، مما يتيح لك تحريكها عبر الشاشة. يمكنك حتى إخفاء لوحة التنقل بالنقر على أيقونة <inlinemediaobject
+><imageobject
+><imagedata fileref="dock.png" format="PNG"/></imageobject
+></inlinemediaobject
+>. لعرض شريط تنقل مخفي مجددًا، انقر بزر الفأرة الأيمن في شريط القوائم واختر <guilabel
+>تنقل</guilabel
+> من قائمة السياق. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>تبديل شريط الحالة</term>
+<listitem>
+<para
+>يمكن تشغيل أو إيقاف شريط الحالة للوحة العرض باختيار <menuchoice
+><guimenu
+>إعدادات</guimenu
+><guimenuitem
+>أظهر شريط الحالة</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="switching-source-and-destination-view">
+<title
+>تبديل عرضي المصدر والوجهة</title>
+
+<para
+>قد يكون من المفيد أحيانًا اعتبار الملف الذي ستُطبَّق عليه الفروقات هو المصدر. مثلًا، عند مقارنة نسختين معدلتين من ملف واكتشاف أن أحد الملفين يحتوي على تعديلات أكثر بكثير من الآخر. سيكون الملف ذو التغييرات الأكثر أفضل كمصدر، إذ ستحتاج عندها فروقات أقل للتطبيق.</para>
+<para
+>في هذه الحالة اختر <menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>بدّل المصدر مع الوجهة</guimenuitem
+></menuchoice
+>. سيبدّل ذلك الملفات المعروضة في جميع لوحات قارن.</para>
+</sect2>
+	
+<sect2 id="display-difference-statistics">
+<title
+>عرض إحصائيات الفروقات</title>
+<para
+>للحصول على نظرة سريعة على الفروقات، اختر <menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>أظهر الإحصائيات</guimenuitem
+></menuchoice
+>. سيعرض ذلك حوار <guilabel
+>إحصائيات الفرق</guilabel
+>. تُقدَّم المعلومات التالية:</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>الملف القديم:</guilabel
+></term>
+<listitem
+><para
+>اسم الملف الذي هو عادةً ملف المصدر أو الملف غير المعدّل.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>الملف الجديد:</guilabel
+></term>
+<listitem
+><para
+>اسم الملف الذي هو عادةً ملف الوجهة أو الملف المعدّل والذي ستُطبَّق عليه الفروقات.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>النّسق:</guilabel
+></term>
+<listitem
+><para
+>تنسيق الفرق المستخدم لعرض الفرق (انظر <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>عدد الكتل:</guilabel
+></term>
+<listitem>
+<para
+>عدد الكتل الموجودة في الفرق.</para>
+<para
+>الكتلة هي <quote
+>ق<emphasis
+>طعة</emphasis
+></quote
+> من الأسطر التي وُسِمت كمختلفة بين المصدر والوجهة وقد تتضمن أسطر سياق اعتمادًا على قيمة <guilabel
+>أسطر السياق</guilabel
+> لتنسيق الفرق (انظر <xref linkend="diff-format"/>).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>عدد الفروقات</guilabel
+></term>
+<listitem
+><para
+>العدد الفعلي للفروقات الموجودة، وليس الكتل. يمكن أن تحتوي الكتلة على فرق واحد أو أكثر عندما يتداخل نطاق تغيير الأسطر وأسطر السياق لأي تغييرين أو أكثر.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="navigating-the-difference-view">
+<title
+>التنقل في عرض الفرق</title>
+<para
+>يتيح قارن تنقلًا سريعًا بين الفروقات على مستوى الملف وبين ملفات فروقات متعددة عند مقارنة أشجار المجلدات.</para>
+
+<sect3 id="selecting-a-difference">
+<title
+>اختيار فرق</title>
+<para
+>يمكن اختيار فرق باستخدام:</para>
+<itemizedlist>
+<listitem
+><para
+>النقر على سطر في لوحة تغييرات أسطر المصدر والوجهة (أعلى يمين النافذة الرئيسة).</para
+></listitem>
+<listitem
+><para
+>النقر على الفرق المظلل في لوحة العرض.</para
+></listitem>
+<listitem
+><para
+>اجتياز الفروقات المدرجة في مقارنة (انظر <xref linkend="traversing-differences"/>).</para
+></listitem>
+</itemizedlist>
+<para
+>عند اختيار فرق، يُعتبر <quote
+>في التركيز</quote
+> ويُعرض بلون أفتح من الفروقات غير المختارة.</para>
+</sect3>
+			
+<sect3 id="traversing-differences">
+<title
+>اجتياز الفروقات</title>
+<para
+>عندما تجد مقارنة فروقات كثيرة، فإن إحدى أفضل الطرق لمراجعتها هي اجتياز الفروقات بترتيب منطقي، عادةً من الأعلى إلى الأسفل.</para>
+<para
+>بشكل مبدئي، يختار قارن أول فرق موجود في مقارنة. باختيار <menuchoice
+><guimenu
+>فرق</guimenu
+><guimenuitem
+>الفرق التالي</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>أسفل</keycap
+></keycombo
+>) يُجلب الفرق الذي يلي الاختيار الحالي إلى التركيز. لاختيار الفرق قبل الفرق الحالي اختر <menuchoice
+><guimenu
+>فرق</guimenu
+><guimenuitem
+>الفرق السابق</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>أعلى</keycap
+></keycombo
+>).</para>
+<para
+>بهذه الطريقة يمكن اجتياز الفروقات بطريقة منظمة، وتطبيق الفروقات وإلغاء تطبيقها أثناء المراجعة.</para>
+</sect3>
+
+<sect3 id="switching-between-files">
+<title
+>التبديل بين الملفات</title>
+<para
+>عند إجراء مقارنة على مستوى مجلد، قد تُوجد ملفات كثيرة بها فروقات. تُقدَّم قائمة كاملة بالملفات المقارنة مع الفروقات الموجودة في لوحتي <quote
+>مجلدات المصدر والوجهة</quote
+> و<quote
+>ملفات المصدر والوجهة</quote
+>. ومع ذلك، يعرض قارن الفروقات بين المصدر والوجهة مقارنة واحدة في كل مرة.</para>
+<para
+>للتبديل بين المستندات في هذا السيناريو، الخيارات التالية متاحة:</para>
+<itemizedlist>
+<listitem
+><para
+>اختر لوحة <quote
+>مجلدات المصدر والوجهة</quote
+> لعرض فروقات الملفات الموجودة في لوحة <quote
+>ملفات المصدر والوجهة</quote
+>، ثم اختر ملفًا.</para
+></listitem>
+<listitem
+><para
+>اختر <menuchoice
+><guimenu
+>فرق</guimenu
+><guimenuitem
+>الملف السابق</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+>) أو <menuchoice
+><guimenu
+>فرق</guimenu
+><guimenuitem
+>الملف التالي</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>PgDown</keycap
+></keycombo
+>) لعرض ملف الفرق السابق أو التالي الموجود في لوحة <quote
+>ملفات المصدر والوجهة</quote
+>.</para>
+</listitem>
+</itemizedlist>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="merging-differences">
+<title
+>دمج الفروقات</title>
+
+<para
+>يجعل قارن مهمة تطبيق الفروقات وإلغاء تطبيقها بسيطة كالتأشير والنقر. يمكن إجراء عمليات تطبيق وإلغاء تطبيق متعددة على فرق، إذ تُجرى جميع العمليات في الذاكرة ولا تُكتب إلى الملفات على القرص حتى تُجرى عملية الحفظ.</para>
+
+<sect2 id="applying-a-difference">
+<title
+>تطبيق فرق</title>
+<para
+>لتطبيق فرق، انقر على منطقة الفرق المظللة، ثم اختر <menuchoice
+><guimenu
+>فرق</guimenu
+><guimenuitem
+>طبّق الفرق</guimenuitem
+></menuchoice
+> (<keycombo
+><keycap
+>مسافة</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-a-difference">
+<title
+>إلغاء تطبيق فرق</title>
+<para
+>لإلغاء تطبيق فرق، انقر على منطقة الفرق المظللة المطبقة سابقًا، ثم اختر <menuchoice
+><guimenu
+>فرق</guimenu
+><guimenuitem
+>ألغِ تطبيق الفرق</guimenuitem
+></menuchoice
+> (<keycombo
+>&Backspace;</keycombo
+>).</para>
+</sect2>
+	
+<sect2 id="applying-all-differences">
+<title
+>تطبيق جميع الاختلافات</title>
+<para
+>بعد مراجعة الاختلافات بين الملفات والتأكد من قبولها جميعًا، يمكن تطبيقها كلها بعملية واحدة باختيار <menuchoice
+><guimenu
+>الاختلاف</guimenu
+><guimenuitem
+>تطبيق الكل</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="unapplying-all-differences">
+<title
+>إلغاء تطبيق جميع الاختلافات</title>
+<para
+>لإلغاء جميع الاختلافات التي طُبقت سابقًا، اختر <menuchoice
+><guimenu
+>الاختلاف</guimenu
+><guimenuitem
+>إلغاء تطبيق الكل</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+>).</para>
+</sect2>
+
+<sect2 id="saving-changes">
+<title
+>حفظ التغييرات</title>
+<para
+>بمجرد تطبيق الاختلافات، يمكن حفظها باختيار <menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>حفظ</guimenuitem
+></menuchoice
+> أو <menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>حفظ الكل</guimenuitem
+></menuchoice
+>.</para>
+<para
+>الاختلافات المطبقة تُحفظ في كل من الملف المصدر والملف الوجهة.</para>
+</sect2>
+</sect1>
+
+<sect1 id="working-with-diff-files">
+<title
+>العمل مع ملفات الفروق</title>
+<para
+>ملفات الفروق تحتوي فقط على التغييرات التي أُجريت بين الملفات، أو مجموعة من الملفات ضمن نظام مجلدات، وقد تحتوي أو لا تحتوي على عدد من سطور السياق قبل وبعد تغييرات السطور. مجموع تغيير سطر وسطور سياقه يُعرف بالكتلة. لذلك قد يحتوي ملف الفروق على كتل متعددة من ملف واحد أو أكثر. عندما تتداخل سطور السياق لكتلتين أو أكثر، تُعتبر كتلة واحدة. يمكن استخدام ملفات الفروق لـ:</para>
+<itemizedlist>
+<listitem
+><para
+>تطبيق التغييرات الموجودة في الكتل على ملف أصلي.</para
+></listitem>
+<listitem
+><para
+>تطبيق التغييرات الموجودة في الكتل على ملف أو مجموعة ملفات أصلية ضمن نظام مجلدات.</para
+></listitem>
+<listitem
+><para
+>تعديلها قبل تطبيقها على ملف أصلي أو مجموعة ملفات أصلية ضمن نظام مجلدات.</para
+></listitem>
+</itemizedlist>
+
+<sect2 id="creating-a-diff">
+<title
+>إنشاء فروق</title>
+<para
+>لإنشاء ملف فروق، يجب عرض مقارنة في قارن. بافتراض ذلك، اختر <menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>حفظ الفروق...</guimenuitem
+></menuchoice
+>. سيظهر حوار <guilabel
+>خيارات الفروق</guilabel
+> (انظر <xref linkend="diff-settings"/> لمزيد من المعلومات حول تنسيقات وخيارات الفروق). بعد ضبط هذه الخيارات، انقر زر <guibutton
+>حفظ</guibutton
+> واحفظ الفروق في ملف بالامتداد <filename class="extension"
+>.diff</filename
+>.</para>
+</sect2>
+
+<sect2 id="displaying-a-diff">
+<title
+>عرض فروق</title>
+<para
+>يمكن عرض محتويات ملف فروق داخل قارن بفتح ملف الفروق من <menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>فتح فروق...</guimenuitem
+></menuchoice
+>.</para>
+<para
+>عند عرض ملف فروق، تُعرض الكتل بين الملف المصدر والملف الوجهة، تذكر أن الكتل فقط تُعرض، ولا تُعرض أي سطور غير معدلة. في بعض الحالات، يُنشأ ملف فروق بـ 0 سطر سياق. في هذه الحالة، ستُعرض السطور المتغيرة فقط.</para>
+<para
+>عندما يحتوي ملف فروق على كتل من ملفات متعددة، يعرض قارن الكتل من كل ملف واحدة تلو الأخرى، ويمكنك التبديل بين الملفات كما لو كانت ملفات حقيقية رغم أن هذه المعلومات مقدمة فقط من محتويات ملف الفروق.</para>
+</sect2>
+
+<sect2 id="applying-a-diff">
+<title
+>تطبيق الاختلافات في ملف فروق</title>
+<para
+>عند عرض الاختلافات في ملف فروق، يمكن تطبيق الاختلاف كما تفعل عند مقارنة الملفات المصدر والوجهة (انظر <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+<sect2 id="blending-a-diff">
+<title
+>مزج عنوان URL مع فروق</title>
+<para
+>في الحالات التي يُقدم فيها ملف فروق، يمكن مقارنة الكتل في الفروق مع ملف أو مجلد. لفعل ذلك، اختر <menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>مزج عنوان URL مع الفروق...</guimenuitem
+></menuchoice
+>. ثم أدخل مساري <guilabel
+>ملف/مجلد</guilabel
+> و<guilabel
+>مخرجات الفروق</guilabel
+>.</para>
+<para
+>عند عرض الاختلافات بين ملف مصدر وملف فروق، يمكن تطبيق الاختلاف كما تفعل عند مقارنة الملفات المصدر والوجهة (انظر <xref linkend="merging-differences"/>).</para>
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="configure-preferences">
+<title
+>ضبط التفضيلات</title>
+
+<para
+>قارن تمكن المستخدمين من ضبط تفضيلات المظهر لتنسيق الاختلافات في الواجهة الرئيسة وضبط خصائص سلوك برنامج الفروق. يمكن الوصول إلى حوار <guilabel
+>التفضيلات</guilabel
+> باختيار <menuchoice
+><guimenu
+>الإعدادات</guimenu
+><guisubmenu
+>اضبط قارن...</guisubmenu
+></menuchoice
+>.</para>
+
+<para
+>لضبط تفضيلات المظهر، اختر عنصر القائمة <guilabel
+>عرض</guilabel
+> (انظر <xref linkend="view-settings"/>).</para>
+
+<para
+>لضبط تفضيلات خصائص برنامج الفروق، اختر عنصر القائمة <guilabel
+>فروق</guilabel
+> (انظر <xref linkend="diff-settings"/>).</para>
+
+<sect1 id="view-settings">
+<title
+>إعدادات المنظور</title>
+<para
+>صفحة <guimenu
+>عرض</guimenu
+> في حوار <guilabel
+>التفضيلات</guilabel
+> تعرض نموذجي التبويب <guilabel
+>المظهر</guilabel
+> و<guilabel
+>الخطوط</guilabel
+>.</para>
+
+<sect2 id="appearance">
+<title
+>المظهر</title>
+<para
+>نموذج <guilabel
+>المظهر</guilabel
+> يوفر عناصر تحكم لإدارة <guilabel
+>الألوان</guilabel
+> المستخدمة للدلالة على الاختلاف في الواجهة الرئيسة، وسلوك <guilabel
+>عجلة الفأرة</guilabel
+> عند التحرك لأعلى ولأسفل، وكيفية إدارة تحويل <guilabel
+>التبويبات إلى مسافات</guilabel
+>.</para>
+<screenshot>
+<screeninfo
+>إعدادات مظهر قارن</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>إعدادات مظهر قارن</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>مجموعة الألوان</title>
+<para
+>لضبط تفضيلات الألوان المستخدمة عند عرض الاختلافات، انقر زر اللون لعرض حوار <guilabel
+>اختيار لون</guilabel
+> للحالات التالية:</para>
+<varlistentry>
+<term
+><guilabel
+>لون الإزالة</guilabel
+></term>
+<listitem
+><para
+>السطور التي أُزيلت، غير موجودة، بين المصدر والوجهة.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>اللون المغيّر</guilabel
+></term>
+<listitem
+><para
+>السطور التي تغيرت، عُدلت، بين المصدر والوجهة. </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>لون الإضافة</guilabel
+></term>
+<listitem
+><para
+>السطور التي أُضيفت بين المصدر والوجهة.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>اللون المطبّق</guilabel
+></term>
+<listitem
+><para
+>أي من الحالات أعلاه حيث طُبق الاختلاف بين المصدر والوجهة.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>عجلة الفأرة</title>
+<varlistentry>
+<term
+><guilabel
+>عدد الأسطر</guilabel
+></term>
+<listitem
+><para
+>عدد السطور لتحريك الاختلافات عند تدوير عجلة الفأرة للأمام أو للخلف.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>علامة جدولة إلى الفراغات</title>
+<varlistentry>
+<term
+><guilabel
+>عدد الفراغات في حرف علامة الجدولة</guilabel
+></term>
+<listitem
+><para
+>حول كل حرف تبويب إلى n حرف مسافة.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="fonts">
+<title
+>الخطوط</title>
+<screenshot>
+<screeninfo
+>إعدادات خطوط قارن</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-view2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>إعدادات خطوط قارن</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>اختر عائلة الخط وحجمه للعرض عند عرض الاختلافات.</para>
+</sect2>
+</sect1>
+
+<sect1 id="diff-settings">
+<title
+>إعدادات الفرق</title>
+<para
+>صفحة <guimenu
+>Diff</guimenu
+> في حوار <guilabel
+>التفضيلات</guilabel
+> تعرض نماذج الألسنة <guilabel
+>Diff</guilabel
+> و<guilabel
+>التنسيق</guilabel
+> و<guilabel
+>الخيارات</guilabel
+> و<guilabel
+>الاستثناء</guilabel
+>. يمكن استخدام هذه النماذج لضبط خصائص سلوك برنامج Diff.</para>
+
+<sect2 id="diff">
+<title
+>الفرق</title>
+<screenshot>
+<screeninfo
+>إعدادات Diff في قارن</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff1.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>إعدادات Diff في قارن</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>الأمر المستخدم لتشغيل برنامج diff (المبدئي <application
+>diff</application
+>).</para>
+</sect2>
+
+<sect2 id="diff-format">
+<title
+>التنسيق</title>
+<screenshot>
+<screeninfo
+>إعدادات التنسيق في قارن</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff2.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>إعدادات التنسيق في قارن</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>اضبط خيارات <guilabel
+>تنسيق المخرجات</guilabel
+> وعدد <guilabel
+>أسطر السياق</guilabel
+>.</para>
+<variablelist>
+<title
+>شكل النّتاج</title>
+<varlistentry>
+<term
+><guilabel
+>السّياق</guilabel
+></term>
+<listitem>
+<para
+>تنسيق مخرجات السياق يضيف عدة أسطر من السياق حول الأسطر المختلفة.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>عادي</guilabel
+></term>
+<listitem>
+<para
+>تنسيق المخرجات العادي يعرض الأسطر المختلفة دون أي أسطر سياق محيطة. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>موحّد</guilabel
+></term>
+<listitem>
+<para
+>تنسيق المخرجات الموحد هو تنويع على تنسيق السياق. يُعتبر أفضل من السياق لأن المخرجات أكثر إحكامًا من سياق حيث تحذف أسطر السياق الزائدة.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+<variablelist>
+<title
+>خطوط السَياق</title>
+<varlistentry>
+<term
+><guilabel
+>عدد سطور السَياق</guilabel
+></term>
+<listitem>
+<para
+>عند إجراء diff بتنسيق مخرجات سياق أو موحد استخدم هذه الوسيطة للتحكم في عدد أسطر السياق المضمنة.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="options">
+<title
+>خيارات</title>
+<screenshot>
+<screeninfo
+>إعدادات الخيارات في قارن</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff3.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>إعدادات الخيارات في قارن</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<para
+>نموذج لسان <guilabel
+>الخيارات</guilabel
+> يسمح بضبط الخيارات المدعومة من برنامج diff.</para>
+<variablelist>
+<title
+>عامّ</title>
+<varlistentry>
+<term
+><guilabel
+>معاملة الملفات الجديدة كفارغة</guilabel
+></term>
+<listitem
+><para
+>عند تمكين هذا الخيار، سيعامل الأمر diff الملف الموجود فقط في أحد الدليلين على أنه فارغ في الدليل الآخر. وهذا يعني أن الملف يُقارن بملف فارغ، ونتيجة لهذا سيظهر وكأنه عملية إدخال أو حذف كبيرة.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>ابحث على تغيرات أصغر</guilabel
+></term>
+<listitem
+><para
+>يجبر diff على عرض التغييرات في حالة الأحرف وعلامات الترقيم والمسافات إلخ… عند التأشير.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>إجر التحسينات المثلى للملفات الكبيرة</guilabel
+></term>
+<listitem
+><para
+>يحوّل diff لمعالجة الملفات بسرعة عالية عند التأشير.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>تجاهل التغيرات في حالة الحروف</guilabel
+></term>
+<listitem
+><para
+>تُحذف تغييرات الأحرف الصغيرة والكبيرة عند تأشير هذا الخيار.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>تجاهل التعبير العادي</guilabel
+></term>
+<listitem
+><para
+>تجاهل الأسطر المطابقة لتعبير نمطي.</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>مساحة بيضاء</title>
+<varlistentry>
+<term
+><guilabel
+>وسّع علامات الجدولة إلى مسافات في الإخراج</guilabel
+></term>
+<listitem
+><para
+>عند التأشير تحوّل مخرجات diff محارف الجدولة إلى عدد المسافات المحدد في خيار <guilabel
+>الجدولة إلى مسافات</guilabel
+> بقائمة <guimenu
+>عرض</guimenu
+> في حوار <guilabel
+>التفضيلات</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>تجاهل المضاف و المزال من السطور الفارغة</guilabel
+></term>
+<listitem
+><para
+>تُتجاهل أسطر الطول الصفري المختلفة بين المصدر والوجهة عند تأشير هذا الخيار.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>تجاهل التغَيُّرَات في كمية الفراغات</guilabel
+></term>
+<listitem
+><para
+>قد تتغير المسافات البيضاء قبل الأسطر وبعدها وبينها اعتمادًا على المحررات المختلفة. عند تأشير هذا الخيار تُتجاهل هذه التغييرات.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>تجاهل كل الفراغات</guilabel
+></term>
+<listitem
+><para
+>عند التأشير تُتجاهل اختلافات المسافات البيضاء كليًا.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>تجاهل التغييرات الناتجة عن توسيع الجدولة</guilabel
+></term>
+<listitem
+><para
+>عند التأشير تُتجاهل المسافات البيضاء الناتجة عن محارف الجدولة.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="exclude">
+<title
+>استثنِ</title>
+<para
+>نموذج <guilabel
+>الاستثناء</guilabel
+> يمكّن استخدام خيارات الترشيح المقدمة من برنامج diff.</para>
+<screenshot>
+<screeninfo
+>إعدادات الاستثناء في قارن</screeninfo>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="settings-diff4.png" format="PNG"/>
+      </imageobject>
+        <textobject>
+        <phrase
+>إعدادات الاستثناء في قارن</phrase>
+      </textobject>
+    </mediaobject>
+</screenshot>
+<variablelist>
+<title
+>ملف نمط للاستثناء</title>
+<varlistentry>
+<term
+><guilabel
+>ملف نمط للاستثناء</guilabel
+></term>
+<listitem
+><para
+>استثناء الملفات بناءً على ترشيح الرمز البديل</para
+></listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<title
+>ملف يحتوي على أسماء ملفات يجب استبعادها</title>
+<varlistentry>
+<term
+><guilabel
+>ملف يحتوي على أسماء ملفات يجب استبعادها</guilabel
+></term>
+<listitem
+><para
+>حدد المرشح بناءً على محتوى ملف مُدار خارجيًا.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+</sect1>
+
+</chapter>
+
+<chapter id="command-reference">
+<title
+>مرجع الأوامر</title>
+
+<sect1 id="menu-items">
+
+<title
+>عناصر القائمة</title>
+<sect2 id="file-menu">
+<title
+>قائمة ملف</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+><guimenuitem
+>فتح Diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يعرض حوار <guilabel
+>الفتح</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+><guimenuitem
+>مقارنة الملفات...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يعرض حوار <guilabel
+>مقارنة الملفات أو المجلدات</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+><guimenuitem
+>مزج URL مع Diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يعرض حوار <guilabel
+>مزج ملف/مجلد مع مخرجات diff</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>احفظ</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يكتب الاختلافات المطبقة إلى ملف المصدر و/أو الوجهة الحالي.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>احفظ الكل</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يكتب الاختلافات المطبقة إلى جميع ملفات المصدر و/أو الوجهة.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>حفظ Diff...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يعرض حوار <guilabel
+>خيارات Diff</guilabel
+> لتحديد تنسيق وخيارات diff.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>F5</keycap
+></shortcut
+> <guimenu
+>ملف</guimenu
+><guimenuitem
+>تحديث Diff</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يُحدّث الفرق بين المسارين الأصليين. مفيد إذا طبّقت بعض التغييرات، وحفظتها، وتريد رؤية ما تبقى.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>بدّل المصدر بالوجهة</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يُبدّل المصدر والوجهة.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+><guimenuitem
+>أظهر الإحصائيات</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يعرض حوار <guilabel
+>عرض الإحصائيات</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>أنهِ</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يُخرج من قارن.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="difference-menu">
+<title
+>قائمة الفرق</title>
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>الفرق</guimenu
+><guimenuitem
+>ألغِ تطبيق الكل</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يلغي تطبيق كل الفروق المُطبّقة سابقًا بين المصدر والوجهة.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+>&Backspace;</shortcut
+> <guimenu
+>الفرق</guimenu
+><guimenuitem
+>ألغِ تطبيق الفرق</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يُرجِع فرقًا مختارًا مُطبّقًا سابقًا.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycap
+>Space</keycap
+></shortcut
+> <guimenu
+>الفرق</guimenu
+><guimenuitem
+>طبّق الفرق</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يطبّق فرقًا مختارًا.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>الفرق</guimenu
+><guimenuitem
+>طبّق الكل</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يطبّق كل الفروق بين المصدر والوجهة.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgUp</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>الفرق</guimenu
+><guimenuitem
+>الملف السابق</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يجعل الفرق السابق في قائمة الفروق هو الملف الحالي في لوحة العرض.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>PgDown</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>الفرق</guimenu
+><guimenuitem
+>الملف التالي</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يجعل الفرق التالي في قائمة الفروق هو الملف الحالي في لوحة العرض.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Up</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>الفرق</guimenu
+><guimenuitem
+>الفرق السابق</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يختار الفرق الذي يعلو الفرق المختار حاليًا.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Down</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>الفرق</guimenu
+><guimenuitem
+>الفرق التالي</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يختار الفرق الذي يلي الفرق المختار حاليًا.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+<sect2 id="settingshelpmenu">
+
+<title
+>قائمة الإعدادات والمساعدة</title>
+<para
+>قارن يحتوي على عناصر القوائم الشائعة في &kde; <guimenu
+>الإعدادات</guimenu
+> و<guimenu
+>المساعدة</guimenu
+>، لمزيد من المعلومات اقرأ الأقسام حول <ulink url="help:/fundamentals/menus.html#menus-settings"
+>قائمة الإعدادات</ulink
+> و<ulink url="help:/fundamentals/menus.html#menus-help"
+>قائمة المساعدة</ulink
+> من أساسيات &kde;. </para>
+</sect2>
+</sect1>
+
+<sect1 id="commandline-options">
+<title
+>خيارات سطر الأوامر</title>
+
+<variablelist>
+<varlistentry>
+<term
+>-c</term>
+<listitem
+><para
+>هذا سيقارن URL1 مع URL2.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-o</option
+></userinput
+></term>
+<listitem
+><para
+>سيفتح هذا URL1 ويتوقعه كمخرج diff. يمكن أن يكون URL1 أيضًا '-' وسيقرأ من المدخل القياسي. يمكن استخدامه مثلًا لـ <userinput
+><command
+>cvs diff | kompare -o -</command
+></userinput
+>. سيتحقق Kompare مما إذا كان يمكنه العثور على الملف (الملفات) الأصلي ثم يدمج الملف (الملفات) الأصلي في مخرج diff ويعرض ذلك في العارض. <option
+>-n</option
+> يُعطّل التحقق.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-b</option
+></userinput
+></term>
+<listitem
+><para
+>سيؤدي هذا إلى دمج URL2 في URL1، ومن المتوقع أن يكون URL2 عبارة عن إخراج diff وURL1 هو الملف أو المجلد الذي يجب دمج diffoutput فيه.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-n</option
+></userinput
+></term>
+<listitem
+><para
+>يُعطّل التحقق من العثور آليًا على الملف (الملفات) الأصلي عند استخدام '-' كـ URL مع الخيار <option
+>-o</option
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+><command
+>kompare</command
+> <option
+>-e</option
+> <replaceable
+>الترميز</replaceable
+></userinput
+></term>
+<listitem
+><para
+>استخدم هذا لتحديد الترميز عند استدعائه من سطر الأوامر. سيعيّن مبدئيًا على الترميز المحلي إذا لم يُحدّد.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1
+></chapter>
+
+<chapter id="credits">
+
+<title
+>الحقوق والترخيص</title>
+
+<para
+>قارن </para>
+<para
+>حقوق نشر البرنامج 2001-2004، &John.Firebaugh; &John.Firebaugh.mail; وأوتو بروغمان <email
+>otto.bruggeman@home.nl</email
+> </para>
+
+<para
+>حقوق نشر التوثيق &copy; 2007 شون ويلر <email
+>sean@inwords.co.za</email
+> </para>
+
+<para
+>الترجمة: زايد السعيدي <email
+>zayed.alsaidi@gmail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index; 
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

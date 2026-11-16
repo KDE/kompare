@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kdesdk-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2026-11-10 21:54+0300\n"
+"PO-Revision-Date: 2026-11-15 20:17+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -894,13 +894,13 @@ msgstr "Sekme karakterine dönüştürülecek boşluk sayısı:"
 #, kde-format
 msgctxt "@title:group"
 msgid "Text Font"
-msgstr "Metin Yazıtipi"
+msgstr "Metin Yazı Tipi"
 
 #: dialogpages/viewpage.cpp:98
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Font:"
-msgstr "Yazıtipi:"
+msgstr "Yazı tipi:"
 
 #: dialogpages/viewpage.cpp:103
 #, kde-format
@@ -912,7 +912,7 @@ msgstr "Boyut:"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Fonts"
-msgstr "Yazıtipleri"
+msgstr "Yazı Tipleri"
 
 #: komparenavtreepart/komparenavtreepart.cpp:53
 #, kde-format

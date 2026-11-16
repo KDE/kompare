@@ -3,11 +3,11 @@
 #
 # Marcus Gama <marcus_gama@uol.com.br>, 2003, 2004.
 # Lisiane Sztoltz Teixeira <lisiane@conectiva.com.br>, 2004.
-# Marcus Gama <marcus.gama@gmail.com>, 2006, 2007, 2008, 2009.
+# Marcus Gama <marcus.gama@kde.org>, 2006, 2007, 2008, 2009.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2018.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2009, 2010, 2012, 2017, 2019, 2020, 2022.
-# Maj Gama <marcus.gama@gmail.com>, 2009.
-# Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>, 2010, 2011.
+# Maj Gama <marcus.gama@kde.org>, 2009.
+# Marcus Vinícius de Andrade Gama <marcus.gama@kde.org>, 2010, 2011.
 # SPDX-FileCopyrightText: 2025 Geraldo Simiao <geraldosimiao@fedoraproject.org>
 msgid ""
 msgstr ""
@@ -32,7 +32,7 @@ msgstr "Marcus Gama, Geraldo Simião"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "marcus.gama@gmail.com, geraldosimiao@fedoraproject.org"
+msgstr "marcus.gama@kde.org, geraldosimiao@fedoraproject.org"
 
 #: app/kompare_shell.cpp:69
 #, kde-format
